@@ -1,0 +1,6 @@
+ID,Name,SoundSourcePath
+1,SFX_katana_hit,Music/SFX/SFX_katana_hit
+2,SFX_katana_swing,Music/SFX/SFX_katana_swing
+3,SFX_shotgun_reload,Music/SFX/SFX_shotgun_reload
+4,SFX_shotgun_shot,Music/SFX/SFX_shotgun_shot
+5,BGM_Acapella,Music/BGM/BGM_Acapella
