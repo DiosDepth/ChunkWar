@@ -29,7 +29,7 @@ public class Options : GUIBasePanel
 
     public void ControlButtonPressed()
     {
-        UIManager.Instance.ShowUI<KeyBinding>("KeyBinding", E_UI_Layer.Mid, (panel) =>
+        UIManager.Instance.ShowUI<KeyBinding>("KeyBinding", E_UI_Layer.Mid,owner,(panel) =>
         {
             panel.Initialization();
         });
@@ -50,7 +50,7 @@ public class Options : GUIBasePanel
     public void BackButtonPressed()
     {
 
-        UIManager.Instance.ShowUI<MainMenu>("MainMenu", E_UI_Layer.Mid, (panel) => 
+        UIManager.Instance.ShowUI<MainMenu>("MainMenu", E_UI_Layer.Mid,owner, (panel) => 
         {
             panel.Initialization();
         });

@@ -78,7 +78,7 @@ public class KeyBinding : GUIBasePanel
     {
         KeyBindingManager.Instance.ResetKeyBindings();
 
-        UIManager.Instance.ShowUI<Options>("Options", E_UI_Layer.Mid, (panel) =>
+        UIManager.Instance.ShowUI<Options>("Options", E_UI_Layer.Mid,owner, (panel) =>
         {
             panel.Initialization();
         });

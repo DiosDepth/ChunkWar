@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Wellcom.unity
     guid: e4b99ccb2b088ec47a53c93d5b36b53c
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/RootScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

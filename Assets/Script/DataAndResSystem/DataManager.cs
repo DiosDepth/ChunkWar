@@ -12,6 +12,8 @@ public class DataManager : Singleton<DataManager>
     public long totalDataLength;
     public Dictionary<string, TestaDataInfo> TestDataDic = new Dictionary<string, TestaDataInfo>();
     public Dictionary<string, SoundDataInfo> SoundDataDic = new Dictionary<string, SoundDataInfo>();
+    public Dictionary<string, BaseUnitConfig> UnitConfigDataDic = new Dictionary<string, BaseUnitConfig>();
+
 
     public DataManager()
     {
@@ -20,6 +22,7 @@ public class DataManager : Singleton<DataManager>
     public override void Initialization()
     {
         base.Initialization();
+
 
     }
     public bool CollectCSV()
@@ -144,8 +147,19 @@ public class DataManager : Singleton<DataManager>
 
                 }));
                 break;
-            case "WeaponData.csv":
+            case "UnitConfigData.csv":
+                 Dictionary<string, UnitConfigData> tempDic = new Dictionary<string, UnitConfigData>();
+                MonoManager.Instance.StartCoroutine(LoadingData<UnitConfigData>(m_fileinfo, tempDic, () =>
+                {
+                    BaseUnitConfig unitconfig;
+                    foreach (KeyValuePair<string,UnitConfigData> kv in tempDic)
+                    {
+                        unitconfig = ResManager.Instance.Load<BaseUnitConfig>(kv.Value.ConfigPath);
+                        UnitConfigDataDic.Add(unitconfig.UnitName, unitconfig);
+                    }
+                    Debug.Log("UnitConfigData has been loaded!");
 
+                }));
                 break;
         }
     }

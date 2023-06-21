@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ChaController : MonoBehaviour
+public class ShipController : MonoBehaviour
 {
 
-    public Character character;
-    public InputDispatcher dispatcher;
+    public Ship ship;
+    public Rigidbody2D rb;
+    public new CompositeCollider2D collider;
+
     // Start is called before the first frame update
 
     public Vector3 movement;
@@ -15,10 +17,10 @@ public class ChaController : MonoBehaviour
     void Start()
     {
 
-        dispatcher = GameObject.Find("EventSystem(Clone)").GetComponent<InputDispatcher>();
-        character = GetComponent<Character>();
-        dispatcher.Action_GamePlay_Move += HandleMovement;
-        dispatcher.Action_GamePlay_RushDown += HandleRushDown;
+
+        ship = GetComponent<Ship>();
+        InputDispatcher.Instance.Action_GamePlay_Move += HandleMovement;
+        InputDispatcher.Instance.Action_GamePlay_RushDown += HandleRushDown;
 
     }
 
@@ -30,8 +32,8 @@ public class ChaController : MonoBehaviour
 
     private void OnDestroy()
     {
-        dispatcher.Action_GamePlay_Move -= HandleMovement;
-        dispatcher.Action_GamePlay_RushDown -= HandleRushDown;
+        InputDispatcher.Instance.Action_GamePlay_Move -= HandleMovement;
+        InputDispatcher.Instance.Action_GamePlay_RushDown -= HandleRushDown;
     }
     public void HandleMovement(InputAction.CallbackContext context)
     {
@@ -44,10 +46,7 @@ public class ChaController : MonoBehaviour
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                if((character.state.CurrentState != CharacterState.RushDown && character.state.CurrentState != CharacterState.RushingDown) || character.state.CurrentState != CharacterState.Death)
-                {
-                    movement.x = context.ReadValue<Vector2>().x;
-                }
+
                 break;
             case InputActionPhase.Canceled:
                 movement.x = context.ReadValue<Vector2>().x;
@@ -67,10 +66,7 @@ public class ChaController : MonoBehaviour
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                if ((character.state.CurrentState != CharacterState.RushDown && character.state.CurrentState != CharacterState.RushingDown) || character.state.CurrentState != CharacterState.Death)
-                {
-                    character.state.ChangeState(CharacterState.RushDown);
-                }
+
                 break;
             case InputActionPhase.Canceled:
                 break;

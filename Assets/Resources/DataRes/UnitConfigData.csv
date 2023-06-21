@@ -1,0 +1,6 @@
+ID,Name,ConfigPath
+1,ChunkPart_001,Configs/ChunkParts/Configs_ChunkPart_001
+2,ChunkPart_002,Configs/ChunkParts/Configs_ChunkPart_002
+101,BaseBuilding,Configs/Buildings/Configs_Building_BaseBuilding
+102,LightAutoCannon,Configs/Buildings/Configs_Building_LightAutoCannon
+103,DirectionalSmoothboreCannon,Configs/Buildings/Configs_Building_DirectionalSmoothboreCannon

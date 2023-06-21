@@ -51,6 +51,25 @@ public class SoundDataInfo:DataInfo
     }
 }
 
+public class UnitConfigData : DataInfo
+{
+    public string ConfigPath;
+    public UnitConfigData() { }
+
+    public UnitConfigData(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        ConfigPath = row[2];
+    }
+
+    public override void Initialization(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        ConfigPath = row[2];
+    }
+}
 
 
 

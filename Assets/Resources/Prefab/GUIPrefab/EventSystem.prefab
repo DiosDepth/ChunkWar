@@ -77,22 +77,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7859639995372876523}
         m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
-        m_MethodName: GamePlay_RushDown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5b79d8de-2b88-4fd0-8eaa-0994a55acd12
-    m_ActionName: Player/RushDown[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7859639995372876523}
-        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
         m_MethodName: GamePlay_Move
         m_Mode: 0
         m_Arguments:
@@ -109,6 +93,94 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c2957c48-5bf8-4516-b34e-bae4a4850d2b
     m_ActionName: UI/UINav[/Keyboard/w,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19f992ec-cf19-4295-a903-9e1fa15f4d85
+    m_ActionName: Player/Attack[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b347ebc2-15c2-4f35-bb0a-3942f51faa32
+    m_ActionName: Player/Ability[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b2d4bad6-882d-4994-8beb-58c6e1436984
+    m_ActionName: Player/Ultra[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b377e75e-fe41-4b5c-84bf-30113ccfb775
+    m_ActionName: Player/Use[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6f4cc0aa-0c21-4885-abc7-1f2c019b327f
+    m_ActionName: Player/Inventory[/Keyboard/h]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1204aa56-0fd1-407a-a3aa-0aa3660b75c1
+    m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7859639995372876523}
+        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
+        m_MethodName: GamePlay_Point
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a04e6c39-472d-447c-863b-a7a5f952b9bd
+    m_ActionName: Player/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7859639995372876523}
+        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
+        m_MethodName: GamePlay_RightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 45769ffa-f23f-4469-ade2-ff1cbe48c2e8
+    m_ActionName: Player/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7859639995372876523}
+        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
+        m_MethodName: GamePlay_LeftClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e12fe42e-da35-484b-ad25-1b581b012f41
+    m_ActionName: Player/LeftClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7859639995372876523}
+        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
+        m_MethodName: GamePlay_MidClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b91e14b5-6ab8-4eeb-b02b-cb64457ac897
+    m_ActionName: Player/MidClick[/Mouse/middleButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player

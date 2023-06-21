@@ -45,7 +45,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
 
     public Transform startPoint;
     public SpawnLine[] spawnLineList;
-    public Character player;
+    public Ship currentShip;
 
 
 
@@ -93,8 +93,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
     {
         startPoint = GameObject.Find("StartPoint").transform;
         spawnLineList = GameObject.FindObjectsOfType<SpawnLine>();
-        player = GameObject.FindObjectOfType<Character>();
+        currentShip = GameObject.FindObjectOfType<Ship>();
     }
+
 
 
     public void StartSpawn()
@@ -163,21 +164,20 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
         // yield return new WaitForSeconds(5);
         CollectLevelInfo();
        
-        if (player == null)
+        if (currentShip == null)
         {
-            yield return LevelManager.Instance.SpawnActorAtPos(playerPrefabPath, false, startPoint, (obj) =>
-            {
+            var obj = ResManager.Instance.Load<GameObject>(GameManager.Instance.playerPrefabPath);
+            currentShip = obj.GetComponent<Ship>();
 
-                LevelManager.Instance.player = obj.GetComponent<Character>();
 
-                CameraManager.Instance.ChangeVCameraFollowTarget(obj.transform);
-                //CameraManager.Instance.ChangeVCameraLookAtTarget(obj.transform);
-                CameraManager.Instance.SetVCameraBoard(GameObject.Find("CameraBoard").GetComponent<PolygonCollider2D>());
-                CameraManager.Instance.SetReferencePoint(GameObject.Find("DeadZone").transform);
-                CameraManager.Instance.SetCameraUpdate(true);
-                PoolManager.Instance.ClearAll();
-                callback?.Invoke();
-            });
+            CameraManager.Instance.ChangeVCameraFollowTarget(obj.transform);
+            //CameraManager.Instance.ChangeVCameraLookAtTarget(obj.transform);
+            //CameraManager.Instance.SetVCameraBoard(GameObject.Find("CameraBoard").GetComponent<PolygonCollider2D>());
+
+            CameraManager.Instance.SetCameraUpdate(true);
+            PoolManager.Instance.ClearAll();
+
+            callback?.Invoke();
         }
         else
         {
@@ -197,11 +197,12 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
 
     public void LevelReset()
     {
-        player.transform.position = startPoint.position;
-        player.transform.rotation = Quaternion.identity;
-        player.rb.velocity = Vector3.zero;
-        player.gameObject.SetActive(true);
-        player.Initialization();
+        currentShip.transform.position = startPoint.position;
+        currentShip.transform.rotation = Quaternion.identity;
+        currentShip.controller.rb.velocity = Vector3.zero;
+        currentShip.gameObject.SetActive(true);
+        currentShip.Initialization();
+        currentShip.InitialShip();
    
         StartSpawn();
     }

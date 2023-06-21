@@ -57,13 +57,25 @@ public struct ScoreEvent
 public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,EventListener<ScoreEvent>
 {
     public StateMachine<GameState> gamestate = new StateMachine<GameState>(null, true);
-    public string playerPrefabPath = "Prefab/PlayerPrefab/Player";
+    public string playerPrefabPath = "Prefab/Chunk/ShipContainer";
 
 
     public int score = 0;
     public SaveData saveData;
+    public RuntimeData runtimeData;
 
     public bool isInitialCompleted = false;
+
+
+    public int brickCount = 100;
+    public int brickConsumePerChunk = 5;
+
+    public Ship currentShip;
+
+
+
+
+
     public GameManager()
     {
         //Initialization();
@@ -87,8 +99,8 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
             case GameState.WelcomScreen:
                 Debug.Log("GameState = WelcomScreen");
 
-                UIManager.Instance.ShowUI<BackGroundPanel>("BackGround", E_UI_Layer.Bot, null);
-                UIManager.Instance.ShowUI<WellcomScreen>("WellcomScreen", E_UI_Layer.Top, (panel) =>
+                UIManager.Instance.ShowUI<BackGroundPanel>("BackGround", E_UI_Layer.Bot,this, null);
+                UIManager.Instance.ShowUI<WellcomScreen>("WellcomScreen", E_UI_Layer.Top, this, (panel) =>
                 {
                     MonoManager.Instance.StartCoroutine(DataManager.Instance.LoadAllData(() => 
                     {
@@ -103,7 +115,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
             case GameState.MainMenu:
                 Debug.Log("GameState = MainMenu");
 
-                UIManager.Instance.ShowUI<MainMenu>("MainMenu", E_UI_Layer.Mid, (panel) =>
+                UIManager.Instance.ShowUI<MainMenu>("MainMenu", E_UI_Layer.Mid,this, (panel) =>
                 {
                     panel.Initialization();
                     panel.uiGroup.alpha = 0;
@@ -136,12 +148,10 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
 
                 });
-
-               
                 break;
             case GameState.GamePrepare:
                 Debug.Log("GameState = GamePrepare");
-
+   
                 GUIBasePanel basegui = UIManager.Instance.GetGUIFromDic("MainMenu");
                 if (basegui != null)
                 {
@@ -149,9 +159,14 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
                     {
                         UIManager.Instance.HiddenUI("MainMenu");
 
-                        UIManager.Instance.ShowUI<LoadingText>("LoadingText", E_UI_Layer.Mid, (panel) =>
+                        UIManager.Instance.ShowUI<LoadingText>("LoadingText", E_UI_Layer.Mid, this, (panel) =>
                         {
                             panel.Initialization();
+                            //
+                            MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(1, (ac) =>
+                            {
+
+                            }));
                             MonoManager.Instance.StartCoroutine(LevelManager.Instance.LevelPreparing(() =>
                             {
                                 GameEvent.Trigger(GameState.GameStart);
@@ -162,8 +177,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
                 }
                 else
                 {
-                   
-                    UIManager.Instance.ShowUI<LoadingText>("LoadingText", E_UI_Layer.Mid, (panel) =>
+                    UIManager.Instance.ShowUI<LoadingText>("LoadingText", E_UI_Layer.Mid,this, (panel) =>
                     {
                         panel.Initialization();
                         MonoManager.Instance.StartCoroutine(LevelManager.Instance.LevelPreparing(() =>
@@ -192,12 +206,12 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
                         {
                             UIManager.Instance.HiddenUI("BackGround");
 
-                            UIManager.Instance.ShowUI<PlayerHUD>("PlayerHUD", E_UI_Layer.Mid, (panel) =>
+                            UIManager.Instance.ShowUI<PlayerHUD>("PlayerHUD", E_UI_Layer.Mid, this, (panel) =>
                             {
                                 //UIManager.Instance.playerHUD = panel;
                                 panel.Initialization();
                                 LevelManager.Instance.StartSpawn();
-                                LevelManager.Instance.player.Initialization();
+                       
                                 //LevelManager.Instance.player.gameObject.SetActive(true);
                             });
 
@@ -207,12 +221,12 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
                     {
                         UIManager.Instance.HiddenUI("BackGround");
 
-                        UIManager.Instance.ShowUI<PlayerHUD>("PlayerHUD", E_UI_Layer.Mid, (panel) =>
+                        UIManager.Instance.ShowUI<PlayerHUD>("PlayerHUD", E_UI_Layer.Mid, this, (panel) =>
                         {
                             //UIManager.Instance.playerHUD = panel;
                             panel.Initialization();
                             LevelManager.Instance.StartSpawn();
-                            LevelManager.Instance.player.Initialization();
+                
                             //LevelManager.Instance.player.gameObject.SetActive(true);
                         });
 
@@ -229,7 +243,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
                 
                 UIManager.Instance.HiddenUI("PlayerHUD");
                 UIManager.Instance.ShowUI<BackGroundPanel>("BackGround", E_UI_Layer.Bot, null);
-                UIManager.Instance.ShowUI<Record>("Record", E_UI_Layer.Top, (panel) =>
+                UIManager.Instance.ShowUI<Record>("Record", E_UI_Layer.Top, this, (panel) =>
                 {
                     panel.Initialization();
 

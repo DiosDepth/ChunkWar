@@ -105,7 +105,7 @@ public class UIManager : Singleton<UIManager>
         PoolManager.Instance.BackObject(m_ui_res_path, m_backobj);
     }
 
-    public void ShowUI<T>(string m_uiname, E_UI_Layer m_uilayer, UnityAction<T> callback) where T : GUIBasePanel
+    public void ShowUI<T>(string m_uiname, E_UI_Layer m_uilayer, object m_owner = null, UnityAction<T> callback = null) where T : GUIBasePanel
     {
         if (panelDic.ContainsKey(m_uiname))
         {
@@ -142,10 +142,12 @@ public class UIManager : Singleton<UIManager>
             (obj.transform as RectTransform).offsetMin = Vector2.zero;
 
             T panel = obj.GetComponent<T>();
+            panel.owner = m_owner;
             if (callback != null)
             {
                 callback(panel);
             }
+      
             panelDic.Add(m_uiname, panel);
             panel.Show();
 
@@ -177,7 +179,11 @@ public class UIManager : Singleton<UIManager>
         if (panelDic.ContainsKey(m_uiname))
         {
             panelDic[m_uiname].Hidden(m_uiname);
-            GameObject.Destroy(panelDic[m_uiname].gameObject);
+            if(panelDic[m_uiname].gameObject != null)
+            {
+                GameObject.Destroy(panelDic[m_uiname].gameObject);
+            }
+            
             panelDic.Remove(m_uiname);
         }
     }

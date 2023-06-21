@@ -39,11 +39,8 @@ public class MainMenu : GUIBasePanel
 
     public void PlayButtonPressed()
     {
-     
-        StartCoroutine(LevelManager.Instance.LoadScene(1,(ac) => 
-        {
-            GameEvent.Trigger(GameState.GamePrepare);
-        }));
+        GameEvent.Trigger(GameState.GamePrepare);
+
     }
 
 
@@ -52,7 +49,7 @@ public class MainMenu : GUIBasePanel
 
     public void OptionButtonPressed()
     {
-        UIManager.Instance.ShowUI<Options>("Options", E_UI_Layer.Mid, (panel) => 
+        UIManager.Instance.ShowUI<Options>("Options", E_UI_Layer.Mid,owner, (panel) => 
         {
             panel.Initialization();
         });

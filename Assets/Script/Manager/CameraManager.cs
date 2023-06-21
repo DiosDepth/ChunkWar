@@ -30,6 +30,10 @@ public class CameraManager : Singleton<CameraManager>
     }
     public override void Initialization()
     {
+        if(_currentCamera != null)
+        {
+            return;
+        }
         base.Initialization();
         _currentCamera = CreateMainCamera(_mainCameraName);
 
