@@ -9,6 +9,7 @@ public class GUIBasePanel : MonoBehaviour
 {
     private Dictionary<string, List<UIBehaviour>> GUIDic = new Dictionary<string, List<UIBehaviour>>();
     public CanvasGroup uiGroup;
+    public RectTransform root;
     public object owner;
     private void Awake()
     {

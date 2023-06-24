@@ -39,7 +39,7 @@ public class MainMenu : GUIBasePanel
 
     public void PlayButtonPressed()
     {
-        GameEvent.Trigger(GameState.GamePrepare);
+        GameEvent.Trigger(GameState.ShipSelection);
 
     }
 
@@ -65,12 +65,12 @@ public class MainMenu : GUIBasePanel
     {
 
 
-        GameManager.Instance.saveData = SaveLoadManager.Load("SaveData") as SaveData;
+        GameManager.Instance.gameEntity.saveData = SaveLoadManager.Load("SaveData") as SaveData;
 
-        if (GameManager.Instance.saveData == null)
+        if (GameManager.Instance.gameEntity.saveData == null)
         {
-            GameManager.Instance.saveData = new SaveData();
-            SaveLoadManager.Save(GameManager.Instance.saveData, "SaveData");
+            GameManager.Instance.gameEntity.saveData = new SaveData();
+            SaveLoadManager.Save(GameManager.Instance.gameEntity.saveData, "SaveData");
         }
 
 
@@ -81,7 +81,7 @@ public class MainMenu : GUIBasePanel
     {
         TMP_Text scoretmp = GetGUIComponent<TMP_Text>("Score");
         TMP_Text datetmp = GetGUIComponent<TMP_Text>("Date");
-        scoretmp.text = GameManager.Instance.saveData.newRecord.ToString();
-        datetmp.text = GameManager.Instance.saveData.date.ToString();
+        scoretmp.text = GameManager.Instance.gameEntity.saveData.newRecord.ToString();
+        datetmp.text = GameManager.Instance.gameEntity.saveData.date.ToString();
     }
 }

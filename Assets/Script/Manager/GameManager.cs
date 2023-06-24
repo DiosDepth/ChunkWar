@@ -7,6 +7,7 @@ public enum GameState
 {
     WelcomScreen,
     MainMenu,
+    ShipSelection,
     GamePrepare,
     GameStart,
     GameOver,
@@ -56,21 +57,15 @@ public struct ScoreEvent
 
 public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,EventListener<ScoreEvent>
 {
-    public StateMachine<GameState> gamestate = new StateMachine<GameState>(null, true);
+  
     public string playerPrefabPath = "Prefab/Chunk/ShipContainer";
+    public GameEntity gameEntity;
 
 
-    public int score = 0;
-    public SaveData saveData;
-    public RuntimeData runtimeData;
 
     public bool isInitialCompleted = false;
 
 
-    public int brickCount = 100;
-    public int brickConsumePerChunk = 5;
-
-    public Ship currentShip;
 
 
 
@@ -81,6 +76,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         //Initialization();
         this.EventStartListening<GameEvent>();
         this.EventStartListening<ScoreEvent>();
+        gameEntity = new GameEntity();
         Initialization();
     }
 
@@ -93,7 +89,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     }
     public void OnEvent(GameEvent evt)
     {
-        gamestate.ChangeState(evt.gamesate);
+        gameEntity.gamestate.ChangeState(evt.gamesate);
         switch (evt.gamesate)
         {
             case GameState.WelcomScreen:
@@ -104,89 +100,64 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
                 {
                     MonoManager.Instance.StartCoroutine(DataManager.Instance.LoadAllData(() => 
                     {
+
                         MonoManager.Instance.StartDelay(3, () =>
                         {
-                            GameEvent.Trigger(GameState.MainMenu);
+                            LeanTween.scale(panel.uiGroup.gameObject, Vector3.zero, 0.25f).setOnComplete(() => 
+                            {
+                                UIManager.Instance.HiddenUI("WellcomScreen");
+                                GameEvent.Trigger(GameState.MainMenu);
+                            });
+                        
                         });
                     }));
                 });
-
                 break;
             case GameState.MainMenu:
                 Debug.Log("GameState = MainMenu");
-
                 UIManager.Instance.ShowUI<MainMenu>("MainMenu", E_UI_Layer.Mid,this, (panel) =>
                 {
-                    panel.Initialization();
                     panel.uiGroup.alpha = 0;
-                    panel.uiGroup.interactable = false;
-
-                    GUIBasePanel basegui = UIManager.Instance.GetGUIFromDic("WellcomScreen");
-                    if (basegui != null)
+                    LeanTween.value(0, 1, 0.25f).setOnUpdate((value) => 
                     {
-                        MonoManager.Instance.StartCoroutine(UIManager.Instance.FadeUI(basegui.uiGroup, 0, 1, 0, 1, () =>
-                        {
-                            UIManager.Instance.HiddenUI("WellcomScreen");
-                        }));
-                        MonoManager.Instance.StartCoroutine(UIManager.Instance.FadeUI(panel.uiGroup, 0, 0, 1, 1, () =>
-                        {
+                        panel.uiGroup.alpha = value;
+                    });
+                });
+                break;
 
-                            panel.uiGroup.interactable = true;
-
-                        }));
-                    }
-                    else
+            case GameState.ShipSelection:
+                Debug.Log("GameState = ShipSelection");
+                UIManager.Instance.ShowUI<LoadingScreen>("LoadingScreen", E_UI_Layer.Top, this, (panel) =>
+                {
+                    panel.Initialization();
+                    panel.CloseLoadingDoor(() =>
                     {
-                        UIManager.Instance.HiddenUI("WellcomScreen");
-                        MonoManager.Instance.StartCoroutine(UIManager.Instance.FadeUI(panel.uiGroup, 0, 0, 1, 1, () =>
+                        UIManager.Instance.HiddenUI("MainMenu");
+                        MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(1, (ac) =>
                         {
+                            MonoManager.Instance.StartCoroutine(LevelManager.Instance.LevelPreparing("ShipSelectionLevel"));
 
-                            panel.uiGroup.interactable = true;
+                            LeanTween.delayedCall(1, () =>
+                            {
 
+                            });
                         }));
-                    }
 
+                    });
 
                 });
                 break;
             case GameState.GamePrepare:
                 Debug.Log("GameState = GamePrepare");
-   
-                GUIBasePanel basegui = UIManager.Instance.GetGUIFromDic("MainMenu");
-                if (basegui != null)
-                {
-                    MonoManager.Instance.StartCoroutine(UIManager.Instance.FadeUI(UIManager.Instance.panelDic["MainMenu"].uiGroup, 0, 1, 0, 1, () =>
-                    {
-                        UIManager.Instance.HiddenUI("MainMenu");
+                
+                //MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(1, (ac) =>
+                //{
 
-                        UIManager.Instance.ShowUI<LoadingText>("LoadingText", E_UI_Layer.Mid, this, (panel) =>
-                        {
-                            panel.Initialization();
-                            //
-                            MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(1, (ac) =>
-                            {
-
-                            }));
-                            MonoManager.Instance.StartCoroutine(LevelManager.Instance.LevelPreparing(() =>
-                            {
-                                GameEvent.Trigger(GameState.GameStart);
-                            }));
-                        });
-
-                    }));
-                }
-                else
-                {
-                    UIManager.Instance.ShowUI<LoadingText>("LoadingText", E_UI_Layer.Mid,this, (panel) =>
-                    {
-                        panel.Initialization();
-                        MonoManager.Instance.StartCoroutine(LevelManager.Instance.LevelPreparing(() =>
-                        {
-                            GameEvent.Trigger(GameState.GameStart);
-                        }));
-                    });
-                }
-
+                //}));
+                //MonoManager.Instance.StartCoroutine(LevelManager.Instance.LevelPreparing(() =>
+                //{
+                //    GameEvent.Trigger(GameState.GameStart);
+                //}));
 
                 // 创建玩家,并且关闭玩家 
                 //创建一些关键组件, 比如对象池,声音组件,
@@ -199,10 +170,10 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
                 {
                     UIManager.Instance.HiddenUI("LoadingText");
 
-                    GUIBasePanel basegui = UIManager.Instance.GetGUIFromDic("BackGround");
-                    if(basegui != null)
+                    GUIBasePanel gui = UIManager.Instance.GetGUIFromDic("BackGround");
+                    if(gui != null)
                     {
-                        MonoManager.Instance.StartCoroutine(UIManager.Instance.FadeUI(basegui.uiGroup, 0, 1, 0, 1, () =>
+                        MonoManager.Instance.StartCoroutine(UIManager.Instance.FadeUI(gui.uiGroup, 0, 1, 0, 1, () =>
                         {
                             UIManager.Instance.HiddenUI("BackGround");
 
@@ -274,11 +245,11 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         switch (evt.type)
         {
             case ScoreEventType.Change:
-                score += evt.scorechange;
-                (UIManager.Instance.panelDic["PlayerHUD"] as PlayerHUD).ChangeScore(score);
+                gameEntity.score += evt.scorechange;
+                (UIManager.Instance.panelDic["PlayerHUD"] as PlayerHUD).ChangeScore(gameEntity.score);
                 break;
             case ScoreEventType.Reset:
-                score = 0;
+                gameEntity.score = 0;
                 break;
         }
        

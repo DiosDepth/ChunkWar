@@ -13,6 +13,7 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<string, TestaDataInfo> TestDataDic = new Dictionary<string, TestaDataInfo>();
     public Dictionary<string, SoundDataInfo> SoundDataDic = new Dictionary<string, SoundDataInfo>();
     public Dictionary<string, BaseUnitConfig> UnitConfigDataDic = new Dictionary<string, BaseUnitConfig>();
+    public Dictionary<string, LevelData> LevelDataDic = new Dictionary<string, LevelData>();
 
 
     public DataManager()
@@ -137,6 +138,13 @@ public class DataManager : Singleton<DataManager>
                 MonoManager.Instance.StartCoroutine(LoadingData<TestaDataInfo>(m_fileinfo, TestDataDic, () =>
                 {
                     Debug.Log("TestData has been loaded!");
+
+                }));
+                break;
+            case "LevelData.csv":
+                MonoManager.Instance.StartCoroutine(LoadingData<LevelData>(m_fileinfo, LevelDataDic, () =>
+                {
+                    Debug.Log("LevelData has been loaded!");
 
                 }));
                 break;

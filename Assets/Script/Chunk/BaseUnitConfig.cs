@@ -2,18 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseUnitConfig : ScriptableObject, ISerializationCallbackReceiver
+public class BaseUnitConfig : BaseConfig, ISerializationCallbackReceiver
 {
-    public int ID;
-    public string UnitName;
+  
+
     public UnitType Type;
-    public float HP = 100;
-    public Sprite Icon;
-    public GameObject Prefab;
-
-
-
-    public int[,] Map = new int[GameGlobalConfig.BuildingMaxSize, GameGlobalConfig.BuildingMaxSize];
+    public int[,] Map = new int[GameGlobalConfig.BuildingMaxSize, GameGlobalConfig.BuildingMaxSize]; 
 
     public Vector2Int MapPivot
     {

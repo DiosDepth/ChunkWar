@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+
+
 public enum E_UI_Layer
 {
     Bot,
@@ -88,6 +90,8 @@ public class UIManager : Singleton<UIManager>
         }
         yield return null;
     }
+
+
     public void CreatePoolerUI<T>(string m_ui_res_path, bool m_isactive, UnityAction<T> callback) where T : GUIBasePanel
     {
         PoolManager.Instance.GetObject(m_ui_res_path, m_isactive, (obj) =>
@@ -147,11 +151,49 @@ public class UIManager : Singleton<UIManager>
             {
                 callback(panel);
             }
-      
             panelDic.Add(m_uiname, panel);
             panel.Show();
-
         });
+    }
+
+    public void ShowUIWithFade<T> (string m_uiname, E_UI_Layer m_uilayer,  float fadetime, object m_owner = null,  UnityAction<T> callback = null) where T : GUIBasePanel
+    {
+        
+        ShowUI<T>(m_uiname, m_uilayer, m_owner,(panel) => 
+        {
+            panel.Initialization();
+            panel.uiGroup.alpha = 0;
+            panel.uiGroup.interactable = false;
+
+            MonoManager.Instance.StartCoroutine(FadeUI(panel.uiGroup, 0, 0, 1, fadetime, () => 
+            {
+                panel.uiGroup.interactable = true;
+                panel.uiGroup.alpha = 1;
+                callback?.Invoke(panel);
+            }));
+        });
+    }
+
+    public void HiddenUIWithFade(string m_uiname,float fadetime, UnityAction callback = null)
+    {
+        
+        if (panelDic.ContainsKey(m_uiname))
+        {
+            FadeUI(panelDic[m_uiname].uiGroup, 0, 1, 0, fadetime, () =>
+            {
+
+                panelDic[m_uiname].Hidden(m_uiname);
+
+                if (panelDic[m_uiname].gameObject != null)
+                {
+                    GameObject.Destroy(panelDic[m_uiname].gameObject);
+                }
+
+                panelDic.Remove(m_uiname);
+            });
+        }
+
+
     }
 
     public void SetUITRSParent(GameObject obj, E_UI_Layer layer = E_UI_Layer.Mid)

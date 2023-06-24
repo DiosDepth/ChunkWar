@@ -1,0 +1,4 @@
+ID,Name,LevelPrefabPath
+0,Harbor,Prefab/Level/Harbor
+1,ShipSelectionLevel,Prefab/Level/ShipSelectionLevel
+2,BattleLevel_001,Prefab/Level/BattleLevel_001

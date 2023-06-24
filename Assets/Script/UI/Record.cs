@@ -22,7 +22,7 @@ public class Record : GUIBasePanel
     public override void Initialization()
     {
         base.Initialization();
-        UpdateRecord(GameManager.Instance.score);
+        UpdateRecord(GameManager.Instance.gameEntity.score);
         GetGUIComponent<Button>("TryAgain").onClick.AddListener(TryAgainClick);
         GetGUIComponent<Button>("GiveUp").onClick.AddListener(GiveUpClick);
 
@@ -44,14 +44,14 @@ public class Record : GUIBasePanel
         TMP_Text score = GetGUIComponent<TMP_Text>("Score");
         TMP_Text date = GetGUIComponent<TMP_Text>("Date");
 
-        if(record > GameManager.Instance.saveData.newRecord)
+        if(record > GameManager.Instance.gameEntity.saveData.newRecord)
         {
-            GameManager.Instance.saveData.newRecord = record;
-            GameManager.Instance.saveData.date = System.DateTime.Now.ToString("yyyy:mm:dd");
-            SaveLoadManager.Save(GameManager.Instance.saveData, "SaveData");
+            GameManager.Instance.gameEntity.saveData.newRecord = record;
+            GameManager.Instance.gameEntity.saveData.date = System.DateTime.Now.ToString("yyyy:mm:dd");
+            SaveLoadManager.Save(GameManager.Instance.gameEntity.saveData, "SaveData");
             title.text = "New Record";
-            score.text = GameManager.Instance.saveData.newRecord.ToString();
-            date.text = GameManager.Instance.saveData.date;
+            score.text = GameManager.Instance.gameEntity.saveData.newRecord.ToString();
+            date.text = GameManager.Instance.gameEntity.saveData.date;
         }
         else
         {

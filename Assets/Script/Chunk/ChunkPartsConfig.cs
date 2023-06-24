@@ -6,5 +6,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Configs_ChunkPart_", menuName = "Configs/Unit/ChunkPartsConfig")]
 public class ChunkPartsConfig : BaseUnitConfig
 {
-
+    
 }

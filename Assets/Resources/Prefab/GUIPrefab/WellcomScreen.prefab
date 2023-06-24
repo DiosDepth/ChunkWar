@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiGroup: {fileID: 6393227134067003970}
+  root: {fileID: 3831046580495225938}
 --- !u!1 &9111483083982262595
 GameObject:
   m_ObjectHideFlags: 0

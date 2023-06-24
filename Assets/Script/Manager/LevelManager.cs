@@ -47,7 +47,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
     public SpawnLine[] spawnLineList;
     public Ship currentShip;
 
-
+    public LevelEntity currentLevel;
 
     public LevelManager()
     {
@@ -159,34 +159,43 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
 
         yield return null;
     }
-    public IEnumerator LevelPreparing(UnityAction callback = null)
+    public IEnumerator LevelPreparing(string levelname,UnityAction callback = null)
     {
         // yield return new WaitForSeconds(5);
         CollectLevelInfo();
-       
-        if (currentShip == null)
+        LevelData data = null;
+        //加载关卡
+        if (currentLevel == null)
         {
-            var obj = ResManager.Instance.Load<GameObject>(GameManager.Instance.playerPrefabPath);
-            currentShip = obj.GetComponent<Ship>();
-
-
-            CameraManager.Instance.ChangeVCameraFollowTarget(obj.transform);
-            //CameraManager.Instance.ChangeVCameraLookAtTarget(obj.transform);
-            //CameraManager.Instance.SetVCameraBoard(GameObject.Find("CameraBoard").GetComponent<PolygonCollider2D>());
-
-            CameraManager.Instance.SetCameraUpdate(true);
-            PoolManager.Instance.ClearAll();
-
-            callback?.Invoke();
+            DataManager.Instance.LevelDataDic.TryGetValue(levelname, out data);
+            if( data != null)
+            {
+                GameObject obj = ResManager.Instance.Load<GameObject>(data.LevelPrefabPath);
+                currentLevel = obj.GetComponent<LevelEntity>();
+            }
         }
-        else
-        {
-            LevelReset();
-          
-            callback?.Invoke();
-        }
+
+        //创建舰船
+        //if (currentShip == null)
+        //{
+        //    var obj = ResManager.Instance.Load<GameObject>(GameManager.Instance.playerPrefabPath);
+        //    currentShip = obj.GetComponent<Ship>();
+
+
+        //    CameraManager.Instance.ChangeVCameraFollowTarget(obj.transform);
+        //    //CameraManager.Instance.ChangeVCameraLookAtTarget(obj.transform);
+        //    //CameraManager.Instance.SetVCameraBoard(GameObject.Find("CameraBoard").GetComponent<PolygonCollider2D>());
+
+        //    CameraManager.Instance.SetCameraUpdate(true);
+        //    PoolManager.Instance.ClearAll();
+
+        //    callback?.Invoke();
+        //}
+
         yield return null;
     }
+
+
     public void GameOver()
     {
         StopSpawn();

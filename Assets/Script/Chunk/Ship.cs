@@ -12,11 +12,14 @@ public enum ChunkType
 }
 
 
-public class Chunk2DArray
+public enum ShipType
 {
-
-
+    Base,
+    LightShip,
+    SpeedShip,
+    HeavyShip,
 }
+
 
 public enum InventoryEventType
 {
@@ -74,7 +77,7 @@ public class Ship : MonoBehaviour
             { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
             { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
             { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,2, 2 ,2,0,0,0,0,0,0,0,0,0},
+            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
             { 0,0,0,0,0,0,0,0,0,2, 2 ,2,0,0,0,0,0,0,0,0,0},
 
             { 0,0,0,0,0,0,0,0,0,2, 1 ,2,0,0,0,0,0,0,0,0,0},
@@ -144,11 +147,11 @@ public class Ship : MonoBehaviour
             BuildInfoList.Add(buildinfo);
         }
     
-        GameManager.Instance.runtimeData.physicalResources = physicalResources;
-        GameManager.Instance.runtimeData.energyResources = energyResources;
-        GameManager.Instance.runtimeData.artifacts = artifacts;
-        GameManager.Instance.runtimeData.ShipMap = ShipMap;
-        GameManager.Instance.runtimeData.BuildingList = BuildInfoList;
+        GameManager.Instance.gameEntity.runtimeData.physicalResources = physicalResources;
+        GameManager.Instance.gameEntity.runtimeData.energyResources = energyResources;
+        GameManager.Instance.gameEntity.runtimeData.artifacts = artifacts;
+        GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMap;
+        GameManager.Instance.gameEntity.runtimeData.BuildingList = BuildInfoList;
     }
 
     public void Initialization()

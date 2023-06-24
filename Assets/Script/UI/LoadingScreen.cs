@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using UnityEngine.Events;
 
-public class LoadingScreen : GUIBasePanel,EventListener<LevelEvent>
+public class LoadingScreen : GUIBasePanel
 {
-    public Slider loadingBar;
-    public TMP_Text loadingText;
+
+    public RectTransform leftDoor;
+    public RectTransform rightDoor;
+    public RectTransform loadingText;
+
+    public bool state = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,42 +26,33 @@ public class LoadingScreen : GUIBasePanel,EventListener<LevelEvent>
     public override void Initialization()
     {
         base.Initialization();
-        this.EventStartListening<LevelEvent>();
-        loadingBar = GetGUIComponent<Slider>("ProgressBar");
-        loadingText = GetGUIComponent<TMP_Text>("LoadingText");
+
     }
 
-    public void OnEvent(LevelEvent evt)
+    public void OpenLoadingDoor(UnityAction callback)
     {
-      switch(evt.evtType)
+        LeanTween.move(loadingText, new Vector3(256, 64, 0), 0.25f).setOnComplete(()=> 
         {
-            case LevelEventType.LevelLoading:
-                loadingBar.value = evt.asy.progress;
-                break;
-            case LevelEventType.LevelLoaded:
-                loadingBar.value = 1;
-                loadingText.text = "Press Space Key";
-                StartCoroutine(WaitForActiveScene(evt.levelIndex, evt.asy));
-                break;
-            case LevelEventType.LevelActive:
-                break;
-        }
+            LeanTween.move(leftDoor, new Vector3(-960, 0, 0), 0.25f);
+            LeanTween.move(rightDoor, new Vector3(960, 0, 0), 0.25f);
+            LeanTween.delayedCall(0.25f, () => { callback?.Invoke();});
+        });
+
     }
 
-    public IEnumerator WaitForActiveScene(int index, AsyncOperation asy)
+    public void CloseLoadingDoor(UnityAction callback)
     {
-        bool isPressAnyKey = false;
-        while (!isPressAnyKey)
+        LeanTween.move(leftDoor, new Vector3(0, 0, 0), 0.25f);
+        LeanTween.move(rightDoor, new Vector3(0, 0, 0), 0.25f);
+        LeanTween.delayedCall(0.25f, () => 
         {
-            if (UnityEngine.InputSystem.Keyboard.current.anyKey.wasPressedThisFrame)
-            {
-                isPressAnyKey = true;
-            }
-            yield return null;
-        }
-        asy.allowSceneActivation = true;
+            LeanTween.move(loadingText, new Vector3(-64, 64, 0), 0.25f).setOnComplete(() => { callback?.Invoke(); });
+        });
 
-        yield return new WaitForEndOfFrame();
-        LevelEvent.Trigger(LevelEventType.LevelActive, index, asy);
+    }
+
+    public void SetDoorState(bool newstate)
+    {
+        state = newstate;
     }
 }

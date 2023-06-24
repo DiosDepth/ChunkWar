@@ -71,6 +71,26 @@ public class UnitConfigData : DataInfo
     }
 }
 
+public class LevelData : DataInfo
+{
+    public string LevelPrefabPath;
+    public LevelData() { }
+
+    public LevelData(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        LevelPrefabPath = row[2];
+    }
+
+    public override void Initialization(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        LevelPrefabPath = row[2];
+    }
+}
+
 
 
 

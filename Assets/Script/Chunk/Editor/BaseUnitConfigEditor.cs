@@ -7,7 +7,7 @@ using UnityEditor;
 
 
 [CustomEditor(typeof(BaseUnitConfig))]
-public class BaseUnitConfigEditor : Editor
+public class BaseUnitConfigEditor : BaseCongifEditor
 {
     private BaseUnitConfig _target;
     private SerializedProperty IDProp;
@@ -18,9 +18,9 @@ public class BaseUnitConfigEditor : Editor
     private SerializedProperty PrefabProp;
     private SerializedProperty MapProp;
 
-    private Texture2D previewIcon; 
 
-    public virtual void OnEnable()
+
+    public override void OnEnable()
     {
         _target = (BaseUnitConfig)target;
         // 获取序列化属性
@@ -36,7 +36,7 @@ public class BaseUnitConfigEditor : Editor
     public override void OnInspectorGUI()
     {
 
-        previewIcon = AssetPreview.GetAssetPreview(_target.Icon.texture);
+   
         // 更新序列化对象
         serializedObject.Update();
 
@@ -47,10 +47,7 @@ public class BaseUnitConfigEditor : Editor
         EditorGUILayout.PropertyField(HPProp);
         EditorGUILayout.PropertyField(IconProp);
 
-        if(previewIcon != null)
-        {
-            GUILayout.Label(previewIcon, GUILayout.Width(100), GUILayout.Height(100));
-        }
+
         EditorGUILayout.PropertyField(PrefabProp);
 
         // 获取数组大小

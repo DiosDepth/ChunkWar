@@ -216,7 +216,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
                 InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleBuildOperation;
                 InputDispatcher.Instance.Action_GamePlay_RightClick += HandleRemoveOperation;
                 InputDispatcher.Instance.Action_GamePlay_MidClick += HandleBuildRotation;
-                LoadingShip(GameManager.Instance.runtimeData);
+                LoadingShip(GameManager.Instance.gameEntity.runtimeData);
 
                 CameraManager.Instance.ChangeVCameraLookAtTarget(transform);
                 CameraManager.Instance.ChangeVCameraFollowTarget(transform);
