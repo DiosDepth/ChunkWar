@@ -5,10 +5,11 @@ using UnityEditor;
 
 
 
-[CustomEditor(typeof(ShipConfig))]
-public class ShipConfigEditor : BaseCongifEditor
+
+[CustomEditor(typeof(BaseUnitConfig))]
+public class BaseUnitConfigEditor : BaseConfigEditor
 {
-    private ShipConfig _target;
+    private BaseUnitConfig _target;
     private SerializedProperty IDProp;
     private SerializedProperty NameProp;
     private SerializedProperty TypeProp;
@@ -21,7 +22,7 @@ public class ShipConfigEditor : BaseCongifEditor
 
     public override void OnEnable()
     {
-        _target = (ShipConfig)target;
+        _target = (BaseUnitConfig)target;
         // 获取序列化属性
         IDProp = serializedObject.FindProperty("ID");
         NameProp = serializedObject.FindProperty("UnitName");
@@ -35,7 +36,7 @@ public class ShipConfigEditor : BaseCongifEditor
     public override void OnInspectorGUI()
     {
 
-        
+   
         // 更新序列化对象
         serializedObject.Update();
 
@@ -50,8 +51,8 @@ public class ShipConfigEditor : BaseCongifEditor
         EditorGUILayout.PropertyField(PrefabProp);
 
         // 获取数组大小
-        int rows = _target.ShipMap.GetLength(0);
-        int columns = _target.ShipMap.GetLength(1);
+        int rows = _target.Map.GetLength(0);
+        int columns  = _target.Map.GetLength(1);
 
         // 绘制二维数组表格
         EditorGUILayout.LabelField("MapProp");
@@ -63,7 +64,7 @@ public class ShipConfigEditor : BaseCongifEditor
             EditorGUILayout.BeginHorizontal();
             for (int j = 0; j < columns; j++)
             {
-
+                
                 SerializedProperty elementProp = MapProp.GetArrayElementAtIndex(i * columns + j);
                 EditorGUILayout.PropertyField(elementProp, GUIContent.none);
             }

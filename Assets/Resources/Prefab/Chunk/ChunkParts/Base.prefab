@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -402000637
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 143168726, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,9 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d3ee44570728b44975c0dbec463ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitName: 
   hp: 100
   state: 0
   shipCoord: {x: 0, y: 0}
   isOccupied: 0
+  isBuildingPiovt: 0
   modle: {fileID: 0}
   building: {fileID: 0}

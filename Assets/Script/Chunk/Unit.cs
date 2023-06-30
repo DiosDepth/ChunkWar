@@ -7,6 +7,7 @@ public enum UnitType
 {
     ChunkParts,
     Buildings,
+    Ship,
 }
 public class Unit : MonoBehaviour
 {

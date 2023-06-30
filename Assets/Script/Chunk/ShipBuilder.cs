@@ -33,9 +33,9 @@ public class InventoryItem
 {
     public bool iscountless;
     public int count;
-    public BaseUnitConfig itemconfig;
+    public BaseConfig itemconfig;
 
-    public InventoryItem(BaseUnitConfig m_item, int m_count = 1, bool m_iscountless = false)
+    public InventoryItem(BaseConfig m_item, int m_count = 1, bool m_iscountless = false)
     {
         iscountless = m_iscountless;
         count = m_count;
@@ -44,10 +44,25 @@ public class InventoryItem
 }
 
 [System.Serializable]
-public class Inventory
+public class Inventory : IEnumerable, IEnumerator
 {
 
-    public Dictionary<string, InventoryItem> storeDic = new Dictionary<string, InventoryItem>();
+    private Dictionary<string, InventoryItem> storeDic = new Dictionary<string, InventoryItem>();
+    private IEnumerator<KeyValuePair<string, InventoryItem>> dicEnumerator;
+
+    public object Current => dicEnumerator.Current;
+
+    public Inventory()
+    {
+        dicEnumerator = storeDic.GetEnumerator();
+    }
+
+    public Inventory(Dictionary<string,InventoryItem> dic)
+    {
+        storeDic = dic;
+        dicEnumerator = storeDic.GetEnumerator();
+    }
+
 
 
     public void CheckIn(InventoryItem m_item)
@@ -78,44 +93,71 @@ public class Inventory
     {
         InventoryItem item;
         storeDic.TryGetValue(m_name, out item);
-       
+
         return item;
     }
+
+    public bool IsEmpty()
+    {
+        if(storeDic.Count == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        dicEnumerator = storeDic.GetEnumerator();
+        return dicEnumerator;
+    }
+
+    public bool MoveNext()
+    {
+        return dicEnumerator.MoveNext();
+    }
+
+    public void Reset()
+    {
+       
+        dicEnumerator.Reset();
+    }
+
 }
 
-public enum ShipBuilderInventoryOperationType
+public enum InventoryOperationType
 {
-    BuildingSelect,
-    BuildingUnSelect,
-    BuildingRemove,
+    ItemSelect,
+    ItemUnselect,
+    ItemRemove,
    
 }
 
-public struct ShipBuilderInventoryOperationEvent
+public struct InventoryOperationEvent
 {
-    public ShipBuilderInventoryOperationType type;
+    public InventoryOperationType type;
     public UnitType unitytype;
     public int index;
     public string name;
-    public ShipBuilderInventoryOperationEvent(ShipBuilderInventoryOperationType m_type, UnitType m_unitytype, int m_index, string m_name)
+    public InventoryOperationEvent(InventoryOperationType m_type, UnitType m_unitytype, int m_index, string m_name)
     {
         type = m_type;
         unitytype = m_unitytype;
         index = m_index;
         name = m_name;
     }
-    public static ShipBuilderInventoryOperationEvent e;
-    public static void Trigger(ShipBuilderInventoryOperationType m_type, UnitType m_unitytype, int m_index, string m_name)
+    public static InventoryOperationEvent e;
+    public static void Trigger(InventoryOperationType m_type, UnitType m_unitytype, int m_index, string m_name)
     {
         e.type = m_type;
         e.unitytype = m_unitytype;
         e.index = m_index;
         e.name = m_name;
-        EventCenter.Instance.TriggerEvent<ShipBuilderInventoryOperationEvent>(e);
+        EventCenter.Instance.TriggerEvent<InventoryOperationEvent>(e);
     }
 }
 
-public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOperationEvent>
+public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
 {
     public static ShipBuilder instance;
     public enum EditorMode
@@ -143,9 +185,6 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
 
 
     [Header("Inventory")]
-
-    public Inventory chunkPartInventory;
-    public Inventory buildingInventory;
 
 
     public Building currentBuilding;
@@ -187,51 +226,25 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
     }
     void Start()
     {
-        StartCoroutine(DataManager.Instance.LoadAllData(() =>
-        {
-            //Test
-            BaseUnitConfig tempdata;
 
-            
-            DataManager.Instance.UnitConfigDataDic.TryGetValue("BaseBuilding", out tempdata);
+    }
+    public void Initialization()
+    {
+        EventRegister.EventStartListening<InventoryOperationEvent>(this);
+        InputDispatcher.Instance.Action_GamePlay_Point += HandleBuildMouseMove;
+        InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleBuildOperation;
+        InputDispatcher.Instance.Action_GamePlay_RightClick += HandleRemoveOperation;
+        InputDispatcher.Instance.Action_GamePlay_MidClick += HandleBuildRotation;
+        LoadingShip(GameManager.Instance.gameEntity.runtimeData);
 
-            buildingInventory.CheckIn(new InventoryItem(tempdata, 1, true));
-            DataManager.Instance.UnitConfigDataDic.TryGetValue("LightAutoCannon", out tempdata);
-            buildingInventory.CheckIn(new InventoryItem(tempdata, 1, true));
-            DataManager.Instance.UnitConfigDataDic.TryGetValue("DirectionalSmoothboreCannon", out tempdata);
-            buildingInventory.CheckIn(new InventoryItem(tempdata, 1, true));
+        CameraManager.Instance.ChangeVCameraLookAtTarget(transform);
+        CameraManager.Instance.ChangeVCameraFollowTarget(transform);
+        CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = cameraOffset.x;
+        CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = cameraOffset.x;
+        CameraManager.Instance.vcam.m_Lens.OrthographicSize = cameraSize;
 
-            DataManager.Instance.UnitConfigDataDic.TryGetValue("ChunkPart_001", out tempdata);
-            chunkPartInventory.CheckIn(new InventoryItem(tempdata, 1, false));
-            DataManager.Instance.UnitConfigDataDic.TryGetValue("ChunkPart_002", out tempdata);
-            chunkPartInventory.CheckIn(new InventoryItem(tempdata, 1, false));
-
-
-            UIManager.Instance.ShowUI<ShipBuilderHUD>("ShipBuilderHUD", E_UI_Layer.Mid,this ,(panel) =>
-            {
-                panel.Initialization();
-
-                EventRegister.EventStartListening<ShipBuilderInventoryOperationEvent>(this);
-                InputDispatcher.Instance.Action_GamePlay_Point += HandleBuildMouseMove;
-                InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleBuildOperation;
-                InputDispatcher.Instance.Action_GamePlay_RightClick += HandleRemoveOperation;
-                InputDispatcher.Instance.Action_GamePlay_MidClick += HandleBuildRotation;
-                LoadingShip(GameManager.Instance.gameEntity.runtimeData);
-
-                CameraManager.Instance.ChangeVCameraLookAtTarget(transform);
-                CameraManager.Instance.ChangeVCameraFollowTarget(transform);
-                CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = cameraOffset.x;
-                CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = cameraOffset.x;
-                CameraManager.Instance.vcam.m_Lens.OrthographicSize = cameraSize;
-
-                _isInitial = true;
-            });
-
-        }));
-
+        _isInitial = true;
         editorBrush.Initialization();
-        Debug.Log("Start ShipBuilder");
-
     }
 
     // Update is called once per frame
@@ -242,13 +255,13 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
 
     private void OnDestroy()
     {
-        EventRegister.EventStopListening<ShipBuilderInventoryOperationEvent>(this);
+        EventRegister.EventStopListening<InventoryOperationEvent>(this);
         InputDispatcher.Instance.Action_GamePlay_Point -= HandleBuildMouseMove;
         InputDispatcher.Instance.Action_GamePlay_LeftClick -= HandleBuildOperation;
         InputDispatcher.Instance.Action_GamePlay_RightClick -= HandleRemoveOperation;
         InputDispatcher.Instance.Action_GamePlay_MidClick -= HandleBuildRotation;
 
-        UIManager.Instance.HiddenUI("ShipBuilderHUD");
+     
     }
 
     public void LoadingShip(RuntimeData runtimedata)
@@ -256,13 +269,15 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
 
         if(editorShip == null)
         {
-            var obj = ResManager.Instance.Load<GameObject>(GameManager.Instance.playerPrefabPath);
+            var obj = ResManager.Instance.Load<GameObject>(LevelManager.Instance.shipPrefabPath);
             editorShip = obj.GetComponentInChildren<Ship>();
+            editorShip.container.transform.name += "_Editor";
         }        
 
         if (runtimedata == null)
         {
-            editorShip.ResetShip();
+            Debug.LogError("runtimeData is null, plealse check it");
+            return;
         }
         else
         {
@@ -580,7 +595,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
                             obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempbuilding.direction);
                             tempbuilding.unitName = currentInventoryItem.itemconfig.UnitName;
 
-                            BuildingMapInfo buildinginfo = new BuildingMapInfo();
+                        
                             //创建Building的Prefab并且归类放好
 
                             
@@ -608,11 +623,9 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
 
                             editorShip.BuildingList.Add(tempbuilding);
 
+                            BuildingMapInfo buildinginfo = new BuildingMapInfo(tempbuilding);
                             //Update buildInfoList
-                            buildinginfo.direction = tempbuilding.direction;
-                            buildinginfo.unitName = tempbuilding.unitName;
-                            buildinginfo.pivot = tempbuilding.pivot;
-                            buildinginfo.occupiedCoords = tempbuilding.occupiedCoords;
+                   
                         }
 
                         break;
@@ -709,26 +722,26 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
     
     }
 
-    public void OnEvent(ShipBuilderInventoryOperationEvent evt)
+    public void OnEvent(InventoryOperationEvent evt)
     {
         switch (evt.type)
         {
-            case ShipBuilderInventoryOperationType.BuildingSelect:
+            case InventoryOperationType.ItemSelect:
 
                 if(evt.unitytype == UnitType.ChunkParts)
                 {
                     editorMode = EditorMode.ShipEditorMode;
-                    currentInventoryItem = chunkPartInventory.Peek(evt.name);
+                    currentInventoryItem = GameManager.Instance.gameEntity.chunkPartInventory.Peek(evt.name);
                 }
                 if(evt.unitytype == UnitType.Buildings)
                 {
                     editorMode = EditorMode.BuildingEditorMode;
-                    currentInventoryItem = buildingInventory.Peek(evt.name);
+                    currentInventoryItem = GameManager.Instance.gameEntity.buildingInventory.Peek(evt.name);
                 }
                 
                 editorBrush.brushSprite.sprite = currentInventoryItem.itemconfig.Icon;
         
-                _reletiveCoord = currentInventoryItem.itemconfig.GetReletiveCoord();
+                _reletiveCoord = (currentInventoryItem.itemconfig as BaseUnitConfig) .GetReletiveCoord();
                 editorBrush.UpdateShadows(_reletiveCoord);
                 _itemDirection = 0;
                 editorBrush.brushSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -737,9 +750,9 @@ public class ShipBuilder : MonoBehaviour,EventListener<ShipBuilderInventoryOpera
                     _outLineShipCood = editorShip.GetOutLineByShipcoordList(_reletiveCoord);
                 }
                 break;
-            case ShipBuilderInventoryOperationType.BuildingUnSelect:
+            case InventoryOperationType.ItemUnselect:
                 break;
-            case ShipBuilderInventoryOperationType.BuildingRemove:
+            case InventoryOperationType.ItemRemove:
                 break;
         }
     }

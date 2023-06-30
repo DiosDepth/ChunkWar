@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2954968443182725131}
-  - component: {fileID: 6402999362385428466}
+  - component: {fileID: -4339505067302491518}
   m_Layer: 0
   m_Name: ShipSelectionLevel
   m_TagString: Untagged
@@ -117,7 +117,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6402999362385428466
+--- !u!114 &-4339505067302491518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,6 +126,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2954968443182725130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139f1b59db7646245978c8c2f1097d2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ca86efc9116b7b4393496e517830e6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelName: ShipSelectionLevel
+  startPoint: {x: 0, y: 0, z: 0}
+  cameraBoard: {fileID: 0}
+  currentShipSelection:
+    iscountless: 0
+    count: 0
+    itemconfig: {fileID: 0}

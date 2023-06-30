@@ -1,6 +1,7 @@
 
 
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class SaveData 
@@ -33,6 +34,71 @@ public class RuntimeData
         physicalResources = shipdata.physicalResources;
         energyResources = shipdata.energyResources;
         artifacts = shipdata.artifacts;
+
+        
+        for (int row = 0; row < shipdata.ChunkMap.GetLength(0); row++)
+        {
+            for (int colume = 0; colume < shipdata.ChunkMap.GetLength(1); colume++)
+            {
+                ChunkPartMapInfo tempinfo = new ChunkPartMapInfo();
+                tempinfo.shipCoord = shipdata.ChunkMap[row, colume].shipCoord;
+                tempinfo.isOccupied = shipdata.ChunkMap[row, colume].isOccupied;
+                tempinfo.isBuildingPiovt = shipdata.ChunkMap[row, colume].isBuildingPiovt;
+
+                if(shipdata.ChunkMap[row, colume].GetType() == typeof (Core))
+                {
+                    tempinfo.type = ChunkType.Core;
+                }
+                else
+                {
+                    tempinfo.type = ChunkType.Base;
+                }
+                tempinfo.state = shipdata.ChunkMap[row, colume].state;
+
+                ShipMap[row, colume] = tempinfo;
+            }
+        }
+
+        BuildingList.Clear();
+        for (int i = 0; i < shipdata.BuildingList.Count; i++)
+        {
+            BuildingList.Add(new BuildingMapInfo(shipdata.BuildingList[i]));
+        }
+
+    }
+
+
+    public RuntimeData(int[,] shipmap)
+    {
+        
+        for (int row = 0; row < shipmap.GetLength(0); row++)
+        {
+            for (int colume = 0; colume < shipmap.GetLength(1); colume++)
+            {
+
+                if(shipmap[row,colume] == 0)
+                {
+                    continue;
+                }
+                ChunkPartMapInfo tempinfo = new ChunkPartMapInfo();
+                tempinfo.shipCoord = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
+                tempinfo.isOccupied = false;
+                tempinfo.isBuildingPiovt = false;
+
+                if (shipmap[row, colume] == 1)
+                {
+                    tempinfo.type = ChunkType.Core;
+                }
+                if(shipmap[row, colume] == 2)
+                {
+                    tempinfo.type = ChunkType.Base;
+                }
+                tempinfo.state = UnitState.Normal;
+
+                ShipMap[row, colume] = tempinfo;
+            }
+        }
+
     }
 
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShipConfig : BaseConfig, ISerializationCallbackReceiver
 {
 
-    public ShipType Type;
+    public ShipType ShipType;
     public int[,] ShipMap = new int[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
 
     [HideInInspector]

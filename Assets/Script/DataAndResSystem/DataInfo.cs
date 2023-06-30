@@ -71,6 +71,27 @@ public class UnitConfigData : DataInfo
     }
 }
 
+
+public class ShipConfigData : DataInfo
+{
+    public string ConfigPath;
+    public ShipConfigData() { }
+
+    public ShipConfigData(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        ConfigPath = row[2];
+    }
+
+    public override void Initialization(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        ConfigPath = row[2];
+    }
+}
+
 public class LevelData : DataInfo
 {
     public string LevelPrefabPath;

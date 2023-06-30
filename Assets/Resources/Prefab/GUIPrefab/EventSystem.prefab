@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab89a52ac9483e47bf1420df90deb37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
 --- !u!114 &3839363218729509867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +63,7 @@ MonoBehaviour:
   m_Actions: {fileID: -944628639613478452, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
   m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: 708784281349330890}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -91,10 +92,6 @@ MonoBehaviour:
     m_ActionName: Player/WSAD[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: c2957c48-5bf8-4516-b34e-bae4a4850d2b
-    m_ActionName: UI/UINav[/Keyboard/w,/Keyboard/s]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 19f992ec-cf19-4295-a903-9e1fa15f4d85
     m_ActionName: Player/Attack[/Keyboard/j]
   - m_PersistentCalls:
@@ -114,7 +111,19 @@ MonoBehaviour:
     m_ActionId: 6f4cc0aa-0c21-4885-abc7-1f2c019b327f
     m_ActionName: Player/Inventory[/Keyboard/h]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7859639995372876523}
+        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
+        m_MethodName: GamePlay_Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1204aa56-0fd1-407a-a3aa-0aa3660b75c1
     m_ActionName: Player/Pause[/Keyboard/escape]
   - m_PersistentCalls:
@@ -181,6 +190,62 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b91e14b5-6ab8-4eeb-b02b-cb64457ac897
     m_ActionName: Player/MidClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ac4b6472-4500-4ea6-9c61-4786c2733e46
+    m_ActionName: UI/UINavigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eb3f8d11-7b0a-4cec-81c2-1dbfbd758d4f
+    m_ActionName: UI/UISubmit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a89f960-8233-48c2-b610-78c7e8c7bcd5
+    m_ActionName: UI/UICancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6bb02358-6f05-49f8-b7a0-13d0b9bd3dc7
+    m_ActionName: UI/UIPoint[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f1f71d18-63e7-4bc1-af94-f4dc70dcaa2e
+    m_ActionName: UI/UIClick[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eed9b837-91e9-47c6-baf9-13b4ee3875f2
+    m_ActionName: UI/UIScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e97f9712-5221-41cf-8aac-96f2323ac60f
+    m_ActionName: UI/UIMiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2654d3e-7ac1-4ac2-9635-91fed887332b
+    m_ActionName: UI/UIRightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e9990a7-2bc5-4534-b87a-0560e71f1b0e
+    m_ActionName: UI/UITrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d24946f0-bc7c-4ddf-b4fb-e4fedd64ae83
+    m_ActionName: UI/UITrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7859639995372876523}
+        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
+        m_MethodName: UI_UnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e5f53ab3-33e2-4f26-b297-5b0e6e357854
+    m_ActionName: UI/Unpause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
@@ -217,27 +282,27 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_ActionsAsset: {fileID: -944628639613478452, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_PointAction: {fileID: -2928484857954765662, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MoveAction: {fileID: -5117826452660302816, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_SubmitAction: {fileID: -4778275255874146716, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_CancelAction: {fileID: 3063018138970423414, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_LeftClickAction: {fileID: -7317822793312184875, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MiddleClickAction: {fileID: 5182312600672518391, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_RightClickAction: {fileID: 1770460979322989001, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_ScrollWheelAction: {fileID: -5529804890714918305, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_TrackedDevicePositionAction: {fileID: -8478616834158410869, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_TrackedDeviceOrientationAction: {fileID: 1655069866500267817, guid: adb11738a5525ee4580258decd6a7719,
     type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0

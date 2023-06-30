@@ -45,6 +45,12 @@ TagManager:
   - name: BackGround
     uniqueID: 1083603493
     locked: 0
+  - name: Enemy
+    uniqueID: 3605244097
+    locked: 0
+  - name: Player
+    uniqueID: 3892966659
+    locked: 0
   - name: VFX
     uniqueID: 3089659359
     locked: 0

@@ -10,7 +10,7 @@ public class GameStarter : MonoBehaviour
     {
         if (GameManager.Instance.isInitialCompleted)
         {
-            GameEvent.Trigger(GameState.WelcomScreen);
+            GameEvent.Trigger(EGameState.EGameState_WelcomScreen);
 
         }
     }

@@ -6,7 +6,6 @@ public class BaseUnitConfig : BaseConfig, ISerializationCallbackReceiver
 {
   
 
-    public UnitType Type;
     public int[,] Map = new int[GameGlobalConfig.BuildingMaxSize, GameGlobalConfig.BuildingMaxSize]; 
 
     public Vector2Int MapPivot

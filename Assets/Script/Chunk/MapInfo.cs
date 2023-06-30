@@ -18,6 +18,16 @@ public class BuildingMapInfo :MapInfo
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
 
+
+    public BuildingMapInfo(Building building)
+    {
+        state = building.state;
+        unitName = building.unitName;
+        direction = building.direction;
+        pivot = building.pivot;
+        occupiedCoords = building.occupiedCoords;
+    }
+
 }
 public class ChunkPartMapInfo : MapInfo
 {
@@ -26,7 +36,7 @@ public class ChunkPartMapInfo : MapInfo
     public bool isOccupied = false;
     public bool isBuildingPiovt = false;
     public ChunkType type = ChunkType.None;
-   
-    
+
+    public ChunkPartMapInfo() { }
 }
 

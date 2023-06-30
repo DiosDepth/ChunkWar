@@ -42,7 +42,7 @@ public class ItemGUISlot : MonoBehaviour
 
     public void OnInventoryBuildingBtnClicked()
     {
-        ShipBuilderInventoryOperationEvent.Trigger(ShipBuilderInventoryOperationType.BuildingSelect, item.itemconfig.Type, slotIndex, item.itemconfig.UnitName);
+        InventoryOperationEvent.Trigger(InventoryOperationType.ItemSelect, item.itemconfig.Type, slotIndex, item.itemconfig.UnitName);
     }
     /* 
      public void OnBeginDrag(PointerEventData eventData)

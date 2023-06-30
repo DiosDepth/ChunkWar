@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 6993558967189686128}
   - component: {fileID: 5969374876270109530}
   - component: {fileID: 3963970854634867795}
+  - component: {fileID: 2820611653935030104}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -181,10 +182,11 @@ MonoBehaviour:
     type: 3}
   BasePrefab: {fileID: 432568580045104789, guid: 37d87e5c0cf72ca4d8fe46349cd3a3c1,
     type: 3}
+  container: {fileID: 6993558966154590384}
   chunksParent: {fileID: 6993558966289445250}
   buildingsParent: {fileID: 6993558966075207824}
-  rb: {fileID: 5969374876270109530}
-  collider: {fileID: 3963970854634867795}
+  core: {fileID: 0}
+  controller: {fileID: 2820611653935030104}
 --- !u!50 &5969374876270109530
 Rigidbody2D:
   serializedVersion: 4
@@ -228,3 +230,19 @@ CompositeCollider2D:
     m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+--- !u!114 &2820611653935030104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993558967189686130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ded874e22ff07469478df7ca7ef1f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 6993558967189686128}
+  rb: {fileID: 5969374876270109530}
+  collider: {fileID: 3963970854634867795}
+  movement: {x: 0, y: 0, z: 0}

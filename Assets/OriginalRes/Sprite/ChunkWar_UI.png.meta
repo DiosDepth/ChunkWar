@@ -126,7 +126,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChunkWar_UI_1
+      name: ChunkWar_UI_01
       rect:
         serializedVersion: 2
         x: 16
@@ -239,7 +239,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 3, y: 3, z: 3, w: 3}
       outline: []
       physicsShape: []
@@ -247,6 +247,27 @@ TextureImporter:
       bones: []
       spriteID: a4e3a2f794b1d9d419f75809a5e0e857
       internalID: -76991012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChunkWar_UI_00
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab27d0bf8162d5a4dbb5bd2f8f10031d
+      internalID: -666535637
       vertices: []
       indices: 
       edges: []
@@ -263,8 +284,9 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       ChunkWar_UI_04: -1147309223
-      ChunkWar_UI_1: 1100253012
+      ChunkWar_UI_01: 1100253012
       ChunkWar_UI_06: -76991012
+      ChunkWar_UI_00: -666535637
       ChunkWar_UI_02: -626133474
       ChunkWar_UI_03: 909630396
       ChunkWar_UI_05: 1174860437

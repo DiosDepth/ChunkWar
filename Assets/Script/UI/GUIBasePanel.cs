@@ -54,9 +54,9 @@ public class GUIBasePanel : MonoBehaviour
 
     }
 
-    public virtual void Hidden(string m_uiname)
+    public virtual void Hidden( )
     {
-        GUIDic.Remove(m_uiname);
+        
     }
 
     protected void FindGUIComponent<T>() where T : UIBehaviour

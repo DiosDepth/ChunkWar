@@ -100,7 +100,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3181671057182251854}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -123,14 +123,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3181671057182251854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34f020e75a87d64cb6f3ad777e7989b, type: 3}
+  m_Script: {fileID: 11500000, guid: fd10535574ac76a47bf7e5b775b5ea13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiGroup: {fileID: 6666397247509387187}
   root: {fileID: 6701960896002304798}
   leftDoor: {fileID: 6537363304746430516}
   rightDoor: {fileID: 5799223714930187717}
-  loadingText: {fileID: 965713154290643435}
+  loadingText: {fileID: 2251946622497795609}
   state: 0
 --- !u!1 &3687037302342392146
 GameObject:
@@ -141,6 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 965713154290643435}
+  - component: {fileID: 2251946622497795609}
   - component: {fileID: 2901278438271288333}
   - component: {fileID: 703209811721355363}
   m_Layer: 5
@@ -170,6 +171,18 @@ RectTransform:
   m_AnchoredPosition: {x: -64, y: 64}
   m_SizeDelta: {x: 256, y: 64}
   m_Pivot: {x: 1, y: 0}
+--- !u!225 &2251946622497795609
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3687037302342392146}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!222 &2901278438271288333
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -38,16 +38,17 @@ public struct LevelEvent
 
 public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
 {
-
+    public string shipPrefabPath = "Prefab/Chunk/ShipContainer";
     private AsyncOperation asy;
-    public string playerPrefabPath = "Prefab/PlayerPrefab/Player";
+ 
 
 
-    public Transform startPoint;
     public SpawnLine[] spawnLineList;
-    public Ship currentShip;
+ 
 
     public LevelEntity currentLevel;
+
+    public bool needServicing = false;
 
     public LevelManager()
     {
@@ -89,12 +90,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
         }
 
     }
-    public void CollectLevelInfo()
-    {
-        startPoint = GameObject.Find("StartPoint").transform;
-        spawnLineList = GameObject.FindObjectsOfType<SpawnLine>();
-        currentShip = GameObject.FindObjectOfType<Ship>();
-    }
+
 
 
 
@@ -113,56 +109,42 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
             spawnLineList[i].StopSpawn();
         }
     }
-    public IEnumerator SpawnActorAtPos(string prefabpath, bool isactive, Vector3 pos, Quaternion rot, UnityAction<GameObject> callback)
+    public Ship SpawnShipAtPos(Vector3 pos, Quaternion rot, bool isactive)
     {
-        ResManager.Instance.LoadAsync<GameObject>(prefabpath, (obj) =>
-        {
-            obj.SetActive(isactive);
-            obj.transform.position = pos;
-            obj.transform.rotation = rot;
-            if (callback != null)
-            {
-                callback(obj);
-            }
-
-        });
-        yield return null;
+        return SpawnActorAtPos(shipPrefabPath, pos, rot, isactive).GetComponentInChildren<Ship>();
     }
-    public IEnumerator SpawnActorAtPos(string prefabpath,bool isactive,Transform trs, UnityAction<GameObject> callback)
+    public GameObject SpawnActorAtPos(string prefabpath,Vector3 pos, Quaternion rot, bool isactive = true)
     {
-        ResManager.Instance.LoadAsync<GameObject>(prefabpath, (obj) =>
-        {
-            obj.SetActive(isactive);
-            obj.transform.position = trs.position;
-            obj.transform.rotation = trs.rotation;
-            if(callback != null)
-            {
-                callback(obj);
-            }
-            
-        });
-        yield return null;
+        var obj = ResManager.Instance.Load<GameObject>(prefabpath);
+        obj.SetActive(isactive);
+        obj.transform.position = pos;
+        obj.transform.rotation = rot;
+
+        return obj;
     }
 
     public IEnumerator LoadScene(int levelindex,UnityAction<AsyncOperation> callback)
     {
         asy = SceneManager.LoadSceneAsync(levelindex);
-        asy.allowSceneActivation = false;
+       // asy.allowSceneActivation = false;
 
         while (asy.progress < 0.9f)
         {
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
-        asy.allowSceneActivation = true;
-        yield return null;
+        //asy.allowSceneActivation = true;
+        
+        while(!asy.isDone)
+        {
+            yield return null;
+        }
         callback?.Invoke(asy);
 
         yield return null;
     }
-    public IEnumerator LevelPreparing(string levelname,UnityAction callback = null)
+    public IEnumerator LoadLevel(string levelname,UnityAction<LevelEntity> callback = null)
     {
-        // yield return new WaitForSeconds(5);
-        CollectLevelInfo();
+
         LevelData data = null;
         //加载关卡
         if (currentLevel == null)
@@ -172,29 +154,28 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
             {
                 GameObject obj = ResManager.Instance.Load<GameObject>(data.LevelPrefabPath);
                 currentLevel = obj.GetComponent<LevelEntity>();
+                currentLevel.Initialization();
+                callback?.Invoke(currentLevel);
             }
         }
-
-        //创建舰船
-        //if (currentShip == null)
-        //{
-        //    var obj = ResManager.Instance.Load<GameObject>(GameManager.Instance.playerPrefabPath);
-        //    currentShip = obj.GetComponent<Ship>();
-
-
-        //    CameraManager.Instance.ChangeVCameraFollowTarget(obj.transform);
-        //    //CameraManager.Instance.ChangeVCameraLookAtTarget(obj.transform);
-        //    //CameraManager.Instance.SetVCameraBoard(GameObject.Find("CameraBoard").GetComponent<PolygonCollider2D>());
-
-        //    CameraManager.Instance.SetCameraUpdate(true);
-        //    PoolManager.Instance.ClearAll();
-
-        //    callback?.Invoke();
-        //}
+        else
+        {
+            currentLevel.Initialization();
+            callback?.Invoke(currentLevel);
+        }
 
         yield return null;
     }
 
+
+    public void UnloadCurrentLevel( )
+    {
+        if(currentLevel == null) { return; }
+        currentLevel.Unload();
+
+        GameObject.Destroy(currentLevel.gameObject);
+        currentLevel = null;
+    }
 
     public void GameOver()
     {
@@ -206,13 +187,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
 
     public void LevelReset()
     {
-        currentShip.transform.position = startPoint.position;
-        currentShip.transform.rotation = Quaternion.identity;
-        currentShip.controller.rb.velocity = Vector3.zero;
-        currentShip.gameObject.SetActive(true);
-        currentShip.Initialization();
-        currentShip.InitialShip();
-   
-        StartSpawn();
+
     }
 }

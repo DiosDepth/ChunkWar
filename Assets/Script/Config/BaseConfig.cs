@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseConfig : ScriptableObject
 {
     public int ID;
+    public UnitType Type;
     public string UnitName;
     public float HP = 100;
     public Sprite Icon;

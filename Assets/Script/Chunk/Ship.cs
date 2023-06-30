@@ -44,17 +44,25 @@ public enum ShipConditionState
 
 public class Ship : MonoBehaviour
 {
+
+
+
+
     public int physicalResources;
     public int energyResources;
     public List<string> artifacts;
 
     public GameObject CorePrefab;
     public GameObject BasePrefab;
+    public GameObject container;
     public GameObject chunksParent;
     public GameObject buildingsParent;
 
     public StateMachine<ShipMovementState> movementState;
     public StateMachine<ShipConditionState> conditionState;
+
+
+    public Core core;
 
     public ShipController controller;
     public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
@@ -63,72 +71,46 @@ public class Ship : MonoBehaviour
     public List<Building> BuildingList { set  {_buildingList = value; } get { return _buildingList; } }
     private List<Building> _buildingList = new List<Building>();
 
-    private ChunkPartMapInfo[,] ShipMap = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
+    private ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     private List<BuildingMapInfo> BuildInfoList = new List<BuildingMapInfo>();
 
 
-    private int[,] _defaultShipMap = new int[,]
-         {
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,2, 2 ,2,0,0,0,0,0,0,0,0,0},
 
-            { 0,0,0,0,0,0,0,0,0,2, 1 ,2,0,0,0,0,0,0,0,0,0},
-
-            { 0,0,0,0,0,0,0,0,0,2, 2 ,2,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-            { 0,0,0,0,0,0,0,0,0,0, 0 ,0,0,0,0,0,0,0,0,0,0},
-         };
 
     public void LoadRuntimeData(RuntimeData data)
     {
         physicalResources = data.physicalResources;
         energyResources = data.energyResources;
         artifacts = data.artifacts;
-        ShipMap = data.ShipMap;
+        ShipMapInfo = data.ShipMap;
         BuildInfoList = data.BuildingList;
-       
     }
 
 
     public void SaveRuntimeData()
     {
-        for (int row = 0; row < ShipMap.GetLength(0); row++)
+        for (int row = 0; row < ShipMapInfo.GetLength(0); row++)
         {
-            for (int colume = 0; colume < ShipMap.GetLength(1); colume++)
+            for (int colume = 0; colume < ShipMapInfo.GetLength(1); colume++)
             {
                 if(ChunkMap[row, colume] == null)
                 {
-                    ShipMap[row, colume] = null;
+                    ShipMapInfo[row, colume] = null;
                     continue;
                 }
 
                 if( ChunkMap[row,colume].GetType() ==  typeof(Core) )
                 {
-                    ShipMap[row, colume].type = ChunkType.Core;
+                    ShipMapInfo[row, colume].type = ChunkType.Core;
                 }
                 else
                 {
-                    ShipMap[row, colume].type = ChunkType.Base;
+                    ShipMapInfo[row, colume].type = ChunkType.Base;
                 }
-                ShipMap[row, colume].shipCoord = ChunkMap[row, colume].shipCoord;
-                ShipMap[row, colume].isOccupied = ChunkMap[row, colume].isOccupied;
-                ShipMap[row, colume].isBuildingPiovt = ChunkMap[row, colume].isBuildingPiovt;
-                ShipMap[row, colume].state = ChunkMap[row, colume].state;
+                ShipMapInfo[row, colume].shipCoord = ChunkMap[row, colume].shipCoord;
+                ShipMapInfo[row, colume].isOccupied = ChunkMap[row, colume].isOccupied;
+                ShipMapInfo[row, colume].isBuildingPiovt = ChunkMap[row, colume].isBuildingPiovt;
+                ShipMapInfo[row, colume].state = ChunkMap[row, colume].state;
             }
         }
 
@@ -137,12 +119,8 @@ public class Ship : MonoBehaviour
         for (int i = 0; i < BuildingList.Count; i++)
         {
             
-            BuildingMapInfo buildinfo = new BuildingMapInfo();
-            buildinfo.state = BuildingList[i].state;
-            buildinfo.unitName = BuildingList[i].unitName;
-            buildinfo.direction = BuildingList[i].direction;
-            buildinfo.pivot = BuildingList[i].pivot;
-            buildinfo.occupiedCoords = BuildingList[i].occupiedCoords;
+            BuildingMapInfo buildinfo = new BuildingMapInfo(BuildingList[i]);
+
 
             BuildInfoList.Add(buildinfo);
         }
@@ -150,7 +128,7 @@ public class Ship : MonoBehaviour
         GameManager.Instance.gameEntity.runtimeData.physicalResources = physicalResources;
         GameManager.Instance.gameEntity.runtimeData.energyResources = energyResources;
         GameManager.Instance.gameEntity.runtimeData.artifacts = artifacts;
-        GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMap;
+        GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMapInfo;
         GameManager.Instance.gameEntity.runtimeData.BuildingList = BuildInfoList;
     }
 
@@ -158,47 +136,46 @@ public class Ship : MonoBehaviour
     {
         if(movementState == null)
         {
-            movementState = new StateMachine<ShipMovementState>(this.gameObject, false);
+            movementState = new StateMachine<ShipMovementState>(this.gameObject, false,false);
         }
         if(conditionState == null)
         {
-            conditionState = new StateMachine<ShipConditionState>(this.gameObject, false);
+            conditionState = new StateMachine<ShipConditionState>(this.gameObject, false, false);
         }
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
     }
 
-    public void InitialShip ()
+    public virtual void InitialShip ()
     {
-
-
         GameObject obj = null;
         Vector2Int pos;
         //≥ı ºªØChunk
-        for (int row = 0; row < ShipMap.GetLength(0); row++)
+        for (int row = 0; row < ShipMapInfo.GetLength(0); row++)
         {
-            for (int colume = 0; colume < ShipMap.GetLength(1); colume++)
+            for (int colume = 0; colume < ShipMapInfo.GetLength(1); colume++)
             {
-                if (ShipMap[row, colume] == null)
+                if (ShipMapInfo[row, colume] == null)
                 {
                     continue;
                 }
                 pos = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
-                if (ShipMap[row,colume].type == ChunkType.Core)
+                if (ShipMapInfo[row,colume].type == ChunkType.Core)
                 {
                     obj = Instantiate(CorePrefab);
                     _chunkMap[row, colume] = obj.GetComponent<Core>();
+                    core = obj.GetComponent<Core>();
                 }
-                if(ShipMap[row, colume].type == ChunkType.Base)
+                if(ShipMapInfo[row, colume].type == ChunkType.Base)
                 {
                     obj = Instantiate(BasePrefab);
                     _chunkMap[row, colume] = obj.GetComponent<Base>();
                 }
 
-                _chunkMap[row, colume].shipCoord = ShipMap[row, colume].shipCoord;
-                _chunkMap[row, colume].state = ShipMap[row, colume].state;
-                _chunkMap[row, colume].isBuildingPiovt = ShipMap[row, colume].isBuildingPiovt;
-                _chunkMap[row, colume].isOccupied = ShipMap[row, colume].isOccupied;
+                _chunkMap[row, colume].shipCoord = ShipMapInfo[row, colume].shipCoord;
+                _chunkMap[row, colume].state = ShipMapInfo[row, colume].state;
+                _chunkMap[row, colume].isBuildingPiovt = ShipMapInfo[row, colume].isBuildingPiovt;
+                _chunkMap[row, colume].isOccupied = ShipMapInfo[row, colume].isOccupied;
                 _chunkMap[row, colume].state = UnitState.Normal;
 
                 if (obj != null)
@@ -248,28 +225,9 @@ public class Ship : MonoBehaviour
      
     }
 
-    public void ResetShip()
+    public virtual void ResetShip()
     {
-        for (int row = 0; row < _defaultShipMap.GetLength(0); row++)
-        {
-            for (int colume = 0; colume < _defaultShipMap.GetLength(1); colume++)
-            {
-                if(_defaultShipMap[row,colume] == 2)
-                {
-                    ShipMap[row, colume] = new ChunkPartMapInfo();
-                    ShipMap[row, colume].type = ChunkType.Base;
-                }
-                if(_defaultShipMap[row, colume] == 1)
-                {
-                    ShipMap[row, colume] = new ChunkPartMapInfo();
-                    ShipMap[row, colume].type = ChunkType.Core;
-                }
-                if(_defaultShipMap[row, colume] == 0)
-                {
-                    ShipMap[row, colume] = null;
-                }
-            }
-        }
+      
     }
 
     // Start is called before the first frame update
@@ -280,14 +238,51 @@ public class Ship : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void  Update()
+    {
+        HandleMovement();
+        HandleRotation();
+    }
+
+    public virtual void HandleMovement()
+    {
+        
+    }
+
+    public virtual void HandleRotation()
+    {
+
+    }
+
+    public virtual void Death()
+    {
+
+    }
+
+    public virtual void Ability()
+    {
+
+    }
+
+
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
+
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
     {
         
     }
 
 
-    
-
+    //---------------------------------------------------------------------------------------Tools
 
     public Chunk GetChunkFromShipCoordinate(Vector2Int shipcoord)
     {
@@ -418,18 +413,18 @@ public class Ship : MonoBehaviour
     public override string ToString()
     {
         string line = "";
-        for (int x = 0; x < ShipMap.GetLength(0); x++)
+        for (int x = 0; x < ShipMapInfo.GetLength(0); x++)
         {
             line += "{ ";
-            for (int y = 0; y < ShipMap.GetLength(1); y++)
+            for (int y = 0; y < ShipMapInfo.GetLength(1); y++)
             {
-                if (y == ShipMap.GetLength(1) - 1)
+                if (y == ShipMapInfo.GetLength(1) - 1)
                 {
-                    line += ShipMap[x, y] + "} \n";
+                    line += ShipMapInfo[x, y] + "} \n";
                 }
                 else
                 {
-                    line += ShipMap[x, y] + ",";
+                    line += ShipMapInfo[x, y] + ",";
                 }
 
             }

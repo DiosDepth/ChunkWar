@@ -29,7 +29,7 @@ public class MainMenu : GUIBasePanel
         GetGUIComponent<Button>("Play").onClick.AddListener(PlayButtonPressed);
         GetGUIComponent<Button>("Options").onClick.AddListener(OptionButtonPressed);
         GetGUIComponent<Button>("Quit").onClick.AddListener(QuitButtonPressed);
-        LoadSaveData();
+
     }
 
     public override void Show()
@@ -39,7 +39,7 @@ public class MainMenu : GUIBasePanel
 
     public void PlayButtonPressed()
     {
-        GameEvent.Trigger(GameState.ShipSelection);
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_ShipSelection);
 
     }
 
@@ -74,14 +74,8 @@ public class MainMenu : GUIBasePanel
         }
 
 
-        UpdateNewRecord();
+ 
     }
 
-    public void UpdateNewRecord()
-    {
-        TMP_Text scoretmp = GetGUIComponent<TMP_Text>("Score");
-        TMP_Text datetmp = GetGUIComponent<TMP_Text>("Date");
-        scoretmp.text = GameManager.Instance.gameEntity.saveData.newRecord.ToString();
-        datetmp.text = GameManager.Instance.gameEntity.saveData.date.ToString();
-    }
+
 }

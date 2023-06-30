@@ -30,12 +30,12 @@ public class Record : GUIBasePanel
 
     private void TryAgainClick()
     {
-        GameEvent.Trigger(GameState.GameReset);
+        GameEvent.Trigger(EGameState.EGameState_GameReset);
     }
 
     private void GiveUpClick()
     {
-        GameEvent.Trigger(GameState.GameEnd);
+        GameEvent.Trigger(EGameState.EGameState_GameEnd);
     }
 
     public void UpdateRecord(int record)

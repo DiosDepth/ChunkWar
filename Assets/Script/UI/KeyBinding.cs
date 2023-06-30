@@ -65,9 +65,9 @@ public class KeyBinding : GUIBasePanel
         base.Show();
     }
 
-    public override void Hidden(string m_uiname)
+    public override void Hidden( )
     {
-        base.Hidden(m_uiname);
+        base.Hidden();
     }
 
     public void Accept()

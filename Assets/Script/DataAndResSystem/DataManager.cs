@@ -13,6 +13,7 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<string, TestaDataInfo> TestDataDic = new Dictionary<string, TestaDataInfo>();
     public Dictionary<string, SoundDataInfo> SoundDataDic = new Dictionary<string, SoundDataInfo>();
     public Dictionary<string, BaseUnitConfig> UnitConfigDataDic = new Dictionary<string, BaseUnitConfig>();
+    public Dictionary<string, ShipConfig> ShipConfigDic = new Dictionary<string, ShipConfig>();
     public Dictionary<string, LevelData> LevelDataDic = new Dictionary<string, LevelData>();
 
 
@@ -164,6 +165,20 @@ public class DataManager : Singleton<DataManager>
                     {
                         unitconfig = ResManager.Instance.Load<BaseUnitConfig>(kv.Value.ConfigPath);
                         UnitConfigDataDic.Add(unitconfig.UnitName, unitconfig);
+                    }
+                    Debug.Log("UnitConfigData has been loaded!");
+
+                }));
+                break;
+            case "ShipConfigData.csv":
+                Dictionary<string, ShipConfigData> shipDic = new Dictionary<string, ShipConfigData>();
+                MonoManager.Instance.StartCoroutine(LoadingData<ShipConfigData>(m_fileinfo, shipDic, () =>
+                {
+                    ShipConfig shipconfig;
+                    foreach (KeyValuePair<string, ShipConfigData> kv in shipDic)
+                    {
+                        shipconfig = ResManager.Instance.Load<ShipConfig>(kv.Value.ConfigPath);
+                        ShipConfigDic.Add(shipconfig.UnitName, shipconfig);
                     }
                     Debug.Log("UnitConfigData has been loaded!");
 

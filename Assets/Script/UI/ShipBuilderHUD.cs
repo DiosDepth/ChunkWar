@@ -24,8 +24,9 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
       
         
         this.EventStartListening<InventoryEvent>();
-        UpdateSlotList(buildingSlotList, (owner as ShipBuilder).buildingInventory, UnitType.Buildings);
-        UpdateSlotList(chunkPartSlotList, (owner as ShipBuilder).chunkPartInventory,UnitType.ChunkParts);
+        GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
+        UpdateSlotList(buildingSlotList, GameManager.Instance.gameEntity.buildingInventory, UnitType.Buildings);
+        UpdateSlotList(chunkPartSlotList, GameManager.Instance.gameEntity.chunkPartInventory,UnitType.ChunkParts);
 
 
     }
@@ -35,15 +36,26 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
         
     }
 
-    public override void Hidden(string m_uiname)
+    public override void Hidden( )
     {
         this.EventStopListening<InventoryEvent>();
-        base.Hidden(m_uiname);
+        base.Hidden();
 
+    }
+
+    public void OnLaunchBtnPressed()
+    {
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
     }
 
     public void UpdateSlotList(List<ItemGUISlot> list, Inventory inventory,UnitType type)
     {
+        if(inventory.IsEmpty())
+        {
+            return;
+        }
+
+
         for (int i = 0; i < list.Count; i++)
         {
             Destroy(list[i].gameObject);
@@ -51,7 +63,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
         list.Clear();
 
 
-        foreach(KeyValuePair<string, InventoryItem> kv in inventory.storeDic)
+        foreach(KeyValuePair<string, InventoryItem> kv in inventory)
         {
             switch (type)
             {
@@ -93,7 +105,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
         var slotinfo = obj.GetComponent<ItemGUISlot>();
         list.Add(slotinfo);
         slotinfo.Initialization(list.Count - 1, uiGroup.GetComponent<RectTransform>(), m_item);
-        
     }
     public void RemoveSlot(int m_index)
     {

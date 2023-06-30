@@ -26,6 +26,7 @@ public class UIManager : Singleton<UIManager>
     private RectTransform top;
     private RectTransform system;
 
+    private object tempowner;
     //public PlayerHUD playerHUD;
     // Start is called before the first frame update
     public UIManager()
@@ -36,19 +37,10 @@ public class UIManager : Singleton<UIManager>
         GameObject.DontDestroyOnLoad(obj);
         obj = ResManager.Instance.Load<GameObject>(resPath + "EventSystem");
         GameObject.DontDestroyOnLoad(obj);
-
-    
-
-
         GetUILayer(ref system, "System", canvas);
         GetUILayer(ref bot, "Bot", canvas);
         GetUILayer(ref mid, "Mid", canvas);
         GetUILayer(ref top, "Top", canvas);
-
-
-
-
-
     }
 
     public GUIBasePanel GetGUIFromDic(string name)
@@ -120,6 +112,7 @@ public class UIManager : Singleton<UIManager>
                 return;
             }
         }
+        tempowner = m_owner;
         ResManager.Instance.LoadAsync<GameObject>(resPath + m_uiname, (obj) =>
         {
             Transform t_father = bot;
@@ -146,7 +139,7 @@ public class UIManager : Singleton<UIManager>
             (obj.transform as RectTransform).offsetMin = Vector2.zero;
 
             T panel = obj.GetComponent<T>();
-            panel.owner = m_owner;
+            panel.owner = tempowner;
             if (callback != null)
             {
                 callback(panel);
@@ -182,7 +175,7 @@ public class UIManager : Singleton<UIManager>
             FadeUI(panelDic[m_uiname].uiGroup, 0, 1, 0, fadetime, () =>
             {
 
-                panelDic[m_uiname].Hidden(m_uiname);
+                panelDic[m_uiname].Hidden();
 
                 if (panelDic[m_uiname].gameObject != null)
                 {
@@ -192,8 +185,6 @@ public class UIManager : Singleton<UIManager>
                 panelDic.Remove(m_uiname);
             });
         }
-
-
     }
 
     public void SetUITRSParent(GameObject obj, E_UI_Layer layer = E_UI_Layer.Mid)
@@ -220,14 +211,41 @@ public class UIManager : Singleton<UIManager>
     {
         if (panelDic.ContainsKey(m_uiname))
         {
-            panelDic[m_uiname].Hidden(m_uiname);
+            panelDic[m_uiname].Hidden();
             if(panelDic[m_uiname].gameObject != null)
             {
                 GameObject.Destroy(panelDic[m_uiname].gameObject);
             }
-            
             panelDic.Remove(m_uiname);
         }
+    }
+
+
+    public void HiddenUIALLBut(List<string> exceptionlist = null, bool iskeepBG = true )
+    {
+        
+        List<string> removelist = new List<string>();
+
+        foreach(KeyValuePair<string ,GUIBasePanel> kv in panelDic)
+        {
+            if (iskeepBG)
+            {
+                if(kv.Key == "BackGround")
+                {
+                    continue;
+                }
+            }
+            if(exceptionlist == null || !exceptionlist.Contains(kv.Key))
+            {
+                removelist.Add(kv.Key);
+            }
+        }
+
+        for (int i = 0; i < removelist.Count; i++)
+        {
+            HiddenUI(removelist[i]);
+        }
+        
     }
 
     private void GetUILayer(ref RectTransform trs, string name, Transform parent)

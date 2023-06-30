@@ -32,14 +32,36 @@ public class StateMachine<T>: IStateMachine where T : struct, IComparable, IConv
 
     public GameObject Target;
 
+
+    public Dictionary<T, State> StateDic = new Dictionary<T, State>();
     public T CurrentState { get; protected set; }
     public T PreviousState { get; protected set; }
 
-    public StateMachine(GameObject target, bool triggerEvents)
+
+
+    public StateMachine(GameObject target, bool triggerEvents,bool usingState)
     {
         this.Target = target;
         this.TriggerEvents = triggerEvents;
+
+        if(usingState)
+        {
+            Type classtype;
+            T[] stateenum = (T[])Enum.GetValues(typeof(T));
+            foreach( T value in stateenum)
+            {
+                classtype = Type.GetType(value.ToString());
+                if( classtype != null)
+                {
+                    State instance = Activator.CreateInstance(classtype) as State;
+                    StateDic.Add(value, instance);
+                }
+
+            }
+        }
     }
+
+
 
     public virtual void ChangeState(T newState)
     {
@@ -48,14 +70,31 @@ public class StateMachine<T>: IStateMachine where T : struct, IComparable, IConv
             return;
         }
 
+
         PreviousState = CurrentState;
+
+        if (StateDic.ContainsKey(PreviousState))
+        {
+            MonoManager.Instance.RemoveUpdateListener(StateDic[PreviousState].OnUpdate);
+            StateDic[PreviousState].OnExit();
+        }
+
+
+      
         CurrentState = newState;
 
+
+        if (StateDic.ContainsKey(CurrentState))
+        {
+            StateDic[CurrentState].OnEnter();
+            MonoManager.Instance.AddUpdateListener(StateDic[CurrentState].OnUpdate);
+        }
         if(TriggerEvents)
         {
             EventCenter.Instance.TriggerEvent(new StateChangeEvent<T>(this));
         }
     }
+
 
     public virtual void RestorePreviousState()
     {

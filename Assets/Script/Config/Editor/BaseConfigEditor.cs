@@ -6,7 +6,7 @@ using UnityEditor;
 
 
 [CustomEditor(typeof(BaseConfig))]
-public class BaseCongifEditor : Editor
+public class BaseConfigEditor : Editor
 {
 
 
@@ -16,6 +16,6 @@ public class BaseCongifEditor : Editor
     }
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        
     }
 }
