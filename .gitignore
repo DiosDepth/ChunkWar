@@ -4,3 +4,5 @@ Library/
 Assembly-CSharp.csproj
 Assembly-CSharp-Editor.csproj
 ChunkWar.sln
+obj/Debug
+.vs/ChunkWar/v16
