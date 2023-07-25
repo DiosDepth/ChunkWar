@@ -15,9 +15,13 @@ public enum ChunkType
 public enum ShipType
 {
     Base,
-    LightShip,
-    SpeedShip,
-    HeavyShip,
+    Lancer,
+    Phoenix,
+    Guardian,
+    Ranger,
+    Zealot,
+    Immortal,
+    Archon,
 }
 
 
@@ -42,20 +46,20 @@ public enum ShipConditionState
     Attack,
 }
 
-public class Ship : MonoBehaviour
+public class Ship : MonoBehaviour,IDamageble
 {
 
 
 
-
+    public bool isDebug;
     public int physicalResources;
     public int energyResources;
     public List<string> artifacts;
 
-    public GameObject CorePrefab;
-    public GameObject BasePrefab;
+
     public GameObject container;
-    public GameObject chunksParent;
+    public SpriteRenderer sprite;
+    public Transform shipMapCenter;
     public GameObject buildingsParent;
 
     public StateMachine<ShipMovementState> movementState;
@@ -63,16 +67,17 @@ public class Ship : MonoBehaviour
 
 
     public Core core;
+    public Weapon mainWeapon;
 
     public ShipController controller;
     public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
     private Chunk[,] _chunkMap = new Chunk[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
 
-    public List<Building> BuildingList { set  {_buildingList = value; } get { return _buildingList; } }
-    private List<Building> _buildingList = new List<Building>();
+    public List<Unit> UnitList { set  {_unitList = value; } get { return _unitList; } }
+    private List<Unit> _unitList = new List<Unit>();
 
     private ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
-    private List<BuildingMapInfo> BuildInfoList = new List<BuildingMapInfo>();
+    private List<UnitInfo> UnitInfoList = new List<UnitInfo>();
 
 
 
@@ -83,7 +88,7 @@ public class Ship : MonoBehaviour
         energyResources = data.energyResources;
         artifacts = data.artifacts;
         ShipMapInfo = data.ShipMap;
-        BuildInfoList = data.BuildingList;
+        UnitInfoList = data.BuildingList;
     }
 
 
@@ -114,22 +119,22 @@ public class Ship : MonoBehaviour
             }
         }
 
-        BuildInfoList.Clear();
+        UnitInfoList.Clear();
 
-        for (int i = 0; i < BuildingList.Count; i++)
+        for (int i = 0; i < UnitList.Count; i++)
         {
             
-            BuildingMapInfo buildinfo = new BuildingMapInfo(BuildingList[i]);
+            UnitInfo buildinfo = new UnitInfo(UnitList[i]);
 
 
-            BuildInfoList.Add(buildinfo);
+            UnitInfoList.Add(buildinfo);
         }
     
         GameManager.Instance.gameEntity.runtimeData.physicalResources = physicalResources;
         GameManager.Instance.gameEntity.runtimeData.energyResources = energyResources;
         GameManager.Instance.gameEntity.runtimeData.artifacts = artifacts;
         GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMapInfo;
-        GameManager.Instance.gameEntity.runtimeData.BuildingList = BuildInfoList;
+        GameManager.Instance.gameEntity.runtimeData.BuildingList = UnitInfoList;
     }
 
     public void Initialization()
@@ -142,6 +147,7 @@ public class Ship : MonoBehaviour
         {
             conditionState = new StateMachine<ShipConditionState>(this.gameObject, false, false);
         }
+        controller.Initialization();
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
     }
@@ -162,67 +168,87 @@ public class Ship : MonoBehaviour
                 pos = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
                 if (ShipMapInfo[row,colume].type == ChunkType.Core)
                 {
-                    obj = Instantiate(CorePrefab);
-                    _chunkMap[row, colume] = obj.GetComponent<Core>();
-                    core = obj.GetComponent<Core>();
+
+                    core = new Core();
+                   _chunkMap[row, colume] = core;
                 }
+
                 if(ShipMapInfo[row, colume].type == ChunkType.Base)
                 {
-                    obj = Instantiate(BasePrefab);
-                    _chunkMap[row, colume] = obj.GetComponent<Base>();
+
+                    _chunkMap[row, colume] = new Base();
                 }
 
                 _chunkMap[row, colume].shipCoord = ShipMapInfo[row, colume].shipCoord;
                 _chunkMap[row, colume].state = ShipMapInfo[row, colume].state;
                 _chunkMap[row, colume].isBuildingPiovt = ShipMapInfo[row, colume].isBuildingPiovt;
                 _chunkMap[row, colume].isOccupied = ShipMapInfo[row, colume].isOccupied;
-                _chunkMap[row, colume].state = UnitState.Normal;
-
-                if (obj != null)
-                {
-                    obj.transform.parent = chunksParent.transform;
-                    //位置和数组的遍历方式相反
-                    obj.transform.localPosition = new Vector3(pos.x, pos.y);
-                }
+                _chunkMap[row, colume].state = DamagableState.Normal;
             }
         }
         //初始化Building
 
-        BaseUnitConfig unitconfig;
-        Vector2Int occupiedarray;
-        for (int i = 0; i < BuildInfoList.Count; i++)
+        //BaseUnitConfig unitconfig;
+        //Vector2Int occupiedarray;
+        for (int i = 0; i < UnitInfoList.Count; i++)
         {
-            DataManager.Instance.UnitConfigDataDic.TryGetValue(BuildInfoList[i].unitName, out unitconfig);
-            obj = Instantiate(unitconfig.Prefab);
-            Building building;
-            if(obj!= null)
-            {
 
-                building = obj.GetComponent<Building>();
+            RestoreUnitFromUnitInfo(UnitInfoList[i]);
+            //DataManager.Instance.UnitConfigDataDic.TryGetValue(UnitInfoList[i].unitName, out unitconfig);
+            //obj = Instantiate(unitconfig.Prefab);
+            //Unit tempunit;
+            //if(obj!= null)
+            //{
 
-                if( building != null)
-                {
-                    building.direction = BuildInfoList[i].direction;
-                    building.pivot = _buildingList[i].pivot;
-                    building.occupiedCoords = _buildingList[i].occupiedCoords;
-                    building.unitName = _buildingList[i].unitName;
-                    building.state = UnitState.Normal;
+            //    tempunit = obj.GetComponent<Unit>();
 
-                    for (int n = 0; n < building.occupiedCoords.Count; n++)
-                    {
-                        occupiedarray = GameHelper.CoordinateMapToArray(building.occupiedCoords[i], GameGlobalConfig.ShipMapSize);
-                        _chunkMap[occupiedarray.x, occupiedarray.y].building = building;
-                    }
+            //    if( tempunit != null)
+            //    {
+            //        tempunit.direction = UnitInfoList[i].direction;
+            //        tempunit.pivot = UnitInfoList[i].pivot;
+            //        tempunit.occupiedCoords = UnitInfoList[i].occupiedCoords;
+            //        tempunit.unitName = UnitInfoList[i].unitName;
+            //        tempunit.state = DamagableState.Normal;
 
-                    obj.transform.parent = buildingsParent.transform;
-                    obj.transform.localPosition = new Vector3(building.pivot.x, building.pivot.y, 0);
-                    obj.transform.rotation = Quaternion.Euler(0, 0, -90 * building.direction);
+            //        for (int n = 0; n < tempunit.occupiedCoords.Count; n++)
+            //        {
+            //            occupiedarray = GameHelper.CoordinateMapToArray(tempunit.occupiedCoords[n], GameGlobalConfig.ShipMapSize);
+            //            _chunkMap[occupiedarray.x, occupiedarray.y].unit = tempunit;
+            //        }
 
-                    _buildingList.Add(building);
-                }
-            }
+            //        obj.transform.parent = buildingsParent.transform;
+            //        obj.transform.localPosition = new Vector3(tempunit.pivot.x + shipMapCenter.localPosition.x, tempunit.pivot.y + shipMapCenter.localPosition.y, 0);
+            //        obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
+
+            //        _unitList.Add(tempunit);
+            //    }
+            //}
         }
-     
+
+        //初始化主武器
+        if( mainWeapon == null)
+        {
+            string weaponname = (GameManager.Instance.gameEntity.currentShipSelection.itemconfig as ShipConfig).MainWeapon.ToString();
+            BaseUnitConfig weaponconfig;
+            DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponname, out weaponconfig);
+            Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);
+
+
+
+            mainWeapon = AddUnit(weaponconfig, _reletivemap, core.shipCoord, 0) as Weapon;
+            //obj = Instantiate(weaponconfig.Prefab);
+            //obj.transform.parent = buildingsParent.transform;
+            //obj.transform.localPosition = new Vector3(shipMapCenter.localPosition.x,  shipMapCenter.localPosition.y, 0);
+            //obj.transform.rotation = Quaternion.identity;
+
+            //core.unit = obj.GetComponent<Weapon>() as Unit;
+        }
+
+        mainWeapon.Initialization();
+
+
+
+
     }
 
     public virtual void ResetShip()
@@ -240,18 +266,12 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     public virtual void  Update()
     {
-        HandleMovement();
-        HandleRotation();
+
     }
 
-    public virtual void HandleMovement()
+    public virtual void OnDestroy()
     {
-        
-    }
-
-    public virtual void HandleRotation()
-    {
-
+        Destroy(mainWeapon.gameObject);
     }
 
     public virtual void Death()
@@ -294,19 +314,7 @@ public class Ship : MonoBehaviour
         return _chunkMap[arraycoord.x, arraycoord.y];
     }
 
-    public Vector2Int GetShipCoordinateFromWorldPos(Vector2 worldpos)
-    {
-        Vector2 reletivePos = worldpos - transform.position.ToVector2();
-         Vector2Int roundPos = reletivePos.Round();
 
-        return roundPos;
-    }
-
-    public Vector2 GetWorldPosFromShipCoordinate(Vector2Int shipcoord)
-    {
-        Vector3 coord = transform.TransformPoint(shipcoord.ToVector3());
-        return coord.ToVector2();
-    }
 
     public Vector2Int CoordinateArrayToShip(Vector2Int arraycoord)
     {
@@ -398,6 +406,124 @@ public class Ship : MonoBehaviour
 
         return closelist.ToArray();
     }
+
+    public Unit AddUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction)
+    {
+        GameObject obj;
+        Vector2Int buildarray;
+        obj = Instantiate(m_unitconfig.Prefab);
+        obj.transform.parent = buildingsParent.transform;
+        obj.transform.localPosition = new Vector3(m_poscoord.x + shipMapCenter.localPosition.x, m_poscoord.y + shipMapCenter.localPosition.y);
+        Unit tempunit = obj.GetComponent<Unit>();
+        tempunit.direction = m_direction;
+        obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
+        tempunit.unitName = m_unitconfig.UnitName;
+
+
+        //创建Building的Prefab并且归类放好
+
+
+        //设置对应的ChunMap信息，比如是否为Piovt， 是否被占用等。
+        if (m_unitmap.Length > 0)
+        {
+            for (int i = 0; i < m_unitmap.Length; i++)
+            {
+                buildarray = GameHelper.CoordinateMapToArray(m_unitmap[i], GameGlobalConfig.ShipMapSize);
+
+
+                ChunkMap[buildarray.x, buildarray.y].unit = tempunit;
+
+                if (m_unitmap[i] == m_poscoord)
+                {
+                    ChunkMap[buildarray.x, buildarray.y].isBuildingPiovt = true;
+
+                    tempunit.pivot = m_unitmap[i];
+                }
+                ChunkMap[buildarray.x, buildarray.y].isOccupied = true;
+
+                tempunit.occupiedCoords.Add(m_unitmap[i]);
+            }
+        }
+
+        _unitList.Add(tempunit);
+        return tempunit;
+    }
+
+    public Unit RestoreUnitFromUnitInfo(UnitInfo m_unitInfo)
+    {
+        BaseUnitConfig unitconfig;
+        Vector2Int occupiedarray;
+        GameObject obj;
+        Unit tempunit;
+
+        DataManager.Instance.UnitConfigDataDic.TryGetValue(m_unitInfo.unitName, out unitconfig);
+        obj = Instantiate(unitconfig.Prefab);
+
+
+        if (obj != null)
+        {
+            tempunit = obj.GetComponent<Unit>();
+
+            if (tempunit != null)
+            {
+                tempunit.direction = m_unitInfo.direction;
+                tempunit.pivot = m_unitInfo.pivot;
+                tempunit.occupiedCoords = m_unitInfo.occupiedCoords;
+                tempunit.unitName = m_unitInfo.unitName;
+                tempunit.state = DamagableState.Normal;
+
+
+                 
+                for (int n = 0; n < tempunit.occupiedCoords.Count; n++)
+                {
+                    occupiedarray = GameHelper.CoordinateMapToArray(tempunit.occupiedCoords[n], GameGlobalConfig.ShipMapSize);
+                    _chunkMap[occupiedarray.x, occupiedarray.y].unit = tempunit;
+                }
+
+
+                if(unitconfig.unitType == UnitType.MainWeapons)
+                {
+                    mainWeapon = tempunit as Weapon;
+                }
+
+                obj.transform.parent = buildingsParent.transform;
+                obj.transform.localPosition = new Vector3(tempunit.pivot.x + shipMapCenter.localPosition.x, tempunit.pivot.y + shipMapCenter.localPosition.y, 0);
+                obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
+
+                _unitList.Add(tempunit);
+            }
+            return tempunit;
+        }
+
+        return null;
+    }
+
+    public void RemoveUnit(Unit m_unit)
+    {
+        if (!UnitList.Contains(m_unit)) { return; }
+
+        Vector2Int temparrycoord;
+        for (int i = 0; i < m_unit.occupiedCoords.Count; i++)
+        {
+            temparrycoord = GameHelper.CoordinateMapToArray(m_unit.occupiedCoords[i], GameGlobalConfig.BuildingMapSize);
+            _chunkMap[temparrycoord.x, temparrycoord.y].isOccupied = false;
+            _chunkMap[temparrycoord.x, temparrycoord.y].unit = null;
+            _chunkMap[temparrycoord.x, temparrycoord.y].isBuildingPiovt = false;
+        }
+
+        UnitList.Remove(m_unit);
+        GameObject.Destroy(m_unit.gameObject);
+    }
+
+    public void RemoveUnit(Chunk m_chunk)
+    {
+        if(m_chunk == null || !m_chunk.isOccupied || m_chunk.unit == null) { return; }
+
+        RemoveUnit(m_chunk.unit);
+
+    }
+
+
     public bool IsUnderShipSize(Vector2Int shipcoord)
     {
         if(shipcoord.x.IsInRange(-GameGlobalConfig.ShipMapSize, GameGlobalConfig.ShipMapSize) && shipcoord.y.IsInRange(-GameGlobalConfig.ShipMapSize, GameGlobalConfig.ShipMapSize))
@@ -432,6 +558,42 @@ public class Ship : MonoBehaviour
         return line;
     }
 
+    public void OnDrawGizmos()
+    {
+        if (!isDebug) { return; }
+        for (int row = 0; row < ShipMapInfo.GetLength(0); row++)
+        {
+            for (int colume = 0; colume < ShipMapInfo.GetLength(1); colume++)
+            {
+                if(ShipMapInfo[row, colume] != null)
+                {
+                    if(ShipMapInfo[row,colume].type == ChunkType.Core)
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawCube(GameHelper.GetWorldPosFromReletiveCoord(shipMapCenter, ShipMapInfo[row, colume].shipCoord), Vector3.one);
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.yellow;
+                        Gizmos.DrawCube(GameHelper.GetWorldPosFromReletiveCoord(shipMapCenter, ShipMapInfo[row, colume].shipCoord), Vector3.one);
+                    }
+                }
+                if (_chunkMap[row, colume] != null)
+                {
+                    if(_chunkMap[row,colume].isOccupied == true)
+                    {
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawCube(GameHelper.GetWorldPosFromReletiveCoord(shipMapCenter, ShipMapInfo[row, colume].shipCoord), Vector3.one);
+                    }
+                }
+            }
 
 
+        }
+    }
+
+    public void TakeDamage()
+    {
+        throw new System.NotImplementedException();
+    }
 }

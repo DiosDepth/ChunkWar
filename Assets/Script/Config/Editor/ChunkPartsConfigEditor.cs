@@ -10,6 +10,7 @@ public class ChunkPartsConfigEditor : BaseUnitConfigEditor
 {
     public override void OnEnable()
     {
+     
         base.OnEnable();
     }
     public override void OnInspectorGUI()

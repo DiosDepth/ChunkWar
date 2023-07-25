@@ -219,7 +219,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public void InitialRuntimeData()
     {
-        gameEntity.runtimeData = new RuntimeData((gameEntity.currentShipSelection.itemconfig as ShipConfig).ShipMap);
+        gameEntity.runtimeData = new RuntimeData((gameEntity.currentShipSelection.itemconfig as ShipConfig).Map);
     }
 
     public void OnEvent(ScoreEvent evt)

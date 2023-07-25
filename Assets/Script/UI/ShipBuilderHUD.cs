@@ -9,8 +9,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
 
 
     public List<ItemGUISlot> buildingSlotList = new List<ItemGUISlot>();
-    public List<ItemGUISlot> chunkPartSlotList = new List<ItemGUISlot>();
-    public RectTransform chunkPartsSlotGroup;
+
     public RectTransform buildingSlotGroup;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +25,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
         this.EventStartListening<InventoryEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         UpdateSlotList(buildingSlotList, GameManager.Instance.gameEntity.buildingInventory, UnitType.Buildings);
-        UpdateSlotList(chunkPartSlotList, GameManager.Instance.gameEntity.chunkPartInventory,UnitType.ChunkParts);
+       
 
 
     }
@@ -67,10 +66,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
         {
             switch (type)
             {
-                case UnitType.ChunkParts:
-
-                    AddSlot(list, kv.Value,chunkPartsSlotGroup);
-                    break;
                 case UnitType.Buildings:
                     AddSlot(list, kv.Value, buildingSlotGroup);
                     break;
@@ -80,25 +75,13 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>
 
     }
 
-    public void EditorModeChangeButtonPressed()
-    {
-        var builder = owner as ShipBuilder;
-        if(builder.editorMode == ShipBuilder.EditorMode.ShipEditorMode)
-        {
-            builder.ChangeEditorMode(ShipBuilder.EditorMode.BuildingEditorMode);
-        }
-        else
-        {
-            builder.ChangeEditorMode(ShipBuilder.EditorMode.ShipEditorMode);
-        }
 
-        GetGUIComponent<TMP_Text>("EditorMode_Text").text = builder.editorMode.ToString();
-    }
+
     public void AddSlot(List<ItemGUISlot> list,InventoryItem m_item, RectTransform m_slotgroup)
     {
         var obj = ResManager.Instance.Load<GameObject>(UIManager.Instance.resPath + "ItemGUISlot");
         RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.parent = m_slotgroup;
+        rect.SetParent(m_slotgroup);
         rect.localScale = Vector3.one;
 
 

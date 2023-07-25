@@ -51,9 +51,9 @@ TagManager:
   - name: Player
     uniqueID: 3892966659
     locked: 0
-  - name: VFX
+  - name: Sprite
     uniqueID: 3089659359
     locked: 0
-  - name: Sprite
+  - name: VFX
     uniqueID: 3168972551
     locked: 0

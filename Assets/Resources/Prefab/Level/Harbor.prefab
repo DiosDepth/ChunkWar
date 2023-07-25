@@ -519,7 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brickCount: 100
   brickConsumePerChunk: 5
-  editorMode: 0
+  editorMode: 1
   CorePrefab: {fileID: 432568580045104789, guid: d314c1cc4f501a8479abd68e24f34447,
     type: 3}
   BasePrefab: {fileID: 432568580045104789, guid: 37d87e5c0cf72ca4d8fe46349cd3a3c1,
@@ -529,7 +529,6 @@ MonoBehaviour:
   brushValidColor: {r: 1, g: 0.77835596, b: 0, a: 0.5019608}
   brushInvalidColor: {r: 1, g: 0, b: 0.28504562, a: 0.5019608}
   currentBuilding: {fileID: 0}
-  currentChunk: {fileID: 0}
   currentInventoryItem:
     iscountless: 0
     count: 0
@@ -841,6 +840,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1354671227, guid: 8253ac024b22d4c4e800dc8479a6b852,
         type: 3}
+    - target: {fileID: 655347245, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 655347245, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
+      propertyPath: m_SortingOrder
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 655347245, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1205307937
+      objectReference: {fileID: 0}
     - target: {fileID: 655347245, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1

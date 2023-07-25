@@ -245,4 +245,8 @@ MonoBehaviour:
   ship: {fileID: 6993558967189686128}
   rb: {fileID: 5969374876270109530}
   collider: {fileID: 3963970854634867795}
-  movement: {x: 0, y: 0, z: 0}
+  maxSpeed: 10
+  acceleration: 3
+  thresholdMoveSpeed: 0.01
+  chargeAttackMoveSpeedModifer: 0.3
+  rotateSpeed: 45

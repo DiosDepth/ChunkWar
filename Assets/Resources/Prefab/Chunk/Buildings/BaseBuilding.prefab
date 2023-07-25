@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4947179278027536151}
-  - component: {fileID: 4947179278027536232}
+  - component: {fileID: -5344342041852483219}
   m_Layer: 0
   m_Name: BaseBuilding
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4947179278027536232
+--- !u!114 &-5344342041852483219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9d96b72d6a3fa44a1bcc723847a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseconfig: {fileID: 11400000, guid: 2c36d02ad328aaf4ba380b10c8bbee1f, type: 2}
+  unitName: BaseBuilding
+  hp: 100
+  state: 1
+  buildingSprite: {fileID: 4947179279536623990}
+  direction: 0
+  pivot: {x: 0, y: 0}
+  occupiedCoords: []
 --- !u!1 &4947179279536623991
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,9 +122,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1205307937
+  m_SortingLayer: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: -1354671227, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

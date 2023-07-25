@@ -1,4 +1,8 @@
 ID,Name,ShipConfigPath
-1,Configs_Ship_001,Configs/Ships/Configs_Ship_001
-2,Configs_Ship_002,Configs/Ships/Configs_Ship_002
-3,Configs_Ship_003,Configs/Ships/Configs_Ship_003
+1,Configs_Ship_Lancer,Configs/Ships/Configs_Ship_Lancer
+2,Configs_Ship_Phoenix,Configs/Ships/Configs_Ship_Phoenix
+3,Configs_Ship_Guardian,Configs/Ships/Configs_Ship_Guardian
+4,Configs_Ship_Ranger,Configs/Ships/Configs_Ship_Ranger
+5,Configs_Ship_Zealot,Configs/Ships/Configs_Ship_Zealot
+6,Configs_Ship_Immortal,Configs/Ships/Configs_Ship_Immortal
+7,Configs_Ship_Archon,Configs/Ships/Configs_Ship_Archon

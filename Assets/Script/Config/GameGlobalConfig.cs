@@ -17,7 +17,7 @@ public static class GameGlobalConfig
     /// <summary>
     /// building max size
     /// </summary>
-    public const int BuildingMaxSize = 5;
+    public const int BuildingMaxSize = 21;
 
     /// <summary>
     ///  map size base on center of building max size
@@ -25,7 +25,7 @@ public static class GameGlobalConfig
     public const int BuildingMapSize = (BuildingMaxSize - 1) / 2;
 
 
-    public const int BuildingShadowMaxSize = 9;
+    public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;
 
 

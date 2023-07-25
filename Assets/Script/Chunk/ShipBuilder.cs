@@ -11,18 +11,18 @@ public struct InventoryEvent
 {
     public InventoryEventType type;
     public string name;
-    public UnitType storeunittype;
-    public InventoryEvent(InventoryEventType m_type, UnitType m_storeunittype, string m_name)
+
+    public InventoryEvent(InventoryEventType m_type, string m_name)
     {
         type = m_type;
-        storeunittype = m_storeunittype;
+
         name = m_name;
     }
     public static InventoryEvent e;
-    public static void Trigger(InventoryEventType m_type, UnitType m_storeunittype, string m_name)
+    public static void Trigger(InventoryEventType m_type, string m_name)
     {
         e.type = m_type;
-        e.storeunittype = m_storeunittype;
+
         e.name = m_name;
         EventCenter.Instance.TriggerEvent<InventoryEvent>(e);
     }
@@ -35,7 +35,7 @@ public class InventoryItem
     public int count;
     public BaseConfig itemconfig;
 
-    public InventoryItem(BaseConfig m_item, int m_count = 1, bool m_iscountless = false)
+    public InventoryItem(BaseConfig m_item, int m_count = 1, bool m_iscountless = true)
     {
         iscountless = m_iscountless;
         count = m_count;
@@ -67,13 +67,13 @@ public class Inventory : IEnumerable, IEnumerator
 
     public void CheckIn(InventoryItem m_item)
     {
-        if(storeDic.ContainsValue(m_item))
+        if(storeDic.ContainsKey(m_item.itemconfig.UnitName))
         {
             return;
         }
         storeDic.Add(m_item.itemconfig.UnitName, m_item);
         //发送入库事件
-        InventoryEvent.Trigger(InventoryEventType.Checkin,m_item.itemconfig.Type,m_item.itemconfig.UnitName);
+        InventoryEvent.Trigger(InventoryEventType.Checkin,m_item.itemconfig.UnitName);
     }
 
     public InventoryItem CheckOut(string m_name)
@@ -83,7 +83,7 @@ public class Inventory : IEnumerable, IEnumerator
       
 
         //发出库事件
-        InventoryEvent.Trigger(InventoryEventType.CheckOut, item.itemconfig.Type, item.itemconfig.UnitName);
+        InventoryEvent.Trigger(InventoryEventType.CheckOut, item.itemconfig.UnitName);
 
         storeDic.Remove(m_name);
         return item;
@@ -136,21 +136,21 @@ public enum InventoryOperationType
 public struct InventoryOperationEvent
 {
     public InventoryOperationType type;
-    public UnitType unitytype;
+
     public int index;
     public string name;
-    public InventoryOperationEvent(InventoryOperationType m_type, UnitType m_unitytype, int m_index, string m_name)
+    public InventoryOperationEvent(InventoryOperationType m_type, int m_index, string m_name)
     {
         type = m_type;
-        unitytype = m_unitytype;
+   
         index = m_index;
         name = m_name;
     }
     public static InventoryOperationEvent e;
-    public static void Trigger(InventoryOperationType m_type, UnitType m_unitytype, int m_index, string m_name)
+    public static void Trigger(InventoryOperationType m_type, int m_index, string m_name)
     {
         e.type = m_type;
-        e.unitytype = m_unitytype;
+
         e.index = m_index;
         e.name = m_name;
         EventCenter.Instance.TriggerEvent<InventoryOperationEvent>(e);
@@ -170,7 +170,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
     public int brickCount = 100;
     public int brickConsumePerChunk = 5;
 
-    public EditorMode editorMode = EditorMode.ShipEditorMode;
+    public EditorMode editorMode = EditorMode.BuildingEditorMode;
 
     public GameObject CorePrefab;
     public GameObject BasePrefab;
@@ -218,7 +218,14 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
     private Vector2Int[] _tempmap;
     private Vector2Int _temparray;
 
+
+    private bool _isPointOverGameObject;
     // Start is called before the first frame update
+
+
+
+   
+
 
     void Awake()
     {
@@ -245,12 +252,18 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
 
         _isInitial = true;
         editorBrush.Initialization();
+
+        BaseUnitConfig baseConfig;
+        DataManager.Instance.UnitConfigDataDic.TryGetValue("DirectionalSmoothboreCannon", out baseConfig);
+        GameManager.Instance.gameEntity.buildingInventory.CheckIn(new InventoryItem(baseConfig));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+   
+
     }
 
     private void OnDestroy()
@@ -269,8 +282,20 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
 
         if(editorShip == null)
         {
-            var obj = ResManager.Instance.Load<GameObject>(LevelManager.Instance.shipPrefabPath);
-            editorShip = obj.GetComponentInChildren<Ship>();
+
+            var obj = new GameObject();
+            obj.transform.position = Vector3.zero;
+            obj.name = "ShipContainer";
+
+            var ship = GameObject.Instantiate(GameManager.Instance.gameEntity.currentShipSelection.itemconfig.Prefab);
+            editorShip = ship.GetComponentInChildren<Ship>();
+            editorShip.container = obj;
+            editorShip.gameObject.SetActive(true);
+            editorShip.transform.position = Vector3.zero - editorShip.shipMapCenter.localPosition;
+            editorShip.transform.rotation = Quaternion.identity ;
+            editorShip.transform.parent = obj.transform;
+
+            
             editorShip.container.transform.name += "_Editor";
         }        
 
@@ -298,6 +323,10 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
         {
             return;
         }
+        //if(UIManager.Instance.IsMouseOverUI())
+        //{
+        //    return;
+        //}
         switch (context.phase)
         {
             case InputActionPhase.Disabled:
@@ -309,112 +338,114 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
             case InputActionPhase.Performed:
                 _mousePos = context.ReadValue<Vector2>();
                 _mouseWorldPos = CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_mousePos.x, _mousePos.y, 0));
-                _pointedShipCoord = editorShip.GetShipCoordinateFromWorldPos(_mouseWorldPos);
-
+                _pointedShipCoord = GameHelper.GetReletiveCoordFromWorldPos(editorShip.shipMapCenter, _mouseWorldPos);
+                //Debug.Log("PointShipCoord = "+ _pointedShipCoord);
                 currentChunk = editorShip.GetChunkFromShipCoordinate(_pointedShipCoord);
+
+
 
                 switch (editorMode)
                 {
-                    case EditorMode.ShipEditorMode:
+                    //case EditorMode.ShipEditorMode:
 
 
-                        if (currentInventoryItem.itemconfig == null)
-                        {
-                            return;
-                        }
+                    //    if (currentInventoryItem.itemconfig == null)
+                    //    {
+                    //        return;
+                    //    }
 
-                        _isValidPos = false;
+                    //    _isValidPos = false;
 
-                        _tempmap = _reletiveCoord.AddToAll(_pointedShipCoord);
+                    //    _tempmap = _reletiveCoord.AddToAll(_pointedShipCoord);
 
-                        //判断鼠标是否在建造范围内
+                    //    //判断鼠标是否在建造范围内
 
-                        for (int i = 0; i < _tempmap.Length; i++)
-                        {
+                    //    for (int i = 0; i < _tempmap.Length; i++)
+                    //    {
 
-                            if (Mathf.Abs(_pointedShipCoord.x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_pointedShipCoord.y) > GameGlobalConfig.ShipMapSize)
-                            {
-                                editorBrush.gameObject.SetActive(false);
-                                return;
-                            }
-                            else
-                            {
-                                editorBrush.gameObject.SetActive(true);
-                            }
+                    //        if (Mathf.Abs(_pointedShipCoord.x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_pointedShipCoord.y) > GameGlobalConfig.ShipMapSize)
+                    //        {
+                    //            editorBrush.gameObject.SetActive(false);
+                    //            return;
+                    //        }
+                    //        else
+                    //        {
+                    //            editorBrush.gameObject.SetActive(true);
+                    //        }
 
-                            if (Mathf.Abs(_tempmap[i].x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_tempmap[i].y) > GameGlobalConfig.ShipMapSize)
-                            {
-                                _isValidPos = false;
-                                break;
-                            }
-                            else
-                            {
-                                _isValidPos = true;
+                    //        if (Mathf.Abs(_tempmap[i].x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_tempmap[i].y) > GameGlobalConfig.ShipMapSize)
+                    //        {
+                    //            _isValidPos = false;
+                    //            break;
+                    //        }
+                    //        else
+                    //        {
+                    //            _isValidPos = true;
                                     
-                            }
-                        }
+                    //        }
+                    //    }
 
                         
-                        if(_isValidPos)
-                        {
-                            //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
-                            for (int i = 0; i < _tempmap.Length; i++)
-                            {
-                                _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
+                    //    if(_isValidPos)
+                    //    {
+                    //        //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
+                    //        for (int i = 0; i < _tempmap.Length; i++)
+                    //        {
+                    //            _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
 
 
-                                if (Mathf.Abs(_tempmap[i].x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_tempmap[i].y) > GameGlobalConfig.ShipMapSize)
-                                {
-                                    _isValidPos = false;
-                                    break;
-                                }
+                    //            if (Mathf.Abs(_tempmap[i].x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_tempmap[i].y) > GameGlobalConfig.ShipMapSize)
+                    //            {
+                    //                _isValidPos = false;
+                    //                break;
+                    //            }
 
-                                if (editorShip.ChunkMap[_temparray.x, _temparray.y] != null)
-                                {
-                                    _isValidPos = false;
-                                    break;
-                                }
-                            }
-                        }
+                    //            if (editorShip.ChunkMap[_temparray.x, _temparray.y] != null)
+                    //            {
+                    //                _isValidPos = false;
+                    //                break;
+                    //            }
+                    //        }
+                    //    }
                         
 
-                        //判断当前的邻接 是否有任何一个Chunk
-                        if(_isValidPos)
-                        {
-                            _tempmap = _outLineShipCood.AddToAll(_pointedShipCoord);
-                            _isValidPos = false;
-                            for (int i = 0; i < _tempmap.Length; i++)
-                            {
-                                if (Mathf.Abs(_tempmap[i].x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_tempmap[i].y) > GameGlobalConfig.ShipMapSize)
-                                {
+                    //    //判断当前的邻接 是否有任何一个Chunk
+                    //    if(_isValidPos)
+                    //    {
+                    //        _tempmap = _outLineShipCood.AddToAll(_pointedShipCoord);
+                    //        _isValidPos = false;
+                    //        for (int i = 0; i < _tempmap.Length; i++)
+                    //        {
+                    //            if (Mathf.Abs(_tempmap[i].x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_tempmap[i].y) > GameGlobalConfig.ShipMapSize)
+                    //            {
                                     
-                                    continue;
-                                }
-                                _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
-                                if (editorShip.ChunkMap[_temparray.x, _temparray.y] != null)
-                                {
-                                    _isValidPos = true;
-                                    break;
-                                }
-                            }
-                        }
+                    //                continue;
+                    //            }
+                    //            _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
+                    //            if (editorShip.ChunkMap[_temparray.x, _temparray.y] != null)
+                    //            {
+                    //                _isValidPos = true;
+                    //                break;
+                    //            }
+                    //        }
+                    //    }
 
               
 
-                        //决定颜色
-                        if (currentChunk == null && _isValidPos)
-                        {
-                            editorBrush.brushSprite.color = editorBrush.validColor;
-                            editorBrush.ChangeShadowColor(editorBrush.validColor);
-                        }
-                        else
-                        {
-                            editorBrush.brushSprite.color = editorBrush.invalidColor;
-                            editorBrush.ChangeShadowColor(editorBrush.invalidColor);
-                        }
-                        editorBrush.transform.position = editorShip.GetWorldPosFromShipCoordinate(_pointedShipCoord);
+                    //    //决定颜色
+                    //    if (currentChunk == null && _isValidPos)
+                    //    {
+                    //        editorBrush.brushSprite.color = editorBrush.validColor;
+                    //        editorBrush.ChangeShadowColor(editorBrush.validColor);
+                    //    }
+                    //    else
+                    //    {
+                    //        editorBrush.brushSprite.color = editorBrush.invalidColor;
+                    //        editorBrush.ChangeShadowColor(editorBrush.invalidColor);
+                    //    }
+                    //    editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);  
 
-                        break;
+                    //    break;
                     case EditorMode.BuildingEditorMode:
 
                         if (currentInventoryItem.itemconfig == null)
@@ -447,18 +478,22 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
 
                         _tempmap = _reletiveCoord.AddToAll(_pointedShipCoord);
                        
+
+
+                    
                         
 
                         //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
                         for (int i = 0; i < _tempmap.Length; i++)
                         {
+                            Debug.Log("["+i+"] " + "ReletiveCoord : " + _reletiveCoord[i] + "  Tempmap : " + _tempmap[i]);
                             _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
                             if (editorShip.ChunkMap[_temparray.x, _temparray.y] == null)
                             {
                                 _isValidPos = false;
                                 break;
                             }
-                            if(editorShip.ChunkMap[_temparray.x, _temparray.y].building != null)
+                            if(editorShip.ChunkMap[_temparray.x, _temparray.y].unit != null)
                             {
                                 _isValidPos = false;
                                 break;
@@ -482,7 +517,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
                         //需要检测已经有的Building
 
 
-                        editorBrush.transform.position = editorShip.GetWorldPosFromShipCoordinate(_pointedShipCoord);
+                        editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord); 
                         break;
                 }
 
@@ -510,7 +545,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                if(currentInventoryItem.itemconfig == null)
+                if(currentInventoryItem.itemconfig == null || (currentInventoryItem.itemconfig as BuildingConfig).redirection == false)
                 {
                     return;
                 }
@@ -522,11 +557,6 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
                 _reletiveCoord = RotateCoordClockWise(_reletiveCoord);
                 editorBrush.UpdateShadows(_reletiveCoord);
                 
-                if (currentInventoryItem.itemconfig.Type == UnitType.ChunkParts)
-                {
-                    _outLineShipCood = editorShip.GetOutLineByShipcoordList(_reletiveCoord);
-                }
-
 
                 editorBrush.brushSprite.transform.rotation = Quaternion.Euler(0, 0, -90 * _itemDirection);
                 break;
@@ -542,10 +572,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
             return;
         }
 
-        if ( EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+
         switch (context.phase)
         {
             case InputActionPhase.Disabled:
@@ -555,75 +582,78 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
+
                 GameObject obj;
                 Vector2Int chunkpartcoord;
                 Vector2Int buildarray;
                 switch (editorMode)
                 {
-                    case EditorMode.ShipEditorMode:
-                        if (currentChunk == null && _isValidPos)
-                        {
-                            for (int i = 0; i < _reletiveCoord.Length; i++)
-                                {
-                                chunkpartcoord = _reletiveCoord[i] + _pointedShipCoord;
+                    //case EditorMode.ShipEditorMode:
+                    //    if (currentChunk == null && _isValidPos)
+                    //    {
+                    //        for (int i = 0; i < _reletiveCoord.Length; i++)
+                    //            {
+                    //            chunkpartcoord = _reletiveCoord[i] + _pointedShipCoord;
 
-                                obj = Instantiate(currentInventoryItem.itemconfig.Prefab);
-                                obj.transform.parent = editorShip.chunksParent.transform;
-                                obj.transform.localPosition = new Vector3(chunkpartcoord.x, chunkpartcoord.y);
+                    //            obj = Instantiate(currentInventoryItem.itemconfig.Prefab);
+                    //            //obj.transform.parent = editorShip.chunksParent.transform;
+                    //            obj.transform.localPosition = new Vector3(chunkpartcoord.x, chunkpartcoord.y);
 
 
-                                var coordarray = editorShip.CoordinateShipToArray(chunkpartcoord);
-                                //chunke map set
-                                editorShip.ChunkMap[coordarray.x, coordarray.y] = obj.GetComponent<Chunk>();
-                                editorShip.ChunkMap[coordarray.x, coordarray.y].shipCoord = chunkpartcoord;
-                                editorShip.ChunkMap[coordarray.x, coordarray.y].state = UnitState.Normal;
-                                //ship map set
+                    //            var coordarray = editorShip.CoordinateShipToArray(chunkpartcoord);
+                    //            //chunke map set
+                    //            editorShip.ChunkMap[coordarray.x, coordarray.y] = obj.GetComponent<Chunk>();
+                    //            editorShip.ChunkMap[coordarray.x, coordarray.y].shipCoord = chunkpartcoord;
+                    //            editorShip.ChunkMap[coordarray.x, coordarray.y].state = UnitState.Normal;
+                    //            //ship map set
 
-                            }
-                            Debug.Log(editorShip.ToString());
-                        }
-                        break;
+                    //        }
+                    //        Debug.Log(editorShip.ToString());
+                    //    }
+                    //    break;
                     case EditorMode.BuildingEditorMode:
 
                         if(_isValidPos)
                         {
-                            obj = Instantiate(currentInventoryItem.itemconfig.Prefab);
-                            obj.transform.parent = editorShip.buildingsParent.transform;
-                            obj.transform.localPosition = new Vector3(_pointedShipCoord.x, _pointedShipCoord.y);
-                            var tempbuilding = obj.GetComponent<Building>();
-                            tempbuilding.direction = _itemDirection;
-                            obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempbuilding.direction);
-                            tempbuilding.unitName = currentInventoryItem.itemconfig.UnitName;
+
+                            editorShip.AddUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection);
+                            //obj = Instantiate(currentInventoryItem.itemconfig.Prefab);
+                            //obj.transform.parent = editorShip.buildingsParent.transform;
+                            //obj.transform.localPosition = new Vector3(_pointedShipCoord.x + editorShip.shipMapCenter.localPosition.x, _pointedShipCoord.y + editorShip.shipMapCenter.localPosition.y);
+                            //var tempunit = obj.GetComponent<Unit>();
+                            //tempunit.direction = _itemDirection;
+                            //obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
+                            //tempunit.unitName = currentInventoryItem.itemconfig.UnitName;
 
                         
-                            //创建Building的Prefab并且归类放好
+                            ////创建Building的Prefab并且归类放好
 
                             
-                            //设置对应的ChunMap信息，比如是否为Piovt， 是否被占用等。
-                            if (_tempmap.Length > 0)
-                            {
-                                for (int i = 0; i < _tempmap.Length; i++)
-                                {
-                                    buildarray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
+                            ////设置对应的ChunMap信息，比如是否为Piovt， 是否被占用等。
+                            //if (_tempmap.Length > 0)
+                            //{
+                            //    for (int i = 0; i < _tempmap.Length; i++)
+                            //    {
+                            //        buildarray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
                                     
 
-                                    editorShip.ChunkMap[buildarray.x, buildarray.y].building = tempbuilding;
+                            //        editorShip.ChunkMap[buildarray.x, buildarray.y].unit = tempunit;
                                 
-                                    if (_tempmap[i] == _pointedShipCoord)
-                                    {
-                                        editorShip.ChunkMap[buildarray.x, buildarray.y].isBuildingPiovt = true;
+                            //        if (_tempmap[i] == _pointedShipCoord)
+                            //        {
+                            //            editorShip.ChunkMap[buildarray.x, buildarray.y].isBuildingPiovt = true;
                 
-                                        tempbuilding.pivot = _tempmap[i];
-                                    }
-                                    editorShip.ChunkMap[buildarray.x, buildarray.y].isOccupied = true;
+                            //            tempunit.pivot = _tempmap[i];
+                            //        }
+                            //        editorShip.ChunkMap[buildarray.x, buildarray.y].isOccupied = true;
 
-                                    tempbuilding.occupiedCoords.Add(_tempmap[i]);
-                                }
-                            }
+                            //        tempunit.occupiedCoords.Add(_tempmap[i]);
+                            //    }
+                            //}
 
-                            editorShip.BuildingList.Add(tempbuilding);
+                            //editorShip.UnitList.Add(tempunit);
 
-                            BuildingMapInfo buildinginfo = new BuildingMapInfo(tempbuilding);
+                            //UnitMapInfo buildinginfo = new UnitMapInfo(tempunit);
                             //Update buildInfoList
                    
                         }
@@ -656,9 +686,18 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
                 switch (editorMode)
                 {
                     case EditorMode.ShipEditorMode:
-
                         break;
                     case EditorMode.BuildingEditorMode:
+                        //只需要处理editorShip.BuildingList就可以
+                        editorShip.RemoveUnit(currentChunk);
+                        //if(currentChunk.isOccupied)
+                        //{
+                        //    editorShip.UnitList.Remove(currentChunk.unit);
+                        //    GameObject.Destroy(currentChunk.unit.gameObject);
+                        //    currentChunk.shipCoord = Vector2Int.zero;
+                        //    currentChunk.isOccupied = false;
+                        //    currentChunk.isBuildingPiovt = false;
+                        //}
                         break;
                 }
 
@@ -708,9 +747,9 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
         }
 
         return newcoord;
-
-
     }
+
+
 
     private void OnDrawGizmos()
     {
@@ -728,16 +767,14 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
         {
             case InventoryOperationType.ItemSelect:
 
-                if(evt.unitytype == UnitType.ChunkParts)
-                {
-                    editorMode = EditorMode.ShipEditorMode;
-                    currentInventoryItem = GameManager.Instance.gameEntity.chunkPartInventory.Peek(evt.name);
-                }
-                if(evt.unitytype == UnitType.Buildings)
-                {
-                    editorMode = EditorMode.BuildingEditorMode;
-                    currentInventoryItem = GameManager.Instance.gameEntity.buildingInventory.Peek(evt.name);
-                }
+                //if(evt.unitytype == UnitType.ChunkParts)
+                //{
+                //    editorMode = EditorMode.ShipEditorMode;
+
+                //}
+
+                currentInventoryItem = GameManager.Instance.gameEntity.buildingInventory.Peek(evt.name);
+                
                 
                 editorBrush.brushSprite.sprite = currentInventoryItem.itemconfig.Icon;
         
@@ -745,10 +782,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
                 editorBrush.UpdateShadows(_reletiveCoord);
                 _itemDirection = 0;
                 editorBrush.brushSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
-                if (currentInventoryItem.itemconfig.Type == UnitType.ChunkParts)
-                {
-                    _outLineShipCood = editorShip.GetOutLineByShipcoordList(_reletiveCoord);
-                }
+
                 break;
             case InventoryOperationType.ItemUnselect:
                 break;

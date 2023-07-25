@@ -203,19 +203,23 @@ public class EGameState_GamePrepare : GameState
                     GameObject.Destroy(GameManager.Instance.gameEntity.currentShip.container.gameObject);
                     GameManager.Instance.gameEntity.currentShip = null;
                 }
-                GameManager.Instance.gameEntity.currentShip =  LevelManager.Instance.SpawnShipAtPos(level.startPoint,Quaternion.identity,false);
+
+
+
+
+                GameManager.Instance.gameEntity.currentShip =  LevelManager.Instance.SpawnShipAtPos(GameManager.Instance.gameEntity.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
                 GameManager.Instance.gameEntity.currentShip.LoadRuntimeData(GameManager.Instance.gameEntity.runtimeData);
                 GameManager.Instance.gameEntity.currentShip.InitialShip();
 
                 //初始化摄影机
-                CameraManager.Instance.ChangeVCameraLookAtTarget(GameManager.Instance.gameEntity.currentShip.transform);
+                //CameraManager.Instance.ChangeVCameraLookAtTarget(GameManager.Instance.gameEntity.currentShip.transform);
                 CameraManager.Instance.ChangeVCameraFollowTarget(GameManager.Instance.gameEntity.currentShip.transform);
                 CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
                 CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = 0;
                 CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
-                CameraManager.Instance.vcam.m_Lens.OrthographicSize = 25;
+                CameraManager.Instance.vcam.m_Lens.OrthographicSize = 35;
 
-                GameManager.Instance.gameEntity.currentShip.container.SetActive(true);
+                GameManager.Instance.gameEntity.currentShip.gameObject.SetActive(true);
 
                 GameEvent.Trigger(EGameState.EGameState_GameStart);
             }));
@@ -251,10 +255,20 @@ public class EGameState_GameStart : GameState
         base.OnEnter();
         Debug.Log("GameState = EGameState_GameStart");
 
-        InputDispatcher.Instance.ChangeInputMode("Player");
+        
 
-        InputDispatcher.Instance.Action_GamePlay_Pause += HandlePause;
-        InputDispatcher.Instance.Action_UI_UnPause += HandleUnPause;
+        if (!LevelManager.Instance.needServicing)
+        {
+            InputDispatcher.Instance.ChangeInputMode("Player");
+            InputDispatcher.Instance.Action_GamePlay_Pause += HandlePause;
+            InputDispatcher.Instance.Action_UI_UnPause += HandleUnPause;
+        }
+        else
+        {
+            InputDispatcher.Instance.ChangeInputMode("UI");
+        }
+        
+
 
         UIManager.Instance.HiddenUIALLBut(new List<string> { "LoadingScreen" }, false);
         LoadingScreen loadingscreen = UIManager.Instance.GetGUIFromDic("LoadingScreen") as LoadingScreen;
@@ -262,6 +276,8 @@ public class EGameState_GameStart : GameState
         {
             if (LevelManager.Instance.needServicing)
             {
+
+
                 UIManager.Instance.ShowUI<ShipBuilderHUD>("ShipBuilderHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
                 {
                     panel.Initialization();
@@ -270,7 +286,6 @@ public class EGameState_GameStart : GameState
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
                     });
-
                 });
             }
             else
@@ -282,11 +297,12 @@ public class EGameState_GameStart : GameState
                     loadingscreen.OpenLoadingDoor(() =>
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
+                        GameManager.Instance.gameEntity.currentShip.Initialization();
 
-                        //LeanTween.delayedCall(10, () =>
-                        //{
-                        //    GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
-                        //});
+                        LeanTween.delayedCall(10, () =>
+                        {
+                            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
+                        });
                     });
                 });
             }
@@ -296,6 +312,16 @@ public class EGameState_GameStart : GameState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        if(UIManager.Instance.IsMouseOverUI())
+        {
+            InputDispatcher.Instance.ChangeInputMode("UI");
+        }
+        else
+        {
+            InputDispatcher.Instance.ChangeInputMode("Player");
+        }
+  
     }
 
     public override void OnExit()

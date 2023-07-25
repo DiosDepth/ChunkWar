@@ -30,7 +30,7 @@ public class ShipSelection : GUIBasePanel, EventListener<InventoryOperationEvent
         shipSlotList[0].slotbtn.Select();
 
         icon.sprite = shipSlotList[0].item.itemconfig.Icon;
-        InventoryOperationEvent.Trigger(InventoryOperationType.ItemSelect, shipSlotList[0].item.itemconfig.Type, shipSlotList[0].slotIndex, shipSlotList[0].item.itemconfig.UnitName);
+        InventoryOperationEvent.Trigger(InventoryOperationType.ItemSelect, shipSlotList[0].slotIndex, shipSlotList[0].item.itemconfig.UnitName);
     }
 
     // Update is called once per frame
@@ -84,7 +84,7 @@ public class ShipSelection : GUIBasePanel, EventListener<InventoryOperationEvent
     {
         var obj = ResManager.Instance.Load<GameObject>(UIManager.Instance.resPath + "ItemGUISlot");
         RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.parent = m_slotgroup;
+        rect.SetParent(m_slotgroup);
         rect.localScale = Vector3.one;
         
 

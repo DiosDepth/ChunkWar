@@ -15,4 +15,19 @@ public static class GameHelper
     {
         return new Vector2Int(mapsize - shipcoord.y, mapsize + shipcoord.x);
     }
+
+
+    public static Vector2Int GetReletiveCoordFromWorldPos(Transform trs, Vector2 worldpos)
+    {
+        Vector2 reletivePos = worldpos - trs.position.ToVector2();
+        Vector2Int roundPos = reletivePos.Round();
+
+        return roundPos;
+    }
+
+    public static Vector2 GetWorldPosFromReletiveCoord(Transform trs, Vector2Int coord)
+    {
+        Vector3 tempcoord = trs.TransformPoint(coord.ToVector3());
+        return tempcoord.ToVector2();
+    }
 }

@@ -131,7 +131,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""WSAD"",
                     ""id"": ""aa2cfcb3-878f-4052-b288-12057699aebb"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

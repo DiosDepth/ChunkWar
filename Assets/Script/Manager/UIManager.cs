@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -27,6 +29,12 @@ public class UIManager : Singleton<UIManager>
     private RectTransform system;
 
     private object tempowner;
+
+
+
+    private PointerEventData pointerEventData;
+
+    private List<RaycastResult> raycastResultsList = new List<RaycastResult>();
     //public PlayerHUD playerHUD;
     // Start is called before the first frame update
     public UIManager()
@@ -265,4 +273,23 @@ public class UIManager : Singleton<UIManager>
 
         }
     }
+
+    public  bool IsMouseOverUI()
+    {
+        bool mouseOverUI = false;
+        pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Mouse.current.position.ReadValue();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResultsList);
+        for (int i = 0; i < raycastResultsList.Count; i++)
+        {
+            if (raycastResultsList[i].gameObject.GetType() == typeof(GameObject))
+            {
+                mouseOverUI = true;
+                break;
+            }
+        }
+        return mouseOverUI;
+    }
+
+
 }

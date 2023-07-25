@@ -15,7 +15,7 @@ public class GameEntity
     public InventoryItem currentShipSelection;
     public Ship currentShip;
 
-    public Inventory chunkPartInventory;
+
     public Inventory buildingInventory;
 
     
@@ -35,7 +35,7 @@ public class GameEntity
 
     public void Initialization()
     {
-        chunkPartInventory = new Inventory();
+    
         buildingInventory = new Inventory();
     }
 

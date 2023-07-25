@@ -234,8 +234,8 @@ TextureImporter:
       name: ChunkWar_ChunkPart_002
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 0
+        y: 160
         width: 32
         height: 32
       alignment: 9
@@ -272,6 +272,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ChunkWar_Unit_LongRangeIonBlaster
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 164
+        width: 48
+        height: 92
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2173913}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a33c4891afe83f144a682a9e292b68ae
+      internalID: -432586034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChunkWar_Unit_TripleNeutronBlaster
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d00f3499311ade46917eaa5ad2986e0
+      internalID: 1469649811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -284,6 +326,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       ChunkWar_Building_LightAutoCannon: -2039262277
+      ChunkWar_Buildings_1: 742372061
+      ChunkWar_Unit_LongRangeIonBlaster: -432586034
       ChunkWar_Building_Shadow: 655584963
       ChunkWar_ChunkPart_002: 1819244928
       ChunkWar_Base_000: 143168726
@@ -291,6 +335,7 @@ TextureImporter:
       ChunkWar_Buildings_3: -1340023216
       ChunkWar_Building_BaseBuilding: -1354671227
       ChunkWar_Building_DirectionalSmoothboreCannon: 75351093
+      ChunkWar_Unit_TripleNeutronBlaster: 30442831
       ChunkWar_ChunkPart_001: -807605081
   spritePackingTag: 
   pSDRemoveMatte: 0

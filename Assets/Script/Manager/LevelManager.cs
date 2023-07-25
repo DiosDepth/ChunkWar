@@ -109,9 +109,10 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
             spawnLineList[i].StopSpawn();
         }
     }
-    public Ship SpawnShipAtPos(Vector3 pos, Quaternion rot, bool isactive)
+    public Ship SpawnShipAtPos(GameObject ship, Vector3 pos, Quaternion rot, bool isactive)
     {
-        return SpawnActorAtPos(shipPrefabPath, pos, rot, isactive).GetComponentInChildren<Ship>();
+
+        return SpawnActorAtPos(ship, pos, rot, isactive).GetComponentInChildren<Ship>();
     }
     public GameObject SpawnActorAtPos(string prefabpath,Vector3 pos, Quaternion rot, bool isactive = true)
     {
@@ -121,6 +122,22 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
         obj.transform.rotation = rot;
 
         return obj;
+    }
+
+    public GameObject SpawnActorAtPos(GameObject prefab, Vector3 pos, Quaternion rot, bool isactive = true)
+    {
+        var obj = new GameObject();
+        obj.transform.position = pos;
+        obj.name = "ShipContainer";
+
+        var ship = GameObject.Instantiate(prefab);
+        ship.GetComponent<Ship>().container = obj;
+        ship.SetActive(isactive);
+        ship.transform.position = pos;
+        ship.transform.rotation = rot;
+        ship.transform.parent = obj.transform;
+
+        return ship;
     }
 
     public IEnumerator LoadScene(int levelindex,UnityAction<AsyncOperation> callback)

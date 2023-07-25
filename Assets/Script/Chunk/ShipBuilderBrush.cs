@@ -57,6 +57,8 @@ public class ShipBuilderBrush : MonoBehaviour
                 shadows[x, y] = obj.AddComponent<SpriteRenderer>();
                 shadows[x, y].sprite = shadowSprite;
                 shadows[x, y].color = defaultColor;
+                shadows[x, y].sortingLayerName = "Sprite";
+                shadows[x, y].sortingOrder = 100;
                 obj.SetActive(false);
             }
         }

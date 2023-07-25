@@ -5,24 +5,49 @@ using UnityEngine;
 
 public enum UnitType
 {
-    ChunkParts,
     Buildings,
-    Ship,
+    Weapons,
+    MainWeapons,
 }
 public class Unit : MonoBehaviour
 {
     public string unitName;
-    public float hp = 100;
-    public UnitState state = UnitState.None;
-    // Start is called before the first frame update
-    void Start()
+    public float HP = 100;
+    public DamagableState state = DamagableState.None;
+
+    public SpriteRenderer unitSprite;
+    public bool redirection = true;
+    public int direction = 0;
+    public Vector2Int pivot;
+    public List<Vector2Int> occupiedCoords;
+
+
+
+    public virtual void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    public virtual void Update()
+    {
+
+    }
+
+    public virtual void OnDestroy()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Initialization()
     {
-        
+
     }
+
+    public virtual void TakeDamage()
+    {
+
+    }
+
+
 }

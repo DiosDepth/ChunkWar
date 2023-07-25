@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum UnitState
+public enum DamagableState
 {
     None,
     Normal,
     Destroyed,
 }
-public class Chunk : Unit,IDamageble
+public class Chunk : IDamageble
 {
 
 
+    public string chunkName;
+    public float hp = 100;
+    public DamagableState state = DamagableState.None;
 
     public Vector2Int shipCoord = Vector2Int.zero;
     public bool isOccupied = false;
     public bool isBuildingPiovt = false;
 
-    public GameObject modle;
-    public Building building;
+
+    public Unit unit;
 
 
 

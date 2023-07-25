@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamageble 
 {
-    public void TakeDamage();
+    public  void TakeDamage();
 }

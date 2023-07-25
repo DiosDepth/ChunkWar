@@ -8,10 +8,10 @@ using UnityEngine;
 public class MapInfo
 {
    
-    public UnitState state = UnitState.None;
+    public DamagableState state = DamagableState.None;
 
 }
-public class BuildingMapInfo :MapInfo
+public class UnitInfo :MapInfo
 {
     public string unitName;
     public int direction = 0;
@@ -19,13 +19,13 @@ public class BuildingMapInfo :MapInfo
     public List<Vector2Int> occupiedCoords;
 
 
-    public BuildingMapInfo(Building building)
+    public UnitInfo(Unit m_unit)
     {
-        state = building.state;
-        unitName = building.unitName;
-        direction = building.direction;
-        pivot = building.pivot;
-        occupiedCoords = building.occupiedCoords;
+        state = m_unit.state;
+        unitName = m_unit.unitName;
+        direction = m_unit.direction;
+        pivot = m_unit.pivot;
+        occupiedCoords = m_unit.occupiedCoords;
     }
 
 }
