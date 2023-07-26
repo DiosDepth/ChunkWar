@@ -298,11 +298,13 @@ public class EGameState_GameStart : GameState
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
                         GameManager.Instance.gameEntity.currentShip.Initialization();
+                        GameManager.Instance.gameEntity.currentShip.controller.IsUpdate = true;
 
-                        LeanTween.delayedCall(10, () =>
-                        {
-                            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
-                        });
+
+                        //LeanTween.delayedCall(10, () =>
+                        //{
+                        //    GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
+                        //});
                     });
                 });
             }

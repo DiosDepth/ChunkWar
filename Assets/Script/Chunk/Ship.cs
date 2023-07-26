@@ -449,7 +449,7 @@ public class Ship : MonoBehaviour,IDamageble
         return tempunit;
     }
 
-    public Unit RestoreUnitFromUnitInfo(UnitInfo m_unitInfo)
+    public void RestoreUnitFromUnitInfo(UnitInfo m_unitInfo)
     {
         BaseUnitConfig unitconfig;
         Vector2Int occupiedarray;
@@ -492,10 +492,7 @@ public class Ship : MonoBehaviour,IDamageble
 
                 _unitList.Add(tempunit);
             }
-            return tempunit;
         }
-
-        return null;
     }
 
     public void RemoveUnit(Unit m_unit)

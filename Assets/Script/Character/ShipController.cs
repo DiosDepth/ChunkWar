@@ -46,7 +46,7 @@ public class ShipController : MonoBehaviour
         ship = GetComponent<Ship>();
         InputDispatcher.Instance.Action_GamePlay_Move += HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point += HandlePointInput;
-        InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleAttackInput;
+        InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
     }
 
     // Update is called once per frame
@@ -63,6 +63,7 @@ public class ShipController : MonoBehaviour
     {
         InputDispatcher.Instance.Action_GamePlay_Move -= HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point -= HandlePointInput;
+        InputDispatcher.Instance.Action_GamePlay_Attack -= HandleAttackInput;
     }
     public void HandleMovementInput(InputAction.CallbackContext context)
     {
@@ -111,7 +112,23 @@ public class ShipController : MonoBehaviour
 
     public void HandleAttackInput(InputAction.CallbackContext context)
     {
+        switch (context.phase)
+        {
+            case InputActionPhase.Disabled:
+                break;
+            case InputActionPhase.Waiting:
+                break;
+            case InputActionPhase.Started:
+                Debug.Log("Attack is Started");
+                break;
+            case InputActionPhase.Performed:
+                Debug.Log("Attack is performed");
 
+                break;
+            case InputActionPhase.Canceled:
+                Debug.Log("Attack is Canceled");
+                break;
+        }
     }
 
     public virtual void HandleMovement()

@@ -6,6 +6,10 @@ public class WeaponLongRangeIonBlasters : Weapon
 {
 
 
+    public override void Initialization()
+    {
+        base.Initialization();
+    }
 
     public override void Start()
     {

@@ -91,7 +91,19 @@ MonoBehaviour:
     m_ActionId: 8db8cfb5-f4ff-4231-8f7e-f63e33b98019
     m_ActionName: Player/WSAD[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7859639995372876523}
+        m_TargetAssemblyTypeName: InputDispatcher, Assembly-CSharp
+        m_MethodName: GamePlay_Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 19f992ec-cf19-4295-a903-9e1fa15f4d85
     m_ActionName: Player/Attack[/Keyboard/j]
   - m_PersistentCalls:

@@ -14,6 +14,7 @@ public class InputDispatcher : MonoBehaviour
     public static InputDispatcher Instance;
     public PlayerInput playerInput;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_Move;
+    public UnityAction<InputAction.CallbackContext> Action_GamePlay_Attack;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_RushDown;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_Point;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_RightClick;
@@ -49,6 +50,10 @@ public class InputDispatcher : MonoBehaviour
     public void GamePlay_Move(InputAction.CallbackContext context)
     {
         Action_GamePlay_Move?.Invoke(context);
+    }
+    public void GamePlay_Attack(InputAction.CallbackContext context)
+    {
+        Action_GamePlay_Attack?.Invoke(context);
     }
 
     public void GamePlay_RushDown(InputAction.CallbackContext context)
