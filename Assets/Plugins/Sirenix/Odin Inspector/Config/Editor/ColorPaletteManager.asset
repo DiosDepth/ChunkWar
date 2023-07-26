@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 772478971, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
+  m_Name: ColorPaletteManager
+  m_EditorClassIdentifier: 
+  colorPalettes:
+  - name: "\u4F4E\u7EA7\u804C\u4E1A-\u73A9\u5BB6"
+    showAlpha: 0
+    colors:
+    - {r: 0.25490198, g: 0.5529412, b: 0.8, a: 1}
+    - {r: 0.5686275, g: 0.6509804, b: 0.8, a: 1}
+    - {r: 0.25490198, g: 0.3647059, b: 0.5411765, a: 1}
+    - {r: 0.20784314, g: 0.23529412, b: 0.3372549, a: 1}
+    - {r: 0.77254903, g: 0.84705883, b: 0.9490196, a: 1}
+    - {r: 0.6156863, g: 0.8784314, b: 0.9529412, a: 1}
+    - {r: 0.60784316, g: 0.8235294, b: 0.92156863, a: 1}
+  - name: "\u4F4E\u7EA7\u804C\u4E1A-\u654C\u4EBA"
+    showAlpha: 0
+    colors:
+    - {r: 0.7764706, g: 0.101960786, b: 0.18431373, a: 1}
+    - {r: 0.85882354, g: 0.22745098, b: 0.21568628, a: 1}
+    - {r: 0.1882353, g: 0.13333334, b: 0.13333334, a: 1}
+    - {r: 0.3137255, g: 0.30980393, b: 0.34509805, a: 1}
+    - {r: 0.7411765, g: 0.75686276, b: 0.7882353, a: 1}
+    - {r: 0.7764706, g: 0.1254902, b: 0.11764706, a: 1}
+    - {r: 0.93333334, g: 0.25490198, b: 0.22352941, a: 1}
+  - name: RGBA(0.000, 0.000, 0.000, 0.000)
+    showAlpha: 0
+    colors: []

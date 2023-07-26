@@ -17,7 +17,7 @@ public static class GameGlobalConfig
     /// <summary>
     /// building max size
     /// </summary>
-    public const int BuildingMaxSize = 21;
+    public const int BuildingMaxSize = 10;
 
     /// <summary>
     ///  map size base on center of building max size

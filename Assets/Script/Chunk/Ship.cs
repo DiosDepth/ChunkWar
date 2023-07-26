@@ -11,6 +11,14 @@ public enum ChunkType
 
 }
 
+public enum ShipMainProperty
+{
+    Control,
+    DamagePercnet,
+    Critial,
+    Luck,
+    Range,
+}
 
 public enum ShipType
 {
@@ -49,8 +57,6 @@ public enum ShipConditionState
 public class Ship : MonoBehaviour,IDamageble
 {
 
-
-
     public bool isDebug;
     public int physicalResources;
     public int energyResources;
@@ -79,7 +85,7 @@ public class Ship : MonoBehaviour,IDamageble
     private ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     private List<UnitInfo> UnitInfoList = new List<UnitInfo>();
 
-
+    private Dictionary<ShipMainProperty, ChangeValue<float>> _mainPropertyDic;
 
 
     public void LoadRuntimeData(RuntimeData data)
@@ -154,6 +160,7 @@ public class Ship : MonoBehaviour,IDamageble
 
     public virtual void InitialShip ()
     {
+        InitProperty();
         GameObject obj = null;
         Vector2Int pos;
         //≥ı ºªØChunk
@@ -245,10 +252,7 @@ public class Ship : MonoBehaviour,IDamageble
         }
 
         mainWeapon.Initialization();
-
-
-
-
+        
     }
 
     public virtual void ResetShip()
@@ -592,5 +596,11 @@ public class Ship : MonoBehaviour,IDamageble
     public void TakeDamage()
     {
         throw new System.NotImplementedException();
+    }
+
+    private void InitProperty()
+    {
+        _mainPropertyDic = new Dictionary<ShipMainProperty, ChangeValue<float>>();
+
     }
 }

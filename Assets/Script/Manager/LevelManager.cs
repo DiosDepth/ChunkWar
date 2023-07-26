@@ -47,6 +47,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
  
 
     public LevelEntity currentLevel;
+    public LevelDataInfo LevelInfo;
 
     public bool needServicing = false;
 
@@ -169,6 +170,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
             DataManager.Instance.LevelDataDic.TryGetValue(levelname, out data);
             if( data != null)
             {
+                LevelInfo = LevelDataInfo.CreateInfo(data);
                 GameObject obj = ResManager.Instance.Load<GameObject>(data.LevelPrefabPath);
                 currentLevel = obj.GetComponent<LevelEntity>();
                 currentLevel.Initialization();
