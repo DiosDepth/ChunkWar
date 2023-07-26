@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseConfig : SerializedScriptableObject, ISerializationCallbackReceiver
+public class BaseConfig : SerializedScriptableObject
 {
     [LabelText("ID")]
     [LabelWidth(80)]
@@ -16,18 +16,17 @@ public class BaseConfig : SerializedScriptableObject, ISerializationCallbackRece
     [HorizontalGroup("B", 300)]
     public string UnitName;
 
-    [FoldoutGroup("»ù´¡ÊôÐÔ")]
-    [LabelText("ÑªÁ¿")]
-    [LabelWidth(80)]
-    public float HP = 100;
-
-
     public Sprite Icon;
+
+    [LabelText("Prefab")]
+    [LabelWidth(80)]
+    [HorizontalGroup("C", 300)]
+    [AssetSelector(Paths = "Assets/Prefab/Chunk", DropdownWidth = 600, DropdownHeight = 800)]
     public GameObject Prefab;
 
-    [TableMatrix(ResizableColumns = false,SquareCells = true, DrawElementMethod = "DrawTable")]
+    [TableMatrix(ResizableColumns = false, SquareCells = true, DrawElementMethod = "DrawTable")]
     [HorizontalGroup("A", 600)]
-    public int[,] Map = new int[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
+    public int[,] Map;
 
     public Vector2Int MapPivot
     {
@@ -37,9 +36,12 @@ public class BaseConfig : SerializedScriptableObject, ISerializationCallbackRece
         }
 
     }
-    private Vector2Int _mapPivot = new Vector2Int();
+    protected Vector2Int _mapPivot = new Vector2Int();
 
-
+    private void OnEnable()
+    {
+        _mapPivot = GetMapPivot();
+    }
 
     [HideInInspector]
     [SerializeField]
@@ -49,14 +51,10 @@ public class BaseConfig : SerializedScriptableObject, ISerializationCallbackRece
     [SerializeField]
     public int m_FlattendMapLayoutRows;
 
-
-    public virtual void OnEnable()
+    protected Vector2Int GetMapPivot()
     {
-        _mapPivot = GetMapPivot();
-    }
-
-    public Vector2Int GetMapPivot()
-    {
+        if (Map == null)
+            return Vector2Int.zero;
         for (int x = 0; x < Map.GetLength(0); x++)
         {
             for (int y = 0; y < Map.GetLength(1); y++)
@@ -97,28 +95,4 @@ public class BaseConfig : SerializedScriptableObject, ISerializationCallbackRece
         }
         return value;
     }
-
-    //public void OnBeforeSerialize()
-    //{
-    //    int c1 = Map.GetLength(0);
-    //    int c2 = Map.GetLength(1);
-    //    int count = c1 * c2;
-    //    m_FlattendMapLayout = new int[count];
-    //    m_FlattendMapLayoutRows = c1;
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        m_FlattendMapLayout[i] = Map[i / c1, i % c1];
-    //    }
-    //}
-    //public void OnAfterDeserialize()
-    //{
-    //    int count = m_FlattendMapLayout.Length;
-    //    int c1 = m_FlattendMapLayoutRows;
-    //    int c2 = count / c1;
-    //    Map = new int[c1, c2];
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        Map[i / c1, i % c1] = m_FlattendMapLayout[i];
-    //    }
-    //}
 }

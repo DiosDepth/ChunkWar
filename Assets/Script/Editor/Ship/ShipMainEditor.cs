@@ -20,10 +20,11 @@ public class ShipMainEditor : OdinMenuEditorWindow
     protected override OdinMenuTree BuildMenuTree()
     {
         var tree = new OdinMenuTree(true);
-        tree.DefaultMenuStyle.IconSize = 28.00f;
         tree.Config.DrawSearchToolbar = true;
 
-        tree.AddAllAssetsAtPath("ÎÄ±¾", "Assets/Resources/Configs/Ships", typeof(ShipConfig), true, true);
+        tree.AddAllAssetsAtPath("½¢´¬", "Assets/Resources/Configs/Ships", typeof(ShipConfig), true, true);
+        tree.AddAllAssetsAtPath("½¨Öþ", "Assets/Resources/Configs/Buildings", typeof(BuildingConfig), true, true);
+        tree.AddAllAssetsAtPath("ÎäÆ÷", "Assets/Resources/Configs/Weapons", typeof(BuildingConfig), true, true);
 
         return tree;
     }

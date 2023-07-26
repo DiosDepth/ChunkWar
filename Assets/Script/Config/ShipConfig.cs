@@ -2,9 +2,10 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [CreateAssetMenu(fileName = "Configs_Ship_", menuName = "Configs/Unit/ShipConfig")]
-public class ShipConfig : BaseConfig, ISerializationCallbackReceiver
+public class ShipConfig : BaseConfig
 {
     [LabelText("Ω¢¥¨¿‡–Õ")]
     [LabelWidth(80)]
@@ -14,11 +15,15 @@ public class ShipConfig : BaseConfig, ISerializationCallbackReceiver
 
     public AvalibalMainWeapon MainWeapon;
 
-
-    public override void OnEnable()
+    [OnInspectorInit]
+    private void InitData()
     {
-        base.OnEnable();
-
+        if (Map == null) 
+        {
+            Map = new int[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
+        }
     }
 
 }
