@@ -7,3 +7,6 @@ ChunkWar.sln
 obj/Debug
 .vs/ChunkWar/v16
 Temp
+*.csproj
+UserSettings/EditorUserSettings.asset
+UserSettings

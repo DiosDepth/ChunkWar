@@ -26,6 +26,14 @@ public class MainCollectionEditor : OdinEditorWindow
         win.Close();
     }
 
+    [Button("…ÃµÍ≈‰÷√", ButtonSizes.Large)]
+    public static void ShowShopEditor()
+    {
+        ShopMainEditor.ShowWindow();
+        var win = GetWindow<MainCollectionEditor>();
+        win.Close();
+    }
+
     [Button("Œƒ±æ◊¢≤·", ButtonSizes.Medium)]
     public static void ShowLocalizationEditor()
     {

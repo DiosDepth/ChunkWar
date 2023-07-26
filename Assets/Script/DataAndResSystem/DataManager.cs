@@ -14,7 +14,9 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<string, BaseUnitConfig> UnitConfigDataDic = new Dictionary<string, BaseUnitConfig>();
     public Dictionary<string, ShipConfig> ShipConfigDic = new Dictionary<string, ShipConfig>();
     public Dictionary<string, LevelData> LevelDataDic = new Dictionary<string, LevelData>();
+    private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     public BattleMainConfig battleCfg;
+    public ShopMainConfig shopCfg;
 
     public DataManager()
     {
@@ -93,6 +95,27 @@ public class DataManager : Singleton<DataManager>
     private void LoadMiscData()
     {
         battleCfg = ResManager.Instance.Load<BattleMainConfig>(DataConfigPath.BattleMainConfigPath);
+        shopCfg = ResManager.Instance.Load<ShopMainConfig>(DataConfigPath.ShopMainConfigPath);
+
+        if(shopCfg != null)
+        {
+            var goodLst = shopCfg.Goods;
+            for(int i = 0; i < goodLst.Count; i++)
+            {
+                if (!_shopGoodsDic.ContainsKey(goodLst[i].GoodID))
+                {
+                    _shopGoodsDic.Add(goodLst[i].GoodID, goodLst[i]);
+                }
+            }
+        }
+    }
+
+    public ShopGoodsItemConfig GetShopGoodsCfg(int goodsID)
+    {
+        ShopGoodsItemConfig result = null;
+        _shopGoodsDic.TryGetValue(goodsID, out result);
+        Debug.Assert(result != null, "GetShopGoodsCfg Null! ID= " + goodsID);
+        return result;
     }
 
     private IEnumerator LoadingData<T>(FileInfo file, Dictionary<string, T> dic, UnityAction callback) where T : DataInfo, new()
