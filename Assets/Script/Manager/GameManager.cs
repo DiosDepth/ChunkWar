@@ -92,6 +92,8 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public GameManager()
     {
+        Application.targetFrameRate = 120;
+
         //Initialization();
         this.EventStartListening<GameEvent>();
         this.EventStartListening<ScoreEvent>();
