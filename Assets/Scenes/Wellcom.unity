@@ -215,7 +215,7 @@ MonoBehaviour:
     screenDataNewLine: 1
     deviceModel: 0
     deviceModelNewLine: 1
-  hotKey: 96
+  hotKey: 9
   circleGesture: 0
   hotKeyCtrl: 0
   hotKeyShift: 0

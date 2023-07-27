@@ -114,6 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3531095552904993145}
+  - component: {fileID: 3102873020567099378}
   m_Layer: 5
   m_Name: GMTalkMainPage
   m_TagString: Untagged
@@ -144,6 +145,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3102873020567099378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668571612054497889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b8ec164960ef349b8d5552491b0f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiGroup: {fileID: 0}
+  root: {fileID: 0}
 --- !u!1 &1140036798746090657
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +672,7 @@ GameObject:
   - component: {fileID: 7511395864324297313}
   - component: {fileID: 8512281853202730836}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: GMCommandField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1673,7 +1688,7 @@ GameObject:
   - component: {fileID: 4365190939782101162}
   - component: {fileID: 1739756890903136071}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SendGMBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1795,7 +1810,7 @@ GameObject:
   - component: {fileID: 3517166149383219937}
   - component: {fileID: 8616742359225019575}
   m_Layer: 5
-  m_Name: B1
+  m_Name: FinishBattle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1997,7 +2012,7 @@ GameObject:
   - component: {fileID: 3997801923257461719}
   - component: {fileID: 8817820081165702060}
   m_Layer: 5
-  m_Name: B2
+  m_Name: Vectory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

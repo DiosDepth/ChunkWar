@@ -36,6 +36,13 @@ public struct LevelEvent
     }
 }
 
+public enum AvaliableLevel
+{
+    Harbor,
+    BattleLevel_001,
+    ShipSelectionLevel,
+}
+
 public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
 {
     public string shipPrefabPath = "Prefab/Chunk/ShipContainer";

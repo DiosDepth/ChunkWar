@@ -25,7 +25,7 @@ public class EGameState_WelcomScreen : GameState
         base.OnEnter();
         Debug.Log("GameState = WelcomScreen");
        
-
+        
         CameraManager.Instance.Initialization();
         UIManager.Instance.ShowUI<BackGroundPanel>("BackGround", E_UI_Layer.Bot, GameManager.Instance, null);
         InputDispatcher.Instance.ChangeInputMode("UI");

@@ -19,6 +19,7 @@ public class GUIBasePanel : MonoBehaviour
         FindGUIComponent<Text>();
         FindGUIComponent<Image>();
         FindGUIComponent<Slider>();
+        FindGUIComponent<InputField>();
 
         /*foreach (KeyValuePair<string, List<UIBehaviour>> pair in GUIDic)
         {

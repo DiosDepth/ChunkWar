@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IPauseable
 {
-    public void HandlePause();
-    public void HandleUnpause();
+     void HandlePause();
+     void HandleUnpause();
 }

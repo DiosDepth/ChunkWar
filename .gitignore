@@ -13,3 +13,9 @@ UserSettings
 ProjectSettings/ProjectVersion.txt
 Packages/packages-lock.json
 ProjectSettings/PackageManagerSettings.asset
+ChunkWarProject.sln
+.vs/ChunkWarProject/v15/.suo
+.vs/ChunkWarProject/v15/Server/sqlite3/db.lock
+.vs/ChunkWarProject/v15/Server/sqlite3/storage.ide
+.vs/ChunkWarProject/v15/Server/sqlite3/storage.ide-shm
+.vs/ChunkWarProject/v15/Server/sqlite3/storage.ide-wal

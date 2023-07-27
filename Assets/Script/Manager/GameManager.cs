@@ -101,6 +101,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         gameEntity = new GameEntity();
 
         Initialization();
+        GMTalkManager.Instance.Initialization();
     }
 
     public override void Initialization()

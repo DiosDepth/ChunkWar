@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class GMTalkManager : Singleton<GMTalkManager>
 {
@@ -12,10 +13,17 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private const int BattleTestCreateIndex_Start = 100000;
 
+    private bool isShowGMTalkWindow = false;
+    private bool _isCmdSuccess;
+
     public override void Initialization()
     {
         base.Initialization();
         InitFunctionDic();
+
+        MonoManager.Instance.AddUpdateListener(ListenerGMSwitch);
+
+        InitialCmd();
     }
 
     private void InitFunctionDic()
@@ -23,6 +31,50 @@ public class GMTalkManager : Singleton<GMTalkManager>
         GMFunctionDic = new Dictionary<string, Func<string[], bool>>();
     }
 
+    private void InitialCmd()
+    {
+
+        /// Cmd : jump to shop
+        AddGMFunctionToDic("jumptoshop", (starry) => 
+        {
+            if(LevelManager.Instance.currentLevel.levelName == AvaliableLevel.BattleLevel_001.ToString())
+            {
+                GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+ 
+        });
+
+
+
+    }
+
+    
+    public void ListenerGMSwitch()
+    {
+        if(Keyboard.current.backquoteKey.wasPressedThisFrame)
+        {
+            if(isShowGMTalkWindow)
+            {
+                UIManager.Instance.ShowUI<GMTalkMainPage>("GMTalkMainPage", E_UI_Layer.System, this, (panel) => 
+                {
+                    panel.Initialization();
+                    InputDispatcher.Instance.ChangeInputMode("UI");
+                });
+            }
+            else
+            {
+                UIManager.Instance.HiddenUI("GMTalkMainPage");
+                InputDispatcher.Instance.ChangeInputMode("Player");
+            }
+            isShowGMTalkWindow = !isShowGMTalkWindow;
+        }
+    }
+    
     public void HandleGMTalkInputContent(string content)
     {
         var strlst = GetTextContentBySpaceSplit(content);
