@@ -1,6 +1,6 @@
 ID,Name,ConfigPath
-1,LongRangeIonBlaster,Configs/Weapons/Configs_Unit_LongRangeIonBlaster
-2,TripleNeutronBlaster,Configs/Weapons/Configs_Unit_TripleNeutronBlaster
+1,LongRangeIonBlaster,Configs/Weapons/Configs_Weapon_LongRangeIonBlaster
+2,TripleNeutronBlaster,Configs/Weapons/Configs_Weapon_TripleNeutronBlaster
 101,BaseBuilding,Configs/Buildings/Configs_Building_BaseBuilding
 102,LightAutoCannon,Configs/Buildings/Configs_Building_LightAutoCannon
 103,DirectionalSmoothboreCannon,Configs/Buildings/Configs_Building_DirectionalSmoothboreCannon

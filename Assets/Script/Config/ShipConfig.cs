@@ -15,6 +15,25 @@ public class ShipConfig : BaseConfig
 
     public AvalibalMainWeapon MainWeapon;
 
+
+
+    protected override Vector2Int GetMapPivot()
+    {
+        //base.GetMapPivot();
+        if (Map == null)
+            return Vector2Int.zero;
+        for (int x = 0; x < Map.GetLength(0); x++)
+        {
+            for (int y = 0; y < Map.GetLength(1); y++)
+            {
+                if (Map[x, y] == 1)
+                {
+                    return GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.ShipMapSize);
+                }
+            }
+        }
+        return Vector2Int.zero;
+    }
     [OnInspectorInit]
     private void InitData()
     {

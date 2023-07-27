@@ -24,7 +24,7 @@ public class ShipMainEditor : OdinMenuEditorWindow
 
         tree.AddAllAssetsAtPath("½¢´¬", "Assets/Resources/Configs/Ships", typeof(ShipConfig), true, true);
         tree.AddAllAssetsAtPath("½¨Öþ", "Assets/Resources/Configs/Buildings", typeof(BuildingConfig), true, true);
-        tree.AddAllAssetsAtPath("ÎäÆ÷", "Assets/Resources/Configs/Weapons", typeof(BuildingConfig), true, true);
+        tree.AddAllAssetsAtPath("ÎäÆ÷", "Assets/Resources/Configs/Weapons", typeof(WeaponConfig), true, true);
 
         return tree;
     }

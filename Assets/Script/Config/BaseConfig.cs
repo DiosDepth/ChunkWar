@@ -38,6 +38,7 @@ public class BaseConfig : SerializedScriptableObject
     }
     protected Vector2Int _mapPivot = new Vector2Int();
 
+    [System.Obsolete]
     private void OnEnable()
     {
         _mapPivot = GetMapPivot();
@@ -51,20 +52,8 @@ public class BaseConfig : SerializedScriptableObject
     [SerializeField]
     public int m_FlattendMapLayoutRows;
 
-    protected Vector2Int GetMapPivot()
+    protected virtual Vector2Int  GetMapPivot()
     {
-        if (Map == null)
-            return Vector2Int.zero;
-        for (int x = 0; x < Map.GetLength(0); x++)
-        {
-            for (int y = 0; y < Map.GetLength(1); y++)
-            {
-                if (Map[x, y] == 1)
-                {
-                    return GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.ShipMapSize);
-                }
-            }
-        }
         return Vector2Int.zero;
     }
 
@@ -81,17 +70,20 @@ public class BaseConfig : SerializedScriptableObject
             }
         }
 
-        if (value == 1)
+        if (value == 2)
         {
             UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0.1f, 0.8f, 0.2f));
+            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width,rect.height), value.ToString());
         }
-        else if (value == 2)
+        else if (value == 1)
         {
             UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0.5f, 0f, 0f, 1f));
+            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
         }
         else if (value == 0)
         {
             UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0f, 0f, 0f, 1f));
+            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
         }
         return value;
     }

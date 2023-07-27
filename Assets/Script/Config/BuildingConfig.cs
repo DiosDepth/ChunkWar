@@ -5,16 +5,9 @@ using UnityEngine;
 
 
 
+[CreateAssetMenu(fileName = "Configs_Building_", menuName = "Configs/Unit/BuildingConfig")]
 public class BuildingConfig : BaseUnitConfig
 {
 
-    [OnInspectorInit]
-    private void InitData()
-    {
-        if (Map == null)
-        {
-            Map = new int[GameGlobalConfig.BuildingMaxSize, GameGlobalConfig.BuildingMaxSize];
-        }
-    }
 
 }

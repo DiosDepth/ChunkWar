@@ -112,6 +112,8 @@ public class ShipController : MonoBehaviour
 
     public void HandleAttackInput(InputAction.CallbackContext context)
     {
+
+        Debug.Log("HandleAttackInput : " + context.phase);
         switch (context.phase)
         {
             case InputActionPhase.Disabled:
@@ -119,14 +121,14 @@ public class ShipController : MonoBehaviour
             case InputActionPhase.Waiting:
                 break;
             case InputActionPhase.Started:
-                Debug.Log("Attack is Started");
+               // Debug.Log("Attack is Started");
                 break;
             case InputActionPhase.Performed:
-                Debug.Log("Attack is performed");
+                //Debug.Log("Attack is performed");
 
                 break;
             case InputActionPhase.Canceled:
-                Debug.Log("Attack is Canceled");
+                //Debug.Log("Attack is Canceled");
                 break;
         }
     }

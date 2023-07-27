@@ -17,12 +17,12 @@ public static class GameGlobalConfig
     /// <summary>
     /// building max size
     /// </summary>
-    public const int BuildingMaxSize = 10;
+    public const int UnitMaxSize = 11;
 
     /// <summary>
     ///  map size base on center of building max size
     /// </summary>
-    public const int BuildingMapSize = (BuildingMaxSize - 1) / 2;
+    public const int UnitMapSize = (UnitMaxSize - 1) / 2;
 
 
     public const int BuildingShadowMaxSize = 21;
