@@ -33,7 +33,7 @@ public enum GoodsItemRarity
 [System.Serializable]
 public class ShopGoodsItemConfig
 {
-    [TableColumnWidth(100, false)]
+    [TableColumnWidth(60, false)]
     public int GoodID;
 
     [TableColumnWidth(80,false)]
@@ -44,6 +44,9 @@ public class ShopGoodsItemConfig
 
     [TableColumnWidth(50, false)]
     public bool Unique;
+
+    [TableColumnWidth(100, false)]
+    public int MaxBuyCount = -1;
 
     [TableColumnWidth(200, false)]
     public string Name;

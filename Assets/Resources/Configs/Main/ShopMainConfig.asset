@@ -20,6 +20,195 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: RarityMap
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[ShopGoodsRarityConfig,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearWave
+      Entry: 3
+      Data: 1
+    - Name: LuckModifyMinWave
+      Entry: 3
+      Data: 1
+    - Name: BaseWeight
+      Entry: 3
+      Data: 100
+    - Name: WeightAddPerWave
+      Entry: 4
+      Data: 0
+    - Name: WeightMax
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 3|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearWave
+      Entry: 3
+      Data: 2
+    - Name: LuckModifyMinWave
+      Entry: 3
+      Data: 1
+    - Name: BaseWeight
+      Entry: 3
+      Data: 0
+    - Name: WeightAddPerWave
+      Entry: 4
+      Data: 6
+    - Name: WeightMax
+      Entry: 4
+      Data: 60
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 4|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearWave
+      Entry: 3
+      Data: 4
+    - Name: LuckModifyMinWave
+      Entry: 3
+      Data: 3
+    - Name: BaseWeight
+      Entry: 3
+      Data: 0
+    - Name: WeightAddPerWave
+      Entry: 4
+      Data: 2
+    - Name: WeightMax
+      Entry: 4
+      Data: 25
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 5|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearWave
+      Entry: 3
+      Data: 8
+    - Name: LuckModifyMinWave
+      Entry: 3
+      Data: 7
+    - Name: BaseWeight
+      Entry: 3
+      Data: 0
+    - Name: WeightAddPerWave
+      Entry: 4
+      Data: 0.2
+    - Name: WeightMax
+      Entry: 4
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   RollCostBase: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   RoolCostIncreaceMap: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  Goods:
+  - GoodID: 1
+    Rarity: 0
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
+    Name: 
+    Desc: 
+  - GoodID: 2
+    Rarity: 0
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+    Name: 
+    Desc: 
+  - GoodID: 3
+    Rarity: 1
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+    Name: 
+    Desc: 
+  - GoodID: 4
+    Rarity: 2
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+    Name: 
+    Desc: 
+  - GoodID: 5
+    Rarity: 0
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+    Name: 
+    Desc: 
+  - GoodID: 6
+    Rarity: 0
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+    Name: 
+    Desc: 

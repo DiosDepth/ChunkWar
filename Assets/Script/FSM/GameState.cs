@@ -152,6 +152,8 @@ public class EGameState_ShipSelection : GameState
             }));
         }));
 
+        ///Test
+        RogueManager.Instance.InitRogueBattle();
     }
 
     public override void OnUpdate()

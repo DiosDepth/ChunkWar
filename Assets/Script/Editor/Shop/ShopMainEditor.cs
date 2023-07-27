@@ -27,11 +27,6 @@ public class ShopMainEditor : OdinEditorWindow
     {
         base.Initialize();
         ShopCfg = AssetDatabase.LoadAssetAtPath<ShopMainConfig>(ShopConfigPath);
-
-        if (ShopCfg == null)
-        {
-            ShopCfg = SimEditorUtility.CreateAssets<ShopMainConfig>("Assets/Resources/Configs/Main", "ShopMainConfig");
-        }
     }
 
 }

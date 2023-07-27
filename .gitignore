@@ -10,3 +10,6 @@ Temp
 *.csproj
 UserSettings/EditorUserSettings.asset
 UserSettings
+ProjectSettings/ProjectVersion.txt
+Packages/packages-lock.json
+ProjectSettings/PackageManagerSettings.asset
