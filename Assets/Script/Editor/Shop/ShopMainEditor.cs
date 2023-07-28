@@ -9,8 +9,10 @@ using UnityEditor;
 
 public class ShopMainEditor : OdinEditorWindow
 {
+
     [InlineEditor]
     [HideReferenceObjectPicker]
+    [HorizontalGroup("VVV", Order = 99)]
     public ShopMainConfig ShopCfg;
 
     private const string ShopConfigPath = "Assets/Resources/Configs/Main/ShopMainConfig.asset";
@@ -27,6 +29,14 @@ public class ShopMainEditor : OdinEditorWindow
     {
         base.Initialize();
         ShopCfg = AssetDatabase.LoadAssetAtPath<ShopMainConfig>(ShopConfigPath);
+    }
+
+    [OnInspectorDispose]
+    private void OnDispose()
+    {
+        EditorUtility.SetDirty(ShopCfg);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
 }

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c0fd7b75669624fac471e6c891cecd, type: 3}
+  m_Name: TextData_GeneralItems
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  TextSetName: TextData_GeneralItems
+  Texts:
+  - TextID: ShopGoods_Name_1
+    ChineseSimplified: "\u5546\u54C11"
+    English: 
+    Japanese: 
+  - TextID: ShopGoods_Name_2
+    ChineseSimplified: "\u5546\u54C12"
+    English: 
+    Japanese: 
+  - TextID: ShopGoods_Name_3
+    ChineseSimplified: "\u5546\u54C13"
+    English: 
+    Japanese: 
+  - TextID: ShopGoods_Name_4
+    ChineseSimplified: "\u5546\u54C14"
+    English: 
+    Japanese: 
+  - TextID: ShopGoods_Name_5
+    ChineseSimplified: "\u5546\u54C15"
+    English: 
+    Japanese: 
+  - TextID: ShopGoods_Name_6
+    ChineseSimplified: "\u5546\u54C16"
+    English: 
+    Japanese: 

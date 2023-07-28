@@ -20,6 +20,7 @@ public class ShopMainConfig : SerializedScriptableObject
 
     [DictionaryDrawerSettings(DisplayMode =  DictionaryDisplayOptions.Foldout)]
     public Dictionary<GoodsItemRarity, ShopGoodsRarityConfig> RarityMap = new Dictionary<GoodsItemRarity, ShopGoodsRarityConfig>();
+
 }
 
 public enum GoodsItemRarity
@@ -34,10 +35,16 @@ public enum GoodsItemRarity
 public class ShopGoodsItemConfig
 {
     [TableColumnWidth(60, false)]
+    [OnValueChanged("OnGoodsIDChange")]
     public int GoodID;
 
     [TableColumnWidth(80,false)]
     public GoodsItemRarity Rarity;
+
+    [TableColumnWidth(70, false)]
+    [PreviewField(50)]
+    [AssetSelector(Paths = "Assets/Resources/Sprite/ShopIcon", DropdownHeight = 800, DropdownWidth = 400)]
+    public Sprite IconSprite;
 
     [TableColumnWidth(80, false)]
     public int CostBase;
@@ -48,9 +55,20 @@ public class ShopGoodsItemConfig
     [TableColumnWidth(100, false)]
     public int MaxBuyCount = -1;
 
-    [TableColumnWidth(200, false)]
+    [TableColumnWidth(150, false)]
+    [ReadOnly]
     public string Name;
+
+    [TableColumnWidth(150, false)]
+    [ReadOnly]
     public string Desc;
+
+
+    private void OnGoodsIDChange()
+    {
+        Name = string.Format("ShopGoods_Name_{0}", GoodID);
+        Desc = string.Format("ShopGoods_Desc_{0}", GoodID);
+    }
 }
 
 [System.Serializable]

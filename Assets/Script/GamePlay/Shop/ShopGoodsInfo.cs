@@ -30,6 +30,16 @@ public class ShopGoodsInfo : RandomObject
         set;
     }
 
+    public string ItemName
+    {
+        get { return LocalizationManager.Instance.GetTextValue(_cfg.Name); }
+    }
+
+    public string ItemDesc
+    {
+        get { return LocalizationManager.Instance.GetTextValue(_cfg.Desc); }
+    }
+
     public GoodsItemRarity Rarity
     {
         get { return _cfg.Rarity; }
