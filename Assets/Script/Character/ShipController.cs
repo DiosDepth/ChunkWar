@@ -115,23 +115,7 @@ public class ShipController : MonoBehaviour
     {
 
         Debug.Log("HandleAttackInput : " + context.phase);
-        switch (context.phase)
-        {
-            case InputActionPhase.Disabled:
-                break;
-            case InputActionPhase.Waiting:
-                break;
-            case InputActionPhase.Started:
-               // Debug.Log("Attack is Started");
-                break;
-            case InputActionPhase.Performed:
-                //Debug.Log("Attack is performed");
-
-                break;
-            case InputActionPhase.Canceled:
-                //Debug.Log("Attack is Canceled");
-                break;
-        }
+        ship.mainWeapon.HandleWeapon(context);
     }
 
     public virtual void HandleMovement()

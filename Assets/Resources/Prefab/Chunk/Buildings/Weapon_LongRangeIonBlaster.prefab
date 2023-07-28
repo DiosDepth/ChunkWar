@@ -53,15 +53,15 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
-  weapontype: 0
-  weaponmode: 0
+  weaponmode: 1
   baseAttribute:
     ATK: 0
     Rate: 0
+    ChargeTime: 0
     ChargeCost: 0
     BeforeDelay: 0
     BetweenDelay: 0
-    AfterDelay: 0
+    AfterDelay: 1
 --- !u!1 &4947179279536623991
 GameObject:
   m_ObjectHideFlags: 0

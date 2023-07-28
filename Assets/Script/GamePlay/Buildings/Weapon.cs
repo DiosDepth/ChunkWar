@@ -1,15 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-
-
-public enum WeaponType
-{
-    OneShort,
-    Burst,
-}
+using UnityEngine.InputSystem;
 
 public enum WeaponFireModeType
 {
@@ -38,11 +30,13 @@ public class WeaponAttribute
 
     public float ATK;
     public float Rate;
+    public float ChargeTime;
     public float ChargeCost;
 
     public float BeforeDelay;
     public float BetweenDelay;
     public float AfterDelay;
+
 }
 
 public enum AvalibalMainWeapon
@@ -55,7 +49,6 @@ public enum AvalibalMainWeapon
 public class Weapon : Unit
 {
 
-    public WeaponType weapontype;
     public WeaponFireModeType weaponmode;
     public StateMachine<WeaponState> weaponstate;
 
@@ -67,8 +60,10 @@ public class Weapon : Unit
     private float _beforeDelayCounter;
     private float _betweenDelayCounter;
     private float _afterDelayCounter;
-
-    private float _isChargeFire;
+    private float _chargeConter;
+    
+    private bool _isChargeFire;
+    private bool _isWeaponOff;
 
     public override void Initialization()
     {
@@ -100,11 +95,12 @@ public class Weapon : Unit
             case WeaponState.Ready:
                 WeaponReady();
                 break;
-            case WeaponState.BeforeDelay:
-                WeaponBeforeDelay();
-                break;
+
             case WeaponState.Start:
                 WeaponStart();
+                break;
+            case WeaponState.BeforeDelay:
+                WeaponBeforeDelay();
                 break;
             case WeaponState.Firing:
                 WeaponFiring();
@@ -133,33 +129,76 @@ public class Weapon : Unit
         }
     }
 
+    public virtual void HandleWeapon(InputAction.CallbackContext context)
+    {
+        if(weaponmode == WeaponFireModeType.Manual)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
+                    weaponstate.ChangeState(WeaponState.Charging);
+                    break;
+
+                case InputActionPhase.Canceled:
+
+                    WeaponOn();
+                    break;
+            }
+        }
+
+        if (weaponmode == WeaponFireModeType.Auto)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    WeaponOn();
+                    break;
+
+                case InputActionPhase.Canceled:
+                    WeaponOff();
+                    break;
+            }
+        }
+    }
+
 
     public virtual void WeaponOn()
     {
         weaponstate.ChangeState(WeaponState.Start);
+
     }
 
     public virtual void WeaponOff()
     {
-        weaponstate.ChangeState(WeaponState.End);
+        _isWeaponOff = true;
+        
     }
+
 
 
     public virtual void WeaponReady()
     {
+        Debug.Log(this.gameObject + " : WeaponReady");
 
+        _beforeDelayCounter = baseAttribute.BeforeDelay;
+        _betweenDelayCounter = baseAttribute.BetweenDelay;
+        _afterDelayCounter = baseAttribute.AfterDelay;
+        _chargeConter = baseAttribute.ChargeTime;
     }
 
     public virtual void WeaponStart()
     {
+        Debug.Log(this.gameObject + " : WeaponStart");
         _beforeDelayCounter = baseAttribute.BeforeDelay;
         _betweenDelayCounter = baseAttribute.BetweenDelay;
         _afterDelayCounter = baseAttribute.AfterDelay;
+        _chargeConter = baseAttribute.ChargeTime;
 
         weaponstate.ChangeState(WeaponState.BeforeDelay);
     }
     public virtual void WeaponBeforeDelay()
     {
+        Debug.Log(this.gameObject + " : WeaponBeforeDelay");
         _beforeDelayCounter -= Time.deltaTime;
         if(_beforeDelayCounter < 0)
         {
@@ -179,9 +218,19 @@ public class Weapon : Unit
         switch (weaponmode)
         {
             case WeaponFireModeType.Auto:
-                weaponstate.ChangeState(WeaponState.BetweenDelay);
+
+                if(!_isWeaponOff)
+                {
+                    weaponstate.ChangeState(WeaponState.BetweenDelay);
+                }
+                else
+                {
+                    weaponstate.ChangeState(WeaponState.Fired);
+                }
+       
                 break;
             case WeaponFireModeType.Manual:
+              
                 weaponstate.ChangeState(WeaponState.Fired);
                 break;
         }
@@ -189,11 +238,28 @@ public class Weapon : Unit
 
     public virtual void DoFire()
     {
+        switch (weaponmode)
+        {
+            case WeaponFireModeType.Auto:
+                Debug.Log(this.gameObject + " : Auto Firing!!!");
+                break;
+            case WeaponFireModeType.Manual:
+                if(_isChargeFire)
+                {
+                    Debug.Log(this.gameObject + " : Manual Charge Firing!!!");
+                }
+                else
+                {
+                    Debug.Log(this.gameObject + " : Manual Firing!!!");
+                }
 
+                break;
+        }
     }
 
     public virtual void WeaponBetweenDelay()
     {
+        Debug.Log(this.gameObject + " : WeaponBetweenDelay");
         _betweenDelayCounter -= Time.deltaTime;
         if (_betweenDelayCounter < 0)
         {
@@ -203,25 +269,35 @@ public class Weapon : Unit
     }
     public virtual void WeaponCharging()
     {
+        Debug.Log(this.gameObject + " : WeaponCharging");
 
+        _chargeConter -= Time.deltaTime;
+        if (_chargeConter < 0)
+        {
+            _chargeConter = baseAttribute.ChargeTime;
+            weaponstate.ChangeState(WeaponState.Charged);
+        }
     }
 
 
 
     public virtual void WeaponCharged()
     {
-
+        Debug.Log(this.gameObject + " : WeaponCharged");
+        _isChargeFire = true;
     }
 
 
 
     public virtual void WeaponFired()
     {
-        
+        Debug.Log(this.gameObject + " : WeaponFired");
+        weaponstate.ChangeState(WeaponState.AfterDelay);
     }
 
     public virtual void WeaponAfterDelay()
     {
+        Debug.Log(this.gameObject + " : WeaponAfterDelay");
         _afterDelayCounter -= Time.deltaTime;
         if (_afterDelayCounter < 0)
         {
@@ -232,11 +308,15 @@ public class Weapon : Unit
 
     public virtual void WeaponEnd()
     {
+        Debug.Log(this.gameObject + " : WeaponEnd");
         weaponstate.ChangeState(WeaponState.Recover);
     }
 
     public virtual void WeaponRecover()
     {
+        Debug.Log(this.gameObject + " : WeaponRecover");
+        _isChargeFire = false;
+        _isWeaponOff = false;
         weaponstate.ChangeState(WeaponState.Ready);
     }
 

@@ -28,33 +28,56 @@ public class WeaponLongRangeIonBlasters : Weapon
 
     public override void WeaponReady()
     {
-
+        base.WeaponReady();
     }
 
     public override void WeaponStart()
     {
-
+        base.WeaponStart();
     }
 
+    public override void WeaponBeforeDelay()
+    {
+        base.WeaponBeforeDelay();
+    }
+
+    public override void WeaponCharging()
+    {
+        base.WeaponCharging();
+    }
+
+    public override void WeaponCharged()
+    {
+        base.WeaponCharged();
+    }
 
     public override void WeaponFiring()
     {
-
+        base.WeaponFiring();
     }
 
+    public override void WeaponBetweenDelay()
+    {
+        base.WeaponBetweenDelay();
+    }
     public override void WeaponFired()
     {
+        base.WeaponFired();
+    }
 
+    public override void WeaponAfterDelay()
+    {
+        base.WeaponAfterDelay();
     }
 
     public override void WeaponEnd()
     {
-
+        base.WeaponEnd();
     }
 
     public override void WeaponRecover()
     {
-
+        base.WeaponRecover();
     }
 
     public override void TakeDamage()

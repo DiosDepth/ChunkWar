@@ -137,12 +137,12 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
-  weapontype: 0
   weaponmode: 0
   baseAttribute:
     ATK: 0
     Rate: 0
+    ChargeTime: 0
     ChargeCost: 0
     BeforeDelay: 0
-    BetweenDelay: 0
-    AfterDelay: 0
+    BetweenDelay: 0.25
+    AfterDelay: 1
