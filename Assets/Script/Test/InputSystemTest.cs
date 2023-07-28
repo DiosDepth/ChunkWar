@@ -11,6 +11,7 @@ public class InputSystemTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttack;
         //Debug.Log("currentActionMap = " + playerinput.currentActionMap);
         //Debug.Log("Move Action = " + playerinput.currentActionMap.FindAction("Move").GetBindingIndex());

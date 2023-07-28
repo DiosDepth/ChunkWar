@@ -316,16 +316,18 @@ public class EGameState_GameStart : GameState
     public override void OnUpdate()
     {
         base.OnUpdate();
-
-        if(UIManager.Instance.IsMouseOverUI())
+        if (LevelManager.Instance.needServicing)
         {
-            InputDispatcher.Instance.ChangeInputMode("UI");
+            ///会引发Input的问题， 在按下案件的时候，同时 触发start和 canceled
+            if (UIManager.Instance.IsMouseOverUI())
+            {
+                InputDispatcher.Instance.ChangeInputMode("UI");
+            }
+            else
+            {
+                InputDispatcher.Instance.ChangeInputMode("Player");
+            }
         }
-        else
-        {
-            InputDispatcher.Instance.ChangeInputMode("Player");
-        }
-  
     }
 
     public override void OnExit()

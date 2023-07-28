@@ -34,7 +34,7 @@ public class ShipController : MonoBehaviour
 
     void Start()
     {
-
+        //InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
 
 
     }
@@ -47,6 +47,7 @@ public class ShipController : MonoBehaviour
         InputDispatcher.Instance.Action_GamePlay_Move += HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point += HandlePointInput;
         InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
+
     }
 
     // Update is called once per frame

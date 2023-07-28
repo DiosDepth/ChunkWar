@@ -14,13 +14,14 @@ public class MonoManager : Singleton<MonoManager>
     public MonoManager()
     {
         Initialization();
-        GameObject obj = new GameObject("MonoController");
-        controller = obj.AddComponent<MonoController>();
+
     }
 
     public override void Initialization()
     {
         base.Initialization();
+        GameObject obj = new GameObject("MonoController");
+        controller = obj.AddComponent<MonoController>();
     }
 
     public void AddStartListener(UnityAction fun)
