@@ -153,7 +153,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
             for (int i = 0; i < allShopItems.Count; i++)
             {
 
-                PoolManager.Instance.GetObject(ShipGoodsItem_PrefabPath, true, (obj) =>
+                PoolManager.Instance.GetObjectAsync(ShipGoodsItem_PrefabPath, true, (obj) =>
                 {
                     var cmpt = obj.GetComponent<ShopSlotItem>();
                     cmpt.SetUp(allShopItems[index]);

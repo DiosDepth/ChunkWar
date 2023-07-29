@@ -203,7 +203,11 @@ public class Weapon : Unit
     public virtual void WeaponOn()
     {
         _isWeaponOn = true;
-        weaponstate.ChangeState(WeaponState.Start);
+        if(weaponstate.CurrentState != WeaponState.Reload)
+        {
+            weaponstate.ChangeState(WeaponState.Start);
+        }
+
     }
 
     public virtual void WeaponOff()
@@ -228,7 +232,7 @@ public class Weapon : Unit
         _chargeCounter = baseAttribute.ChargeTime;
         _reloadCounter = baseAttribute.ReloadTime;
 
-        if (magazine <=0)
+        if (magazine <= 0 && baseAttribute.MagazineBased)
         {
             weaponstate.ChangeState(WeaponState.End);
         }
@@ -248,7 +252,7 @@ public class Weapon : Unit
     public virtual void FireRequest()
     {
         // 进行开火条件的判定,成功则 WeaponFiring ,否则 WeaponEnd
-        if (magazine <= 0)
+        if (magazine <= 0 && baseAttribute.MagazineBased)
         {
             weaponstate.ChangeState(WeaponState.End);
             return;
@@ -272,7 +276,7 @@ public class Weapon : Unit
         {
             case WeaponFireModeType.SemiAuto:
                 Debug.Log(this.gameObject + " : SemiAuto Firing!!!");
-                PoolManager.Instance.GetObject(_bulletdata.PrefabPath, false, (obj) =>
+                PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, (obj) =>
                 {
                     obj.transform.SetTransform(firePoint);
                     _lastbullet = obj.GetComponent<Projectile>();
@@ -285,7 +289,7 @@ public class Weapon : Unit
                 if(_isChargeFire)
                 {
                     Debug.Log(this.gameObject + " : Manual Charge Firing!!!");
-                    PoolManager.Instance.GetObject(_bulletdata.PrefabPath, false, (obj) =>
+                    PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, (obj) =>
                     {
                         obj.transform.SetTransform(firePoint);
                         _lastbullet = obj.GetComponent<Projectile>();
@@ -298,7 +302,7 @@ public class Weapon : Unit
                 {
                     Debug.Log(this.gameObject + " : Manual Firing!!!");
 
-                    PoolManager.Instance.GetObject(_bulletdata.PrefabPath, false, (obj) =>
+                    PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, (obj) =>
                     {
                         obj.transform.SetTransform(firePoint);
                         _lastbullet = obj.GetComponent<Projectile>();
@@ -388,7 +392,7 @@ public class Weapon : Unit
     {
         Debug.Log(this.gameObject + " : WeaponEnd");
         
-        if(magazine <= 0 || baseAttribute.MagazineBased)
+        if(magazine <= 0 && baseAttribute.MagazineBased)
         {
             weaponstate.ChangeState(WeaponState.Reload);
         }
@@ -399,19 +403,13 @@ public class Weapon : Unit
 
     }
 
-    public virtual void WeaponRecover()
-    {
-        Debug.Log(this.gameObject + " : WeaponRecover");
-        _isChargeFire = false;
-        _isWeaponOn = false;
 
-        weaponstate.ChangeState(WeaponState.Ready);
-    }
 
 
 
     public virtual void WeaponReload()
     {
+        Debug.Log(this.gameObject + " : WeaponReload");
         _reloadCounter -= Time.deltaTime;
         if (_reloadCounter < 0)
         {
@@ -433,9 +431,20 @@ public class Weapon : Unit
                 }
 
             }
+            else
+            {
+                weaponstate.ChangeState(WeaponState.Recover);
+            }
         }
     }
+    public virtual void WeaponRecover()
+    {
+        Debug.Log(this.gameObject + " : WeaponRecover");
+        _isChargeFire = false;
+        _isWeaponOn = false;
 
+        weaponstate.ChangeState(WeaponState.Ready);
+    }
 
     public override void TakeDamage()
     {

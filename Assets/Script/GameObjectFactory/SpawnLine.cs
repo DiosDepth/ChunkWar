@@ -48,7 +48,7 @@ public class SpawnLine : MonoBehaviour
         {
             if (Time.time >= stamp)
             {
-                PoolManager.Instance.GetObject(PoolManager.Instance.PlayerPrefabPath + "MovingBlocker", false, (obj) =>
+                PoolManager.Instance.GetObjectAsync(PoolManager.Instance.PlayerPrefabPath + "MovingBlocker", false, (obj) =>
                 {
                     obj.GetComponent<Projectile>().InitialmoveDirection = moveDirction;
                     stamp = Time.time + Random.Range(spawnIntervalMin, spawnIntervalMax);

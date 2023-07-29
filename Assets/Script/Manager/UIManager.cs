@@ -94,7 +94,7 @@ public class UIManager : Singleton<UIManager>
 
     public void CreatePoolerUI<T>(string m_ui_res_path, bool m_isactive, UnityAction<T> callback) where T : GUIBasePanel
     {
-        PoolManager.Instance.GetObject(m_ui_res_path, m_isactive, (obj) =>
+        PoolManager.Instance.GetObjectAsync(m_ui_res_path, m_isactive, (obj) =>
         {
             if (callback != null)
             {

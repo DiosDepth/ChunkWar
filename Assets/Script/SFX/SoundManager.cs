@@ -54,7 +54,7 @@ public class SoundManager : Singleton<SoundManager>
         {
             if(BGMSource == null)
             {
-                PoolManager.Instance.GetObject(soundSourcePath, true, (obj) => 
+                PoolManager.Instance.GetObjectAsync(soundSourcePath, true, (obj) => 
                 {
                     BGMSource = obj.GetComponent<SoundSource>();
                     BGMSource.source = obj.GetComponent<AudioSource>();
@@ -121,7 +121,7 @@ public class SoundManager : Singleton<SoundManager>
                 SFXContainer.name = "SFXContrainer";
             }
 
-            PoolManager.Instance.GetObject(soundSourcePath, true, (obj) =>
+            PoolManager.Instance.GetObjectAsync(soundSourcePath, true, (obj) =>
             {
                 obj.transform.parent = SFXContainer.transform;
                SoundSource tempsound =  obj.GetComponent<SoundSource>();

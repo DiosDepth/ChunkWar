@@ -91,7 +91,7 @@ public class Projectile : PoolableObject
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        PoolManager.Instance.GetObject(PoolManager.Instance.VFXPath + "DestroyVFX", true, (obj) => 
+        PoolManager.Instance.GetObjectAsync(PoolManager.Instance.VFXPath + "DestroyVFX", true, (obj) => 
         {
             obj.transform.position = this.transform.position;
             obj.GetComponent<ParticleController>().SetActive();
