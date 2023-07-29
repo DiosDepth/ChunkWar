@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class LanguageGenerator
 {
-    private const string TargetRootPath = "Assets/ConfigData/EditorConfig/Localization";
+    private const string TargetRootPath = "Assets/EditorRes/Config/Localization";
 
     public static void GenerateTextData(Dictionary<string, string> textMap, string targetFileName)
     {
@@ -50,7 +50,7 @@ public static class LanguageGenerator
         else
         {
             ///CreateNewData
-            var data = SimEditorUtility.CreateAssets<LocalizationSerlizationData>("Assets/ConfigData/EditorConfig/Localization", targetFileName, obj =>
+            var data = SimEditorUtility.CreateAssets<LocalizationSerlizationData>("Assets/EditorRes/Config/Localization", targetFileName, obj =>
             {
                 obj.TextSetName = targetFileName;
             });

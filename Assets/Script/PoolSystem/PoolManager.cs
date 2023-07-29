@@ -86,7 +86,7 @@ public class PoolManager : Singleton<PoolManager>
         base.Initialization();
     }
 
-    public void GetObject(string m_key, bool m_active, UnityAction<GameObject> callback)
+    public void GetObject(string m_key, bool m_active, UnityAction<GameObject> callback, Transform parentTrans = null)
     {
         //GameObject temp_obj = null;
 
@@ -102,6 +102,8 @@ public class PoolManager : Singleton<PoolManager>
                 obj.name = m_key;
                 obj.SetActive(m_active);
                 callback(obj);
+                if (parentTrans != null)
+                    obj.transform.SetParent(parentTrans, false);
             });
             /*temp_obj =  GameObject.Instantiate(Resources.Load<GameObject>(m_key));
              temp_obj.name = m_key;*/

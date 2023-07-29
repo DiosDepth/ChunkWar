@@ -30,9 +30,34 @@ public class ShopGoodsInfo : RandomObject
         set;
     }
 
+    public string ItemName
+    {
+        get { return LocalizationManager.Instance.GetTextValue(_cfg.Name); }
+    }
+
+    public string ItemDesc
+    {
+        get { return LocalizationManager.Instance.GetTextValue(_cfg.Desc); }
+    }
+
     public GoodsItemRarity Rarity
     {
         get { return _cfg.Rarity; }
+    }
+
+    /// <summary>
+    /// ÊÇ·ñ¿ÉÒÔ¹ºÂò
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckCanBuy()
+    {
+        var currency = RogueManager.Instance.CurrentCurrency;
+        return Cost <= currency && !_sold;
+    }
+
+    public int Cost
+    {
+        get { return GetCost(); }
     }
 
     /// <summary>
@@ -45,6 +70,11 @@ public class ShopGoodsInfo : RandomObject
             return CheckIsVaild();
         }
     }
+
+    /// <summary>
+    /// Temp Slod
+    /// </summary>
+    private bool _sold = false;
 
     public static ShopGoodsInfo CreateGoods(int goodsID)
     {
@@ -68,6 +98,16 @@ public class ShopGoodsInfo : RandomObject
         return sb.ToString();
     }
 
+    public void OnItemAddToShop()
+    {
+        _sold = false;
+    }
+
+    public void OnItemSold()
+    {
+        _sold = true;
+    }
+
     private bool CheckIsVaild()
     {
         if (_cfg.MaxBuyCount == -1)
@@ -81,5 +121,14 @@ public class ShopGoodsInfo : RandomObject
             return false;
 
         return true;
+    }
+
+    private int GetCost()
+    {
+        var basePrice = _cfg.CostBase;
+        var currentWave = RogueManager.Instance.GetCurrentWaveIndex;
+        var price = basePrice * (currentWave * basePrice * 0.1f);
+        price = Mathf.Clamp(price, 1f, price);
+        return Mathf.CeilToInt(price);
     }
 }
