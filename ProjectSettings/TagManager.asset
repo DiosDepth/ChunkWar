@@ -54,6 +54,9 @@ TagManager:
   - name: Sprite
     uniqueID: 3089659359
     locked: 0
+  - name: Bullet
+    uniqueID: 2832352555
+    locked: 0
   - name: VFX
     uniqueID: 3168972551
     locked: 0
