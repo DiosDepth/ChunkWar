@@ -10,6 +10,7 @@ public class GMTalkMainPage : GUIBasePanel
     public override void Initialization()
     {
         GetGUIComponent<Button>("SendGMBtn").onClick.AddListener(SendGMBtnPressed);
+        GetGUIComponent<Button>("Close").onClick.AddListener(ClosePage);
     }
 
     private void SendGMBtnPressed()
@@ -27,4 +28,9 @@ public class GMTalkMainPage : GUIBasePanel
         base.Hidden();
     }
 
+
+    private void ClosePage()
+    {
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
+    }
 }

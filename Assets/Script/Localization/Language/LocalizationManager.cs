@@ -6,25 +6,26 @@ using Sirenix.Serialization;
 
 public class LocalizationManager : Singleton<LocalizationManager>
 {
-    private SystemLanguage CurrentLanguage = SystemLanguage.ChineseSimplified;
+    private SystemLanguage CurrentLanguage = SystemLanguage.Unknown;
 
-    public static string LanguagePathRoot = "Assets/ConfigData/Localization/";
+    public static string LanguagePathRoot = "Configs/Localization/";
     private Dictionary<string, string> TextData = new Dictionary<string, string>();
 
     private static char ReplaceKey = '#';
 
     public LocalizationManager()
     {
-        LoadLanguage();
+
     }
 
     public void LoadLanguage()
     {
         TextData.Clear();
         var path = GetCurLanguageFilePath();
-        if (File.Exists(path))
+        var textAssets = ResManager.Instance.Load<TextAsset>(path);
+        if(textAssets != null)
         {
-            var bytes = File.ReadAllBytes(path);
+            var bytes = textAssets.bytes;
             var dic = SerializationUtility.DeserializeValue<Dictionary<string, string>>(bytes, DataFormat.Binary);
             TextData = dic;
         }
@@ -36,7 +37,7 @@ public class LocalizationManager : Singleton<LocalizationManager>
 
     private string GetCurLanguageFilePath()
     {
-        return string.Format("{0}TextData_{1}.bytes", LanguagePathRoot, CurrentLanguage.ToString());
+        return string.Format("{0}TextData_{1}", LanguagePathRoot, CurrentLanguage.ToString());
     }
 
     public string GetTextValue(string key)

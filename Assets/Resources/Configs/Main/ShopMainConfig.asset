@@ -50,16 +50,16 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 2|ShopGoodsRarityConfig, Assembly-CSharp
-    - Name: MinAppearWave
+    - Name: MinAppearEneterCount
       Entry: 3
-      Data: 1
-    - Name: LuckModifyMinWave
+      Data: 0
+    - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: BaseWeight
       Entry: 3
       Data: 100
-    - Name: WeightAddPerWave
+    - Name: WeightAddPerEnterCount
       Entry: 4
       Data: 0
     - Name: WeightMax
@@ -80,18 +80,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 3|ShopGoodsRarityConfig, Assembly-CSharp
-    - Name: MinAppearWave
+    - Name: MinAppearEneterCount
       Entry: 3
-      Data: 2
-    - Name: LuckModifyMinWave
+      Data: 0
+    - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: BaseWeight
       Entry: 3
       Data: 0
-    - Name: WeightAddPerWave
+    - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 6
+      Data: 0
     - Name: WeightMax
       Entry: 4
       Data: 60
@@ -110,18 +110,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 4|ShopGoodsRarityConfig, Assembly-CSharp
-    - Name: MinAppearWave
+    - Name: MinAppearEneterCount
       Entry: 3
-      Data: 4
-    - Name: LuckModifyMinWave
+      Data: 0
+    - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: BaseWeight
       Entry: 3
       Data: 0
-    - Name: WeightAddPerWave
+    - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 2
+      Data: 0
     - Name: WeightMax
       Entry: 4
       Data: 25
@@ -140,18 +140,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 5|ShopGoodsRarityConfig, Assembly-CSharp
-    - Name: MinAppearWave
+    - Name: MinAppearEneterCount
       Entry: 3
-      Data: 8
-    - Name: LuckModifyMinWave
+      Data: 0
+    - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 7
+      Data: 0
     - Name: BaseWeight
       Entry: 3
       Data: 0
-    - Name: WeightAddPerWave
+    - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 0.2
+      Data: 0
     - Name: WeightMax
       Entry: 4
       Data: 8
@@ -167,8 +167,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  RollCostBase: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  RoolCostIncreaceMap: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  RollCostIncreaceWaveParam: 0.5
+  RollCostWaveBase: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d00000000000000000000000000000000000000000000000000000000000000
   Goods:
   - GoodID: 1
     Rarity: 0
@@ -204,16 +204,16 @@ MonoBehaviour:
     Desc: ShopGoods_Desc_4
   - GoodID: 5
     Rarity: 0
-    IconSprite: {fileID: 0}
-    CostBase: 0
+    IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
+    CostBase: 15
     Unique: 0
     MaxBuyCount: -1
     Name: ShopGoods_Name_5
     Desc: ShopGoods_Desc_5
   - GoodID: 6
-    Rarity: 0
-    IconSprite: {fileID: 0}
-    CostBase: 0
+    Rarity: 2
+    IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
+    CostBase: 11
     Unique: 0
     MaxBuyCount: -1
     Name: ShopGoods_Name_6

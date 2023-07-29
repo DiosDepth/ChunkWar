@@ -11,7 +11,7 @@ public class GUIBasePanel : MonoBehaviour
     public CanvasGroup uiGroup;
     public RectTransform root;
     public object owner;
-    private void Awake()
+    protected virtual void Awake()
     {
         //FindGUIComponent<CanvasGroup>();
         FindGUIComponent<Button>();
@@ -75,9 +75,6 @@ public class GUIBasePanel : MonoBehaviour
             {
                 GUIDic.Add(t_comp[i].gameObject.name, new List<UIBehaviour>() { t_comp[i] });
             }
-
-
-
         }
     }
 }

@@ -4,6 +4,30 @@ using UnityEngine;
 using System.Linq;
 using System.Text;
 
+public struct RogueEvent
+{
+    public RogueEventType type;
+    public object[] param;
+
+    public RogueEvent(RogueEventType m_type, params object[] param)
+    {
+        type = m_type;
+        this.param = param;
+    }
+
+    public static void Trigger(RogueEventType m_type, params object[] param)
+    {
+        RogueEvent evt = new RogueEvent(m_type, param);
+        EventCenter.Instance.TriggerEvent<RogueEvent>(evt);
+    }
+}
+
+public enum RogueEventType
+{
+    CurrencyChange,
+    ShopReroll,
+}
+
 public class RogueManager : Singleton<RogueManager>
 {
     /// <summary>
@@ -13,7 +37,51 @@ public class RogueManager : Singleton<RogueManager>
 
     private Dictionary<int, byte> _playerCurrentGoods;
 
-    private int _currentRefreshCount = 0;
+    /// <summary>
+    /// 当前刷新次数
+    /// </summary>
+    private int _currentRereollCount = 0;
+
+    private int _waveIndex;
+    public int GetCurrentWaveIndex
+    {
+        get { return _waveIndex; }
+    }
+
+    private ChangeValue<int> _playerCurrency;
+    /// <summary>
+    /// 当前货币
+    /// </summary>
+    public int CurrentCurrency
+    {
+        get { return _playerCurrency.Value; }
+    }
+
+    /// <summary>
+    /// 当前刷新花费
+    /// </summary>
+    public int CurrentRerollCost
+    {
+        get;
+        private set;
+    }
+    /// <summary>
+    /// 商店默认刷新数量
+    /// </summary>
+    private byte _shopDefaultRefreshCount;
+    /// <summary>
+    /// 商店进入总次数
+    /// </summary>
+    private byte _shopEnterTotalCount = 0;
+
+    /// <summary>
+    /// 当前随机商店物品
+    /// </summary>
+    public List<ShopGoodsInfo> CurrentRogueShopItems
+    {
+        get;
+        private set;
+    }
 
     public RogueManager()
     {
@@ -22,8 +90,10 @@ public class RogueManager : Singleton<RogueManager>
 
     public void InitRogueBattle()
     {
+        _waveIndex = 1;
+        InitShopData();
         InitAllGoodsItems();
-        GenerateShopGoods(5, 10);
+        GenerateShopGoods(_shopDefaultRefreshCount, 1);
     }
 
     public override void Initialization()
@@ -33,14 +103,46 @@ public class RogueManager : Singleton<RogueManager>
         _playerCurrentGoods = new Dictionary<int, byte>();
     }
 
-    public void GainShopItem(ShopGoodsInfo info)
+    /// <summary>
+    /// 购买商品
+    /// </summary>
+    /// <param name="info"></param>
+    public bool BuyItem(ShopGoodsInfo info)
+    {
+        if (!info.CheckCanBuy())
+            return false;
+
+        var cost = info.Cost;
+        AddCurrency(-cost);
+        info.OnItemSold();
+        return true;
+    }
+
+    private void GainShopItem(ShopGoodsInfo info)
     {
 
     }
+    
 
-    public void RefreshShop()
+    /// <summary>
+    /// 刷新商店
+    /// </summary>
+    /// <returns></returns>
+    public bool RefreshShop()
     {
+        if (CurrentRerollCost > CurrentCurrency)
+            return false;
 
+        _currentRereollCount++;
+        ///Cost
+        CurrentRerollCost = GetCurrentRefreshCost();
+        AddCurrency(-CurrentRerollCost);
+        ///RefreshShop
+        var refreshCount = GetCurrentShopRefreshCount();
+        GenerateShopGoods(refreshCount, _shopEnterTotalCount);
+        RogueEvent.Trigger(RogueEventType.ShopReroll);
+        Debug.Log("刷新商店，刷新次数 = " + _currentRereollCount);
+        return true;
     }
 
     /// <summary>
@@ -57,19 +159,30 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
+    /// 增加货币
+    /// </summary>
+    /// <param name="value"></param>
+    public void AddCurrency(int value)
+    {
+        var oldValue = _playerCurrency.Value;
+        var newValue = oldValue + value;
+        _playerCurrency.Set(newValue);
+    }
+
+    /// <summary>
     /// 生成商店物品
     /// </summary>
     /// <param name="count"></param>
-    /// <param name="waveIndex"></param>
+    /// <param name="enterCount"></param>
     /// <returns></returns>
-    public List<ShopGoodsInfo> GenerateShopGoods(byte count, int waveIndex)
+    public List<ShopGoodsInfo> GenerateShopGoods(byte count, int enterCount)
     {
         List<ShopGoodsInfo> result = new List<ShopGoodsInfo>();
         var allVaild = goodsItems.Values.ToList().FindAll(x => x.IsVaild);
 
-        var tier2Rate = GetWeightByRarityAndWave(waveIndex, GoodsItemRarity.Tier2);
-        var tier3Rate = GetWeightByRarityAndWave(waveIndex, GoodsItemRarity.Tier3);
-        var tier4Rate = GetWeightByRarityAndWave(waveIndex, GoodsItemRarity.Tier4);
+        var tier2Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier2);
+        var tier3Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier3);
+        var tier4Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier4);
         var tier1Rate = 100 - tier2Rate - tier3Rate - tier4Rate;
         
         List<ShopGoodsRarityItem> rarityItems = new List<ShopGoodsRarityItem>();
@@ -83,17 +196,18 @@ public class RogueManager : Singleton<RogueManager>
             var rarityResult = Utility.GetRandomList<ShopGoodsRarityItem>(rarityItems, 1);
             if(rarityResult.Count <= 0)
             {
-                Debug.LogError("Shop Item RandomError! WaveIndex = " + waveIndex);
+                Debug.LogError("Shop Item RandomError! WaveIndex = " + enterCount);
                 continue;
             }
 
             var rarity = rarityResult[0];
-            var allVaildRarityItems = allVaild.FindAll(x => x.Rarity == rarity.Rarity);
+            var allVaildRarityItems = allVaild.FindAll(x => x.Rarity == rarity.Rarity && !result.Contains(x));
 
             var goodsReusult = Utility.GetRandomList<ShopGoodsInfo>(allVaildRarityItems, 1);
             if (goodsReusult.Count > 0)
             {
                 var goods = goodsReusult[0];
+                goods.OnItemAddToShop();
                 result.Add(goods);
                 ///如果数量到上限或者unique,从列表中去除
                 if (goods._cfg.Unique)
@@ -120,17 +234,25 @@ public class RogueManager : Singleton<RogueManager>
         }
         Debug.Log(sb.ToString());
 #endif
-
+        CurrentRogueShopItems = result;
         return result;
+    }
+
+    private void InitShopData()
+    {
+        _shopDefaultRefreshCount = DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum;
+        _playerCurrency = new ChangeValue<int>(1000, int.MinValue, int.MaxValue);
+        _playerCurrency.BindChangeAction(OnCurrencyChange);
+        CurrentRerollCost = GetCurrentRefreshCost();
     }
 
     /// <summary>
     /// 根据波次和稀有度获取随机权重
     /// </summary>
-    /// <param name="waveIndex"></param>
+    /// <param name="enterCount"></param>
     /// <param name="rarity"></param>
     /// <returns></returns>
-    private float GetWeightByRarityAndWave(int waveIndex, GoodsItemRarity rarity)
+    private float GetWeightByRarityAndEnterCount(int enterCount, GoodsItemRarity rarity)
     {
         var rarityMap = DataManager.Instance.shopCfg.RarityMap;
         if (!rarityMap.ContainsKey(rarity))
@@ -140,11 +262,11 @@ public class RogueManager : Singleton<RogueManager>
         var playerLuck = 0;
 
         var rarityCfg = rarityMap[rarity];
-        if (waveIndex < rarityCfg.MinAppearWave)
+        if (enterCount < rarityCfg.MinAppearEneterCount)
             return 0;
 
-        var waveIndexDelta = waveIndex - rarityCfg.LuckModifyMinWave;
-        return rarityCfg.WeightAddPerWave * waveIndexDelta + rarityCfg.BaseWeight * (100 + playerLuck);
+        var waveIndexDelta = enterCount - rarityCfg.LuckModifyMinEnterCount;
+        return rarityCfg.WeightAddPerEnterCount * waveIndexDelta + rarityCfg.BaseWeight * (100 + playerLuck);
     }
 
     private void InitAllGoodsItems()
@@ -160,5 +282,34 @@ public class RogueManager : Singleton<RogueManager>
             }
         }
     }
-   
+
+    private void OnCurrencyChange(int oldValue, int newValue)
+    {
+        RogueEvent.Trigger(RogueEventType.CurrencyChange);
+    }
+
+    private byte GetCurrentShopRefreshCount()
+    {
+        return _shopDefaultRefreshCount;
+    }
+
+    /// <summary>
+    /// 当前刷新耗费
+    /// </summary>
+    /// <returns></returns>
+    private int GetCurrentRefreshCost()
+    {
+        var rerollParam = DataManager.Instance.shopCfg.RollCostIncreaceWaveParam;
+
+        int rollBase = 999;
+        var rollCostBaseMap = DataManager.Instance.shopCfg.RollCostWaveBase;
+        if (_waveIndex < rollCostBaseMap.Length)
+        {
+            rollBase = rollCostBaseMap[_waveIndex];
+        }
+
+        var rerollIncrease = Mathf.RoundToInt(_waveIndex * rerollParam);
+
+        return _currentRereollCount * rerollIncrease + rollBase;
+    }
 }

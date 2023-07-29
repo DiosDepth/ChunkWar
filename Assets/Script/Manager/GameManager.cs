@@ -101,6 +101,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         gameEntity = new GameEntity();
 
         Initialization();
+        LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         GMTalkManager.Instance.Initialization();
     }
 
