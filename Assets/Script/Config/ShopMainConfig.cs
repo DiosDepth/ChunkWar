@@ -28,6 +28,12 @@ public enum GoodsItemRarity
     Tier4
 }
 
+public enum GoodsItemType
+{
+    ShipUnit,
+    ShipPlug,
+}
+
 [System.Serializable]
 public class ShopGoodsItemConfig
 {
@@ -42,6 +48,12 @@ public class ShopGoodsItemConfig
     [PreviewField(50)]
     [AssetSelector(Paths = "Assets/Resources/Sprite/ShopIcon", DropdownHeight = 800, DropdownWidth = 400)]
     public Sprite IconSprite;
+
+    [TableColumnWidth(80, false)]
+    public GoodsItemType ItemType;
+
+    [TableColumnWidth(80, false)]
+    public int TypeID;
 
     [TableColumnWidth(80, false)]
     public int CostBase;

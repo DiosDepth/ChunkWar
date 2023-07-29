@@ -173,6 +173,8 @@ MonoBehaviour:
   - GoodID: 1
     Rarity: 0
     IconSprite: {fileID: 21300000, guid: 895bf709adba5a948aa8b04a6662b2be, type: 3}
+    ItemType: 1
+    TypeID: 1
     CostBase: 100
     Unique: 1
     MaxBuyCount: -1
@@ -181,6 +183,8 @@ MonoBehaviour:
   - GoodID: 2
     Rarity: 0
     IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
+    ItemType: 1
+    TypeID: 2
     CostBase: 50
     Unique: 0
     MaxBuyCount: -1
@@ -189,22 +193,28 @@ MonoBehaviour:
   - GoodID: 3
     Rarity: 1
     IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
+    ItemType: 0
+    TypeID: 3
     CostBase: 45
     Unique: 0
-    MaxBuyCount: -1
+    MaxBuyCount: 3
     Name: ShopGoods_Name_3
     Desc: ShopGoods_Desc_3
   - GoodID: 4
     Rarity: 2
     IconSprite: {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
-    CostBase: 20
+    ItemType: 0
+    TypeID: 4
+    CostBase: 55
     Unique: 0
-    MaxBuyCount: -1
+    MaxBuyCount: 4
     Name: ShopGoods_Name_4
     Desc: ShopGoods_Desc_4
   - GoodID: 5
     Rarity: 0
     IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
+    ItemType: 0
+    TypeID: 0
     CostBase: 15
     Unique: 0
     MaxBuyCount: -1
@@ -213,6 +223,8 @@ MonoBehaviour:
   - GoodID: 6
     Rarity: 2
     IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
+    ItemType: 0
+    TypeID: 0
     CostBase: 11
     Unique: 0
     MaxBuyCount: -1

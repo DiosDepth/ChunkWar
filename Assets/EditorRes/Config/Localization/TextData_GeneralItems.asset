@@ -24,19 +24,19 @@ MonoBehaviour:
   TextSetName: TextData_GeneralItems
   Texts:
   - TextID: ShopGoods_Name_1
-    ChineseSimplified: "\u5546\u54C11"
+    ChineseSimplified: "\u901F\u5C04\u88C5\u7F6E"
     English: 
     Japanese: 
   - TextID: ShopGoods_Name_2
-    ChineseSimplified: "\u5546\u54C12"
+    ChineseSimplified: "\u706B\u63A7\u589E\u5E45\u5668"
     English: 
     Japanese: 
   - TextID: ShopGoods_Name_3
-    ChineseSimplified: "\u5546\u54C13"
+    ChineseSimplified: "\u8D38\u6613\u534F\u5B9A"
     English: 
     Japanese: 
   - TextID: ShopGoods_Name_4
-    ChineseSimplified: "\u5546\u54C14"
+    ChineseSimplified: "\u4F1A\u5458\u5361"
     English: 
     Japanese: 
   - TextID: ShopGoods_Name_5

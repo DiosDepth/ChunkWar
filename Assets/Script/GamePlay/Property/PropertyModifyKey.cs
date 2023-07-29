@@ -21,4 +21,10 @@ public enum PropertyModifyKey
     /// 武器范围
     /// </summary>
     WeaponRange,
+    /// <summary>
+    /// 商店刷新数量
+    /// </summary>
+    ShopRefreshCount,
+    ShopCostPercent,
+    AttackSpeed,
 }
