@@ -113,5 +113,26 @@ public class LevelData : DataInfo
 }
 
 
+public class BulletData : DataInfo
+{
+    public string PrefabPath;
+    public BulletData() { }
+
+    public BulletData(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        PrefabPath = row[2];
+    }
+
+    public override void Initialization(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        PrefabPath = row[2];
+    }
+}
+
+
 
 

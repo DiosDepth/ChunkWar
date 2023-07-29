@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public enum WeaponFireModeType
 {
-    Auto,
+    Autonomy,
+    SemiAuto,
     Manual,
 }
 public enum WeaponState
@@ -13,6 +14,7 @@ public enum WeaponState
 
     Ready,
     Start,
+    Reload,
     BeforeDelay,
     Firing,
     BetweenDelay,
@@ -33,18 +35,27 @@ public class WeaponAttribute
     public float ChargeTime;
     public float ChargeCost;
 
+    public bool MagazineBased = false;
+    public int MaxMagazineSize = 30;
+
+    public float ReloadTime = 1f;
+
+
     public float BeforeDelay;
     public float BetweenDelay;
     public float AfterDelay;
 
 }
 
-public enum AvalibalMainWeapon
+public enum AvalibalMainWeaponType
 {
     LongRangeIonBlaster,
     TripleNeutronBlaster,
 }
-
+public enum AvaliableBulletType
+{
+    TestBullet,
+}
 
 public class Weapon : Unit
 {
@@ -52,23 +63,47 @@ public class Weapon : Unit
     public WeaponFireModeType weaponmode;
     public StateMachine<WeaponState> weaponstate;
 
+    public AvaliableBulletType bulletType = AvaliableBulletType.TestBullet;
+    public Transform firePoint;
 
     [SerializeField]
     public WeaponAttribute baseAttribute;
-
+    public int magazine;
 
     private float _beforeDelayCounter;
     private float _betweenDelayCounter;
     private float _afterDelayCounter;
-    private float _chargeConter;
+    private float _chargeCounter;
+    private float _reloadCounter;
     
     private bool _isChargeFire;
-    private bool _isWeaponOff;
+    private bool _isWeaponOn;
 
-    public override void Initialization()
+    private BulletData _bulletdata;
+    public Projectile _lastbullet;
+    public override void Initialization(Ship m_owner)
     {
-        base.Initialization();
+        base.Initialization(m_owner);
+
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
+        if(baseAttribute.MagazineBased)
+        {
+            magazine = baseAttribute.MaxMagazineSize;
+        }
+
+        _beforeDelayCounter = baseAttribute.BeforeDelay;
+        _betweenDelayCounter = baseAttribute.BetweenDelay;
+        _afterDelayCounter = baseAttribute.AfterDelay;
+        _chargeCounter = baseAttribute.ChargeTime;
+        _reloadCounter = baseAttribute.ReloadTime;
+
+        DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
+        if(_bulletdata ==  null)
+        {
+            Debug.LogError("Bullet Data is Invalid");
+        }
+
+        firePoint = transform.Find("FirePoint");
     }
 
     public override void Start()
@@ -98,6 +133,9 @@ public class Weapon : Unit
 
             case WeaponState.Start:
                 WeaponStart();
+                break;
+            case WeaponState.Reload:
+                WeaponReload();
                 break;
             case WeaponState.BeforeDelay:
                 WeaponBeforeDelay();
@@ -146,7 +184,7 @@ public class Weapon : Unit
             }
         }
 
-        if (weaponmode == WeaponFireModeType.Auto)
+        if (weaponmode == WeaponFireModeType.SemiAuto)
         {
             switch (context.phase)
             {
@@ -164,14 +202,14 @@ public class Weapon : Unit
 
     public virtual void WeaponOn()
     {
+        _isWeaponOn = true;
         weaponstate.ChangeState(WeaponState.Start);
-
     }
 
     public virtual void WeaponOff()
     {
-        _isWeaponOff = true;
-        
+        _isWeaponOn = false;
+        _lastbullet = null;
     }
 
 
@@ -179,11 +217,6 @@ public class Weapon : Unit
     public virtual void WeaponReady()
     {
         Debug.Log(this.gameObject + " : WeaponReady");
-
-        _beforeDelayCounter = baseAttribute.BeforeDelay;
-        _betweenDelayCounter = baseAttribute.BetweenDelay;
-        _afterDelayCounter = baseAttribute.AfterDelay;
-        _chargeConter = baseAttribute.ChargeTime;
     }
 
     public virtual void WeaponStart()
@@ -192,7 +225,13 @@ public class Weapon : Unit
         _beforeDelayCounter = baseAttribute.BeforeDelay;
         _betweenDelayCounter = baseAttribute.BetweenDelay;
         _afterDelayCounter = baseAttribute.AfterDelay;
-        _chargeConter = baseAttribute.ChargeTime;
+        _chargeCounter = baseAttribute.ChargeTime;
+        _reloadCounter = baseAttribute.ReloadTime;
+
+        if (magazine <=0)
+        {
+            weaponstate.ChangeState(WeaponState.End);
+        }
 
         weaponstate.ChangeState(WeaponState.BeforeDelay);
     }
@@ -209,51 +248,73 @@ public class Weapon : Unit
     public virtual void FireRequest()
     {
         // 进行开火条件的判定,成功则 WeaponFiring ,否则 WeaponEnd
+        if (magazine <= 0)
+        {
+            weaponstate.ChangeState(WeaponState.End);
+            return;
+        }
+
         weaponstate.ChangeState(WeaponState.Firing);
     }
 
     public virtual void WeaponFiring()
     {
-        DoFire();
-        switch (weaponmode)
-        {
-            case WeaponFireModeType.Auto:
-
-                if(!_isWeaponOff)
-                {
-                    weaponstate.ChangeState(WeaponState.BetweenDelay);
-                }
-                else
-                {
-                    weaponstate.ChangeState(WeaponState.Fired);
-                }
        
-                break;
-            case WeaponFireModeType.Manual:
-              
-                weaponstate.ChangeState(WeaponState.Fired);
-                break;
-        }
+        DoFire();
+        weaponstate.ChangeState(WeaponState.Fired);
+
     }
 
     public virtual void DoFire()
     {
+        
         switch (weaponmode)
         {
-            case WeaponFireModeType.Auto:
-                Debug.Log(this.gameObject + " : Auto Firing!!!");
+            case WeaponFireModeType.SemiAuto:
+                Debug.Log(this.gameObject + " : SemiAuto Firing!!!");
+                PoolManager.Instance.GetObject(_bulletdata.PrefabPath, false, (obj) =>
+                {
+                    obj.transform.SetTransform(firePoint);
+                    _lastbullet = obj.GetComponent<Projectile>();
+                    _lastbullet.InitialmoveDirection = firePoint.transform.up;
+
+                    _lastbullet.SetActive();
+                });
                 break;
             case WeaponFireModeType.Manual:
                 if(_isChargeFire)
                 {
                     Debug.Log(this.gameObject + " : Manual Charge Firing!!!");
+                    PoolManager.Instance.GetObject(_bulletdata.PrefabPath, false, (obj) =>
+                    {
+                        obj.transform.SetTransform(firePoint);
+                        _lastbullet = obj.GetComponent<Projectile>();
+                        _lastbullet.speed = 200f;
+                        _lastbullet.InitialmoveDirection = firePoint.transform.up;
+                        _lastbullet.SetActive();
+                    });
                 }
                 else
                 {
                     Debug.Log(this.gameObject + " : Manual Firing!!!");
-                }
 
+                    PoolManager.Instance.GetObject(_bulletdata.PrefabPath, false, (obj) =>
+                    {
+                        obj.transform.SetTransform(firePoint);
+                        _lastbullet = obj.GetComponent<Projectile>();
+                        _lastbullet.speed = 100f;
+                        _lastbullet.InitialmoveDirection = firePoint.transform.up;
+                        _lastbullet.SetActive();
+                    });
+                }
                 break;
+            case WeaponFireModeType.Autonomy:
+                Debug.Log(this.gameObject + " : Autonomy Firing!!!");
+                break;
+        }
+        if(baseAttribute.MagazineBased)
+        {
+            magazine --;
         }
     }
 
@@ -271,10 +332,10 @@ public class Weapon : Unit
     {
         Debug.Log(this.gameObject + " : WeaponCharging");
 
-        _chargeConter -= Time.deltaTime;
-        if (_chargeConter < 0)
+        _chargeCounter -= Time.deltaTime;
+        if (_chargeCounter < 0)
         {
-            _chargeConter = baseAttribute.ChargeTime;
+            _chargeCounter = baseAttribute.ChargeTime;
             weaponstate.ChangeState(WeaponState.Charged);
         }
     }
@@ -292,7 +353,24 @@ public class Weapon : Unit
     public virtual void WeaponFired()
     {
         Debug.Log(this.gameObject + " : WeaponFired");
-        weaponstate.ChangeState(WeaponState.AfterDelay);
+        switch (weaponmode)
+        {
+            case WeaponFireModeType.SemiAuto:
+                if (_isWeaponOn)
+                {
+                    weaponstate.ChangeState(WeaponState.BetweenDelay);
+                }
+                else
+                {
+                    weaponstate.ChangeState(WeaponState.AfterDelay);
+                }
+                break;
+            case WeaponFireModeType.Manual:
+                weaponstate.ChangeState(WeaponState.AfterDelay);
+
+                break;
+        }
+        
     }
 
     public virtual void WeaponAfterDelay()
@@ -309,18 +387,54 @@ public class Weapon : Unit
     public virtual void WeaponEnd()
     {
         Debug.Log(this.gameObject + " : WeaponEnd");
-        weaponstate.ChangeState(WeaponState.Recover);
+        
+        if(magazine <= 0 || baseAttribute.MagazineBased)
+        {
+            weaponstate.ChangeState(WeaponState.Reload);
+        }
+        else
+        {
+            weaponstate.ChangeState(WeaponState.Recover);
+        }
+
     }
 
     public virtual void WeaponRecover()
     {
         Debug.Log(this.gameObject + " : WeaponRecover");
         _isChargeFire = false;
-        _isWeaponOff = false;
+        _isWeaponOn = false;
+
         weaponstate.ChangeState(WeaponState.Ready);
     }
 
 
+
+    public virtual void WeaponReload()
+    {
+        _reloadCounter -= Time.deltaTime;
+        if (_reloadCounter < 0)
+        {
+            _reloadCounter = baseAttribute.ReloadTime;
+            magazine = baseAttribute.MaxMagazineSize;
+            if(_isWeaponOn)
+            {
+                if (weaponmode == WeaponFireModeType.Autonomy)
+                {
+                    weaponstate.ChangeState(WeaponState.Start);
+                }
+                if (weaponmode == WeaponFireModeType.Manual)
+                {
+                    weaponstate.ChangeState(WeaponState.Recover);
+                }
+                if (weaponmode == WeaponFireModeType.SemiAuto)
+                {
+                    weaponstate.ChangeState(WeaponState.Start);
+                }
+
+            }
+        }
+    }
 
 
     public override void TakeDamage()

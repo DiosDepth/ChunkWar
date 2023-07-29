@@ -1,5 +1,7 @@
 Logs/
+obj/
 Library/
+UserSettings/
 .vsconfig
 Assembly-CSharp.csproj
 Assembly-CSharp-Editor.csproj

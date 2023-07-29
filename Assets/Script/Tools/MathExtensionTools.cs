@@ -5,21 +5,6 @@ using UnityEngine;
 
 public static class MathExtensionTools 
 {
-    public static Vector2 ToVector2(this Vector3 v3)
-    {
-        return new Vector2(v3.x, v3.y);
-    }
-
-    public static Vector3 ToVector3(this Vector2 v2)
-    {
-        return new Vector3(v2.x, v2.y, 0);
-    }
-
-    public static Vector3 ToVector3(this Vector2Int v2)
-    {
-        return new Vector3(v2.x, v2.y, 0);
-    }
-
 
 
     public static Vector2Int Round(this Vector2 v2)

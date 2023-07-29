@@ -14,6 +14,8 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<string, BaseUnitConfig> UnitConfigDataDic = new Dictionary<string, BaseUnitConfig>();
     public Dictionary<string, ShipConfig> ShipConfigDic = new Dictionary<string, ShipConfig>();
     public Dictionary<string, LevelData> LevelDataDic = new Dictionary<string, LevelData>();
+    public Dictionary<string, BulletData> BulletDataDic = new Dictionary<string, BulletData>();
+
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
@@ -200,7 +202,14 @@ public class DataManager : Singleton<DataManager>
                         shipconfig = ResManager.Instance.Load<ShipConfig>(kv.Value.ConfigPath);
                         ShipConfigDic.Add(shipconfig.UnitName, shipconfig);
                     }
-                    Debug.Log("UnitConfigData has been loaded!");
+                    Debug.Log("ShipConfigData has been loaded!");
+
+                }));
+                break;
+            case "BulletData.csv":
+                MonoManager.Instance.StartCoroutine(LoadingData<BulletData>(m_fileinfo, BulletDataDic, () =>
+                {
+                    Debug.Log("BulletData has been loaded!");
 
                 }));
                 break;

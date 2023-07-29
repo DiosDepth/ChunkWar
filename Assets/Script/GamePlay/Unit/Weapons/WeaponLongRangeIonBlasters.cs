@@ -6,9 +6,9 @@ public class WeaponLongRangeIonBlasters : Weapon
 {
 
 
-    public override void Initialization()
+    public override void Initialization(Ship m_owner)
     {
-        base.Initialization();
+        base.Initialization(m_owner);
     }
 
     public override void Start()
@@ -73,6 +73,11 @@ public class WeaponLongRangeIonBlasters : Weapon
     public override void WeaponEnd()
     {
         base.WeaponEnd();
+    }
+
+    public override void WeaponReload()
+    {
+        base.WeaponReload();
     }
 
     public override void WeaponRecover()

@@ -251,7 +251,7 @@ public class Ship : MonoBehaviour,IDamageble
             //core.unit = obj.GetComponent<Weapon>() as Unit;
         }
 
-        mainWeapon.Initialization();
+        mainWeapon.Initialization(this);
         
     }
 

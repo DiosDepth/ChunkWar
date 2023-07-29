@@ -13,7 +13,7 @@ public class ShipConfig : BaseConfig
     public ShipType ShipType;
 
 
-    public AvalibalMainWeapon MainWeapon;
+    public AvalibalMainWeaponType MainWeapon;
 
 
 

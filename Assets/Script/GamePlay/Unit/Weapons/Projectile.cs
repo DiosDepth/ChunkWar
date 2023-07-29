@@ -3,20 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.ParticleSystemJobs;
+
+public enum ProjectileMovementType
+{
+    Straight,
+    StraightToPos,
+    FollowTarget,
+}
+
+
 public class Projectile : PoolableObject
 {
+
     public Rigidbody2D rb;
+    public ProjectileMovementType movementType = ProjectileMovementType.Straight;
     public float lifeTime = 10;
     public float speed = 2.5f;
-    public Vector3 moveDirection = Vector3.right;
+    public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
+    private Vector2 _initialmoveDirection = Vector2.up;
 
     private Coroutine startmovingCoroutine;
     private float _timestamp;
     private Vector3 _move;
+
+    private Vector2 _movedirection;
     // Start is called before the first frame update
     void Start()
     {
-
+        SetActive();
     }
 
     // Update is called once per frame
@@ -25,20 +39,27 @@ public class Projectile : PoolableObject
 
     }
 
-    public IEnumerator StartMoving(UnityAction callback)
+    public override void StartSelf()
+    {
+        base.StartSelf();
+    }
+
+
+    public IEnumerator Straight(UnityAction callback)
     {
         _timestamp = Time.time + lifeTime;
 
         while(Time.time < _timestamp)
         {
-            Vector2 move = transform.position + (moveDirection * speed * Time.deltaTime);
+            Vector2 move = transform.position.ToVector2() + (_movedirection * speed * Time.deltaTime);
           
             rb.MovePosition(move);
             yield return null;
         }
-
         callback?.Invoke();
     }
+
+
 
     public override void ResetSelf()
     {
@@ -49,10 +70,15 @@ public class Projectile : PoolableObject
     {
         base.SetActive(isactive);
 
-        startmovingCoroutine = StartCoroutine(StartMoving(() =>
+        if(movementType == ProjectileMovementType.Straight)
         {
-            Destroy();
-        }));
+            _movedirection = InitialmoveDirection;
+            startmovingCoroutine = StartCoroutine(Straight(() =>
+            {
+                Destroy();
+            }));
+        }
+
 
     }
 

@@ -50,7 +50,7 @@ public class SpawnLine : MonoBehaviour
             {
                 PoolManager.Instance.GetObject(PoolManager.Instance.PlayerPrefabPath + "MovingBlocker", false, (obj) =>
                 {
-                    obj.GetComponent<Projectile>().moveDirection = moveDirction;
+                    obj.GetComponent<Projectile>().InitialmoveDirection = moveDirction;
                     stamp = Time.time + Random.Range(spawnIntervalMin, spawnIntervalMax);
                     obj.transform.position = GetRadomPosFromLine();
                     obj.transform.rotation = Quaternion.identity;
