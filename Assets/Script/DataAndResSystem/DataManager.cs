@@ -17,8 +17,10 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<string, BulletData> BulletDataDic = new Dictionary<string, BulletData>();
 
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
+    private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
+    public ShipPlugConfig shipPlugCfg;
 
     public DataManager()
     {
@@ -98,8 +100,8 @@ public class DataManager : Singleton<DataManager>
     {
         battleCfg = ResManager.Instance.Load<BattleMainConfig>(DataConfigPath.BattleMainConfigPath);
         shopCfg = ResManager.Instance.Load<ShopMainConfig>(DataConfigPath.ShopMainConfigPath);
-
-        if(shopCfg != null)
+        shipPlugCfg = ResManager.Instance.Load<ShipPlugConfig>(DataConfigPath.ShipPlugMainConfigPath);
+        if (shopCfg != null)
         {
             var goodLst = shopCfg.Goods;
             for(int i = 0; i < goodLst.Count; i++)
@@ -110,6 +112,18 @@ public class DataManager : Singleton<DataManager>
                 }
             }
         }
+
+        if (shipPlugCfg != null)
+        {
+            var plug = shipPlugCfg.PlugConfigs;
+            for (int i = 0; i < plug.Count; i++)
+            {
+                if (!_shipPlugDic.ContainsKey(plug[i].ID))
+                {
+                    _shipPlugDic.Add(plug[i].ID, plug[i]);
+                }
+            }
+        }
     }
 
     public ShopGoodsItemConfig GetShopGoodsCfg(int goodsID)
@@ -117,6 +131,14 @@ public class DataManager : Singleton<DataManager>
         ShopGoodsItemConfig result = null;
         _shopGoodsDic.TryGetValue(goodsID, out result);
         Debug.Assert(result != null, "GetShopGoodsCfg Null! ID= " + goodsID);
+        return result;
+    }
+
+    public ShipPlugItemConfig GetShipPlugItemConfig(int id)
+    {
+        ShipPlugItemConfig result = null;
+        _shipPlugDic.TryGetValue(id, out result);
+        Debug.Assert(result != null, "GetShipPlugItemConfig Null! ID= " + id);
         return result;
     }
 
