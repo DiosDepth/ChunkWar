@@ -27,6 +27,7 @@ public enum RogueEventType
     CurrencyChange,
     ShopReroll,
     ShopCostChange,
+    ShipPlugChange,
 }
 
 public class RogueManager : Singleton<RogueManager>
@@ -47,6 +48,10 @@ public class RogueManager : Singleton<RogueManager>
     /// 当前舰船插件物品
     /// </summary>
     private Dictionary<uint, ShipPlugInfo> _currentShipPlugs = new Dictionary<uint, ShipPlugInfo>();
+    public List<ShipPlugInfo> GetAllCurrentShipPlugs
+    {
+        get { return _currentShipPlugs.Values.ToList(); }
+    }
 
     /// <summary>
     /// 当前刷新次数
@@ -132,6 +137,13 @@ public class RogueManager : Singleton<RogueManager>
 
     #region Shop
 
+    public ShopGoodsInfo GetShopGoodsInfo(int goodsID)
+    {
+        ShopGoodsInfo info = null;
+        goodsItems.TryGetValue(goodsID, out info);
+        return info;
+    }
+
     /// <summary>
     /// 购买商品
     /// </summary>
@@ -155,6 +167,16 @@ public class RogueManager : Singleton<RogueManager>
         if (itemType == GoodsItemType.ShipPlug)
         {
             AddNewShipPlug(typeID, info.GoodsID);
+        }
+
+        ///RefreshCount
+        if (_playerCurrentGoods.ContainsKey(info.GoodsID))
+        {
+            _playerCurrentGoods[info.GoodsID]++;
+        }
+        else
+        {
+            _playerCurrentGoods.Add(info.GoodsID, 1);
         }
     }
     
@@ -351,6 +373,29 @@ public class RogueManager : Singleton<RogueManager>
 
     #region Ship Plug
 
+    public ShipPlugInfo GetShipPlug(uint uid)
+    {
+        if (_currentShipPlugs.ContainsKey(uid))
+        {
+            return _currentShipPlugs[uid];
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 根据插件UID获取商品数据
+    /// </summary>
+    /// <param name="uid"></param>
+    /// <returns></returns>
+    public ShopGoodsInfo GetShipPlugGoodsInfo(uint uid)
+    {
+        var plugInfo = GetShipPlug(uid);
+        if (plugInfo == null)
+            return null;
+        var goods = GetShopGoodsInfo(plugInfo.GoodsID);
+        return goods;
+    }
+
     private void AddNewShipPlug(int plugID, int goodsID)
     {
         var plugInfo = ShipPlugInfo.CreateInfo(plugID, goodsID);
@@ -361,7 +406,7 @@ public class RogueManager : Singleton<RogueManager>
         plugInfo.PlugUID = uid;
         plugInfo.OnAdded();
         _currentShipPlugs.Add(uid, plugInfo);
-
+        RogueEvent.Trigger(RogueEventType.ShipPlugChange);
     }
 
     private uint GetShipPlugUID()

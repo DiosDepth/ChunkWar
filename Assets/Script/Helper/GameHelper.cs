@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public static class GameHelper 
 {
@@ -29,5 +30,20 @@ public static class GameHelper
     {
         Vector3 tempcoord = trs.TransformPoint(coord.ToVector3());
         return tempcoord.ToVector2();
+    }
+
+    public static List<uint> GetRogueShipPlugItems()
+    {
+        var allItems = RogueManager.Instance.GetAllCurrentShipPlugs;
+        List<uint> goods = new List<uint>();
+        for(int i = 0; i < allItems.Count; i++)
+        {
+            if (!goods.Contains((uint)allItems[i].GoodsID))
+            {
+                goods.Add((uint)allItems[i].GoodsID);
+            }
+        }
+
+        return goods;
     }
 }

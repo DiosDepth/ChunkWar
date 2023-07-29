@@ -15,11 +15,14 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     private TextMeshProUGUI _currencyText;
     private RectTransform _currencyContent;
     private Text _rerollCostText;
+    private EnhancedScroller _plugGridScroller;
 
 
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
+    private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
     private List<ShipPropertyItemCmpt> propertyCmpts = new List<ShipPropertyItemCmpt>();
+    private GeneralScrollerGirdItemController _plugGridController;
 
     protected override void Awake()
     {
@@ -29,6 +32,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         propertyCmpts = transform.Find("ShopPanel/PropertyPanel").GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = GetGUIComponent<Text>("RerollCost");
+        _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
     }
 
     public override void Initialization()
@@ -133,6 +137,10 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
             case RogueEventType.ShopCostChange:
                 RefreshAllShopItemCost();
                 break;
+
+            case RogueEventType.ShipPlugChange:
+                RefreshShipPlugsContent();
+                break;
         }
     }
 
@@ -141,6 +149,17 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         RefreshCurrency();
         RefreshReroll();
         propertyCmpts.ForEach(x => x.SetUp());
+        InitPlugController();
+    }
+
+    private void InitPlugController()
+    {
+        _plugGridController = new GeneralScrollerGirdItemController();
+        _plugGridController.numberOfCellsPerRow = 9;
+        _plugGridController.InitPrefab(ShipPlugGridItem_PrefabPath, true);
+        _plugGridController.OnItemSelected += OnPlugItemSelect;
+        _plugGridScroller.Delegate = _plugGridController;
+        RefreshShipPlugsContent();
     }
 
     private void InitShopContent()
@@ -214,5 +233,25 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     private void OnRerollBtnClick()
     {
         RogueManager.Instance.RefreshShop();
+    }
+
+    /// <summary>
+    /// 刷新插件物品栏
+    /// </summary>
+    private void RefreshShipPlugsContent()
+    {
+        var items = GameHelper.GetRogueShipPlugItems();
+        _plugGridController.RefreshData(items);
+        _plugGridScroller.ReloadData();
+    }
+
+    /// <summary>
+    /// 选择插件显示详情
+    /// </summary>
+    /// <param name="uid"></param>
+    /// <param name="dataIndex"></param>
+    private void OnPlugItemSelect(uint uid, int dataIndex)
+    {
+        ///RefreshInfo
     }
 }

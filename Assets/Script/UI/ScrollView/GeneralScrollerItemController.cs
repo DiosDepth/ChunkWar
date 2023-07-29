@@ -19,27 +19,20 @@ public class GeneralScrollerItemController : IEnhancedScrollerDelegate
 
     public void InitPrefab(string prefabPath, bool vertical)
     {
-        PoolManager.Instance.GetObject(prefabPath, true, (obj)=> {
+        var obj = ResManager.Instance.Load<GameObject>(prefabPath);
+        if (obj != null)
+        {
+            _cmpt = obj.transform.SafeGetComponent<EnhancedScrollerCellView>();
 
-            obj.transform.SafeSetActive(true);
-            if (obj != null)
+            if (vertical)
             {
-                _cmpt = obj.transform.SafeGetComponent<EnhancedScrollerCellView>();
-
-                if (vertical)
-                {
-                    ItemHeight = _cmpt.transform.SafeGetComponent<RectTransform>().rect.height;
-                }
-                else
-                {
-                    ItemHeight = _cmpt.transform.SafeGetComponent<RectTransform>().rect.width;
-                }
+                ItemHeight = _cmpt.transform.SafeGetComponent<RectTransform>().rect.height;
             }
-
-
-
-        });
-      
+            else
+            {
+                ItemHeight = _cmpt.transform.SafeGetComponent<RectTransform>().rect.width;
+            }
+        }
     }
 
     public EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
