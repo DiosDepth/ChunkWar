@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,20 @@ using UnityEngine;
 public class UnitPropertyData 
 {
     private Dictionary<PropertyModifyKey, UnitPropertyPool> PropertyPool = new Dictionary<PropertyModifyKey, UnitPropertyPool>();
+
+    /// <summary>
+    /// 初始属性
+    /// </summary>
+    private Dictionary<PropertyModifyKey, ChangeValue<float>> _propertyRow = new Dictionary<PropertyModifyKey, ChangeValue<float>>();
+
+    public void RegisterRowProperty(PropertyModifyKey key, float rowValue, Action<float, float> changecallback = null)
+    {
+        if (!_propertyRow.ContainsKey(key))
+        {
+            ChangeValue<float> item = new ChangeValue<float>(rowValue, float.MaxValue, float.MaxValue);
+            item.BindChangeAction(changecallback);
+        }
+    }
 
     /// <summary>
     /// 增加修正
@@ -19,6 +34,13 @@ public class UnitPropertyData
             return;
 
         pool.AddToPool(fromUID, value);
+    }
+
+    public float GetPropertyRowValue(PropertyModifyKey propertyKey)
+    {
+        if (_propertyRow.ContainsKey(propertyKey))
+            return _propertyRow[propertyKey].Value;
+        return 0;
     }
 
     /// <summary>
@@ -48,6 +70,17 @@ public class UnitPropertyData
             return;
 
         pool.RemoveFromPool(fromUID);
+    }
+
+    /// <summary>
+    /// 获取最终属性值
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public float GetPropertyFinal(PropertyModifyKey key)
+    {
+        var rowValue = GetPropertyRowValue(key);
+        return rowValue + GetPropertyModifyValue(key);
     }
 
     /// <summary>
@@ -86,18 +119,21 @@ public class UnitPropertyPool
 
     private Hashtable _propertyTable;
 
+    private Action propertychangeAction;
+
     public UnitPropertyPool(PropertyModifyKey propertyKey)
     {
         this.PropertyKey = propertyKey;
         _propertyTable = new Hashtable();
     }
 
-    public void AddToPool(uint key, float value)
+    public bool AddToPool(uint key, float value)
     {
         if (_propertyTable.ContainsKey(key))
-            return;
+            return false;
 
         _propertyTable.Add(key, value);
+        return true;
     }
 
     /// <summary>

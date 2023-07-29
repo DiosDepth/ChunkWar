@@ -23,15 +23,23 @@ MonoBehaviour:
     SerializationNodes: []
   TextSetName: TextData_
   Texts:
-  - TextID: 1112
-    ChineseSimplified: 12312
+  - TextID: PropertyName_DamagePercent
+    ChineseSimplified: "\u4F24\u5BB3%"
     English: 
     Japanese: 
-  - TextID: 
-    ChineseSimplified: 
+  - TextID: PropertyName_Critical
+    ChineseSimplified: "\u66B4\u51FB%"
     English: 
     Japanese: 
-  - TextID: 
-    ChineseSimplified: 
+  - TextID: PropertyName_AttackSpeed
+    ChineseSimplified: "\u653B\u51FB\u901F\u5EA6%"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShopCostPercent
+    ChineseSimplified: "\u8865\u7ED9\u7AD9\u4EF7\u683C"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShopRefreshCount
+    ChineseSimplified: "\u5546\u54C1\u6570\u91CF"
     English: 
     Japanese: 

@@ -31,11 +31,21 @@ public enum RogueEventType
 public class RogueManager : Singleton<RogueManager>
 {
     /// <summary>
+    /// 主要属性
+    /// </summary>
+    public UnitPropertyData MainPropertyData;
+
+    /// <summary>
     /// 所有商店物品
     /// </summary>
     private Dictionary<int, ShopGoodsInfo> goodsItems;
 
     private Dictionary<int, byte> _playerCurrentGoods;
+
+    /// <summary>
+    /// 当前舰船插件物品
+    /// </summary>
+    private Dictionary<uint, ShipPlugInfo> _currentShipPlugs = new Dictionary<uint, ShipPlugInfo>();
 
     /// <summary>
     /// 当前刷新次数
@@ -66,13 +76,11 @@ public class RogueManager : Singleton<RogueManager>
         private set;
     }
     /// <summary>
-    /// 商店默认刷新数量
-    /// </summary>
-    private byte _shopDefaultRefreshCount;
-    /// <summary>
     /// 商店进入总次数
     /// </summary>
     private byte _shopEnterTotalCount = 0;
+
+    private static int ShopGoods_UID_Sep = 1000000;
 
     /// <summary>
     /// 当前随机商店物品
@@ -90,10 +98,11 @@ public class RogueManager : Singleton<RogueManager>
 
     public void InitRogueBattle()
     {
+        MainPropertyData = new UnitPropertyData();
         _waveIndex = 1;
         InitShopData();
         InitAllGoodsItems();
-        GenerateShopGoods(_shopDefaultRefreshCount, 1);
+        GenerateShopGoods(3, 1);
     }
 
     public override void Initialization()
@@ -115,15 +124,20 @@ public class RogueManager : Singleton<RogueManager>
         var cost = info.Cost;
         AddCurrency(-cost);
         info.OnItemSold();
+        GainShopItem(info);
         return true;
     }
 
     private void GainShopItem(ShopGoodsInfo info)
     {
-
+        var itemType = info._cfg.ItemType;
+        int typeID = info._cfg.TypeID; 
+        if (itemType == GoodsItemType.ShipPlug)
+        {
+            AddNewShipPlug(typeID, info.GoodsID);
+        }
     }
     
-
     /// <summary>
     /// 刷新商店
     /// </summary>
@@ -240,7 +254,7 @@ public class RogueManager : Singleton<RogueManager>
 
     private void InitShopData()
     {
-        _shopDefaultRefreshCount = DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum;
+        MainPropertyData.RegisterRowProperty(PropertyModifyKey.ShopRefreshCount, DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum);
         _playerCurrency = new ChangeValue<int>(1000, int.MinValue, int.MaxValue);
         _playerCurrency.BindChangeAction(OnCurrencyChange);
         CurrentRerollCost = GetCurrentRefreshCost();
@@ -288,9 +302,14 @@ public class RogueManager : Singleton<RogueManager>
         RogueEvent.Trigger(RogueEventType.CurrencyChange);
     }
 
+    /// <summary>
+    /// 当前商店刷新商品数量
+    /// </summary>
+    /// <returns></returns>
     private byte GetCurrentShopRefreshCount()
     {
-        return _shopDefaultRefreshCount;
+        var refreshCount = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShopRefreshCount);
+        return (byte)Mathf.Clamp(refreshCount, 1, 6);
     }
 
     /// <summary>
@@ -312,4 +331,29 @@ public class RogueManager : Singleton<RogueManager>
 
         return _currentRereollCount * rerollIncrease + rollBase;
     }
+
+    #region Ship Plug
+
+    private void AddNewShipPlug(int plugID, int goodsID)
+    {
+        var plugInfo = ShipPlugInfo.CreateInfo(plugID, goodsID);
+        if (plugInfo == null)
+            return;
+
+        var uid = GetShipPlugUID();
+        plugInfo.PlugUID = uid;
+        plugInfo.OnAdded();
+        _currentShipPlugs.Add(uid, plugInfo);
+
+    }
+
+    private uint GetShipPlugUID()
+    {
+        var uid = (uint)UnityEngine.Random.Range(1, ShopGoods_UID_Sep);
+        if (_currentShipPlugs.ContainsKey(uid))
+            return GetShipPlugUID();
+
+        return uid;
+    }
+    #endregion
 }

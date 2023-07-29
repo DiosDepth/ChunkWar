@@ -78,5 +78,4 @@ public class ChangeValue<T> where T : IComparable
     {
         _changeAction = null;
     }
-
 }

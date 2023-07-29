@@ -51,8 +51,16 @@ public class ShopGoodsInfo : RandomObject
     /// <returns></returns>
     public bool CheckCanBuy()
     {
-        var currency = RogueManager.Instance.CurrentCurrency;
-        return Cost <= currency && !_sold;
+        return CostEnough && !_sold;
+    }
+
+    public bool CostEnough
+    {
+        get
+        {
+            var currency = RogueManager.Instance.CurrentCurrency;
+            return Cost <= currency;
+        }
     }
 
     public int Cost
