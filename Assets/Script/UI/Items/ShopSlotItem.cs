@@ -43,6 +43,9 @@ public class ShopSlotItem : MonoBehaviour
         RefreshCost();
         SetUpProperty();
         SetSold(false);
+
+        var contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
     }
 
     /// <summary>
@@ -94,6 +97,8 @@ public class ShopSlotItem : MonoBehaviour
                 SetUpPropertyCmpt(plugCfg.PropertyModify);
             }
         }
+        var rect = PropertyModifyRoot.GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }
 
     private void SetUpPropertyCmpt(List<PropertyMidifyConfig> cfgs)
@@ -105,14 +110,13 @@ public class ShopSlotItem : MonoBehaviour
         var index = 0;
         for (int i = 0; i < cfgs.Count; i++)
         {
-            PoolManager.Instance.GetObjectAsync(ShopPropertyItem_PrefabPath, true, (obj) =>
+            PoolManager.Instance.GetObjectSync(ShopPropertyItem_PrefabPath, true, (obj) =>
             {
                 var cmpt = obj.GetComponent<ShopItemPropertyCmpt>();
                 cmpt.SetUp(cfgs[index].ModifyKey, cfgs[index].Value);
                 index++;
             }, PropertyModifyRoot);
         }
-        var rect = PropertyModifyRoot.GetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        
     }
 }

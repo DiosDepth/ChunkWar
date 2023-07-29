@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6701960896002304798}
-  - component: {fileID: 7414495374040975671}
+  - component: {fileID: 498621757475004144}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -114,7 +114,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7414495374040975671
+--- !u!114 &498621757475004144
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,11 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3181671057182251854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34f020e75a87d64cb6f3ad777e7989b, type: 3}
+  m_Script: {fileID: 11500000, guid: fd10535574ac76a47bf7e5b775b5ea13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiGroup: {fileID: 6666397247509387187}
-  root: {fileID: 0}
+  root: {fileID: 6625168664176570440}
   leftDoor: {fileID: 6537363304746430516}
   rightDoor: {fileID: 5799223714930187717}
   loadingText: {fileID: 2251946622497795609}

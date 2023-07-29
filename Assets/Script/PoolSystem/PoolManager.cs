@@ -33,7 +33,7 @@ public class PoolData
     {
         m_obj.SetActive(false);
         poolList.Add(m_obj);
-        m_obj.transform.parent = fatherObj.transform;
+        m_obj.transform.SetParent(fatherObj.transform);
     }
 
     public void DestroyObject(int m_count = 1)
@@ -114,27 +114,28 @@ public class PoolManager : Singleton<PoolManager>
 
     public void GetObjectSync(string m_key, bool m_active, UnityAction<GameObject> callback, Transform parentTrans = null)
     {
-        //GameObject temp_obj = null;
+        GameObject temp_obj = null;
 
         if (poolDic.ContainsKey(m_key) && poolDic[m_key].poolList.Count > 0)
         {
-            //temp_obj = poolDic[m_key].GetObject();
-            callback(poolDic[m_key].GetObject(m_active));
+            temp_obj = poolDic[m_key].GetObject(m_active);
         }
         else
         {
-            var obj = ResManager.Instance.Load<GameObject>(m_key);
-            if(obj != null)
+            temp_obj = ResManager.Instance.Load<GameObject>(m_key);
+        }
+
+        if (temp_obj != null)
+        {
+            temp_obj.name = m_key;
+            temp_obj.SetActive(m_active);
+            temp_obj.transform.localScale = Vector3.one;
+            if (parentTrans != null)
             {
-                obj.name = m_key;
-                obj.SetActive(m_active);
-           
-                if (parentTrans != null)
-                obj.transform.SetParent(parentTrans, false);
-                callback(obj);
+                temp_obj.transform.SetParent(parentTrans, false);
             }
-            /*temp_obj =  GameObject.Instantiate(Resources.Load<GameObject>(m_key));
-             temp_obj.name = m_key;*/
+
+            callback(temp_obj);
         }
     }
 
