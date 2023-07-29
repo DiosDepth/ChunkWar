@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, EventListener<RogueEvent>
 {
@@ -18,12 +19,14 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
 
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
+    private List<ShipPropertyItemCmpt> propertyCmpts = new List<ShipPropertyItemCmpt>();
 
     protected override void Awake()
     {
         base.Awake();
-        _shopContentRoot = transform.Find("uiGroup/ShopPanel/ShopContent");
-        _currencyContent = transform.Find("uiGroup/ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
+        _shopContentRoot = transform.Find("ShopPanel/ShopContent");
+        _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
+        propertyCmpts = transform.Find("ShopPanel/PropertyPanel").GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = GetGUIComponent<Text>("RerollCost");
     }
@@ -67,20 +70,18 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         list.Clear();
 
 
-        foreach(KeyValuePair<string, InventoryItem> kv in inventory)
-        {
-            switch (type)
-            {
-                case UnitType.Buildings:
-                    AddSlot(list, kv.Value, buildingSlotGroup);
-                    break;
-            }
+        //foreach(KeyValuePair<string, InventoryItem> kv in inventory)
+        //{
+        //    switch (type)
+        //    {
+        //        case UnitType.Buildings:
+        //            AddSlot(list, kv.Value, buildingSlotGroup);
+        //            break;
+        //    }
 
-        }
+        //}
 
     }
-
-
 
     public void AddSlot(List<ItemGUISlot> list,InventoryItem m_item, RectTransform m_slotgroup)
     {
@@ -94,6 +95,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         list.Add(slotinfo);
         slotinfo.Initialization(list.Count - 1, uiGroup.GetComponent<RectTransform>(), m_item);
     }
+
     public void RemoveSlot(int m_index)
     {
 
@@ -127,6 +129,10 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
                 RefreshReroll();
                 InitShopContent();
                 break;
+
+            case RogueEventType.ShopCostChange:
+                RefreshAllShopItemCost();
+                break;
         }
     }
 
@@ -134,6 +140,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     {
         RefreshCurrency();
         RefreshReroll();
+        propertyCmpts.ForEach(x => x.SetUp());
     }
 
     private void InitShopContent()
@@ -185,6 +192,17 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     {
         _currencyText.text = RogueManager.Instance.CurrentCurrency.ToString();
         LayoutRebuilder.ForceRebuildLayoutImmediate(_currencyContent);
+    }
+
+    /// <summary>
+    /// 刷新所有物品花费
+    /// </summary>
+    private void RefreshAllShopItemCost()
+    {
+        for (int i = 0; i < allShopSlotItems.Count; i++) 
+        {
+            allShopSlotItems[i].RefreshCost();
+        }
     }
 
     private void RefreshReroll()

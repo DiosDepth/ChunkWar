@@ -17,6 +17,7 @@ public class ChangeValue<T> where T : IComparable
     }
 
     private Action<T, T> _changeAction;
+    private Action _changeActionSimple;
 
     public T Value
     {
@@ -40,6 +41,7 @@ public class ChangeValue<T> where T : IComparable
         _value = Utility.Clamp<T>(newValue, _minValue, _maxValue);
 
         _changeAction?.Invoke(oldValue, newValue);
+        _changeActionSimple?.Invoke();
     }
 
     public void SetMaxValue(T maxValue)
@@ -71,6 +73,16 @@ public class ChangeValue<T> where T : IComparable
     public void BindChangeAction(Action<T, T> changeAction)
     {
         _changeAction += changeAction;
+    }
+
+    public void UnBindChangeAction(Action changeAction)
+    {
+        _changeActionSimple -= changeAction;
+    }
+
+    public void BindChangeAction(Action changeAction)
+    {
+        _changeActionSimple += changeAction;
     }
 
 

@@ -12,12 +12,39 @@ public class UnitPropertyData
     /// </summary>
     private Dictionary<PropertyModifyKey, ChangeValue<float>> _propertyRow = new Dictionary<PropertyModifyKey, ChangeValue<float>>();
 
-    public void RegisterRowProperty(PropertyModifyKey key, float rowValue, Action<float, float> changecallback = null)
+    public void RegisterRowProperty(PropertyModifyKey key, float rowValue)
     {
         if (!_propertyRow.ContainsKey(key))
         {
             ChangeValue<float> item = new ChangeValue<float>(rowValue, float.MaxValue, float.MaxValue);
-            item.BindChangeAction(changecallback);
+            _propertyRow.Add(key, item);
+        }
+    }
+
+    /// <summary>
+    /// °ó¶¨ChangeAction
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="changeAction"></param>
+    public void BindPropertyChangeAction(PropertyModifyKey key, Action changeAction)
+    {
+        var pool = GetOrCreatePorpertyPool(key);
+        pool.BindChangeAction(changeAction);
+
+        if (_propertyRow.ContainsKey(key))
+        {
+            _propertyRow[key].BindChangeAction(changeAction);
+        }
+    }
+
+    public void UnBindPropertyChangeAction(PropertyModifyKey key, Action changeAction)
+    {
+        var pool = GetOrCreatePorpertyPool(key);
+        pool.UnBindChangeAction(changeAction);
+
+        if (_propertyRow.ContainsKey(key))
+        {
+            _propertyRow[key].UnBindChangeAction(changeAction);
         }
     }
 
@@ -127,12 +154,23 @@ public class UnitPropertyPool
         _propertyTable = new Hashtable();
     }
 
+    public void BindChangeAction(Action action)
+    {
+        propertychangeAction += action;
+    }
+
+    public void UnBindChangeAction(Action action)
+    {
+        propertychangeAction -= action;
+    }
+
     public bool AddToPool(uint key, float value)
     {
         if (_propertyTable.ContainsKey(key))
             return false;
 
         _propertyTable.Add(key, value);
+        propertychangeAction?.Invoke();
         return true;
     }
 
@@ -156,6 +194,7 @@ public class UnitPropertyPool
     public void RemoveFromPool(uint key)
     {
         _propertyTable.Remove(key);
+        propertychangeAction?.Invoke();
     }
 
     public float GetFinialValue()

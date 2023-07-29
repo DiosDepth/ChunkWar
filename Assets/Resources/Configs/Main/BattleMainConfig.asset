@@ -40,13 +40,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: $v
       Entry: 7
       Data: 2|PropertyDisplayConfig, Assembly-CSharp
@@ -70,7 +70,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 7
+      Data: 8
     - Name: $v
       Entry: 7
       Data: 3|PropertyDisplayConfig, Assembly-CSharp
@@ -94,7 +94,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: $v
       Entry: 7
       Data: 4|PropertyDisplayConfig, Assembly-CSharp
@@ -118,7 +118,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 5
+      Data: 6
     - Name: $v
       Entry: 7
       Data: 5|PropertyDisplayConfig, Assembly-CSharp
@@ -142,7 +142,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 6
+      Data: 7
     - Name: $v
       Entry: 7
       Data: 6|PropertyDisplayConfig, Assembly-CSharp
@@ -162,10 +162,82 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 7|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShipHP
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 8|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_WeaponRange
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 9|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Luck
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
   RogueNormal_Max_Wave: 20
-  RogueShop_Origin_RefreshNum: 4
+  RogueShop_Origin_RefreshNum: 3

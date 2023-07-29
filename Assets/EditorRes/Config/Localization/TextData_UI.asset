@@ -24,15 +24,11 @@ MonoBehaviour:
   TextSetName: TextData_
   Texts:
   - TextID: PropertyName_DamagePercent
-    ChineseSimplified: "\u4F24\u5BB3%"
+    ChineseSimplified: "\u4F24\u5BB3"
     English: 
     Japanese: 
   - TextID: PropertyName_Critical
-    ChineseSimplified: "\u66B4\u51FB%"
-    English: 
-    Japanese: 
-  - TextID: PropertyName_AttackSpeed
-    ChineseSimplified: "\u653B\u51FB\u901F\u5EA6%"
+    ChineseSimplified: "\u66B4\u51FB"
     English: 
     Japanese: 
   - TextID: PropertyName_ShopCostPercent
@@ -41,5 +37,21 @@ MonoBehaviour:
     Japanese: 
   - TextID: PropertyName_ShopRefreshCount
     ChineseSimplified: "\u5546\u54C1\u6570\u91CF"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShipHP
+    ChineseSimplified: "\u8239\u4F53\u503C"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_Luck
+    ChineseSimplified: "\u5E78\u8FD0"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_WeaponRange
+    ChineseSimplified: "\u6B66\u5668\u8303\u56F4"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_AttackSpeed
+    ChineseSimplified: "\u6B66\u5668\u901F\u5EA6"
     English: 
     Japanese: 

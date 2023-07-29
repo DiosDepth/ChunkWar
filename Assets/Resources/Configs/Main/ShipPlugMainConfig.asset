@@ -24,21 +24,21 @@ MonoBehaviour:
   PlugConfigs:
   - ID: 1
     PropertyModify:
-    - ModifyKey: 1
+    - ModifyKey: 2
       Value: -5
-    - ModifyKey: 7
+    - ModifyKey: 3
       Value: 10
   - ID: 2
     PropertyModify:
-    - ModifyKey: 1
+    - ModifyKey: 2
       Value: 10
   - ID: 3
     PropertyModify:
-    - ModifyKey: 5
-      Value: 1
     - ModifyKey: 6
+      Value: 1
+    - ModifyKey: 7
       Value: 10
   - ID: 4
     PropertyModify:
-    - ModifyKey: 6
+    - ModifyKey: 7
       Value: -8

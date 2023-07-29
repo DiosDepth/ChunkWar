@@ -39,13 +39,24 @@ public class ShopSlotItem : MonoBehaviour
         _nameText.text = info.ItemName;
         _descText.text = info.ItemDesc;
         _icon.sprite = info._cfg.IconSprite;
-        _costText.text = info.Cost.ToString();
-
-        bool costEnough = info.CostEnough;
-        _costText.color = costEnough ? _costNormalColor : _costRedColor;
-        _buyButton.interactable = info.CheckCanBuy();
+      
+        RefreshCost();
         SetUpProperty();
         SetSold(false);
+    }
+
+    /// <summary>
+    /// Ë¢ÐÂ»¨·Ñ
+    /// </summary>
+    public void RefreshCost()
+    {
+        if (_goodsInfo == null)
+            return;
+
+        _costText.text = _goodsInfo.Cost.ToString();
+        bool costEnough = _goodsInfo.CostEnough;
+        _costText.color = costEnough ? _costNormalColor : _costRedColor;
+        _buyButton.interactable = _goodsInfo.CheckCanBuy();
     }
 
     private void OnBuyButtonClick()
@@ -101,5 +112,7 @@ public class ShopSlotItem : MonoBehaviour
                 index++;
             }, PropertyModifyRoot);
         }
+        var rect = PropertyModifyRoot.GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }
 }

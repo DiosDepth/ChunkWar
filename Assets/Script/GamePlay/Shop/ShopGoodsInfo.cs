@@ -133,10 +133,14 @@ public class ShopGoodsInfo : RandomObject
 
     private int GetCost()
     {
+        ///PriceModify
+        var shopPriceFinal = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShopCostPercent);
+        shopPriceFinal = Mathf.Clamp(shopPriceFinal, -100f, float.MaxValue);
+
         var basePrice = _cfg.CostBase;
         var currentWave = RogueManager.Instance.GetCurrentWaveIndex;
-        var price = basePrice * (currentWave * basePrice * 0.1f);
+        var price = (basePrice + (currentWave * basePrice * 0.1f)) * (1 + shopPriceFinal / 100f);
         price = Mathf.Clamp(price, 1f, price);
-        return Mathf.CeilToInt(price);
+        return Mathf.RoundToInt(price);
     }
 }

@@ -94,6 +94,21 @@ public static class Utility
             return true;
         return false;
     }
+
+    public static List<SelectableItemBase> FormatToSelectableItem<T>(this List<T> contentlst) where T : IComparable
+    {
+        List<SelectableItemBase> result = new List<SelectableItemBase>();
+        if (contentlst == null || contentlst.Count <= 0)
+            return result;
+
+        for (int i = 0; i < contentlst.Count; i++)
+        {
+            SelectableItemBase item = new SelectableItemBase();
+            item.content = contentlst[i];
+            result.Add(item);
+        }
+        return result;
+    }
 }
 
 public interface RandomObject

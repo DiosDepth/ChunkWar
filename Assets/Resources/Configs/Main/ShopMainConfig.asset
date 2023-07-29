@@ -193,7 +193,7 @@ MonoBehaviour:
   - GoodID: 3
     Rarity: 1
     IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
-    ItemType: 0
+    ItemType: 1
     TypeID: 3
     CostBase: 45
     Unique: 0
@@ -201,9 +201,9 @@ MonoBehaviour:
     Name: ShopGoods_Name_3
     Desc: ShopGoods_Desc_3
   - GoodID: 4
-    Rarity: 2
+    Rarity: 0
     IconSprite: {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
-    ItemType: 0
+    ItemType: 1
     TypeID: 4
     CostBase: 55
     Unique: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
     Name: ShopGoods_Name_4
     Desc: ShopGoods_Desc_4
   - GoodID: 5
-    Rarity: 0
+    Rarity: 3
     IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
     ItemType: 0
     TypeID: 0

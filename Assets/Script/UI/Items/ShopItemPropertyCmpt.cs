@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShopItemPropertyCmpt : MonoBehaviour
 {
     private Image _icon;
     private Text _nameText;
-    private Text _valueText;
+    private TextMeshProUGUI _valueText;
 
     public void Awake()
     {
         _icon = transform.Find("Icon").SafeGetComponent<Image>();
         _nameText = transform.Find("PropertyName").SafeGetComponent<Text>();
-        _valueText = transform.Find("PropertyValue").SafeGetComponent<Text>();
+        _valueText = transform.Find("PropertyValue").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public void SetUp(PropertyModifyKey key, float value)

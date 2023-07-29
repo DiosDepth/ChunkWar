@@ -26,6 +26,7 @@ public enum RogueEventType
 {
     CurrencyChange,
     ShopReroll,
+    ShopCostChange,
 }
 
 public class RogueManager : Singleton<RogueManager>
@@ -113,6 +114,25 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
+    /// 增加货币
+    /// </summary>
+    /// <param name="value"></param>
+    public void AddCurrency(int value)
+    {
+        var oldValue = _playerCurrency.Value;
+        var newValue = oldValue + value;
+        _playerCurrency.Set(newValue);
+    }
+
+
+    private void OnCurrencyChange(int oldValue, int newValue)
+    {
+        RogueEvent.Trigger(RogueEventType.CurrencyChange);
+    }
+
+    #region Shop
+
+    /// <summary>
     /// 购买商品
     /// </summary>
     /// <param name="info"></param>
@@ -170,17 +190,6 @@ public class RogueManager : Singleton<RogueManager>
             return _playerCurrentGoods[goodsID];
 
         return 0;
-    }
-
-    /// <summary>
-    /// 增加货币
-    /// </summary>
-    /// <param name="value"></param>
-    public void AddCurrency(int value)
-    {
-        var oldValue = _playerCurrency.Value;
-        var newValue = oldValue + value;
-        _playerCurrency.Set(newValue);
     }
 
     /// <summary>
@@ -258,6 +267,8 @@ public class RogueManager : Singleton<RogueManager>
         _playerCurrency = new ChangeValue<int>(1000, int.MinValue, int.MaxValue);
         _playerCurrency.BindChangeAction(OnCurrencyChange);
         CurrentRerollCost = GetCurrentRefreshCost();
+
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShopCostPercent, OnShopCostChange);
     }
 
     /// <summary>
@@ -297,10 +308,6 @@ public class RogueManager : Singleton<RogueManager>
         }
     }
 
-    private void OnCurrencyChange(int oldValue, int newValue)
-    {
-        RogueEvent.Trigger(RogueEventType.CurrencyChange);
-    }
 
     /// <summary>
     /// 当前商店刷新商品数量
@@ -331,6 +338,16 @@ public class RogueManager : Singleton<RogueManager>
 
         return _currentRereollCount * rerollIncrease + rollBase;
     }
+
+    /// <summary>
+    /// 商店花费刷新
+    /// </summary>
+    private void OnShopCostChange()
+    {
+        RogueEvent.Trigger(RogueEventType.ShopCostChange);
+    }
+
+    #endregion
 
     #region Ship Plug
 
