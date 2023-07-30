@@ -12,7 +12,7 @@ public enum ProjectileMovementType
 }
 
 
-public class Projectile : PoolableObject
+public class Projectile : ShootingObject,IDamageble
 {
 
     public Rigidbody2D rb;
@@ -28,20 +28,20 @@ public class Projectile : PoolableObject
 
     private Vector2 _movedirection;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         SetActive();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
 
     }
 
-    public override void StartSelf()
+    public override void Initialization()
     {
-        base.StartSelf();
+        base.Initialization();
     }
 
 
@@ -61,9 +61,9 @@ public class Projectile : PoolableObject
 
 
 
-    public override void ResetSelf()
+    public override void Reset()
     {
-        base.ResetSelf();
+        base.Reset();
     }
 
     public override void SetActive(bool isactive = true)
@@ -99,5 +99,10 @@ public class Projectile : PoolableObject
 
         });
         Destroy();
+    }
+
+    public void TakeDamage()
+    {
+      
     }
 }

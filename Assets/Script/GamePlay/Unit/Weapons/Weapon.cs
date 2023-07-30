@@ -404,9 +404,6 @@ public class Weapon : Unit
     }
 
 
-
-
-
     public virtual void WeaponReload()
     {
         Debug.Log(this.gameObject + " : WeaponReload");
@@ -442,7 +439,7 @@ public class Weapon : Unit
         Debug.Log(this.gameObject + " : WeaponRecover");
         _isChargeFire = false;
         _isWeaponOn = false;
-
+        _lastbullet = null;
         weaponstate.ChangeState(WeaponState.Ready);
     }
 

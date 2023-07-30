@@ -78,14 +78,14 @@ public class SoundSource : PoolableObject
         base.SetActive(isactive);
     }
 
-    public override void StartSelf()
+    public override void Initialization()
     {
-        base.StartSelf();
+        base.Initialization();
     }
 
-    public override void ResetSelf()
+    public override void Reset()
     {
-        base.ResetSelf();
+        base.Reset();
     }
 
     public override void Destroy()

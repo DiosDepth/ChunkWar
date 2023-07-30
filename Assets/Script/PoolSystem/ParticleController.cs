@@ -21,9 +21,9 @@ public class ParticleController : PoolableObject
     {
         system.Play();
     }
-    public override void ResetSelf()
+    public override void Reset()
     {
-        base.ResetSelf();
+        base.Reset();
     }
 
     public override void SetActive(bool isactive = true)

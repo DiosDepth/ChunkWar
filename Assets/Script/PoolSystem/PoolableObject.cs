@@ -8,35 +8,35 @@ public class PoolableObject : MonoBehaviour
     //public ObjectPoolerHolder ownerPooler;
     //public string targetPoolerName;
     // Start is called before the first frame update
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
        
     }
-    void Start()
+    protected virtual void Start()
     {
        
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
 
 
-    public virtual void ResetSelf()
+    public virtual void Reset()
     {
 
     }
 
-    public virtual void StartSelf()
+    public virtual void Initialization()
     {
 
     }
 
     public virtual void Destroy()
     {
-        ResetSelf();
+        Reset();
         PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
 
