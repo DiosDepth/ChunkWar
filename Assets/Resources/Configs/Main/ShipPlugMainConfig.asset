@@ -24,21 +24,133 @@ MonoBehaviour:
   PlugConfigs:
   - ID: 1
     PropertyModify:
+    - ModifyKey: 1
+      Value: 500
+    - ModifyKey: 2
+      Value: 10
+    - ModifyKey: 3
+      Value: 0
+    - ModifyKey: 4
+      Value: 0
+    - ModifyKey: 5
+      Value: 10
+    - ModifyKey: 8
+      Value: 0
+    - ModifyKey: 9
+      Value: 15
+  - ID: 2
+    PropertyModify:
+    - ModifyKey: 1
+      Value: 500
+    - ModifyKey: 2
+      Value: 10
+    - ModifyKey: 3
+      Value: 0
+    - ModifyKey: 4
+      Value: 0
+    - ModifyKey: 5
+      Value: 10
+    - ModifyKey: 8
+      Value: 0
+    - ModifyKey: 9
+      Value: 5
+  - ID: 3
+    PropertyModify:
+    - ModifyKey: 1
+      Value: 500
+    - ModifyKey: 2
+      Value: 10
+    - ModifyKey: 3
+      Value: 0
+    - ModifyKey: 4
+      Value: 0
+    - ModifyKey: 5
+      Value: 10
+    - ModifyKey: 8
+      Value: 0
+    - ModifyKey: 9
+      Value: 5
+  - ID: 4
+    PropertyModify:
+    - ModifyKey: 1
+      Value: 500
+    - ModifyKey: 2
+      Value: 10
+    - ModifyKey: 3
+      Value: 0
+    - ModifyKey: 4
+      Value: 0
+    - ModifyKey: 5
+      Value: 10
+    - ModifyKey: 8
+      Value: 0
+    - ModifyKey: 9
+      Value: 5
+  - ID: 5
+    PropertyModify:
+    - ModifyKey: 1
+      Value: 500
+    - ModifyKey: 2
+      Value: 10
+    - ModifyKey: 3
+      Value: 0
+    - ModifyKey: 4
+      Value: 0
+    - ModifyKey: 5
+      Value: 10
+    - ModifyKey: 8
+      Value: 0
+    - ModifyKey: 9
+      Value: 5
+  - ID: 6
+    PropertyModify:
+    - ModifyKey: 1
+      Value: 500
+    - ModifyKey: 2
+      Value: 10
+    - ModifyKey: 3
+      Value: 0
+    - ModifyKey: 4
+      Value: 0
+    - ModifyKey: 5
+      Value: 10
+    - ModifyKey: 8
+      Value: 0
+    - ModifyKey: 9
+      Value: 5
+  - ID: 7
+    PropertyModify:
+    - ModifyKey: 1
+      Value: 500
+    - ModifyKey: 2
+      Value: 10
+    - ModifyKey: 3
+      Value: 0
+    - ModifyKey: 4
+      Value: 0
+    - ModifyKey: 5
+      Value: 10
+    - ModifyKey: 8
+      Value: 0
+    - ModifyKey: 9
+      Value: 5
+  - ID: 1001
+    PropertyModify:
     - ModifyKey: 2
       Value: -5
     - ModifyKey: 3
       Value: 10
-  - ID: 2
+  - ID: 1002
     PropertyModify:
     - ModifyKey: 2
       Value: 10
-  - ID: 3
+  - ID: 1003
     PropertyModify:
     - ModifyKey: 6
       Value: 1
     - ModifyKey: 7
       Value: 10
-  - ID: 4
+  - ID: 1004
     PropertyModify:
     - ModifyKey: 7
       Value: -8

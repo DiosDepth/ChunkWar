@@ -89,13 +89,7 @@ public class PickableItem : PoolableObject
                 PickableItemAction_Event(picker);
                 break;
         }
-        
-        AfterPickUp(picker);
-        if(disableOnPick)
-        {
-            trigger.enabled = false;
-            Destroy();
-        }
+  
     }
     protected virtual void PickableItemAction_InventoryItem(GameObject picker)
     {
@@ -132,12 +126,17 @@ public class PickableItem : PoolableObject
         base.Destroy();
     }
     //用来做一些拾取之后的表现
-    public virtual void AfterPickUp(GameObject picker)
+    protected virtual void AfterPickUp(GameObject picker)
     {
-
+        if (disableOnPick)
+        {
+            trigger.enabled = false;
+            Destroy();
+        }
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collider)
+
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
 
     }

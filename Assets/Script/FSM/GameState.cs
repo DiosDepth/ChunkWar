@@ -135,7 +135,8 @@ public class EGameState_ShipSelection : GameState
 
             MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadLevel("ShipSelectionLevel", (level) =>
             {
-
+                level.Initialization();
+              
                 UIManager.Instance.ShowUI<ShipSelection>("ShipSelection", E_UI_Layer.Mid, (level as ShipSelectionLevel), (shipselection) =>
                 {
                     shipselection.Initialization();
@@ -212,7 +213,7 @@ public class EGameState_GamePrepare : GameState
 
                 RogueManager.Instance.currentShip =  LevelManager.Instance.SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
                 RogueManager.Instance.currentShip.LoadRuntimeData(GameManager.Instance.gameEntity.runtimeData);
-                RogueManager.Instance.currentShip.InitialShip();
+                RogueManager.Instance.currentShip.CreateShip();
 
                 //初始化摄影机
                 //CameraManager.Instance.ChangeVCameraLookAtTarget(GameManager.Instance.gameEntity.currentShip.transform);

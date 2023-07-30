@@ -286,6 +286,7 @@ public class RogueManager : Singleton<RogueManager>
         if (_playerCurrentGoods.ContainsKey(info.GoodsID))
         {
             _playerCurrentGoods[info.GoodsID]++;
+            
         }
         else
         {
@@ -517,7 +518,9 @@ public class RogueManager : Singleton<RogueManager>
         return goods;
     }
 
-    private void AddNewShipPlug(int plugID, int goodsID)
+
+
+    public  void AddNewShipPlug(int plugID, int goodsID = -1)
     {
         var plugInfo = ShipPlugInfo.CreateInfo(plugID, goodsID);
         if (plugInfo == null)
@@ -529,6 +532,8 @@ public class RogueManager : Singleton<RogueManager>
         _currentShipPlugs.Add(uid, plugInfo);
         RogueEvent.Trigger(RogueEventType.ShipPlugChange);
     }
+
+
 
     private uint GetShipPlugUID()
     {

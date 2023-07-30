@@ -16,4 +16,18 @@ public class PickUpGold : PickableItem
     {
         
     }
+
+    public override void PickUp(GameObject picker)
+    {
+        base.PickUp(picker);
+
+
+        LeanTween.value(0, 1, 0.75f).setOnUpdate((alpha) =>
+        {
+            this.transform.position = Vector3.Lerp(this.transform.position, picker.transform.position, alpha);
+        }).setOnComplete(() => 
+        {
+            AfterPickUp(picker);
+        });
+    }
 }

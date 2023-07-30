@@ -15,6 +15,10 @@ public class ShipConfig : BaseConfig
 
     public AvalibalMainWeaponType MainWeapon;
 
+    [LabelText("ºËÐÄ²å¼þID")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 300)]
+    public int CorePlugID;
 
 
     protected override Vector2Int GetMapPivot()

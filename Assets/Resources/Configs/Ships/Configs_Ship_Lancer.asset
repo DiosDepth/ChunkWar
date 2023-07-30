@@ -1367,3 +1367,4 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 21
   ShipType: 1
   MainWeapon: 0
+  CorePlugID: 1

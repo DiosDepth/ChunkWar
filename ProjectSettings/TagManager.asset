@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DeadZone
+  - PickUps
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Trigger
   - CameraBoard
   - DeadZone
   - PickUps

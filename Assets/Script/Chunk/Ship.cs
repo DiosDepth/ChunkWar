@@ -71,7 +71,7 @@ public class Ship : MonoBehaviour,IDamageble
     public StateMachine<ShipMovementState> movementState;
     public StateMachine<ShipConditionState> conditionState;
 
-
+    public CircleCollider2D pickupCollider;
     public Core core;
     public Weapon mainWeapon;
 
@@ -153,12 +153,26 @@ public class Ship : MonoBehaviour,IDamageble
         {
             conditionState = new StateMachine<ShipConditionState>(this.gameObject, false, false);
         }
+        //初始化Ship的一些属性
+        RogueManager.Instance.AddNewShipPlug((RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).CorePlugID);
+
+        //创建PickUp用的Collider
+        GameObject obj = new GameObject("PickUpCollider");
+        obj.transform.SetParent(this.transform);
+        obj.layer = LayerMask.NameToLayer("Trigger");
+        obj.transform.localPosition = Vector3.zero;
+        pickupCollider =  obj.AddComponent<CircleCollider2D>();
+        pickupCollider.radius = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
+
+
+
+
         controller.Initialization();
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
     }
 
-    public virtual void InitialShip ()
+    public virtual void CreateShip ()
     {
         InitProperty();
         GameObject obj = null;
@@ -597,6 +611,14 @@ public class Ship : MonoBehaviour,IDamageble
     public void TakeDamage()
     {
         throw new System.NotImplementedException();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "PickUps")
+        {
+            collision.GetComponentInParent<PickableItem>().PickUp(this.gameObject);
+        }
     }
 
     private void InitProperty()

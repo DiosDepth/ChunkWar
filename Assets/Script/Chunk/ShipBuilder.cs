@@ -275,7 +275,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
         {
             editorShip.LoadRuntimeData(runtimedata);
         }
-        editorShip.InitialShip();
+        editorShip.CreateShip();
     }
 
 
