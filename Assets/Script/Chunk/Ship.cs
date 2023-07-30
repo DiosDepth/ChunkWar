@@ -94,7 +94,7 @@ public class Ship : MonoBehaviour,IDamageble
         energyResources = data.energyResources;
         artifacts = data.artifacts;
         ShipMapInfo = data.ShipMap;
-        UnitInfoList = data.BuildingList;
+        UnitInfoList = data.UnitList;
     }
 
 
@@ -140,7 +140,7 @@ public class Ship : MonoBehaviour,IDamageble
         GameManager.Instance.gameEntity.runtimeData.energyResources = energyResources;
         GameManager.Instance.gameEntity.runtimeData.artifacts = artifacts;
         GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMapInfo;
-        GameManager.Instance.gameEntity.runtimeData.BuildingList = UnitInfoList;
+        GameManager.Instance.gameEntity.runtimeData.UnitList = UnitInfoList;
     }
 
     public void Initialization()
@@ -235,7 +235,7 @@ public class Ship : MonoBehaviour,IDamageble
         //³õÊ¼»¯Ö÷ÎäÆ÷
         if( mainWeapon == null)
         {
-            string weaponname = (GameManager.Instance.gameEntity.currentShipSelection.itemconfig as ShipConfig).MainWeapon.ToString();
+            string weaponname = (RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).MainWeapon.ToString();
             BaseUnitConfig weaponconfig;
             DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponname, out weaponconfig);
             Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);

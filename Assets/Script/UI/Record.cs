@@ -44,14 +44,14 @@ public class Record : GUIBasePanel
         TMP_Text score = GetGUIComponent<TMP_Text>("Score");
         TMP_Text date = GetGUIComponent<TMP_Text>("Date");
 
-        if(record > GameManager.Instance.gameEntity.saveData.newRecord)
+        if(record > RogueManager.Instance.saveData.newRecord)
         {
-            GameManager.Instance.gameEntity.saveData.newRecord = record;
-            GameManager.Instance.gameEntity.saveData.date = System.DateTime.Now.ToString("yyyy:mm:dd");
-            SaveLoadManager.Save(GameManager.Instance.gameEntity.saveData, "SaveData");
+            RogueManager.Instance.saveData.newRecord = record;
+            RogueManager.Instance.saveData.date = System.DateTime.Now.ToString("yyyy:mm:dd");
+            SaveLoadManager.Save(RogueManager.Instance.saveData, "SaveData");
             title.text = "New Record";
-            score.text = GameManager.Instance.gameEntity.saveData.newRecord.ToString();
-            date.text = GameManager.Instance.gameEntity.saveData.date;
+            score.text = RogueManager.Instance.saveData.newRecord.ToString();
+            date.text = RogueManager.Instance.saveData.date;
         }
         else
         {

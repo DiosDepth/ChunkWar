@@ -27,7 +27,7 @@ public class RuntimeData
     public List<string> artifacts;
 
     public ChunkPartMapInfo[,] ShipMap = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
-    public List<UnitInfo> BuildingList = new List<UnitInfo>();
+    public List<UnitInfo> UnitList = new List<UnitInfo>();
 
     public RuntimeData(Ship shipdata)
     {
@@ -59,10 +59,10 @@ public class RuntimeData
             }
         }
 
-        BuildingList.Clear();
+        UnitList.Clear();
         for (int i = 0; i < shipdata.UnitList.Count; i++)
         {
-            BuildingList.Add(new UnitInfo(shipdata.UnitList[i] as Building));
+            UnitList.Add(new UnitInfo(shipdata.UnitList[i] as Building));
         }
 
     }

@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class GameEntity 
 {
-    public StateMachine<EGameState> gamestate = new StateMachine<EGameState>(null, true,true);
+    
     public int score = 0;
-    public SaveData saveData;
+  
     public RuntimeData runtimeData;
 
-    public int brickCount = 100;
-    public int brickConsumePerChunk = 5;
 
-    public InventoryItem currentShipSelection;
-    public Ship currentShip;
 
 
     public Inventory buildingInventory;

@@ -65,12 +65,12 @@ public class MainMenu : GUIBasePanel
     {
 
 
-        GameManager.Instance.gameEntity.saveData = SaveLoadManager.Load("SaveData") as SaveData;
+        RogueManager.Instance.saveData = SaveLoadManager.Load("SaveData") as SaveData;
 
-        if (GameManager.Instance.gameEntity.saveData == null)
+        if (RogueManager.Instance.saveData == null)
         {
-            GameManager.Instance.gameEntity.saveData = new SaveData();
-            SaveLoadManager.Save(GameManager.Instance.gameEntity.saveData, "SaveData");
+            RogueManager.Instance.saveData = new SaveData();
+            SaveLoadManager.Save(RogueManager.Instance.saveData, "SaveData");
         }
 
 

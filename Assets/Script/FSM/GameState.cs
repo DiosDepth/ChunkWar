@@ -153,7 +153,7 @@ public class EGameState_ShipSelection : GameState
         }));
 
         ///Test
-        RogueManager.Instance.InitRogueBattle();
+        
     }
 
     public override void OnUpdate()
@@ -168,6 +168,7 @@ public class EGameState_ShipSelection : GameState
         base.OnExit();
         LevelManager.Instance.UnloadCurrentLevel();
         GameManager.Instance.InitialRuntimeData();
+        RogueManager.Instance.InitRogueBattle();
 
     }
 }
@@ -200,28 +201,28 @@ public class EGameState_GamePrepare : GameState
             MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadLevel("BattleLevel_001", (level) =>
             {
                 //销毁旧的Ship
-                if(GameManager.Instance.gameEntity.currentShip != null)
+                if(RogueManager.Instance.currentShip != null)
                 {
-                    GameObject.Destroy(GameManager.Instance.gameEntity.currentShip.container.gameObject);
-                    GameManager.Instance.gameEntity.currentShip = null;
+                    GameObject.Destroy(RogueManager.Instance.currentShip.container.gameObject);
+                    RogueManager.Instance.currentShip = null;
                 }
 
 
 
 
-                GameManager.Instance.gameEntity.currentShip =  LevelManager.Instance.SpawnShipAtPos(GameManager.Instance.gameEntity.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
-                GameManager.Instance.gameEntity.currentShip.LoadRuntimeData(GameManager.Instance.gameEntity.runtimeData);
-                GameManager.Instance.gameEntity.currentShip.InitialShip();
+                RogueManager.Instance.currentShip =  LevelManager.Instance.SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
+                RogueManager.Instance.currentShip.LoadRuntimeData(GameManager.Instance.gameEntity.runtimeData);
+                RogueManager.Instance.currentShip.InitialShip();
 
                 //初始化摄影机
                 //CameraManager.Instance.ChangeVCameraLookAtTarget(GameManager.Instance.gameEntity.currentShip.transform);
-                CameraManager.Instance.ChangeVCameraFollowTarget(GameManager.Instance.gameEntity.currentShip.transform);
+                CameraManager.Instance.ChangeVCameraFollowTarget(RogueManager.Instance.currentShip.transform);
                 CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
                 CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = 0;
                 CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
                 CameraManager.Instance.vcam.m_Lens.OrthographicSize = 35;
 
-                GameManager.Instance.gameEntity.currentShip.gameObject.SetActive(true);
+                RogueManager.Instance.currentShip.gameObject.SetActive(true);
 
                 GameEvent.Trigger(EGameState.EGameState_GameStart);
             }));
@@ -299,8 +300,8 @@ public class EGameState_GameStart : GameState
                     loadingscreen.OpenLoadingDoor(() =>
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
-                        GameManager.Instance.gameEntity.currentShip.Initialization();
-                        GameManager.Instance.gameEntity.currentShip.controller.IsUpdate = true;
+                        RogueManager.Instance.currentShip.Initialization();
+                        RogueManager.Instance.currentShip.controller.IsUpdate = true;
 
 
                         //LeanTween.delayedCall(10, () =>
@@ -516,16 +517,16 @@ public class EGameState_GameCompleted : GameState
         else
         {
             LevelManager.Instance.needServicing = true;
-            GameManager.Instance.gameEntity.currentShip.SaveRuntimeData();
+            RogueManager.Instance.currentShip.SaveRuntimeData();
         }
 
         LevelManager.Instance.UnloadCurrentLevel();
 
 
-        if (GameManager.Instance.gameEntity.currentShip != null)
+        if (RogueManager.Instance.currentShip != null)
         {
-            GameObject.Destroy(GameManager.Instance.gameEntity.currentShip.container.gameObject);
-            GameManager.Instance.gameEntity.currentShip = null;
+            GameObject.Destroy(RogueManager.Instance.currentShip.container.gameObject);
+            RogueManager.Instance.currentShip = null;
         }
         
         GameEvent.Trigger(EGameState.EGameState_GamePrepare);
@@ -560,10 +561,10 @@ public class EGameState_GameEnd : GameState
         LevelManager.Instance.UnloadCurrentLevel();
         GameManager.Instance.InitialRuntimeData();
 
-        if (GameManager.Instance.gameEntity.currentShip != null)
+        if (RogueManager.Instance.currentShip != null)
         {
-            GameObject.Destroy(GameManager.Instance.gameEntity.currentShip.container.gameObject);
-            GameManager.Instance.gameEntity.currentShip = null;
+            GameObject.Destroy(RogueManager.Instance.currentShip.container.gameObject);
+            RogueManager.Instance.currentShip = null;
         }
 
         GameEvent.Trigger(EGameState.EGameState_MainMenu);

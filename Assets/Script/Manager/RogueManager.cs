@@ -61,6 +61,10 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public UnitPropertyData MainPropertyData;
 
+
+    public SaveData saveData;
+    public InventoryItem currentShipSelection;
+    public Ship currentShip;
     /// <summary>
     /// 所有商店物品
     /// </summary>

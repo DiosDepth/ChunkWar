@@ -76,19 +76,13 @@ public struct ScoreEvent
 
 public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,EventListener<ScoreEvent>,EventListener<GameStateTransitionEvent>
 {
-  
+    public StateMachine<EGameState> gamestate = new StateMachine<EGameState>(null, true, true);
 
     public GameEntity gameEntity;
 
 
 
     public bool isInitialCompleted = false;
-
-
-
-
-
-
 
     public GameManager()
     {
@@ -115,7 +109,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     }
     public void OnEvent(GameEvent evt)
     {
-        gameEntity.gamestate.ChangeState(evt.gamesate);
+        gamestate.ChangeState(evt.gamesate);
         //switch (evt.gamesate)
         //{
         //    case EGameState.EGameState_WelcomScreen:
@@ -223,7 +217,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public void InitialRuntimeData()
     {
-        gameEntity.runtimeData = new RuntimeData((gameEntity.currentShipSelection.itemconfig as ShipConfig).Map);
+        gameEntity.runtimeData = new RuntimeData((RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).Map);
     }
 
     public void OnEvent(ScoreEvent evt)

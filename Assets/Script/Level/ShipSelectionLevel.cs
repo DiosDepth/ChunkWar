@@ -23,7 +23,7 @@ public class ShipSelectionLevel : LevelEntity, EventListener<InventoryOperationE
     {
         base.Unload();
         this.EventStopListening<InventoryOperationEvent>();
-        GameManager.Instance.gameEntity.currentShipSelection = currentShipSelection;
+        RogueManager.Instance.currentShipSelection = currentShipSelection;
         
 
     }

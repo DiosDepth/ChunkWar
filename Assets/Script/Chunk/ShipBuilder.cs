@@ -254,7 +254,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
             obj.transform.position = Vector3.zero;
             obj.name = "ShipContainer";
 
-            var ship = GameObject.Instantiate(GameManager.Instance.gameEntity.currentShipSelection.itemconfig.Prefab);
+            var ship = GameObject.Instantiate(RogueManager.Instance.currentShipSelection.itemconfig.Prefab);
             editorShip = ship.GetComponentInChildren<Ship>();
             editorShip.container = obj;
             editorShip.gameObject.SetActive(true);

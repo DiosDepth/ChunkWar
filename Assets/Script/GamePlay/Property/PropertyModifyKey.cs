@@ -28,4 +28,5 @@ public enum PropertyModifyKey
     ShopRefreshCount,
     ShopCostPercent,
     AttackSpeed,
+    SuckerRange,
 }
