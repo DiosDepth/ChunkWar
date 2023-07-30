@@ -33,7 +33,7 @@ public class LevelDataInfo
 
     public bool IsLastWave()
     {
-        return LevelWaveIndex > DataManager.Instance.battleCfg.RogueNormal_Max_Wave;
+        return false;
     }
 
     public void TryEnterNextWave()

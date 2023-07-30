@@ -22,12 +22,36 @@ public struct RogueEvent
     }
 }
 
+public struct ShipPropertyEvent
+{
+    public ShipPropertyEventType type;
+    public object[] param;
+
+    public ShipPropertyEvent(ShipPropertyEventType m_type, params object[] param)
+    {
+        type = m_type;
+        this.param = param;
+    }
+
+    public static void Trigger(ShipPropertyEventType m_type, params object[] param)
+    {
+        ShipPropertyEvent evt = new ShipPropertyEvent(m_type, param);
+        EventCenter.Instance.TriggerEvent<ShipPropertyEvent>(evt);
+    }
+}
+
 public enum RogueEventType
 {
     CurrencyChange,
     ShopReroll,
     ShopCostChange,
     ShipPlugChange,
+}
+
+public enum ShipPropertyEventType
+{
+    EXPChange,
+    LevelUp,
 }
 
 public class RogueManager : Singleton<RogueManager>
@@ -106,6 +130,7 @@ public class RogueManager : Singleton<RogueManager>
     {
         MainPropertyData = new UnitPropertyData();
         _waveIndex = 1;
+        InitDefaultProperty();
         InitShopData();
         InitAllGoodsItems();
         GenerateShopGoods(3, 1);
@@ -135,6 +160,97 @@ public class RogueManager : Singleton<RogueManager>
         RogueEvent.Trigger(RogueEventType.CurrencyChange);
     }
 
+    private void InitDefaultProperty()
+    {
+        var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
+        _shipLevel = new ChangeValue<byte>(1, 1, maxLevel);
+        _currentEXP = new ChangeValue<int>(0, 0, int.MaxValue);
+        MainPropertyData.RegisterRowProperty(PropertyModifyKey.ShipHP, DataManager.Instance.battleCfg.PlayerShip_Default_HP);
+        CurrentRequireEXP = GameHelper.GetEXPRequireMaxCount(GetCurrentShipLevel);
+
+        _currentEXP.BindChangeAction(OnCurrrentEXPChange);
+        _shipLevel.BindChangeAction(OnShipLevelUp);
+    }
+
+    #region Property
+
+    private ChangeValue<byte> _shipLevel;
+    /// <summary>
+    /// 舰船等级
+    /// </summary>
+    public byte GetCurrentShipLevel
+    {
+        get { return _shipLevel.Value; }
+    }
+
+    /// <summary>
+    /// 当前EXP
+    /// </summary>
+    private ChangeValue<int> _currentEXP;
+    public int GetCurrentExp
+    {
+        get { return _currentEXP.Value; }
+    }
+
+    /// <summary>
+    /// 当前所需EXP最大值
+    /// </summary>
+    public int CurrentRequireEXP
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// exp百分比， 0.76
+    /// </summary>
+    public float EXPPercent
+    {
+        get { return GetCurrentExp / (float)CurrentRequireEXP; }
+    }
+
+    /// <summary>
+    /// 增加经验值
+    /// </summary>
+    /// <param name="value"></param>
+    public void AddEXP(int value)
+    {
+        var targetValue = GetCurrentExp + value;
+        while (targetValue >= CurrentRequireEXP)
+        {
+            ///LevelUp
+            LevelUp();
+            targetValue = targetValue - CurrentRequireEXP;
+        }
+        _currentEXP.Set(targetValue);
+    }
+
+    private void LevelUp()
+    {
+        var newLevel = GetCurrentShipLevel + 1;
+        if(newLevel > DataManager.Instance.battleCfg.ShipMaxLevel)
+        {
+            return;
+        }
+
+        byte targetLevel = (byte)Mathf.Clamp(newLevel, 1, byte.MaxValue);
+        _shipLevel.Set(targetLevel);
+        CurrentRequireEXP = GameHelper.GetEXPRequireMaxCount(targetLevel);
+        
+    }
+
+    private void OnCurrrentEXPChange(int old, int newValue)
+    {
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.EXPChange);
+    }
+
+    private void OnShipLevelUp(byte old, byte newValue)
+    {
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.LevelUp);
+    }
+
+    #endregion
+
     #region Shop
 
     public ShopGoodsInfo GetShopGoodsInfo(int goodsID)
@@ -162,13 +278,6 @@ public class RogueManager : Singleton<RogueManager>
 
     private void GainShopItem(ShopGoodsInfo info)
     {
-        var itemType = info._cfg.ItemType;
-        int typeID = info._cfg.TypeID; 
-        if (itemType == GoodsItemType.ShipPlug)
-        {
-            AddNewShipPlug(typeID, info.GoodsID);
-        }
-
         ///RefreshCount
         if (_playerCurrentGoods.ContainsKey(info.GoodsID))
         {
@@ -178,6 +287,14 @@ public class RogueManager : Singleton<RogueManager>
         {
             _playerCurrentGoods.Add(info.GoodsID, 1);
         }
+
+        var itemType = info._cfg.ItemType;
+        int typeID = info._cfg.TypeID; 
+        if (itemType == GoodsItemType.ShipPlug)
+        {
+            AddNewShipPlug(typeID, info.GoodsID);
+        }
+
     }
     
     /// <summary>

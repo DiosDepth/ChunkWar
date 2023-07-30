@@ -15,7 +15,15 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: e27f0d0c4b16d7a40a428f97006b6bbc, type: 3}
+    - {fileID: 21300000, guid: 155625dc38cb90842a3d52f10ae91006, type: 3}
+    - {fileID: 21300000, guid: 0b43561315597b844ad1b435728ed5b0, type: 3}
+    - {fileID: 21300000, guid: 06f5fb8941942b543b831ac667f94d17, type: 3}
+    - {fileID: 21300000, guid: ba5e47215639b1748b058387d5aea65a, type: 3}
+    - {fileID: 21300000, guid: 1d763a7303eeeef499065ec693e8562e, type: 3}
+    - {fileID: 21300000, guid: 9bf9634ff2a6cda4096accd22f9011d5, type: 3}
+    - {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -54,8 +62,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_DamagePercent
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -78,8 +86,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_AttackSpeed
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -102,8 +110,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_Critical
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 2
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -126,8 +134,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_ShopRefreshCount
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 3
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -150,8 +158,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_ShopCostPercent
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 4
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -174,8 +182,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_ShipHP
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 5
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -198,8 +206,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_WeaponRange
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 6
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -222,8 +230,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_Luck
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 7
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -239,5 +247,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  RogueNormal_Max_Wave: 20
   RogueShop_Origin_RefreshNum: 3
+  PlayerShip_Default_HP: 500
+  ShipMaxLevel: 50
+  EXPMap: 0f00000019000000230000002d00000037000000640000006e000000
+  HardLevels:
+  - HardLevelID: 1
+    Name: 
+    WaveConfig:
+    - WaveIndex: 1
+      DurationTime: 60

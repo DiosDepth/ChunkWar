@@ -4,32 +4,83 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShipHUD : GUIBasePanel
+public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventListener<RogueEvent>
 {
-    
-    
-    // Start is called before the first frame update
-    void Start()
+    private TextMeshProUGUI _waveTextID;
+    private TextMeshProUGUI _currencyText;
+    private ShipPropertySliderCmpt _hpSliderCmpt;
+    private ShipPropertySliderCmpt _shieldCmpt;
+    private ShipPropertySliderCmpt _expCmpt;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+        _waveTextID = transform.Find("WaveIndex/WaveInfo/Value").SafeGetComponent<TextMeshProUGUI>();
+        _currencyText = transform.Find("Currency/Currency/Value").SafeGetComponent<TextMeshProUGUI>();
+        _hpSliderCmpt = transform.Find("ShipInfo/HPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _shieldCmpt = transform.Find("ShipInfo/ShieldSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _expCmpt = transform.Find("ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public override void Initialization()
     {
         base.Initialization();
-        
-
+        this.EventStartListening<ShipPropertyEvent>();
+        this.EventStartListening<RogueEvent>();
+        SetUpSlider();
+        RefreshCurrency();
     }
 
-    public void ChangeScore(int score)
+    public override void Hidden()
     {
-        GetGUIComponent<TMP_Text>("Score").text = score.ToString();
+        this.EventStopListening<ShipPropertyEvent>();
+        this.EventStopListening<RogueEvent>();
+        base.Hidden();
     }
 
+    private void SetUpSlider()
+    {
+        _hpSliderCmpt.RefreshProperty();
+        _shieldCmpt.RefreshProperty();
+        _expCmpt.RefreshProperty();
+    }
 
+    public void OnEvent(ShipPropertyEvent evt)
+    {
+        switch (evt.type)
+        {
+            case ShipPropertyEventType.EXPChange:
+                RefreshEXP();
+                break;
+
+            case ShipPropertyEventType.LevelUp:
+                RefreshLevelUp();
+                break;
+        }
+    }
+
+    public void OnEvent(RogueEvent evt)
+    {
+        switch (evt.type)
+        {
+            case RogueEventType.CurrencyChange:
+                RefreshCurrency();
+                break;
+        }
+    }
+
+    private void RefreshEXP()
+    {
+        _expCmpt.RefreshEXP();
+    }
+
+    private void RefreshCurrency()
+    {
+        _currencyText.text = RogueManager.Instance.CurrentCurrency.ToString();
+    }
+
+    private void RefreshLevelUp()
+    {
+        _expCmpt.RefreshLevelUp();
+    }
 }

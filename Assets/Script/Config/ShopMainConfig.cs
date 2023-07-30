@@ -50,6 +50,9 @@ public class ShopGoodsItemConfig
     public Sprite IconSprite;
 
     [TableColumnWidth(80, false)]
+    public byte Weight = 20;
+
+    [TableColumnWidth(80, false)]
     public GoodsItemType ItemType;
 
     [TableColumnWidth(80, false)]
@@ -62,6 +65,7 @@ public class ShopGoodsItemConfig
     public bool Unique;
 
     [TableColumnWidth(100, false)]
+    [HideIf("Unique")]
     public int MaxBuyCount = -1;
 
     [TableColumnWidth(150, false)]

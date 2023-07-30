@@ -6,8 +6,15 @@ using Sirenix.OdinInspector.Editor;
 
 public class BattleMainConfig : SerializedScriptableObject
 {
-    public int RogueNormal_Max_Wave = 20;
     public byte RogueShop_Origin_RefreshNum = 4;
+
+    public int PlayerShip_Default_HP;
+    public byte ShipMaxLevel;
+
+    [ListDrawerSettings(ShowIndexLabels = true, NumberOfItemsPerPage = 10)]
+    public int[] EXPMap;
+
+    public List<HardLevelConfig> HardLevels = new List<HardLevelConfig>();
 
     [DictionaryDrawerSettings()]
     public Dictionary<PropertyModifyKey, PropertyDisplayConfig> PropertyDisplay = new Dictionary<PropertyModifyKey, PropertyDisplayConfig>();
@@ -20,9 +27,22 @@ public class BattleMainConfig : SerializedScriptableObject
     }
 }
 
+[System.Serializable]
+[HideReferenceObjectPicker]
 public class HardLevelConfig
 {
+    public int HardLevelID;
+    public string Name;
 
+    public List<WaveConfig> WaveConfig = new List<WaveConfig>();
+}
+
+[System.Serializable]
+[HideReferenceObjectPicker]
+public class WaveConfig
+{
+    public int WaveIndex;
+    public ushort DurationTime;
 }
 
 [System.Serializable]

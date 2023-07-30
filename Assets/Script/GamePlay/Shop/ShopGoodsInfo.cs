@@ -93,6 +93,7 @@ public class ShopGoodsInfo : RandomObject
         ShopGoodsInfo info = new ShopGoodsInfo();
         info.GoodsID = goodsID;
         info._cfg = cfg;
+        info.Weight = cfg.Weight;
 
         return info;
     }

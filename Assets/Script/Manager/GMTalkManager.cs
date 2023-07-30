@@ -49,7 +49,15 @@ public class GMTalkManager : Singleton<GMTalkManager>
  
         });
 
-
+        AddGMFunctionToDic("exp", (param) =>
+        {
+            if (param.Length != 1)
+                return false;
+            int value = 0;
+            int.TryParse(param[0], out value);
+            RogueManager.Instance.AddEXP(value);
+            return true;
+        });
 
     }
 

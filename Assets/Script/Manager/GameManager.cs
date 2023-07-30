@@ -232,7 +232,6 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         {
             case ScoreEventType.Change:
                 gameEntity.score += evt.scorechange;
-                (UIManager.Instance.panelDic["PlayerHUD"] as ShipHUD).ChangeScore(gameEntity.score);
                 break;
             case ScoreEventType.Reset:
                 gameEntity.score = 0;
