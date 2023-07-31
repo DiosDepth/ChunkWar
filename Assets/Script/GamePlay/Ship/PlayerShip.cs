@@ -260,9 +260,10 @@ public class PlayerShip : BaseShip, IDamageble
             //obj.transform.rotation = Quaternion.identity;
 
             //core.unit = obj.GetComponent<Weapon>() as Unit;
+            mainWeapon.Initialization(this, weaponconfig as WeaponConfig);
         }
 
-        mainWeapon.Initialization(this);
+     
         
     }
 

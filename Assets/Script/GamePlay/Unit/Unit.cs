@@ -9,10 +9,39 @@ public enum UnitType
     Weapons,
     MainWeapons,
 }
+
+[System.Serializable]
+public class UnitBaseAttribute
+{
+    /// <summary>
+    /// ×î´óÑªÁ¿
+    /// </summary>
+    public int HPMax
+    {
+        get;
+        protected set;
+    }
+
+    private int BaseHP;
+
+    public virtual void InitProeprty(BaseUnitConfig cfg)
+    {
+        BaseHP = cfg.BaseHP;
+
+        var mainProperty = RogueManager.Instance.MainPropertyData;
+        mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+    }
+
+    private void CalculateHP()
+    {
+        var hp = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.HP);
+        HPMax = BaseHP + Mathf.RoundToInt(hp);
+    }
+}
+
 public class Unit : MonoBehaviour
 {
     public int UnitID;
-    public float HP = 100;
     public DamagableState state = DamagableState.None;
 
     public SpriteRenderer unitSprite;
@@ -20,8 +49,9 @@ public class Unit : MonoBehaviour
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
-    private PlayerShip _owner;
+    private BaseShip _owner;
 
+    protected UnitBaseAttribute baseAttribute;
 
     public virtual void Start()
     {
@@ -39,7 +69,7 @@ public class Unit : MonoBehaviour
         
     }
 
-    public virtual void Initialization(PlayerShip m_owner)
+    public virtual void Initialization(BaseShip m_owner)
     {
         _owner = m_owner;
     }

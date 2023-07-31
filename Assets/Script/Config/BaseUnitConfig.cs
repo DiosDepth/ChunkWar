@@ -3,6 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class UnitPropertyModifyFrom
+{
+    [HorizontalGroup("CC", 300)]
+    [LabelText("属性Key")]
+    [LabelWidth(80)]
+    public PropertyModifyKey PropertyKey;
+    [HorizontalGroup("CC", 300)]
+    [LabelText("比例")]
+    [LabelWidth(80)]
+    public float Ratio;
+}
 
 
 [CreateAssetMenu(fileName = "Configs_Unit_", menuName = "Configs/Unit/UnitConfig")]
@@ -18,6 +30,11 @@ public class BaseUnitConfig : BaseConfig
     [HorizontalGroup("B", 300)]
     public bool redirection = true;
 
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/A", 200)]
+    [LabelText("基础血量")]
+    [LabelWidth(80)]
+    public int BaseHP;
 
     [OnInspectorInit]
     private void InitData()

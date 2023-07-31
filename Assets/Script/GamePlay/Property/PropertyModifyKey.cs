@@ -5,7 +5,7 @@ using UnityEngine;
 public enum PropertyModifyKey 
 {
     NONE,
-    ShipHP,
+    HP,
     /// <summary>
     /// 最终伤害百分比
     /// </summary>

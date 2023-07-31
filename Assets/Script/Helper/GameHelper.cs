@@ -23,7 +23,6 @@ public static class GameHelper
         return expMap[level];
     }
 
-
     #endregion
     public static Vector2Int CoordinateArrayToMap(Vector2Int arraycoord, int mapsize)
     {
