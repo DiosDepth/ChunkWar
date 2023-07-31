@@ -54,7 +54,7 @@ public enum ShipConditionState
     Attack,
 }
 
-public class Ship : MonoBehaviour,IDamageble
+public class PlayerShip : BaseShip, IDamageble
 {
 
     public bool isDebug;
@@ -76,11 +76,7 @@ public class Ship : MonoBehaviour,IDamageble
     public Weapon mainWeapon;
 
     public ShipController controller;
-    public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
-    private Chunk[,] _chunkMap = new Chunk[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
 
-    public List<Unit> UnitList { set  {_unitList = value; } get { return _unitList; } }
-    private List<Unit> _unitList = new List<Unit>();
 
     private ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     private List<UnitInfo> UnitInfoList = new List<UnitInfo>();
@@ -143,8 +139,9 @@ public class Ship : MonoBehaviour,IDamageble
         GameManager.Instance.gameEntity.runtimeData.UnitList = UnitInfoList;
     }
 
-    public void Initialization()
+    public override void Initialization()
     {
+        base.Initialization();
         if(movementState == null)
         {
             movementState = new StateMachine<ShipMovementState>(this.gameObject, false,false);
@@ -275,14 +272,14 @@ public class Ship : MonoBehaviour,IDamageble
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
        
    
     }
 
     // Update is called once per frame
-    public virtual void  Update()
+    protected override void Update()
     {
 
     }

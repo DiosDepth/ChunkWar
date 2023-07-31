@@ -142,7 +142,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
     public GameObject CorePrefab;
     public GameObject BasePrefab;
 
-    public Ship editorShip;
+    public PlayerShip editorShip;
     public ShipBuilderBrush editorBrush;
     public Color brushValidColor;
     public Color brushInvalidColor;
@@ -255,7 +255,7 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
             obj.name = "ShipContainer";
 
             var ship = GameObject.Instantiate(RogueManager.Instance.currentShipSelection.itemconfig.Prefab);
-            editorShip = ship.GetComponentInChildren<Ship>();
+            editorShip = ship.GetComponentInChildren<PlayerShip>();
             editorShip.container = obj;
             editorShip.gameObject.SetActive(true);
             editorShip.transform.position = Vector3.zero - editorShip.shipMapCenter.localPosition;

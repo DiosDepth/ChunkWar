@@ -29,7 +29,7 @@ public class RuntimeData
     public ChunkPartMapInfo[,] ShipMap = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     public List<UnitInfo> UnitList = new List<UnitInfo>();
 
-    public RuntimeData(Ship shipdata)
+    public RuntimeData(PlayerShip shipdata)
     {
         physicalResources = shipdata.physicalResources;
         energyResources = shipdata.energyResources;

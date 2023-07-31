@@ -64,7 +64,7 @@ public class RogueManager : Singleton<RogueManager>
 
     public SaveData saveData;
     public InventoryItem currentShipSelection;
-    public Ship currentShip;
+    public PlayerShip currentShip;
     /// <summary>
     /// 所有商店物品
     /// </summary>

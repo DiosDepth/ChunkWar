@@ -20,7 +20,7 @@ public class Unit : MonoBehaviour
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
-    private Ship _owner;
+    private PlayerShip _owner;
 
 
     public virtual void Start()
@@ -39,7 +39,7 @@ public class Unit : MonoBehaviour
         
     }
 
-    public virtual void Initialization(Ship m_owner)
+    public virtual void Initialization(PlayerShip m_owner)
     {
         _owner = m_owner;
     }
