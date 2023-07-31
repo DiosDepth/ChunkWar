@@ -12,12 +12,14 @@ public class ShipConfig : BaseConfig
     [HorizontalGroup("B", 300)]
     public ShipType ShipType;
 
-
-    public AvalibalMainWeaponType MainWeapon;
+    [LabelText("Ö÷ÎäÆ÷ID")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 200)]
+    public int MainWeaponID;
 
     [LabelText("ºËÐÄ²å¼þID")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 300)]
+    [HorizontalGroup("B", 200)]
     public int CorePlugID;
 
 

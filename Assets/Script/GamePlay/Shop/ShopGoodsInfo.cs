@@ -30,19 +30,12 @@ public class ShopGoodsInfo : RandomObject
         set;
     }
 
-    public string ItemName
-    {
-        get { return LocalizationManager.Instance.GetTextValue(_cfg.Name); }
-    }
 
-    public string ItemDesc
-    {
-        get { return LocalizationManager.Instance.GetTextValue(_cfg.Desc); }
-    }
 
     public GoodsItemRarity Rarity
     {
-        get { return _cfg.Rarity; }
+        get;
+        private set;
     }
 
     /// <summary>
@@ -94,6 +87,19 @@ public class ShopGoodsInfo : RandomObject
         info.GoodsID = goodsID;
         info._cfg = cfg;
         info.Weight = cfg.Weight;
+
+        if (cfg.ItemType == GoodsItemType.ShipPlug)
+        {
+            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(cfg.TypeID);
+            if (plugCfg != null)
+            {
+                info.Rarity = plugCfg.GeneralConfig.Rarity;
+            }
+        }
+        else if (cfg.ItemType == GoodsItemType.ShipUnit)
+        {
+
+        }
 
         return info;
     }

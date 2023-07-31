@@ -16,6 +16,29 @@ public enum E_UI_Layer
     System,
 }
 
+public struct GeneralUIEvent
+{
+    public UIEventType type;
+    public object[] param;
+
+    public GeneralUIEvent(UIEventType m_type, params object[] param)
+    {
+        type = m_type;
+        this.param = param;
+    }
+
+    public static void Trigger(UIEventType m_type, params object[] param)
+    {
+        GeneralUIEvent evt = new GeneralUIEvent(m_type, param);
+        EventCenter.Instance.TriggerEvent<GeneralUIEvent>(evt);
+    }
+}
+
+public enum UIEventType
+{
+    ShipSelectionChange
+}
+
 public class UIManager : Singleton<UIManager>
 {
     public string resPath = "Prefab/GUIPrefab/";

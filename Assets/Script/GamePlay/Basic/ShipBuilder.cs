@@ -7,124 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-
-
-
-[System.Serializable]
-public class Inventory : IEnumerable, IEnumerator
-{
-
-    private Dictionary<string, InventoryItem> storeDic = new Dictionary<string, InventoryItem>();
-    private IEnumerator<KeyValuePair<string, InventoryItem>> dicEnumerator;
-
-    public object Current => dicEnumerator.Current;
-
-    public Inventory()
-    {
-        dicEnumerator = storeDic.GetEnumerator();
-    }
-
-    public Inventory(Dictionary<string,InventoryItem> dic)
-    {
-        storeDic = dic;
-        dicEnumerator = storeDic.GetEnumerator();
-    }
-
-
-
-    public void CheckIn(InventoryItem m_item)
-    {
-        if(storeDic.ContainsKey(m_item.itemconfig.UnitName))
-        {
-            return;
-        }
-        storeDic.Add(m_item.itemconfig.UnitName, m_item);
-        //发送入库事件
-        InventoryEvent.Trigger(InventoryEventType.Checkin,m_item.itemconfig.UnitName);
-    }
-
-    public InventoryItem CheckOut(string m_name)
-    {
-        InventoryItem item;
-        storeDic.TryGetValue(m_name, out item);
-      
-
-        //发出库事件
-        InventoryEvent.Trigger(InventoryEventType.CheckOut, item.itemconfig.UnitName);
-
-        storeDic.Remove(m_name);
-        return item;
-    }
-
-    public InventoryItem Peek(string m_name)
-    {
-        InventoryItem item;
-        storeDic.TryGetValue(m_name, out item);
-
-        return item;
-    }
-
-    public bool IsEmpty()
-    {
-        if(storeDic.Count == 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public IEnumerator GetEnumerator()
-    {
-        dicEnumerator = storeDic.GetEnumerator();
-        return dicEnumerator;
-    }
-
-    public bool MoveNext()
-    {
-        return dicEnumerator.MoveNext();
-    }
-
-    public void Reset()
-    {
-       
-        dicEnumerator.Reset();
-    }
-
-}
-
-public enum InventoryOperationType
-{
-    ItemSelect,
-    ItemUnselect,
-    ItemRemove,
-   
-}
-
-public struct InventoryOperationEvent
-{
-    public InventoryOperationType type;
-
-    public int index;
-    public string name;
-    public InventoryOperationEvent(InventoryOperationType m_type, int m_index, string m_name)
-    {
-        type = m_type;
-   
-        index = m_index;
-        name = m_name;
-    }
-    public static InventoryOperationEvent e;
-    public static void Trigger(InventoryOperationType m_type, int m_index, string m_name)
-    {
-        e.type = m_type;
-
-        e.index = m_index;
-        e.name = m_name;
-        EventCenter.Instance.TriggerEvent<InventoryOperationEvent>(e);
-    }
-}
-
-public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
+public class ShipBuilder : MonoBehaviour
 {
     public static ShipBuilder instance;
     public enum EditorMode
@@ -204,7 +87,6 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
     }
     public void Initialization()
     {
-        EventRegister.EventStartListening<InventoryOperationEvent>(this);
         InputDispatcher.Instance.Action_GamePlay_Point += HandleBuildMouseMove;
         InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleBuildOperation;
         InputDispatcher.Instance.Action_GamePlay_RightClick += HandleRemoveOperation;
@@ -219,10 +101,6 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
 
         _isInitial = true;
         editorBrush.Initialization();
-
-        BaseUnitConfig baseConfig;
-        DataManager.Instance.UnitConfigDataDic.TryGetValue("DirectionalSmoothboreCannon", out baseConfig);
-        GameManager.Instance.gameEntity.buildingInventory.CheckIn(new InventoryItem(baseConfig));
     }
 
     // Update is called once per frame
@@ -235,7 +113,6 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
 
     private void OnDestroy()
     {
-        EventRegister.EventStopListening<InventoryOperationEvent>(this);
         InputDispatcher.Instance.Action_GamePlay_Point -= HandleBuildMouseMove;
         InputDispatcher.Instance.Action_GamePlay_LeftClick -= HandleBuildOperation;
         InputDispatcher.Instance.Action_GamePlay_RightClick -= HandleRemoveOperation;
@@ -728,33 +605,33 @@ public class ShipBuilder : MonoBehaviour,EventListener<InventoryOperationEvent>
     
     }
 
-    public void OnEvent(InventoryOperationEvent evt)
-    {
-        switch (evt.type)
-        {
-            case InventoryOperationType.ItemSelect:
+    //public void OnEvent(InventoryOperationEvent evt)
+    //{
+    //    switch (evt.type)
+    //    {
+    //        case InventoryOperationType.ItemSelect:
 
-                //if(evt.unitytype == UnitType.ChunkParts)
-                //{
-                //    editorMode = EditorMode.ShipEditorMode;
+    //            //if(evt.unitytype == UnitType.ChunkParts)
+    //            //{
+    //            //    editorMode = EditorMode.ShipEditorMode;
 
-                //}
+    //            //}
 
-                currentInventoryItem = GameManager.Instance.gameEntity.buildingInventory.Peek(evt.name);
+    //            currentInventoryItem = GameManager.Instance.gameEntity.buildingInventory.Peek(evt.name);
                 
                 
-                editorBrush.brushSprite.sprite = currentInventoryItem.itemconfig.Icon;
+    //            editorBrush.brushSprite.sprite = currentInventoryItem.itemconfig.Icon;
         
-                _reletiveCoord = (currentInventoryItem.itemconfig as BaseUnitConfig) .GetReletiveCoord();
-                editorBrush.UpdateShadows(_reletiveCoord);
-                _itemDirection = 0;
-                editorBrush.brushSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+    //            _reletiveCoord = (currentInventoryItem.itemconfig as BaseUnitConfig) .GetReletiveCoord();
+    //            editorBrush.UpdateShadows(_reletiveCoord);
+    //            _itemDirection = 0;
+    //            editorBrush.brushSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-                break;
-            case InventoryOperationType.ItemUnselect:
-                break;
-            case InventoryOperationType.ItemRemove:
-                break;
-        }
-    }
+    //            break;
+    //        case InventoryOperationType.ItemUnselect:
+    //            break;
+    //        case InventoryOperationType.ItemRemove:
+    //            break;
+    //    }
+    //}
 }

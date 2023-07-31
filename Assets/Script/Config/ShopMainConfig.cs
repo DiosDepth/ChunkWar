@@ -41,14 +41,6 @@ public class ShopGoodsItemConfig
     [OnValueChanged("OnGoodsIDChange")]
     public int GoodID;
 
-    [TableColumnWidth(80,false)]
-    public GoodsItemRarity Rarity;
-
-    [TableColumnWidth(70, false)]
-    [PreviewField(50)]
-    [AssetSelector(Paths = "Assets/Resources/Sprite/ShopIcon", DropdownHeight = 800, DropdownWidth = 400)]
-    public Sprite IconSprite;
-
     [TableColumnWidth(80, false)]
     public byte Weight = 20;
 
@@ -68,20 +60,6 @@ public class ShopGoodsItemConfig
     [HideIf("Unique")]
     public int MaxBuyCount = -1;
 
-    [TableColumnWidth(150, false)]
-    [ReadOnly]
-    public string Name;
-
-    [TableColumnWidth(150, false)]
-    [ReadOnly]
-    public string Desc;
-
-
-    private void OnGoodsIDChange()
-    {
-        Name = string.Format("ShopGoods_Name_{0}", GoodID);
-        Desc = string.Format("ShopGoods_Desc_{0}", GoodID);
-    }
 }
 
 [System.Serializable]
@@ -92,7 +70,6 @@ public class ShopGoodsRarityConfig
     [LabelWidth(80)]
     [LabelText("最小出现店次")]
     public byte MinAppearEneterCount;
-
 
     [HorizontalGroup("A1")]
     [LabelWidth(120)]
@@ -111,4 +88,31 @@ public class ShopGoodsRarityConfig
     [LabelWidth(80)]
     [LabelText("最大权重")]
     public float WeightMax;
+}
+
+[System.Serializable]
+public class GeneralItemConfig
+{
+    [VerticalGroup("AA")]
+    [PreviewField(50, Alignment = ObjectFieldAlignment.Left)]
+    [LabelWidth(80)]
+    [LabelText("图标")]
+    public Sprite IconSprite;
+
+    [VerticalGroup("AA")]
+    [LabelText("名称")]
+    [LabelWidth(80)]
+    public string Name;
+
+    [VerticalGroup("AA")]
+    [Multiline(3)]
+    [LabelText("描述")]
+    [LabelWidth(80)]
+    public string Desc;
+
+    [VerticalGroup("AA", 100)]
+    [LabelText("稀有度")]
+    [LabelWidth(80)]
+    public GoodsItemRarity Rarity;
+
 }

@@ -36,13 +36,13 @@ public class ItemGUISlot : MonoBehaviour
 
         item = m_item;
 
-        Icon.sprite = item.itemconfig.Icon;
+        Icon.sprite = item.itemconfig.GeneralConfig.IconSprite;
         slotbtn.onClick.AddListener(OnInventoryBuildingBtnClicked);
     }
 
     public void OnInventoryBuildingBtnClicked()
     {
-        InventoryOperationEvent.Trigger(InventoryOperationType.ItemSelect, slotIndex, item.itemconfig.UnitName);
+
     }
     /* 
      public void OnBeginDrag(PointerEventData eventData)

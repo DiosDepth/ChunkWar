@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-public class ShipPlugItemCmpt : MonoBehaviour, IScrollGirdCmpt
+public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIItem
 {
     public SelectedDelegate selected;
 
@@ -12,14 +11,14 @@ public class ShipPlugItemCmpt : MonoBehaviour, IScrollGirdCmpt
     public uint ItemUID { get; set; }
 
     private Image _icon;
-    private TextMeshProUGUI _countText;
 
     private SelectableItemBase _item;
 
     public void Awake()
     {
         _icon = transform.Find("Content/Icon").SafeGetComponent<Image>();
-        _countText = transform.Find("Content/Value").SafeGetComponent<TextMeshProUGUI>();
+        transform.SafeGetComponent<GeneralHoverItemControl>().item = this;
+        transform.SafeGetComponent<Button>().onClick.AddListener(OnButtonClick);
     }
 
     public void SetDataGrid(int dataIndex, SelectableItemBase item, SelectedDelegate selected)
@@ -48,30 +47,34 @@ public class ShipPlugItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
     private void SetUp(uint uid)
     {
-        var goods = RogueManager.Instance.GetShopGoodsInfo((int)uid);
-        if (goods == null)
+        ItemUID = uid;
+        var ship = DataManager.Instance.GetShipConfig((int)uid);
+        if (ship == null)
             return;
 
-        var count = RogueManager.Instance.GetCurrentGoodsCount(goods.GoodsID);
-        if(count > 1)
-        {
-            _countText.text = count.ToString();
-            _countText.transform.SafeSetActive(true);
-        }
-        else
-        {
-            _countText.transform.SafeSetActive(false);
-        }
+        _icon.sprite = ship.GeneralConfig.IconSprite;
+    }
 
-        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(goods._cfg.TypeID);
-        if(plugCfg != null)
-        {
-            _icon.sprite = plugCfg.GeneralConfig.IconSprite;
-        }
+    private void OnButtonClick()
+    {
+        var shipCfg = DataManager.Instance.GetShipConfig((int)ItemUID);
+        InventoryItem item = new InventoryItem(shipCfg);
+        RogueManager.Instance.currentShipSelection = item;
     }
 
     private void SelectedChanged(bool selected)
     {
         transform.Find("Selected").SafeSetActive(selected);
+    }
+
+    public void OnHoverEnter()
+    {
+        GeneralUIEvent.Trigger(UIEventType.ShipSelectionChange, ItemUID, DataIndex);
+        SelectedChanged(true);
+    }
+
+    public void OnHoverExit()
+    {
+        SelectedChanged(false);
     }
 }

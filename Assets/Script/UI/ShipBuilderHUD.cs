@@ -42,7 +42,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         this.EventStartListening<RogueEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
-        UpdateSlotList(buildingSlotList, GameManager.Instance.gameEntity.buildingInventory, UnitType.Buildings);
+        //UpdateSlotList(buildingSlotList, GameManager.Instance.gameEntity.buildingInventory, UnitType.Buildings);
         InitShopContent();
         RefreshGeneral();
     }
@@ -59,33 +59,21 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
     }
 
-    public void UpdateSlotList(List<ItemGUISlot> list, Inventory inventory,UnitType type)
-    {
-        if(inventory.IsEmpty())
-        {
-            return;
-        }
+    //public void UpdateSlotList(List<ItemGUISlot> list, Inventory inventory,UnitType type)
+    //{
+    //    if(inventory.IsEmpty())
+    //    {
+    //        return;
+    //    }
 
 
-        for (int i = 0; i < list.Count; i++)
-        {
-            Destroy(list[i].gameObject);
-        }
-        list.Clear();
+    //    for (int i = 0; i < list.Count; i++)
+    //    {
+    //        Destroy(list[i].gameObject);
+    //    }
+    //    list.Clear();
 
-
-        //foreach(KeyValuePair<string, InventoryItem> kv in inventory)
-        //{
-        //    switch (type)
-        //    {
-        //        case UnitType.Buildings:
-        //            AddSlot(list, kv.Value, buildingSlotGroup);
-        //            break;
-        //    }
-
-        //}
-
-    }
+    //}
 
     public void AddSlot(List<ItemGUISlot> list,InventoryItem m_item, RectTransform m_slotgroup)
     {

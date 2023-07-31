@@ -47,11 +47,6 @@ public class WeaponAttribute
 
 }
 
-public enum AvalibalMainWeaponType
-{
-    LongRangeIonBlaster,
-    TripleNeutronBlaster,
-}
 public enum AvaliableBulletType
 {
     TestBullet,

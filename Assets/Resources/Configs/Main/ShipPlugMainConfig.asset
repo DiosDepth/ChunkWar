@@ -23,6 +23,11 @@ MonoBehaviour:
     SerializationNodes: []
   PlugConfigs:
   - ID: 1
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 1
       Value: 500
@@ -39,6 +44,11 @@ MonoBehaviour:
     - ModifyKey: 9
       Value: 15
   - ID: 2
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 1
       Value: 500
@@ -55,6 +65,11 @@ MonoBehaviour:
     - ModifyKey: 9
       Value: 5
   - ID: 3
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 1
       Value: 500
@@ -71,6 +86,11 @@ MonoBehaviour:
     - ModifyKey: 9
       Value: 5
   - ID: 4
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 1
       Value: 500
@@ -87,6 +107,11 @@ MonoBehaviour:
     - ModifyKey: 9
       Value: 5
   - ID: 5
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 1
       Value: 500
@@ -103,6 +128,11 @@ MonoBehaviour:
     - ModifyKey: 9
       Value: 5
   - ID: 6
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 1
       Value: 500
@@ -119,6 +149,11 @@ MonoBehaviour:
     - ModifyKey: 9
       Value: 5
   - ID: 7
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 1
       Value: 500
@@ -135,22 +170,42 @@ MonoBehaviour:
     - ModifyKey: 9
       Value: 5
   - ID: 1001
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: 895bf709adba5a948aa8b04a6662b2be, type: 3}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 2
       Value: -5
     - ModifyKey: 3
       Value: 10
   - ID: 1002
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 2
       Value: 10
   - ID: 1003
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 6
       Value: 1
     - ModifyKey: 7
       Value: 10
   - ID: 1004
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
+      Name: 
+      Desc: 
+      Rarity: 0
     PropertyModify:
     - ModifyKey: 7
       Value: -8

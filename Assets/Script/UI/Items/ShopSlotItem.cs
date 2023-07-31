@@ -36,9 +36,24 @@ public class ShopSlotItem : MonoBehaviour
         _goodsInfo = info;
         if (info == null)
             return;
-        _nameText.text = info.ItemName;
-        _descText.text = info.ItemDesc;
-        _icon.sprite = info._cfg.IconSprite;
+
+        string name = string.Empty;
+        string desc = string.Empty;
+        Sprite icon = null;
+
+        if(info._cfg.ItemType == GoodsItemType.ShipPlug)
+        {
+            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(info._cfg.TypeID);
+            if(plugCfg != null)
+            {
+                name = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
+                desc = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
+                icon = plugCfg.GeneralConfig.IconSprite;
+            }
+        }
+        _nameText.text = name;
+        _descText.text = desc;
+        _icon.sprite = icon;
       
         RefreshCost();
         SetUpProperty();

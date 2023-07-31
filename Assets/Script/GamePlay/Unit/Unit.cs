@@ -11,7 +11,7 @@ public enum UnitType
 }
 public class Unit : MonoBehaviour
 {
-    public string unitName;
+    public int UnitID;
     public float HP = 100;
     public DamagableState state = DamagableState.None;
 

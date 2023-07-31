@@ -49,6 +49,16 @@ public static class GameHelper
         return tempcoord.ToVector2();
     }
 
+    /// <summary>
+    /// È«²¿½¢´¬ID
+    /// </summary>
+    /// <returns></returns>
+    public static List<uint> GetAllShipIDs()
+    {
+        var allShips = DataManager.Instance.GetAllShipConfigs();
+        return allShips.Select(x => (uint)x.ID).ToList();
+    }
+
     public static List<uint> GetRogueShipPlugItems()
     {
         var allItems = RogueManager.Instance.GetAllCurrentShipPlugs;

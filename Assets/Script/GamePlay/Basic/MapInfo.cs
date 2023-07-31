@@ -13,7 +13,7 @@ public class MapInfo
 }
 public class UnitInfo :MapInfo
 {
-    public string unitName;
+    public int UnitID;
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
@@ -21,8 +21,8 @@ public class UnitInfo :MapInfo
 
     public UnitInfo(Unit m_unit)
     {
+        UnitID = m_unit.UnitID;
         state = m_unit.state;
-        unitName = m_unit.unitName;
         direction = m_unit.direction;
         pivot = m_unit.pivot;
         occupiedCoords = m_unit.occupiedCoords;

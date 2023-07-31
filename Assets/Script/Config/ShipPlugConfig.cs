@@ -14,10 +14,15 @@ public class ShipPlugConfig : SerializedScriptableObject
 [System.Serializable]
 public class ShipPlugItemConfig
 {
-    [HorizontalGroup("A", 200)]
+    [HorizontalGroup("A", 150)]
     [LabelText("ID")]
     [LabelWidth(80)]
     public int ID;
+
+    [HorizontalGroup("A", 300)]
+    [LabelText("信息配置")]
+    [LabelWidth(80)]
+    public GeneralItemConfig GeneralConfig = new GeneralItemConfig();
 
     [HorizontalGroup("A", 800)]
     [LabelText("属性修正")]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.IO;
+using System.Linq;
 
 public class DataManager : Singleton<DataManager>
 {
@@ -11,13 +12,15 @@ public class DataManager : Singleton<DataManager>
     public long totalDataLength;
     public Dictionary<string, TestaDataInfo> TestDataDic = new Dictionary<string, TestaDataInfo>();
     public Dictionary<string, SoundDataInfo> SoundDataDic = new Dictionary<string, SoundDataInfo>();
-    public Dictionary<string, BaseUnitConfig> UnitConfigDataDic = new Dictionary<string, BaseUnitConfig>();
-    public Dictionary<string, ShipConfig> ShipConfigDic = new Dictionary<string, ShipConfig>();
+    public Dictionary<int, BaseUnitConfig> UnitConfigDataDic = new Dictionary<int, BaseUnitConfig>();
+    
     public Dictionary<string, LevelData> LevelDataDic = new Dictionary<string, LevelData>();
     public Dictionary<string, BulletData> BulletDataDic = new Dictionary<string, BulletData>();
 
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
+    private Dictionary<int, ShipConfig> _shipConfigDic = new Dictionary<int, ShipConfig>();
+
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
     public ShipPlugConfig shipPlugCfg;
@@ -56,6 +59,7 @@ public class DataManager : Singleton<DataManager>
 
     public IEnumerator LoadAllData(UnityAction callback = null)
     {
+        LoadAllBaseUnitConfig();
         LoadMiscData();
         bool iscompleted = CollectCSV();
         if (iscompleted)
@@ -124,6 +128,19 @@ public class DataManager : Singleton<DataManager>
                 }
             }
         }
+    }
+
+    public List<ShipConfig> GetAllShipConfigs()
+    {
+        return _shipConfigDic.Values.ToList();
+    }
+
+    public ShipConfig GetShipConfig(int shipID)
+    {
+        ShipConfig result = null;
+        _shipConfigDic.TryGetValue(shipID, out result);
+        Debug.Assert(result != null, "GetShipConfig Null! ID= " + shipID);
+        return result;
     }
 
     public ShopGoodsItemConfig GetShopGoodsCfg(int goodsID)
@@ -200,34 +217,6 @@ public class DataManager : Singleton<DataManager>
 
                 }));
                 break;
-            case "UnitConfigData.csv":
-                 Dictionary<string, UnitConfigData> tempDic = new Dictionary<string, UnitConfigData>();
-                MonoManager.Instance.StartCoroutine(LoadingData<UnitConfigData>(m_fileinfo, tempDic, () =>
-                {
-                    BaseUnitConfig unitconfig;
-                    foreach (KeyValuePair<string,UnitConfigData> kv in tempDic)
-                    {
-                        unitconfig = ResManager.Instance.Load<BaseUnitConfig>(kv.Value.ConfigPath);
-                        UnitConfigDataDic.Add(unitconfig.UnitName, unitconfig);
-                    }
-                    Debug.Log("UnitConfigData has been loaded!");
-
-                }));
-                break;
-            case "ShipConfigData.csv":
-                Dictionary<string, ShipConfigData> shipDic = new Dictionary<string, ShipConfigData>();
-                MonoManager.Instance.StartCoroutine(LoadingData<ShipConfigData>(m_fileinfo, shipDic, () =>
-                {
-                    ShipConfig shipconfig;
-                    foreach (KeyValuePair<string, ShipConfigData> kv in shipDic)
-                    {
-                        shipconfig = ResManager.Instance.Load<ShipConfig>(kv.Value.ConfigPath);
-                        ShipConfigDic.Add(shipconfig.UnitName, shipconfig);
-                    }
-                    Debug.Log("ShipConfigData has been loaded!");
-
-                }));
-                break;
             case "BulletData.csv":
                 MonoManager.Instance.StartCoroutine(LoadingData<BulletData>(m_fileinfo, BulletDataDic, () =>
                 {
@@ -246,6 +235,50 @@ public class DataManager : Singleton<DataManager>
         return path;
     }
 
+    private void LoadAllBaseUnitConfig()
+    {
+        var builds = Resources.LoadAll<BuildingConfig>(DataConfigPath.BuildingConfigRoot);
+        var ships = Resources.LoadAll<ShipConfig>(DataConfigPath.ShipConfigRoot);
+        var weapons = Resources.LoadAll<WeaponConfig>(DataConfigPath.WeaponConfigRoot);
 
+        if (builds != null && builds.Length > 0)
+        {
+            for(int i = 0; i < builds.Length; i++)
+            {
+                AddItemToUnitDic(builds[i].ID, builds[i]);
+            }
+        }
+
+        if (weapons != null && weapons.Length > 0)
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                AddItemToUnitDic(weapons[i].ID, weapons[i]);
+            }
+        }
+
+        if (ships != null && ships.Length > 0)
+        {
+            for(int i = 0; i < ships.Length; i++)
+            {
+                if (_shipConfigDic.ContainsKey(ships[i].ID))
+                {
+                    Debug.LogError("Find Same ShipID !" + ships[i].ID);
+                    continue;
+                }
+                _shipConfigDic.Add(ships[i].ID, ships[i]);
+            }
+        }
+
+    }
+
+    private void AddItemToUnitDic(int uintID, BaseUnitConfig cfg)
+    {
+        if (!UnitConfigDataDic.ContainsKey(uintID))
+        {
+            UnitConfigDataDic.Add(uintID, cfg);
+        }
+   
+    }
 
 }

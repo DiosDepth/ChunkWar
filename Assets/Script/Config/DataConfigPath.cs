@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DataConfigPath 
 {
+    public const string BuildingConfigRoot = "Configs/Buildings";
+    public const string WeaponConfigRoot = "Configs/Weapons";
+    public const string ShipConfigRoot = "Configs/Ships";
+
     public const string BattleMainConfigPath = "Configs/Main/BattleMainConfig";
     public const string ShopMainConfigPath = "Configs/Main/ShopMainConfig";
     public const string ShipPlugMainConfigPath = "Configs/Main/ShipPlugMainConfig";

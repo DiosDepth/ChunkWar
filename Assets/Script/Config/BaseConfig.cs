@@ -8,20 +8,17 @@ public class BaseConfig : SerializedScriptableObject
 {
     [LabelText("ID")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 300)]
+    [HorizontalGroup("B", 150)]
     public int ID;
 
-    [LabelText("Ãû³Æ")]
+    [LabelText("»ù´¡ÅäÖÃ")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 300)]
-    public string UnitName;
-
-    public Sprite Icon;
+    [HorizontalGroup("C")]
+    public GeneralItemConfig GeneralConfig = new GeneralItemConfig();
 
     [LabelText("Prefab")]
     [LabelWidth(80)]
-    [HorizontalGroup("C", 300)]
-    [AssetSelector(Paths = "Assets/Prefab/Chunk", DropdownWidth = 600, DropdownHeight = 800)]
+    [HorizontalGroup("B", 300)]
     public GameObject Prefab;
 
     [TableMatrix(ResizableColumns = false, SquareCells = true, DrawElementMethod = "DrawTable")]

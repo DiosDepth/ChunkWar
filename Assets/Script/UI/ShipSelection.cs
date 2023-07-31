@@ -3,82 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShipSelection : GUIBasePanel, EventListener<InventoryOperationEvent>
+public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
 {
-
-
     public RectTransform slotGroup;
-    public List<ItemGUISlot> shipSlotList = new List<ItemGUISlot>();
-    public Image icon;
+    private Image _shipIcon;
 
-    // Start is called before the first frame update
-    void Start()
+    private EnhancedScroller _selectionScroller;
+    private GeneralScrollerGirdItemController _selectionController;
+
+    private const string ShipSelectionGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipSelectionGroupItem";
+
+    protected override void Awake()
     {
-        
+        base.Awake();
     }
-
 
     public override void Initialization()
     {
         base.Initialization();
-
+        this.EventStartListening<GeneralUIEvent>();
+        _selectionScroller = transform.Find("uiGroup/SlotPanel/Scroll View").SafeGetComponent<EnhancedScroller>();
+        _shipIcon = transform.Find("uiGroup/ShipIconPanel/Image").SafeGetComponent<Image>();
         GetGUIComponent<Button>("Apply").onClick.AddListener(ApplyBtnPressed);
         GetGUIComponent<Button>("Back").onClick.AddListener(BackBtnPressed);
-
-        this.EventStartListening<InventoryOperationEvent>();
-        UpdateSlotList(shipSlotList, (owner as ShipSelectionLevel).shipInventory);
-        shipSlotList[0].slotbtn.Select();
-
-        icon.sprite = shipSlotList[0].item.itemconfig.Icon;
-        InventoryOperationEvent.Trigger(InventoryOperationType.ItemSelect, shipSlotList[0].slotIndex, shipSlotList[0].item.itemconfig.UnitName);
+        InitPlugController();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
 
     public void ApplyBtnPressed()
     {
-        //LeanTween.alpha(root, 0, 0.25f);
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
     }
 
     public void BackBtnPressed()
     {
-        //LeanTween.alpha(root, 0, 0.25f);
         GameStateTransitionEvent.Trigger(EGameState.EGameState_MainMenu);
     }
 
-
-
-
     public override void Hidden( )
     {
-
-        this.EventStopListening<InventoryOperationEvent>();
         base.Hidden();
-
-
+        this.EventStopListening<GeneralUIEvent>();
     }
-
-    public void UpdateSlotList(List<ItemGUISlot> list, Inventory inventory)
-    {
-        for (int i = 0; i < list.Count; i++)
-        {
-            Destroy(list[i].gameObject);
-        }
-        list.Clear();
-        
-        foreach (KeyValuePair<string, InventoryItem> kv in inventory)
-        {
-            AddSlot(shipSlotList, kv.Value, slotGroup);
-        }
-
-    }
-
 
     public void AddSlot(List<ItemGUISlot> list, InventoryItem m_item, RectTransform m_slotgroup)
     {
@@ -97,16 +64,50 @@ public class ShipSelection : GUIBasePanel, EventListener<InventoryOperationEvent
 
     }
 
-    public void OnEvent(InventoryOperationEvent evt)
+    private void InitPlugController()
+    {
+        _selectionController = new GeneralScrollerGirdItemController();
+        _selectionController.numberOfCellsPerRow = 11;
+        _selectionController.InitPrefab(ShipSelectionGridItem_PrefabPath, true);
+        _selectionController.OnItemSelected += OnShipSelect;
+        _selectionScroller.Delegate = _selectionController;
+        RefreshShipSelectionContent();
+    }
+
+
+    /// <summary>
+    /// 刷新插件物品栏
+    /// </summary>
+    private void RefreshShipSelectionContent()
+    {
+        var items = GameHelper.GetAllShipIDs();
+        _selectionController.RefreshData(items);
+        _selectionScroller.ReloadData();
+    }
+
+    /// <summary>
+    /// 刷新舰船显示
+    /// </summary>
+    /// <param name="uid"></param>
+    /// <param name="dataIndex"></param>
+    private void OnShipSelect(uint uid, int dataIndex)
+    {
+        ///RefreshInfo
+        var shipCfg = DataManager.Instance.GetShipConfig((int)uid);
+        if (shipCfg == null)
+            return;
+
+        _shipIcon.sprite = shipCfg.GeneralConfig.IconSprite;
+    }
+
+    public void OnEvent(GeneralUIEvent evt)
     {
         switch (evt.type)
         {
-            case InventoryOperationType.ItemSelect:
-                icon.sprite = (owner as ShipSelectionLevel).shipInventory.Peek(evt.name).itemconfig.Icon;
-                break;
-            case InventoryOperationType.ItemUnselect:
-                break;
-            case InventoryOperationType.ItemRemove:
+            case UIEventType.ShipSelectionChange:
+                uint uid = (uint)evt.param[0] ;
+                int dataIndex = (int)evt.param[1];
+                OnShipSelect(uid, dataIndex);
                 break;
         }
     }

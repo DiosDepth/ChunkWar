@@ -246,9 +246,9 @@ public class PlayerShip : BaseShip, IDamageble
         //初始化主武器
         if( mainWeapon == null)
         {
-            string weaponname = (RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).MainWeapon.ToString();
+            var weaponID = (RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).MainWeaponID;
             BaseUnitConfig weaponconfig;
-            DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponname, out weaponconfig);
+            DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
             Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);
 
 
@@ -433,9 +433,6 @@ public class PlayerShip : BaseShip, IDamageble
         Unit tempunit = obj.GetComponent<Unit>();
         tempunit.direction = m_direction;
         obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
-        tempunit.unitName = m_unitconfig.UnitName;
-
-
         //创建Building的Prefab并且归类放好
 
 
@@ -472,7 +469,7 @@ public class PlayerShip : BaseShip, IDamageble
         GameObject obj;
         Unit tempunit;
 
-        DataManager.Instance.UnitConfigDataDic.TryGetValue(m_unitInfo.unitName, out unitconfig);
+        DataManager.Instance.UnitConfigDataDic.TryGetValue(m_unitInfo.UnitID, out unitconfig);
         obj = Instantiate(unitconfig.Prefab);
 
 
@@ -485,7 +482,6 @@ public class PlayerShip : BaseShip, IDamageble
                 tempunit.direction = m_unitInfo.direction;
                 tempunit.pivot = m_unitInfo.pivot;
                 tempunit.occupiedCoords = m_unitInfo.occupiedCoords;
-                tempunit.unitName = m_unitInfo.unitName;
                 tempunit.state = DamagableState.Normal;
 
 
