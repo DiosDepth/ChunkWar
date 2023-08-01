@@ -24,12 +24,22 @@ public class UnitBaseAttribute
 
     private int BaseHP;
 
+
+    protected UnitPropertyData mainProperty;
     public virtual void InitProeprty(BaseUnitConfig cfg)
     {
+
+        mainProperty = RogueManager.Instance.MainPropertyData;
         BaseHP = cfg.BaseHP;
 
-        var mainProperty = RogueManager.Instance.MainPropertyData;
+
         mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+    }
+
+    public virtual void Destroy()
+    {
+        RogueManager.Instance.MainPropertyData. UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+
     }
 
     private void CalculateHP()
@@ -64,7 +74,7 @@ public class Unit : MonoBehaviour
 
     }
 
-    public virtual void OnDestroy()
+    protected virtual void OnDestroy()
     {
         
     }

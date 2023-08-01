@@ -78,6 +78,8 @@ public class WeaponAttribute : UnitBaseAttribute
     private float criticalBase;
     private float rangeBase;
 
+
+
     /// <summary>
     /// Œ‰∆˜…À∫¶
     /// </summary>
@@ -91,10 +93,12 @@ public class WeaponAttribute : UnitBaseAttribute
         return Mathf.RoundToInt(finalDamage);
     }
 
+
+
     public override void InitProeprty(BaseUnitConfig cfg)
     {
         base.InitProeprty(cfg);
-        var mainProperty = RogueManager.Instance.MainPropertyData;
+   
 
         WeaponConfig _weaponCfg = cfg as WeaponConfig;
         if (_weaponCfg == null)
@@ -119,6 +123,15 @@ public class WeaponAttribute : UnitBaseAttribute
 
         CalculateBaseDamageModify();
         CalculateCriticalRatio();
+    }
+
+    public override void Destroy()
+    {
+        base.Destroy();
+
+        mainProperty.UnBindPropertyChangeAction (PropertyModifyKey.Critical, CalculateCriticalRatio);
+        mainProperty.UnBindPropertyChangeAction (PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+
     }
 
     private void CalculateBaseDamageModify()
@@ -208,9 +221,11 @@ public class Weapon : Unit
         ProcessWeapon();
     }
 
-    public override void OnDestroy()
+    protected override void OnDestroy()
     {
         base.OnDestroy();
+        weaponAttribute.Destroy();
+
     }
 
     public virtual void ProcessWeapon()
@@ -532,6 +547,8 @@ public class Weapon : Unit
         _lastbullet = null;
         weaponstate.ChangeState(WeaponState.Ready);
     }
+
+
 
     public override void TakeDamage()
     {
