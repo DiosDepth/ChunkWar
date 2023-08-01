@@ -18,6 +18,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
     private TextMeshProUGUI _valueText;
     private TextMeshProUGUI _levelText;
     private Image _fillImage;
+    private Image _fillImage2;
 
     public void Awake()
     {
@@ -26,6 +27,10 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         if(PropertyType == SliderPropertyType.EXP)
         {
             _levelText = transform.Find("Content/Info/Title").SafeGetComponent<TextMeshProUGUI>();
+        }
+        else
+        {
+            _fillImage2 = transform.Find("Content/Slider/Fill_2").SafeGetComponent<Image>();
         }
     }
 
@@ -37,7 +42,14 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         var mgr = RogueManager.Instance;
         if(PropertyType == SliderPropertyType.HP)
         {
-            
+            var hpCmpt = GameHelper.GetPlayerShipHPComponet();
+            if (hpCmpt == null)
+                return;
+
+            maxValue = hpCmpt.MaxHP;
+            currentValue = hpCmpt.GetCurrentHP;
+            _fillImage.fillAmount = hpCmpt.HPPercent;
+            _fillImage2.fillAmount = hpCmpt.HPPercent;
         }
         else if (PropertyType == SliderPropertyType.EXP)
         {

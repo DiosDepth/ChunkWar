@@ -6,10 +6,6 @@ using UnityEngine.EventSystems;
 public class Building : Unit
 {
 
-
-
-
-
     public override void Start()
     {
         base.Start();
@@ -22,13 +18,9 @@ public class Building : Unit
     }
 
 
-    public override void TakeDamage(int value)
+    public override bool TakeDamage(int value)
     {
-        base.TakeDamage(value);
+        return base.TakeDamage(value);
     }
-
-    // Start is called before the first frame update
-
-
 
 }

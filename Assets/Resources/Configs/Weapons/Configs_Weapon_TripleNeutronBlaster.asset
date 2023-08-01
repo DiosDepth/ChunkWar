@@ -400,10 +400,23 @@ MonoBehaviour:
       Entry: 8
       Data: 
   ID: 2
-  UnitName: TripleNeutronBlaster
-  Icon: {fileID: 1469649811, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+  GeneralConfig:
+    IconSprite: {fileID: 0}
+    Name: 
+    Desc: 
+    Rarity: 0
   Prefab: {fileID: 579860166384849233, guid: 6224fc0685a9b624b87163e033ab17d6, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 2
   redirection: 1
+  BaseHP: 400
+  DamageBase: 0
+  DamageRatioMin: 0
+  DamageRatioMax: 0
+  DamageType: 0
+  BaseTransfixion: 0
+  BaseRange: 0
+  BaseCriticalRate: 0
+  CriticalDamage: 0
+  DamageModifyFrom: []

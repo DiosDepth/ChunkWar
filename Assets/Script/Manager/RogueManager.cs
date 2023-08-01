@@ -169,7 +169,6 @@ public class RogueManager : Singleton<RogueManager>
         var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
         _shipLevel = new ChangeValue<byte>(1, 1, maxLevel);
         _currentEXP = new ChangeValue<int>(0, 0, int.MaxValue);
-        MainPropertyData.RegisterRowProperty(PropertyModifyKey.HP, DataManager.Instance.battleCfg.PlayerShip_Default_HP);
         CurrentRequireEXP = GameHelper.GetEXPRequireMaxCount(GetCurrentShipLevel);
 
         _currentEXP.BindChangeAction(OnCurrrentEXPChange);

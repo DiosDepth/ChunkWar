@@ -19,13 +19,24 @@ public class ShipMainEditor : OdinMenuEditorWindow
 
     protected override OdinMenuTree BuildMenuTree()
     {
+        LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         var tree = new OdinMenuTree(true);
         tree.Config.DrawSearchToolbar = true;
 
-        tree.AddAllAssetsAtPath("½¢´¬", "Assets/Resources/Configs/Ships", typeof(ShipConfig), true, true);
+        var ship = tree.AddAllAssetsAtPath("½¢´¬", "Assets/Resources/Configs/Ships", typeof(ShipConfig), true, true);
+        ship.ForEach(x =>
+        {
+            var childs = x.ChildMenuItems;
+            childs.ForEach(child =>
+            {
+                ShipConfig info = child.Value as ShipConfig;
+                child.Name = string.Format("[{0}]{1}", info.ID, info.name);
+            });
+        });
+
         tree.AddAllAssetsAtPath("½¨Öþ", "Assets/Resources/Configs/Buildings", typeof(BuildingConfig), true, true);
         tree.AddAllAssetsAtPath("ÎäÆ÷", "Assets/Resources/Configs/Weapons", typeof(WeaponConfig), true, true);
-
+        tree.SortMenuItemsByName();
         return tree;
     }
 

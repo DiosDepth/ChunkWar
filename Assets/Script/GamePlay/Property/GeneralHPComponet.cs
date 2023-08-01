@@ -38,6 +38,7 @@ public class GeneralHPComponet
     public GeneralHPComponet(int maxHP, int currentHP)
     {
         _currentHP = new ChangeValue<int>(currentHP, 0, maxHP);
+        MaxHP = maxHP;
     }
 
     /// <summary>

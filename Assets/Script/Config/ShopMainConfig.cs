@@ -100,19 +100,47 @@ public class GeneralItemConfig
     public Sprite IconSprite;
 
     [VerticalGroup("AA")]
+    [HorizontalGroup("AA/C", 300)]
     [LabelText("Ãû³Æ")]
     [LabelWidth(80)]
     public string Name;
 
+    [HorizontalGroup("AA/C")]
+    [LabelText("CN")]
+    [LabelWidth(80)]
+    [ShowInInspector]
+    [ReadOnly]
+    private string NamePreview;
+
     [VerticalGroup("AA")]
-    [Multiline(3)]
+    [Multiline(1)]
     [LabelText("ÃèÊö")]
     [LabelWidth(80)]
     public string Desc;
+
+    [VerticalGroup("AA")]
+    [LabelText("CN")]
+    [LabelWidth(80)]
+    [ShowInInspector]
+    [ReadOnly]
+    private string DescPreview;
 
     [VerticalGroup("AA", 100)]
     [LabelText("Ï¡ÓÐ¶È")]
     [LabelWidth(80)]
     public GoodsItemRarity Rarity;
+
+    [OnInspectorInit]
+    private void Init()
+    {
+        if (!string.IsNullOrEmpty(Name))
+        {
+            NamePreview = LocalizationManager.Instance.GetTextValue(Name);
+        }
+        if (!string.IsNullOrEmpty(Desc))
+        {
+            NamePreview = LocalizationManager.Instance.GetTextValue(DescPreview);
+        }
+    }
 
 }

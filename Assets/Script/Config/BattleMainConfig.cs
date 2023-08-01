@@ -8,7 +8,6 @@ public class BattleMainConfig : SerializedScriptableObject
 {
     public byte RogueShop_Origin_RefreshNum = 4;
 
-    public int PlayerShip_Default_HP;
     public byte ShipMaxLevel;
 
     [ListDrawerSettings(ShowIndexLabels = true, NumberOfItemsPerPage = 10)]

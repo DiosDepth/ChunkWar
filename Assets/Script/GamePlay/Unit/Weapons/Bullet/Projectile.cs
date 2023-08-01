@@ -12,13 +12,19 @@ public enum ProjectileMovementType
 }
 
 
-public class Projectile : ShootingObject,IDamageble
+public class Projectile : ShootingObject, IDamageble
 {
 
     public Rigidbody2D rb;
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
     public float lifeTime = 10;
     public float speed = 2.5f;
+
+    /// <summary>
+    /// 血量管理组件
+    /// </summary>
+    public GeneralHPComponet HpComponent;
+
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     private Vector2 _initialmoveDirection = Vector2.up;
 
@@ -42,6 +48,7 @@ public class Projectile : ShootingObject,IDamageble
     public override void Initialization()
     {
         base.Initialization();
+        HpComponent = new GeneralHPComponet(100, 100);
     }
 
 
@@ -101,8 +108,11 @@ public class Projectile : ShootingObject,IDamageble
         Destroy();
     }
 
-    public void TakeDamage()
+    public bool TakeDamage(int value)
     {
-      
+        if (HpComponent == null)
+            return false;
+
+        return HpComponent.ChangeHP(value);
     }
 }

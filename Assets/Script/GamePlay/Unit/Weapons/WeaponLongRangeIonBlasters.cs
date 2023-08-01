@@ -85,9 +85,9 @@ public class WeaponLongRangeIonBlasters : Weapon
         base.WeaponRecover();
     }
 
-    public override void TakeDamage(int value)
+    public override bool TakeDamage(int value)
     {
-        base.TakeDamage(value);
+        return base.TakeDamage(value);
     }
 
 

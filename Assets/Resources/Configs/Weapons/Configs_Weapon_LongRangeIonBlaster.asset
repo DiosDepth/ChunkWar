@@ -400,10 +400,23 @@ MonoBehaviour:
       Entry: 8
       Data: 
   ID: 1
-  UnitName: LongRangeIonBlaster
-  Icon: {fileID: -432586034, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+  GeneralConfig:
+    IconSprite: {fileID: 0}
+    Name: 
+    Desc: 
+    Rarity: 0
   Prefab: {fileID: 4947179278027536233, guid: 4972fdc5b301b7c40b550a7ff6b1db06, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 2
   redirection: 1
+  BaseHP: 400
+  DamageBase: 0
+  DamageRatioMin: 0
+  DamageRatioMax: 0
+  DamageType: 0
+  BaseTransfixion: 0
+  BaseRange: 0
+  BaseCriticalRate: 0
+  CriticalDamage: 0
+  DamageModifyFrom: []

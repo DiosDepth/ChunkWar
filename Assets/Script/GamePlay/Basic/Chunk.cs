@@ -21,9 +21,6 @@ public enum DamagableState
 public class Chunk : IDamageble
 {
 
-
-    public string chunkName;
-    public float hp = 100;
     public DamagableState state = DamagableState.None;
 
     public Vector2Int shipCoord = Vector2Int.zero;
@@ -34,23 +31,9 @@ public class Chunk : IDamageble
     public Unit unit;
 
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    public bool TakeDamage(int value)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void TakeDamage()
-    {
-
+        return unit.TakeDamage(value);
     }
 
 }

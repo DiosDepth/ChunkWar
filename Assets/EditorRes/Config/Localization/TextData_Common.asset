@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_Enemy_0001
+  m_Script: {fileID: 11500000, guid: c0c0fd7b75669624fac471e6c891cecd, type: 3}
+  m_Name: TextData_Common
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,15 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  EnemyID: 1
-  Prefab: {fileID: 0}
-  GeneralConfig:
-    IconSprite: {fileID: 0}
-    Name: 
-    Desc: 
-    Rarity: 0
-  CoreHP: 0
-  SpeedBase: 0
-  HardLevelMap:
-  - CoreHPRatio: 0
-    DamageRatio: 0
+  TextSetName: TextData_
+  Texts:
+  - TextID: ShipName_001
+    ChineseSimplified: "\u9A71\u9010\u8005"
+    English: 
+    Japanese: 

@@ -41,10 +41,12 @@ public class UnitBaseAttribute
         if (isPlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+            CalculateHP();
         }
         else
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
+            CalculateEnemyHP();
         }
     }
 
@@ -88,7 +90,7 @@ public class Unit : MonoBehaviour
 
     protected BaseShip _owner;
 
-    protected UnitBaseAttribute baseAttribute;
+    public UnitBaseAttribute baseAttribute;
     /// <summary>
     /// 血量管理组件
     /// </summary>
@@ -117,12 +119,13 @@ public class Unit : MonoBehaviour
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
     }
 
-    public virtual void TakeDamage(int value)
+    public virtual bool TakeDamage(int value)
     {
         if (HpComponent == null)
-            return;
+            return false;
 
         bool isDie = HpComponent.ChangeHP(value);
+        return isDie;
     }
     
     /// <summary>

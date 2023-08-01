@@ -211,9 +211,9 @@ public class Weapon : Unit
 
     public virtual void Initialization(BaseShip m_owner, WeaponConfig weaponConfig)
     {
+        this._weaponCfg = weaponConfig;
         InitWeaponAttribute();
         base.Initialization(m_owner);
-        this._weaponCfg = weaponConfig;
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
         DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
         if(_bulletdata ==  null)
@@ -565,9 +565,9 @@ public class Weapon : Unit
 
 
 
-    public override void TakeDamage(int value)
+    public override bool TakeDamage(int value)
     {
-        base.TakeDamage(value);
+        return base.TakeDamage(value);
     }
 
     private void InitWeaponAttribute()

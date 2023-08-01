@@ -48,7 +48,7 @@ public enum ShipConditionState
     Attack,
 }
 
-public class PlayerShip : BaseShip, IDamageble
+public class PlayerShip : BaseShip
 {
 
     public bool isDebug;
@@ -551,10 +551,6 @@ public class PlayerShip : BaseShip, IDamageble
         }
     }
 
-    public void TakeDamage()
-    {
-        throw new System.NotImplementedException();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEditor;
 
 public class LocalizationSerlizationData : SerializedScriptableObject
 {
@@ -27,6 +28,13 @@ public class LocalizationSerlizationData : SerializedScriptableObject
                 _textDatas.Add(Texts[i].TextID, Texts[i]);
             }
         }
+    }
+
+    public string GetText(string textID)
+    {
+        if (_textDatas.ContainsKey(textID))
+            return _textDatas[textID].ChineseSimplified;
+        return string.Empty;
     }
 
     /// <summary>

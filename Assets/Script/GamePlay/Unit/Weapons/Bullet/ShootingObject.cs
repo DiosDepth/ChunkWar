@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShootingObject : PoolableObject
 {
+
     protected override void OnEnable()
     {
         base.OnEnable();

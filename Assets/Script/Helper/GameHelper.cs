@@ -23,6 +23,28 @@ public static class GameHelper
         return expMap[level];
     }
 
+    /// <summary>
+    /// 获取玩家飞船核心属性
+    /// </summary>
+    /// <returns></returns>
+    public static UnitBaseAttribute GetPlayerShipCoreAttribute()
+    {
+        var currentShip = RogueManager.Instance.currentShip;
+        if (currentShip == null)
+            return null;
+
+        return currentShip.core.unit.baseAttribute;
+    }
+
+    public static GeneralHPComponet GetPlayerShipHPComponet()
+    {
+        var currentShip = RogueManager.Instance.currentShip;
+        if (currentShip == null)
+            return null;
+
+        return currentShip.core.unit.HpComponent;
+    }
+
     #endregion
     public static Vector2Int CoordinateArrayToMap(Vector2Int arraycoord, int mapsize)
     {
@@ -72,4 +94,6 @@ public static class GameHelper
 
         return goods;
     }
+
+
 }

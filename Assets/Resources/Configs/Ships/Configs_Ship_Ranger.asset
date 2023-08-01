@@ -1362,7 +1362,7 @@ MonoBehaviour:
   ID: 4
   GeneralConfig:
     IconSprite: {fileID: -1983039334, guid: c4c2e7d773109364ea51d8a53fa5df77, type: 3}
-    Name: 
+    Name: ShipName_005
     Desc: 
     Rarity: 0
   Prefab: {fileID: 8905295550115458935, guid: 63f4a1b733b61ec47b413b76245ad934, type: 3}
