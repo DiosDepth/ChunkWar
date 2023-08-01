@@ -24,28 +24,52 @@ public class UnitBaseAttribute
 
     private int BaseHP;
 
+    /// <summary>
+    /// 是否玩家舰船，影响伤害计算
+    /// </summary>
+    protected bool isPlayerShip;
+
 
     protected UnitPropertyData mainProperty;
-    public virtual void InitProeprty(BaseUnitConfig cfg)
+    public virtual void InitProeprty(BaseUnitConfig cfg, bool isPlayerShip)
     {
+        this.isPlayerShip = isPlayerShip;
 
         mainProperty = RogueManager.Instance.MainPropertyData;
         BaseHP = cfg.BaseHP;
 
-
-        mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+        if (isPlayerShip)
+        {
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+        }
+        else
+        {
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
+        }
     }
 
     public virtual void Destroy()
     {
-        RogueManager.Instance.MainPropertyData. UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
-
+        if (isPlayerShip)
+        {
+            RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+        }
+        else
+        {
+            RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
+        }
     }
 
     private void CalculateHP()
     {
         var hp = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.HP);
         HPMax = BaseHP + Mathf.RoundToInt(hp);
+    }
+
+    private void CalculateEnemyHP()
+    {
+        var hpPercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
+        HPMax = Mathf.RoundToInt(BaseHP * (1 + hpPercent / 100f));
     }
 }
 
@@ -61,9 +85,14 @@ public class Unit : MonoBehaviour
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
-    private BaseShip _owner;
+
+    protected BaseShip _owner;
 
     protected UnitBaseAttribute baseAttribute;
+    /// <summary>
+    /// 血量管理组件
+    /// </summary>
+    public GeneralHPComponet HpComponent;
 
     public virtual void Start()
     {
@@ -78,18 +107,30 @@ public class Unit : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        
+        RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
     }
 
     public virtual void Initialization(BaseShip m_owner)
     {
         _owner = m_owner;
+        HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
+        RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
     }
 
-    public virtual void TakeDamage()
+    public virtual void TakeDamage(int value)
     {
+        if (HpComponent == null)
+            return;
 
+        bool isDie = HpComponent.ChangeHP(value);
     }
-
+    
+    /// <summary>
+    /// 最大血量变化
+    /// </summary>
+    private void OnMaxHPChangeAction()
+    {
+        HpComponent.SetMaxHP(baseAttribute.HPMax);
+    }
 
 }

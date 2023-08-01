@@ -29,4 +29,6 @@ public enum PropertyModifyKey
     ShopCostPercent,
     AttackSpeed,
     SuckerRange,
+    EnemyHPPercent,
+    EnemyDamagePercent,
 }

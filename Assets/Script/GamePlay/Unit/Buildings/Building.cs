@@ -22,9 +22,9 @@ public class Building : Unit
     }
 
 
-    public override void TakeDamage()
+    public override void TakeDamage(int value)
     {
-        base.TakeDamage();
+        base.TakeDamage(value);
     }
 
     // Start is called before the first frame update

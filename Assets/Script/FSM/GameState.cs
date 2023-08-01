@@ -208,11 +208,9 @@ public class EGameState_GamePrepare : GameState
                     RogueManager.Instance.currentShip = null;
                 }
 
-
-
-
                 RogueManager.Instance.currentShip =  LevelManager.Instance.SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
                 RogueManager.Instance.currentShip.LoadRuntimeData(GameManager.Instance.gameEntity.runtimeData);
+                RogueManager.Instance.currentShip.Initialization();
                 RogueManager.Instance.currentShip.CreateShip();
 
                 //初始化摄影机
@@ -301,7 +299,6 @@ public class EGameState_GameStart : GameState
                     loadingscreen.OpenLoadingDoor(() =>
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
-                        RogueManager.Instance.currentShip.Initialization();
                         RogueManager.Instance.currentShip.controller.IsUpdate = true;
 
 

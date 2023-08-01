@@ -20,6 +20,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
     private Dictionary<int, ShipConfig> _shipConfigDic = new Dictionary<int, ShipConfig>();
+    private Dictionary<int, EnemyShipConfig> _enemyShipConfigDic = new Dictionary<int, EnemyShipConfig>();
 
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
@@ -105,6 +106,7 @@ public class DataManager : Singleton<DataManager>
         battleCfg = ResManager.Instance.Load<BattleMainConfig>(DataConfigPath.BattleMainConfigPath);
         shopCfg = ResManager.Instance.Load<ShopMainConfig>(DataConfigPath.ShopMainConfigPath);
         shipPlugCfg = ResManager.Instance.Load<ShipPlugConfig>(DataConfigPath.ShipPlugMainConfigPath);
+
         if (shopCfg != null)
         {
             var goodLst = shopCfg.Goods;
@@ -140,6 +142,19 @@ public class DataManager : Singleton<DataManager>
         ShipConfig result = null;
         _shipConfigDic.TryGetValue(shipID, out result);
         Debug.Assert(result != null, "GetShipConfig Null! ID= " + shipID);
+        return result;
+    }
+
+    /// <summary>
+    /// 敌人舰船配置
+    /// </summary>
+    /// <param name="enemyID"></param>
+    /// <returns></returns>
+    public EnemyShipConfig GetEnemyShipConfig(int enemyID)
+    {
+        EnemyShipConfig result = null;
+        _enemyShipConfigDic.TryGetValue(enemyID, out result);
+        Debug.Assert(result != null, "GetEnemyShipConfig Null! ID= " + enemyID);
         return result;
     }
 
@@ -240,6 +255,7 @@ public class DataManager : Singleton<DataManager>
         var builds = Resources.LoadAll<BuildingConfig>(DataConfigPath.BuildingConfigRoot);
         var ships = Resources.LoadAll<ShipConfig>(DataConfigPath.ShipConfigRoot);
         var weapons = Resources.LoadAll<WeaponConfig>(DataConfigPath.WeaponConfigRoot);
+        var enemy = Resources.LoadAll<EnemyShipConfig>(DataConfigPath.EnemyShipConfigRoot);
 
         if (builds != null && builds.Length > 0)
         {
@@ -270,6 +286,18 @@ public class DataManager : Singleton<DataManager>
             }
         }
 
+        if (enemy != null && enemy.Length > 0)
+        {
+            for (int i = 0; i < enemy.Length; i++)
+            {
+                if (_enemyShipConfigDic.ContainsKey(enemy[i].EnemyID))
+                {
+                    Debug.LogError("Find Same enemyID !" + enemy[i].EnemyID);
+                    continue;
+                }
+                _enemyShipConfigDic.Add(enemy[i].EnemyID, enemy[i]);
+            }
+        }
     }
 
     private void AddItemToUnitDic(int uintID, BaseUnitConfig cfg)

@@ -78,27 +78,33 @@ public class WeaponAttribute : UnitBaseAttribute
     private float criticalBase;
     private float rangeBase;
 
-
-
     /// <summary>
     /// Œ‰∆˜…À∫¶
     /// </summary>
     /// <returns></returns>
     public int GetDamage()
     {
-        var damage = BaseDamage + BaseDamageModifyValue;
-        var damagePercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamagePercent);
-        var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
-        var finalDamage = Mathf.Clamp(damage * (1 + damagePercent) * ratio, 0, int.MaxValue);
-        return Mathf.RoundToInt(finalDamage);
+        if (isPlayerShip)
+        {
+            var damage = BaseDamage + BaseDamageModifyValue;
+            var damagePercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamagePercent);
+            var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
+            var finalDamage = Mathf.Clamp(damage * (1 + damagePercent) * ratio, 0, int.MaxValue);
+            return Mathf.RoundToInt(finalDamage);
+        }
+        else
+        {
+            var damageRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
+            var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
+            var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio) * ratio, 0, int.MaxValue);
+            return Mathf.RoundToInt(damage);
+        }
     }
 
-
-
-    public override void InitProeprty(BaseUnitConfig cfg)
+    public override void InitProeprty(BaseUnitConfig cfg, bool isPlayerShip)
     {
-        base.InitProeprty(cfg);
-   
+        base.InitProeprty(cfg, isPlayerShip);
+        
 
         WeaponConfig _weaponCfg = cfg as WeaponConfig;
         if (_weaponCfg == null)
@@ -110,28 +116,37 @@ public class WeaponAttribute : UnitBaseAttribute
         criticalBase = _weaponCfg.BaseCriticalRate;
         rangeBase = _weaponCfg.BaseRange;
 
-        ///BindAction
-        var baseDamageModify = _weaponCfg.DamageModifyFrom;
-        modifyFrom = baseDamageModify;
-        for (int i = 0; i < baseDamageModify.Count; i++)
+        if (isPlayerShip)
         {
-            var modifyKey = baseDamageModify[i].PropertyKey;
-            mainProperty.BindPropertyChangeAction(modifyKey, CalculateBaseDamageModify);
-        }
-        mainProperty.BindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
-        mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+            ///BindAction
+            var baseDamageModify = _weaponCfg.DamageModifyFrom;
+            modifyFrom = baseDamageModify;
+            for (int i = 0; i < baseDamageModify.Count; i++)
+            {
+                var modifyKey = baseDamageModify[i].PropertyKey;
+                mainProperty.BindPropertyChangeAction(modifyKey, CalculateBaseDamageModify);
+            }
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
 
-        CalculateBaseDamageModify();
-        CalculateCriticalRatio();
+            CalculateBaseDamageModify();
+            CalculateCriticalRatio();
+        }
+        else
+        {
+
+        }
     }
 
     public override void Destroy()
     {
         base.Destroy();
 
-        mainProperty.UnBindPropertyChangeAction (PropertyModifyKey.Critical, CalculateCriticalRatio);
-        mainProperty.UnBindPropertyChangeAction (PropertyModifyKey.WeaponRange, CalculateWeaponRange);
-
+        if (isPlayerShip)
+        {
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+        }
     }
 
     private void CalculateBaseDamageModify()
@@ -194,12 +209,12 @@ public class Weapon : Unit
     /// </summary>
     protected WeaponConfig _weaponCfg;
 
-    public virtual Initialization(BaseShip m_owner, WeaponConfig weaponConfig)
+    public virtual void Initialization(BaseShip m_owner, WeaponConfig weaponConfig)
     {
+        InitWeaponAttribute();
         base.Initialization(m_owner);
         this._weaponCfg = weaponConfig;
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
-        InitWeaponAttribute();
         DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
         if(_bulletdata ==  null)
         {
@@ -550,9 +565,9 @@ public class Weapon : Unit
 
 
 
-    public override void TakeDamage()
+    public override void TakeDamage(int value)
     {
-        base.TakeDamage();
+        base.TakeDamage(value);
     }
 
     private void InitWeaponAttribute()
@@ -569,8 +584,9 @@ public class Weapon : Unit
         _chargeCounter = weaponAttribute.ChargeTime;
         _reloadCounter = weaponAttribute.ReloadTime;
 
-        weaponAttribute.InitProeprty(_weaponCfg);
+        weaponAttribute.InitProeprty(_weaponCfg, true);
         baseAttribute = weaponAttribute;
+       
     }
 
 }
