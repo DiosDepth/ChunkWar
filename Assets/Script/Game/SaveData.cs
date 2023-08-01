@@ -24,7 +24,7 @@ public class RuntimeData
 {
     public int physicalResources;
     public int energyResources;
-    public List<string> artifacts;
+    
 
     public ChunkPartMapInfo[,] ShipMap = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     public List<UnitInfo> UnitList = new List<UnitInfo>();
@@ -33,8 +33,7 @@ public class RuntimeData
     {
         physicalResources = shipdata.physicalResources;
         energyResources = shipdata.energyResources;
-        artifacts = shipdata.artifacts;
-
+ 
         
         for (int row = 0; row < shipdata.ChunkMap.GetLength(0); row++)
         {

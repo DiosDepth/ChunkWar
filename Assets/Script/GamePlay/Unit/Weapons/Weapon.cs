@@ -194,7 +194,7 @@ public class Weapon : Unit
     /// </summary>
     protected WeaponConfig _weaponCfg;
 
-    public void Initialization(BaseShip m_owner, WeaponConfig weaponConfig)
+    public virtual Initialization(BaseShip m_owner, WeaponConfig weaponConfig)
     {
         base.Initialization(m_owner);
         this._weaponCfg = weaponConfig;

@@ -3,13 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 
-public enum ChunkType
-{
-    None = 0, 
-    Core = 1,
-    Base = 2,
 
-}
 
 public enum ShipMainProperty
 {
@@ -60,7 +54,7 @@ public class PlayerShip : BaseShip, IDamageble
     public bool isDebug;
     public int physicalResources;
     public int energyResources;
-    public List<string> artifacts;
+
 
 
     public GameObject container;
@@ -72,10 +66,7 @@ public class PlayerShip : BaseShip, IDamageble
     public StateMachine<ShipConditionState> conditionState;
 
     public CircleCollider2D pickupCollider;
-    public Core core;
-    public Weapon mainWeapon;
 
-    public ShipController controller;
 
 
     private ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
@@ -88,7 +79,7 @@ public class PlayerShip : BaseShip, IDamageble
     {
         physicalResources = data.physicalResources;
         energyResources = data.energyResources;
-        artifacts = data.artifacts;
+
         ShipMapInfo = data.ShipMap;
         UnitInfoList = data.UnitList;
     }
@@ -134,7 +125,6 @@ public class PlayerShip : BaseShip, IDamageble
     
         GameManager.Instance.gameEntity.runtimeData.physicalResources = physicalResources;
         GameManager.Instance.gameEntity.runtimeData.energyResources = energyResources;
-        GameManager.Instance.gameEntity.runtimeData.artifacts = artifacts;
         GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMapInfo;
         GameManager.Instance.gameEntity.runtimeData.UnitList = UnitInfoList;
     }
@@ -142,7 +132,9 @@ public class PlayerShip : BaseShip, IDamageble
     public override void Initialization()
     {
         base.Initialization();
-        if(movementState == null)
+
+
+        if (movementState == null)
         {
             movementState = new StateMachine<ShipMovementState>(this.gameObject, false,false);
         }
@@ -153,26 +145,17 @@ public class PlayerShip : BaseShip, IDamageble
         //初始化Ship的一些属性
         RogueManager.Instance.AddNewShipPlug((RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).CorePlugID);
 
-        //创建PickUp用的Collider
-        GameObject obj = new GameObject("PickUpCollider");
-        obj.transform.SetParent(this.transform);
-        obj.layer = LayerMask.NameToLayer("Trigger");
-        obj.transform.localPosition = Vector3.zero;
-        pickupCollider =  obj.AddComponent<CircleCollider2D>();
-        pickupCollider.radius = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
 
-
-
-
-        controller.Initialization();
-        movementState.ChangeState(ShipMovementState.Idle);
-        conditionState.ChangeState(ShipConditionState.Normal);
     }
 
-    public virtual void CreateShip ()
+    public override void CreateShip ()
     {
+        //base.CreateShip();
         InitProperty();
-        GameObject obj = null;
+
+        //初始化
+        _chunkMap = new Chunk[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
+        _unitList = new List<Unit>();
         Vector2Int pos;
         //初始化Chunk
         for (int row = 0; row < ShipMapInfo.GetLength(0); row++)
@@ -205,44 +188,10 @@ public class PlayerShip : BaseShip, IDamageble
             }
         }
         //初始化Building
-
-        //BaseUnitConfig unitconfig;
-        //Vector2Int occupiedarray;
         for (int i = 0; i < UnitInfoList.Count; i++)
         {
-
             RestoreUnitFromUnitInfo(UnitInfoList[i]);
-            //DataManager.Instance.UnitConfigDataDic.TryGetValue(UnitInfoList[i].unitName, out unitconfig);
-            //obj = Instantiate(unitconfig.Prefab);
-            //Unit tempunit;
-            //if(obj!= null)
-            //{
-
-            //    tempunit = obj.GetComponent<Unit>();
-
-            //    if( tempunit != null)
-            //    {
-            //        tempunit.direction = UnitInfoList[i].direction;
-            //        tempunit.pivot = UnitInfoList[i].pivot;
-            //        tempunit.occupiedCoords = UnitInfoList[i].occupiedCoords;
-            //        tempunit.unitName = UnitInfoList[i].unitName;
-            //        tempunit.state = DamagableState.Normal;
-
-            //        for (int n = 0; n < tempunit.occupiedCoords.Count; n++)
-            //        {
-            //            occupiedarray = GameHelper.CoordinateMapToArray(tempunit.occupiedCoords[n], GameGlobalConfig.ShipMapSize);
-            //            _chunkMap[occupiedarray.x, occupiedarray.y].unit = tempunit;
-            //        }
-
-            //        obj.transform.parent = buildingsParent.transform;
-            //        obj.transform.localPosition = new Vector3(tempunit.pivot.x + shipMapCenter.localPosition.x, tempunit.pivot.y + shipMapCenter.localPosition.y, 0);
-            //        obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
-
-            //        _unitList.Add(tempunit);
-            //    }
-            //}
         }
-
         //初始化主武器
         if( mainWeapon == null)
         {
@@ -250,21 +199,21 @@ public class PlayerShip : BaseShip, IDamageble
             BaseUnitConfig weaponconfig;
             DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
             Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);
-
-
-
             mainWeapon = AddUnit(weaponconfig, _reletivemap, core.shipCoord, 0) as Weapon;
-            //obj = Instantiate(weaponconfig.Prefab);
-            //obj.transform.parent = buildingsParent.transform;
-            //obj.transform.localPosition = new Vector3(shipMapCenter.localPosition.x,  shipMapCenter.localPosition.y, 0);
-            //obj.transform.rotation = Quaternion.identity;
-
-            //core.unit = obj.GetComponent<Weapon>() as Unit;
             mainWeapon.Initialization(this, weaponconfig as WeaponConfig);
         }
 
-     
-        
+        //创建PickUp用的Collider
+        GameObject obj = new GameObject("PickUpCollider");
+        obj.transform.SetParent(this.transform);
+        obj.layer = LayerMask.NameToLayer("Trigger");
+        obj.transform.localPosition = Vector3.zero;
+        pickupCollider = obj.AddComponent<CircleCollider2D>();
+        pickupCollider.radius = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
+
+        controller.Initialization();
+        movementState.ChangeState(ShipMovementState.Idle);
+        conditionState.ChangeState(ShipConditionState.Normal);
     }
 
     public virtual void ResetShip()

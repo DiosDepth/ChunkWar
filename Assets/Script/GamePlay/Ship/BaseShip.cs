@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BaseShip : MonoBehaviour
 {
+    public Core core;
+    public Weapon mainWeapon;
 
+    public ShipController controller;
 
     public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
-    protected Chunk[,] _chunkMap = new Chunk[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
+    protected Chunk[,] _chunkMap;
 
     public List<Unit> UnitList { set { _unitList = value; } get { return _unitList; } }
     protected List<Unit> _unitList = new List<Unit>();
@@ -26,5 +29,10 @@ public class BaseShip : MonoBehaviour
     protected virtual void Update()
     {
         
+    }
+
+    public virtual void CreateShip()
+    {
+
     }
 }

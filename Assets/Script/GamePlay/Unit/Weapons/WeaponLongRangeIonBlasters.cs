@@ -21,7 +21,7 @@ public class WeaponLongRangeIonBlasters : Weapon
         base.Update();
     }
 
-    public override void OnDestroy()
+    protected override void OnDestroy()
     {
         base.OnDestroy();
     }

@@ -53,7 +53,9 @@ public class Unit : MonoBehaviour
 {
     public int UnitID;
     public DamagableState state = DamagableState.None;
-
+    public bool IsTarget { get { return _isTarget; } }
+    [SerializeField]
+    private bool _isTarget;
     public SpriteRenderer unitSprite;
     public bool redirection = true;
     public int direction = 0;
