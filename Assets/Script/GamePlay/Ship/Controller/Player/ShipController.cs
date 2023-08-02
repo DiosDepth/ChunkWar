@@ -6,9 +6,8 @@ using UnityEngine.InputSystem;
 public class ShipController : BaseController
 {
 
-    public PlayerShip ship;
-    public Rigidbody2D rb;
-    public new CompositeCollider2D collider;
+    public PlayerShip controlledTarget;
+
 
     // Start is called before the first frame update
 
@@ -37,7 +36,7 @@ public class ShipController : BaseController
 
         if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
 
-        ship = GetComponent<PlayerShip>();
+        controlledTarget = GetComponent<PlayerShip>();
         InputDispatcher.Instance.Action_GamePlay_Move += HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point += HandlePointInput;
         InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
@@ -110,7 +109,7 @@ public class ShipController : BaseController
     {
 
         Debug.Log("HandleAttackInput : " + context.phase);
-        ship.mainWeapon.HandleWeapon(context);
+        controlledTarget.mainWeapon.HandleWeapon(context);
     }
 
     public virtual void HandleMovement()
