@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using Tools;
@@ -6,22 +7,28 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class AIActionsList : ReorderableArray<AIAction>
+public class AIActionsList : List<AIAction>
 {
 }
+
 [System.Serializable]
-public class AITransitionsList : ReorderableArray<AITransition>
+public class AITransitionsList : List<AITransition>
 {
 }
+
+
+[System.Serializable]
 public class AIState : State
 {
     [SerializeField]
     public string StateName;
 
-    [Reorderable(null, "Action", null)]
-    public AIActionsList Actions;
-    [Reorderable(null, "Transitions", null)]
-    public AITransitionsList Transitions;
+    [ListDrawerSettings(DraggableItems = true, Expanded = true)]
+    // [Reorderable(null, "Action", null)]
+    public List<AIAction> Actions;
+    [ListDrawerSettings(DraggableItems = true, Expanded = true)]
+    // [Reorderable(null, "Transitions", null)]
+    public List<AITransition> Transitions;
 
     protected AIController _controller;
 

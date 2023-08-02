@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,12 @@ public class AIController : BaseController
     public bool isComplexAI = false;
     public AIShip controlledTarget;
 
+    [ListDrawerSettings(DraggableItems = true,Expanded =true)]
     public List<AIState> States;
 
+
     public AIState currentState;
+
     public AIState previousState;
    
 

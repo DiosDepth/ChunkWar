@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 namespace Tools
 {
@@ -9,8 +10,10 @@ namespace Tools
     /// 可重新排序的Array，在原有的Array上封装了一层
     /// </summary>
     /// <typeparam name="T"></typeparam>
-	[Serializable]
-	public abstract class ReorderableArray<T> : ICloneable, IList<T>, ICollection<T>, IEnumerable<T> {
+	[System.Serializable]
+
+    public abstract class ReorderableArray<T> : ICloneable, IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
+    {
 
 		[SerializeField]
 		private List<T> array = new List<T>();

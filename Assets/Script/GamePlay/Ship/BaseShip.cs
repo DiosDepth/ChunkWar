@@ -8,6 +8,11 @@ public class BaseShip : MonoBehaviour
     public Weapon mainWeapon;
 
     public ShipController controller;
+    public GameObject buildingsParent;
+
+
+    public StateMachine<ShipMovementState> movementState;
+    public StateMachine<ShipConditionState> conditionState;
 
     public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
     protected Chunk[,] _chunkMap;
@@ -32,6 +37,11 @@ public class BaseShip : MonoBehaviour
     }
 
     public virtual void CreateShip()
+    {
+
+    }
+
+    public virtual void OnDestroy()
     {
 
     }

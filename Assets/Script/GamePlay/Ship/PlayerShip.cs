@@ -60,10 +60,9 @@ public class PlayerShip : BaseShip
     public GameObject container;
     public SpriteRenderer sprite;
     public Transform shipMapCenter;
-    public GameObject buildingsParent;
+    
 
-    public StateMachine<ShipMovementState> movementState;
-    public StateMachine<ShipConditionState> conditionState;
+
 
     public CircleCollider2D pickupCollider;
 
@@ -234,7 +233,7 @@ public class PlayerShip : BaseShip
 
     }
 
-    public virtual void OnDestroy()
+    public override void OnDestroy()
     {
         Destroy(mainWeapon.gameObject);
     }
