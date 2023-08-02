@@ -55,8 +55,6 @@ public class PlayerShip : BaseShip
     public int physicalResources;
     public int energyResources;
 
-
-
     public GameObject container;
     public SpriteRenderer sprite;
     public Transform shipMapCenter;
@@ -66,13 +64,32 @@ public class PlayerShip : BaseShip
 
     public CircleCollider2D pickupCollider;
 
-
-
     private ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     private List<UnitInfo> UnitInfoList = new List<UnitInfo>();
 
     private Dictionary<ShipMainProperty, ChangeValue<float>> _mainPropertyDic;
 
+    /// <summary>
+    /// 是否编辑模式
+    /// </summary>
+    public bool IsEditorShip
+    {
+        get;
+        private set;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (movementState == null)
+        {
+            movementState = new StateMachine<ShipMovementState>(this.gameObject, false, false);
+        }
+        if (conditionState == null)
+        {
+            conditionState = new StateMachine<ShipConditionState>(this.gameObject, false, false);
+        }
+    }
 
     public void LoadRuntimeData(RuntimeData data)
     {
@@ -131,24 +148,11 @@ public class PlayerShip : BaseShip
     public override void Initialization()
     {
         base.Initialization();
-
-
-        if (movementState == null)
-        {
-            movementState = new StateMachine<ShipMovementState>(this.gameObject, false,false);
-        }
-        if(conditionState == null)
-        {
-            conditionState = new StateMachine<ShipConditionState>(this.gameObject, false, false);
-        }
-        //初始化Ship的一些属性
-        RogueManager.Instance.AddNewShipPlug((RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).CorePlugID);
-
-
     }
 
-    public override void CreateShip ()
+    public void CreateShip(bool editorShip = false)
     {
+        IsEditorShip = editorShip;
         //base.CreateShip();
         InitProperty();
 
@@ -381,6 +385,8 @@ public class PlayerShip : BaseShip
         obj.transform.localPosition = new Vector3(m_poscoord.x + shipMapCenter.localPosition.x, m_poscoord.y + shipMapCenter.localPosition.y);
         Unit tempunit = obj.GetComponent<Unit>();
         tempunit.direction = m_direction;
+        tempunit.UnitID = m_unitconfig.ID;
+        RogueManager.Instance.AddNewShipUnit(tempunit);
         obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
         //创建Building的Prefab并且归类放好
 
@@ -445,12 +451,18 @@ public class PlayerShip : BaseShip
                 if(unitconfig.unitType == UnitType.MainWeapons)
                 {
                     mainWeapon = tempunit as Weapon;
+                    mainWeapon.Initialization(this, unitconfig as WeaponConfig);
+                }
+                else
+                {
+
                 }
 
                 obj.transform.parent = buildingsParent.transform;
                 obj.transform.localPosition = new Vector3(tempunit.pivot.x + shipMapCenter.localPosition.x, tempunit.pivot.y + shipMapCenter.localPosition.y, 0);
                 obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
 
+                
                 _unitList.Add(tempunit);
             }
         }

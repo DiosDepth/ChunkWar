@@ -172,7 +172,7 @@ MonoBehaviour:
   - ID: 1001
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: 895bf709adba5a948aa8b04a6662b2be, type: 3}
-      Name: 
+      Name: ShipPlug_Name_1001
       Desc: 
       Rarity: 0
     PropertyModify:
@@ -183,7 +183,7 @@ MonoBehaviour:
   - ID: 1002
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
-      Name: 
+      Name: ShipPlug_Name_1002
       Desc: 
       Rarity: 0
     PropertyModify:
@@ -192,7 +192,7 @@ MonoBehaviour:
   - ID: 1003
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
-      Name: 
+      Name: ShipPlug_Name_1003
       Desc: 
       Rarity: 0
     PropertyModify:
@@ -203,7 +203,7 @@ MonoBehaviour:
   - ID: 1004
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
-      Name: 
+      Name: ShipPlug_Name_1004
       Desc: 
       Rarity: 0
     PropertyModify:

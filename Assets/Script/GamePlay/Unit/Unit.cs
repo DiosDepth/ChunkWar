@@ -78,6 +78,10 @@ public class UnitBaseAttribute
 public class Unit : MonoBehaviour
 {
     public int UnitID;
+    /// <summary>
+    /// UniqueID
+    /// </summary>
+    public uint UID;
     public DamagableState state = DamagableState.None;
     public bool IsTarget { get { return _isTarget; } }
     [SerializeField]
@@ -89,6 +93,8 @@ public class Unit : MonoBehaviour
     public List<Vector2Int> occupiedCoords;
 
     protected BaseShip _owner;
+
+    protected bool _enable = true;
 
     public UnitBaseAttribute baseAttribute;
     /// <summary>

@@ -145,6 +145,14 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
+    public BaseUnitConfig GetUnitConfig(int unitID)
+    {
+        BaseUnitConfig result = null;
+        UnitConfigDataDic.TryGetValue(unitID, out result);
+        Debug.Assert(result != null, "GetUnitConfig Null! ID= " + unitID);
+        return result;
+    }
+
     /// <summary>
     /// 敌人舰船配置
     /// </summary>

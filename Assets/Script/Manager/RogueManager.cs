@@ -46,6 +46,7 @@ public enum RogueEventType
     ShopReroll,
     ShopCostChange,
     ShipPlugChange,
+    ShipUnitChange,
 }
 
 public enum ShipPropertyEventType
@@ -60,7 +61,6 @@ public class RogueManager : Singleton<RogueManager>
     /// 主要属性
     /// </summary>
     public UnitPropertyData MainPropertyData;
-
 
     public SaveData saveData;
     public InventoryItem currentShipSelection;
@@ -80,6 +80,11 @@ public class RogueManager : Singleton<RogueManager>
     {
         get { return _currentShipPlugs.Values.ToList(); }
     }
+
+    /// <summary>
+    /// 当前舰船建筑组件
+    /// </summary>
+    private Dictionary<uint, Unit> _currentShipUnits = new Dictionary<uint, Unit>();
 
     /// <summary>
     /// 当前刷新次数
@@ -138,6 +143,7 @@ public class RogueManager : Singleton<RogueManager>
         InitShopData();
         InitAllGoodsItems();
         GenerateShopGoods(3, 1);
+        AddNewShipPlug((currentShipSelection.itemconfig as ShipConfig).CorePlugID);
     }
 
     public override void Initialization()
@@ -298,7 +304,10 @@ public class RogueManager : Singleton<RogueManager>
         {
             AddNewShipPlug(typeID, info.GoodsID);
         }
-
+        else if (itemType == GoodsItemType.ShipUnit)
+        {
+            AddNewTempUintToHarbor(typeID, info.GoodsID);
+        }
     }
     
     /// <summary>
@@ -492,6 +501,43 @@ public class RogueManager : Singleton<RogueManager>
 
     #endregion
 
+    #region Ship Unit
+
+    /// <summary>
+    /// 临时建筑组件库存
+    /// </summary>
+    private List<int> harborTempUnitSlotIDs = new List<int>();
+
+    
+
+    public void AddNewShipUnit(Unit unit)
+    {
+        var uid = GetShipUnitUID();
+        unit.UID = uid;
+        _currentShipUnits.Add(uid, unit);
+    }
+
+    /// <summary>
+    /// 添加建筑到临时库存
+    /// </summary>
+    /// <param name="unitID"></param>
+    /// <param name="goodsID"></param>
+    private void AddNewTempUintToHarbor(int unitID, int goodsID = -1)
+    {
+
+    }
+
+    private uint GetShipUnitUID()
+    {
+        var uid = (uint)UnityEngine.Random.Range(ShopGoods_UID_Sep, uint.MaxValue);
+        if (_currentShipUnits.ContainsKey(uid))
+            return GetShipUnitUID();
+
+        return uid;
+    }
+
+    #endregion
+
     #region Ship Plug
 
     public ShipPlugInfo GetShipPlug(uint uid)
@@ -517,10 +563,18 @@ public class RogueManager : Singleton<RogueManager>
         return goods;
     }
 
-
-
-    public  void AddNewShipPlug(int plugID, int goodsID = -1)
+    /// <summary>
+    /// 增加插件
+    /// </summary>
+    /// <param name="plugID"></param>
+    /// <param name="goodsID"> 如果为-1 则会自动找商品ID</param>
+    public void AddNewShipPlug(int plugID, int goodsID = -1)
     {
+        if(goodsID == -1)
+        {
+            goodsID = GetGoodsIDByPlugID(plugID);
+        }
+
         var plugInfo = ShipPlugInfo.CreateInfo(plugID, goodsID);
         if (plugInfo == null)
             return;
@@ -533,7 +587,6 @@ public class RogueManager : Singleton<RogueManager>
     }
 
 
-
     private uint GetShipPlugUID()
     {
         var uid = (uint)UnityEngine.Random.Range(1, ShopGoods_UID_Sep);
@@ -541,6 +594,17 @@ public class RogueManager : Singleton<RogueManager>
             return GetShipPlugUID();
 
         return uid;
+    }
+
+    private int GetGoodsIDByPlugID(int plugID)
+    {
+        foreach(var item in goodsItems.Values)
+        {
+            var cfg = item._cfg;
+            if (cfg.ItemType == GoodsItemType.ShipPlug && cfg.TypeID == plugID)
+                return item.GoodsID;
+        }
+        return 0;
     }
     #endregion
 }

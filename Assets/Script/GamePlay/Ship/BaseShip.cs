@@ -24,6 +24,11 @@ public class BaseShip : MonoBehaviour
     {
 
     }
+
+    protected virtual void Awake()
+    {
+
+    }
     // Start is called before the first frame update
     protected virtual void Start()
     {

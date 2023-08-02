@@ -222,6 +222,12 @@ public class Weapon : Unit
         }
 
         firePoint = transform.Find("FirePoint");
+
+        if(_owner is PlayerShip)
+        {
+            var playerShip = _owner as PlayerShip;
+            _enable = !playerShip.IsEditorShip;
+        }
     }
 
     public override void Start()
@@ -245,6 +251,9 @@ public class Weapon : Unit
 
     public virtual void ProcessWeapon()
     {
+        if (!_enable)
+            return;
+
         switch (weaponstate.CurrentState)
         {
             case WeaponState.Ready:
