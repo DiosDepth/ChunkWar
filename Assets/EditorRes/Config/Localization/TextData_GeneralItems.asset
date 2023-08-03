@@ -23,19 +23,19 @@ MonoBehaviour:
     SerializationNodes: []
   TextSetName: TextData_GeneralItems
   Texts:
-  - TextID: ShopGoods_Name_1
+  - TextID: ShipPlug_Name_1001
     ChineseSimplified: "\u901F\u5C04\u88C5\u7F6E"
     English: 
     Japanese: 
-  - TextID: ShopGoods_Name_2
+  - TextID: ShipPlug_Name_1002
     ChineseSimplified: "\u706B\u63A7\u589E\u5E45\u5668"
     English: 
     Japanese: 
-  - TextID: ShopGoods_Name_3
+  - TextID: ShipPlug_Name_1003
     ChineseSimplified: "\u8D38\u6613\u534F\u5B9A"
     English: 
     Japanese: 
-  - TextID: ShopGoods_Name_4
+  - TextID: ShipPlug_Name_1004
     ChineseSimplified: "\u4F1A\u5458\u5361"
     English: 
     Japanese: 
@@ -45,5 +45,13 @@ MonoBehaviour:
     Japanese: 
   - TextID: ShopGoods_Name_6
     ChineseSimplified: "\u5546\u54C16"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_103
+    ChineseSimplified: "\u52A0\u519C\u70AE"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_102
+    ChineseSimplified: "\u6495\u88C2\u8005\u52A0\u519C"
     English: 
     Japanese: 

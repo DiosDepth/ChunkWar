@@ -152,7 +152,7 @@ public class ShipBuilder : MonoBehaviour
         {
             editorShip.LoadRuntimeData(runtimedata);
         }
-        editorShip.CreateShip();
+        editorShip.CreateShip(true);
     }
 
 

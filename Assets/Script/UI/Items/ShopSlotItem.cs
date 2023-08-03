@@ -51,6 +51,16 @@ public class ShopSlotItem : MonoBehaviour
                 icon = plugCfg.GeneralConfig.IconSprite;
             }
         }
+        else if (info._cfg.ItemType == GoodsItemType.ShipUnit)
+        {
+            var unitCfg = DataManager.Instance.GetUnitConfig(info._cfg.TypeID);
+            if(unitCfg != null)
+            {
+                name = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Name);
+                desc = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Desc);
+                icon = unitCfg.GeneralConfig.IconSprite;
+            }
+        }
         _nameText.text = name;
         _descText.text = desc;
         _icon.sprite = icon;

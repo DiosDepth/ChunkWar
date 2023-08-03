@@ -5,8 +5,7 @@ using UnityEngine;
 public class WeaponLongRangeIonBlasters : Weapon
 {
 
-
-    public void Initialization(BaseShip m_owner, WeaponConfig cfg)
+    public override void Initialization(BaseShip m_owner, WeaponConfig cfg)
     {
         base.Initialization(m_owner, cfg);
     }

@@ -38,7 +38,6 @@ public enum GoodsItemType
 public class ShopGoodsItemConfig
 {
     [TableColumnWidth(60, false)]
-    [OnValueChanged("OnGoodsIDChange")]
     public int GoodID;
 
     [TableColumnWidth(80, false)]
