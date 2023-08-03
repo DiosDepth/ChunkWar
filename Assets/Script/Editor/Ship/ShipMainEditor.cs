@@ -23,13 +23,13 @@ public class ShipMainEditor : OdinMenuEditorWindow
         var tree = new OdinMenuTree(true);
         tree.Config.DrawSearchToolbar = true;
 
-        var ship = tree.AddAllAssetsAtPath("½¢´¬", "Assets/Resources/Configs/Ships", typeof(ShipConfig), true, true);
+        var ship = tree.AddAllAssetsAtPath("½¢´¬", "Assets/Resources/Configs/Ships", typeof(PlayerShipConfig), true, true);
         ship.ForEach(x =>
         {
             var childs = x.ChildMenuItems;
             childs.ForEach(child =>
             {
-                ShipConfig info = child.Value as ShipConfig;
+                PlayerShipConfig info = child.Value as PlayerShipConfig;
                 child.Name = string.Format("[{0}]{1}", info.ID, info.name);
             });
         });

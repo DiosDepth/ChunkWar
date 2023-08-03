@@ -217,7 +217,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public void InitialRuntimeData()
     {
-        gameEntity.runtimeData = new RuntimeData((RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).Map);
+        gameEntity.runtimeData = new RuntimeData((RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig).Map);
     }
 
     public void OnEvent(ScoreEvent evt)

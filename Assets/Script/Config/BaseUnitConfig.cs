@@ -37,7 +37,7 @@ public class BaseUnitConfig : BaseConfig
     public int BaseHP;
 
     [OnInspectorInit]
-    private void InitData()
+    protected override void InitData()
     {
         if (Map == null)
         {

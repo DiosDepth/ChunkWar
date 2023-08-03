@@ -143,7 +143,7 @@ public class RogueManager : Singleton<RogueManager>
         InitShopData();
         InitAllGoodsItems();
         GenerateShopGoods(3, 1);
-        AddNewShipPlug((currentShipSelection.itemconfig as ShipConfig).CorePlugID);
+        AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
     }
 
     public override void Initialization()

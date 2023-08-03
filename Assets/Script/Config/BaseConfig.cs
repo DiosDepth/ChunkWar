@@ -36,7 +36,7 @@ public class BaseConfig : SerializedScriptableObject
     protected Vector2Int _mapPivot = new Vector2Int();
 
     [System.Obsolete]
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         _mapPivot = GetMapPivot();
     }
@@ -49,19 +49,32 @@ public class BaseConfig : SerializedScriptableObject
     [SerializeField]
     public int m_FlattendMapLayoutRows;
 
-    protected virtual Vector2Int  GetMapPivot()
+    protected virtual Vector2Int GetMapPivot()
     {
+
+        if (Map == null)
+            return Vector2Int.zero;
+        for (int x = 0; x < Map.GetLength(0); x++)
+        {
+            for (int y = 0; y < Map.GetLength(1); y++)
+            {
+                if (Map[x, y] == 1)
+                {
+                    return GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.ShipMapSize);
+                }
+            }
+        }
         return Vector2Int.zero;
     }
 
-    private static int DrawTable(Rect rect, int value)
+    protected static int DrawTable(Rect rect, int value)
     {
         if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
         {
             value += 1;
             GUI.changed = true;
             Event.current.Use();
-            if(value == 3)
+            if (value == 3)
             {
                 value = 0;
             }
@@ -70,7 +83,7 @@ public class BaseConfig : SerializedScriptableObject
         if (value == 2)
         {
             UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0.1f, 0.8f, 0.2f));
-            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width,rect.height), value.ToString());
+            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
         }
         else if (value == 1)
         {
@@ -84,4 +97,13 @@ public class BaseConfig : SerializedScriptableObject
         }
         return value;
     }
+
+
+    [OnInspectorInit]
+    protected virtual void InitData()
+    {
+
+    }
 }
+
+

@@ -401,8 +401,8 @@ MonoBehaviour:
       Data: 
   ID: 1
   GeneralConfig:
-    IconSprite: {fileID: 0}
-    Name: 
+    IconSprite: {fileID: -432586034, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+    Name: PlayerWeapon_LongRangeIonBlaster
     Desc: 
     Rarity: 0
   Prefab: {fileID: 4947179278027536233, guid: 4972fdc5b301b7c40b550a7ff6b1db06, type: 3}
@@ -411,7 +411,7 @@ MonoBehaviour:
   unitType: 2
   redirection: 1
   BaseHP: 400
-  DamageBase: 0
+  DamageBase: 50
   DamageRatioMin: 0
   DamageRatioMax: 0
   DamageType: 0

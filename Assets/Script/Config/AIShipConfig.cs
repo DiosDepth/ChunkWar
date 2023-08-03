@@ -1,22 +1,12 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Configs_Enemy_", menuName = "Configs/Unit/EnemyConfig")]
-public class EnemyShipConfig : SerializedScriptableObject
+[CreateAssetMenu(fileName = "Configs_AIShip_", menuName = "Configs/Unit/AIShipConfig")]
+public class AIShipConfig : BaseShipConfig
 {
-    [LabelText("敌人ID")]
-    [LabelWidth(80)]
-    [HorizontalGroup("AA", 150)]
-    public int EnemyID;
-
-    [LabelText("Prefab")]
-    [LabelWidth(80)]
-    [HorizontalGroup("AA", 300)]
-    public GameObject Prefab;
-
-    public GeneralItemConfig GeneralConfig = new GeneralItemConfig();
 
     [HideLabel]
     [TitleGroup("属性配置", Alignment =  TitleAlignments.Centered)]
@@ -34,6 +24,25 @@ public class EnemyShipConfig : SerializedScriptableObject
     [TableList]
     [LabelText("敌人难度等级")]
     public List<EnemyHardLevelMap> HardLevelMap = new List<EnemyHardLevelMap>();
+
+    [System.Obsolete]
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
+    protected override Vector2Int GetMapPivot()
+    {
+        return base.GetMapPivot();
+    }
+
+
+    [OnInspectorInit]
+    protected override void InitData()
+    {
+        base.InitData();
+
+    }
 }
 
 [System.Serializable]
@@ -42,3 +51,4 @@ public class EnemyHardLevelMap
     public float CoreHPRatio;
     public float DamageRatio;
 }
+

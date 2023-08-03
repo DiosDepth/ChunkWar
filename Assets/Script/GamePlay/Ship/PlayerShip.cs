@@ -52,16 +52,11 @@ public class PlayerShip : BaseShip
 {
 
     public bool isDebug;
-    public int physicalResources;
-    public int energyResources;
 
-
-
-    public Weapon mainWeapon;
     public GameObject container;
     public SpriteRenderer sprite;
     public Transform shipMapCenter;
-    
+    public ShipWeapon mainWeapon;
 
 
 
@@ -84,20 +79,12 @@ public class PlayerShip : BaseShip
     protected override void Awake()
     {
         base.Awake();
-        if (movementState == null)
-        {
-            movementState = new StateMachine<ShipMovementState>(this.gameObject, false, false);
-        }
-        if (conditionState == null)
-        {
-            conditionState = new StateMachine<ShipConditionState>(this.gameObject, false, false);
-        }
+
     }
 
     public void LoadRuntimeData(RuntimeData data)
     {
-        physicalResources = data.physicalResources;
-        energyResources = data.energyResources;
+
 
         ShipMapInfo = data.ShipMap;
         UnitInfoList = data.UnitList;
@@ -142,8 +129,7 @@ public class PlayerShip : BaseShip
             UnitInfoList.Add(buildinfo);
         }
     
-        GameManager.Instance.gameEntity.runtimeData.physicalResources = physicalResources;
-        GameManager.Instance.gameEntity.runtimeData.energyResources = energyResources;
+
         GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMapInfo;
         GameManager.Instance.gameEntity.runtimeData.UnitList = UnitInfoList;
     }
@@ -201,12 +187,12 @@ public class PlayerShip : BaseShip
         //初始化主武器
         if( mainWeapon == null)
         {
-            var weaponID = (RogueManager.Instance.currentShipSelection.itemconfig as ShipConfig).MainWeaponID;
+            var weaponID = (RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig).MainWeaponID;
             BaseUnitConfig weaponconfig;
             DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
             Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);
-            mainWeapon = AddUnit(weaponconfig, _reletivemap, core.shipCoord, 0) as Weapon;
-            mainWeapon.Initialization(this, weaponconfig as WeaponConfig);
+            mainWeapon = AddUnit(weaponconfig, _reletivemap, core.shipCoord, 0) as ShipWeapon;
+            mainWeapon.Initialization(this, weaponconfig);
         }
 
         //创建PickUp用的Collider
@@ -222,10 +208,7 @@ public class PlayerShip : BaseShip
         conditionState.ChangeState(ShipConditionState.Normal);
     }
 
-    public virtual void ResetShip()
-    {
-      
-    }
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -240,20 +223,17 @@ public class PlayerShip : BaseShip
 
     }
 
-    public override void OnDestroy()
+    protected override void OnDestroy()
     {
-        Destroy(mainWeapon.gameObject);
+        base.OnDestroy();
+        if(mainWeapon != null)
+        {
+            Destroy(mainWeapon.gameObject);
+        }
+  
     }
 
-    public virtual void Death()
-    {
 
-    }
-
-    public virtual void Ability()
-    {
-
-    }
 
 
 
@@ -453,8 +433,8 @@ public class PlayerShip : BaseShip
 
                 if(unitconfig.unitType == UnitType.MainWeapons)
                 {
-                    mainWeapon = tempunit as Weapon;
-                    mainWeapon.Initialization(this, unitconfig as WeaponConfig);
+                    mainWeapon = tempunit as ShipWeapon;
+                    mainWeapon.Initialization(this, unitconfig);
                 }
                 else
                 {
@@ -574,7 +554,7 @@ public class PlayerShip : BaseShip
         }
     }
 
-    private void InitProperty()
+    public override void InitProperty()
     {
         _mainPropertyDic = new Dictionary<ShipMainProperty, ChangeValue<float>>();
 

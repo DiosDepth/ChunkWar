@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public static class CommonExtensionTools
 {
     public static Vector2 ToVector2(this Vector3 v3)
@@ -27,6 +28,22 @@ public static class CommonExtensionTools
         {
             trs.localScale = newtrs.localScale;
         }
+    }
+
+    public static List<T> ToList<T> (this T[] arr)
+    {
+        if(arr.Length <= 0)
+        {
+            return null;
+        }
+        List<T> list = new List<T>();
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            list.Add(arr[i]);
+        }
+        return list;
+
     }
 
 }

@@ -1361,7 +1361,7 @@ MonoBehaviour:
       Data: 
   ID: 1
   GeneralConfig:
-    IconSprite: {fileID: 308524481, guid: c4c2e7d773109364ea51d8a53fa5df77, type: 3}
+    IconSprite: {fileID: -1508105767, guid: c4c2e7d773109364ea51d8a53fa5df77, type: 3}
     Name: ShipName_001
     Desc: 
     Rarity: 0

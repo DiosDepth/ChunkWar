@@ -19,8 +19,8 @@ public class DataManager : Singleton<DataManager>
 
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
-    private Dictionary<int, ShipConfig> _shipConfigDic = new Dictionary<int, ShipConfig>();
-    private Dictionary<int, EnemyShipConfig> _enemyShipConfigDic = new Dictionary<int, EnemyShipConfig>();
+    private Dictionary<int, PlayerShipConfig> _shipConfigDic = new Dictionary<int, PlayerShipConfig>();
+    private Dictionary<int, AIShipConfig> _enemyShipConfigDic = new Dictionary<int, AIShipConfig>();
 
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
@@ -132,14 +132,14 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    public List<ShipConfig> GetAllShipConfigs()
+    public List<PlayerShipConfig> GetAllShipConfigs()
     {
         return _shipConfigDic.Values.ToList();
     }
 
-    public ShipConfig GetShipConfig(int shipID)
+    public PlayerShipConfig GetShipConfig(int shipID)
     {
-        ShipConfig result = null;
+        PlayerShipConfig result = null;
         _shipConfigDic.TryGetValue(shipID, out result);
         Debug.Assert(result != null, "GetShipConfig Null! ID= " + shipID);
         return result;
@@ -158,9 +158,9 @@ public class DataManager : Singleton<DataManager>
     /// </summary>
     /// <param name="enemyID"></param>
     /// <returns></returns>
-    public EnemyShipConfig GetEnemyShipConfig(int enemyID)
+    public AIShipConfig GetEnemyShipConfig(int enemyID)
     {
-        EnemyShipConfig result = null;
+        AIShipConfig result = null;
         _enemyShipConfigDic.TryGetValue(enemyID, out result);
         Debug.Assert(result != null, "GetEnemyShipConfig Null! ID= " + enemyID);
         return result;
@@ -261,9 +261,9 @@ public class DataManager : Singleton<DataManager>
     private void LoadAllBaseUnitConfig()
     {
         var builds = Resources.LoadAll<BuildingConfig>(DataConfigPath.BuildingConfigRoot);
-        var ships = Resources.LoadAll<ShipConfig>(DataConfigPath.ShipConfigRoot);
+        var ships = Resources.LoadAll<PlayerShipConfig>(DataConfigPath.ShipConfigRoot);
         var weapons = Resources.LoadAll<WeaponConfig>(DataConfigPath.WeaponConfigRoot);
-        var enemy = Resources.LoadAll<EnemyShipConfig>(DataConfigPath.EnemyShipConfigRoot);
+        var enemy = Resources.LoadAll<AIShipConfig>(DataConfigPath.EnemyShipConfigRoot);
 
         if (builds != null && builds.Length > 0)
         {
@@ -298,12 +298,12 @@ public class DataManager : Singleton<DataManager>
         {
             for (int i = 0; i < enemy.Length; i++)
             {
-                if (_enemyShipConfigDic.ContainsKey(enemy[i].EnemyID))
+                if (_enemyShipConfigDic.ContainsKey(enemy[i].ID))
                 {
-                    Debug.LogError("Find Same enemyID !" + enemy[i].EnemyID);
+                    Debug.LogError("Find Same enemyID !" + enemy[i].ID);
                     continue;
                 }
-                _enemyShipConfigDic.Add(enemy[i].EnemyID, enemy[i]);
+                _enemyShipConfigDic.Add(enemy[i].ID, enemy[i]);
             }
         }
     }

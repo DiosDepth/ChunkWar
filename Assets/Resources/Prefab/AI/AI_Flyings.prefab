@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3317253676089322026}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShipMapCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,8 +47,8 @@ GameObject:
   - component: {fileID: 2179686085320657366}
   - component: {fileID: 2903285305435842433}
   - component: {fileID: 46565608200515095}
-  m_Layer: 0
-  m_Name: AI_BaseEnemy
+  m_Layer: 7
+  m_Name: AI_Flyings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,8 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e9d1ece3227044cb2ff0233c38a633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainWeapon: {fileID: 0}
-  controller: {fileID: 0}
+  controller: {fileID: 4254137073360052133}
   buildingsParent: {fileID: 0}
 --- !u!114 &4254137073360052133
 MonoBehaviour:
@@ -250,7 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3431155977748982856}
   - component: {fileID: 4295464997389306757}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3431155977828216134}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +350,83 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6758072479592971789}
   m_Father: {fileID: 3431155976711396024}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1832567346640341274
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3431155977828216134}
+    m_Modifications:
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536233, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_Name
+      value: AIWeapon_LightAutoCannon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9109a6e2ad23d4b44b85d96f2cf74329, type: 3}
+--- !u!4 &6758072479592971789 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+    type: 3}
+  m_PrefabInstance: {fileID: 1832567346640341274}
+  m_PrefabAsset: {fileID: 0}

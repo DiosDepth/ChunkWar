@@ -1,187 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
-public enum WeaponFireModeType
-{
-    Autonomy,
-    SemiAuto,
-    Manual,
-}
-public enum WeaponState
-{
-
-    Ready,
-    Start,
-    Reload,
-    BeforeDelay,
-    Firing,
-    BetweenDelay,
-    Charging,
-    Charged,
-    Fired,
-    AfterDelay,
-    End,
-    Recover,
-}
-
-[System.Serializable]
-public class WeaponAttribute : UnitBaseAttribute
-{
-    /// <summary>
-    /// »ù´¡ÉËº¦
-    /// </summary>
-    public float BaseDamage
-    {   
-        get;
-        protected set;
-    }
-
-    /// <summary>
-    /// »ù´¡ÉËº¦ÐÞÕý
-    /// </summary>
-    public float BaseDamageModifyValue
-    {
-        get;
-        protected set;
-    }
-
-    public float DamageRatioMin { get; protected set; }
-    public float DamageRatioMax { get; protected set; }
-
-    /// <summary>
-    /// ±©»÷ÂÊ
-    /// </summary>
-    public float CriticalRatio { get; protected set; }
-
-    /// <summary>
-    /// ÎäÆ÷Éä³Ì
-    /// </summary>
-    public float WeaponRange { get; protected set; }
-
-    public float Rate;
-    public float ChargeTime;
-    public float ChargeCost;
-
-    public bool MagazineBased = false;
-    public int MaxMagazineSize = 30;
-
-    public float ReloadTime = 1f;
-
-
-    public float BeforeDelay;
-    public float BetweenDelay;
-    public float AfterDelay;
-
-    private List<UnitPropertyModifyFrom> modifyFrom;
-    private float criticalBase;
-    private float rangeBase;
-
-    /// <summary>
-    /// ÎäÆ÷ÉËº¦
-    /// </summary>
-    /// <returns></returns>
-    public int GetDamage()
-    {
-        if (isPlayerShip)
-        {
-            var damage = BaseDamage + BaseDamageModifyValue;
-            var damagePercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamagePercent);
-            var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
-            var finalDamage = Mathf.Clamp(damage * (1 + damagePercent) * ratio, 0, int.MaxValue);
-            return Mathf.RoundToInt(finalDamage);
-        }
-        else
-        {
-            var damageRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
-            var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
-            var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio) * ratio, 0, int.MaxValue);
-            return Mathf.RoundToInt(damage);
-        }
-    }
-
-    public override void InitProeprty(BaseUnitConfig cfg, bool isPlayerShip)
-    {
-        base.InitProeprty(cfg, isPlayerShip);
-        
-
-        WeaponConfig _weaponCfg = cfg as WeaponConfig;
-        if (_weaponCfg == null)
-            return;
-
-        BaseDamage = _weaponCfg.DamageBase;
-        DamageRatioMin = _weaponCfg.DamageRatioMin;
-        DamageRatioMax = _weaponCfg.DamageRatioMax;
-        criticalBase = _weaponCfg.BaseCriticalRate;
-        rangeBase = _weaponCfg.BaseRange;
-
-        if (isPlayerShip)
-        {
-            ///BindAction
-            var baseDamageModify = _weaponCfg.DamageModifyFrom;
-            modifyFrom = baseDamageModify;
-            for (int i = 0; i < baseDamageModify.Count; i++)
-            {
-                var modifyKey = baseDamageModify[i].PropertyKey;
-                mainProperty.BindPropertyChangeAction(modifyKey, CalculateBaseDamageModify);
-            }
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
-
-            CalculateBaseDamageModify();
-            CalculateCriticalRatio();
-        }
-        else
-        {
-
-        }
-    }
-
-    public override void Destroy()
-    {
-        base.Destroy();
-
-        if (isPlayerShip)
-        {
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
-        }
-    }
-
-    private void CalculateBaseDamageModify()
-    {
-        float finalValue = 0;
-        for (int i = 0; i < modifyFrom.Count; i++)
-        {
-            var value = RogueManager.Instance.MainPropertyData.GetPropertyFinal(modifyFrom[i].PropertyKey);
-            value *= modifyFrom[i].Ratio;
-            finalValue += value;
-        }
-        BaseDamageModifyValue = finalValue;
-    }
-
-    private void CalculateCriticalRatio()
-    {
-        var criticalRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Critical);
-        CriticalRatio = criticalRatio + criticalBase;
-    }
-
-    private void CalculateWeaponRange()
-    {
-        var weaponRange = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponRange);
-        WeaponRange = rangeBase + weaponRange;
-    }
-}
-
-public enum AvaliableBulletType
-{
-    TestBullet,
-}
 
 public class Weapon : Unit
 {
-
     public WeaponFireModeType weaponmode;
     public StateMachine<WeaponState> weaponstate;
 
@@ -192,48 +14,47 @@ public class Weapon : Unit
     public WeaponAttribute weaponAttribute;
     public int magazine;
 
-    private float _beforeDelayCounter;
-    private float _betweenDelayCounter;
-    private float _afterDelayCounter;
-    private float _chargeCounter;
-    private float _reloadCounter;
-    
-    private bool _isChargeFire;
-    private bool _isWeaponOn;
+    protected float _beforeDelayCounter;
+    protected float _betweenDelayCounter;
+    protected float _afterDelayCounter;
+    protected float _chargeCounter;
+    protected float _reloadCounter;
 
-    private BulletData _bulletdata;
+    protected bool _isChargeFire;
+    protected bool _isWeaponOn;
+
+    protected BulletData _bulletdata;
     public Projectile _lastbullet;
 
-    /// <summary>
-    /// ÎäÆ÷ÅäÖÃ
-    /// </summary>
     protected WeaponConfig _weaponCfg;
 
-    public virtual void Initialization(BaseShip m_owner, WeaponConfig weaponConfig)
+
+
+    public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
-        this._weaponCfg = weaponConfig;
+        this._weaponCfg = m_unitconfig as WeaponConfig;
         InitWeaponAttribute();
-        base.Initialization(m_owner);
+        base.Initialization(m_owner,m_unitconfig);
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
         DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
-        if(_bulletdata ==  null)
+        if (_bulletdata == null)
         {
             Debug.LogError("Bullet Data is Invalid");
         }
 
         firePoint = transform.Find("FirePoint");
 
-        if(_owner is PlayerShip)
+        if (_owner is PlayerShip)
         {
             var playerShip = _owner as PlayerShip;
-            _enable = !playerShip.IsEditorShip;
+            _isActive = !playerShip.IsEditorShip;
         }
     }
 
     public override void Start()
     {
         base.Start();
-        
+
     }
 
     public override void Update()
@@ -251,7 +72,7 @@ public class Weapon : Unit
 
     public virtual void ProcessWeapon()
     {
-        if (!_enable)
+        if (!_isActive)
             return;
 
         switch (weaponstate.CurrentState)
@@ -296,43 +117,14 @@ public class Weapon : Unit
         }
     }
 
-    public virtual void HandleWeapon(InputAction.CallbackContext context)
-    {
-        if(weaponmode == WeaponFireModeType.Manual)
-        {
-            switch (context.phase)
-            {
-                case InputActionPhase.Performed:
-                    weaponstate.ChangeState(WeaponState.Charging);
-                    break;
 
-                case InputActionPhase.Canceled:
 
-                    WeaponOn();
-                    break;
-            }
-        }
-
-        if (weaponmode == WeaponFireModeType.SemiAuto)
-        {
-            switch (context.phase)
-            {
-                case InputActionPhase.Started:
-                    WeaponOn();
-                    break;
-
-                case InputActionPhase.Canceled:
-                    WeaponOff();
-                    break;
-            }
-        }
-    }
 
 
     public virtual void WeaponOn()
     {
         _isWeaponOn = true;
-        if(weaponstate.CurrentState != WeaponState.Reload)
+        if (weaponstate.CurrentState != WeaponState.Reload)
         {
             weaponstate.ChangeState(WeaponState.Start);
         }
@@ -372,7 +164,7 @@ public class Weapon : Unit
     {
         Debug.Log(this.gameObject + " : WeaponBeforeDelay");
         _beforeDelayCounter -= Time.deltaTime;
-        if(_beforeDelayCounter < 0)
+        if (_beforeDelayCounter < 0)
         {
             _beforeDelayCounter = weaponAttribute.BeforeDelay;
             FireRequest();
@@ -392,7 +184,7 @@ public class Weapon : Unit
 
     public virtual void WeaponFiring()
     {
-       
+
         DoFire();
         weaponstate.ChangeState(WeaponState.Fired);
 
@@ -400,7 +192,7 @@ public class Weapon : Unit
 
     public virtual void DoFire()
     {
-        
+
         switch (weaponmode)
         {
             case WeaponFireModeType.SemiAuto:
@@ -415,7 +207,7 @@ public class Weapon : Unit
                 });
                 break;
             case WeaponFireModeType.Manual:
-                if(_isChargeFire)
+                if (_isChargeFire)
                 {
                     Debug.Log(this.gameObject + " : Manual Charge Firing!!!");
                     PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, (obj) =>
@@ -445,9 +237,9 @@ public class Weapon : Unit
                 Debug.Log(this.gameObject + " : Autonomy Firing!!!");
                 break;
         }
-        if(weaponAttribute.MagazineBased)
+        if (weaponAttribute.MagazineBased)
         {
-            magazine --;
+            magazine--;
         }
     }
 
@@ -503,7 +295,7 @@ public class Weapon : Unit
 
                 break;
         }
-        
+
     }
 
     public virtual void WeaponAfterDelay()
@@ -520,8 +312,8 @@ public class Weapon : Unit
     public virtual void WeaponEnd()
     {
         Debug.Log(this.gameObject + " : WeaponEnd");
-        
-        if(magazine <= 0 && weaponAttribute.MagazineBased)
+
+        if (magazine <= 0 && weaponAttribute.MagazineBased)
         {
             weaponstate.ChangeState(WeaponState.Reload);
         }
@@ -541,7 +333,7 @@ public class Weapon : Unit
         {
             _reloadCounter = weaponAttribute.ReloadTime;
             magazine = weaponAttribute.MaxMagazineSize;
-            if(_isWeaponOn)
+            if (_isWeaponOn)
             {
                 if (weaponmode == WeaponFireModeType.Autonomy)
                 {
@@ -579,7 +371,7 @@ public class Weapon : Unit
         return base.TakeDamage(value);
     }
 
-    private void InitWeaponAttribute()
+    public virtual void InitWeaponAttribute()
     {
         weaponAttribute = new WeaponAttribute();
         if (weaponAttribute.MagazineBased)
@@ -595,7 +387,6 @@ public class Weapon : Unit
 
         weaponAttribute.InitProeprty(_weaponCfg, true);
         baseAttribute = weaponAttribute;
-       
-    }
 
+    }
 }

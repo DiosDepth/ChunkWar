@@ -126,7 +126,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChunkWar_Building_LightAutoCannon
+      name: ChunkWar_Weapon_LightAutoCannon
       rect:
         serializedVersion: 2
         x: 16
@@ -302,7 +302,7 @@ TextureImporter:
         width: 48
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -325,12 +325,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ChunkWar_Building_LightAutoCannon: -2039262277
       ChunkWar_Buildings_1: 742372061
       ChunkWar_Unit_LongRangeIonBlaster: -432586034
       ChunkWar_Building_Shadow: 655584963
       ChunkWar_ChunkPart_002: 1819244928
       ChunkWar_Base_000: 143168726
+      ChunkWar_Weapon_LightAutoCannon: -2039262277
       ChunkWar_Core_000: -228024418
       ChunkWar_Buildings_3: -1340023216
       ChunkWar_Building_BaseBuilding: -1354671227

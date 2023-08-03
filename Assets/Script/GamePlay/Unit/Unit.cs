@@ -94,9 +94,11 @@ public class Unit : MonoBehaviour
 
     protected BaseShip _owner;
 
-    protected bool _enable = true;
+    protected bool _isActive = true;
 
     public UnitBaseAttribute baseAttribute;
+
+    protected BaseUnitConfig _baseUnitConfig;
     /// <summary>
     /// 血量管理组件
     /// </summary>
@@ -113,14 +115,16 @@ public class Unit : MonoBehaviour
 
     }
 
+
     protected virtual void OnDestroy()
     {
         RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
     }
 
-    public virtual void Initialization(BaseShip m_owner)
+    public virtual void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _owner = m_owner;
+        _baseUnitConfig = m_unitconfig;
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
     }
@@ -134,6 +138,11 @@ public class Unit : MonoBehaviour
         return isDie;
     }
     
+
+    public virtual void  SetUnitActive(bool isactive)
+    {
+        _isActive = isactive;
+    }
     /// <summary>
     /// 最大血量变化
     /// </summary>

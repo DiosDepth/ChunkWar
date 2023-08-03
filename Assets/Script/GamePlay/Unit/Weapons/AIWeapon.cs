@@ -2,27 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponLongRangeIonBlasters : ShipWeapon
+public class AIWeapon : Weapon
 {
+
+
+
+    public virtual void HandleWeapon()
+    {
+
+    }
+
+
+
+    public override void Start()
+    {
+        base.Start();
+
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+    }
+
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         base.Initialization(m_owner, m_unitconfig);
     }
 
-    public override void Start()
+    public override void ProcessWeapon()
     {
-        base.Start();
+        base.ProcessWeapon();
     }
 
-    public override void Update()
+    public override void WeaponOn()
     {
-        base.Update();
+        base.WeaponOn();
     }
 
-    protected override void OnDestroy()
+    public override void WeaponOff()
     {
-        base.OnDestroy();
+        base.WeaponOff();
     }
 
     public override void WeaponReady()
@@ -40,6 +68,26 @@ public class WeaponLongRangeIonBlasters : ShipWeapon
         base.WeaponBeforeDelay();
     }
 
+    public override void FireRequest()
+    {
+        base.FireRequest();
+    }
+
+    public override void WeaponFiring()
+    {
+        base.WeaponFiring();
+    }
+
+    public override void DoFire()
+    {
+        base.DoFire();
+    }
+
+    public override void WeaponBetweenDelay()
+    {
+        base.WeaponBetweenDelay();
+    }
+
     public override void WeaponCharging()
     {
         base.WeaponCharging();
@@ -50,15 +98,6 @@ public class WeaponLongRangeIonBlasters : ShipWeapon
         base.WeaponCharged();
     }
 
-    public override void WeaponFiring()
-    {
-        base.WeaponFiring();
-    }
-
-    public override void WeaponBetweenDelay()
-    {
-        base.WeaponBetweenDelay();
-    }
     public override void WeaponFired()
     {
         base.WeaponFired();
@@ -88,6 +127,4 @@ public class WeaponLongRangeIonBlasters : ShipWeapon
     {
         return base.TakeDamage(value);
     }
-
-
 }

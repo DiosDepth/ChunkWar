@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4115382653730551155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3324133008493171840}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3324133008493171840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115382653730551155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4947179278027536151}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4947179278027536233
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4947179278027536151}
-  - component: {fileID: 3826070331120514432}
+  - component: {fileID: 1550267850732327031}
   m_Layer: 0
-  m_Name: DirectionalSmoothboreCannon
+  m_Name: AIWeapon_LightAutoCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,16 +55,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4947179278027536233}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4947179279536623989}
+  - {fileID: 3324133008493171840}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3826070331120514432
+--- !u!114 &1550267850732327031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,16 +74,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 4947179278027536233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9d96b72d6a3fa44a1bcc723847a71e, type: 3}
+  m_Script: {fileID: 11500000, guid: da040be90bbc2bb45975225c882a792a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: DirectionalSmoothboreCannon
-  hp: 100
-  state: 1
-  buildingSprite: {fileID: 4947179279536623990}
+  UnitID: 101
+  UID: 0
+  state: 0
+  _isTarget: 1
+  unitSprite: {fileID: 4947179279536623990}
+  redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
+  weaponmode: 1
+  bulletType: 0
+  firePoint: {fileID: 3324133008493171840}
+  weaponAttribute:
+    Rate: 0
+    ChargeTime: 0
+    ChargeCost: 0
+    MagazineBased: 0
+    MaxMagazineSize: 30
+    ReloadTime: 1
+    BeforeDelay: 0
+    BetweenDelay: 1
+    AfterDelay: 0
+  magazine: 0
+  _lastbullet: {fileID: 0}
 --- !u!1 &4947179279536623991
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +174,7 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 10
-  m_Sprite: {fileID: 75351093, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+  m_Sprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

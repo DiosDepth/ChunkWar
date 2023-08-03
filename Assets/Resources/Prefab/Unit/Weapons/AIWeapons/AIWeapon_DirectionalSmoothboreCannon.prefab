@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4947179278027536151}
-  - component: {fileID: 7619626103396640052}
+  - component: {fileID: 3826070331120514432}
   m_Layer: 0
-  m_Name: LightAutoCannon
+  m_Name: AIWeapon_DirectionalSmoothboreCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7619626103396640052
+--- !u!114 &3826070331120514432
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9d96b72d6a3fa44a1bcc723847a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: LightAutoCannon
+  unitName: DirectionalSmoothboreCannon
   hp: 100
   state: 1
   buildingSprite: {fileID: 4947179279536623990}
@@ -125,7 +125,7 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 10
-  m_Sprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+  m_Sprite: {fileID: 75351093, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

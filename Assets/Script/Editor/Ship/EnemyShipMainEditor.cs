@@ -20,7 +20,7 @@ public class EnemyShipMainEditor : OdinMenuEditorWindow
         var tree = new OdinMenuTree(true);
         tree.Config.DrawSearchToolbar = true;
 
-        tree.AddAllAssetsAtPath("µ–»À", "Assets/Resources/Configs/EnemyShips", typeof(EnemyShipConfig), true, true);
+        tree.AddAllAssetsAtPath("µ–»À", "Assets/Resources/Configs/EnemyShips", typeof(AIShipConfig), true, true);
 
         return tree;
     }

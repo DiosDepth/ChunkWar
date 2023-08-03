@@ -31,7 +31,8 @@ public class AIController : BaseController
     {
         base.Initialization();
         controlledTarget = GetComponent<AIShip>();
-        controlledTarget.Initialization();
+  
+
         InitializeStates();
         InitializeDecisions();
         if (States.Count > 0)
