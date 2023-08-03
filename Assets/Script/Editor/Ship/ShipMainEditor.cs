@@ -34,8 +34,29 @@ public class ShipMainEditor : OdinMenuEditorWindow
             });
         });
 
-        tree.AddAllAssetsAtPath("½¨Öþ", "Assets/Resources/Configs/Buildings", typeof(BuildingConfig), true, true);
-        tree.AddAllAssetsAtPath("ÎäÆ÷", "Assets/Resources/Configs/Weapons", typeof(WeaponConfig), true, true);
+        var building = tree.AddAllAssetsAtPath("½¨Öþ", "Assets/Resources/Configs/Buildings", typeof(BuildingConfig), true, true);
+        building.ForEach(x =>
+        {
+            var childs = x.ChildMenuItems;
+            childs.ForEach(child =>
+            {
+                BuildingConfig info = child.Value as BuildingConfig;
+                child.Name = string.Format("[{0}]{1}", info.ID, info.name);
+            });
+        });
+
+
+        var weapon = tree.AddAllAssetsAtPath("ÎäÆ÷", "Assets/Resources/Configs/Weapons", typeof(WeaponConfig), true, true);
+        weapon.ForEach(x =>
+        {
+            var childs = x.ChildMenuItems;
+            childs.ForEach(child =>
+            {
+                WeaponConfig info = child.Value as WeaponConfig;
+                child.Name = string.Format("[{0}]{1}", info.ID, info.name);
+            });
+        });
+
         tree.SortMenuItemsByName();
         return tree;
     }

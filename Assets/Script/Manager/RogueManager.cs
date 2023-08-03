@@ -46,7 +46,7 @@ public enum RogueEventType
     ShopReroll,
     ShopCostChange,
     ShipPlugChange,
-    ShipUnitChange,
+    ShipUnitTempSlotChange,
 }
 
 public enum ShipPropertyEventType
@@ -172,6 +172,7 @@ public class RogueManager : Singleton<RogueManager>
 
     private void InitDefaultProperty()
     {
+        HarborTempUnitSlotCount = DataManager.Instance.battleCfg.HarborMapTempUnitSlotCount;
         var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
         _shipLevel = new ChangeValue<byte>(1, 1, maxLevel);
         _currentEXP = new ChangeValue<int>(0, 0, int.MaxValue);
@@ -291,7 +292,7 @@ public class RogueManager : Singleton<RogueManager>
         if (_playerCurrentGoods.ContainsKey(info.GoodsID))
         {
             _playerCurrentGoods[info.GoodsID]++;
-            
+
         }
         else
         {
@@ -307,6 +308,7 @@ public class RogueManager : Singleton<RogueManager>
         else if (itemType == GoodsItemType.ShipUnit)
         {
             AddNewTempUintToHarbor(typeID, info.GoodsID);
+            ///只有装备上去再加数量
         }
     }
     
@@ -503,11 +505,16 @@ public class RogueManager : Singleton<RogueManager>
 
     #region Ship Unit
 
+
+    private List<int> harborTempUnitSlotIDs = new List<int>();
     /// <summary>
     /// 临时建筑组件库存
     /// </summary>
-    private List<int> harborTempUnitSlotIDs = new List<int>();
-
+    public List<int> HarborTempUnitSlots
+    {
+        get { return harborTempUnitSlotIDs; }
+    }
+    private byte HarborTempUnitSlotCount;
     
 
     public void AddNewShipUnit(Unit unit)
@@ -524,7 +531,11 @@ public class RogueManager : Singleton<RogueManager>
     /// <param name="goodsID"></param>
     private void AddNewTempUintToHarbor(int unitID, int goodsID = -1)
     {
+        if (harborTempUnitSlotIDs.Count > HarborTempUnitSlotCount)
+            return;
 
+        harborTempUnitSlotIDs.Add(unitID);
+        RogueEvent.Trigger(RogueEventType.ShipUnitTempSlotChange, true, unitID);
     }
 
     private uint GetShipUnitUID()

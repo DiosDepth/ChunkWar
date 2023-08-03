@@ -5,12 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, EventListener<RogueEvent>
+public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
 {
-    public List<ItemGUISlot> buildingSlotList = new List<ItemGUISlot>();
-
-    public RectTransform buildingSlotGroup;
-
     private Transform _shopContentRoot;
     private TextMeshProUGUI _currencyText;
     private RectTransform _currencyContent;
@@ -22,6 +18,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
     private List<ShipPropertyItemCmpt> propertyCmpts = new List<ShipPropertyItemCmpt>();
+    private List<ShipBuildingSlotCmpt> buildingSlotCmpts = new List<ShipBuildingSlotCmpt>();
     private GeneralScrollerGirdItemController _plugGridController;
 
     protected override void Awake()
@@ -30,6 +27,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         _shopContentRoot = transform.Find("ShopPanel/ShopContent");
         _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
         propertyCmpts = transform.Find("ShopPanel/PropertyPanel").GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
+        buildingSlotCmpts = transform.Find("BuildingPanel/Slot_Group").GetComponentsInChildren<ShipBuildingSlotCmpt>().ToList();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = GetGUIComponent<Text>("RerollCost");
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
@@ -38,42 +36,24 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     public override void Initialization()
     {
         base.Initialization();
-        this.EventStartListening<InventoryEvent>();
         this.EventStartListening<RogueEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
-        //UpdateSlotList(buildingSlotList, GameManager.Instance.gameEntity.buildingInventory, UnitType.Buildings);
         InitShopContent();
+        InitBuildingSlots();
         RefreshGeneral();
     }
 
     public override void Hidden( )
     {
-        this.EventStopListening<InventoryEvent>();
+        this.EventStopListening<RogueEvent>();
         base.Hidden();
-
     }
 
     public void OnLaunchBtnPressed()
     {
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
     }
-
-    //public void UpdateSlotList(List<ItemGUISlot> list, Inventory inventory,UnitType type)
-    //{
-    //    if(inventory.IsEmpty())
-    //    {
-    //        return;
-    //    }
-
-
-    //    for (int i = 0; i < list.Count; i++)
-    //    {
-    //        Destroy(list[i].gameObject);
-    //    }
-    //    list.Clear();
-
-    //}
 
     public void AddSlot(List<ItemGUISlot> list,InventoryItem m_item, RectTransform m_slotgroup)
     {
@@ -91,22 +71,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     public void RemoveSlot(int m_index)
     {
 
-    }
-
-    public void OnEvent(InventoryEvent evt)
-    {
-        switch (evt.type)
-        {
-            case InventoryEventType.Checkin:
-    
-                break;
-            case InventoryEventType.CheckOut:
- 
-                break;
-            case InventoryEventType.Clear:
-     
-                break;
-        }
     }
 
     public void OnEvent(RogueEvent evt)
@@ -129,6 +93,12 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
             case RogueEventType.ShipPlugChange:
                 RefreshShipPlugsContent();
                 break;
+
+            case RogueEventType.ShipUnitTempSlotChange:
+                bool isadd = (bool)evt.param[0];
+                int unitID = (int)evt.param[1];
+                RefreshShipUnitSlotContent(isadd, unitID);
+                break;
         }
     }
 
@@ -148,6 +118,14 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         _plugGridController.OnItemSelected += OnPlugItemSelect;
         _plugGridScroller.Delegate = _plugGridController;
         RefreshShipPlugsContent();
+    }
+
+    private void InitBuildingSlots()
+    {
+        for (int i = 0; i < buildingSlotCmpts.Count; i++) 
+        {
+
+        }
     }
 
     private void InitShopContent()
@@ -233,6 +211,18 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
         _plugGridScroller.ReloadData();
     }
 
+    private void RefreshShipUnitSlotContent(bool isAdd, int unitID)
+    {
+        if (isAdd)
+        {
+            var cmpt = GetEmptyBuildingSlot();
+            if(cmpt != null)
+            {
+                cmpt.SetUp(unitID);
+            }
+        }
+    }
+
     /// <summary>
     /// 选择插件显示详情
     /// </summary>
@@ -241,5 +231,19 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<InventoryEvent>, Event
     private void OnPlugItemSelect(uint uid, int dataIndex)
     {
         ///RefreshInfo
+    }
+
+    /// <summary>
+    /// 空的临时建筑槽
+    /// </summary>
+    /// <returns></returns>
+    private ShipBuildingSlotCmpt GetEmptyBuildingSlot()
+    {
+        for(int i = 0; i < buildingSlotCmpts.Count; i++)
+        {
+            if (buildingSlotCmpts[i].IsEmpty)
+                return buildingSlotCmpts[i];
+        }
+        return null;
     }
 }

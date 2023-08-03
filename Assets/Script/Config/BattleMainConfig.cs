@@ -7,6 +7,7 @@ using Sirenix.OdinInspector.Editor;
 public class BattleMainConfig : SerializedScriptableObject
 {
     public byte RogueShop_Origin_RefreshNum = 4;
+    public byte HarborMapTempUnitSlotCount = 6;
 
     public byte ShipMaxLevel;
 
