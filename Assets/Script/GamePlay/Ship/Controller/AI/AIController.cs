@@ -87,7 +87,7 @@ public class AIController : BaseController
     {
         if (newstatename != currentState.StateName)
         {
-            currentState.OnExit();
+            currentState?.OnExit();
             OnExitState();
             previousState = currentState;
             currentState = FindState(newstatename);

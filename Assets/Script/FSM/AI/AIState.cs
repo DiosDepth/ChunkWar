@@ -84,7 +84,11 @@ public class AIState : State
     {
         foreach (AIAction action in Actions)
         {
-            action.OnExitAction();
+            if(action != null)
+            {
+                action.OnExitAction();
+            }
+
         }
 
         foreach (AITransition transition in Transitions)

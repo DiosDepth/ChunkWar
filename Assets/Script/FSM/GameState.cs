@@ -203,7 +203,8 @@ public class EGameState_GamePrepare : GameState
             {
                 RogueManager.Instance.currentShip =  LevelManager.Instance.SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
                 RogueManager.Instance.currentShip.LoadRuntimeData(GameManager.Instance.gameEntity.runtimeData);
-
+                RogueManager.Instance.currentShip.gameObject.SetActive(true);
+                RogueManager.Instance.currentShip.Initialization();
                 RogueManager.Instance.currentShip.CreateShip();
 
                 //初始化摄影机
@@ -214,7 +215,7 @@ public class EGameState_GamePrepare : GameState
                 CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
                 CameraManager.Instance.vcam.m_Lens.OrthographicSize = 35;
 
-                RogueManager.Instance.currentShip.gameObject.SetActive(true);
+            
 
                 GameEvent.Trigger(EGameState.EGameState_GameStart);
             }));

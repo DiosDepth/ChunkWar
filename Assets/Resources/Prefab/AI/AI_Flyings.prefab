@@ -153,12 +153,6 @@ MonoBehaviour:
   - StateName: Idle
     Actions:
     - {fileID: 2179686085320657366}
-    Transitions:
-    - Decision: {fileID: 46565608200515095}
-      TrueState: Move
-      FalseState: 
-  - StateName: Move
-    Actions: []
     Transitions: []
   currentState:
     StateName: 

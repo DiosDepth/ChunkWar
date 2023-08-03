@@ -16,6 +16,10 @@ public class AIShip : BaseShip
     protected override void Awake()
     {
         base.Awake();
+        Initialization();
+        CreateShip();
+
+
     }
     // Start is called before the first frame update
     protected override void Start()
@@ -32,9 +36,12 @@ public class AIShip : BaseShip
     {
         base.CreateShip();
         _unitList = buildingsParent.GetComponentsInChildren<Unit>().ToList<Unit>();
-
+        BaseUnitConfig unitconfig;
         for (int i = 0; i < _unitList.Count; i++)
         {
+            unitconfig = DataManager.Instance.GetUnitConfig(_unitList[i].UnitID);
+            _unitList[i].Initialization(this, unitconfig);
+            _unitList[i].SetUnitActive(true);
             //_unitList[i].Initialization(this);
             //_unitList[i].SetUnitActive(true);
         }
