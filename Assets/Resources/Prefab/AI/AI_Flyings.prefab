@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 8759831681856360858}
   - component: {fileID: 3502843801109665848}
   - component: {fileID: 4254137073360052133}
-  - component: {fileID: 2179686085320657366}
   - component: {fileID: 2903285305435842433}
+  - component: {fileID: 3443234521725163642}
   - component: {fileID: 46565608200515095}
   m_Layer: 7
   m_Name: AI_Flyings
@@ -144,16 +144,27 @@ MonoBehaviour:
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
   collider: {fileID: 8759831681856360858}
-  maxSpeed: 10
-  acceleration: 10
-  rotateSpeed: 15
+  maxSpeed: 7
+  acceleration: 15
+  rotateSpeed: 180
   isComplexAI: 0
   controlledTarget: {fileID: 3502843801109665848}
+  updateFrequence: 0.003
   States:
-  - StateName: Idle
+  - StateName: Move
     Actions:
-    - {fileID: 2179686085320657366}
-    Transitions: []
+    - {fileID: 2903285305435842433}
+    Transitions:
+    - Decision: {fileID: 46565608200515095}
+      TrueState: Attack
+      FalseState: 
+  - StateName: Attack
+    Actions:
+    - {fileID: 3443234521725163642}
+    Transitions:
+    - Decision: {fileID: 46565608200515095}
+      TrueState: 
+      FalseState: Move
   currentState:
     StateName: 
     Actions:
@@ -170,29 +181,6 @@ MonoBehaviour:
     - Decision: {fileID: 0}
       TrueState: 
       FalseState: 
---- !u!114 &2179686085320657366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155976711396027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 434a8811eec7938498eb863d0643b4c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: 
-  isDebug: 0
-  seeingFrequency: 0.5
-  seeingRadius: 10
-  seeingAngle: 110
-  seeingMask:
-    serializedVersion: 2
-    m_Bits: 0
-  seeingBlockMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &2903285305435842433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,15 +195,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: 
   isDebug: 0
-  seeingFrequency: 0.5
-  seeingRadius: 10
-  seeingAngle: 110
-  seeingMask:
-    serializedVersion: 2
-    m_Bits: 0
-  seeingBlockMask:
-    serializedVersion: 2
-    m_Bits: 0
+--- !u!114 &3443234521725163642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5053f40aa9c35a45bec0c9447375d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: 
+  isDebug: 0
 --- !u!114 &46565608200515095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,8 +224,8 @@ MonoBehaviour:
   isDebug: 0
   Label: 
   target: {fileID: 0}
-  compare: 1
-  thresholdDistance: 0
+  compare: 3
+  thresholdDistance: 15
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

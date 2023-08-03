@@ -124,8 +124,8 @@ public class ShipController : BaseController
     {
         Debug.DrawLine(transform.position, WorldDirection * 100f, Color.red);
         Debug.DrawLine(transform.position, transform.up * 100f, Color.green);
-        Quaternion targetrorate = Quaternion.LookRotation(new Vector3(0, 0, 1), WorldDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetrorate, rotateSpeed * Time.deltaTime);
+
+        transform.rotation = CalculateRotation(WorldDirection);
     }
 
  

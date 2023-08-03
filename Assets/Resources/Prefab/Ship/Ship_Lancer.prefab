@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6859882484743535825}
   - component: {fileID: 4244240680487228376}
   - component: {fileID: 3080632904786149587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ship_Lancer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,15 +50,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6c8b9932e0d3a4cb27555a650c6ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 3080632904786149587}
+  buildingsParent: {fileID: 7848178516328607515}
   isDebug: 0
-  physicalResources: 0
-  energyResources: 0
-  artifacts: []
   container: {fileID: 0}
   sprite: {fileID: 8713110962467850695}
   shipMapCenter: {fileID: 5547455125292244162}
-  buildingsParent: {fileID: 7848178516328607515}
-  controller: {fileID: 3080632904786149587}
+  mainWeapon: {fileID: 0}
+  pickupCollider: {fileID: 0}
 --- !u!50 &6859882484743535825
 Rigidbody2D:
   serializedVersion: 4
@@ -115,12 +114,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUpdate: 0
-  ship: {fileID: 7848178515196352763}
   rb: {fileID: 6859882484743535825}
   collider: {fileID: 4244240680487228376}
   maxSpeed: 10
   acceleration: 3
   rotateSpeed: 45
+  controlledTarget: {fileID: 0}
 --- !u!1 &7848178516328607515
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7848178516328607492}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7848178516374416906}
   - component: {fileID: 8713110962467850695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5547455125292244162}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShipMapCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

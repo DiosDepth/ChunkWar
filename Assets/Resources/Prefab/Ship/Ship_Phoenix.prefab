@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4229995744133667613}
   - component: {fileID: 6874276546186294292}
   - component: {fileID: 5710669053969245983}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ship_Phoenix
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,15 +50,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6c8b9932e0d3a4cb27555a650c6ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 5710669053969245983}
+  buildingsParent: {fileID: 678513809074276567}
   isDebug: 0
-  physicalResources: 0
-  energyResources: 0
-  artifacts: []
   container: {fileID: 0}
   sprite: {fileID: 2120056536821329419}
   shipMapCenter: {fileID: 5572263972884292661}
-  buildingsParent: {fileID: 678513809074276567}
-  controller: {fileID: 5710669053969245983}
+  mainWeapon: {fileID: 0}
+  pickupCollider: {fileID: 0}
 --- !u!50 &4229995744133667613
 Rigidbody2D:
   serializedVersion: 4
@@ -115,12 +114,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUpdate: 0
-  ship: {fileID: 678513808027565879}
   rb: {fileID: 4229995744133667613}
   collider: {fileID: 6874276546186294292}
   maxSpeed: 10
   acceleration: 3
   rotateSpeed: 45
+  controlledTarget: {fileID: 0}
 --- !u!1 &678513809074276567
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678513809074276552}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 678513809137519046}
   - component: {fileID: 2120056536821329419}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5572263972884292661}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShipMapCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

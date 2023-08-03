@@ -1359,7 +1359,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 101
+  ID: 1
   GeneralConfig:
     IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
     Name: AI_Flyings

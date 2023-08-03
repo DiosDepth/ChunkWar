@@ -97,7 +97,7 @@ MonoBehaviour:
     MaxMagazineSize: 30
     ReloadTime: 1
     BeforeDelay: 0
-    BetweenDelay: 1
+    BetweenDelay: 3
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}

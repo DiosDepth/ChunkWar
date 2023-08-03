@@ -12,7 +12,7 @@ public class AIController : BaseController
 
     public bool isComplexAI = false;
     public AIShip controlledTarget;
-
+    public float updateFrequence = 0.05f;
     [ListDrawerSettings(DraggableItems = true,Expanded =true)]
     public List<AIState> States;
 
@@ -26,6 +26,9 @@ public class AIController : BaseController
 
     public Dictionary<string, List<GameObject>> hearingDic = new Dictionary<string, List<GameObject>>();
     public Dictionary<string, List<GameObject>> seeingDic = new Dictionary<string, List<GameObject>>();
+
+    protected float _nextupdatetime;
+    
 
     public override void Initialization()
     {
@@ -80,7 +83,12 @@ public class AIController : BaseController
         {
             return;
         }
-        currentState.OnUpdate();
+        if(Time.time - _nextupdatetime >= updateFrequence)
+        {
+            currentState.OnUpdate();
+            _nextupdatetime = Time.time;
+        }
+        
     }
 
     public virtual void TransitionToState(string newstatename)
@@ -165,6 +173,7 @@ public class AIController : BaseController
    protected override void Update()
     {
         base.Update();
+        UpdateState();
     }
 
     protected override void OnDestroy()

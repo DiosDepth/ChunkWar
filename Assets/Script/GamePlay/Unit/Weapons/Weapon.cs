@@ -373,7 +373,7 @@ public class Weapon : Unit
 
     public virtual void InitWeaponAttribute()
     {
-        weaponAttribute = new WeaponAttribute();
+    
         if (weaponAttribute.MagazineBased)
         {
             magazine = weaponAttribute.MaxMagazineSize;

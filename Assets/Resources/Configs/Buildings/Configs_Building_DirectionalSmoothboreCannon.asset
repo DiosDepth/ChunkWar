@@ -399,10 +399,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 103
+  ID: 1002
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
-    Name: Weapon_Name_103
+    Name: Weapon_Name_1002
     Desc: 
     Rarity: 0
   Prefab: {fileID: 4947179278027536233, guid: f0d1051c6041ba34c80648924b8b1a68, type: 3}

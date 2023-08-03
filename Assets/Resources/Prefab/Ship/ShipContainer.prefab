@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6993558966075207823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6993558966154590383}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShipContainer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6993558966289445249}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chunks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6993558966541377988}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 5969374876270109530}
   - component: {fileID: 3963970854634867795}
   - component: {fileID: 2820611653935030104}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,18 +175,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6c8b9932e0d3a4cb27555a650c6ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physicalResources: 0
-  energyResources: 0
-  artifacts: []
-  CorePrefab: {fileID: 432568580045104789, guid: d314c1cc4f501a8479abd68e24f34447,
-    type: 3}
-  BasePrefab: {fileID: 432568580045104789, guid: 37d87e5c0cf72ca4d8fe46349cd3a3c1,
-    type: 3}
-  container: {fileID: 6993558966154590384}
-  chunksParent: {fileID: 6993558966289445250}
-  buildingsParent: {fileID: 6993558966075207824}
-  core: {fileID: 0}
   controller: {fileID: 2820611653935030104}
+  buildingsParent: {fileID: 6993558966075207824}
+  isDebug: 0
+  container: {fileID: 6993558966154590384}
+  sprite: {fileID: 0}
+  shipMapCenter: {fileID: 0}
+  mainWeapon: {fileID: 0}
+  pickupCollider: {fileID: 0}
 --- !u!50 &5969374876270109530
 Rigidbody2D:
   serializedVersion: 4
@@ -242,11 +238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ded874e22ff07469478df7ca7ef1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 6993558967189686128}
+  IsUpdate: 0
   rb: {fileID: 5969374876270109530}
   collider: {fileID: 3963970854634867795}
   maxSpeed: 10
   acceleration: 3
-  thresholdMoveSpeed: 0.01
-  chargeAttackMoveSpeedModifer: 0.3
   rotateSpeed: 45
+  controlledTarget: {fileID: 0}

@@ -7,7 +7,11 @@ public abstract class AIAction : MonoBehaviour
     public string Label;
     public bool isDebug = false;
     public bool ActionInProgress { get; set; }
+
+
     protected AIController _controller;
+
+   
     // Start is called before the first frame update
 
     public abstract void UpdateAction();

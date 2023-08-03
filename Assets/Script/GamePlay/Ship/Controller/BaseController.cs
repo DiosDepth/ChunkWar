@@ -88,4 +88,10 @@ public class BaseController : MonoBehaviour
         return _deltaMovement;
 
     }
+
+    public virtual Quaternion CalculateRotation(Vector3 direction)
+    {
+        Quaternion targetrorate = Quaternion.LookRotation(new Vector3(0, 0, 1), direction);
+        return Quaternion.RotateTowards(transform.rotation, targetrorate, rotateSpeed * Time.deltaTime);
+    }
 }

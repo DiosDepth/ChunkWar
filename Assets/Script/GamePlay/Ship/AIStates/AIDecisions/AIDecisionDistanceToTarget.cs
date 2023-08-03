@@ -101,10 +101,7 @@ public class AIDecisionDistanceToTarget : AIDecision
 
     public void GetTarget()
     {
-        if (_controller.GetHearingPlayerTarget() != null)
-        {
-            target = _controller.GetHearingPlayerTarget().transform;
-        }
+        target = RogueManager.Instance.currentShip.transform;
     }
 
 }

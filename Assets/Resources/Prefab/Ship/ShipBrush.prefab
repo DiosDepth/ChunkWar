@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 655347244}
   - component: {fileID: 655347245}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216371873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShadowGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,9 +125,9 @@ GameObject:
   m_Component:
   - component: {fileID: 894699333736277283}
   - component: {fileID: 979493411}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShipBrush
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brushSprite: {fileID: 0}
   ShadowGroup: {fileID: 0}
-  defaultBrushSprite: {fileID: 0}
+  shadowSprite: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   validColor: {r: 0, g: 0, b: 0, a: 0}
   invalidColor: {r: 0, g: 0, b: 0, a: 0}
