@@ -52,11 +52,10 @@ public class PlayerShip : BaseShip
 {
 
     public bool isDebug;
-    public int physicalResources;
-    public int energyResources;
 
 
 
+    public Weapon mainWeapon;
     public GameObject container;
     public SpriteRenderer sprite;
     public Transform shipMapCenter;
@@ -76,8 +75,7 @@ public class PlayerShip : BaseShip
 
     public void LoadRuntimeData(RuntimeData data)
     {
-        physicalResources = data.physicalResources;
-        energyResources = data.energyResources;
+
 
         ShipMapInfo = data.ShipMap;
         UnitInfoList = data.UnitList;
@@ -122,8 +120,7 @@ public class PlayerShip : BaseShip
             UnitInfoList.Add(buildinfo);
         }
     
-        GameManager.Instance.gameEntity.runtimeData.physicalResources = physicalResources;
-        GameManager.Instance.gameEntity.runtimeData.energyResources = energyResources;
+
         GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMapInfo;
         GameManager.Instance.gameEntity.runtimeData.UnitList = UnitInfoList;
     }

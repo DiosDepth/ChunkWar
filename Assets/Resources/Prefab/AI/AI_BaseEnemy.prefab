@@ -44,6 +44,9 @@ GameObject:
   - component: {fileID: 8759831681856360858}
   - component: {fileID: 3502843801109665848}
   - component: {fileID: 4254137073360052133}
+  - component: {fileID: 2179686085320657366}
+  - component: {fileID: 2903285305435842433}
+  - component: {fileID: 46565608200515095}
   m_Layer: 0
   m_Name: AI_BaseEnemy
   m_TagString: Untagged
@@ -126,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainWeapon: {fileID: 0}
   controller: {fileID: 0}
+  buildingsParent: {fileID: 0}
 --- !u!114 &4254137073360052133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,26 +143,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUpdate: 0
-  rb: {fileID: 0}
-  collider: {fileID: 0}
+  rb: {fileID: 2036907068945415827}
+  collider: {fileID: 8759831681856360858}
   maxSpeed: 10
   acceleration: 10
   rotateSpeed: 15
   isComplexAI: 0
-  controlledTarget: {fileID: 0}
-  States: []
+  controlledTarget: {fileID: 3502843801109665848}
+  States:
+  - StateName: Idle
+    Actions:
+    - {fileID: 2179686085320657366}
+    Transitions:
+    - Decision: {fileID: 46565608200515095}
+      TrueState: Move
+      FalseState: 
+  - StateName: Move
+    Actions: []
+    Transitions: []
   currentState:
     StateName: 
     Actions:
-      array: []
+    - {fileID: 0}
     Transitions:
-      array: []
+    - Decision: {fileID: 0}
+      TrueState: 
+      FalseState: 
   previousState:
     StateName: 
     Actions:
-      array: []
+    - {fileID: 0}
     Transitions:
-      array: []
+    - Decision: {fileID: 0}
+      TrueState: 
+      FalseState: 
+--- !u!114 &2179686085320657366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434a8811eec7938498eb863d0643b4c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: 
+  isDebug: 0
+  seeingFrequency: 0.5
+  seeingRadius: 10
+  seeingAngle: 110
+  seeingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  seeingBlockMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &2903285305435842433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0df2d4adbe01d147b575728f22555cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: 
+  isDebug: 0
+  seeingFrequency: 0.5
+  seeingRadius: 10
+  seeingAngle: 110
+  seeingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  seeingBlockMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &46565608200515095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d753fc1ed6a684fad62d7b6213523c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDebug: 0
+  Label: 
+  target: {fileID: 0}
+  compare: 1
+  thresholdDistance: 0
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

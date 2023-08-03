@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseShip : MonoBehaviour
 {
     public Core core;
-    public Weapon mainWeapon;
+
 
     public ShipController controller;
     public GameObject buildingsParent;

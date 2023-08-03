@@ -22,8 +22,7 @@ public class SaveData
 
 public class RuntimeData
 {
-    public int physicalResources;
-    public int energyResources;
+
     
 
     public ChunkPartMapInfo[,] ShipMap = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
@@ -31,9 +30,7 @@ public class RuntimeData
 
     public RuntimeData(PlayerShip shipdata)
     {
-        physicalResources = shipdata.physicalResources;
-        energyResources = shipdata.energyResources;
- 
+
         
         for (int row = 0; row < shipdata.ChunkMap.GetLength(0); row++)
         {
