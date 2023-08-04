@@ -8,7 +8,7 @@ public class BaseController : MonoBehaviour
 
 
     public Rigidbody2D rb;
-    public new CompositeCollider2D collider;
+    public new PolygonCollider2D collider;
     public Vector3 MovementInput { get { return _movementInput; } }
     protected Vector3 _movementInput;
 

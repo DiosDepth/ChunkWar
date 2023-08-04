@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Core : Chunk
 {
-
-    public int energyAmount = 100;
-   
-
-
     public Core()
     {
 
