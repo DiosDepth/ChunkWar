@@ -137,8 +137,20 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: 0
+      physicsShape:
+      - - {x: 5, y: 3}
+        - {x: 4, y: 6}
+        - {x: 2, y: 8}
+        - {x: -2, y: 8}
+        - {x: -4, y: 6}
+        - {x: -5, y: 3}
+        - {x: -6, y: 2}
+        - {x: -6, y: -6}
+        - {x: -4, y: -8}
+        - {x: 4, y: -8}
+        - {x: 6, y: -6}
+        - {x: 6, y: 2}
+      tessellationDetail: 1
       bones: []
       spriteID: 67de5373dd1371e4486cf6f8cd30d383
       internalID: -2039262277
@@ -147,7 +159,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChunkWar_Building_DirectionalSmoothboreCannon
+      name: ChunkWar_Weapon_DirectionalSmoothboreCannon
       rect:
         serializedVersion: 2
         x: 32
@@ -158,7 +170,25 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -3, y: 16}
+        - {x: -4, y: 15}
+        - {x: -4, y: 12}
+        - {x: -3, y: 10}
+        - {x: -3, y: 3}
+        - {x: -4, y: -2}
+        - {x: -6, y: -6}
+        - {x: -6, y: -14}
+        - {x: -4, y: -16}
+        - {x: 4, y: -16}
+        - {x: 6, y: -14}
+        - {x: 6, y: -6}
+        - {x: 4, y: -2}
+        - {x: 3, y: 3}
+        - {x: 3, y: 10}
+        - {x: 4, y: 12}
+        - {x: 4, y: 15}
+        - {x: 3, y: 16}
       tessellationDetail: 0
       bones: []
       spriteID: cba8948cfc1040f41bd1b99fb67b7cba
@@ -210,48 +240,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChunkWar_ChunkPart_001
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 192
-        width: 32
-        height: 16
-      alignment: 9
-      pivot: {x: 0.25, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8a52b91c08b95740b918f3903a22f96
-      internalID: -807605081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ChunkWar_ChunkPart_002
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 160
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.25, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 169a16dbae6800045a5390736659bfb5
-      internalID: 1819244928
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ChunkWar_Core_000
       rect:
         serializedVersion: 2
@@ -273,7 +261,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChunkWar_Unit_LongRangeIonBlaster
+      name: ChunkWar_Weapon_LongRangeIonBlaster
       rect:
         serializedVersion: 2
         x: 64
@@ -284,8 +272,47 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.2173913}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: 0
+      physicsShape:
+      - - {x: -4, y: -41}
+        - {x: 4, y: -41}
+        - {x: 12, y: -33}
+        - {x: 15, y: -30}
+        - {x: 15, y: -22}
+        - {x: 9, y: -18}
+        - {x: 9, y: -2}
+        - {x: 7, y: 0}
+        - {x: 4, y: 0}
+        - {x: 4, y: 17}
+        - {x: 6, y: 17}
+        - {x: 8, y: 19}
+        - {x: 8, y: 24}
+        - {x: 6, y: 26}
+        - {x: 4, y: 26}
+        - {x: 4, y: 30}
+        - {x: 6, y: 36}
+        - {x: 6, y: 43}
+        - {x: 4, y: 45}
+        - {x: 2, y: 45}
+        - {x: 0, y: 43}
+        - {x: -2, y: 45}
+        - {x: -4, y: 45}
+        - {x: -6, y: 43}
+        - {x: -6, y: 36}
+        - {x: -4, y: 30}
+        - {x: -4, y: 26}
+        - {x: -6, y: 26}
+        - {x: -8, y: 24}
+        - {x: -8, y: 19}
+        - {x: -6, y: 17}
+        - {x: -4, y: 17}
+        - {x: -4, y: 0}
+        - {x: -7, y: 0}
+        - {x: -9, y: -2}
+        - {x: -9, y: -18}
+        - {x: -15, y: -22}
+        - {x: -15, y: -30}
+        - {x: -12, y: -33}
+      tessellationDetail: 1
       bones: []
       spriteID: a33c4891afe83f144a682a9e292b68ae
       internalID: -432586034
@@ -294,7 +321,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChunkWar_Unit_TripleNeutronBlaster
+      name: ChunkWar_Weapon_TripleNeutronBlaster
       rect:
         serializedVersion: 2
         x: 192
@@ -305,8 +332,38 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: 0
+      physicsShape:
+      - - {x: 4, y: -29}
+        - {x: 6, y: -30}
+        - {x: 21, y: -30}
+        - {x: 23, y: -28}
+        - {x: 23, y: -12}
+        - {x: 18, y: -7}
+        - {x: 18, y: 1}
+        - {x: 19, y: 2}
+        - {x: 19, y: 13}
+        - {x: 17, y: 15}
+        - {x: 5, y: 15}
+        - {x: 5, y: 20}
+        - {x: 6, y: 21}
+        - {x: 6, y: 32}
+        - {x: -6, y: 32}
+        - {x: -6, y: 21}
+        - {x: -5, y: 20}
+        - {x: -5, y: 15}
+        - {x: -17, y: 15}
+        - {x: -19, y: 13}
+        - {x: -19, y: 2}
+        - {x: -18, y: 1}
+        - {x: -18, y: -7}
+        - {x: -23, y: -12}
+        - {x: -23, y: -28}
+        - {x: -21, y: -30}
+        - {x: -5, y: -30}
+        - {x: -3, y: -29}
+        - {x: -1, y: -25}
+        - {x: 2, y: -25}
+      tessellationDetail: 1
       bones: []
       spriteID: 6d00f3499311ade46917eaa5ad2986e0
       internalID: 1469649811
@@ -326,16 +383,16 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       ChunkWar_Buildings_1: 742372061
-      ChunkWar_Unit_LongRangeIonBlaster: -432586034
+      ChunkWar_Weapon_TripleNeutronBlaster: 1469649811
       ChunkWar_Building_Shadow: 655584963
       ChunkWar_ChunkPart_002: 1819244928
       ChunkWar_Base_000: 143168726
       ChunkWar_Weapon_LightAutoCannon: -2039262277
       ChunkWar_Core_000: -228024418
+      ChunkWar_Weapon_DirectionalSmoothboreCannon: 75351093
+      ChunkWar_Weapon_LongRangeIonBlaster: -432586034
       ChunkWar_Buildings_3: -1340023216
       ChunkWar_Building_BaseBuilding: -1354671227
-      ChunkWar_Building_DirectionalSmoothboreCannon: 75351093
-      ChunkWar_Unit_TripleNeutronBlaster: 30442831
       ChunkWar_ChunkPart_001: -807605081
   spritePackingTag: 
   pSDRemoveMatte: 0

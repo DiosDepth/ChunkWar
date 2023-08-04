@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum OwnerType
+{
+    Player,
+    AI,
+}
+
 [ShowOdinSerializedPropertiesInInspector]
 public class BaseShip : MonoBehaviour
 {

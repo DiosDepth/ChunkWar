@@ -7,7 +7,7 @@ public class Weapon : Unit
     public WeaponFireModeType weaponmode;
     public StateMachine<WeaponState> weaponstate;
 
-    public AvaliableBulletType bulletType = AvaliableBulletType.TestBullet;
+    public AvaliableBulletType bulletType = AvaliableBulletType.None;
     public Transform firePoint;
 
     [SerializeField]

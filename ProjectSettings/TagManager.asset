@@ -16,11 +16,11 @@ TagManager:
   - Water
   - UI
   - Player
+  - PlayerUnit
+  - Energy
   - AI
-  - 
-  - 
-  - 
-  - Trigger
+  - AIUnit
+  - Ballistic
   - CameraBoard
   - DeadZone
   - PickUps
@@ -40,7 +40,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Trigger
   m_SortingLayers:
   - name: Default
     uniqueID: 0

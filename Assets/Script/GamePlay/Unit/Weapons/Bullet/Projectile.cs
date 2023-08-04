@@ -12,14 +12,14 @@ public enum ProjectileMovementType
 }
 
 
-public class Projectile : ShootingObject, IDamageble
+public class Projectile : Bullet, IDamageble
 {
 
     public Rigidbody2D rb;
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
     public float lifeTime = 10;
     public float speed = 2.5f;
-
+   
     /// <summary>
     /// 血量管理组件
     /// </summary>
@@ -91,8 +91,9 @@ public class Projectile : ShootingObject, IDamageble
 
     public override void Destroy()
     {
-        base.Destroy();
         StopCoroutine(startmovingCoroutine);
+        base.Destroy();
+
 
     }
 

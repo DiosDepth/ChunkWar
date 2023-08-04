@@ -74,6 +74,8 @@ public class LevelData : DataInfo
 
 public class BulletData : DataInfo
 {
+    public BulletType BulletType;
+    public OwnerType OwnerType;
     public string PrefabPath;
     public BulletData() { }
 
@@ -82,6 +84,8 @@ public class BulletData : DataInfo
         int.TryParse(row[0], out ID);
         Name = row[1];
         PrefabPath = row[2];
+        BulletType.TryParse(row[3], out BulletType);
+        OwnerType.TryParse(row[4], out OwnerType);
     }
 
     public override void Initialization(string[] row)
@@ -89,6 +93,8 @@ public class BulletData : DataInfo
         int.TryParse(row[0], out ID);
         Name = row[1];
         PrefabPath = row[2];
+        BulletType.TryParse(row[3], out BulletType);
+        OwnerType.TryParse(row[4], out OwnerType);
     }
 }
 

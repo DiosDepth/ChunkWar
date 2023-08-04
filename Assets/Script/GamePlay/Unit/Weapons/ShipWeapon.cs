@@ -174,10 +174,6 @@ public class WeaponAttribute : UnitBaseAttribute
     }
 }
 
-public enum AvaliableBulletType
-{
-    TestBullet,
-}
 
 public class ShipWeapon : Weapon
 {

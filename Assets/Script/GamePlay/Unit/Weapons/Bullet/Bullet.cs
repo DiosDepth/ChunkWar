@@ -2,9 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingObject : PoolableObject
-{
 
+public enum BulletType
+{
+    Ballistic,
+    Energy,
+}
+
+
+public enum AvaliableBulletType
+{
+    None,
+    BaseAIBullet,
+    BasePlayerBullet,
+}
+public class Bullet : PoolableObject
+{
+    public BulletType type;
+    public OwnerType ownertype;
+    public Collider2D bulletCollider;
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -29,6 +45,7 @@ public class ShootingObject : PoolableObject
     public override void Initialization()
     {
         base.Initialization();
+        bulletCollider = transform.GetComponentInChildren<Collider2D>();
     }
 
     public override void Destroy()

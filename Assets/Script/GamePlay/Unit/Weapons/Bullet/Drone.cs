@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drone : ShootingObject
+public class Drone : Bullet
 {
     protected override void OnEnable()
     {

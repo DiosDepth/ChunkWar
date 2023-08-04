@@ -1,2 +1,3 @@
-ID,Name,PrefabPath
-1,TestBullet,Prefab/GameplayPrefab/Bullets/TestBullet
+ID,Name,PrefabPath,BulletType,OwnerType
+1,BasePlayerBullet,Prefab/GameplayPrefab/Bullets/BasePlayerBullet,Ballistic,Player
+101,BaseAIBullet,Prefab/GameplayPrefab/Bullets/BaseAIBullet,Ballistic,AI

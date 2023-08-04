@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3324133008493171840}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4947179278027536151}
   - component: {fileID: 1550267850732327031}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AIWeapon_LightAutoCannon
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   weaponmode: 1
-  bulletType: 0
+  bulletType: 1
   firePoint: {fileID: 3324133008493171840}
   weaponAttribute:
     Rate: 0
@@ -111,9 +111,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4947179279536623989}
   - component: {fileID: 4947179279536623990}
-  m_Layer: 0
+  - component: {fileID: 6744660344864628906}
+  m_Layer: 9
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,3 +186,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &6744660344864628906
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947179279536623991}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.3125, y: 0.1875}
+      - {x: 0.25, y: 0.375}
+      - {x: 0.125, y: 0.5}
+      - {x: -0.125, y: 0.5}
+      - {x: -0.25, y: 0.375}
+      - {x: -0.3125, y: 0.1875}
+      - {x: -0.375, y: 0.125}
+      - {x: -0.375, y: -0.375}
+      - {x: -0.25, y: -0.5}
+      - {x: 0.25, y: -0.5}
+      - {x: 0.375, y: -0.375}
+      - {x: 0.375, y: 0.125}
