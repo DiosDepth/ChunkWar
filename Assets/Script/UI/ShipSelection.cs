@@ -11,7 +11,16 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     private EnhancedScroller _selectionScroller;
     private GeneralScrollerGirdItemController _selectionController;
 
+    private EnhancedScroller _hardLevelScroller;
+    private GeneralScrollerItemController _hardLevelController;
+
+    private CanvasGroup _mainGroup;
+    private CanvasGroup _hardLevelGroup;
+
     private const string ShipSelectionGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipSelectionGroupItem";
+    private const string HardLevelItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/HardLevelModeItem";
+
+    private int currentSelectIndex = 0;
 
     protected override void Awake()
     {
@@ -22,18 +31,15 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     {
         base.Initialization();
         this.EventStartListening<GeneralUIEvent>();
+        _mainGroup = transform.Find("uiGroup").SafeGetComponent<CanvasGroup>();
+        _hardLevelGroup = transform.Find("HardLevelGroup").SafeGetComponent<CanvasGroup>();
         _selectionScroller = transform.Find("uiGroup/SlotPanel/Scroll View").SafeGetComponent<EnhancedScroller>();
+        _hardLevelScroller = transform.Find("HardLevelGroup/Content/Scroll View").SafeGetComponent<EnhancedScroller>();
         _shipIcon = transform.Find("uiGroup/ShipIconPanel/Image").SafeGetComponent<Image>();
-        GetGUIComponent<Button>("Apply").onClick.AddListener(ApplyBtnPressed);
         GetGUIComponent<Button>("Back").onClick.AddListener(BackBtnPressed);
-        InitPlugController();
-    }
-
-
-
-    public void ApplyBtnPressed()
-    {
-        GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
+        InitSelectionController();
+        InitHardLevelController();
+        SwitchToMainGroup();
     }
 
     public void BackBtnPressed()
@@ -64,16 +70,22 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
 
     }
 
-    private void InitPlugController()
+    private void InitSelectionController()
     {
         _selectionController = new GeneralScrollerGirdItemController();
         _selectionController.numberOfCellsPerRow = 11;
         _selectionController.InitPrefab(ShipSelectionGridItem_PrefabPath, true);
-        _selectionController.OnItemSelected += OnShipSelect;
+        _selectionController.OnItemSelected = OnShipSelect;
         _selectionScroller.Delegate = _selectionController;
-        RefreshShipSelectionContent();
     }
 
+    private void InitHardLevelController()
+    {
+        _hardLevelController = new GeneralScrollerItemController();
+        _hardLevelController.InitPrefab(HardLevelItem_PrefabPath, false);
+        _hardLevelController.OnItemSelected = OnHardLevelSelect;
+        _hardLevelScroller.Delegate = _hardLevelController;
+    }
 
     /// <summary>
     /// 刷新插件物品栏
@@ -83,6 +95,22 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         var items = GameHelper.GetAllShipIDs();
         _selectionController.RefreshData(items);
         _selectionScroller.ReloadData();
+    }
+
+    /// <summary>
+    /// 刷新hardLevel选择
+    /// </summary>
+    private void RefreshHardLevelSelection()
+    {
+        var currentSelectShip = RogueManager.Instance.currentShipSelection;
+        if (currentSelectShip == null)
+            return;
+
+        GameManager.Instance.RefreshHardLevelByShip(currentSelectShip.itemconfig.ID);
+
+        var hardLevels = GameHelper.GetAllHardLevels();
+        _hardLevelController.RefreshData(hardLevels);
+        _hardLevelScroller.ReloadData();
     }
 
     /// <summary>
@@ -100,6 +128,12 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _shipIcon.sprite = shipCfg.GeneralConfig.IconSprite;
     }
 
+    private void OnHardLevelSelect(uint uid)
+    {
+
+    }
+
+
     public void OnEvent(GeneralUIEvent evt)
     {
         switch (evt.type)
@@ -109,6 +143,26 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
                 int dataIndex = (int)evt.param[1];
                 OnShipSelect(uid, dataIndex);
                 break;
+            case UIEventType.ShipSelectionConfirm:
+                SwitchToHardLevelGroup();
+                break;
         }
     }
+
+    private void SwitchToMainGroup()
+    {
+        currentSelectIndex = 0;
+        RefreshShipSelectionContent();
+        _mainGroup.ActiveCanvasGroup(true);
+        _hardLevelGroup.ActiveCanvasGroup(false);
+    }
+
+    private void SwitchToHardLevelGroup()
+    {
+        currentSelectIndex = 0;
+        RefreshHardLevelSelection();
+        _mainGroup.ActiveCanvasGroup(false);
+        _hardLevelGroup.ActiveCanvasGroup(true);
+    }
+
 }

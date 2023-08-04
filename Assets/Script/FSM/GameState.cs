@@ -127,7 +127,7 @@ public class EGameState_ShipSelection : GameState
         base.OnEnter();
 
         Debug.Log("GameState = ShipSelection");
-
+        GameManager.Instance.InitHardLevelData();
         UIManager.Instance.HiddenUIALLBut(new List<string> { "LoadingScreen" });
         MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(1, (ac) =>
         {

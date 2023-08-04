@@ -80,6 +80,12 @@ public static class GameHelper
         return allShips.Select(x => (uint)x.ID).ToList();
     }
 
+    public static List<uint> GetAllHardLevels()
+    {
+        var allHardLevel = GameManager.Instance.GetAllHardLevelInfos;
+        return allHardLevel.Select(x => (uint)x.HardLevelID).ToList();
+    }
+
     public static List<uint> GetRogueShipPlugItems()
     {
         var allItems = RogueManager.Instance.GetAllCurrentShipPlugs;
@@ -95,5 +101,10 @@ public static class GameHelper
         return goods;
     }
 
+    public static string GetHardLevelModifyTypeName(HardLevelModifyType type)
+    {
+        string textID = string.Format("HardLevel_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
 
 }

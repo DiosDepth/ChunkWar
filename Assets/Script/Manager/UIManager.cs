@@ -36,7 +36,8 @@ public struct GeneralUIEvent
 
 public enum UIEventType
 {
-    ShipSelectionChange
+    ShipSelectionChange,
+    ShipSelectionConfirm,
 }
 
 public class UIManager : Singleton<UIManager>

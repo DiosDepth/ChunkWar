@@ -60,6 +60,7 @@ public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIIte
         var shipCfg = DataManager.Instance.GetShipConfig((int)ItemUID);
         InventoryItem item = new InventoryItem(shipCfg);
         RogueManager.Instance.currentShipSelection = item;
+        GeneralUIEvent.Trigger(UIEventType.ShipSelectionConfirm);
     }
 
     private void SelectedChanged(bool selected)

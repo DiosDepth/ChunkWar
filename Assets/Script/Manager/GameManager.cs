@@ -80,9 +80,16 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public GameEntity gameEntity;
 
-
-
     public bool isInitialCompleted = false;
+
+    /// <summary>
+    /// 难度等级信息
+    /// </summary>
+    private List<HardLevelInfo> _hardLevels;
+    public List<HardLevelInfo> GetAllHardLevelInfos
+    {
+        get { return _hardLevels; }
+    }
 
     public GameManager()
     {
@@ -93,7 +100,6 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         this.EventStartListening<ScoreEvent>();
         this.EventStartListening<GameStateTransitionEvent>();
         gameEntity = new GameEntity();
-
         Initialization();
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         GMTalkManager.Instance.Initialization();
@@ -283,4 +289,36 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         });
 
     }
+
+    #region HardLevel
+
+    public HardLevelInfo GetHardLevelInfoByID(int hardLevelID)
+    {
+        return _hardLevels.Find(x => x.HardLevelID == hardLevelID);
+    }
+
+    /// <summary>
+    /// 刷新指定舰船的hardlevel信息
+    /// </summary>
+    /// <param name="shipID"></param>
+    public void RefreshHardLevelByShip(int shipID)
+    {
+        for(int i = 0; i < _hardLevels.Count; i++)
+        {
+            _hardLevels[i].RefreshShipHardLevel(shipID);
+        }
+    }
+
+    public void InitHardLevelData()
+    {
+        _hardLevels = new List<HardLevelInfo>();
+        var allhardLevels = DataManager.Instance.battleCfg.HardLevels;
+        for (int i = 0; i < allhardLevels.Count; i++)
+        {
+            HardLevelInfo info = new HardLevelInfo(allhardLevels[i]);
+            _hardLevels.Add(info);
+        }
+    }
+
+    #endregion
 }

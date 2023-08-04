@@ -2,7 +2,12 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector.Editor;
+
+public enum HardLevelModifyType
+{
+    EnemyHP,
+    EnemyDamage,
+}
 
 public class BattleMainConfig : SerializedScriptableObject
 {
@@ -25,14 +30,23 @@ public class BattleMainConfig : SerializedScriptableObject
             return PropertyDisplay[key];
         return null;
     }
+
+    public HardLevelConfig GetHardLevelConfig(int hardLevelID)
+    {
+        return HardLevels.Find(x => x.HardLevelID == hardLevelID);
+    }
 }
 
-[System.Serializable]
 [HideReferenceObjectPicker]
 public class HardLevelConfig
 {
     public int HardLevelID;
     public string Name;
+    public string Desc;
+    public Sprite Icon;
+
+    [DictionaryDrawerSettings()]
+    public Dictionary<HardLevelModifyType, float> ModifyDic = new Dictionary<HardLevelModifyType, float>();
 
     public List<WaveConfig> WaveConfig = new List<WaveConfig>();
 }
