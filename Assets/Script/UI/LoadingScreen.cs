@@ -6,9 +6,9 @@ using UnityEngine.Events;
 public class LoadingScreen : GUIBasePanel
 {
 
-    private RectTransform leftDoor;
-    private RectTransform rightDoor;
-    private CanvasGroup loadingText;
+    public RectTransform leftDoor;
+    public RectTransform rightDoor;
+    public CanvasGroup loadingText;
 
     public bool state = false;
 
