@@ -51,6 +51,7 @@ public enum RogueEventType
 
 public enum ShipPropertyEventType
 {
+    CoreHPChange,
     EXPChange,
     LevelUp,
 }

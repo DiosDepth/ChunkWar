@@ -66,6 +66,7 @@ public class PlayerShip : BaseShip
     private List<UnitInfo> UnitInfoList = new List<UnitInfo>();
 
     private Dictionary<ShipMainProperty, ChangeValue<float>> _mainPropertyDic;
+    public PlayerShipConfig playerShipCfg;
 
     /// <summary>
     /// 是否编辑模式
@@ -84,8 +85,6 @@ public class PlayerShip : BaseShip
 
     public void LoadRuntimeData(RuntimeData data)
     {
-
-
         ShipMapInfo = data.ShipMap;
         UnitInfoList = data.UnitList;
     }
@@ -137,6 +136,9 @@ public class PlayerShip : BaseShip
     public override void Initialization()
     {
         base.Initialization();
+        var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
+        playerShipCfg = shipCfg;
+        baseShipCfg = shipCfg;
     }
 
     public void CreateShip(bool editorShip = false)
@@ -187,7 +189,7 @@ public class PlayerShip : BaseShip
         //初始化主武器
         if( mainWeapon == null)
         {
-            var weaponID = (RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig).MainWeaponID;
+            var weaponID = playerShipCfg.MainWeaponID;
             BaseUnitConfig weaponconfig;
             DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
             Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);

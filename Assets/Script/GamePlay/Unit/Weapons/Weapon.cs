@@ -34,7 +34,6 @@ public class Weapon : Unit
     {
         this._weaponCfg = m_unitconfig as WeaponConfig;
         InitWeaponAttribute(m_owner is PlayerShip);
-        base.Initialization(m_owner,m_unitconfig);
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
         DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
         if (_bulletdata == null)
@@ -44,10 +43,17 @@ public class Weapon : Unit
 
         firePoint = transform.Find("FirePoint");
 
+        base.Initialization(m_owner, m_unitconfig);
+
         if (_owner is PlayerShip)
         {
             var playerShip = _owner as PlayerShip;
             _isActive = !playerShip.IsEditorShip;
+            if(!playerShip.IsEditorShip && playerShip.playerShipCfg.MainWeaponID == _weaponCfg.ID)
+            {
+                ///MainCore
+                InitCoreData();
+            }
         }
     }
 
@@ -403,5 +409,18 @@ public class Weapon : Unit
         weaponAttribute.InitProeprty(_weaponCfg, isPlayerShip);
         baseAttribute = weaponAttribute;
 
+    }
+
+    /// <summary>
+    /// 初始化核心信息
+    /// </summary>
+    private void InitCoreData()
+    {
+        HpComponent.BindHPChangeAction(OnPlayerCoreHPChange, false);
+    }
+
+    private void OnPlayerCoreHPChange()
+    {
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.CoreHPChange);
     }
 }
