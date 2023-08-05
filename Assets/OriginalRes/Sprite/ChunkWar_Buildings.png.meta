@@ -209,7 +209,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
       spriteID: ef4b25bcfc585c54aa572f4656f74b9f
@@ -287,19 +291,14 @@ TextureImporter:
         - {x: 8, y: 19}
         - {x: 8, y: 24}
         - {x: 6, y: 26}
-        - {x: 4, y: 26}
-        - {x: 4, y: 30}
-        - {x: 6, y: 36}
-        - {x: 6, y: 43}
-        - {x: 4, y: 45}
-        - {x: 2, y: 45}
-        - {x: 0, y: 43}
-        - {x: -2, y: 45}
-        - {x: -4, y: 45}
-        - {x: -6, y: 43}
-        - {x: -6, y: 36}
-        - {x: -4, y: 30}
-        - {x: -4, y: 26}
+        - {x: 3, y: 26}
+        - {x: 3, y: 31}
+        - {x: 4, y: 36}
+        - {x: 4, y: 40}
+        - {x: -4, y: 40}
+        - {x: -4, y: 36}
+        - {x: -3, y: 31}
+        - {x: -3, y: 26}
         - {x: -6, y: 26}
         - {x: -8, y: 24}
         - {x: -8, y: 19}
@@ -371,6 +370,45 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ChunkWar_Weapon_MachineGun
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 208
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 19, y: 3}
+        - {x: 15, y: 9}
+        - {x: 10, y: 13}
+        - {x: 10, y: 20}
+        - {x: 8, y: 22}
+        - {x: -8, y: 22}
+        - {x: -10, y: 20}
+        - {x: -10, y: 13}
+        - {x: -15, y: 9}
+        - {x: -19, y: 3}
+        - {x: -19, y: -17}
+        - {x: -17, y: -19}
+        - {x: -8, y: -19}
+        - {x: -6, y: -21}
+        - {x: 6, y: -21}
+        - {x: 8, y: -19}
+        - {x: 17, y: -19}
+        - {x: 19, y: -17}
+      tessellationDetail: 1
+      bones: []
+      spriteID: 22e57f017dd5ed14caf73fb06cc81e6c
+      internalID: -339013081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -384,6 +422,7 @@ TextureImporter:
     nameFileIdTable:
       ChunkWar_Buildings_1: 742372061
       ChunkWar_Weapon_TripleNeutronBlaster: 1469649811
+      ChunkWar_Weapon_MachineGun: -339013081
       ChunkWar_Building_Shadow: 655584963
       ChunkWar_ChunkPart_002: 1819244928
       ChunkWar_Base_000: 143168726

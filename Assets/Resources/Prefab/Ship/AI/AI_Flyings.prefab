@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3317253676089322026}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: ShipMapCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,15 +41,15 @@ GameObject:
   m_Component:
   - component: {fileID: 3431155976711396024}
   - component: {fileID: 2036907068945415827}
-  - component: {fileID: 8759831681856360858}
+  - component: {fileID: 5808496827415363717}
   - component: {fileID: 3502843801109665848}
   - component: {fileID: 4254137073360052133}
   - component: {fileID: 2903285305435842433}
   - component: {fileID: 3443234521725163642}
   - component: {fileID: 46565608200515095}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: AI_Flyings
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,8 +93,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!66 &8759831681856360858
-CompositeCollider2D:
+--- !u!60 &5808496827415363717
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -107,14 +107,21 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
+  m_SpriteTilingProperty:
+    border: {x: 0.0625, y: 0.0625, z: 0.0625, w: 0.0625}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 21, y: 21.030762}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: -0.5}
+      - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: 0.5}
 --- !u!114 &3502843801109665848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 8759831681856360858}
+  collider: {fileID: 5808496827415363717}
   maxSpeed: 7
   acceleration: 15
   rotateSpeed: 180
@@ -236,7 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3431155977748982856}
   - component: {fileID: 4295464997389306757}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Sprit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,8 +303,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -402000637
-  m_SortingLayer: 3
+  m_SortingLayerID: -689723199
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 143168726, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -319,7 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3431155977828216134}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,6 +356,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3431155977828216134}
     m_Modifications:
+    - target: {fileID: 4115382653730551155, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
         type: 3}
       propertyPath: m_RootOrder
@@ -408,6 +420,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AIWeapon_LightAutoCannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179278027536233, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947179279536623991, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9109a6e2ad23d4b44b85d96f2cf74329, type: 3}

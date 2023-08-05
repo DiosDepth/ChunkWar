@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579860166224230223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 11
-  m_Sprite: {fileID: 1469649811, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+  m_Sprite: {fileID: -339013081, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3581387734596194110}
   - component: {fileID: 6078349556139830883}
   m_Layer: 7
-  m_Name: Weapon_TripleNeutronBlaster
+  m_Name: Weapon_MechinaGun
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,11 +168,11 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3, y: 4}
+    oldSize: {x: 3, y: 3}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -180,36 +180,24 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.25, y: -1.8125}
-      - {x: 0.375, y: -1.875}
-      - {x: 1.3125, y: -1.875}
-      - {x: 1.4375, y: -1.75}
-      - {x: 1.4375, y: -0.75}
-      - {x: 1.125, y: -0.4375}
-      - {x: 1.125, y: 0.0625}
-      - {x: 1.1875, y: 0.125}
-      - {x: 1.1875, y: 0.8125}
-      - {x: 1.0625, y: 0.9375}
-      - {x: 0.3125, y: 0.9375}
-      - {x: 0.3125, y: 1.25}
-      - {x: 0.375, y: 1.3125}
-      - {x: 0.375, y: 2}
-      - {x: -0.375, y: 2}
-      - {x: -0.375, y: 1.3125}
-      - {x: -0.3125, y: 1.25}
-      - {x: -0.3125, y: 0.9375}
-      - {x: -1.0625, y: 0.9375}
-      - {x: -1.1875, y: 0.8125}
-      - {x: -1.1875, y: 0.125}
-      - {x: -1.125, y: 0.0625}
-      - {x: -1.125, y: -0.4375}
-      - {x: -1.4375, y: -0.75}
-      - {x: -1.4375, y: -1.75}
-      - {x: -1.3125, y: -1.875}
-      - {x: -0.3125, y: -1.875}
-      - {x: -0.1875, y: -1.8125}
-      - {x: -0.0625, y: -1.5625}
-      - {x: 0.125, y: -1.5625}
+    - - {x: 1.1875, y: 0.1875}
+      - {x: 0.9375, y: 0.5625}
+      - {x: 0.625, y: 0.8125}
+      - {x: 0.625, y: 1.25}
+      - {x: 0.5, y: 1.375}
+      - {x: -0.5, y: 1.375}
+      - {x: -0.625, y: 1.25}
+      - {x: -0.625, y: 0.8125}
+      - {x: -0.9375, y: 0.5625}
+      - {x: -1.1875, y: 0.1875}
+      - {x: -1.1875, y: -1.0625}
+      - {x: -1.0625, y: -1.1875}
+      - {x: -0.5, y: -1.1875}
+      - {x: -0.375, y: -1.3125}
+      - {x: 0.375, y: -1.3125}
+      - {x: 0.5, y: -1.1875}
+      - {x: 1.0625, y: -1.1875}
+      - {x: 1.1875, y: -1.0625}
 --- !u!1 &4327842685702392280
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327842685702392280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

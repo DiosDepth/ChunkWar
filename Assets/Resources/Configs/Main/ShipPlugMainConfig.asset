@@ -84,7 +84,7 @@ MonoBehaviour:
     - ModifyKey: 8
       Value: 0
     - ModifyKey: 9
-      Value: 5
+      Value: 15
   - ID: 4
     GeneralConfig:
       IconSprite: {fileID: 0}

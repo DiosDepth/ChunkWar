@@ -99,7 +99,23 @@ public class Projectile : Bullet, IDamageble
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        PoolManager.Instance.GetObjectAsync(PoolManager.Instance.VFXPath + "DestroyVFX", true, (obj) => 
+        //PoolManager.Instance.GetObjectAsync(PoolManager.Instance.VFXPath + "DestroyVFX", true, (obj) => 
+        //{
+        //    obj.transform.position = this.transform.position;
+        //    obj.GetComponent<ParticleController>().SetActive();
+        //    obj.GetComponent<ParticleController>().PlayVFX();
+
+        //});
+        //Destroy();
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == this.tag)
+        {
+            return;
+        }
+        PoolManager.Instance.GetObjectAsync(PoolManager.Instance.VFXPath + "DestroyVFX", true, (obj) =>
         {
             obj.transform.position = this.transform.position;
             obj.GetComponent<ParticleController>().SetActive();
