@@ -121,7 +121,7 @@ public class Projectile : Bullet, IDamageble
             if (_owner is Weapon)
             {
                 int damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                collision.GetComponent<Unit>()?.TakeDamage(damage);
+                collision.GetComponent<Unit>()?.TakeDamage(-damage);
             }
             Death();
         }

@@ -89,14 +89,14 @@ public class WeaponAttribute : UnitBaseAttribute
             var damage = BaseDamage + BaseDamageModifyValue;
             var damagePercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamagePercent);
             var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
-            var finalDamage = Mathf.Clamp(damage * (1 + damagePercent) * ratio, 0, int.MaxValue);
+            var finalDamage = Mathf.Clamp(damage * (1 + damagePercent / 100f) * ratio, 0, int.MaxValue);
             return Mathf.RoundToInt(finalDamage);
         }
         else
         {
             var damageRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
             var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
-            var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio) * ratio, 0, int.MaxValue);
+            var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio / 100f) * ratio, 0, int.MaxValue);
             return Mathf.RoundToInt(damage);
         }
     }

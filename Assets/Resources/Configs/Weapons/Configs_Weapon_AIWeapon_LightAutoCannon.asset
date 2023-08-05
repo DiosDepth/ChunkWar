@@ -412,11 +412,12 @@ MonoBehaviour:
   redirection: 1
   BaseHP: 100
   DamageBase: 10
-  DamageRatioMin: 0
-  DamageRatioMax: 0
+  DamageRatioMin: 0.75
+  DamageRatioMax: 1.12
   DamageType: 0
   BaseTransfixion: 0
   BaseRange: 15
   BaseCriticalRate: 0
   CriticalDamage: 0
+  DamageCount: 0
   DamageModifyFrom: []

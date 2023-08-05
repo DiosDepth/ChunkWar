@@ -3,6 +3,9 @@ using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BaseConfig : SerializedScriptableObject
 {
@@ -104,6 +107,18 @@ public class BaseConfig : SerializedScriptableObject
     {
 
     }
+
+#if UNITY_EDITOR
+
+    [OnInspectorDispose]
+    private void Save()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+#endif
+
 }
 
 

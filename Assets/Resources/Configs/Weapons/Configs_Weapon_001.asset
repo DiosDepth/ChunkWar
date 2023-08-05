@@ -403,7 +403,7 @@ MonoBehaviour:
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
     Name: Weapon_Name_10000
-    Desc: 
+    Desc: Weapon_Desc_10000
     Rarity: 0
   Prefab: {fileID: 4947179278027536233, guid: f0d1051c6041ba34c80648924b8b1a68, type: 3}
   m_FlattendMapLayout: 
@@ -412,8 +412,8 @@ MonoBehaviour:
   redirection: 1
   BaseHP: 60
   DamageBase: 20
-  DamageRatioMin: 0
-  DamageRatioMax: 0
+  DamageRatioMin: 0.95
+  DamageRatioMax: 1.2
   DamageType: 0
   BaseTransfixion: 0
   BaseRange: 60

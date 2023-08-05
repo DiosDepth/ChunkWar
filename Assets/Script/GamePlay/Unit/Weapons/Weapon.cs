@@ -33,7 +33,7 @@ public class Weapon : Unit
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         this._weaponCfg = m_unitconfig as WeaponConfig;
-        InitWeaponAttribute();
+        InitWeaponAttribute(m_owner is PlayerShip);
         base.Initialization(m_owner,m_unitconfig);
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
         DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
@@ -386,7 +386,7 @@ public class Weapon : Unit
         return base.TakeDamage(value);
     }
 
-    public virtual void InitWeaponAttribute()
+    public virtual void InitWeaponAttribute(bool isPlayerShip)
     {
     
         if (weaponAttribute.MagazineBased)
@@ -400,7 +400,7 @@ public class Weapon : Unit
         _chargeCounter = weaponAttribute.ChargeTime;
         _reloadCounter = weaponAttribute.ReloadTime;
 
-        weaponAttribute.InitProeprty(_weaponCfg, _owner is PlayerShip);
+        weaponAttribute.InitProeprty(_weaponCfg, isPlayerShip);
         baseAttribute = weaponAttribute;
 
     }
