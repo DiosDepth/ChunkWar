@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShopItemPropertyCmpt : MonoBehaviour
+public class ItemPropertyModifyCmpt : PoolableObject
 {
     private Image _icon;
     private Text _nameText;

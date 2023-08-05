@@ -67,3 +67,7 @@ MonoBehaviour:
     ChineseSimplified: "\u9009\u62E9\u6A21\u5F0F"
     English: 
     Japanese: 
+  - TextID: ShipSelection_InfoTitle
+    ChineseSimplified: "\u8230\u8239\u4FE1\u606F"
+    English: 
+    Japanese: 

@@ -71,11 +71,11 @@ public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIIte
     public void OnHoverEnter()
     {
         GeneralUIEvent.Trigger(UIEventType.ShipSelectionChange, ItemUID, DataIndex);
-        SelectedChanged(true);
+        _item.Selected = true;
     }
 
     public void OnHoverExit()
     {
-        SelectedChanged(false);
+        _item.Selected = false;
     }
 }

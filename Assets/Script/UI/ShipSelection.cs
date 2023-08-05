@@ -8,6 +8,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     public RectTransform slotGroup;
     private Image _shipIcon;
 
+    private ShipSelectionInfoPanel _infoPanel;
     private EnhancedScroller _selectionScroller;
     private GeneralScrollerGirdItemController _selectionController;
 
@@ -36,10 +37,12 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _selectionScroller = transform.Find("uiGroup/SlotPanel/Scroll View").SafeGetComponent<EnhancedScroller>();
         _hardLevelScroller = transform.Find("HardLevelGroup/Content/Scroll View").SafeGetComponent<EnhancedScroller>();
         _shipIcon = transform.Find("uiGroup/ShipIconPanel/Image").SafeGetComponent<Image>();
+        _infoPanel = transform.Find("uiGroup/InfoPanel").SafeGetComponent<ShipSelectionInfoPanel>();
         GetGUIComponent<Button>("Back").onClick.AddListener(BackBtnPressed);
         InitSelectionController();
         InitHardLevelController();
         SwitchToMainGroup();
+        SetFirstChooseShip();
     }
 
     public void BackBtnPressed()
@@ -126,6 +129,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
             return;
 
         _shipIcon.sprite = shipCfg.GeneralConfig.IconSprite;
+        _infoPanel.SetUpShipInfo(shipCfg);
     }
 
     private void OnHardLevelSelect(uint uid)
@@ -165,4 +169,17 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _hardLevelGroup.ActiveCanvasGroup(true);
     }
 
+    /// <summary>
+    /// Ñ¡Ôñ½¢´¬
+    /// </summary>
+    /// <param name="dataIndex"></param>
+    private void SetFirstChooseShip()
+    {
+        var item = _selectionScroller.GetCellViewAtDataIndex(0);
+        if (item != null && item is ShipSelectionGroupItemCmpt)
+        {
+            var group = item as ShipSelectionGroupItemCmpt;
+            group.items[0].OnHoverEnter();
+        }
+    }
 }

@@ -178,7 +178,7 @@ public class ShopSlotItem : MonoBehaviour
         {
             PoolManager.Instance.GetObjectSync(ShopPropertyItem_PrefabPath, true, (obj) =>
             {
-                var cmpt = obj.GetComponent<ShopItemPropertyCmpt>();
+                var cmpt = obj.GetComponent<ItemPropertyModifyCmpt>();
                 cmpt.SetUp(cfgs[index].ModifyKey, cfgs[index].Value);
                 index++;
             }, PropertyModifyRoot);
