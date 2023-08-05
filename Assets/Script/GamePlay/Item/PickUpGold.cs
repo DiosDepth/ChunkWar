@@ -5,6 +5,9 @@ using UnityEngine;
 public class PickUpGold : PickableItem
 {
 
+    public float CurrencyGain = 1;
+    public float EXPGain = 1;
+
     // Start is called before the first frame update
     protected override void Start()
     {

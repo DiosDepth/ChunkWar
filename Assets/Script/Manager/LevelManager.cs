@@ -43,7 +43,7 @@ public enum AvaliableLevel
     ShipSelectionLevel,
 }
 
-public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
+public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, EventListener<PickableItemEvent>
 {
     public string shipPrefabPath = "Prefab/Chunk/ShipContainer";
     private AsyncOperation asy;
@@ -62,25 +62,13 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
     {
         Initialization();
         this.EventStartListening<LevelEvent>();
-
+        this.EventStartListening<PickableItemEvent>();
     }
 
     public override void Initialization()
     {
         base.Initialization();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnEvent(LevelEvent evt)
     {
         switch (evt.evtType)
@@ -92,14 +80,24 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>
 
                 break;
             case LevelEventType.LevelActive:
-
-              
                 break;
         }
-
     }
 
-
+    /// <summary>
+    /// 拾取物Event
+    /// </summary>
+    /// <param name="evt"></param>
+    public void OnEvent(PickableItemEvent evt)
+    {
+        var pickedItem = evt.PickedItem;
+        if(pickedItem is PickUpGold)
+        {
+            var gold = pickedItem as PickUpGold;
+            RogueManager.Instance.AddCurrency(gold.CurrencyGain);
+            RogueManager.Instance.AddEXP(gold.EXPGain);
+        }
+    }
 
 
     public void StartSpawn()

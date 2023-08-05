@@ -97,13 +97,13 @@ public class RogueManager : Singleton<RogueManager>
         get { return _waveIndex; }
     }
 
-    private ChangeValue<int> _playerCurrency;
+    private ChangeValue<float> _playerCurrency;
     /// <summary>
     /// 当前货币
     /// </summary>
     public int CurrentCurrency
     {
-        get { return _playerCurrency.Value; }
+        get { return Mathf.RoundToInt(_playerCurrency.Value); }
     }
 
     /// <summary>
@@ -157,15 +157,17 @@ public class RogueManager : Singleton<RogueManager>
     /// 增加货币
     /// </summary>
     /// <param name="value"></param>
-    public void AddCurrency(int value)
+    public void AddCurrency(float value)
     {
+        var currencyGainAdd = MainPropertyData.GetPropertyFinal(PropertyModifyKey.CurrencyAddPercent);
+
         var oldValue = _playerCurrency.Value;
-        var newValue = oldValue + value;
+        var newValue = oldValue + (value * (1 + currencyGainAdd / 100f));
         _playerCurrency.Set(newValue);
     }
 
 
-    private void OnCurrencyChange(int oldValue, int newValue)
+    private void OnCurrencyChange(float oldValue, float newValue)
     {
         RogueEvent.Trigger(RogueEventType.CurrencyChange);
     }
@@ -175,7 +177,7 @@ public class RogueManager : Singleton<RogueManager>
         HarborTempUnitSlotCount = DataManager.Instance.battleCfg.HarborMapTempUnitSlotCount;
         var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
         _shipLevel = new ChangeValue<byte>(1, 1, maxLevel);
-        _currentEXP = new ChangeValue<int>(0, 0, int.MaxValue);
+        _currentEXP = new ChangeValue<float>(0, 0, int.MaxValue);
         CurrentRequireEXP = GameHelper.GetEXPRequireMaxCount(GetCurrentShipLevel);
 
         _currentEXP.BindChangeAction(OnCurrrentEXPChange);
@@ -196,10 +198,10 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// 当前EXP
     /// </summary>
-    private ChangeValue<int> _currentEXP;
+    private ChangeValue<float> _currentEXP;
     public int GetCurrentExp
     {
-        get { return _currentEXP.Value; }
+        get { return Mathf.RoundToInt(_currentEXP.Value); }
     }
 
     /// <summary>
@@ -223,9 +225,11 @@ public class RogueManager : Singleton<RogueManager>
     /// 增加经验值
     /// </summary>
     /// <param name="value"></param>
-    public void AddEXP(int value)
+    public void AddEXP(float value)
     {
-        var targetValue = GetCurrentExp + value;
+        var expAddtion = MainPropertyData.GetPropertyFinal(PropertyModifyKey.EXPAddPercent);
+
+        var targetValue = GetCurrentExp + value * (1 + expAddtion / 100f);
         while (targetValue >= CurrentRequireEXP)
         {
             ///LevelUp
@@ -249,7 +253,7 @@ public class RogueManager : Singleton<RogueManager>
         
     }
 
-    private void OnCurrrentEXPChange(int old, int newValue)
+    private void OnCurrrentEXPChange(float old, float newValue)
     {
         ShipPropertyEvent.Trigger(ShipPropertyEventType.EXPChange);
     }
@@ -418,7 +422,7 @@ public class RogueManager : Singleton<RogueManager>
     private void InitShopData()
     {
         MainPropertyData.RegisterRowProperty(PropertyModifyKey.ShopRefreshCount, DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum);
-        _playerCurrency = new ChangeValue<int>(1000, int.MinValue, int.MaxValue);
+        _playerCurrency = new ChangeValue<float>(1000, int.MinValue, int.MaxValue);
         _playerCurrency.BindChangeAction(OnCurrencyChange);
         CurrentRerollCost = GetCurrentRefreshCost();
 

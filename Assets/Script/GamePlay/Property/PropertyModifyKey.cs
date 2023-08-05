@@ -31,4 +31,9 @@ public enum PropertyModifyKey
     SuckerRange,
     EnemyHPPercent,
     EnemyDamagePercent,
+    /// <summary>
+    /// 经验额外获得百分比
+    /// </summary>
+    EXPAddPercent,
+    CurrencyAddPercent,
 }

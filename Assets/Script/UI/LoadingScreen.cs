@@ -6,21 +6,17 @@ using UnityEngine.Events;
 public class LoadingScreen : GUIBasePanel
 {
 
-    public RectTransform leftDoor;
-    public RectTransform rightDoor;
-    public CanvasGroup loadingText;
+    private RectTransform leftDoor;
+    private RectTransform rightDoor;
+    private CanvasGroup loadingText;
 
     public bool state = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Awake()
     {
-        
+        leftDoor = transform.Find("uiGroup/LeftDoor_Image").SafeGetComponent<RectTransform>();
+        rightDoor = transform.Find("uiGroup/RightDoor_Image").SafeGetComponent<RectTransform>();
+        loadingText = transform.Find("uiGroup/Text (TMP)").SafeGetComponent<CanvasGroup>();
     }
 
     public override void Initialization()
