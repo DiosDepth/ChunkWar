@@ -5,6 +5,10 @@ using System.Linq;
 
 public static class GameHelper 
 {
+    public static string ShopItemType_ShipPlug_Text = "ShopItemType_ShipPlug_Text";
+    public static string ShopItemType_ShipBuilding_Text = "ShopItemType_ShipBuilding_Text";
+    public static string ShopItemType_ShipWeapon_Text = "ShopItemType_ShipWeapon_Text";
+
     #region Battle
 
     /// <summary>
@@ -107,4 +111,73 @@ public static class GameHelper
         return LocalizationManager.Instance.GetTextValue(textID);
     }
 
+    public static string GetUI_WeaponUnitPropertyType(UI_WeaponUnitPropertyType type)
+    {
+        string textID = string.Format("UI_WeaponProperty_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
+
+    public static string GetWeaponPropertyDescContent(UI_WeaponUnitPropertyType type, WeaponConfig cfg)
+    {
+        var propertyData = RogueManager.Instance.MainPropertyData;
+        if (type == UI_WeaponUnitPropertyType.Critical)
+        {
+            var criticalRateRow = propertyData.GetPropertyFinal(PropertyModifyKey.Critical);
+            string criticalRate = string.Format("{0:F1}" ,criticalRateRow + cfg.BaseCriticalRate);
+            var criticalDamageRow = propertyData.GetPropertyFinal(PropertyModifyKey.CriticalDamagePercentAdd);
+            string criticalDamage = string.Format("{0:F1}", criticalDamageRow + cfg.CriticalDamage);
+            return string.Format("{0}% | {1}%", criticalRate, criticalDamage);
+        }
+        else if (type == UI_WeaponUnitPropertyType.HP)
+        {
+            var hprow = propertyData.GetPropertyFinal(PropertyModifyKey.HP);
+            int hp = Mathf.CeilToInt(hprow + cfg.BaseHP);
+            return hp.ToString();
+        }
+        else if (type == UI_WeaponUnitPropertyType.DamageRatio)
+        {
+            return string.Format("{0:F2} ~ {1:F2}", cfg.DamageRatioMin, cfg.DamageRatioMax);
+        }
+        else if (type == UI_WeaponUnitPropertyType.Damage)
+        {
+            var damageCount = cfg.DamageCount;
+            var damage = CalculteWeaponDamage(cfg);
+
+            if(damageCount > 1)
+            {
+                return string.Format("{0} X{1}", damage, damageCount);
+            }
+            else
+            {
+                return string.Format("{0}", damage);
+            }
+        }
+        else if(type == UI_WeaponUnitPropertyType.Range)
+        {
+            var rangerow = propertyData.GetPropertyFinal(PropertyModifyKey.WeaponRange);
+            int range = Mathf.RoundToInt(rangerow + cfg.BaseRange);
+            return range.ToString();
+        }
+
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// º∆À„Œ‰∆˜µƒ…À∫¶
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    private static int CalculteWeaponDamage(WeaponConfig cfg)
+    {
+        float rowDamage = cfg.DamageBase;
+
+        for(int i = 0; i < cfg.DamageModifyFrom.Count; i++)
+        {
+            var item = cfg.DamageModifyFrom[i];
+            var value = RogueManager.Instance.MainPropertyData.GetPropertyFinal(item.PropertyKey);
+            rowDamage += value * item.Ratio;
+        }
+        rowDamage = Mathf.Clamp(rowDamage, 0, rowDamage);
+        return Mathf.RoundToInt(rowDamage);
+    }
 }

@@ -182,7 +182,7 @@ public class ShipBuilder : MonoBehaviour
                 //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
                 for (int i = 0; i < _tempmap.Length; i++)
                 {
-                    Debug.Log("[" + i + "] " + "ReletiveCoord : " + _reletiveCoord[i] + "  Tempmap : " + _tempmap[i]);
+                    //Debug.Log("[" + i + "] " + "ReletiveCoord : " + _reletiveCoord[i] + "  Tempmap : " + _tempmap[i]);
                     _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
                     if (editorShip.ChunkMap[_temparray.x, _temparray.y] == null)
                     {

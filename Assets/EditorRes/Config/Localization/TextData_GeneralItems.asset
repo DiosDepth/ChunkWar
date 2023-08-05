@@ -47,11 +47,11 @@ MonoBehaviour:
     ChineseSimplified: "\u5546\u54C16"
     English: 
     Japanese: 
-  - TextID: Weapon_Name_103
+  - TextID: Weapon_Name_10000
     ChineseSimplified: "\u52A0\u519C\u70AE"
     English: 
     Japanese: 
-  - TextID: Weapon_Name_102
+  - TextID: Weapon_Name_10001
     ChineseSimplified: "\u6495\u88C2\u8005\u52A0\u519C"
     English: 
     Japanese: 

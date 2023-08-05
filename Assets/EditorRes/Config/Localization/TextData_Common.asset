@@ -51,3 +51,31 @@ MonoBehaviour:
     ChineseSimplified: "\u654C\u4EBA\u4F24\u5BB3"
     English: 
     Japanese: 
+  - TextID: ShopItemType_ShipPlug_Text
+    ChineseSimplified: "\u82AF\u7247"
+    English: 
+    Japanese: 
+  - TextID: ShopItemType_ShipBuilding_Text
+    ChineseSimplified: "\u6A21\u5757"
+    English: 
+    Japanese: 
+  - TextID: ShopItemType_ShipWeapon_Text
+    ChineseSimplified: "\u6B66\u5668"
+    English: 
+    Japanese: 
+  - TextID: UI_WeaponProperty_Damage_Name
+    ChineseSimplified: "\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: UI_WeaponProperty_Critical_Name
+    ChineseSimplified: "\u66B4\u51FB | \u66B4\u51FB\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: UI_WeaponProperty_Range_Name
+    ChineseSimplified: "\u8303\u56F4"
+    English: 
+    Japanese: 
+  - TextID: UI_WeaponProperty_DamageRatio_Name
+    ChineseSimplified: "\u4F24\u5BB3\u6D6E\u52A8"
+    English: 
+    Japanese: 

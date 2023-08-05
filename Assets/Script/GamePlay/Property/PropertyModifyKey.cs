@@ -36,4 +36,8 @@ public enum PropertyModifyKey
     /// </summary>
     EXPAddPercent,
     CurrencyAddPercent,
+    /// <summary>
+    /// ±©»÷ÉËº¦Ôö¼Ó
+    /// </summary>
+    CriticalDamagePercentAdd,
 }

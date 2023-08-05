@@ -201,14 +201,14 @@ MonoBehaviour:
   - GoodID: 5
     Weight: 20
     ItemType: 0
-    TypeID: 102
+    TypeID: 10000
     CostBase: 15
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 6
     Weight: 20
     ItemType: 0
-    TypeID: 103
+    TypeID: 10001
     CostBase: 11
     Unique: 0
     MaxBuyCount: -1
