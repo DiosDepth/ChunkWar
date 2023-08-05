@@ -235,23 +235,30 @@ public class PlayerShip : BaseShip
 
 
 
-
-
-    public void OnCollisionEnter2D(Collision2D collision)
+    public override void InitProperty()
     {
-        
+        _mainPropertyDic = new Dictionary<ShipMainProperty, ChangeValue<float>>();
+
     }
 
-    public void OnCollisionStay2D(Collision2D collision)
+    public override void Death()
     {
-        
+        base.Death();
+
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
+        {
+            vfx.transform.position = this.transform.position;
+            vfx.GetComponent<ParticleController>().SetActive();
+            vfx.GetComponent<ParticleController>().PlayVFX();
+            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameOver);
+            Destroy(this.gameObject);
+        });
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
+    public override void ResetShip()
     {
-        
+        base.ResetShip();
     }
-
 
     //---------------------------------------------------------------------------------------Tools
 
@@ -554,9 +561,9 @@ public class PlayerShip : BaseShip
         }
     }
 
-    public override void InitProperty()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        _mainPropertyDic = new Dictionary<ShipMainProperty, ChangeValue<float>>();
 
     }
+
 }

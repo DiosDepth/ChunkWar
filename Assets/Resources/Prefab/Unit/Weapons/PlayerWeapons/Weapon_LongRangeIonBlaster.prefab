@@ -81,7 +81,9 @@ MonoBehaviour:
   UnitID: 0
   UID: 0
   state: 1
-  _isTarget: 0
+  IsRestoreable: 0
+  IsCoreUnit: 1
+  _isTarget: 1
   unitSprite: {fileID: 4947179279536623990}
   redirection: 1
   direction: 0

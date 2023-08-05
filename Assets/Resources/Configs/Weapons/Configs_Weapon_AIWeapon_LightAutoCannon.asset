@@ -410,7 +410,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 1
-  BaseHP: 50
+  BaseHP: 100
   DamageBase: 10
   DamageRatioMin: 0
   DamageRatioMax: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum BulletType
 {
+    Missile,
     Ballistic,
     Energy,
 }
@@ -21,6 +22,10 @@ public class Bullet : PoolableObject
     public BulletType type;
     public OwnerType ownertype;
     public Collider2D bulletCollider;
+    public string hitVFXName = "HitVFX";
+    protected Unit _owner;
+
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -42,11 +47,16 @@ public class Bullet : PoolableObject
         base.Reset();
     }
 
+    public virtual void SetOwner(Unit owner)
+    {
+        _owner = owner;
+    }
     public override void Initialization()
     {
         base.Initialization();
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
     }
+
 
     public override void Destroy()
     {
@@ -57,4 +67,5 @@ public class Bullet : PoolableObject
     {
         base.SetActive(isactive);
     }
+
 }

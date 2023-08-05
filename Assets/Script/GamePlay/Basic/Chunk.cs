@@ -30,6 +30,10 @@ public class Chunk : IDamageble
 
     public Unit unit;
 
+    public void Death()
+    {
+        throw new System.NotImplementedException();
+    }
 
     public bool TakeDamage(int value)
     {

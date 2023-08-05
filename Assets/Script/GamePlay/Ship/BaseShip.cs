@@ -17,7 +17,7 @@ public class BaseShip : MonoBehaviour
     public Core core;
     public BaseController controller;
     public GameObject buildingsParent;
-
+    public string deathVFXName = "ExplodeVFX";
 
     public StateMachine<ShipMovementState> movementState;
     public StateMachine<ShipConditionState> conditionState;
@@ -32,6 +32,9 @@ public class BaseShip : MonoBehaviour
     [ShowInInspector]
     [ListDrawerSettings(DraggableItems = true)]
     protected List<Unit> _unitList = new List<Unit>();
+
+
+
 
     public virtual void Initialization()
     {

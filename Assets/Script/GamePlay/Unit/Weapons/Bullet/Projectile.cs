@@ -19,7 +19,7 @@ public class Projectile : Bullet, IDamageble
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
     public float lifeTime = 10;
     public float speed = 2.5f;
-   
+    public bool IsinterceptTarget = true;
     /// <summary>
     /// 血量管理组件
     /// </summary>
@@ -115,21 +115,43 @@ public class Projectile : Bullet, IDamageble
         {
             return;
         }
-        PoolManager.Instance.GetObjectAsync(PoolManager.Instance.VFXPath + "DestroyVFX", true, (obj) =>
+
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
+        {
+            if (_owner is Weapon)
+            {
+                int damage = (_owner as Weapon).weaponAttribute.GetDamage();
+                collision.GetComponent<Unit>()?.TakeDamage(damage);
+            }
+            Death();
+        }
+
+
+
+    }
+
+    public virtual void Death()
+    {
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + hitVFXName, true, (obj) =>
         {
             obj.transform.position = this.transform.position;
             obj.GetComponent<ParticleController>().SetActive();
             obj.GetComponent<ParticleController>().PlayVFX();
-
         });
         Destroy();
     }
+
 
     public bool TakeDamage(int value)
     {
         if (HpComponent == null)
             return false;
 
-        return HpComponent.ChangeHP(value);
+        bool isDie = HpComponent.ChangeHP(value);
+        if (isDie)
+        {
+            Death();
+        }
+        return isDie;
     }
 }

@@ -411,7 +411,7 @@ MonoBehaviour:
   unitType: 2
   redirection: 1
   BaseHP: 400
-  DamageBase: 35
+  DamageBase: 15
   DamageRatioMin: 0
   DamageRatioMax: 0
   DamageType: 0

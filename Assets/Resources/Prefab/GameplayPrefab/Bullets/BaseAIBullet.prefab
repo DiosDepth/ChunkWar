@@ -97,6 +97,7 @@ MonoBehaviour:
   type: 0
   ownertype: 1
   bulletCollider: {fileID: 5171024743468899609}
+  hitVFXName: HitVFX
   rb: {fileID: 5862403524487350706}
   movementType: 0
   lifeTime: 5

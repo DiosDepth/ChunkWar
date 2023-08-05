@@ -8,6 +8,7 @@ TagManager:
   - PickUps
   - FX
   - AI
+  - HarborTeleport
   layers:
   - Default
   - TransparentFX
@@ -16,10 +17,10 @@ TagManager:
   - Water
   - UI
   - Player
-  - PlayerUnit
+  - Unit
   - Energy
   - AI
-  - AIUnit
+  - Interceptor
   - Ballistic
   - CameraBoard
   - DeadZone

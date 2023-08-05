@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4947179278027536151}
   - component: {fileID: 2237236711218688491}
   - component: {fileID: 3289553710869226658}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: AIWeapon_DirectionalSmoothboreCannon
   m_TagString: AI
   m_Icon: {fileID: 0}
@@ -50,6 +50,9 @@ MonoBehaviour:
   UnitID: 102
   UID: 0
   state: 0
+  IsRestoreable: 0
+  IsCoreUnit: 0
+  deathVFXName: ExplodeVFX
   _isTarget: 1
   unitSprite: {fileID: 4947179279536623990}
   redirection: 1
@@ -124,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4947179279536623989}
   - component: {fileID: 4947179279536623990}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3000190079072363592}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

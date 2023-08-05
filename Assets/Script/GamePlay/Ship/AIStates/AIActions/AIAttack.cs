@@ -43,7 +43,7 @@ public class AIAttack : AIAction
 
     public void Attack()
     {
-        Debug.Log(this.gameObject +  " + Attack@@@@@");
+  
         for (int i = 0; i < _controller.controlledTarget.UnitList.Count; i++)
         {
             if (_controller.controlledTarget.UnitList[i] is Weapon)

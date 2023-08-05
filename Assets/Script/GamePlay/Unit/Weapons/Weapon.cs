@@ -199,11 +199,14 @@ public class Weapon : Unit
                 Debug.Log(this.gameObject + " : SemiAuto Firing!!!");
                 PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, (obj) =>
                 {
+                    
                     obj.transform.SetTransform(firePoint);
                     _lastbullet = obj.GetComponent<Projectile>();
                     _lastbullet.InitialmoveDirection = firePoint.transform.up;
 
                     _lastbullet.SetActive();
+                    _lastbullet.Initialization();
+                    _lastbullet.SetOwner(this);
                 });
                 break;
             case WeaponFireModeType.Manual:
@@ -217,6 +220,8 @@ public class Weapon : Unit
                         _lastbullet.speed = 200f;
                         _lastbullet.InitialmoveDirection = firePoint.transform.up;
                         _lastbullet.SetActive();
+                        _lastbullet.Initialization();
+                        _lastbullet.SetOwner(this);
                     });
                 }
                 else
@@ -230,6 +235,8 @@ public class Weapon : Unit
                         _lastbullet.speed = 100f;
                         _lastbullet.InitialmoveDirection = firePoint.transform.up;
                         _lastbullet.SetActive();
+                        _lastbullet.Initialization();
+                        _lastbullet.SetOwner(this);
                     });
                 }
                 break;
@@ -364,7 +371,15 @@ public class Weapon : Unit
         weaponstate.ChangeState(WeaponState.Ready);
     }
 
+    public override void Death()
+    {
+        base.Death();
+    }
 
+    public override void Restore()
+    {
+        base.Restore();
+    }
 
     public override bool TakeDamage(int value)
     {

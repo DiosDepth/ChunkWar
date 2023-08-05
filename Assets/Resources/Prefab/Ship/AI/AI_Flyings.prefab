@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4254137073360052133}
   buildingsParent: {fileID: 0}
+  deathVFXName: ExplodeVFX
 --- !u!114 &4254137073360052133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,10 +357,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3431155977828216134}
     m_Modifications:
+    - target: {fileID: 1550267850732327031, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: IsCoreUnit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4115382653730551155, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
         type: 3}
@@ -424,12 +430,12 @@ PrefabInstance:
     - target: {fileID: 4947179278027536233, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4947179279536623991, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9109a6e2ad23d4b44b85d96f2cf74329, type: 3}

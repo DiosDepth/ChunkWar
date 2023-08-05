@@ -27,6 +27,7 @@ public static class GameGlobalConfig
 
     public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;
-
+    public const string VFXPath = "Prefab/VFX/";
+    public const string SFXPath = "Prefab/SFX/";
 
 }

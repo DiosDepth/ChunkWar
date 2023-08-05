@@ -75,7 +75,7 @@ public class UnitBaseAttribute
     }
 }
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour,IDamageble
 {
     public int UnitID;
     /// <summary>
@@ -84,6 +84,9 @@ public class Unit : MonoBehaviour
     public uint UID;
     public DamagableState state = DamagableState.None;
     public bool IsTarget { get { return _isTarget; } }
+    public bool IsRestoreable = false;
+    public bool IsCoreUnit = false;
+    public string deathVFXName = "ExplodeVFX";
     [SerializeField]
     private bool _isTarget;
     public SpriteRenderer unitSprite;
@@ -115,6 +118,35 @@ public class Unit : MonoBehaviour
 
     }
 
+    public virtual void Death()
+    {
+        SetUnitActive(false);
+
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
+        {
+            vfx.transform.position = this.transform.position;
+            vfx.GetComponent<ParticleController>().SetActive();
+            vfx.GetComponent<ParticleController>().PlayVFX();
+
+        });
+        unitSprite.color = Color.black; 
+        
+        if ( IsCoreUnit)
+        {
+            Destroy(this.gameObject);
+            //destroy owner
+            _owner.Death();
+        }
+
+  
+
+    }
+
+    public virtual void Restore()
+    {
+        SetUnitActive(true);
+        unitSprite.color = Color.white;
+    }
 
     protected virtual void OnDestroy()
     {
@@ -125,6 +157,14 @@ public class Unit : MonoBehaviour
     {
         _owner = m_owner;
         _baseUnitConfig = m_unitconfig;
+        if(_owner is PlayerShip)
+        {
+            IsRestoreable = true;
+        }
+        else
+        {
+            IsRestoreable = false;
+        }
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
     }
@@ -135,6 +175,10 @@ public class Unit : MonoBehaviour
             return false;
 
         bool isDie = HpComponent.ChangeHP(value);
+        if(isDie)
+        {
+            Death();
+        }
         return isDie;
     }
     
@@ -151,4 +195,9 @@ public class Unit : MonoBehaviour
         HpComponent.SetMaxHP(baseAttribute.HPMax);
     }
 
+
+
+
+
 }
+

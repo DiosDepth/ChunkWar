@@ -140,4 +140,9 @@ public class PickableItem : PoolableObject
     {
 
     }
+
+    protected virtual void OnTriggerStay2D (Collider2D collider)
+    {
+
+    }
 }

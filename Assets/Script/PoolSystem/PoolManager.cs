@@ -72,8 +72,7 @@ public class PoolManager : Singleton<PoolManager>
     public GameObject poolObj;
 
 
-    public string VFXPath = "Prefab/VFX/";
-    public string PlayerPrefabPath = "Prefab/PlayerPrefab/";
+   
     public PoolManager()
     {
         Initialization();

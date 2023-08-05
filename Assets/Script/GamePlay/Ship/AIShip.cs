@@ -32,6 +32,23 @@ public class AIShip : BaseShip
     {
         base.Update();
     }
+
+    public override void Death()
+    {
+        base.Death();
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
+        {
+            vfx.transform.position = this.transform.position;
+            vfx.GetComponent<ParticleController>().SetActive();
+            vfx.GetComponent<ParticleController>().PlayVFX();
+            Destroy(this.gameObject);
+        });
+    }
+
+    public override void InitProperty()
+    {
+        base.InitProperty();
+    }
     public override void CreateShip()
     {
         base.CreateShip();
