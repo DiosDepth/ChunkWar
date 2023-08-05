@@ -44,10 +44,10 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: HardLevel_EnemyHP_Name
-    ChineseSimplified: 
+    ChineseSimplified: "\u654C\u4EBA\u8840\u91CF"
     English: 
     Japanese: 
   - TextID: HardLevel_EnemyDamage_Name
-    ChineseSimplified: 
+    ChineseSimplified: "\u654C\u4EBA\u4F24\u5BB3"
     English: 
     Japanese: 
