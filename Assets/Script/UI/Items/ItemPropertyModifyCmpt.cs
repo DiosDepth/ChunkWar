@@ -10,6 +10,9 @@ public class ItemPropertyModifyCmpt : PoolableObject
     private Text _nameText;
     private TextMeshProUGUI _valueText;
 
+    private static Color blue_color = new Color(0, 0.9f, 1f);
+    private static Color red_color = new Color(1, 0, 0);
+
     public void Awake()
     {
         _icon = transform.Find("Icon").SafeGetComponent<Image>();
@@ -25,7 +28,20 @@ public class ItemPropertyModifyCmpt : PoolableObject
         {
             _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.NameText);
             _icon.sprite = cfg.Icon;
-            _valueText.text = cfg.IsPercent ? string.Format("{0}%", targetValue) : targetValue.ToString();
+            string figure = targetValue > 0 ? "+" : "";
+            _valueText.text = cfg.IsPercent ? string.Format("{0}{1}%", figure, targetValue) :
+                string.Format("{0}{1}", figure, targetValue);
+
+            Color targetColor;
+            if(targetValue > 0)
+            {
+                targetColor = cfg.ReverseColor ? red_color : blue_color;
+            }
+            else
+            {
+                targetColor = cfg.ReverseColor ? blue_color : red_color;
+            }
+            _valueText.color = targetColor;
         }
     }
 }

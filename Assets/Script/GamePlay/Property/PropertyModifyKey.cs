@@ -28,6 +28,9 @@ public enum PropertyModifyKey
     ShopRefreshCount,
     ShopCostPercent,
     AttackSpeed,
+    /// <summary>
+    /// 拾取范围
+    /// </summary>
     SuckerRange,
     EnemyHPPercent,
     EnemyDamagePercent,
@@ -40,4 +43,12 @@ public enum PropertyModifyKey
     /// 暴击伤害增加
     /// </summary>
     CriticalDamagePercentAdd,
+    /// <summary>
+    /// 实弹伤害
+    /// </summary>
+    PhysicsDamage,
+    /// <summary>
+    /// 能量伤害
+    /// </summary>
+    EnergyDamage,
 }

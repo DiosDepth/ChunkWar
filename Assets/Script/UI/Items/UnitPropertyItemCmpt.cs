@@ -33,4 +33,9 @@ public class UnitPropertyItemCmpt : PoolableObject
         _nameText.text = GameHelper.GetUI_WeaponUnitPropertyType(type);
         _valueText.text = content;
     }
+
+    public void RefreshContent(string content)
+    {
+        _valueText.text = content;
+    }
 }

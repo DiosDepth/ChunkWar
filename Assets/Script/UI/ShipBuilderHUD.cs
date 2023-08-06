@@ -99,6 +99,11 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
                 int unitID = (int)evt.param[1];
                 RefreshShipUnitSlotContent(isadd, unitID);
                 break;
+
+            case RogueEventType.RefreshShopWeaponInfo:
+                UI_WeaponUnitPropertyType type = (UI_WeaponUnitPropertyType)evt.param[0];
+                RefreshShopWeaponItemProperty(type);
+                break;
         }
     }
 
@@ -231,6 +236,18 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private void OnPlugItemSelect(uint uid, int dataIndex)
     {
         ///RefreshInfo
+    }
+
+    private void RefreshShopWeaponItemProperty(UI_WeaponUnitPropertyType type)
+    {
+        for(int i = 0; i < allShopSlotItems.Count; i++)
+        {
+            var item = allShopSlotItems[i];
+            if(item.ItemType == GoodsItemType.ShipUnit)
+            {
+                item.RefreshWeaponProperty(type);
+            }
+        }
     }
 
     /// <summary>

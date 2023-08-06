@@ -149,6 +149,14 @@ public class WeaponAttribute : UnitBaseAttribute
         }
     }
 
+    /// <summary>
+    /// Ë¢ÐÂÉËº¦ÐÞÕý
+    /// </summary>
+    public void RefreshDamageModify()
+    {
+        CalculateBaseDamageModify();
+    }
+
     private void CalculateBaseDamageModify()
     {
         float finalValue = 0;

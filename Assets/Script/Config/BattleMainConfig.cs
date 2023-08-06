@@ -14,6 +14,12 @@ public class BattleMainConfig : SerializedScriptableObject
     public byte RogueShop_Origin_RefreshNum = 4;
     public byte HarborMapTempUnitSlotCount = 6;
 
+    /// <summary>
+    /// hardLevel√øX√Î‘ˆº”1
+    /// </summary>
+    public ushort HardLevelDeltaSeconds = 120;
+    public byte HardLevelWaveIndexMultiple = 20;
+
     public byte ShipMaxLevel;
 
     [ListDrawerSettings(ShowIndexLabels = true, NumberOfItemsPerPage = 10)]
@@ -66,6 +72,7 @@ public class PropertyDisplayConfig
     public string NameText;
     public Sprite Icon;
     public bool IsPercent;
+    public bool ReverseColor = false;
 }
 
 [System.Serializable]

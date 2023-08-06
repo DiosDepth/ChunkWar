@@ -42,7 +42,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0b43561315597b844ad1b435728ed5b0, type: 3}
   - {fileID: 21300000, guid: 1d763a7303eeeef499065ec693e8562e, type: 3}
   - {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
+  - {fileID: 21300000, guid: 911b3b45310cd8c429c04122313979a8, type: 3}
   - {fileID: 21300000, guid: 06f5fb8941942b543b831ac667f94d17, type: 3}
+  - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
   - {fileID: 21300000, guid: e27f0d0c4b16d7a40a428f97006b6bbc, type: 3}
   - {fileID: 21300000, guid: 155625dc38cb90842a3d52f10ae91006, type: 3}
   - {fileID: 21300000, guid: 9bf9634ff2a6cda4096accd22f9011d5, type: 3}
@@ -53,7 +55,9 @@ SpriteAtlas:
   - CR21
   - rico
   - FlightChessBuff_24
+  - KVSKShoot
   - function_skill_icon_113
+  - Destroyer4
   - powBuff #5913
   - Destroyer3
   - sniper

@@ -179,6 +179,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
         yield return null;
     }
+
+    public T GetCurrentLevelEntity<T>() where T : LevelEntity
+    {
+        if (currentLevel == null)
+            return default(T);
+
+        return currentLevel as T;
+    }
+
     public IEnumerator LoadLevel(string levelname,UnityAction<LevelEntity> callback = null)
     {
 

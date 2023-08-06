@@ -23,10 +23,6 @@ MonoBehaviour:
     SerializationNodes: []
   TextSetName: TextData_
   Texts:
-  - TextID: 
-    ChineseSimplified: 
-    English: 
-    Japanese: 
   - TextID: HardLevel_Name_1
     ChineseSimplified: "\u6807\u51C6\u6A21\u5F0F"
     English: 
@@ -133,5 +129,9 @@ MonoBehaviour:
     Japanese: 
   - TextID: ShipDesc_007
     ChineseSimplified: "\u3002\u8FD9\u79CD\u79D1\u6280\u4E0E\u65D7\u8230\u7684\u914D\u7F6E\u6280\u672F\u7C7B\u4F3C\uFF0C\u5F00\u542F\u5821\u5792\u88C5\u5907\u540E\uFF0C\u8230\u8239\u5177\u6709\u7535\u5B50\u6218\u6297\u6027\uFF0C\u9632\u5FA1\u529B\u5927\u5E45\u63D0\u9AD8\uFF0C\u4F46\u4EE3\u4EF7\u662F\u65E0\u6CD5\u79FB\u52A8\u3002"
+    English: 
+    Japanese: 
+  - TextID: UI_WeaponProperty_HP_Name
+    ChineseSimplified: "\u88C5\u7532"
     English: 
     Japanese: 
