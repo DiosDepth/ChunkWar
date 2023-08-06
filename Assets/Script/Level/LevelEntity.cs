@@ -8,6 +8,7 @@ public class LevelEntity : MonoBehaviour
     public Vector3 startPoint;
     public PolygonCollider2D cameraBoard;
 
+
     // Start is called before the first frame update
     protected virtual void Start()
     {

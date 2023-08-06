@@ -39,6 +39,11 @@ public class HardLevelInfo
         Cfg = hardLevelCfg;
     }
 
+    public WaveConfig GetWaveConfig(int waveIndex)
+    {
+        return Cfg.WaveConfig.Find(x => x.WaveIndex == waveIndex);
+    }
+
     /// <summary>
     /// 刷新每个舰船的hardLevel信息
     /// </summary>

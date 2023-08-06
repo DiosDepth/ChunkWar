@@ -9,6 +9,10 @@ public static class GameHelper
     public static string ShopItemType_ShipBuilding_Text = "ShopItemType_ShipBuilding_Text";
     public static string ShopItemType_ShipWeapon_Text = "ShopItemType_ShipWeapon_Text";
 
+    private static string Color_White_Code = "#FFFFFF";
+    private static string Color_Red_Code = "#C61616";
+    private static string Color_Blue_Code = "#09B3CB";
+
     #region Battle
 
     /// <summary>
@@ -122,17 +126,26 @@ public static class GameHelper
         var propertyData = RogueManager.Instance.MainPropertyData;
         if (type == UI_WeaponUnitPropertyType.Critical)
         {
+            ///Rate
             var criticalRateRow = propertyData.GetPropertyFinal(PropertyModifyKey.Critical);
-            string criticalRate = string.Format("{0:F1}" ,criticalRateRow + cfg.BaseCriticalRate);
+            float criticalRateValue = criticalRateRow + cfg.BaseCriticalRate;
+            string criticalRateColor = GetColorCode(criticalRateValue, cfg.BaseCriticalRate, false);
+            string criticalRate = string.Format("<color={0}>{1:F1}%</color>", criticalRateColor, criticalRateValue);
+
+            ///Damage
             var criticalDamageRow = propertyData.GetPropertyFinal(PropertyModifyKey.CriticalDamagePercentAdd);
-            string criticalDamage = string.Format("{0:F1}", criticalDamageRow + cfg.CriticalDamage);
-            return string.Format("{0}% | {1}%", criticalRate, criticalDamage);
+            var criticalDamageValue = criticalDamageRow + cfg.CriticalDamage;
+            string criticalDamageColor = GetColorCode(criticalDamageValue, cfg.CriticalDamage, false);
+            string criticalDamage = string.Format("<color={0}>{1:F1}%</color>", criticalDamageColor, criticalDamageValue);
+            return string.Format("{0} | {1}", criticalRate, criticalDamage);
         }
         else if (type == UI_WeaponUnitPropertyType.HP)
         {
             var hprow = propertyData.GetPropertyFinal(PropertyModifyKey.HP);
             int hp = Mathf.CeilToInt(hprow + cfg.BaseHP);
-            return hp.ToString();
+            string color = GetColorCode(hp, cfg.BaseHP, false);
+
+            return string.Format("<color={0}>{1}</color>", color, hp);
         }
         else if (type == UI_WeaponUnitPropertyType.DamageRatio)
         {
@@ -142,21 +155,24 @@ public static class GameHelper
         {
             var damageCount = cfg.DamageCount;
             var damage = CalculteWeaponDamage(cfg);
+            string color = GetColorCode(damage, cfg.DamageBase, false);
 
             if(damageCount > 1)
             {
-                return string.Format("{0} X{1}", damage, damageCount);
+                return string.Format("<color={0}>{1}</color> X{2}", color, damage, damageCount);
             }
             else
             {
-                return string.Format("{0}", damage);
+                return string.Format("<color={0}>{1}</color>", color, damage);
             }
         }
         else if(type == UI_WeaponUnitPropertyType.Range)
         {
             var rangerow = propertyData.GetPropertyFinal(PropertyModifyKey.WeaponRange);
             int range = Mathf.RoundToInt(rangerow + cfg.BaseRange);
-            return range.ToString();
+            string color = GetColorCode(range, cfg.BaseRange, false);
+
+            return string.Format("<color={0}>{1}</color>", color, range);
         }
 
         return string.Empty;
@@ -178,6 +194,25 @@ public static class GameHelper
             rowDamage += value * item.Ratio;
         }
         rowDamage = Mathf.Clamp(rowDamage, 0, rowDamage);
+
+        var damagePercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamagePercent);
+        rowDamage = rowDamage * (1 + damagePercent / 100f);
+
         return Mathf.RoundToInt(rowDamage);
+    }
+
+    private static string GetColorCode(float value1, float value2, bool reverse)
+    {
+        if (value1 == value2)
+            return Color_White_Code;
+
+        if(value1 > value2)
+        {
+            return reverse ? Color_Red_Code : Color_Blue_Code;
+        }
+        else
+        {
+            return reverse ? Color_Blue_Code : Color_Red_Code;
+        }
     }
 }

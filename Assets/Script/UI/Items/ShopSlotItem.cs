@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class ShopSlotItem : MonoBehaviour
 {
+    public GoodsItemType ItemType;
+    private int itemTypeID;
+
     private Image _icon;
     private Text _nameText;
     private TextMeshProUGUI _descText;
@@ -46,11 +50,13 @@ public class ShopSlotItem : MonoBehaviour
         string desc = string.Empty;
         Sprite icon = null;
 
-        if(info._cfg.ItemType == GoodsItemType.ShipPlug)
+        this.ItemType = info._cfg.ItemType;
+        itemTypeID = info._cfg.TypeID;
+        if (ItemType == GoodsItemType.ShipPlug)
         {
             _unitInfoRoot.transform.SafeSetActive(false);
             PropertyModifyRoot.transform.SafeSetActive(true);
-            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(info._cfg.TypeID);
+            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
             if(plugCfg != null)
             {
                 name = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
@@ -60,11 +66,11 @@ public class ShopSlotItem : MonoBehaviour
             _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipPlug_Text);
             SetUpProperty();
         }
-        else if (info._cfg.ItemType == GoodsItemType.ShipUnit)
+        else if (ItemType == GoodsItemType.ShipUnit)
         {
             _unitInfoRoot.transform.SafeSetActive(true);
             PropertyModifyRoot.transform.SafeSetActive(false);
-            var unitCfg = DataManager.Instance.GetUnitConfig(info._cfg.TypeID);
+            var unitCfg = DataManager.Instance.GetUnitConfig(itemTypeID);
             if(unitCfg != null)
             {
                 name = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Name);
@@ -91,6 +97,35 @@ public class ShopSlotItem : MonoBehaviour
 
         var contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
+    }
+
+    /// <summary>
+    /// 刷新武器信息的指定属性
+    /// </summary>
+    /// <param name="type"></param>
+    public void RefreshWeaponProperty(UI_WeaponUnitPropertyType type)
+    {
+        Func<List<UnitPropertyItemCmpt>, UI_WeaponUnitPropertyType, UnitPropertyItemCmpt> FindCmptByType = (cmpts, type) =>
+       {
+           return cmpts.Find(x => x.WeaponPropertyType == type);
+       };
+
+        var unitCfg = DataManager.Instance.GetUnitConfig(itemTypeID);
+        var allCmpt = _unitInfoRoot.GetComponentsInChildren<UnitPropertyItemCmpt>().ToList();
+
+        if (unitCfg.unitType == UnitType.Weapons)
+        {
+            WeaponConfig weaponCfg = unitCfg as WeaponConfig;
+            if (weaponCfg == null)
+                return;
+
+            var cmpt = FindCmptByType(allCmpt, type);
+            if(cmpt != null)
+            {
+                var content = GameHelper.GetWeaponPropertyDescContent(type, weaponCfg);
+                cmpt.RefreshContent(content);
+            }
+        }
     }
 
     /// <summary>

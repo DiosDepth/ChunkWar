@@ -26,6 +26,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 1d763a7303eeeef499065ec693e8562e, type: 3}
     - {fileID: 21300000, guid: 9bf9634ff2a6cda4096accd22f9011d5, type: 3}
     - {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
+    - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
+    - {fileID: 21300000, guid: 911b3b45310cd8c429c04122313979a8, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -211,7 +213,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 9
+      Data: 11
     - Name: 
       Entry: 7
       Data: 
@@ -230,6 +232,9 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -254,6 +259,9 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -278,6 +286,9 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -300,6 +311,9 @@ MonoBehaviour:
       Entry: 10
       Data: 5
     - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
       Entry: 5
       Data: false
     - Name: 
@@ -326,6 +340,9 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -348,6 +365,9 @@ MonoBehaviour:
       Entry: 10
       Data: 7
     - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
       Entry: 5
       Data: false
     - Name: 
@@ -374,6 +394,9 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -398,6 +421,9 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -420,6 +446,63 @@ MonoBehaviour:
       Entry: 10
       Data: 5
     - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 15
+    - Name: $v
+      Entry: 7
+      Data: 20|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_PhysicsDamage
+    - Name: Icon
+      Entry: 10
+      Data: 10
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 7
+      Data: 21|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EnergyDamage
+    - Name: Icon
+      Entry: 10
+      Data: 11
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
       Entry: 5
       Data: false
     - Name: 

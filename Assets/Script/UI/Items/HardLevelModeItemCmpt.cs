@@ -43,6 +43,8 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
     private void OnButtonClick()
     {
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
+        var hardLevelInfo = GameManager.Instance.GetHardLevelInfoByID((int)ItemUID);
+        RogueManager.Instance.SetCurrentHardLevel(hardLevelInfo);
     }
 
 

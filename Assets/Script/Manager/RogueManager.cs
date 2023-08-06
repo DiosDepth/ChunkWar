@@ -47,6 +47,7 @@ public enum RogueEventType
     ShopCostChange,
     ShipPlugChange,
     ShipUnitTempSlotChange,
+    RefreshShopWeaponInfo,
 }
 
 public enum ShipPropertyEventType
@@ -66,6 +67,14 @@ public class RogueManager : Singleton<RogueManager>
     public SaveData saveData;
     public InventoryItem currentShipSelection;
     public PlayerShip currentShip;
+    public LevelTimer Timer;
+
+    public HardLevelInfo CurrentHardLevel
+    {
+        get;
+        private set;
+    }
+
     /// <summary>
     /// 所有商店物品
     /// </summary>
@@ -96,6 +105,14 @@ public class RogueManager : Singleton<RogueManager>
     public int GetCurrentWaveIndex
     {
         get { return _waveIndex; }
+    }
+    private int _tempWaveTime;
+    /// <summary>
+    /// 当前剩余时间
+    /// </summary>
+    public int GetTempWaveTime
+    {
+        get { return _tempWaveTime; }
     }
 
     private ChangeValue<float> _playerCurrency;
@@ -139,11 +156,10 @@ public class RogueManager : Singleton<RogueManager>
     public void InitRogueBattle()
     {
         MainPropertyData = new UnitPropertyData();
-        _waveIndex = 1;
+        InitWave();
         InitDefaultProperty();
         InitShopData();
         InitAllGoodsItems();
-        GenerateShopGoods(3, 1);
         AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
     }
 
@@ -152,6 +168,25 @@ public class RogueManager : Singleton<RogueManager>
         base.Initialization();
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         _playerCurrentGoods = new Dictionary<int, byte>();
+    }
+
+    /// <summary>
+    /// 设置HardLevel
+    /// </summary>
+    /// <param name="info"></param>
+    public void SetCurrentHardLevel(HardLevelInfo info)
+    {
+        CurrentHardLevel = info;
+    }
+
+    /// <summary>
+    /// 当前关卡卸载，一般为进入habor
+    /// </summary>
+    public void OnMainLevelUnload()
+    {
+        _tempWaveTime = Timer.TotalSecond;
+        ///RefreshShop
+        GenerateShopGoods(3, _shopEnterTotalCount);
     }
 
     /// <summary>
@@ -183,7 +218,72 @@ public class RogueManager : Singleton<RogueManager>
 
         _currentEXP.BindChangeAction(OnCurrrentEXPChange);
         _shipLevel.BindChangeAction(OnShipLevelUp);
+
+        ///BindProperty Change
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.DamagePercent, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.PhysicsDamage, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.EnergyDamage, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
     }
+
+    #region Wave & HardLevel
+
+    private int _currentHardLevel;
+    /// <summary>
+    /// 当前难度等级
+    /// </summary>
+    public int GetHardLevel
+    {
+        get { return _currentHardLevel; }
+    }
+
+    /// <summary>
+    /// 计算hardLevel等级
+    /// </summary>
+    /// <returns></returns>
+    public int CalculateHardLevelIndex()
+    {
+        return 0;
+    }
+
+    private void InitWave()
+    {
+        _waveIndex = 1;
+        _tempWaveTime = GetCurrentWaveTime();
+        Timer = new LevelTimer();
+        var totalTime =GetTempWaveTime;
+        Timer.InitTimer(totalTime);
+    }
+
+    private int GetCurrentWaveTime()
+    {
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return 0;
+        return waveCfg.DurationTime;
+    }
+
+    /// <summary>
+    /// 波次结束
+    /// </summary>
+    public void OnWaveFinish()
+    {
+        if (IsFinalWave())
+        {
+            ///Level Success
+            return;
+        }
+
+        _waveIndex++;
+        _tempWaveTime = GetCurrentWaveTime();
+    }
+
+    private bool IsFinalWave()
+    {
+        var waveCount = CurrentHardLevel.Cfg.WaveConfig.Count;
+        return GetCurrentWaveIndex >= waveCount;
+    }
+
+    #endregion
 
     #region Property
 
@@ -504,6 +604,11 @@ public class RogueManager : Singleton<RogueManager>
     private void OnShopCostChange()
     {
         RogueEvent.Trigger(RogueEventType.ShopCostChange);
+    }
+
+    private void RefreshWeaponItemInfo(UI_WeaponUnitPropertyType type)
+    {
+        RogueEvent.Trigger(RogueEventType.RefreshShopWeaponInfo, type);
     }
 
     #endregion

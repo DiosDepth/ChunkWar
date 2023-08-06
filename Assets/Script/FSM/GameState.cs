@@ -215,7 +215,8 @@ public class EGameState_GamePrepare : GameState
                 CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
                 CameraManager.Instance.vcam.m_Lens.OrthographicSize = 35;
 
-            
+                ///start Timer
+                RogueManager.Instance.Timer.StartTimer();
 
                 GameEvent.Trigger(EGameState.EGameState_GameStart);
             }));

@@ -156,6 +156,8 @@ public class LocalizationEditor : OdinMenuEditorWindow
         {
             Debug.LogError(errorStr);
         }
+        AssetDatabase.Refresh();
+        AssetDatabase.SaveAssets();
         Debug.Log("文本导出完成");
     }
 }
