@@ -56,6 +56,10 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
             case ShipPropertyEventType.LevelUp:
                 RefreshLevelUp();
                 break;
+
+            case ShipPropertyEventType.CoreHPChange:
+                RefreshShipCoreHP();
+                break;
         }
     }
 
@@ -82,5 +86,10 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private void RefreshLevelUp()
     {
         _expCmpt.RefreshLevelUp();
+    }
+
+    private void RefreshShipCoreHP()
+    {
+        _hpSliderCmpt.RefreshHP();
     }
 }

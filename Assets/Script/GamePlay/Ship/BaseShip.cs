@@ -33,7 +33,7 @@ public class BaseShip : MonoBehaviour
     [ListDrawerSettings(DraggableItems = true)]
     protected List<Unit> _unitList = new List<Unit>();
 
-
+    protected BaseShipConfig baseShipCfg;
 
 
     public virtual void Initialization()

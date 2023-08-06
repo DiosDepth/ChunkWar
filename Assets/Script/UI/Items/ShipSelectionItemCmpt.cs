@@ -63,19 +63,19 @@ public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIIte
         GeneralUIEvent.Trigger(UIEventType.ShipSelectionConfirm);
     }
 
-    private void SelectedChanged(bool selected)
+    private void SelectedChanged(bool select)
     {
-        transform.Find("Selected").SafeSetActive(selected);
+        transform.Find("Selected").SafeSetActive(select);
     }
 
     public void OnHoverEnter()
     {
         GeneralUIEvent.Trigger(UIEventType.ShipSelectionChange, ItemUID, DataIndex);
-        _item.Selected = true;
+        selected?.Invoke(this);
     }
 
     public void OnHoverExit()
     {
-        _item.Selected = false;
+
     }
 }

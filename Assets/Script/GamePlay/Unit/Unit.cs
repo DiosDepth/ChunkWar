@@ -158,7 +158,9 @@ public class Unit : MonoBehaviour,IDamageble
     {
         _owner = m_owner;
         _baseUnitConfig = m_unitconfig;
-        if(_owner is PlayerShip)
+        HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
+        RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
+        if (_owner is PlayerShip)
         {
             IsRestoreable = true;
         }
@@ -166,8 +168,6 @@ public class Unit : MonoBehaviour,IDamageble
         {
             IsRestoreable = false;
         }
-        HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
-        RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
     }
 
     public virtual bool TakeDamage(int value)
@@ -195,10 +195,5 @@ public class Unit : MonoBehaviour,IDamageble
     {
         HpComponent.SetMaxHP(baseAttribute.HPMax);
     }
-
-
-
-
-
 }
 
