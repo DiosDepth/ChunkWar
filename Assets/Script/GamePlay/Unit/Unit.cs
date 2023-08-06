@@ -133,9 +133,10 @@ public class Unit : MonoBehaviour,IDamageble
         
         if ( IsCoreUnit)
         {
+            _owner.Death();
             Destroy(this.gameObject);
             //destroy owner
-            _owner.Death();
+ 
         }
 
   
