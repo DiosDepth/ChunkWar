@@ -12,6 +12,7 @@ public class BattleLevel_001 : LevelEntity
     protected override void Update()
     {
         base.Update();
+        _timer.OnUpdate();
     }
 
 

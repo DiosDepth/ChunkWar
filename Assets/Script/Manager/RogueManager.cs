@@ -250,7 +250,7 @@ public class RogueManager : Singleton<RogueManager>
         _waveIndex = 1;
         _tempWaveTime = GetCurrentWaveTime();
         Timer = new LevelTimer();
-        var totalTime =GetTempWaveTime;
+        var totalTime = GetTempWaveTime;
         Timer.InitTimer(totalTime);
     }
 
