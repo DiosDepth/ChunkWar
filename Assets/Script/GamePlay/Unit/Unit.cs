@@ -120,24 +120,31 @@ public class Unit : MonoBehaviour,IDamageble
 
     public virtual void Death()
     {
-        SetUnitActive(false);
+       
 
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
+            SetUnitActive(false);
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().SetActive();
             vfx.GetComponent<ParticleController>().PlayVFX();
+            unitSprite.color = Color.black;
+
+            if (IsCoreUnit)
+            {
+                MonoManager.Instance.Delay(2, () =>
+                {
+                    _owner.Death();
+                });
+
+                Destroy(this.gameObject);
+                //destroy owner
+            }
 
         });
-        unitSprite.color = Color.black; 
+    
         
-        if ( IsCoreUnit)
-        {
-            _owner.Death();
-            Destroy(this.gameObject);
-            //destroy owner
- 
-        }
+
 
   
 
