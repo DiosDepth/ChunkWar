@@ -20,15 +20,12 @@ public class SaveData
     }
 }
 
-public class RuntimeData
+public class ShipMapData
 {
-
-    
-
     public ChunkPartMapInfo[,] ShipMap = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     public List<UnitInfo> UnitList = new List<UnitInfo>();
 
-    public RuntimeData(PlayerShip shipdata)
+    public ShipMapData(PlayerShip shipdata)
     {
 
         
@@ -64,7 +61,7 @@ public class RuntimeData
     }
 
 
-    public RuntimeData(int[,] shipmap)
+    public ShipMapData(int[,] shipmap)
     {
         
         for (int row = 0; row < shipmap.GetLength(0); row++)

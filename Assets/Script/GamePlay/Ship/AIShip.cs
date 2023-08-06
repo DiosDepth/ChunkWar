@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AvaliableAIType
+{
+    AI_Flyings = 1,
+}
+
 
 [ShowOdinSerializedPropertiesInInspector]
 public class AIShip : BaseShip
 {
-
+    public AvaliableAIType AIType = AvaliableAIType.AI_Flyings;
     public override void Initialization()
     {
         base.Initialization();
@@ -52,6 +57,40 @@ public class AIShip : BaseShip
     public override void CreateShip()
     {
         base.CreateShip();
+        //处理Chunk
+
+        AIShipConfig aishipconfig =  DataManager.Instance.GetAIShipConfig((int)AIType);
+        Vector2Int pos;
+
+        for (int row = 0; row < aishipconfig.Map.GetLength(0); row++)
+        {
+            for (int colume = 0; colume < aishipconfig.Map.GetLength(1); colume++)
+            {
+                if (aishipconfig.Map[row, colume] == 0)
+                {
+                    continue;
+                }
+                pos = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
+                if (aishipconfig.Map[row, colume] == 1)
+                {
+
+                    core = new Core();
+                    _chunkMap[row, colume] = core;
+                }
+
+                if (aishipconfig.Map[row, colume] == 2)
+                {
+
+                    _chunkMap[row, colume] = new Base();
+                }
+
+                _chunkMap[row, colume].shipCoord = pos;
+                _chunkMap[row, colume].state = DamagableState.Normal;
+                _chunkMap[row, colume].isBuildingPiovt = false;
+                _chunkMap[row, colume].isOccupied = false;
+            }
+        }
+         //处理unit
         _unitList = buildingsParent.GetComponentsInChildren<Unit>().ToList<Unit>();
         BaseUnitConfig unitconfig;
         for (int i = 0; i < _unitList.Count; i++)
@@ -62,6 +101,8 @@ public class AIShip : BaseShip
             //_unitList[i].Initialization(this);
             //_unitList[i].SetUnitActive(true);
         }
-        
     }
+
+
+
 }

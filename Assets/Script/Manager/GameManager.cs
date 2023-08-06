@@ -19,11 +19,7 @@ public enum EGameState
     EGameState_GameReset,
 }
 
-public enum ScoreEventType
-{
-    Change,
-    Reset,
-}
+
 
 public struct GameStateTransitionEvent
 {
@@ -56,29 +52,12 @@ public struct GameEvent
     }
 }
 
-public struct ScoreEvent
-{
-    public ScoreEventType type;
-    public int scorechange;
-    public ScoreEvent(ScoreEventType m_type, int m_scorechange)
-    {
-        type = m_type;
-        scorechange = m_scorechange;
-    }
-    public static ScoreEvent e;
-    public static void Trigger(ScoreEventType m_type, int m_scorechange)
-    {
-        e.type = m_type;
-        e.scorechange = m_scorechange;
-        EventCenter.Instance.TriggerEvent<ScoreEvent>(e);
-    }
-}
 
-public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,EventListener<ScoreEvent>,EventListener<GameStateTransitionEvent>
+public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,EventListener<GameStateTransitionEvent>
 {
     public StateMachine<EGameState> gamestate = new StateMachine<EGameState>(null, true, true);
 
-    public GameEntity gameEntity;
+
 
     public bool isInitialCompleted = false;
 
@@ -97,9 +76,9 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
         //Initialization();
         this.EventStartListening<GameEvent>();
-        this.EventStartListening<ScoreEvent>();
+
         this.EventStartListening<GameStateTransitionEvent>();
-        gameEntity = new GameEntity();
+
         Initialization();
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         GMTalkManager.Instance.Initialization();
@@ -108,7 +87,6 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     public override void Initialization()
     {
         base.Initialization();
-        gameEntity.Initialization();
         isInitialCompleted = true;
         Debug.Log("GameManager Initialization");
 
@@ -223,21 +201,10 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public void InitialRuntimeData()
     {
-        gameEntity.runtimeData = new RuntimeData((RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig).Map);
+        RogueManager.Instance.ShipMapData = new ShipMapData((RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig).Map);
     }
 
-    public void OnEvent(ScoreEvent evt)
-    {
-        switch (evt.type)
-        {
-            case ScoreEventType.Change:
-                gameEntity.score += evt.scorechange;
-                break;
-            case ScoreEventType.Reset:
-                gameEntity.score = 0;
-                break;
-        }
-    }
+
 
     public void OnEvent(GameStateTransitionEvent evt)
     {

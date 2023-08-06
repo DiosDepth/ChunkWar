@@ -38,6 +38,15 @@ public class BaseConfig : SerializedScriptableObject
     }
     protected Vector2Int _mapPivot = new Vector2Int();
 
+    public Vector2 MapSize
+    {
+        get
+        {
+            return _mapSize;
+        }
+    }
+    protected Vector2 _mapSize = new Vector2();
+
     [System.Obsolete]
     protected virtual void OnEnable()
     {

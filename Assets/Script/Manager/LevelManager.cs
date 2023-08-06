@@ -50,7 +50,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
  
 
 
-    public SpawnLine[] spawnLineList;
+    public AIFactory AIFactory;
  
 
     public LevelEntity currentLevel;
@@ -100,21 +100,35 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     }
 
 
-    public void StartSpawn()
+    public void StartAISpawn()
     {
-        for (int i = 0; i < spawnLineList.Length; i++)
-        {
-            spawnLineList[i].StartSpawnMovingBlocker();
-        }
+        AIFactory.StartSpawn();
+
     }
 
-    public void StopSpawn()
+    public void StopAISpawn()
     {
-        for (int i = 0; i < spawnLineList.Length; i++)
-        {
-            spawnLineList[i].StopSpawn();
-        }
+        AIFactory.StopSpawn();
     }
+
+    /// <summary>
+    /// 获取当前ship位置的圆形区间范围随机点，
+    /// </summary>
+    /// <param name="innerrange"></param>
+    /// <param name="outrange"></param>
+    /// <returns></returns>
+    public Vector2 GetRadomPosFromOutRange(float innerrange, float outrange)
+    {
+        Random.InitState(Mathf.RoundToInt(Time.time));
+        float rad = Random.Range(0f, 2f) * Mathf.PI;
+        var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+        float distance = Random.Range(innerrange, outrange);
+        Vector2 pos = dir * distance + RogueManager.Instance.currentShip.transform.position.ToVector2();
+
+        return pos;
+    }
+
     public PlayerShip SpawnShipAtPos(GameObject ship, Vector3 pos, Quaternion rot, bool isactive)
     {
 
@@ -203,9 +217,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public void GameOver()
     {
-        StopSpawn();
-       
-        
+        StopAISpawn();
         CameraManager.Instance.SetCameraUpdate(false);
     }
 

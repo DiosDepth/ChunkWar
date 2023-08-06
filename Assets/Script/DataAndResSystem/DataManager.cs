@@ -20,7 +20,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
     private Dictionary<int, PlayerShipConfig> _shipConfigDic = new Dictionary<int, PlayerShipConfig>();
-    private Dictionary<int, AIShipConfig> _enemyShipConfigDic = new Dictionary<int, AIShipConfig>();
+    private Dictionary<int, AIShipConfig> _AIShipConfigDic = new Dictionary<int, AIShipConfig>();
 
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
@@ -158,10 +158,10 @@ public class DataManager : Singleton<DataManager>
     /// </summary>
     /// <param name="enemyID"></param>
     /// <returns></returns>
-    public AIShipConfig GetEnemyShipConfig(int enemyID)
+    public AIShipConfig GetAIShipConfig(int enemyID)
     {
         AIShipConfig result = null;
-        _enemyShipConfigDic.TryGetValue(enemyID, out result);
+        _AIShipConfigDic.TryGetValue(enemyID, out result);
         Debug.Assert(result != null, "GetEnemyShipConfig Null! ID= " + enemyID);
         return result;
     }
@@ -298,12 +298,12 @@ public class DataManager : Singleton<DataManager>
         {
             for (int i = 0; i < enemy.Length; i++)
             {
-                if (_enemyShipConfigDic.ContainsKey(enemy[i].ID))
+                if (_AIShipConfigDic.ContainsKey(enemy[i].ID))
                 {
                     Debug.LogError("Find Same enemyID !" + enemy[i].ID);
                     continue;
                 }
-                _enemyShipConfigDic.Add(enemy[i].ID, enemy[i]);
+                _AIShipConfigDic.Add(enemy[i].ID, enemy[i]);
             }
         }
     }

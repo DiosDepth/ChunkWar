@@ -67,7 +67,7 @@ public class ShipBuilder : MonoBehaviour
         InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleBuildOperation;
         InputDispatcher.Instance.Action_GamePlay_RightClick += HandleRemoveOperation;
         InputDispatcher.Instance.Action_GamePlay_MidClick += HandleBuildRotation;
-        LoadingShip(GameManager.Instance.gameEntity.runtimeData);
+        LoadingShip(RogueManager.Instance.ShipMapData);
 
         CameraManager.Instance.ChangeVCameraLookAtTarget(transform);
         CameraManager.Instance.ChangeVCameraFollowTarget(transform);
@@ -88,7 +88,7 @@ public class ShipBuilder : MonoBehaviour
         InputDispatcher.Instance.Action_GamePlay_MidClick -= HandleBuildRotation;
     }
 
-    public void LoadingShip(RuntimeData runtimedata)
+    public void LoadingShip(ShipMapData runtimedata)
     {
 
         if(editorShip == null)

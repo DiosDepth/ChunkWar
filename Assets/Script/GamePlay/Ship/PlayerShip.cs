@@ -83,7 +83,7 @@ public class PlayerShip : BaseShip
 
     }
 
-    public void LoadRuntimeData(RuntimeData data)
+    public void LoadRuntimeData(ShipMapData data)
     {
         ShipMapInfo = data.ShipMap;
         UnitInfoList = data.UnitList;
@@ -127,10 +127,10 @@ public class PlayerShip : BaseShip
 
             UnitInfoList.Add(buildinfo);
         }
-    
 
-        GameManager.Instance.gameEntity.runtimeData.ShipMap = ShipMapInfo;
-        GameManager.Instance.gameEntity.runtimeData.UnitList = UnitInfoList;
+
+        RogueManager.Instance.ShipMapData.ShipMap = ShipMapInfo;
+        RogueManager.Instance.ShipMapData.UnitList = UnitInfoList;
     }
 
     public override void Initialization()
@@ -150,7 +150,7 @@ public class PlayerShip : BaseShip
         //初始化
         _chunkMap = new Chunk[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
         _unitList = new List<Unit>();
-        Vector2Int pos;
+
         //初始化Chunk
         for (int row = 0; row < ShipMapInfo.GetLength(0); row++)
         {
@@ -160,7 +160,7 @@ public class PlayerShip : BaseShip
                 {
                     continue;
                 }
-                pos = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
+               
                 if (ShipMapInfo[row,colume].type == ChunkType.Core)
                 {
 
@@ -178,7 +178,7 @@ public class PlayerShip : BaseShip
                 _chunkMap[row, colume].state = ShipMapInfo[row, colume].state;
                 _chunkMap[row, colume].isBuildingPiovt = ShipMapInfo[row, colume].isBuildingPiovt;
                 _chunkMap[row, colume].isOccupied = ShipMapInfo[row, colume].isOccupied;
-                _chunkMap[row, colume].state = DamagableState.Normal;
+
             }
         }
         //初始化Building

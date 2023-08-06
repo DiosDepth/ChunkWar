@@ -49,6 +49,10 @@ public static class MathExtensionTools
         return false;
     }
 
+    public static Vector3 DirectionXY(this Vector3 self, Vector3 target)
+    {
+        return (target - self).normalized;
+    }
 
     public static bool IsInRange(this float value,float min, float max)
     {

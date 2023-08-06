@@ -62,7 +62,7 @@ public class RogueManager : Singleton<RogueManager>
     /// Ö÷ÒªÊôÐÔ
     /// </summary>
     public UnitPropertyData MainPropertyData;
-
+    public ShipMapData ShipMapData;
     public SaveData saveData;
     public InventoryItem currentShipSelection;
     public PlayerShip currentShip;

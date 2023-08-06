@@ -202,7 +202,7 @@ public class EGameState_GamePrepare : GameState
             MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadLevel("BattleLevel_001", (level) =>
             {
                 RogueManager.Instance.currentShip =  LevelManager.Instance.SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
-                RogueManager.Instance.currentShip.LoadRuntimeData(GameManager.Instance.gameEntity.runtimeData);
+                RogueManager.Instance.currentShip.LoadRuntimeData(RogueManager.Instance.ShipMapData);
                 RogueManager.Instance.currentShip.gameObject.SetActive(true);
                 RogueManager.Instance.currentShip.Initialization();
                 RogueManager.Instance.currentShip.CreateShip();
@@ -464,11 +464,11 @@ public class EGameState_GameOver : GameState
         base.OnEnter();
         Debug.Log("GameState = EGameState_GameOver");
 
+        LevelManager.Instance.GameOver();
         UIManager.Instance.ShowUI<GameOver>("GameOver", E_UI_Layer.Mid, GameManager.Instance, (panel) => 
         {
             panel.Initialization();
 
-           
 
         });
     }
