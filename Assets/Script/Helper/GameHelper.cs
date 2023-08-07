@@ -15,6 +15,18 @@ public static class GameHelper
 
     #region Battle
 
+    public static float GetEnemyDamageByHardLevel(EnemyHardLevelMap cfg)
+    {
+        var currentHardLevel = RogueManager.Instance.GetHardLevelValue;
+        return currentHardLevel * cfg.DamageRatio;
+    }
+
+    public static float GetEnemyHPByHardLevel(EnemyHardLevelMap cfg)
+    {
+        var currentHardLevel = RogueManager.Instance.GetHardLevelValue;
+        return currentHardLevel * cfg.HPRatio;
+    }
+
     /// <summary>
     /// 获取当前升级所需最大值EXP
     /// </summary>

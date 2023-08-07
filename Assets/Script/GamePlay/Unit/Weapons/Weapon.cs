@@ -402,7 +402,7 @@ public class Weapon : Unit
         _chargeCounter = weaponAttribute.ChargeTime;
         _reloadCounter = weaponAttribute.ReloadTime;
 
-        weaponAttribute.InitProeprty(_weaponCfg, isPlayerShip);
+        weaponAttribute.InitProeprty(this, _weaponCfg, isPlayerShip);
         baseAttribute = weaponAttribute;
 
     }

@@ -12,6 +12,8 @@ public enum AvaliableAIType
 [ShowOdinSerializedPropertiesInInspector]
 public class AIShip : BaseShip
 {
+    public AIShipConfig AIShipCfg;
+
     public AvaliableAIType AIType = AvaliableAIType.AI_Flyings;
     public override void Initialization()
     {
@@ -60,6 +62,7 @@ public class AIShip : BaseShip
         //¥¶¿ÌChunk
 
         AIShipConfig aishipconfig =  DataManager.Instance.GetAIShipConfig((int)AIType);
+        AIShipCfg = aishipconfig;
         Vector2Int pos;
 
         for (int row = 0; row < aishipconfig.Map.GetLength(0); row++)

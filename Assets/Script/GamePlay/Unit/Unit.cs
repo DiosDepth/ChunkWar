@@ -31,9 +31,11 @@ public class UnitBaseAttribute
 
 
     protected UnitPropertyData mainProperty;
-    public virtual void InitProeprty(BaseUnitConfig cfg, bool isPlayerShip)
+    protected Unit _parentUnit;
+    public virtual void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
     {
         this.isPlayerShip = isPlayerShip;
+        this._parentUnit = parentUnit;
 
         mainProperty = RogueManager.Instance.MainPropertyData;
         BaseHP = cfg.BaseHP;
@@ -71,7 +73,13 @@ public class UnitBaseAttribute
     private void CalculateEnemyHP()
     {
         var hpPercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
-        HPMax = Mathf.RoundToInt(BaseHP * (1 + hpPercent / 100f));
+        var enemyShip = _parentUnit._owner as AIShip;
+        float hardLevelPercent = 0;
+        if (enemyShip != null)
+        {
+            hardLevelPercent = GameHelper.GetEnemyHPByHardLevel(enemyShip.AIShipCfg.HardLevelCfg);
+        }
+        HPMax = Mathf.RoundToInt(BaseHP * (1 + hpPercent + hardLevelPercent / 100f));
     }
 }
 
@@ -95,7 +103,11 @@ public class Unit : MonoBehaviour,IDamageble
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
 
-    protected BaseShip _owner;
+    public BaseShip _owner
+    {
+        get;
+        private set;
+    }
 
     protected bool _isActive = true;
 
@@ -107,21 +119,12 @@ public class Unit : MonoBehaviour,IDamageble
     /// </summary>
     public GeneralHPComponet HpComponent;
 
-    public virtual void Start()
-    {
+    public virtual void Start() { }
 
-    }
-
-    // Update is called once per frame
-    public virtual void Update()
-    {
-
-    }
+    public virtual void Update() { }
 
     public virtual void Death()
     {
-       
-
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
             SetUnitActive(false);
@@ -143,11 +146,6 @@ public class Unit : MonoBehaviour,IDamageble
 
         });
     
-        
-
-
-  
-
     }
 
     public virtual void Restore()

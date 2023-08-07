@@ -230,7 +230,7 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// 当前难度等级
     /// </summary>
-    public int GetHardLevel
+    public int GetHardLevelValue
     {
         get { return _currentHardLevel; }
     }

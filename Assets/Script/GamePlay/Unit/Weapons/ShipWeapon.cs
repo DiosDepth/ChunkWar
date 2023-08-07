@@ -95,17 +95,23 @@ public class WeaponAttribute : UnitBaseAttribute
         else
         {
             var damageRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
+            var enemy = _parentUnit._owner as AIShip;
+            float hardLevelRatio = 0;
+            if(enemy != null)
+            {
+                hardLevelRatio = GameHelper.GetEnemyDamageByHardLevel(enemy.AIShipCfg.HardLevelCfg);
+            }
+
             var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
-            var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio / 100f) * ratio, 0, int.MaxValue);
+            var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio + hardLevelRatio / 100f) * ratio, 0, int.MaxValue);
             return Mathf.RoundToInt(damage);
         }
     }
 
-    public override void InitProeprty(BaseUnitConfig cfg, bool isPlayerShip)
+    public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
     {
-        base.InitProeprty(cfg, isPlayerShip);
+        base.InitProeprty(parentUnit, cfg, isPlayerShip);
         
-
         WeaponConfig _weaponCfg = cfg as WeaponConfig;
         if (_weaponCfg == null)
             return;
@@ -134,7 +140,8 @@ public class WeaponAttribute : UnitBaseAttribute
         }
         else
         {
-
+            BaseDamageModifyValue = 0;
+            CriticalRatio = 0;
         }
     }
 
