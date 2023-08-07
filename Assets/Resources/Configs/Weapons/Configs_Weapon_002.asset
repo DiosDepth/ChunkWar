@@ -405,11 +405,13 @@ MonoBehaviour:
     Name: Weapon_Name_10001
     Desc: 
     Rarity: 0
-  Prefab: {fileID: 4947179278027536233, guid: 9109a6e2ad23d4b44b85d96f2cf74329, type: 3}
+  Prefab: {fileID: 5156482088037079168, guid: ef56862dd6ffbc643903b3115ad6669e, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 1
+  EditBrushSprite: {fileID: 21300000, guid: 4496b99d0334a184c84911a7e45d5071, type: 3}
+  EditorBrushDefaultRotation: 180
   BaseHP: 100
   DamageBase: 50
   DamageRatioMin: 0.94

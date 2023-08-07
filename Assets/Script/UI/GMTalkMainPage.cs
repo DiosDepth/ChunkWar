@@ -11,6 +11,7 @@ public class GMTalkMainPage : GUIBasePanel
     {
         GetGUIComponent<Button>("SendGMBtn").onClick.AddListener(SendGMBtnPressed);
         GetGUIComponent<Button>("Close").onClick.AddListener(ClosePage);
+        GetGUIComponent<Button>("Shop").onClick.AddListener(JumpToShop);
     }
 
     private void SendGMBtnPressed()
@@ -32,5 +33,10 @@ public class GMTalkMainPage : GUIBasePanel
     private void ClosePage()
     {
         UIManager.Instance.HiddenUI("GMTalkMainPage");
+    }
+
+    private void JumpToShop()
+    {
+        GMTalkManager.Instance.HandleGMTalkInputContent("jumptoshop");
     }
 }

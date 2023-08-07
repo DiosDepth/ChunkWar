@@ -30,6 +30,18 @@ public class BaseUnitConfig : BaseConfig
     [HorizontalGroup("B", 300)]
     public bool redirection = true;
 
+
+    [LabelText("建造笔刷图片")]
+    [LabelWidth(80)]
+    [HorizontalGroup("C", 150)]
+    [PreviewField(60, Alignment = ObjectFieldAlignment.Left)]
+    public Sprite EditBrushSprite;
+
+    [LabelText("建造默认旋转")]
+    [LabelWidth(70)]
+    [HorizontalGroup("C", 130)]
+    public int EditorBrushDefaultRotation;
+
     [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/A", 200)]
     [LabelText("基础血量")]

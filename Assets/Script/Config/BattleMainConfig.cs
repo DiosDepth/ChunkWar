@@ -2,7 +2,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public enum HardLevelModifyType
 {
     EnemyHP,
@@ -41,6 +43,17 @@ public class BattleMainConfig : SerializedScriptableObject
     {
         return HardLevels.Find(x => x.HardLevelID == hardLevelID);
     }
+
+#if UNITY_EDITOR
+
+    [OnInspectorDispose]
+    private void OnDispose()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+#endif
 }
 
 [HideReferenceObjectPicker]

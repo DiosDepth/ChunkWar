@@ -61,6 +61,12 @@ public static class MonoBehaviorExtention
         trans.localEulerAngles = q;
     }
 
+    public static void SetLocalRotationZ(this Transform trans, float z)
+    {
+        Vector3 q = new Vector3(trans.localEulerAngles.x, trans.localEulerAngles.y, z);
+        trans.localEulerAngles = q;
+    }
+
     public static void SetLocalScaleX(this Transform trans, float x)
     {
         Vector3 s = new Vector3(x, trans.localScale.y, trans.localScale.z);

@@ -366,7 +366,7 @@ public class PlayerShip : BaseShip
         return closelist.ToArray();
     }
 
-    public Unit AddUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction)
+    public Unit AddUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction, bool isEditorMode = false)
     {
         GameObject obj;
         Vector2Int buildarray;
@@ -378,10 +378,13 @@ public class PlayerShip : BaseShip
         tempunit.UnitID = m_unitconfig.ID;
         RogueManager.Instance.AddNewShipUnit(tempunit);
         obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
-        //创建Building的Prefab并且归类放好
-
-
-        //设置对应的ChunMap信息，比如是否为Piovt， 是否被占用等。
+        if (isEditorMode && tempunit is Weapon)
+        {
+            ///商店中建造模式，不更新武器
+            var weapon = tempunit as Weapon;
+            weapon.SetUnitActive(false);
+        }
+        //设置对应的 ChunMap信息，比如是否为Piovt， 是否被占用等。
         if (m_unitmap.Length > 0)
         {
             for (int i = 0; i < m_unitmap.Length; i++)
@@ -437,7 +440,7 @@ public class PlayerShip : BaseShip
                 }
 
 
-                if(unitconfig.unitType == UnitType.MainWeapons)
+                if(unitconfig.unitType == UnitType.MainWeapons || unitconfig.unitType == UnitType.Weapons)
                 {
                     mainWeapon = tempunit as ShipWeapon;
                     mainWeapon.Initialization(this, unitconfig);

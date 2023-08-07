@@ -1370,4 +1370,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   CoreHP: 50
   SpeedBase: 10
-  HardLevelMap: []
+  HardLevelCfg:
+    HPRatio: 0
+    DamageRatio: 0
+    DropValueRatio: 0

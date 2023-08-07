@@ -184,7 +184,7 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void OnMainLevelUnload()
     {
-        _tempWaveTime = Timer.TotalSecond;
+        _tempWaveTime = Timer.CurrentSecond;
         ///RefreshShop
         GenerateShopGoods(3, _shopEnterTotalCount);
     }
@@ -210,7 +210,6 @@ public class RogueManager : Singleton<RogueManager>
 
     private void InitDefaultProperty()
     {
-        HarborTempUnitSlotCount = DataManager.Instance.battleCfg.HarborMapTempUnitSlotCount;
         var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
         _shipLevel = new ChangeValue<byte>(1, 1, maxLevel);
         _currentEXP = new ChangeValue<float>(0, 0, int.MaxValue);
@@ -231,7 +230,7 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// 当前难度等级
     /// </summary>
-    public int GetHardLevel
+    public int GetHardLevelValue
     {
         get { return _currentHardLevel; }
     }
@@ -240,9 +239,14 @@ public class RogueManager : Singleton<RogueManager>
     /// 计算hardLevel等级
     /// </summary>
     /// <returns></returns>
-    public int CalculateHardLevelIndex()
+    private void CalculateHardLevelIndex()
     {
-        return 0;
+        var currentSecond = Timer.TotalSeconds;
+        var secondsLevel = Mathf.RoundToInt(currentSecond / (float)(2 * 60));
+
+        var wave = DataManager.Instance.battleCfg.HardLevelWaveIndexMultiple;
+        _currentHardLevel = wave * (GetCurrentWaveIndex - 1) + secondsLevel;
+        Debug.Log("Update HardLevel , HardLevel = " + _currentHardLevel);
     }
 
     private void InitWave()
@@ -250,8 +254,12 @@ public class RogueManager : Singleton<RogueManager>
         _waveIndex = 1;
         _tempWaveTime = GetCurrentWaveTime();
         Timer = new LevelTimer();
-        var totalTime =GetTempWaveTime;
+        var totalTime = GetTempWaveTime;
         Timer.InitTimer(totalTime);
+
+        var hardLevelDelta = DataManager.Instance.battleCfg.HardLevelDeltaSeconds;
+        Timer.AddTrigger(LevelTimerTrigger.CreateTriger(hardLevelDelta, -1, CalculateHardLevelIndex, "HardLevelUpdate"));
+        CalculateHardLevelIndex();
     }
 
     private int GetCurrentWaveTime()
@@ -383,6 +391,11 @@ public class RogueManager : Singleton<RogueManager>
     {
         if (!info.CheckCanBuy())
             return false;
+
+        ///临时仓库已满，无法购买
+        if (info._cfg.ItemType == GoodsItemType.ShipUnit && IsTempUnitHarborFull())
+            return false;
+
 
         var cost = info.Cost;
         AddCurrency(-cost);
@@ -616,16 +629,30 @@ public class RogueManager : Singleton<RogueManager>
     #region Ship Unit
 
 
-    private List<int> harborTempUnitSlotIDs = new List<int>();
+    private int[] harborTempUnitSlotIDs;
     /// <summary>
     /// 临时建筑组件库存
     /// </summary>
-    public List<int> HarborTempUnitSlots
+    public int[] HarborTempUnitSlots
     {
         get { return harborTempUnitSlotIDs; }
     }
-    private byte HarborTempUnitSlotCount;
+    public byte CurrentSelectedHarborSlotIndex;
     
+    public void InitTempUnitSlots()
+    {
+        var count = DataManager.Instance.battleCfg.HarborMapTempUnitSlotCount;
+        harborTempUnitSlotIDs = new int[count];
+        for (int i = 0; i < harborTempUnitSlotIDs.Length; i++) 
+        {
+            harborTempUnitSlotIDs[i] = -1;
+        }
+    }
+
+    public void RemoveTempUnitInHarbor(byte slotIndex)
+    {
+        harborTempUnitSlotIDs[slotIndex] = -1;
+    }
 
     public void AddNewShipUnit(Unit unit)
     {
@@ -635,17 +662,32 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
+    /// 临时仓库是否已满
+    /// </summary>
+    /// <returns></returns>
+    private bool IsTempUnitHarborFull()
+    {
+        for(int i =0;i< harborTempUnitSlotIDs.Length; i++)
+        {
+            if (harborTempUnitSlotIDs[i] == -1)
+                return false;
+        }
+        return true;
+    }
+
+    /// <summary>
     /// 添加建筑到临时库存
     /// </summary>
     /// <param name="unitID"></param>
     /// <param name="goodsID"></param>
     private void AddNewTempUintToHarbor(int unitID, int goodsID = -1)
     {
-        if (harborTempUnitSlotIDs.Count > HarborTempUnitSlotCount)
+        var emptySlot = GetEmptyTempUnitSlot();
+        if (emptySlot == -1)
             return;
 
-        harborTempUnitSlotIDs.Add(unitID);
-        RogueEvent.Trigger(RogueEventType.ShipUnitTempSlotChange, true, unitID);
+        harborTempUnitSlotIDs[emptySlot] = unitID;
+        RogueEvent.Trigger(RogueEventType.ShipUnitTempSlotChange, true, unitID, (byte)emptySlot);
     }
 
     private uint GetShipUnitUID()
@@ -655,6 +697,16 @@ public class RogueManager : Singleton<RogueManager>
             return GetShipUnitUID();
 
         return uid;
+    }
+
+    private int GetEmptyTempUnitSlot()
+    {
+        for (int i = 0; i < harborTempUnitSlotIDs.Length; i++) 
+        {
+            if (harborTempUnitSlotIDs[i] == -1)
+                return i;
+        }
+        return -1;
     }
 
     #endregion

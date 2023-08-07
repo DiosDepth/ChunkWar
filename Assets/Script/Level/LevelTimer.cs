@@ -11,12 +11,21 @@ public class LevelTimer
     private float _timer;
 
     /// <summary>
+    /// 累计秒数
+    /// </summary>
+    public int TotalSeconds
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
     /// 倒计时秒数
     /// </summary>
-    private int _totalSecond;
-    public int TotalSecond
+    private int _currentSecond;
+    public int CurrentSecond
     {
-        get { return _totalSecond; }
+        get { return _currentSecond; }
     }
 
     public Action<int> OnTimeSecondUpdate;
@@ -24,26 +33,29 @@ public class LevelTimer
     private bool _pause = true;
 
     private List<LevelTimerTrigger> _triggers = new List<LevelTimerTrigger>();
+    private Dictionary<string, LevelTimerTrigger> _triggerDic = new Dictionary<string, LevelTimerTrigger>();
 
     public void InitTimer(int totalSecond)
     {
-        _totalSecond = totalSecond;
+        _currentSecond = totalSecond;
         _pause = true;
+        TotalSeconds = 0;
     }
 
     public void OnUpdate()
     {
-        if (_pause || _totalSecond <= 0)
+        if (_pause || _currentSecond <= 0)
             return;
 
         _timer += Time.deltaTime;
         if(_timer >= 1)
         {
-            _totalSecond--;
+            _currentSecond--;
+            TotalSeconds++;
             _timer = 0;
-            OnTimeSecondUpdate?.Invoke(_totalSecond);
+            OnTimeSecondUpdate?.Invoke(_currentSecond);
             UpdateTrigger();
-            if (_totalSecond <= 0)
+            if (_currentSecond <= 0)
             {
                 _pause = true;
                 RogueManager.Instance.OnWaveFinish();  
@@ -52,9 +64,13 @@ public class LevelTimer
 
     }
 
-    public void AddTrigger()
+    public void AddTrigger(LevelTimerTrigger trigger)
     {
-
+        _triggers.Add(trigger);
+        if (!string.IsNullOrEmpty(trigger.TriggerName) && !_triggerDic.ContainsKey(trigger.TriggerName)) 
+        {
+            _triggerDic.Add(trigger.TriggerName, trigger);
+        }
     }
 
     public void StartTimer()
@@ -67,14 +83,25 @@ public class LevelTimer
         _pause = true;
     }
 
+    public void RemoveAllTrigger()
+    {
+        _triggerDic.Clear();
+        _triggers.Clear();
+    }
+
     private void UpdateTrigger()
     {
-        for (int i = 0; i < _triggers.Count; i++) 
+        for (int i = _triggers.Count - 1; i >= 0; i--) 
         {
             var trigger = _triggers[i];
-            if (trigger.OnUpdateSecond())
+            trigger.OnUpdateSecond();
+            if (trigger.IsNeedToRemove)
             {
-
+                _triggers.RemoveAt(i);
+                if (_triggerDic.ContainsKey(trigger.TriggerName))
+                {
+                    _triggerDic.Remove(trigger.TriggerName);
+                }
             }
         }
     }
@@ -85,6 +112,8 @@ public class LevelTimer
  */
 public class LevelTimerTrigger
 {
+    public string TriggerName;
+
     /// <summary>
     /// 总共间隔
     /// </summary>
@@ -108,11 +137,19 @@ public class LevelTimerTrigger
 
     public Action TriggerAction;
 
+    public bool IsNeedToRemove
+    {
+        get;
+        private set;
+    }
 
-    public static LevelTimerTrigger CreateTriger(int secondDelta, int loopCount, Action action)
+
+    public static LevelTimerTrigger CreateTriger(int secondDelta, int loopCount, Action action, string TriggerName = null)
     {
         LevelTimerTrigger trigger = new LevelTimerTrigger(secondDelta, loopCount);
         trigger.TriggerAction = action;
+        trigger.TriggerName = TriggerName;
+        trigger.IsNeedToRemove = false;
         return trigger;
     }
 
@@ -129,8 +166,11 @@ public class LevelTimerTrigger
     /// 更新
     /// </summary>
     /// <returns>是否Remove</returns>
-    public bool OnUpdateSecond()
+    public void OnUpdateSecond()
     {
+        if (IsNeedToRemove)
+            return;
+
         _secondTimer++;
         if(_secondTimer >= _secondDelta)
         {
@@ -139,9 +179,8 @@ public class LevelTimerTrigger
             _secondTimer = 0;
             if (!_isLoop && _currentLoopCount > _totalloopCount)
             {
-                return true;
+                IsNeedToRemove = true;
             }
         }
-        return false;
     }
 }

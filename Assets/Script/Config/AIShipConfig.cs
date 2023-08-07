@@ -23,7 +23,7 @@ public class AIShipConfig : BaseShipConfig
 
     [TableList]
     [LabelText("敌人难度等级")]
-    public List<EnemyHardLevelMap> HardLevelMap = new List<EnemyHardLevelMap>();
+    public EnemyHardLevelMap HardLevelCfg;
 
     [System.Obsolete]
     protected override void OnEnable()
@@ -48,7 +48,8 @@ public class AIShipConfig : BaseShipConfig
 [System.Serializable]
 public class EnemyHardLevelMap
 {
-    public float CoreHPRatio;
+    public float HPRatio;
     public float DamageRatio;
+    public float DropValueRatio;
 }
 

@@ -16,7 +16,7 @@ public class BaseConfig : SerializedScriptableObject
 
     [LabelText("ª˘¥°≈‰÷√")]
     [LabelWidth(80)]
-    [HorizontalGroup("C")]
+    [HorizontalGroup("C", 800)]
     public GeneralItemConfig GeneralConfig = new GeneralItemConfig();
 
     [LabelText("Prefab")]
