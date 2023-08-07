@@ -5,15 +5,7 @@ using UnityEngine;
 
 public static class MathExtensionTools 
 {
-    public static bool IsEven(this float self)
-    {
-        return (self % 2 == 0);
-    }
 
-    public static bool IsEven(this int self)
-    {
-        return (self % 2 == 0);
-    }
 
     public static Vector2Int Round(this Vector2 v2)
     {
