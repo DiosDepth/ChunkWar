@@ -97,7 +97,8 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
             case RogueEventType.ShipUnitTempSlotChange:
                 bool isadd = (bool)evt.param[0];
                 int unitID = (int)evt.param[1];
-                RefreshShipUnitSlotContent(isadd, unitID);
+                byte slotIndex = (byte)evt.param[2];
+                RefreshShipUnitSlotContent(isadd, unitID, slotIndex);
                 break;
 
             case RogueEventType.RefreshShopWeaponInfo:
@@ -129,7 +130,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     {
         for (int i = 0; i < buildingSlotCmpts.Count; i++) 
         {
-
+            buildingSlotCmpts[i].Index = (byte)i;
         }
     }
 
@@ -216,14 +217,22 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _plugGridScroller.ReloadData();
     }
 
-    private void RefreshShipUnitSlotContent(bool isAdd, int unitID)
+    private void RefreshShipUnitSlotContent(bool isAdd, int unitID, byte SlotIndex)
     {
         if (isAdd)
         {
-            var cmpt = GetEmptyBuildingSlot();
+            var cmpt = GetEmptyBuildingSlotByIndex(SlotIndex);
             if(cmpt != null)
             {
                 cmpt.SetUp(unitID);
+            }
+        }
+        else
+        {
+            var cmpt = GetEmptyBuildingSlotByIndex(SlotIndex);
+            if(cmpt != null)
+            {
+                cmpt.SetEmpty();
             }
         }
     }
@@ -254,13 +263,8 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     /// ¿ÕµÄÁÙÊ±½¨Öþ²Û
     /// </summary>
     /// <returns></returns>
-    private ShipBuildingSlotCmpt GetEmptyBuildingSlot()
+    private ShipBuildingSlotCmpt GetEmptyBuildingSlotByIndex(byte index)
     {
-        for(int i = 0; i < buildingSlotCmpts.Count; i++)
-        {
-            if (buildingSlotCmpts[i].IsEmpty)
-                return buildingSlotCmpts[i];
-        }
-        return null;
+        return buildingSlotCmpts.Find(x => x.Index == index);
     }
 }

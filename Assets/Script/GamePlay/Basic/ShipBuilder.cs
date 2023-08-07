@@ -63,6 +63,7 @@ public class ShipBuilder : MonoBehaviour
 
     public void Initialization()
     {
+        RogueManager.Instance.InitTempUnitSlots();
         InputDispatcher.Instance.Action_GamePlay_Point += HandleBuildMouseMove;
         InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleBuildOperation;
         InputDispatcher.Instance.Action_GamePlay_RightClick += HandleRemoveOperation;
@@ -122,6 +123,22 @@ public class ShipBuilder : MonoBehaviour
         editorShip.CreateShip(true);
     }
 
+    /// <summary>
+    /// 设置笔刷图片
+    /// </summary>
+    public void SetBrushSprite()
+    {
+        if(currentInventoryItem != null)
+        {
+            var cfg = currentInventoryItem.itemconfig as BaseUnitConfig;
+            if(cfg != null)
+            {
+                editorBrush.ChangeBurshSprite(cfg.EditBrushSprite, cfg.EditorBrushDefaultRotation);
+            }
+           
+        }
+    }
+
 
     public void SaveShip()
     {
@@ -134,10 +151,7 @@ public class ShipBuilder : MonoBehaviour
         {
             return;
         }
-        //if(UIManager.Instance.IsMouseOverUI())
-        //{
-        //    return;
-        //}
+
         switch (context.phase)
         {
             case InputActionPhase.Disabled:
@@ -150,7 +164,7 @@ public class ShipBuilder : MonoBehaviour
                 _mousePos = context.ReadValue<Vector2>();
                 _mouseWorldPos = CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_mousePos.x, _mousePos.y, 0));
                 _pointedShipCoord = GameHelper.GetReletiveCoordFromWorldPos(editorShip.shipMapCenter, _mouseWorldPos);
-                if (currentInventoryItem.itemconfig == null)
+                if (currentInventoryItem == null || currentInventoryItem.itemconfig == null)
                 {
                     return;
                 }
@@ -195,7 +209,7 @@ public class ShipBuilder : MonoBehaviour
                         break;
                     }
                 }
-
+                
 
                 if (currentChunk != null && _isValidPos)
                 {
@@ -211,8 +225,6 @@ public class ShipBuilder : MonoBehaviour
 
                 //使用selectedChunk 和 当前选择的currentInventoryBuilding 中map信息 来计算是否有其他位置重合，
                 //需要检测已经有的Building
-
-
                 editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);
 
 
@@ -266,7 +278,6 @@ public class ShipBuilder : MonoBehaviour
             return;
         }
 
-
         switch (context.phase)
         {
             case InputActionPhase.Disabled:
@@ -276,16 +287,7 @@ public class ShipBuilder : MonoBehaviour
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                GameObject obj;
-                Vector2Int chunkpartcoord;
-                Vector2Int buildarray;
-
-                if (_isValidPos)
-                {
-
-                    editorShip.AddUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection);
-
-                }
+                OnAddUnit();
                 break;
             case InputActionPhase.Canceled:
                 break;
@@ -363,33 +365,21 @@ public class ShipBuilder : MonoBehaviour
     
     }
 
-    //public void OnEvent(InventoryOperationEvent evt)
-    //{
-    //    switch (evt.type)
-    //    {
-    //        case InventoryOperationType.ItemSelect:
+    private void OnAddUnit()
+    {
+        if (!_isValidPos || currentInventoryItem == null)
+            return;
 
-    //            //if(evt.unitytype == UnitType.ChunkParts)
-    //            //{
-    //            //    editorMode = EditorMode.ShipEditorMode;
+        editorShip.AddUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection, true);
+        _itemDirection = 0;
+        editorBrush.ResetBrush();
+        var slotIndex = RogueManager.Instance.CurrentSelectedHarborSlotIndex;
+        RogueEvent.Trigger(RogueEventType.ShipUnitTempSlotChange, false, currentInventoryItem.itemconfig.ID, slotIndex);
 
-    //            //}
-
-    //            currentInventoryItem = GameManager.Instance.gameEntity.buildingInventory.Peek(evt.name);
-                
-                
-    //            editorBrush.brushSprite.sprite = currentInventoryItem.itemconfig.Icon;
-        
-    //            _reletiveCoord = (currentInventoryItem.itemconfig as BaseUnitConfig) .GetReletiveCoord();
-    //            editorBrush.UpdateShadows(_reletiveCoord);
-    //            _itemDirection = 0;
-    //            editorBrush.brushSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-    //            break;
-    //        case InventoryOperationType.ItemUnselect:
-    //            break;
-    //        case InventoryOperationType.ItemRemove:
-    //            break;
-    //    }
-    //}
+        ///Reset
+        RogueManager.Instance.CurrentSelectedHarborSlotIndex = 0;
+        RogueManager.Instance.RemoveTempUnitInHarbor(slotIndex); 
+        currentInventoryItem = null;
+        editorBrush.gameObject.SetActive(false);
+    }
 }

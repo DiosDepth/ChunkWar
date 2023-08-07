@@ -123,10 +123,6 @@ public class Weapon : Unit
         }
     }
 
-
-
-
-
     public virtual void WeaponOn()
     {
         _isWeaponOn = true;

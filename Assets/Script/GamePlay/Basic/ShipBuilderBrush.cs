@@ -17,17 +17,6 @@ public class ShipBuilderBrush : MonoBehaviour
     public Color validColor;
     public Color invalidColor;
 
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
- 
-
-    }
-
-
     public void ValidState()
     {
 
@@ -35,12 +24,6 @@ public class ShipBuilderBrush : MonoBehaviour
     public void InvalidState()
     {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Initialization()
@@ -64,9 +47,14 @@ public class ShipBuilderBrush : MonoBehaviour
         }
     }
 
-
-    public void ChangeBurshSprite(Sprite m_sprite)
+    public void ResetBrush()
     {
+        brushSprite.transform.localRotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void ChangeBurshSprite(Sprite m_sprite, int defaultRotation = 0)
+    {
+        brushSprite.transform.SetLocalRotationZ(defaultRotation);
         if(m_sprite != null)
         {
             brushSprite.sprite = m_sprite;

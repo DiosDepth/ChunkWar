@@ -410,4 +410,5 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 21
   unitType: 0
   redirection: 1
+  EditBrushSprite: {fileID: 0}
   BaseHP: 0

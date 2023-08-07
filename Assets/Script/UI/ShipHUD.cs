@@ -110,7 +110,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         if (bind)
         {
             timer.OnTimeSecondUpdate += UpdateWaveTimer;
-            UpdateWaveTimer(timer.TotalSecond);
+            UpdateWaveTimer(timer.CurrentSecond);
         }
         else
         {

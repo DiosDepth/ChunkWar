@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ShipBuildingSlotCmpt : MonoBehaviour
 {
+    public byte Index;
+
     public int UnitID
     {
         get;
@@ -32,6 +34,7 @@ public class ShipBuildingSlotCmpt : MonoBehaviour
     {
         _isEmpty = true;
         UnitID = 0;
+        _icon.transform.SafeSetActive(!IsEmpty);
     }
 
     public void SetUp(int unitID)
@@ -43,8 +46,8 @@ public class ShipBuildingSlotCmpt : MonoBehaviour
             return;
         }
         _icon.sprite = unitcfg.GeneralConfig.IconSprite;
-
         _isEmpty = false;
+        _icon.transform.SafeSetActive(!IsEmpty);
         this.UnitID = unitID;
     }
 
@@ -58,7 +61,8 @@ public class ShipBuildingSlotCmpt : MonoBehaviour
         if (shipBuilder == null || cfg == null)
             return;
 
-
+        RogueManager.Instance.CurrentSelectedHarborSlotIndex = Index;
         shipBuilder.currentInventoryItem = new InventoryItem(cfg);
+        shipBuilder.SetBrushSprite();
     }
 }
