@@ -120,12 +120,13 @@ public class EGameState_ShipSelection : GameState
     public override void Initialization()
     {
         base.Initialization();
+       
     }
 
     public override void OnEnter()
     {
         base.OnEnter();
-
+        RogueManager.Instance.InitShipSelection();
         Debug.Log("GameState = ShipSelection");
         GameManager.Instance.InitHardLevelData();
         UIManager.Instance.HiddenUIALLBut(new List<string> { "LoadingScreen" });

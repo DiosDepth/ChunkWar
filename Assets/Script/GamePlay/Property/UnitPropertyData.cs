@@ -12,6 +12,12 @@ public class UnitPropertyData
     /// </summary>
     private Dictionary<PropertyModifyKey, ChangeValue<float>> _propertyRow = new Dictionary<PropertyModifyKey, ChangeValue<float>>();
 
+    public void Clear()
+    {
+        PropertyPool.Clear();
+        _propertyRow.Clear();
+    }
+
     public void RegisterRowProperty(PropertyModifyKey key, float rowValue)
     {
         if (!_propertyRow.ContainsKey(key))

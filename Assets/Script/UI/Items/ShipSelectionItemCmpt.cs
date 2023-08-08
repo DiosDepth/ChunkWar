@@ -70,6 +70,7 @@ public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIIte
 
     public void OnHoverEnter()
     {
+        RogueManager.Instance.SetTempShipSelectionPreview((int)ItemUID);
         GeneralUIEvent.Trigger(UIEventType.ShipSelectionChange, ItemUID, DataIndex);
         selected?.Invoke(this);
     }

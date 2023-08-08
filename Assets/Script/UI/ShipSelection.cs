@@ -56,23 +56,6 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         this.EventStopListening<GeneralUIEvent>();
     }
 
-    public void AddSlot(List<ItemGUISlot> list, InventoryItem m_item, RectTransform m_slotgroup)
-    {
-        var obj = ResManager.Instance.Load<GameObject>(UIManager.Instance.resPath + "CmptItems/ShipBuildingSlot");
-        RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.SetParent(m_slotgroup);
-        rect.localScale = Vector3.one;
-        
-
-        var slotinfo = obj.GetComponent<ItemGUISlot>();
-        list.Add(slotinfo);
-        slotinfo.Initialization(list.Count - 1, uiGroup.GetComponent<RectTransform>(), m_item);
-    }
-    public void RemoveSlot(int m_index)
-    {
-
-    }
-
     private void InitSelectionController()
     {
         _selectionController = new GeneralScrollerGirdItemController();

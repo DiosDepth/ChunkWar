@@ -12,6 +12,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private RectTransform _currencyContent;
     private Text _rerollCostText;
     private EnhancedScroller _plugGridScroller;
+    private UnitDetailInfoPanel _detailPanel;
 
 
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
@@ -31,6 +32,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = GetGUIComponent<Text>("RerollCost");
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
+        _detailPanel = transform.Find("UnitDetailPanel").SafeGetComponent<UnitDetailInfoPanel>();
     }
 
     public override void Initialization()
@@ -39,6 +41,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         this.EventStartListening<RogueEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
+        _detailPanel.Hide();
         InitShopContent();
         InitBuildingSlots();
         RefreshGeneral();

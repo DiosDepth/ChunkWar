@@ -153,11 +153,38 @@ public class RogueManager : Singleton<RogueManager>
         Initialization();
     }
 
-    public void InitRogueBattle()
+    /// <summary>
+    /// 舰船选择界面初始化
+    /// </summary>
+    public void InitShipSelection()
     {
         MainPropertyData = new UnitPropertyData();
-        InitWave();
         InitDefaultProperty();
+    }
+
+    /// <summary>
+    /// 舰船选择界面临时预览属性
+    /// </summary>
+    public void SetTempShipSelectionPreview(int shipID)
+    {
+        MainPropertyData.Clear();
+        _currentShipPlugs.Clear();
+        var shipCfg = DataManager.Instance.GetShipConfig(shipID);
+        if(shipCfg != null)
+        {
+            ///TempAdd
+            AddNewShipPlug(shipCfg.CorePlugID);
+        }
+    }
+
+    /// <summary>
+    /// 进入战斗初始化
+    /// </summary>
+    public void InitRogueBattle()
+    {
+        MainPropertyData.Clear();
+        _currentShipPlugs.Clear();
+        InitWave();
         InitShopData();
         InitAllGoodsItems();
         AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);

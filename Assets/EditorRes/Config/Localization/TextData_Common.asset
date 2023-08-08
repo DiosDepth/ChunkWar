@@ -135,3 +135,11 @@ MonoBehaviour:
     ChineseSimplified: "\u88C5\u7532"
     English: 
     Japanese: 
+  - TextID: WeaponDamageType_Energy_Name
+    ChineseSimplified: "\u80FD\u91CF\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: WeaponDamageType_Physics_Name
+    ChineseSimplified: "\u5B9E\u5F39\u4F24\u5BB3"
+    English: 
+    Japanese: 
