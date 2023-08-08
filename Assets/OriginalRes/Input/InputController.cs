@@ -42,7 +42,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""id"": ""19f992ec-cf19-4295-a903-9e1fa15f4d85"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.5)"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -115,7 +115,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""MidClick"",
@@ -198,7 +198,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""26651afa-4d1c-49e2-92a4-a1330f104016"",
                     ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Attack"",
@@ -209,7 +209,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""f0aeac11-12f7-4a4f-b49f-9b1c33813455"",
                     ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Attack"",
@@ -220,7 +220,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""89da5ec3-30b1-40ee-b57a-b5640ea0cef4"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Attack"",
@@ -266,7 +266,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Ultra"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -288,7 +288,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -310,7 +310,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

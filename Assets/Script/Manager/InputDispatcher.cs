@@ -15,7 +15,6 @@ public class InputDispatcher : MonoBehaviour
     public PlayerInput playerInput;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_Move;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_Attack;
-    public UnityAction<InputAction.CallbackContext> Action_GamePlay_RushDown;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_Point;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_RightClick;
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_LeftClick;
@@ -24,17 +23,16 @@ public class InputDispatcher : MonoBehaviour
 
     public UnityAction<InputAction.CallbackContext> Action_UI_UnPause;
 
-    public InputDispatcher()
-    {
-
-  
-
-    }
 
     public void Awake()
     {
         Instance = this;
         playerInput = GetComponent<PlayerInput>();
+    }
+
+    public void OnDestroy()
+    {
+        
     }
 
     /// <summary>
@@ -56,10 +54,6 @@ public class InputDispatcher : MonoBehaviour
         Action_GamePlay_Attack?.Invoke(context);
     }
 
-    public void GamePlay_RushDown(InputAction.CallbackContext context)
-    {
-        Action_GamePlay_RushDown?.Invoke(context);
-    }
 
     public void GamePlay_Point(InputAction.CallbackContext context)
     {
