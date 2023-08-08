@@ -110,7 +110,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             AIFactory aIFactory = obj.GetComponent<AIFactory>();
             aIFactory.PoolableSetActive(true);
             aIFactory.Initialization();
-            aIFactory.StartSpawn(spawnpoint,new RectAISpawnSetting());
+            aIFactory.StartSpawn(spawnpoint, null);
         });
     }
 
