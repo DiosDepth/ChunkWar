@@ -10,11 +10,13 @@ public class ShipSelectionInfoPanel : MonoBehaviour
     private Transform _propertyContent;
     private TextMeshProUGUI _descText;
     private RectTransform _infoRect;
+    private UnitDetailInfoPanel _weaponInfoPanel;
 
     private const string ShipProperty_ItemPrefabPath = "Prefab/GUIPrefab/CmptItems/ShipItemProperty";
 
     public void Awake()
     {
+        _weaponInfoPanel = transform.Find("WeaponInfo").SafeGetComponent<UnitDetailInfoPanel>();
         _propertyContent = transform.Find("ShipInfo/PropertyContent");
         _nameText = transform.Find("ShipInfo/Name").SafeGetComponent<Text>();
         _descText = transform.Find("ShipInfo/Desc").SafeGetComponent<TextMeshProUGUI>();
@@ -44,5 +46,11 @@ public class ShipSelectionInfoPanel : MonoBehaviour
             }
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(_infoRect);
+
+        var weaponCfg = DataManager.Instance.GetUnitConfig(cfg.MainWeaponID);
+        if (weaponCfg != null)
+        {
+            _weaponInfoPanel.SetUpInfo(weaponCfg);
+        }
     }
 }

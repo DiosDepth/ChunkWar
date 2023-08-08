@@ -94,7 +94,7 @@ public class LevelTimer
         for (int i = _triggers.Count - 1; i >= 0; i--) 
         {
             var trigger = _triggers[i];
-            trigger.OnUpdateSecond();
+            trigger.OnUpdateSecond(TotalSeconds);
             if (trigger.IsNeedToRemove)
             {
                 _triggers.RemoveAt(i);
@@ -113,6 +113,11 @@ public class LevelTimer
 public class LevelTimerTrigger
 {
     public string TriggerName;
+
+    /// <summary>
+    /// 起始时间
+    /// </summary>
+    private int _startSecond;
 
     /// <summary>
     /// 总共间隔
@@ -135,7 +140,9 @@ public class LevelTimerTrigger
 
     private int _secondTimer;
 
-    public Action TriggerAction;
+    public Action<int> TriggerAction;
+
+    private int paramInt;
 
     public bool IsNeedToRemove
     {
@@ -144,17 +151,17 @@ public class LevelTimerTrigger
     }
 
 
-    public static LevelTimerTrigger CreateTriger(int secondDelta, int loopCount, Action action, string TriggerName = null)
+    public static LevelTimerTrigger CreateTriger(int startSecond, int secondDelta, int loopCount, string TriggerName = null)
     {
-        LevelTimerTrigger trigger = new LevelTimerTrigger(secondDelta, loopCount);
-        trigger.TriggerAction = action;
+        LevelTimerTrigger trigger = new LevelTimerTrigger(startSecond, secondDelta, loopCount);
         trigger.TriggerName = TriggerName;
         trigger.IsNeedToRemove = false;
         return trigger;
     }
 
-    private LevelTimerTrigger(int secondDelta, int loopCount)
+    private LevelTimerTrigger(int startSecond, int secondDelta, int loopCount)
     {
+        _startSecond = startSecond;
         _secondDelta = secondDelta;
         _isLoop = loopCount <= 0;
         _totalloopCount = loopCount;
@@ -162,19 +169,29 @@ public class LevelTimerTrigger
         _secondTimer = 0;
     }
 
+    public void BindChangeAction(Action<int> action, int param = 0)
+    {
+        this.paramInt = param;
+        TriggerAction = action;
+    }
+
     /// <summary>
     /// 更新
     /// </summary>
     /// <returns>是否Remove</returns>
-    public void OnUpdateSecond()
+    public void OnUpdateSecond(int currentSecond)
     {
         if (IsNeedToRemove)
             return;
 
         _secondTimer++;
+
+        if (_startSecond > currentSecond)
+            return;
+
         if(_secondTimer >= _secondDelta)
         {
-            TriggerAction?.Invoke();
+            TriggerAction?.Invoke(paramInt);
             _currentLoopCount++;
             _secondTimer = 0;
             if (!_isLoop && _currentLoopCount > _totalloopCount)

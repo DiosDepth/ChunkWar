@@ -402,8 +402,8 @@ MonoBehaviour:
   ID: 1
   GeneralConfig:
     IconSprite: {fileID: -432586034, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: PlayerWeapon_LongRangeIonBlaster
-    Desc: 
+    Name: Weapon_Name_001
+    Desc: Weapon_Desc_001
     Rarity: 0
   Prefab: {fileID: 4947179278027536233, guid: 4972fdc5b301b7c40b550a7ff6b1db06, type: 3}
   m_FlattendMapLayout: 

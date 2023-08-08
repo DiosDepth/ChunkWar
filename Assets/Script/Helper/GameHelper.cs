@@ -133,6 +133,19 @@ public static class GameHelper
         return LocalizationManager.Instance.GetTextValue(textID);
     }
 
+    public static string GetWeaponDamageTypeText(WeaponDamageType type)
+    {
+        switch (type)
+        {
+            case WeaponDamageType.Energy:
+                return LocalizationManager.Instance.GetTextValue("WeaponDamageType_Energy_Name");
+            case WeaponDamageType.Physics:
+                return LocalizationManager.Instance.GetTextValue("WeaponDamageType_Physics_Name");
+            default:
+                return string.Empty;
+        }
+    }
+
     public static string GetWeaponPropertyDescContent(UI_WeaponUnitPropertyType type, WeaponConfig cfg)
     {
         var propertyData = RogueManager.Instance.MainPropertyData;

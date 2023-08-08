@@ -2,6 +2,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 
 public class ShipPlugConfig : SerializedScriptableObject
@@ -9,6 +12,16 @@ public class ShipPlugConfig : SerializedScriptableObject
     [ListDrawerSettings()]
     [LabelText("²å¼þÁÐ±í")]
     public List<ShipPlugItemConfig> PlugConfigs = new List<ShipPlugItemConfig>();
+
+#if UNITY_EDITOR
+    [OnInspectorDispose]
+    private void OnDispose()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+#endif
 }
 
 [System.Serializable]

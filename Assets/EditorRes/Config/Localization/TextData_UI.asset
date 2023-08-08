@@ -75,3 +75,11 @@ MonoBehaviour:
     ChineseSimplified: "\u62FE\u53D6\u8303\u56F4"
     English: 
     Japanese: 
+  - TextID: ShipSelection_UnitInfoTitle
+    ChineseSimplified: "\u4E3B\u6B66\u5668"
+    English: 
+    Japanese: 
+  - TextID: ShipBuilder_UnitInfoTitle
+    ChineseSimplified: "\u7EC4\u4EF6\u4FE1\u606F"
+    English: 
+    Japanese: 

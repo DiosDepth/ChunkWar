@@ -32,7 +32,7 @@ MonoBehaviour:
     - ModifyKey: 1
       Value: 500
     - ModifyKey: 2
-      Value: 10
+      Value: 15
     - ModifyKey: 3
       Value: 0
     - ModifyKey: 4
@@ -40,7 +40,7 @@ MonoBehaviour:
     - ModifyKey: 5
       Value: 10
     - ModifyKey: 8
-      Value: 0
+      Value: 15
     - ModifyKey: 9
       Value: 15
   - ID: 2

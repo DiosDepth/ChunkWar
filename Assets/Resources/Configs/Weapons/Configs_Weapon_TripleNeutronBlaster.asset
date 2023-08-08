@@ -402,8 +402,8 @@ MonoBehaviour:
   ID: 2
   GeneralConfig:
     IconSprite: {fileID: 1469649811, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: PlayerWeapon_TripleNeutronBlaster
-    Desc: 
+    Name: Weapon_Name_002
+    Desc: Weapon_Desc_002
     Rarity: 0
   Prefab: {fileID: 579860166384849233, guid: 6224fc0685a9b624b87163e033ab17d6, type: 3}
   m_FlattendMapLayout: 
