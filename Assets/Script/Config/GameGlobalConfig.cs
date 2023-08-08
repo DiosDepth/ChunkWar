@@ -29,5 +29,7 @@ public static class GameGlobalConfig
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;
     public const string VFXPath = "Prefab/VFX/";
     public const string SFXPath = "Prefab/SFX/";
+    public const string AIShipPath = "Prefab/Ship/AI/";
+    public const string AIFactoryPath = "Prefab/GameplayPrefab/AIFactory";
 
 }

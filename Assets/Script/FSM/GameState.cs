@@ -295,7 +295,7 @@ public class EGameState_GameStart : GameState
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
                         RogueManager.Instance.currentShip.controller.IsUpdate = true;
-
+                        LevelManager.Instance.StartAISpawn();
 
                         //LeanTween.delayedCall(10, () =>
                         //{

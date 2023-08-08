@@ -45,12 +45,12 @@ public enum AvaliableLevel
 
 public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, EventListener<PickableItemEvent>
 {
-    public string shipPrefabPath = "Prefab/Chunk/ShipContainer";
+
     private AsyncOperation asy;
  
 
 
-    public AIFactory AIFactory;
+
  
 
     public LevelEntity currentLevel;
@@ -58,6 +58,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public bool needServicing = false;
 
+
+    private AIFactory _lastAIfactory;
     public LevelManager()
     {
         Initialization();
@@ -102,14 +104,21 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public void StartAISpawn()
     {
-        AIFactory.StartSpawn();
-
+        Vector2 spawnpoint = GetRadomPosFromOutRange(20f, 50f);
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
+        {
+            AIFactory aIFactory = obj.GetComponent<AIFactory>();
+            aIFactory.PoolableSetActive(true);
+            aIFactory.Initialization();
+            aIFactory.StartSpawn(spawnpoint, null);
+        });
     }
 
     public void StopAISpawn()
     {
-        AIFactory.StopSpawn();
+
     }
+
 
     /// <summary>
     /// 获取当前ship位置的圆形区间范围随机点，

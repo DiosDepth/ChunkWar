@@ -36,7 +36,7 @@ public class Projectile : Bullet, IDamageble
     // Start is called before the first frame update
     protected override void Start()
     {
-        SetActive();
+        PoolableSetActive();
     }
 
     // Update is called once per frame
@@ -68,31 +68,31 @@ public class Projectile : Bullet, IDamageble
 
 
 
-    public override void Reset()
+    public override void PoolableReset()
     {
-        base.Reset();
+        base.PoolableReset();
     }
 
-    public override void SetActive(bool isactive = true)
+    public override void PoolableSetActive(bool isactive = true)
     {
-        base.SetActive(isactive);
+        base.PoolableSetActive(isactive);
 
         if(movementType == ProjectileMovementType.Straight)
         {
             _movedirection = InitialmoveDirection;
             startmovingCoroutine = StartCoroutine(Straight(() =>
             {
-                Destroy();
+                PoolableDestroy();
             }));
         }
 
 
     }
 
-    public override void Destroy()
+    public override void PoolableDestroy()
     {
         StopCoroutine(startmovingCoroutine);
-        base.Destroy();
+        base.PoolableDestroy();
 
 
     }
@@ -135,10 +135,10 @@ public class Projectile : Bullet, IDamageble
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + hitVFXName, true, (obj) =>
         {
             obj.transform.position = this.transform.position;
-            obj.GetComponent<ParticleController>().SetActive();
+            obj.GetComponent<ParticleController>().PoolableSetActive();
             obj.GetComponent<ParticleController>().PlayVFX();
         });
-        Destroy();
+        PoolableDestroy();
     }
 
 

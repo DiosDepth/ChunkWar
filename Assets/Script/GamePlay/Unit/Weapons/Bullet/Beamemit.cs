@@ -22,9 +22,9 @@ public class Beamemit : Bullet
     }
 
 
-    public override void Reset()
+    public override void PoolableReset()
     {
-        base.Reset();
+        base.PoolableReset();
     }
 
     public override void Initialization()
@@ -32,13 +32,13 @@ public class Beamemit : Bullet
         base.Initialization();
     }
 
-    public override void Destroy()
+    public override void PoolableDestroy()
     {
-        base.Destroy();
+        base.PoolableDestroy();
     }
 
-    public override void SetActive(bool isactive = true)
+    public override void PoolableSetActive(bool isactive = true)
     {
-        base.SetActive(isactive);
+        base.PoolableSetActive(isactive);
     }
 }

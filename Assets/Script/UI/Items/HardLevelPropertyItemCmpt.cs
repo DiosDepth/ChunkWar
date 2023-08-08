@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class HardLevelPropertyItemCmpt : PoolableObject
+public class HardLevelPropertyItemCmpt : MonoBehaviour,IPoolable
 {
     private Text _nameText;
     private TextMeshProUGUI _valueText;
@@ -16,6 +16,22 @@ public class HardLevelPropertyItemCmpt : PoolableObject
     {
         _nameText = transform.Find("Name").SafeGetComponent<Text>();
         _valueText = transform.Find("Value").SafeGetComponent<TextMeshProUGUI>();
+    }
+
+    public void PoolableDestroy()
+    {
+      
+    }
+
+    public void PoolableReset()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+        this.gameObject.SetActive(isactive);
     }
 
     public void SetUp(HardLevelModifyType type, float value)

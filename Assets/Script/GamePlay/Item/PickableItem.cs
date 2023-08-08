@@ -33,7 +33,7 @@ public enum PickableItemType
     Event,//拾取后发送事件，
 }
 
-public class PickableItem : PoolableObject
+public class PickableItem : MonoBehaviour, IPoolable
 {
     public SpriteRenderer sprite;
     public Collider2D trigger;
@@ -44,18 +44,18 @@ public class PickableItem : PoolableObject
     public InventoryItem pickedItem;
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    protected override void Update()
+    protected virtual void Update()
     {
         
     }
 
-    public override void Initialization()
+    public virtual void Initialization()
     {
 
     }
@@ -113,17 +113,17 @@ public class PickableItem : PoolableObject
     }
 
 
-    public override void Reset()
+    public  void PoolableReset()
     {
-        base.Reset();
 
     }
 
 
 
-    public override void Destroy()
+    public void PoolableDestroy()
     {
-        base.Destroy();
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
     //用来做一些拾取之后的表现
     protected virtual void AfterPickUp(GameObject picker)
@@ -131,7 +131,7 @@ public class PickableItem : PoolableObject
         if (disableOnPick)
         {
             trigger.enabled = false;
-            Destroy();
+            PoolableDestroy();
         }
     }
 
@@ -144,5 +144,10 @@ public class PickableItem : PoolableObject
     protected virtual void OnTriggerStay2D (Collider2D collider)
     {
 
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+        this.gameObject.SetActive(isactive);
     }
 }

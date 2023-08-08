@@ -13,7 +13,7 @@ public enum UI_WeaponUnitPropertyType
     Range,
 }
 
-public class UnitPropertyItemCmpt : PoolableObject
+public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
 {
     public UI_WeaponUnitPropertyType WeaponPropertyType;
 
@@ -38,4 +38,23 @@ public class UnitPropertyItemCmpt : PoolableObject
     {
         _valueText.text = content;
     }
+
+
+    public void PoolableDestroy()
+    {
+
+    }
+
+    public void PoolableReset()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+        this.gameObject.SetActive(isactive);
+    }
+
+
 }

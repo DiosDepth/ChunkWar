@@ -206,7 +206,7 @@ public class Weapon : Unit
                     _lastbullet = obj.GetComponent<Projectile>();
                     _lastbullet.InitialmoveDirection = firePoint.transform.up;
 
-                    _lastbullet.SetActive();
+                    _lastbullet.PoolableSetActive();
                     _lastbullet.Initialization();
                     _lastbullet.SetOwner(this);
                 });
@@ -221,7 +221,7 @@ public class Weapon : Unit
                         _lastbullet = obj.GetComponent<Projectile>();
                         _lastbullet.speed = 200f;
                         _lastbullet.InitialmoveDirection = firePoint.transform.up;
-                        _lastbullet.SetActive();
+                        _lastbullet.PoolableSetActive();
                         _lastbullet.Initialization();
                         _lastbullet.SetOwner(this);
                     });
@@ -236,7 +236,7 @@ public class Weapon : Unit
                         _lastbullet = obj.GetComponent<Projectile>();
                         _lastbullet.speed = 100f;
                         _lastbullet.InitialmoveDirection = firePoint.transform.up;
-                        _lastbullet.SetActive();
+                        _lastbullet.PoolableSetActive();
                         _lastbullet.Initialization();
                         _lastbullet.SetOwner(this);
                     });

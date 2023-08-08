@@ -10,7 +10,7 @@ public enum AvaliableAIType
 
 
 [ShowOdinSerializedPropertiesInInspector]
-public class AIShip : BaseShip
+public class AIShip : BaseShip,IPoolable
 {
     public AIShipConfig AIShipCfg;
 
@@ -18,13 +18,14 @@ public class AIShip : BaseShip
     public override void Initialization()
     {
         base.Initialization();
+        CreateShip();
     }
 
     protected override void Awake()
     {
         base.Awake();
-        Initialization();
-        CreateShip();
+
+
 
 
     }
@@ -46,7 +47,7 @@ public class AIShip : BaseShip
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
             vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().SetActive();
+            vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
             Destroy(this.gameObject);
         });
@@ -59,6 +60,12 @@ public class AIShip : BaseShip
     public override void CreateShip()
     {
         base.CreateShip();
+
+
+        //初始化
+        _chunkMap = new Chunk[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
+        _unitList = new List<Unit>();
+
         //处理Chunk
 
         AIShipConfig aishipconfig =  DataManager.Instance.GetAIShipConfig((int)AIType);
@@ -106,6 +113,20 @@ public class AIShip : BaseShip
         }
     }
 
+    public void PoolableReset()
+    {
+        throw new System.NotImplementedException();
+    }
 
+    public void PoolableDestroy()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+        this.gameObject.SetActive(isactive);
+    }
 
 }

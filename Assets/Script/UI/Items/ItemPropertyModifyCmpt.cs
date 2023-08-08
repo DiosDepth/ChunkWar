@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ItemPropertyModifyCmpt : PoolableObject
+public class ItemPropertyModifyCmpt : MonoBehaviour,IPoolable
 {
     private Image _icon;
     private Text _nameText;
@@ -43,5 +43,21 @@ public class ItemPropertyModifyCmpt : PoolableObject
             }
             _valueText.color = targetColor;
         }
+    }
+
+    public void PoolableDestroy()
+    {
+
+    }
+
+    public void PoolableReset()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+        this.gameObject.SetActive(isactive);
     }
 }

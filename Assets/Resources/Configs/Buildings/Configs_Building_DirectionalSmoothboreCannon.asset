@@ -411,4 +411,5 @@ MonoBehaviour:
   unitType: 0
   redirection: 1
   EditBrushSprite: {fileID: 0}
+  EditorBrushDefaultRotation: 0
   BaseHP: 0

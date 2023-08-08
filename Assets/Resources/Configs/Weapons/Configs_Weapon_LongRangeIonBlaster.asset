@@ -411,6 +411,7 @@ MonoBehaviour:
   unitType: 2
   redirection: 1
   EditBrushSprite: {fileID: 0}
+  EditorBrushDefaultRotation: 0
   BaseHP: 400
   DamageBase: 30
   DamageRatioMin: 0.9

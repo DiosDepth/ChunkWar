@@ -248,7 +248,7 @@ public class PlayerShip : BaseShip
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
             vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().SetActive();
+            vfx.GetComponent<ParticleController>().PoolableSetActive();
             vfx.GetComponent<ParticleController>().PlayVFX();
             GameStateTransitionEvent.Trigger(EGameState.EGameState_GameOver);
             Destroy(this.gameObject);

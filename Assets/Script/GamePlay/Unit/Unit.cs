@@ -129,7 +129,7 @@ public class Unit : MonoBehaviour,IDamageble
         {
             SetUnitActive(false);
             vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().SetActive();
+            vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
             unitSprite.color = Color.black;
 

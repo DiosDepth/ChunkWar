@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SoundSource : PoolableObject
+public class SoundSource : MonoBehaviour,IPoolable
 {
 
     public AudioSource source;
 
     private Coroutine playsoundCoroutine;
     // Start is called before the first frame update
-    protected override void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    protected override void Update()
+    protected virtual void Update()
     {
         
     }
@@ -45,7 +45,7 @@ public class SoundSource : PoolableObject
         {
             callback.Invoke();
         }
-        Destroy();
+        PoolableDestroy();
     }
     public void Play(bool isloop)
     {
@@ -73,24 +73,27 @@ public class SoundSource : PoolableObject
         source.UnPause();
     }
 
-    public override void SetActive(bool isactive = true)
+    public virtual void Initialization()
     {
-        base.SetActive(isactive);
+
     }
 
-    public override void Initialization()
+    public void PoolableDestroy()
     {
-        base.Initialization();
+
     }
 
-    public override void Reset()
+    public void PoolableReset()
     {
-        base.Reset();
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
 
-    public override void Destroy()
+    public void PoolableSetActive(bool isactive = true)
     {
-        Stop();
-        base.Destroy();
+        this.gameObject.SetActive(isactive);
     }
+
+
+
 }

@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleController : PoolableObject
+public class ParticleController : MonoBehaviour,IPoolable
 {
 
     public ParticleSystem system;
     // Start is called before the first frame update
-    protected override void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    protected override void Update()
+    protected virtual void Update()
     {
         
     }
@@ -21,25 +21,29 @@ public class ParticleController : PoolableObject
     {
         system.Play();
     }
-    public override void Reset()
-    {
-        base.Reset();
-    }
-
-    public override void SetActive(bool isactive = true)
-    {
-        base.SetActive(isactive);
-    }
-
-    public override void Destroy()
-    {
-        base.Destroy();
 
 
-    }
+
+
+
     private void OnParticleSystemStopped()
     {
-        Destroy();
+        PoolableDestroy();
     }
 
+    public virtual void PoolableReset()
+    {
+        
+    }
+
+    public void PoolableDestroy()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+        this.gameObject.SetActive(isactive);
+    }
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-
-public enum FactoryShape
+public enum Shape
 {
     Rectangle,
     Circle,
@@ -12,43 +12,36 @@ public enum FactoryShape
 }
 
 
-public class AIFactory : MonoBehaviour
+public class AIFactory : MonoBehaviour,IPoolable
 {
 
     public AvaliableAIType AIType = AvaliableAIType.AI_Flyings;
-    public FactoryShape formMode = FactoryShape.Rectangle;
+    public Shape spawnShape = Shape.Rectangle;
 
     //Rectangle settings
     public Vector2 sizeInterval = new Vector2(0.5f, 0.5f);
     public int totalCount;
     public int maxRowCount;
     public float spawnIntervalTime = 0.25f;
-    public Transform tempTarget;
+    public Transform target;
 
 
 
     private Vector2Int _rectanglematirx;
-    private List<Vector2> _formposlist;
-    private List<AIShip> _shiplist;
+    private List<Vector2> _formposlist = new List<Vector2>();
+    private List<AIShip> _shiplist = new List<AIShip>();
     private Coroutine _spawncorotine;
 
     private Vector2 _spawnreferencedir;
     private AIShipConfig _shipconfig;
 
     
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(DataManager.Instance.LoadAllData( ()=> 
-        {
-
-            _shipconfig = DataManager.Instance.GetAIShipConfig((int)AIType);
-            Debug.Log("ShipSize = " + _shipconfig.GetShipSize());
-
-            _rectanglematirx = GetRectangleMatrix();
-            Debug.Log("RectangleMatrix = " + GetRectangleMatrix());
-            _formposlist = CalculateFormPos();
-        }));
 
     }
     // Update is called once per frame
@@ -56,28 +49,57 @@ public class AIFactory : MonoBehaviour
     {
         
     }
-
-    public void StartSpawn()
+    public virtual void Initialization()
     {
-       _spawncorotine = StartCoroutine("Spawn");
 
     }
 
-    public IEnumerator Spawn()
+    public void StartSpawn(Vector2 referencepos, UnityAction<List<AIShip>> callback)
     {
-        float stamp = 0;
-        while(true)
+        target = RogueManager.Instance.currentShip.transform;
+        _spawncorotine = StartCoroutine(Spawn(referencepos, callback));
+
+    }
+
+    public IEnumerator Spawn(Vector2 referencepos, UnityAction<List<AIShip>> callback)
+    {
+        AIShip tempship;
+
+        _shipconfig = DataManager.Instance.GetAIShipConfig((int)AIType);
+        _rectanglematirx = GetRectangleMatrix();
+        _spawnreferencedir = GetSpawnReferenceDir();
+
+        CalculateFormPos(referencepos);
+
+        for (int i = 0; i < _formposlist.Count; i++)
         {
-            if (Time.time >= stamp)
+            //实例化所有的配置敌人ＡＩ
+            yield return new WaitForSeconds (spawnIntervalTime);
+            PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + _shipconfig.Prefab.name, true, (obj) => 
             {
-                //刷新敌人
-            }
-            yield return null;
+                obj.transform.position = _formposlist[i];
+                obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, this.transform.position.DirectionToXY(target.position));
+                tempship = obj.GetComponent<AIShip>();
+                tempship.Initialization();
+                _shiplist.Add(tempship);
+
+            });
         }
+        if(callback != null)
+        {
+            callback.Invoke(_shiplist);
+        }
+        PoolableDestroy();
     }
-    public void StopSpawn()
+
+    public void StopSpawn(UnityAction<List<AIShip>> callback)
     {
-        StopCoroutine("Spawn");
+        if(callback != null)
+        {
+            callback.Invoke(_shiplist);
+        }
+        StopCoroutine(_spawncorotine);
+        PoolableDestroy();
     }
 
 
@@ -95,7 +117,7 @@ public class AIFactory : MonoBehaviour
         return tempmatrix;
     }
 
-    public List<Vector2> CalculateFormPos()
+    public List<Vector2> CalculateFormPos(Vector2 referencepos)
     {
         Vector2 interval = new Vector2(sizeInterval.x + _shipconfig.GetShipSize().x, sizeInterval.y + _shipconfig.GetShipSize().y);
         Vector2 offset = Vector2.zero;
@@ -109,13 +131,13 @@ public class AIFactory : MonoBehaviour
         }
 
         Vector2Int posscaler = Vector2Int.zero;
-        List<Vector2> templist = new List<Vector2>() ;
+ 
         //按照方向创建矩阵
-        Vector3 dir = this.transform.position.DirectionToXY(tempTarget.position);
+        Vector3 dir = this.transform.position.DirectionToXY(target.position);
         Matrix4x4 matrix4X4 = Matrix4x4.Rotate(Quaternion.LookRotation(Vector3.forward, dir));
         Vector3 pos;
 
-        if (formMode == FactoryShape.Rectangle)
+        if (spawnShape == Shape.Rectangle)
         {
             //计算原始坐标
             if (_rectanglematirx.x==0 || _rectanglematirx.y ==0)
@@ -131,36 +153,33 @@ public class AIFactory : MonoBehaviour
                     pos = new Vector2(posscaler.x * interval.x, posscaler.y * interval.y) + offset;
                     //左乘矩阵
                     pos = matrix4X4 * pos;
-                    templist.Add(pos);
-                    if(templist.Count == totalCount)
+                    _formposlist.Add(pos + referencepos.ToVector3());
+                    if(_formposlist.Count == totalCount)
                     {
                         break;
                     }
                 }
             }
-          
-
-
-
-
-            return templist;
+            return _formposlist;
         }
 
         return null;
     }
 
-    private void OnDrawGizmos()
+
+    public void PoolableReset()
     {
-        if(_formposlist?.Count <= 0)
-        {
-            return;
-        }
-        for (int i = 0; i < _formposlist.Count; i++)
-        {
-            
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(_formposlist[i], _shipconfig.GetShipSize());
-            
-        }
+       // throw new System.NotImplementedException();
+    }
+
+    public void PoolableDestroy()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+        this.gameObject.SetActive(isactive);
     }
 }

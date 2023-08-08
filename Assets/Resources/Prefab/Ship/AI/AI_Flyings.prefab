@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 2903285305435842433}
   - component: {fileID: 3443234521725163642}
   - component: {fileID: 46565608200515095}
+  - component: {fileID: -4616270391414285940}
   m_Layer: 9
   m_Name: AI_Flyings
   m_TagString: AI
@@ -137,6 +138,8 @@ MonoBehaviour:
   controller: {fileID: 4254137073360052133}
   buildingsParent: {fileID: 0}
   deathVFXName: ExplodeVFX
+  AIShipCfg: {fileID: 0}
+  AIType: 1
 --- !u!114 &4254137073360052133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +237,18 @@ MonoBehaviour:
   target: {fileID: 0}
   compare: 3
   thresholdDistance: 15
+--- !u!114 &-4616270391414285940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbde1e1267d6e8745a5bce5b1e1f70ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

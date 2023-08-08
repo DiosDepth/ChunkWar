@@ -17,7 +17,7 @@ public enum AvaliableBulletType
     BaseAIBullet,
     BasePlayerBullet,
 }
-public class Bullet : PoolableObject
+public class Bullet : MonoBehaviour,IPoolable
 {
     public BulletType type;
     public OwnerType ownertype;
@@ -26,46 +26,48 @@ public class Bullet : PoolableObject
     protected Unit _owner;
 
 
-    protected override void OnEnable()
+    protected virtual void OnEnable()
     {
-        base.OnEnable();
+ 
     }
-    protected override void Start()
+    protected virtual void Start()
     {
-        base.Start();
+
     }
 
     // Update is called once per frame
-    protected override void Update()
+    protected virtual void Update()
     {
-        base.Update();
+
     }
 
 
-    public override void Reset()
+    public virtual void PoolableReset()
     {
-        base.Reset();
+ 
     }
 
     public virtual void SetOwner(Unit owner)
     {
         _owner = owner;
     }
-    public override void Initialization()
+    public virtual void Initialization()
     {
-        base.Initialization();
+       
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
     }
 
 
-    public override void Destroy()
+    public virtual void PoolableDestroy()
     {
-        base.Destroy();
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
 
-    public override void SetActive(bool isactive = true)
+    public virtual void PoolableSetActive(bool isactive = true)
     {
-        base.SetActive(isactive);
+
+        this.gameObject.SetActive(isactive);
     }
 
 }
