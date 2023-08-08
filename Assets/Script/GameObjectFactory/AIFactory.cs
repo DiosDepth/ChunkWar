@@ -10,19 +10,52 @@ public enum Shape
     Line,
     Arch,
 }
+[System.Serializable]
+public class RectAISpawnSetting
+{
+    public int spawnUnitID;
+    public int totalCount;
+    public int maxRowCount;
+    public Vector2 sizeInterval;
+    public float spawnIntervalTime;
 
+    public RectAISpawnSetting()
+    {
+        spawnUnitID = 1;
+        totalCount = 16;
+        maxRowCount = 4;
+        sizeInterval = new Vector2(0.5f, 0.5f);
+        spawnIntervalTime = 0f;
+    }
+
+
+    public RectAISpawnSetting(int m_spawnunitid, int m_totalcont, int m_maxrowcount, Vector2 m_sizeinterval, float m_spawnintervaltime = 0)
+    {
+        spawnUnitID = m_spawnunitid;
+        totalCount = m_totalcont;
+        maxRowCount = m_maxrowcount;
+        sizeInterval = m_sizeinterval;
+        spawnIntervalTime = m_spawnintervaltime;
+    }
+
+    public RectAISpawnSetting(int m_spawnunitid, int m_totalcont, int m_maxrowcount , float m_spawnintervaltime = 0)
+    {
+        spawnUnitID = m_spawnunitid;
+        totalCount = m_totalcont;
+        maxRowCount = m_maxrowcount;
+        sizeInterval = new Vector2(0.5f, 0.5f);
+        spawnIntervalTime = m_spawnintervaltime;
+    }
+}
 
 public class AIFactory : MonoBehaviour,IPoolable
 {
 
-    public AvaliableAIType AIType = AvaliableAIType.AI_Flyings;
+
     public Shape spawnShape = Shape.Rectangle;
 
     //Rectangle settings
-    public Vector2 sizeInterval = new Vector2(0.5f, 0.5f);
-    public int totalCount;
-    public int maxRowCount;
-    public float spawnIntervalTime = 0.25f;
+    public RectAISpawnSetting aiSpawnSetting = new RectAISpawnSetting();
     public Transform target;
 
 
@@ -54,18 +87,18 @@ public class AIFactory : MonoBehaviour,IPoolable
 
     }
 
-    public void StartSpawn(Vector2 referencepos, UnityAction<List<AIShip>> callback)
+    public void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, UnityAction<List<AIShip>> callback = null)
     {
+        aiSpawnSetting = spawnsettings;
         target = RogueManager.Instance.currentShip.transform;
         _spawncorotine = StartCoroutine(Spawn(referencepos, callback));
-
     }
 
     public IEnumerator Spawn(Vector2 referencepos, UnityAction<List<AIShip>> callback)
     {
         AIShip tempship;
 
-        _shipconfig = DataManager.Instance.GetAIShipConfig((int)AIType);
+        _shipconfig = DataManager.Instance.GetAIShipConfig(aiSpawnSetting.spawnUnitID);
         _rectanglematirx = GetRectangleMatrix();
         _spawnreferencedir = GetSpawnReferenceDir();
 
@@ -74,7 +107,7 @@ public class AIFactory : MonoBehaviour,IPoolable
         for (int i = 0; i < _formposlist.Count; i++)
         {
             //实例化所有的配置敌人ＡＩ
-            yield return new WaitForSeconds (spawnIntervalTime);
+            yield return new WaitForSeconds (aiSpawnSetting.spawnIntervalTime);
             PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + _shipconfig.Prefab.name, true, (obj) => 
             {
                 obj.transform.position = _formposlist[i];
@@ -112,14 +145,14 @@ public class AIFactory : MonoBehaviour,IPoolable
     public virtual Vector2Int GetRectangleMatrix()
     {
         Vector2Int tempmatrix = Vector2Int.zero;
-        tempmatrix.x = maxRowCount;
-        tempmatrix.y = Mathf.CeilToInt( (float)totalCount / (float)maxRowCount);
+        tempmatrix.x = aiSpawnSetting.maxRowCount;
+        tempmatrix.y = Mathf.CeilToInt( (float)aiSpawnSetting.totalCount / (float)aiSpawnSetting.maxRowCount);
         return tempmatrix;
     }
 
     public List<Vector2> CalculateFormPos(Vector2 referencepos)
     {
-        Vector2 interval = new Vector2(sizeInterval.x + _shipconfig.GetShipSize().x, sizeInterval.y + _shipconfig.GetShipSize().y);
+        Vector2 interval = new Vector2(aiSpawnSetting.sizeInterval.x + _shipconfig.GetShipSize().x, aiSpawnSetting.sizeInterval.y + _shipconfig.GetShipSize().y);
         Vector2 offset = Vector2.zero;
         if (_rectanglematirx.x.IsEven())
         {
@@ -154,7 +187,7 @@ public class AIFactory : MonoBehaviour,IPoolable
                     //左乘矩阵
                     pos = matrix4X4 * pos;
                     _formposlist.Add(pos + referencepos.ToVector3());
-                    if(_formposlist.Count == totalCount)
+                    if(_formposlist.Count == aiSpawnSetting.totalCount)
                     {
                         break;
                     }
