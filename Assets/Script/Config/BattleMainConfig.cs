@@ -70,13 +70,31 @@ public class HardLevelConfig
     public List<WaveConfig> WaveConfig = new List<WaveConfig>();
 }
 
-[System.Serializable]
 [HideReferenceObjectPicker]
 public class WaveConfig
 {
     public int WaveIndex;
     public ushort DurationTime;
+
+    [TableList]
+    [LabelText("µ–»À≤®¥Œ≈‰÷√")]
+    public List<WaveEnemySpawnConfig> SpawnConfig = new List<WaveEnemySpawnConfig>();
 }
+
+/// <summary>
+/// µ–»ÀÀ¢–¬≈‰÷√
+/// </summary>
+public class WaveEnemySpawnConfig
+{
+    public int ID;
+    public AvaliableAIType AIType;
+    public int DurationDelta;
+    public int LoopCount;
+    public int StartTime;
+    public byte CountBase;
+    public byte MaxRowCount;
+}
+
 
 [System.Serializable]
 [HideReferenceObjectPicker]

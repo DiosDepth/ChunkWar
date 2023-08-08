@@ -294,6 +294,10 @@ public class ShipBuilder : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 右键点击
+    /// </summary>
+    /// <param name="context"></param>
     public void HandleRemoveOperation(InputAction.CallbackContext context)
     {
         if (!_isInitial)
@@ -309,7 +313,7 @@ public class ShipBuilder : MonoBehaviour
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                editorShip.RemoveUnit(currentChunk);
+                CancelBuildingSelect();
                 break;
             case InputActionPhase.Canceled:
                 break;
@@ -353,18 +357,16 @@ public class ShipBuilder : MonoBehaviour
         return newcoord;
     }
 
-
-
     private void OnDrawGizmos()
     {
-
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(_mouseWorldPos, 0.1f);
         Gizmos.DrawLine(_mouseWorldPos.ToVector3(), _mouseWorldPos.ToVector3() + _mouseRay.direction * 10f);
-
-    
     }
 
+    /// <summary>
+    /// 建造
+    /// </summary>
     private void OnAddUnit()
     {
         if (!_isValidPos || currentInventoryItem == null)
@@ -381,5 +383,21 @@ public class ShipBuilder : MonoBehaviour
         RogueManager.Instance.RemoveTempUnitInHarbor(slotIndex); 
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 撤销选择
+    /// </summary>
+    private void CancelBuildingSelect()
+    {
+        if (currentInventoryItem == null)
+            return;
+
+        RogueManager.Instance.CurrentSelectedHarborSlotIndex = 0;
+        _itemDirection = 0;
+        editorBrush.ResetBrush();
+        currentInventoryItem = null;
+        editorBrush.gameObject.SetActive(false);
+        RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
     }
 }

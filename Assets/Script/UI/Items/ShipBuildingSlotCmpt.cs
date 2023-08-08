@@ -54,8 +54,11 @@ public class ShipBuildingSlotCmpt : MonoBehaviour
     private void OnBuildingSlotSelected()
     {
         if (_isEmpty)
+        {
+            RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
             return;
-
+        }
+           
         var cfg = DataManager.Instance.GetUnitConfig(UnitID);
         var shipBuilder = ShipBuilder.instance;
         if (shipBuilder == null || cfg == null)
@@ -64,5 +67,6 @@ public class ShipBuildingSlotCmpt : MonoBehaviour
         RogueManager.Instance.CurrentSelectedHarborSlotIndex = Index;
         shipBuilder.currentInventoryItem = new InventoryItem(cfg);
         shipBuilder.SetBrushSprite();
+        RogueEvent.Trigger(RogueEventType.ShowUnitDetailPage, cfg);
     }
 }

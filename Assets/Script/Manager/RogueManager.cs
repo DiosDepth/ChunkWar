@@ -48,6 +48,8 @@ public enum RogueEventType
     ShipPlugChange,
     ShipUnitTempSlotChange,
     RefreshShopWeaponInfo,
+    ShowUnitDetailPage,
+    HideUnitDetailPage,
 }
 
 public enum ShipPropertyEventType
@@ -266,7 +268,7 @@ public class RogueManager : Singleton<RogueManager>
     /// 计算hardLevel等级
     /// </summary>
     /// <returns></returns>
-    private void CalculateHardLevelIndex()
+    private void CalculateHardLevelIndex(int paramInt = 0)
     {
         var currentSecond = Timer.TotalSeconds;
         var secondsLevel = Mathf.RoundToInt(currentSecond / (float)(2 * 60));
@@ -285,8 +287,11 @@ public class RogueManager : Singleton<RogueManager>
         Timer.InitTimer(totalTime);
 
         var hardLevelDelta = DataManager.Instance.battleCfg.HardLevelDeltaSeconds;
-        Timer.AddTrigger(LevelTimerTrigger.CreateTriger(hardLevelDelta, -1, CalculateHardLevelIndex, "HardLevelUpdate"));
+        var trigger = LevelTimerTrigger.CreateTriger(0, hardLevelDelta, -1, "HardLevelUpdate");
+        trigger.BindChangeAction(CalculateHardLevelIndex);
+        Timer.AddTrigger(trigger);
         CalculateHardLevelIndex();
+        GenerateEnemyAIFactory();
     }
 
     private int GetCurrentWaveTime()
@@ -316,6 +321,35 @@ public class RogueManager : Singleton<RogueManager>
     {
         var waveCount = CurrentHardLevel.Cfg.WaveConfig.Count;
         return GetCurrentWaveIndex >= waveCount;
+    }
+
+    /// <summary>
+    /// 生成敌人生成器
+    /// </summary>
+    private void GenerateEnemyAIFactory()
+    {
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        var enemyCfg = waveCfg.SpawnConfig;
+        for(int i = 0; i < enemyCfg.Count; i++)
+        {
+            var cfg = enemyCfg[i];
+            var trigger = LevelTimerTrigger.CreateTriger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount);
+            trigger.BindChangeAction(CreateFactory, cfg.ID);
+            Timer.AddTrigger(trigger);
+        }
+    }
+
+    private void CreateFactory(int ID)
+    {
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        var cfg = waveCfg.SpawnConfig.Find(x => x.ID == ID);
+        Debug.Log("Create Enemy Factory, ID = " + ID);
     }
 
     #endregion
