@@ -28,6 +28,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
     - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
     - {fileID: 21300000, guid: 911b3b45310cd8c429c04122313979a8, type: 3}
+    - {fileID: 21300000, guid: 36ce59a4401ec5240b6992820c323be5, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -319,7 +320,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 11
+      Data: 12
     - Name: 
       Entry: 7
       Data: 
@@ -608,6 +609,33 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 17
+    - Name: $v
+      Entry: 7
+      Data: 34|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_DamageDeltaPercent
+    - Name: Icon
+      Entry: 10
+      Data: 12
+    - Name: IsPercent
+      Entry: 5
+      Data: true
     - Name: ReverseColor
       Entry: 5
       Data: false

@@ -138,7 +138,7 @@ public class GeneralItemConfig
         }
         if (!string.IsNullOrEmpty(Desc))
         {
-            NamePreview = LocalizationManager.Instance.GetTextValue(DescPreview);
+            DescPreview = LocalizationManager.Instance.GetTextValue(DescPreview);
         }
     }
 

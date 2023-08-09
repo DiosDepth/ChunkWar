@@ -27,6 +27,9 @@ public enum PropertyModifyKey
     /// </summary>
     ShopRefreshCount,
     ShopCostPercent,
+    /// <summary>
+    /// 装填冷却
+    /// </summary>
     AttackSpeed,
     /// <summary>
     /// 拾取范围
@@ -51,4 +54,12 @@ public enum PropertyModifyKey
     /// 能量伤害
     /// </summary>
     EnergyDamage,
+    /// <summary>
+    /// 伤害间隔
+    /// </summary>
+    DamageDeltaPercent,
+    /// <summary>
+    /// 护盾伤害额外加成
+    /// </summary>
+    ShieldDamageAdd,
 }

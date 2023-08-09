@@ -143,3 +143,23 @@ MonoBehaviour:
     ChineseSimplified: "\u5B9E\u5F39\u4F24\u5BB3"
     English: 
     Japanese: 
+  - TextID: UI_WeaponProperty_CD_Name
+    ChineseSimplified: "\u4F24\u5BB3\u95F4\u9694 | \u88C5\u586B"
+    English: 
+    Japanese: 
+  - TextID: UI_WeaponProperty_ShieldTransfixion_Name
+    ChineseSimplified: "\u62A4\u76FE\u7A7F\u900F"
+    English: 
+    Japanese: 
+  - TextID: Bool_False_Text
+    ChineseSimplified: X
+    English: 
+    Japanese: 
+  - TextID: Bool_True_Text
+    ChineseSimplified: O
+    English: 
+    Japanese: 
+  - TextID: UI_WeaponProperty_ShieldDamage_Name
+    ChineseSimplified: "\u62A4\u76FE\u4F24\u5BB3"
+    English: 
+    Japanese: 

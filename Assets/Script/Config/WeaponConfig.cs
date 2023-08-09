@@ -37,12 +37,6 @@ public class WeaponConfig : BaseUnitConfig
     public WeaponDamageType DamageType;
 
     [FoldoutGroup("基础属性")]
-    [HorizontalGroup("基础属性/A", 200)]
-    [LabelText("基础贯通")]
-    [LabelWidth(80)]
-    public byte BaseTransfixion;
-
-    [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/B", 200)]
     [LabelText("基础范围")]
     [LabelWidth(80)]
@@ -64,11 +58,54 @@ public class WeaponConfig : BaseUnitConfig
     [HorizontalGroup("基础属性/B", 200)]
     [LabelText("伤害数量")]
     [LabelWidth(80)]
-    public byte DamageCount;
+    public byte TotalDamageCount;
 
     [FoldoutGroup("基础属性")]
-    [HorizontalGroup("基础属性/C", 500)]
+    [HorizontalGroup("基础属性/B", 200)]
+    [LabelText("单次发射数量")]
+    [LabelWidth(80)]
+    public byte ShootPerCount;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/C", 200)]
+    [LabelText("装填CD")]
+    [LabelWidth(80)]
+    public float CD;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/C", 200)]
+    [LabelText("伤害间隔")]
+    [LabelWidth(80)]
+    public float DamageDeltaTime;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/D", 200)]
+    [LabelText("护盾穿透")]
+    [LabelWidth(80)]
+    public bool ShieldTransfixion;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/D", 200)]
+    [LabelText("护盾伤害")]
+    [LabelWidth(80)]
+    public float ShieldDamage;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/D", 200)]
+    [LabelText("基础贯通")]
+    [LabelWidth(80)]
+    public byte BaseTransfixion;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/D", 200)]
+    [LabelText("贯通衰减")]
+    [LabelWidth(80)]
+    public float TransfixionReduce;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/E", 500)]
     [LabelText("伤害来源修正")]
     [LabelWidth(100)]
     public List<UnitPropertyModifyFrom> DamageModifyFrom = new List<UnitPropertyModifyFrom>();
 }
+

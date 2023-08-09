@@ -170,6 +170,9 @@ public class ShopSlotItem : MonoBehaviour
 
             foreach(UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
             {
+                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+                    continue;
+
                 PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
                 {
                     string content = GameHelper.GetWeaponPropertyDescContent(type, weaponCfg);

@@ -11,6 +11,9 @@ public enum UI_WeaponUnitPropertyType
     DamageRatio,
     Critical,
     Range,
+    CD,
+    ShieldTransfixion,
+    ShieldDamage,
 }
 
 public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
