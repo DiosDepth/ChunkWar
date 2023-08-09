@@ -49,7 +49,7 @@ public class AIShip : BaseShip,IPoolable
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
-            Destroy(this.gameObject);
+            PoolableDestroy();
         });
     }
 
@@ -106,8 +106,9 @@ public class AIShip : BaseShip,IPoolable
         for (int i = 0; i < _unitList.Count; i++)
         {
             unitconfig = DataManager.Instance.GetUnitConfig(_unitList[i].UnitID);
+            _unitList[i].gameObject.SetActive(true);
             _unitList[i].Initialization(this, unitconfig);
-            _unitList[i].SetUnitActive(true);
+            _unitList[i].SetUnitProcess(true);
             //_unitList[i].Initialization(this);
             //_unitList[i].SetUnitActive(true);
         }
@@ -115,7 +116,7 @@ public class AIShip : BaseShip,IPoolable
 
     public void PoolableReset()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void PoolableDestroy()

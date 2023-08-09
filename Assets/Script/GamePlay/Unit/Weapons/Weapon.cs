@@ -48,7 +48,7 @@ public class Weapon : Unit
         if (_owner is PlayerShip)
         {
             var playerShip = _owner as PlayerShip;
-            _isActive = !playerShip.IsEditorShip;
+            _isProcess = !playerShip.IsEditorShip;
             if(!playerShip.IsEditorShip && playerShip.playerShipCfg.MainWeaponID == _weaponCfg.ID)
             {
                 ///MainCore
@@ -78,7 +78,7 @@ public class Weapon : Unit
 
     public virtual void ProcessWeapon()
     {
-        if (!_isActive)
+        if (!_isProcess)
             return;
 
         switch (weaponstate.CurrentState)

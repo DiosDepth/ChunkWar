@@ -13,6 +13,7 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
 
     private static string PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/HardLevelPropertyItem";
 
+    private int count;
     protected override void Awake()
     {
         _propertyRoot = transform.Find("Content/PropertyContent");
@@ -42,6 +43,7 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
 
     private void OnButtonClick()
     {
+        (UIManager.Instance.GetGUIFromDic("ShipSelection") as ShipSelection)._hardLevelGroup.interactable = false;
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
         var hardLevelInfo = GameManager.Instance.GetHardLevelInfoByID((int)ItemUID);
         RogueManager.Instance.SetCurrentHardLevel(hardLevelInfo);

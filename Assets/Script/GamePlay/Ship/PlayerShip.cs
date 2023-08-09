@@ -382,7 +382,7 @@ public class PlayerShip : BaseShip
         {
             ///商店中建造模式，不更新武器
             var weapon = tempunit as Weapon;
-            weapon.SetUnitActive(false);
+            weapon.SetUnitProcess(false);
         }
         //设置对应的 ChunMap信息，比如是否为Piovt， 是否被占用等。
         if (m_unitmap.Length > 0)

@@ -16,7 +16,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     private GeneralScrollerItemController _hardLevelController;
 
     private CanvasGroup _mainGroup;
-    private CanvasGroup _hardLevelGroup;
+    public  CanvasGroup _hardLevelGroup;
 
     private const string ShipSelectionGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipSelectionGroupItem";
     private const string HardLevelItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/HardLevelModeItem";

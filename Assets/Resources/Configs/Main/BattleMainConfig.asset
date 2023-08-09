@@ -110,65 +110,36 @@ MonoBehaviour:
       Data: 600
     - Name: SpawnConfig
       Entry: 7
-      Data: 6|MS.Internal.Xml.XPath.ClonableStack`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        System.Xml
+      Data: 6|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 7|WaveEnemySpawnConfig, Assembly-CSharp
-    - Name: ID
-      Entry: 3
-      Data: 1
-    - Name: AIType
-      Entry: 3
-      Data: 1
-    - Name: DurationDelta
-      Entry: 3
-      Data: 5
-    - Name: LoopCount
-      Entry: 3
-      Data: -1
-    - Name: StartTime
-      Entry: 3
       Data: 0
-    - Name: CountBase
-      Entry: 3
-      Data: 3
-    - Name: MaxRowCount
-      Entry: 3
-      Data: 2
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 8|WaveEnemySpawnConfig, Assembly-CSharp
-    - Name: ID
+      Data: 7|WaveConfig, Assembly-CSharp
+    - Name: WaveIndex
       Entry: 3
       Data: 2
-    - Name: AIType
+    - Name: DurationTime
       Entry: 3
-      Data: 1
-    - Name: DurationDelta
-      Entry: 3
-      Data: 10
-    - Name: LoopCount
-      Entry: 3
-      Data: 3
-    - Name: StartTime
-      Entry: 3
-      Data: 10
-    - Name: CountBase
-      Entry: 3
-      Data: 5
-    - Name: MaxRowCount
-      Entry: 3
-      Data: 3
+      Data: 600
+    - Name: SpawnConfig
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+        mscorlib
     - Name: 
-      Entry: 8
-      Data: 
+      Entry: 12
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -183,7 +154,7 @@ MonoBehaviour:
       Data: 9|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: DurationTime
       Entry: 3
       Data: 600
@@ -204,31 +175,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 11|WaveConfig, Assembly-CSharp
-    - Name: WaveIndex
-      Entry: 3
-      Data: 3
-    - Name: DurationTime
-      Entry: 3
-      Data: 600
-    - Name: SpawnConfig
-      Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -239,7 +185,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|HardLevelConfig, Assembly-CSharp
+      Data: 11|HardLevelConfig, Assembly-CSharp
     - Name: HardLevelID
       Entry: 3
       Data: 2
@@ -254,11 +200,11 @@ MonoBehaviour:
       Data: 1
     - Name: ModifyDic
       Entry: 7
-      Data: 14|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
+      Data: 12|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 15|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
+      Data: 13|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -304,14 +250,14 @@ MonoBehaviour:
       Data: 
     - Name: WaveConfig
       Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[WaveConfig, Assembly-CSharp]],
+      Data: 14|System.Collections.Generic.List`1[[WaveConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 17|WaveConfig, Assembly-CSharp
+      Data: 15|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 1
@@ -319,24 +265,14 @@ MonoBehaviour:
       Entry: 3
       Data: 600
     - Name: SpawnConfig
-      Entry: 7
-      Data: 18|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|WaveConfig, Assembly-CSharp
+      Data: 16|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 2
@@ -344,17 +280,7 @@ MonoBehaviour:
       Entry: 3
       Data: 600
     - Name: SpawnConfig
-      Entry: 7
-      Data: 20|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
@@ -376,11 +302,11 @@ MonoBehaviour:
       Data: 
     - Name: PropertyDisplay
       Entry: 7
-      Data: 21|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[PropertyDisplayConfig,
+      Data: 17|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[PropertyDisplayConfig,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 22|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
+      Data: 18|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -402,7 +328,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 23|PropertyDisplayConfig, Assembly-CSharp
+      Data: 19|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_DamagePercent
@@ -429,7 +355,7 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 7
-      Data: 24|PropertyDisplayConfig, Assembly-CSharp
+      Data: 20|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_AttackSpeed
@@ -456,7 +382,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 25|PropertyDisplayConfig, Assembly-CSharp
+      Data: 21|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Critical
@@ -483,7 +409,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 26|PropertyDisplayConfig, Assembly-CSharp
+      Data: 22|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopRefreshCount
@@ -510,7 +436,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: 27|PropertyDisplayConfig, Assembly-CSharp
+      Data: 23|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopCostPercent
@@ -537,7 +463,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 28|PropertyDisplayConfig, Assembly-CSharp
+      Data: 24|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipHP
@@ -564,7 +490,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 29|PropertyDisplayConfig, Assembly-CSharp
+      Data: 25|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_WeaponRange
@@ -591,7 +517,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 30|PropertyDisplayConfig, Assembly-CSharp
+      Data: 26|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Luck
@@ -618,7 +544,7 @@ MonoBehaviour:
       Data: 9
     - Name: $v
       Entry: 7
-      Data: 31|PropertyDisplayConfig, Assembly-CSharp
+      Data: 27|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_SuckerRange
@@ -645,7 +571,7 @@ MonoBehaviour:
       Data: 15
     - Name: $v
       Entry: 7
-      Data: 32|PropertyDisplayConfig, Assembly-CSharp
+      Data: 28|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_PhysicsDamage
@@ -672,7 +598,7 @@ MonoBehaviour:
       Data: 16
     - Name: $v
       Entry: 7
-      Data: 33|PropertyDisplayConfig, Assembly-CSharp
+      Data: 29|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnergyDamage

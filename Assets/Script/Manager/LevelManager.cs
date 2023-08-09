@@ -57,8 +57,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public LevelDataInfo LevelInfo;
 
     public bool needServicing = false;
-
-
+    
+    
     private AIFactory _lastAIfactory;
     public LevelManager()
     {
@@ -110,7 +110,10 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             AIFactory aIFactory = obj.GetComponent<AIFactory>();
             aIFactory.PoolableSetActive(true);
             aIFactory.Initialization();
-            aIFactory.StartSpawn(spawnpoint,new RectAISpawnSetting());
+            aIFactory.StartSpawn(spawnpoint,new RectAISpawnSetting(), (list)=> 
+            {
+              
+            });
         });
     }
 

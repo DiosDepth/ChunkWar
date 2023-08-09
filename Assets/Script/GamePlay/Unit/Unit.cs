@@ -109,7 +109,7 @@ public class Unit : MonoBehaviour,IDamageble
         private set;
     }
 
-    protected bool _isActive = true;
+    protected bool _isProcess = true;
 
     public UnitBaseAttribute baseAttribute;
 
@@ -127,7 +127,7 @@ public class Unit : MonoBehaviour,IDamageble
     {
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
-            SetUnitActive(false);
+            SetUnitProcess(false);
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
@@ -135,12 +135,13 @@ public class Unit : MonoBehaviour,IDamageble
 
             if (IsCoreUnit)
             {
-                MonoManager.Instance.Delay(2, () =>
+                MonoManager.Instance.Delay(1, () =>
                 {
                     _owner.Death();
                 });
 
-                Destroy(this.gameObject);
+                state = DamagableState.Destroyed;
+                this.gameObject.SetActive(false);
                 //destroy owner
             }
 
@@ -150,7 +151,7 @@ public class Unit : MonoBehaviour,IDamageble
 
     public virtual void Restore()
     {
-        SetUnitActive(true);
+        SetUnitProcess(true);
         unitSprite.color = Color.white;
     }
 
@@ -189,9 +190,9 @@ public class Unit : MonoBehaviour,IDamageble
     }
     
 
-    public virtual void  SetUnitActive(bool isactive)
+    public virtual void  SetUnitProcess(bool isprocess)
     {
-        _isActive = isactive;
+        _isProcess = isprocess;
     }
     /// <summary>
     /// 最大血量变化
