@@ -67,8 +67,21 @@ public class WeaponAttribute : UnitBaseAttribute
     public bool MagazineBased = false;
     public int MaxMagazineSize = 30;
 
-    public float ReloadTime = 1f;
+    /// <summary>
+    /// ×°ÌîCD
+    /// </summary>
+    public float ReloadTime
+    {
+        get; protected set;
+    }
 
+    /// <summary>
+    /// ¿ª»ð¼ä¸ô
+    /// </summary>
+    public float FireCD
+    {
+        get; protected set;
+    }
 
     public float BeforeDelay;
     public float BetweenDelay;
@@ -77,6 +90,8 @@ public class WeaponAttribute : UnitBaseAttribute
     private List<UnitPropertyModifyFrom> modifyFrom;
     private float criticalBase;
     private float rangeBase;
+    private float ReloadCDBase;
+    private float FireCDBase;
 
     /// <summary>
     /// ÎäÆ÷ÉËº¦
@@ -121,6 +136,8 @@ public class WeaponAttribute : UnitBaseAttribute
         DamageRatioMax = _weaponCfg.DamageRatioMax;
         criticalBase = _weaponCfg.BaseCriticalRate;
         rangeBase = _weaponCfg.BaseRange;
+        ReloadTime = _weaponCfg.CD;
+        FireCDBase = _weaponCfg.DamageDeltaTime;
 
         if (isPlayerShip)
         {
@@ -134,9 +151,13 @@ public class WeaponAttribute : UnitBaseAttribute
             }
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
 
             CalculateBaseDamageModify();
             CalculateCriticalRatio();
+            CalculateReloadTime();
+            CalculateDamageDeltaTime();
         }
         else
         {
@@ -153,6 +174,8 @@ public class WeaponAttribute : UnitBaseAttribute
         {
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
         }
     }
 
@@ -186,6 +209,18 @@ public class WeaponAttribute : UnitBaseAttribute
     {
         var weaponRange = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponRange);
         WeaponRange = rangeBase + weaponRange;
+    }
+
+    private void CalculateReloadTime()
+    {
+        var cd = GameHelper.CalculatePlayerWeaponCD(ReloadCDBase);
+        ReloadTime = cd;
+    }
+
+    private void CalculateDamageDeltaTime()
+    {
+        var cd = GameHelper.CalculatePlayerWeaponDamageDeltaCD(FireCDBase);
+        FireCD = cd;
     }
 }
 

@@ -76,9 +76,6 @@ public class UnitDetailInfoPanel : MonoBehaviour
         if (cfg == null)
             return;
 
-        if (UnitID == cfg.ID)
-            return;
-
         UnitID = cfg.ID;
         _icon.sprite = cfg.GeneralConfig.IconSprite;
         _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Name);

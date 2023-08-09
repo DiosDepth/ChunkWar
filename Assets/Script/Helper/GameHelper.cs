@@ -8,10 +8,14 @@ public static class GameHelper
     public static string ShopItemType_ShipPlug_Text = "ShopItemType_ShipPlug_Text";
     public static string ShopItemType_ShipBuilding_Text = "ShopItemType_ShipBuilding_Text";
     public static string ShopItemType_ShipWeapon_Text = "ShopItemType_ShipWeapon_Text";
+    public static string Bool_True_Text = "Bool_True_Text";
+    public static string Bool_False_Text = "Bool_False_Text";
 
     private static string Color_White_Code = "#FFFFFF";
     private static string Color_Red_Code = "#C61616";
     private static string Color_Blue_Code = "#09B3CB";
+
+    
 
     #region Battle
 
@@ -146,6 +150,49 @@ public static class GameHelper
         }
     }
 
+    /// <summary>
+    /// º∆À„ µº CD
+    /// </summary>
+    /// <param name="rowValue"></param>
+    /// <returns></returns>
+    public static float CalculatePlayerWeaponCD(float rowValue)
+    {
+        var attackSpd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.AttackSpeed);
+        if(attackSpd > 0)
+        {
+            float rate = (100 + attackSpd) / 100f;
+            return rowValue / rate;
+        }
+        else if (attackSpd == 0)
+        {
+            return rowValue;
+        }
+        else
+        {
+            float rate = (100 - attackSpd) / 100f;
+            return rowValue * rate;
+        }
+    }
+
+    public static float CalculatePlayerWeaponDamageDeltaCD(float rowValue)
+    {
+        var attackSpd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageDeltaPercent);
+        if (attackSpd > 0)
+        {
+            float rate = (1 + attackSpd) / 100f;
+            return rowValue / rate;
+        }
+        else if (attackSpd == 0)
+        {
+            return rowValue;
+        }
+        else
+        {
+            float rate = (1 - attackSpd) / 100f;
+            return rowValue * rate;
+        }
+    }
+
     public static string GetWeaponPropertyDescContent(UI_WeaponUnitPropertyType type, WeaponConfig cfg)
     {
         var propertyData = RogueManager.Instance.MainPropertyData;
@@ -178,11 +225,11 @@ public static class GameHelper
         }
         else if (type == UI_WeaponUnitPropertyType.Damage)
         {
-            var damageCount = cfg.DamageCount;
+            var damageCount = cfg.TotalDamageCount;
             var damage = CalculteWeaponDamage(cfg);
             string color = GetColorCode(damage, cfg.DamageBase, false);
 
-            if(damageCount > 1)
+            if (damageCount > 1)
             {
                 return string.Format("<color={0}>{1}</color> X{2}", color, damage, damageCount);
             }
@@ -191,13 +238,39 @@ public static class GameHelper
                 return string.Format("<color={0}>{1}</color>", color, damage);
             }
         }
-        else if(type == UI_WeaponUnitPropertyType.Range)
+        else if (type == UI_WeaponUnitPropertyType.Range)
         {
             var rangerow = propertyData.GetPropertyFinal(PropertyModifyKey.WeaponRange);
             int range = Mathf.RoundToInt(rangerow + cfg.BaseRange);
             string color = GetColorCode(range, cfg.BaseRange, false);
 
             return string.Format("<color={0}>{1}</color>", color, range);
+        }
+        else if (type == UI_WeaponUnitPropertyType.CD)
+        {
+            var fireCD = CalculatePlayerWeaponDamageDeltaCD(cfg.DamageDeltaTime);
+            var cd = CalculatePlayerWeaponCD(cfg.CD);
+
+            string FireCDcolor = GetColorCode(fireCD, cfg.DamageDeltaTime, true);
+            string cdColor = GetColorCode(cd, cfg.CD, true);
+
+            string fireCDStr = string.Format("<color={0}>{1:F2}s</color>", FireCDcolor, fireCD);
+            string cdStr = string.Format("<color={0}>{1:F2}s</color>", cdColor, cd);
+            return string.Format("{0} | {1}", fireCDStr, cdStr);
+        } 
+        else if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+        {
+            string boolColor = GetColorCode(cfg.ShieldTransfixion ? 0f : 1f, 0.5f, true);
+            return string.Format("<color={0}>{1}</color>", boolColor,
+                cfg.ShieldTransfixion ?
+                LocalizationManager.Instance.GetTextValue(Bool_True_Text) :
+                LocalizationManager.Instance.GetTextValue(Bool_False_Text));
+        }
+        else if (type == UI_WeaponUnitPropertyType.ShieldDamage)
+        {
+            var shieldDamage = CalculateShieldDamage(cfg);
+            string damageColor = GetColorCode(shieldDamage, cfg.ShieldDamage, false);
+            return string.Format("<color={0}>{1:F2}%</color>", damageColor, shieldDamage);
         }
 
         return string.Empty;
@@ -224,6 +297,15 @@ public static class GameHelper
         rowDamage = rowDamage * (1 + damagePercent / 100f);
 
         return Mathf.RoundToInt(rowDamage);
+    }
+
+    private static float CalculateShieldDamage(WeaponConfig cfg)
+    {
+        float shieldbase = cfg.ShieldDamage;
+        var shieldAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldDamageAdd);
+        var result = shieldbase + shieldAdd;
+        result = Mathf.Clamp(result, 0, float.MaxValue);
+        return result;
     }
 
     private static string GetColorCode(float value1, float value2, bool reverse)

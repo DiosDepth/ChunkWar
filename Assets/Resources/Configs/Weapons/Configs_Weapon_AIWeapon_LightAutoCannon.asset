@@ -417,9 +417,15 @@ MonoBehaviour:
   DamageRatioMin: 0.75
   DamageRatioMax: 1.12
   DamageType: 0
-  BaseTransfixion: 0
   BaseRange: 15
   BaseCriticalRate: 0
   CriticalDamage: 0
-  DamageCount: 0
+  TotalDamageCount: 0
+  ShootPerCount: 0
+  CD: 0
+  DamageDeltaTime: 0
+  ShieldTransfixion: 0
+  ShieldDamage: 150
+  BaseTransfixion: 0
+  TransfixionReduce: 0
   DamageModifyFrom: []
