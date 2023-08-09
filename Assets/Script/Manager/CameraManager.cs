@@ -132,6 +132,11 @@ public class CameraManager : Singleton<CameraManager>
         vcam.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = board;
     }
 
+    public void SetVCameraPos(Vector2 pos)
+    {
+        vcam.ForceCameraPosition(pos, Quaternion.identity);
+    }
+
     public void UpdateOrthSizeByDistance()
     {
         if(isCameraUpdate)

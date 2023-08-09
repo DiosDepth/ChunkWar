@@ -194,6 +194,10 @@ public class ShipWeapon : Weapon
 {
     public virtual void HandleWeapon(InputAction.CallbackContext context)
     {
+        if(weaponmode  == WeaponFireModeType.Autonomy)
+        {
+            return;
+        }
         if(weaponmode == WeaponFireModeType.Manual)
         {
             switch (context.phase)

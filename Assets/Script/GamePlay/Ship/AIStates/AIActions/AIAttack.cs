@@ -48,7 +48,7 @@ public class AIAttack : AIAction
         {
             if (_controller.controlledTarget.UnitList[i] is Weapon)
             {
-                (_controller.controlledTarget.UnitList[i] as Weapon).WeaponOn();
+                (_controller.controlledTarget.UnitList[i] as Weapon).SetUnitProcess(true);
             }
         }
     }

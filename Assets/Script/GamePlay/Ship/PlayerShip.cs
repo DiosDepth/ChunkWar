@@ -208,7 +208,13 @@ public class PlayerShip : BaseShip
         conditionState.ChangeState(ShipConditionState.Normal);
     }
 
-
+    public virtual void ActiveShipUnit()
+    {
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].SetUnitProcess(true);
+        }
+    }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -440,14 +446,17 @@ public class PlayerShip : BaseShip
                 }
 
 
-                if(unitconfig.unitType == UnitType.MainWeapons || unitconfig.unitType == UnitType.Weapons)
+                if(unitconfig.unitType == UnitType.MainWeapons)
                 {
                     mainWeapon = tempunit as ShipWeapon;
                     mainWeapon.Initialization(this, unitconfig);
                 }
                 else
                 {
-
+                    if(unitconfig.unitType == UnitType.Weapons)
+                    {
+                        (tempunit as ShipWeapon).Initialization(this, unitconfig);
+                    }
                 }
 
                 obj.transform.parent = buildingsParent.transform;

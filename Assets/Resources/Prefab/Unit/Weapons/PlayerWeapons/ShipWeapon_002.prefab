@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 765962645083886639}
   m_Layer: 7
   m_Name: ShipWeapon_002
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,9 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9825ba9b981c6f419d442425e37e47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 0
+  UnitID: 10001
   UID: 0
-  state: 0
+  state: 1
   IsRestoreable: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
@@ -89,8 +89,8 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
-  weaponmode: 1
-  bulletType: 2
+  weaponmode: 0
+  bulletType: 3
   firePoint: {fileID: 6516888820155779860}
   weaponAttribute:
     Rate: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
     MaxMagazineSize: 30
     ReloadTime: 1
     BeforeDelay: 0
-    BetweenDelay: 0
+    BetweenDelay: 1
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}

@@ -207,6 +207,7 @@ public class EGameState_GamePrepare : GameState
                 RogueManager.Instance.currentShip.gameObject.SetActive(true);
                 RogueManager.Instance.currentShip.Initialization();
                 RogueManager.Instance.currentShip.CreateShip();
+                RogueManager.Instance.currentShip.ActiveShipUnit();
 
                 //初始化摄影机
                 //CameraManager.Instance.ChangeVCameraLookAtTarget(GameManager.Instance.gameEntity.currentShip.transform);

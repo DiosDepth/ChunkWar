@@ -38,6 +38,16 @@ public class AIWeapon : Weapon
         base.Initialization(m_owner, m_unitconfig);
     }
 
+    public override void SetUnitProcess(bool isprocess)
+    {
+        base.SetUnitProcess(isprocess);
+        if (_weaponCfg.unitType != UnitType.MainWeapons)
+        {
+            WeaponOn();
+        }
+
+    }
+
     public override void ProcessWeapon()
     {
         base.ProcessWeapon();

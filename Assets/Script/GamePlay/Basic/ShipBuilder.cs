@@ -71,6 +71,7 @@ public class ShipBuilder : MonoBehaviour
         LoadingShip(RogueManager.Instance.ShipMapData);
 
         CameraManager.Instance.ChangeVCameraLookAtTarget(transform);
+        CameraManager.Instance.SetVCameraPos(transform.position);
         CameraManager.Instance.ChangeVCameraFollowTarget(transform);
         CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = cameraOffset.x;
         CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = cameraOffset.x;

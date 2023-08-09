@@ -76,6 +76,22 @@ public class Weapon : Unit
 
     }
 
+    public override void SetUnitProcess(bool isprocess)
+    {
+        base.SetUnitProcess(isprocess);
+        if(isprocess)
+        {
+            if (_weaponCfg.unitType != UnitType.MainWeapons)
+            {
+                WeaponOn();
+            }
+        }
+
+        
+    }
+
+    
+
     public virtual void ProcessWeapon()
     {
         if (!_isProcess)
@@ -244,6 +260,17 @@ public class Weapon : Unit
                 break;
             case WeaponFireModeType.Autonomy:
                 Debug.Log(this.gameObject + " : Autonomy Firing!!!");
+                PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, (obj) =>
+                {
+
+                    obj.transform.SetTransform(firePoint);
+                    _lastbullet = obj.GetComponent<Projectile>();
+                    _lastbullet.InitialmoveDirection = firePoint.transform.up;
+
+                    _lastbullet.PoolableSetActive();
+                    _lastbullet.Initialization();
+                    _lastbullet.SetOwner(this);
+                });
                 break;
         }
         if (weaponAttribute.MagazineBased)
@@ -289,6 +316,16 @@ public class Weapon : Unit
         Debug.Log(this.gameObject + " : WeaponFired");
         switch (weaponmode)
         {
+            case WeaponFireModeType.Autonomy:
+                if (_isWeaponOn)
+                {
+                    weaponstate.ChangeState(WeaponState.BetweenDelay);
+                }
+                else
+                {
+                    weaponstate.ChangeState(WeaponState.AfterDelay);
+                }
+                break;
             case WeaponFireModeType.SemiAuto:
                 if (_isWeaponOn)
                 {
@@ -301,7 +338,6 @@ public class Weapon : Unit
                 break;
             case WeaponFireModeType.Manual:
                 weaponstate.ChangeState(WeaponState.AfterDelay);
-
                 break;
         }
 

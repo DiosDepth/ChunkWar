@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2056346697078172334}
   m_Layer: 7
   m_Name: ShipWeapon_001
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,11 +60,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.023802042, y: 0.94446194}
-      - {x: -0.56228966, y: 0.2852147}
-      - {x: -0.33389682, y: -0.55512846}
-      - {x: 0.4132372, y: -0.55512834}
-      - {x: 0.57815766, y: 0.26934713}
+    - - {x: 0.12639156, y: 0.76752365}
+      - {x: -0.095494196, y: 0.77010584}
+      - {x: -0.41240463, y: 0.028268948}
+      - {x: -0.29107255, y: -0.34712476}
+      - {x: 0.3153531, y: -0.3501835}
+      - {x: 0.40991923, y: 0.021578059}
 --- !u!114 &2056346697078172334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,9 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9825ba9b981c6f419d442425e37e47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 0
+  UnitID: 10000
   UID: 0
-  state: 0
+  state: 1
   IsRestoreable: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
@@ -89,8 +90,8 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
-  weaponmode: 1
-  bulletType: 2
+  weaponmode: 0
+  bulletType: 3
   firePoint: {fileID: 5501148320213267861}
   weaponAttribute:
     Rate: 0
@@ -100,7 +101,7 @@ MonoBehaviour:
     MaxMagazineSize: 30
     ReloadTime: 1
     BeforeDelay: 0
-    BetweenDelay: 0
+    BetweenDelay: 1.5
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}
@@ -128,7 +129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7078891172848517448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.016, y: 0.782, z: 0}
+  m_LocalPosition: {x: 0.016, y: 0.804, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

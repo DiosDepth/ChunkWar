@@ -51,6 +51,7 @@ public class AIShip : BaseShip,IPoolable
             vfx.GetComponent<ParticleController>().PlayVFX();
             PoolableDestroy();
         });
+
     }
 
     public override void InitProperty()
@@ -101,12 +102,13 @@ public class AIShip : BaseShip,IPoolable
             }
         }
          //¥¶¿Ìunit
-        _unitList = buildingsParent.GetComponentsInChildren<Unit>().ToList<Unit>();
+        _unitList = buildingsParent.GetComponentsInChildren<Unit>(true).ToList<Unit>();
         BaseUnitConfig unitconfig;
         for (int i = 0; i < _unitList.Count; i++)
         {
             unitconfig = DataManager.Instance.GetUnitConfig(_unitList[i].UnitID);
             _unitList[i].gameObject.SetActive(true);
+           
             _unitList[i].Initialization(this, unitconfig);
             _unitList[i].SetUnitProcess(true);
             //_unitList[i].Initialization(this);

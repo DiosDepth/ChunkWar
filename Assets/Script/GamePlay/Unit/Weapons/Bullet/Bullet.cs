@@ -16,6 +16,7 @@ public enum AvaliableBulletType
     None,
     BaseAIBullet,
     BasePlayerBullet,
+    BasePlayerBullet_02,
 }
 public class Bullet : MonoBehaviour,IPoolable
 {

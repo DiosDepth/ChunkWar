@@ -135,10 +135,9 @@ public class Unit : MonoBehaviour,IDamageble
 
             if (IsCoreUnit)
             {
-                MonoManager.Instance.Delay(1, () =>
-                {
-                    _owner.Death();
-                });
+    
+                _owner.Death();
+                
 
                 state = DamagableState.Destroyed;
                 this.gameObject.SetActive(false);
@@ -174,6 +173,7 @@ public class Unit : MonoBehaviour,IDamageble
         {
             IsRestoreable = false;
         }
+        Restore();
     }
 
     public virtual bool TakeDamage(int value)
