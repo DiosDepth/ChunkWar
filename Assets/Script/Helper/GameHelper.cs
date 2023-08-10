@@ -125,6 +125,34 @@ public static class GameHelper
         return goods;
     }
 
+    /// <summary>
+    /// 获取升级后的稀有度
+    /// </summary>
+    /// <param name="baseRarity"></param>
+    /// <param name="addRarity"></param>
+    /// <returns></returns>
+    public static GoodsItemRarity GetTargetEvolveRarity(GoodsItemRarity baseRarity, byte currentRank, GoodsItemRarity addRarity, out byte outRank)
+    {
+        var addMap = DataManager.Instance.battleCfg.EvolveAddMap;
+        var requireMap = DataManager.Instance.battleCfg.EvolveRequireMap;
+        ///增加的稀有度级
+        byte addRank = addMap[(int)addRarity];
+        var totalRank = currentRank + addRank;
+
+        int tempRarity = (int)baseRarity;
+        var nextRequireEvolove = requireMap[tempRarity];
+        while(totalRank >= nextRequireEvolove)
+        {
+            totalRank -= nextRequireEvolove;
+            tempRarity++;
+            if (tempRarity > 3)
+                break;
+            nextRequireEvolove = requireMap[tempRarity];
+        }
+        outRank = (byte)totalRank;
+        return (GoodsItemRarity)tempRarity;
+    }
+
     public static string GetHardLevelModifyTypeName(HardLevelModifyType type)
     {
         string textID = string.Format("HardLevel_{0}_Name", type);

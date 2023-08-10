@@ -24,6 +24,9 @@ public class BattleMainConfig : SerializedScriptableObject
 
     public byte ShipMaxLevel;
 
+    public byte[] EvolveRequireMap = new byte[3];
+    public byte[] EvolveAddMap = new byte[4]; 
+
     [ListDrawerSettings(ShowIndexLabels = true, NumberOfItemsPerPage = 10)]
     public int[] EXPMap;
 

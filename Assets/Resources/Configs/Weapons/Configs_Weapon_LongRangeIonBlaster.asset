@@ -410,6 +410,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 2
   redirection: 1
+  UpgradeGroupID: 0
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   BaseHP: 400

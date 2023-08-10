@@ -103,6 +103,11 @@ public class Unit : MonoBehaviour,IDamageble
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
 
+    /// <summary>
+    /// 当前升级点数
+    /// </summary>
+    public byte currentEvolvePoints;
+
     public BaseShip _owner
     {
         get;
@@ -113,7 +118,11 @@ public class Unit : MonoBehaviour,IDamageble
 
     public UnitBaseAttribute baseAttribute;
 
-    protected BaseUnitConfig _baseUnitConfig;
+    public BaseUnitConfig _baseUnitConfig
+    {
+        get;
+        protected set;
+    }
     /// <summary>
     /// 血量管理组件
     /// </summary>

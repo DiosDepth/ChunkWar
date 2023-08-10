@@ -730,4 +730,6 @@ MonoBehaviour:
   HardLevelDeltaSeconds: 120
   HardLevelWaveIndexMultiple: 20
   ShipMaxLevel: 50
+  EvolveRequireMap: 010408
+  EvolveAddMap: 01020408
   EXPMap: 0f00000019000000230000002d00000037000000640000006e000000
