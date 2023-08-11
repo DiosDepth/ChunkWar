@@ -22,7 +22,27 @@ public class UnitBaseAttribute
         protected set;
     }
 
+    /// <summary>
+    /// 能量消耗
+    /// </summary>
+    public int EnergyCost
+    {
+        get;
+        protected set;
+    }
+
+    /// <summary>
+    /// 能源产生
+    /// </summary>
+    public int EnergyGenerate
+    {
+        get;
+        protected set;
+    }
+
     private int BaseHP;
+    private int BaseEnergyCost;
+    private int BaseEnergyGenerate;
 
     /// <summary>
     /// 是否玩家舰船，影响伤害计算
@@ -39,11 +59,17 @@ public class UnitBaseAttribute
 
         mainProperty = RogueManager.Instance.MainPropertyData;
         BaseHP = cfg.BaseHP;
+        BaseEnergyCost = cfg.BaseEnergyCost;
+        BaseEnergyGenerate = cfg.BaseEnergyGenerate;
 
         if (isPlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
             CalculateHP();
+            CalculateEnergyCost();
+            CalculateEnergyGenerate();
         }
         else
         {
@@ -56,23 +82,42 @@ public class UnitBaseAttribute
     {
         if (isPlayerShip)
         {
-            RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
         }
         else
         {
-            RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
         }
     }
 
     private void CalculateHP()
     {
-        var hp = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.HP);
+        var hp = mainProperty.GetPropertyFinal(PropertyModifyKey.HP);
         HPMax = BaseHP + Mathf.RoundToInt(hp);
+    }
+
+    private void CalculateEnergyCost()
+    {
+        var rate = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+        rate = Mathf.Clamp(rate, -100, float.MaxValue);
+        EnergyCost = Mathf.RoundToInt(BaseEnergyCost * (100 + rate) / 100f);
+
+        RefreshShipEnergy();
+    }
+
+    private void CalculateEnergyGenerate()
+    {
+        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyGenerate);
+        var newValue = BaseEnergyGenerate + delta;
+        EnergyGenerate = (int)Mathf.Clamp(newValue, 0, float.MaxValue);
+        RefreshShipEnergy();
     }
 
     private void CalculateEnemyHP()
     {
-        var hpPercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
+        var hpPercent = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
         var enemyShip = _parentUnit._owner as AIShip;
         float hardLevelPercent = 0;
         if (enemyShip != null)
@@ -80,6 +125,15 @@ public class UnitBaseAttribute
             hardLevelPercent = GameHelper.GetEnemyHPByHardLevel(enemyShip.AIShipCfg.HardLevelCfg);
         }
         HPMax = Mathf.RoundToInt(BaseHP * (1 + hpPercent + hardLevelPercent / 100f));
+    }
+
+    protected void RefreshShipEnergy()
+    {
+        var playerShip = RogueManager.Instance.currentShip;
+        if (playerShip != null)
+        {
+            playerShip.RefreshShipEnergy();
+        }
     }
 }
 

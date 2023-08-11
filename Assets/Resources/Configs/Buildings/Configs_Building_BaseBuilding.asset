@@ -414,3 +414,5 @@ MonoBehaviour:
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   BaseHP: 0
+  BaseEnergyCost: 0
+  BaseEnergyGenerate: 0

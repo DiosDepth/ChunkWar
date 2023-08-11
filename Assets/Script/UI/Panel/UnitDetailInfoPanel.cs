@@ -80,6 +80,7 @@ public class UnitDetailInfoPanel : MonoBehaviour
         _icon.sprite = cfg.GeneralConfig.IconSprite;
         _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Name);
         _descText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Desc);
+        _nameText.color = GameHelper.GetRarityColor(cfg.GeneralConfig.Rarity);
         if (cfg.unitType == UnitType.MainWeapons || cfg.unitType == UnitType.Weapons)
         {
             _damageType.transform.SafeSetActive(true);

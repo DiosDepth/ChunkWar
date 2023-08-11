@@ -209,3 +209,45 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 7
       Value: -8
+  - ID: 1005
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: 33cfd0cda32286c4aa31bc2f3525a095, type: 3}
+      Name: ShipPlug_Name_1005
+      Desc: ShipPlug_Desc_1005
+      Rarity: 0
+    PropertyModify:
+    - ModifyKey: 5
+      Value: 20
+    - ModifyKey: 8
+      Value: 4
+  - ID: 1006
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: d08eb80599c10094ea51f7ffb717fad9, type: 3}
+      Name: ShipPlug_Name_1006
+      Desc: ShipPlug_Desc_1006
+      Rarity: 2
+    PropertyModify:
+    - ModifyKey: 5
+      Value: 50
+    - ModifyKey: 3
+      Value: 2
+    - ModifyKey: 2
+      Value: 3
+  - ID: 1007
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: 14a76ec0b97236147aa0e7afdc58e48b, type: 3}
+      Name: ShipPlug_Name_1007
+      Desc: 
+      Rarity: 0
+    PropertyModify:
+    - ModifyKey: 1
+      Value: 50
+  - ID: 1008
+    GeneralConfig:
+      IconSprite: {fileID: 21300000, guid: 71264b5575a033d42ab94ce01a1b3d93, type: 3}
+      Name: ShipPlug_Name_1008
+      Desc: 
+      Rarity: 1
+    PropertyModify:
+    - ModifyKey: 21
+      Value: 75

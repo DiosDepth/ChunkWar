@@ -209,6 +209,34 @@ MonoBehaviour:
     Weight: 20
     ItemType: 0
     TypeID: 10001
-    CostBase: 11
+    CostBase: 22
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 7
+    Weight: 20
+    ItemType: 1
+    TypeID: 1005
+    CostBase: 55
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 8
+    Weight: 20
+    ItemType: 1
+    TypeID: 1006
+    CostBase: 45
+    Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 9
+    Weight: 20
+    ItemType: 1
+    TypeID: 1007
+    CostBase: 20
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 10
+    Weight: 20
+    ItemType: 1
+    TypeID: 1008
+    CostBase: 30
     Unique: 0
     MaxBuyCount: -1

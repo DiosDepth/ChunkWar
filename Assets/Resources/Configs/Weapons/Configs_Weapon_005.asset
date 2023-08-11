@@ -402,7 +402,7 @@ MonoBehaviour:
   ID: 10005
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: db3ef0ed72a438c4abd5f59d91723d66, type: 3}
-    Name: Weapon_Name_10001
+    Name: Weapon_Name_10005
     Desc: 
     Rarity: 0
   Prefab: {fileID: 5156482088037079168, guid: ef56862dd6ffbc643903b3115ad6669e, type: 3}
@@ -410,10 +410,12 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 1
-  UpgradeGroupID: 0
+  UpgradeGroupID: 10001
   EditBrushSprite: {fileID: 21300000, guid: 4496b99d0334a184c84911a7e45d5071, type: 3}
   EditorBrushDefaultRotation: 180
   BaseHP: 100
+  BaseEnergyCost: 0
+  BaseEnergyGenerate: 0
   DamageBase: 50
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15

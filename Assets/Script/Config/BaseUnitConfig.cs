@@ -52,6 +52,18 @@ public class BaseUnitConfig : BaseConfig
     [LabelWidth(80)]
     public int BaseHP;
 
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/Z", 200)]
+    [LabelText("能源消耗")]
+    [LabelWidth(80)]
+    public int BaseEnergyCost;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/Z", 200)]
+    [LabelText("能源产生")]
+    [LabelWidth(80)]
+    public int BaseEnergyGenerate;
+
     [OnInspectorInit]
     protected override void InitData()
     {

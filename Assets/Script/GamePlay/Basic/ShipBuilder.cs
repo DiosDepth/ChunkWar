@@ -384,6 +384,7 @@ public class ShipBuilder : MonoBehaviour
         RogueManager.Instance.RemoveTempUnitInHarbor(slotIndex); 
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
+        RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
     }
 
     /// <summary>
