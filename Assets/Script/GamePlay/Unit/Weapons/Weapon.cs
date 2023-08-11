@@ -390,11 +390,23 @@ public class Weapon : Unit
     public virtual void WeaponBetweenDelay()
     {
         Debug.Log(this.gameObject + " : WeaponBetweenDelay");
+        if(!_isWeaponOn)
+        {
+            weaponstate.ChangeState(WeaponState.AfterDelay);
+        }
         _betweenDelayCounter -= Time.deltaTime;
         if (_betweenDelayCounter < 0)
         {
             _betweenDelayCounter = weaponAttribute.FireCD;
-            FireRequest();
+            if(_isWeaponOn)
+            {
+                FireRequest();
+            }
+            else
+            {
+                weaponstate.ChangeState(WeaponState.End);
+            }
+ 
         }
     }
     public virtual void WeaponCharging()

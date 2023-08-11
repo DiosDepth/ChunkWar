@@ -221,7 +221,7 @@ public class PlayerShip : BaseShip
         pickupCollider = obj.AddComponent<CircleCollider2D>();
         pickupCollider.radius = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
 
-        controller.Initialization();
+      
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
         RefreshShipEnergy();
