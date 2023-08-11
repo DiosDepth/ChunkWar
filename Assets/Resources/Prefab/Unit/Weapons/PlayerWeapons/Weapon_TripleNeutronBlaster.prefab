@@ -116,6 +116,8 @@ Transform:
   m_Children:
   - {fileID: 579860166224230221}
   - {fileID: 5020116889135989133}
+  - {fileID: 2344244556410904751}
+  - {fileID: 2698016624561835338}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -136,6 +138,7 @@ MonoBehaviour:
   state: 0
   IsRestoreable: 0
   IsCoreUnit: 1
+  deathVFXName: ExplodeVFX
   _isTarget: 1
   unitSprite: {fileID: 579860166224230222}
   redirection: 1
@@ -143,15 +146,18 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   weaponmode: 1
+  firemode: 0
   bulletType: 2
-  firePoint: {fileID: 5020116889135989133}
+  firePoint:
+  - {fileID: 5020116889135989133}
+  - {fileID: 2344244556410904751}
+  - {fileID: 2698016624561835338}
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
     MagazineBased: 0
-    MaxMagazineSize: 30
-    ReloadTime: 1
+    MaxMagazineSize: 3
     BeforeDelay: 0
     BetweenDelay: 0.5
     AfterDelay: 0
@@ -242,4 +248,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 579860166384849199}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5402686177475095715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2344244556410904751}
+  m_Layer: 7
+  m_Name: FirePoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2344244556410904751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5402686177475095715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.816, y: 1.325, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 579860166384849199}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7561830992884455792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2698016624561835338}
+  m_Layer: 7
+  m_Name: FirePoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2698016624561835338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7561830992884455792}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.821, y: 1.325, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 579860166384849199}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

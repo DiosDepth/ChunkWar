@@ -84,6 +84,32 @@ public class PoolManager : Singleton<PoolManager>
     {
         base.Initialization();
     }
+    public void GetObjectAsync(string m_key, bool m_active, Transform trs = null, UnityAction<GameObject,Transform> callback = null,  Transform parentTrans = null)
+    {
+        //GameObject temp_obj = null;
+
+        if (poolDic.ContainsKey(m_key) && poolDic[m_key].poolList.Count > 0)
+        {
+            //temp_obj = poolDic[m_key].GetObject();
+            GameObject obj = poolDic[m_key].GetObject(m_active);
+            callback(obj,trs);
+        }
+        else
+        {
+            ResManager.Instance.LoadAsync<GameObject>(m_key, (obj) =>
+            {
+                obj.name = m_key;
+                obj.SetActive(m_active);
+
+                if (parentTrans != null)
+                    obj.transform.SetParent(parentTrans, false);
+
+                callback(obj, trs);
+            });
+            /*temp_obj =  GameObject.Instantiate(Resources.Load<GameObject>(m_key));
+             temp_obj.name = m_key;*/
+        }
+    }
 
     public void GetObjectAsync(string m_key, bool m_active, UnityAction<GameObject> callback, Transform parentTrans = null)
     {
@@ -100,9 +126,9 @@ public class PoolManager : Singleton<PoolManager>
             {
                 obj.name = m_key;
                 obj.SetActive(m_active);
-         
                 if (parentTrans != null)
                 obj.transform.SetParent(parentTrans, false);
+
                 callback(obj);
             });
             /*temp_obj =  GameObject.Instantiate(Resources.Load<GameObject>(m_key));

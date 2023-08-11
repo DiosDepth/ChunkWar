@@ -83,6 +83,7 @@ MonoBehaviour:
   state: 1
   IsRestoreable: 0
   IsCoreUnit: 1
+  deathVFXName: ExplodeVFX
   _isTarget: 1
   unitSprite: {fileID: 4947179279536623990}
   redirection: 1
@@ -90,15 +91,16 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   weaponmode: 2
+  firemode: 0
   bulletType: 2
-  firePoint: {fileID: 2578667679939120713}
+  firePoint:
+  - {fileID: 2578667679939120713}
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
     MagazineBased: 0
     MaxMagazineSize: 30
-    ReloadTime: 1
     BeforeDelay: 0
     BetweenDelay: 0
     AfterDelay: 0

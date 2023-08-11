@@ -3,28 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum WeaponFireModeType
-{
-    Autonomy,
-    SemiAuto,
-    Manual,
-}
-public enum WeaponState
-{
 
-    Ready,
-    Start,
-    Reload,
-    BeforeDelay,
-    Firing,
-    BetweenDelay,
-    Charging,
-    Charged,
-    Fired,
-    AfterDelay,
-    End,
-    Recover,
-}
 
 [System.Serializable]
 public class WeaponAttribute : UnitBaseAttribute
@@ -61,6 +40,7 @@ public class WeaponAttribute : UnitBaseAttribute
     public float WeaponRange { get; protected set; }
 
     public float Rate;
+
     public float ChargeTime;
     public float ChargeCost;
 
@@ -84,7 +64,6 @@ public class WeaponAttribute : UnitBaseAttribute
     }
 
     public float BeforeDelay;
-    public float BetweenDelay;
     public float AfterDelay;
 
     private List<UnitPropertyModifyFrom> modifyFrom;
@@ -138,6 +117,7 @@ public class WeaponAttribute : UnitBaseAttribute
         rangeBase = _weaponCfg.BaseRange;
         ReloadTime = _weaponCfg.CD;
         FireCDBase = _weaponCfg.DamageDeltaTime;
+
 
         if (isPlayerShip)
         {
@@ -229,11 +209,11 @@ public class ShipWeapon : Weapon
 {
     public virtual void HandleWeapon(InputAction.CallbackContext context)
     {
-        if(weaponmode  == WeaponFireModeType.Autonomy)
+        if(weaponmode  == WeaponControlType.Autonomy)
         {
             return;
         }
-        if(weaponmode == WeaponFireModeType.Manual)
+        if(weaponmode == WeaponControlType.Manual)
         {
             switch (context.phase)
             {
@@ -248,7 +228,7 @@ public class ShipWeapon : Weapon
             }
         }
 
-        if (weaponmode == WeaponFireModeType.SemiAuto)
+        if (weaponmode == WeaponControlType.SemiAuto)
         {
             switch (context.phase)
             {

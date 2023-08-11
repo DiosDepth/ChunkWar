@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4139111094964381583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5123346590922557502}
+  m_Layer: 7
+  m_Name: FirePoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5123346590922557502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139111094964381583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.15, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1000722331128833097}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5156482088037079168
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,6 +63,7 @@ Transform:
   m_Children:
   - {fileID: 30283576541635495}
   - {fileID: 6516888820155779860}
+  - {fileID: 5123346590922557502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,11 +92,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.023802042, y: 0.94446194}
-      - {x: -0.56228966, y: 0.2852147}
-      - {x: -0.33389682, y: -0.55512846}
-      - {x: 0.4132372, y: -0.55512834}
-      - {x: 0.57815766, y: 0.26934713}
+    - - {x: 0.20935054, y: 0.7826464}
+      - {x: -0.17718016, y: 0.7895858}
+      - {x: -0.44164613, y: -0.007776715}
+      - {x: -0.30927575, y: -0.39016688}
+      - {x: 0.27289686, y: -0.39509097}
+      - {x: 0.4255067, y: -0.011333697}
 --- !u!114 &765962645083886639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,15 +123,17 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   weaponmode: 0
+  firemode: 1
   bulletType: 3
-  firePoint: {fileID: 6516888820155779860}
+  firePoint:
+  - {fileID: 6516888820155779860}
+  - {fileID: 5123346590922557502}
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
     MagazineBased: 0
     MaxMagazineSize: 30
-    ReloadTime: 1
     BeforeDelay: 0
     BetweenDelay: 1
     AfterDelay: 0
@@ -212,7 +247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8364843252387233737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.016, y: 0.782, z: 0}
+  m_LocalPosition: {x: -0.12, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

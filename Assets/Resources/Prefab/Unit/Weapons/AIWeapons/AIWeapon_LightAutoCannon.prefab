@@ -91,17 +91,17 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   weaponmode: 1
+  firemode: 0
   bulletType: 1
-  firePoint: {fileID: 3324133008493171840}
+  firePoint:
+  - {fileID: 3324133008493171840}
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
     MagazineBased: 0
     MaxMagazineSize: 30
-    ReloadTime: 1
     BeforeDelay: 0
-    BetweenDelay: 3
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}

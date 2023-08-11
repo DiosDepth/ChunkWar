@@ -25,8 +25,7 @@ public class Projectile : Bullet, IDamageble
     /// </summary>
     public GeneralHPComponet HpComponent;
 
-    public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
-    private Vector2 _initialmoveDirection = Vector2.up;
+
 
     private Coroutine startmovingCoroutine;
     private float _timestamp;

@@ -26,6 +26,8 @@ public class Bullet : MonoBehaviour,IPoolable
     public string hitVFXName = "HitVFX";
     protected Unit _owner;
 
+    public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
+    protected Vector2 _initialmoveDirection = Vector2.up;
 
     protected virtual void OnEnable()
     {
