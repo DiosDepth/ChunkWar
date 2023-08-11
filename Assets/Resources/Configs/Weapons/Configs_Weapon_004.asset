@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_MechineGun
+  m_Name: Configs_Weapon_004
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -176,15 +176,6 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
       Data: 0
     - Name: 
       Entry: 3
@@ -209,15 +200,21 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 3
       Data: 1
     - Name: 
       Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
       Data: 0
     - Name: 
       Entry: 3
@@ -242,13 +239,16 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -399,33 +399,33 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 3
+  ID: 10003
   GeneralConfig:
-    IconSprite: {fileID: -339013081, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: Weapon_Name_003
-    Desc: Weapon_Desc_003
-    Rarity: 0
-  Prefab: {fileID: 579860166384849233, guid: d55b23bc57ac4f84bac74574af0f2617, type: 3}
+    IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
+    Name: Weapon_Name_10003
+    Desc: 
+    Rarity: 3
+  Prefab: {fileID: 5883710716347196929, guid: d89dbbac3930fa9479768f183b53e88f, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  unitType: 2
+  unitType: 1
   redirection: 1
-  UpgradeGroupID: 0
-  EditBrushSprite: {fileID: 0}
-  EditorBrushDefaultRotation: 0
-  BaseHP: 500
-  BaseEnergyCost: 0
-  BaseEnergyGenerate: 100
-  DamageBase: 10
-  DamageRatioMin: 0.9
-  DamageRatioMax: 1.1
+  UpgradeGroupID: 10000
+  EditBrushSprite: {fileID: 21300000, guid: 70aa6820cf420da44b94fd82e6aab827, type: 3}
+  EditorBrushDefaultRotation: 180
+  BaseHP: 110
+  BaseEnergyCost: 10
+  BaseEnergyGenerate: 0
+  DamageBase: 6
+  DamageRatioMin: 0.8
+  DamageRatioMax: 1.2
   DamageType: 0
   BaseRange: 50
-  BaseCriticalRate: 0
-  CriticalDamage: 0
-  TotalDamageCount: 10
+  BaseCriticalRate: 7
+  CriticalDamage: 150
+  TotalDamageCount: 8
   ShootPerCount: 1
-  CD: 4
+  CD: 3.8
   DamageDeltaTime: 0.15
   ShieldTransfixion: 0
   ShieldDamage: 150

@@ -62,4 +62,10 @@ public enum PropertyModifyKey
     /// 护盾伤害额外加成
     /// </summary>
     ShieldDamageAdd,
+    /// <summary>
+    /// 单位能量消耗百分比
+    /// </summary>
+    UnitEnergyCostPercent,
+    UnitEnergyGenerate,
+    ShieldHP,
 }

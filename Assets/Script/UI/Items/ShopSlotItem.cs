@@ -11,7 +11,7 @@ public class ShopSlotItem : MonoBehaviour
     private int itemTypeID;
 
     private Image _icon;
-    private Text _nameText;
+    private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
     private Text _costText;
     private Transform PropertyModifyRoot;
@@ -31,7 +31,7 @@ public class ShopSlotItem : MonoBehaviour
         PropertyModifyRoot = transform.Find("Content/PropertyModify");
         _unitInfoRoot = transform.Find("Content/UnitInfo");
         _icon = transform.Find("Content/Info/Icon").GetComponent<Image>();
-        _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<Text>();
+        _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
         _descText = transform.Find("Content/Desc").GetComponent<TextMeshProUGUI>();
         _costText = transform.Find("Content/Buy/Value").GetComponent<Text>();
         _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
@@ -64,6 +64,7 @@ public class ShopSlotItem : MonoBehaviour
                 icon = plugCfg.GeneralConfig.IconSprite;
             }
             _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipPlug_Text);
+            _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
             SetUpProperty();
         }
         else if (ItemType == GoodsItemType.ShipUnit)
@@ -76,8 +77,8 @@ public class ShopSlotItem : MonoBehaviour
                 name = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Name);
                 desc = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Desc);
                 icon = unitCfg.GeneralConfig.IconSprite;
-
-                if(unitCfg.unitType == UnitType.Weapons)
+                _nameText.color = GameHelper.GetRarityColor(unitCfg.GeneralConfig.Rarity);
+                if (unitCfg.unitType == UnitType.Weapons)
                 {
                     _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipWeapon_Text);
                 }

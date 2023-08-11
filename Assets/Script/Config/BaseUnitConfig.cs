@@ -22,14 +22,18 @@ public class BaseUnitConfig : BaseConfig
 {
     [LabelText("类型")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 300)]
+    [HorizontalGroup("B", 200)]
     public UnitType unitType;
 
     [LabelText("可旋转")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 300)]
+    [HorizontalGroup("B", 150)]
     public bool redirection = true;
 
+    [LabelText("升级组")]
+    [LabelWidth(70)]
+    [HorizontalGroup("B", 130)]
+    public int UpgradeGroupID;
 
     [LabelText("建造笔刷图片")]
     [LabelWidth(80)]
@@ -47,6 +51,18 @@ public class BaseUnitConfig : BaseConfig
     [LabelText("基础血量")]
     [LabelWidth(80)]
     public int BaseHP;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/Z", 200)]
+    [LabelText("能源消耗")]
+    [LabelWidth(80)]
+    public int BaseEnergyCost;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/Z", 200)]
+    [LabelText("能源产生")]
+    [LabelWidth(80)]
+    public int BaseEnergyGenerate;
 
     [OnInspectorInit]
     protected override void InitData()

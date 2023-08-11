@@ -410,12 +410,15 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 1
+  UpgradeGroupID: 0
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
-  BaseHP: 100
-  DamageBase: 10
-  DamageRatioMin: 0.75
-  DamageRatioMax: 1.12
+  BaseHP: 30
+  BaseEnergyCost: 10
+  BaseEnergyGenerate: 0
+  DamageBase: 3
+  DamageRatioMin: 0.8
+  DamageRatioMax: 1.2
   DamageType: 0
   BaseRange: 15
   BaseCriticalRate: 0

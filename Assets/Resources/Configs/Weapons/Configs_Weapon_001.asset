@@ -403,18 +403,21 @@ MonoBehaviour:
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
     Name: Weapon_Name_10000
-    Desc: Weapon_Desc_10000
+    Desc: 
     Rarity: 0
   Prefab: {fileID: 5883710716347196929, guid: d89dbbac3930fa9479768f183b53e88f, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 0
+  UpgradeGroupID: 10000
   EditBrushSprite: {fileID: 21300000, guid: 70aa6820cf420da44b94fd82e6aab827, type: 3}
   EditorBrushDefaultRotation: 180
-  BaseHP: 60
+  BaseHP: 30
+  BaseEnergyCost: 10
+  BaseEnergyGenerate: 0
   DamageBase: 3
-  DamageRatioMin: 0.95
+  DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0
   BaseRange: 60
@@ -428,4 +431,6 @@ MonoBehaviour:
   ShieldDamage: 150
   BaseTransfixion: 0
   TransfixionReduce: 0
-  DamageModifyFrom: []
+  DamageModifyFrom:
+  - PropertyKey: 15
+    Ratio: 0.5

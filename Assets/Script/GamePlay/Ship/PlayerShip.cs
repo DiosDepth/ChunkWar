@@ -67,6 +67,24 @@ public class PlayerShip : BaseShip
     public PlayerShipConfig playerShipCfg;
 
     /// <summary>
+    /// 当前总能源
+    /// </summary>
+    public int TotalEnergy
+    {
+        get;
+        protected set;
+    }
+
+    /// <summary>
+    /// 当前使用能源
+    /// </summary>
+    public int CurrentUsedEnergy
+    {
+        get;
+        protected set;
+    }
+
+    /// <summary>
     /// 是否编辑模式
     /// </summary>
     public bool IsEditorShip
@@ -206,6 +224,22 @@ public class PlayerShip : BaseShip
         controller.Initialization();
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
+        RefreshShipEnergy();
+    }
+
+    /// <summary>
+    /// 刷新能源
+    /// </summary>
+    public void RefreshShipEnergy()
+    {
+        TotalEnergy = 0;
+        CurrentUsedEnergy = 0;
+        for(int i = 0; i < _unitList.Count; i++)
+        {
+            var unit = _unitList[i];
+            TotalEnergy += unit.baseAttribute.EnergyGenerate;
+            CurrentUsedEnergy += unit.baseAttribute.EnergyCost;
+        }
     }
 
     public virtual void ActiveShipUnit()
@@ -413,6 +447,7 @@ public class PlayerShip : BaseShip
         }
 
         _unitList.Add(tempunit);
+        RefreshShipEnergy();
         return tempunit;
     }
 
@@ -483,6 +518,7 @@ public class PlayerShip : BaseShip
         }
 
         UnitList.Remove(m_unit);
+        RefreshShipEnergy();
         GameObject.Destroy(m_unit.gameObject);
     }
 

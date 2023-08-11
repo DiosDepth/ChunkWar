@@ -15,7 +15,33 @@ public static class GameHelper
     private static string Color_Red_Code = "#C61616";
     private static string Color_Blue_Code = "#09B3CB";
 
-    
+    private static Color RarityColor_T1 = Color.white;
+    private static Color RarityColor_T2 = new Color(0, 0.83f, 1f);
+    private static Color RarityColor_T3 = new Color(0.73f, 0f, 1f);
+    private static Color RarityColor_T4 = new Color(1f, 0.58f, 1f);
+
+
+    /// <summary>
+    /// 获取稀有度颜色
+    /// </summary>
+    /// <param name="rarity"></param>
+    /// <returns></returns>
+    public static Color GetRarityColor(GoodsItemRarity rarity)
+    {
+        switch (rarity)
+        {
+            case GoodsItemRarity.Tier1:
+                return RarityColor_T1;
+            case GoodsItemRarity.Tier2:
+                return RarityColor_T2;
+            case GoodsItemRarity.Tier3:
+                return RarityColor_T3;
+            case GoodsItemRarity.Tier4:
+                return RarityColor_T4;
+            default:
+                return Color.white;
+        }
+    }
 
     #region Battle
 
@@ -67,6 +93,13 @@ public static class GameHelper
             return null;
 
         return currentShip.core.unit.HpComponent;
+    }
+
+    public static int GetUnitEnergyCost(BaseUnitConfig cfg)
+    {
+        var rate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+        rate = Mathf.Clamp(rate, -100, float.MaxValue);
+        return Mathf.RoundToInt(cfg.BaseEnergyCost * (100 + rate) / 100f);
     }
 
     #endregion
@@ -123,6 +156,34 @@ public static class GameHelper
         }
 
         return goods;
+    }
+
+    /// <summary>
+    /// 获取升级后的稀有度
+    /// </summary>
+    /// <param name="baseRarity"></param>
+    /// <param name="addRarity"></param>
+    /// <returns></returns>
+    public static GoodsItemRarity GetTargetEvolveRarity(GoodsItemRarity baseRarity, byte currentRank, GoodsItemRarity addRarity, out byte outRank)
+    {
+        var addMap = DataManager.Instance.battleCfg.EvolveAddMap;
+        var requireMap = DataManager.Instance.battleCfg.EvolveRequireMap;
+        ///增加的稀有度级
+        byte addRank = addMap[(int)addRarity];
+        var totalRank = currentRank + addRank;
+
+        int tempRarity = (int)baseRarity;
+        var nextRequireEvolove = requireMap[tempRarity];
+        while(totalRank >= nextRequireEvolove)
+        {
+            totalRank -= nextRequireEvolove;
+            tempRarity++;
+            if (tempRarity > 3)
+                break;
+            nextRequireEvolove = requireMap[tempRarity];
+        }
+        outRank = (byte)totalRank;
+        return (GoodsItemRarity)tempRarity;
     }
 
     public static string GetHardLevelModifyTypeName(HardLevelModifyType type)

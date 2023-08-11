@@ -401,29 +401,32 @@ MonoBehaviour:
       Data: 
   ID: 10001
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: db3ef0ed72a438c4abd5f59d91723d66, type: 3}
+    IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
     Name: Weapon_Name_10001
     Desc: 
-    Rarity: 0
-  Prefab: {fileID: 5156482088037079168, guid: ef56862dd6ffbc643903b3115ad6669e, type: 3}
+    Rarity: 1
+  Prefab: {fileID: 5883710716347196929, guid: d89dbbac3930fa9479768f183b53e88f, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 1
-  EditBrushSprite: {fileID: 21300000, guid: 4496b99d0334a184c84911a7e45d5071, type: 3}
+  UpgradeGroupID: 10000
+  EditBrushSprite: {fileID: 21300000, guid: 70aa6820cf420da44b94fd82e6aab827, type: 3}
   EditorBrushDefaultRotation: 180
-  BaseHP: 100
-  DamageBase: 50
-  DamageRatioMin: 0.94
-  DamageRatioMax: 1.15
+  BaseHP: 55
+  BaseEnergyCost: 10
+  BaseEnergyGenerate: 0
+  DamageBase: 4
+  DamageRatioMin: 0.8
+  DamageRatioMax: 1.2
   DamageType: 0
-  BaseRange: 100
-  BaseCriticalRate: 20
-  CriticalDamage: 130
-  TotalDamageCount: 0
-  ShootPerCount: 0
-  CD: 4
-  DamageDeltaTime: 0.2
+  BaseRange: 50
+  BaseCriticalRate: 6
+  CriticalDamage: 150
+  TotalDamageCount: 8
+  ShootPerCount: 1
+  CD: 3.8
+  DamageDeltaTime: 0.15
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
