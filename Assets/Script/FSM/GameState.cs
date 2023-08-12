@@ -218,7 +218,7 @@ public class EGameState_GamePrepare : GameState
                 CameraManager.Instance.vcam.m_Lens.OrthographicSize = 35;
 
                 ///start Timer
-                RogueManager.Instance.Timer.StartTimer();
+                
 
                 GameEvent.Trigger(EGameState.EGameState_GameStart);
             }));
@@ -284,6 +284,7 @@ public class EGameState_GameStart : GameState
                     loadingscreen.OpenLoadingDoor(() =>
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
+                        
                     });
                 });
             }
@@ -297,7 +298,7 @@ public class EGameState_GameStart : GameState
                     {
                         UIManager.Instance.HiddenUI("LoadingScreen");
                         RogueManager.Instance.currentShip.controller.IsUpdate = true;
-                        LevelManager.Instance.StartAISpawn();
+                        RogueManager.Instance.Timer.StartTimer();
 
                         //LeanTween.delayedCall(10, () =>
                         //{

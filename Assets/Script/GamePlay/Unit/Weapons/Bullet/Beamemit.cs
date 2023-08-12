@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Beamemit : Bullet
 {
+    public LayerMask mask = 1 << 7;
+
 
 
     protected override void OnEnable()

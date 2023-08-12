@@ -94,8 +94,8 @@ public class WaveEnemySpawnConfig
     public int DurationDelta;
     public int LoopCount;
     public int StartTime;
-    public byte CountBase;
-    public byte MaxRowCount;
+    public int TotalCount;
+    public int MaxRowCount;
 }
 
 

@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum DamageTextType
-{
-    Normal,
-    Critical
-}
+
 public class DamageTextItemCmpt : PoolableObject
 {
 

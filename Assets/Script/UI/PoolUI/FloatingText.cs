@@ -6,7 +6,7 @@ using UnityEngine;
 public class FloatingText : GUIBasePanel,IPoolable
 {
     public float duration = 0.75f;
-
+    public Color textColor;
     public override void Initialization()
     {
         base.Initialization();
@@ -52,6 +52,11 @@ public class FloatingText : GUIBasePanel,IPoolable
     public void SetText(float value)
     {
         GetGUIComponent<TMP_Text>("Textinfo").SetText(value.ToString());
+    }
+
+    public void SetColor(Color color)
+    {
+        GetGUIComponent<TMP_Text>("Textinfo").color = color;
     }
 
 }

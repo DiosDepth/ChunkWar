@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -36,6 +37,34 @@ public struct LevelEvent
     }
 }
 
+
+public enum AISpawnEventType
+{
+    SpawnRequest,
+    StopRequest,
+}
+
+public struct AISpawnEvent
+{
+    public AISpawnEventType evtType;
+    public int waveCfgID;
+
+    public AISpawnEvent(AISpawnEventType m_type, int m_waveCfgID)
+    {
+        evtType = m_type;
+        waveCfgID = m_waveCfgID;
+
+    }
+    private static AISpawnEvent e;
+
+    public static void Trigger(AISpawnEventType m_type, int m_waveCfgID)
+    {
+        e.evtType = m_type;
+        e.waveCfgID = m_waveCfgID;
+        EventCenter.Instance.TriggerEvent<AISpawnEvent>(e);
+    }
+}
+
 public enum AvaliableLevel
 {
     Harbor,
@@ -43,7 +72,7 @@ public enum AvaliableLevel
     ShipSelectionLevel,
 }
 
-public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, EventListener<PickableItemEvent>
+public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, EventListener<PickableItemEvent>, EventListener<AISpawnEvent>
 {
 
     private AsyncOperation asy;
@@ -60,11 +89,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     
     
     private AIFactory _lastAIfactory;
+    public List<AIShip> aiShipList = new List<AIShip>();
+
+    public int levelWaveIndex = 0;
     public LevelManager()
     {
         Initialization();
         this.EventStartListening<LevelEvent>();
         this.EventStartListening<PickableItemEvent>();
+        this.EventStartListening<AISpawnEvent>();
     }
 
     public override void Initialization()
@@ -102,20 +135,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     }
 
 
-    public void StartAISpawn()
-    {
-        Vector2 spawnpoint = GetRadomPosFromOutRange(20f, 50f);
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
-        {
-            AIFactory aIFactory = obj.GetComponent<AIFactory>();
-            aIFactory.PoolableSetActive(true);
-            aIFactory.Initialization();
-            aIFactory.StartSpawn(spawnpoint,new RectAISpawnSetting(1,1 ,1), (list)=> 
-            {
-              
-            });
-        });
-    }
+
+
 
     public void StopAISpawn()
     {
@@ -123,23 +144,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     }
 
 
-    /// <summary>
-    /// 获取当前ship位置的圆形区间范围随机点，
-    /// </summary>
-    /// <param name="innerrange"></param>
-    /// <param name="outrange"></param>
-    /// <returns></returns>
-    public Vector2 GetRadomPosFromOutRange(float innerrange, float outrange)
-    {
-        Random.InitState(Mathf.RoundToInt(Time.time));
-        float rad = Random.Range(0f, 2f) * Mathf.PI;
-        var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-
-        float distance = Random.Range(innerrange, outrange);
-        Vector2 pos = dir * distance + RogueManager.Instance.currentShip.transform.position.ToVector2();
-
-        return pos;
-    }
+ 
 
     public PlayerShip SpawnShipAtPos(GameObject ship, Vector3 pos, Quaternion rot, bool isactive)
     {
@@ -231,9 +236,28 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         if(currentLevel == null) { return; }
         currentLevel.Unload();
+        levelWaveIndex = 0;
+
+        if(aiShipList != null)
+        {
+            for (int i = 0; i < aiShipList.Count; i++)
+            {
+                aiShipList[i].PoolableDestroy();
+            }
+            aiShipList.Clear();
+        }
+
+
+        var types = UnityEngine.MonoBehaviour.FindObjectsOfType<MonoBehaviour>().OfType<IPoolable>();
+        foreach (IPoolable t in types)
+        {
+            t.PoolableDestroy();
+        }
+       
 
         GameObject.Destroy(currentLevel.gameObject);
         currentLevel = null;
+
     }
 
     public void GameOver()
@@ -245,5 +269,16 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void LevelReset()
     {
 
+    }
+
+    public void OnEvent(AISpawnEvent evt)
+    {
+        switch (evt.evtType)
+        {
+            case AISpawnEventType.SpawnRequest:
+                break;
+            case AISpawnEventType.StopRequest:
+                break;
+        }
     }
 }
