@@ -50,6 +50,8 @@ public enum RogueEventType
     RefreshShopWeaponInfo,
     ShowUnitDetailPage,
     HideUnitDetailPage,
+    HoverUnitDisplay,
+    HideHoverUnitDisplay,
 }
 
 public enum ShipPropertyEventType

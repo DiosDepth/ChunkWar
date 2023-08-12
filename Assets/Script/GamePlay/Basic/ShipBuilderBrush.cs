@@ -47,6 +47,11 @@ public class ShipBuilderBrush : MonoBehaviour
         }
     }
 
+    public void ActiveBrush(bool active)
+    {
+        transform.SafeSetActive(active);
+    }
+
     public void ResetBrush()
     {
         brushSprite.transform.localRotation = Quaternion.Euler(0, 0, 0);

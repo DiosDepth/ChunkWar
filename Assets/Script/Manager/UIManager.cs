@@ -325,6 +325,15 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
+    public static Vector2 GetUIposBWorldPosition(Vector3 pos)
+    {
+        var camera = CameraManager.Instance.mainCamera;
+        Vector2 screenPos = camera.WorldToScreenPoint(pos);
+        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        screenPos -= screenSize / 2;//将屏幕坐标变换为以屏幕中心为原点
+        return screenPos;
+    }
+
     public  bool IsMouseOverUI()
     {
         bool mouseOverUI = false;
