@@ -44,8 +44,16 @@ public class WeaponAttribute : UnitBaseAttribute
     public float ChargeTime;
     public float ChargeCost;
 
-    public bool MagazineBased = false;
-    public int MaxMagazineSize = 30;
+    public bool MagazineBased = true;
+
+    /// <summary>
+    /// ×Üµ¯Ò©ÊýÁ¿
+    /// </summary>
+    public int MaxMagazineSize
+    {
+        get;
+        protected set;
+    }
 
     /// <summary>
     /// ×°ÌîCD
@@ -71,6 +79,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private float rangeBase;
     private float ReloadCDBase;
     private float FireCDBase;
+    private int BaseMaxMagazineSize;
 
     /// <summary>
     /// ÎäÆ÷ÉËº¦
@@ -81,14 +90,14 @@ public class WeaponAttribute : UnitBaseAttribute
         if (isPlayerShip)
         {
             var damage = BaseDamage + BaseDamageModifyValue;
-            var damagePercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamagePercent);
+            var damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.DamagePercent);
             var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             var finalDamage = Mathf.Clamp(damage * (1 + damagePercent / 100f) * ratio, 0, int.MaxValue);
             return Mathf.RoundToInt(finalDamage);
         }
         else
         {
-            var damageRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
+            var damageRatio = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
             var enemy = _parentUnit._owner as AIShip;
             float hardLevelRatio = 0;
             if(enemy != null)
@@ -115,8 +124,9 @@ public class WeaponAttribute : UnitBaseAttribute
         DamageRatioMax = _weaponCfg.DamageRatioMax;
         criticalBase = _weaponCfg.BaseCriticalRate;
         rangeBase = _weaponCfg.BaseRange;
-        ReloadTime = _weaponCfg.CD;
-        FireCDBase = _weaponCfg.DamageDeltaTime;
+        ReloadCDBase = _weaponCfg.CD;
+        FireCDBase = _weaponCfg.FireCD;
+        BaseMaxMagazineSize = _weaponCfg.TotalDamageCount;
 
 
         if (isPlayerShip)
@@ -133,16 +143,22 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
 
             CalculateBaseDamageModify();
             CalculateCriticalRatio();
             CalculateReloadTime();
             CalculateDamageDeltaTime();
+            CalculateMaxMagazineSize();
         }
         else
         {
             BaseDamageModifyValue = 0;
             CriticalRatio = 0;
+            FireCD = FireCDBase;
+            ReloadTime = ReloadCDBase;
+            MaxMagazineSize = BaseMaxMagazineSize;
+            WeaponRange = rangeBase;
         }
     }
 
@@ -156,6 +172,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
         }
     }
 
@@ -172,7 +189,7 @@ public class WeaponAttribute : UnitBaseAttribute
         float finalValue = 0;
         for (int i = 0; i < modifyFrom.Count; i++)
         {
-            var value = RogueManager.Instance.MainPropertyData.GetPropertyFinal(modifyFrom[i].PropertyKey);
+            var value = mainProperty.GetPropertyFinal(modifyFrom[i].PropertyKey);
             value *= modifyFrom[i].Ratio;
             finalValue += value;
         }
@@ -181,13 +198,13 @@ public class WeaponAttribute : UnitBaseAttribute
 
     private void CalculateCriticalRatio()
     {
-        var criticalRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Critical);
+        var criticalRatio = mainProperty.GetPropertyFinal(PropertyModifyKey.Critical);
         CriticalRatio = criticalRatio + criticalBase;
     }
 
     private void CalculateWeaponRange()
     {
-        var weaponRange = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponRange);
+        var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponRange);
         WeaponRange = rangeBase + weaponRange;
     }
 
@@ -201,6 +218,13 @@ public class WeaponAttribute : UnitBaseAttribute
     {
         var cd = GameHelper.CalculatePlayerWeaponDamageDeltaCD(FireCDBase);
         FireCD = cd;
+    }
+
+    private void CalculateMaxMagazineSize()
+    {
+        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.MagazineSize);
+        var newValue = delta + BaseMaxMagazineSize;
+        MaxMagazineSize = (int)Mathf.Clamp(newValue, 1, int.MaxValue);
     }
 }
 

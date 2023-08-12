@@ -76,7 +76,7 @@ public class WeaponConfig : BaseUnitConfig
     [HorizontalGroup("基础属性/C", 200)]
     [LabelText("伤害间隔")]
     [LabelWidth(80)]
-    public float DamageDeltaTime;
+    public float FireCD;
 
     [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/D", 200)]

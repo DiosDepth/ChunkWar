@@ -20,6 +20,9 @@ public static class GameHelper
     private static Color RarityColor_T3 = new Color(0.73f, 0f, 1f);
     private static Color RarityColor_T4 = new Color(1f, 0.58f, 1f);
 
+    private static Color DamageColor_Normal = Color.white;
+    private static Color DamageColor_Critical = Color.yellow;
+
 
     /// <summary>
     /// 获取稀有度颜色
@@ -38,6 +41,19 @@ public static class GameHelper
                 return RarityColor_T3;
             case GoodsItemRarity.Tier4:
                 return RarityColor_T4;
+            default:
+                return Color.white;
+        }
+    }
+
+    public static Color GetDamageTextColor(DamageTextType type)
+    {
+        switch (type)
+        {
+            case DamageTextType.Critical:
+                return DamageColor_Critical;
+            case DamageTextType.Normal:
+                return DamageColor_Normal;
             default:
                 return Color.white;
         }
@@ -309,10 +325,10 @@ public static class GameHelper
         }
         else if (type == UI_WeaponUnitPropertyType.CD)
         {
-            var fireCD = CalculatePlayerWeaponDamageDeltaCD(cfg.DamageDeltaTime);
+            var fireCD = CalculatePlayerWeaponDamageDeltaCD(cfg.FireCD);
             var cd = CalculatePlayerWeaponCD(cfg.CD);
 
-            string FireCDcolor = GetColorCode(fireCD, cfg.DamageDeltaTime, true);
+            string FireCDcolor = GetColorCode(fireCD, cfg.FireCD, true);
             string cdColor = GetColorCode(cd, cfg.CD, true);
 
             string fireCDStr = string.Format("<color={0}>{1:F2}s</color>", FireCDcolor, fireCD);

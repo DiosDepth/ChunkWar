@@ -65,8 +65,17 @@ public class UnitBaseAttribute
         if (isPlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
+
+            if(BaseEnergyCost != 0)
+            {
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
+            }
+            
+            if(BaseEnergyGenerate != 0)
+            {
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
+            }
+            
             CalculateHP();
             CalculateEnergyCost();
             CalculateEnergyGenerate();

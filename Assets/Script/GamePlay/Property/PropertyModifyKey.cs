@@ -68,4 +68,8 @@ public enum PropertyModifyKey
     UnitEnergyCostPercent,
     UnitEnergyGenerate,
     ShieldHP,
+    /// <summary>
+    /// µ¯Ò©Á¿
+    /// </summary>
+    MagazineSize,
 }
