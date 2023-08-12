@@ -33,6 +33,15 @@ public enum PickableItemType
     Event,//拾取后发送事件，
 }
 
+public enum AvaliablePickUp
+{
+    None = 0,
+    GoldPickup = 1,
+    HarborTeleportPickup = 2,
+}
+
+
+
 public class PickableItem : MonoBehaviour, IPoolable
 {
     public SpriteRenderer sprite;
@@ -115,7 +124,10 @@ public class PickableItem : MonoBehaviour, IPoolable
 
     public  void PoolableReset()
     {
-
+        if(LevelManager.Instance != null)
+        {
+            LevelManager.Instance.pickupList.Remove(this);
+        }
     }
 
 

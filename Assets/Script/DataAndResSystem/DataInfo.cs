@@ -99,5 +99,27 @@ public class BulletData : DataInfo
 }
 
 
+public class PickUpData : DataInfo
+{
+    public string PrefabPath;
+    public PickUpData() { }
+
+    public PickUpData(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        PrefabPath = row[2];
+
+    }
+
+    public override void Initialization(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        Name = row[1];
+        PrefabPath = row[2];
+
+    }
+}
+
 
 

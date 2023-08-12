@@ -71,6 +71,7 @@ public class AIShip : BaseShip,IPoolable
 
         AIShipConfig aishipconfig =  DataManager.Instance.GetAIShipConfig((int)AIType);
         AIShipCfg = aishipconfig;
+        baseShipCfg = aishipconfig;
         Vector2Int pos;
 
         for (int row = 0; row < aishipconfig.Map.GetLength(0); row++)

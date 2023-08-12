@@ -1368,6 +1368,9 @@ MonoBehaviour:
   Prefab: {fileID: 3431155976711396027, guid: 78e0d89966b208549b01263ff6a23337, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
+  DropList:
+  - pickuptype: 1
+    count: 1
   CoreHP: 50
   SpeedBase: 10
   HardLevelCfg:

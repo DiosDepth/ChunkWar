@@ -11,13 +11,14 @@ public enum OwnerType
 }
 
 [ShowOdinSerializedPropertiesInInspector]
-public class BaseShip : MonoBehaviour
+public class BaseShip : MonoBehaviour,IDropable
 {
 
     public Core core;
     public BaseController controller;
     public GameObject buildingsParent;
     public string deathVFXName = "ExplodeVFX";
+    
 
     public StateMachine<ShipMovementState> movementState;
     public StateMachine<ShipConditionState> conditionState;
@@ -89,7 +90,7 @@ public class BaseShip : MonoBehaviour
     }
     public virtual void Death()
     {
-
+        LevelManager.Instance.pickupList.AddRange(Drop());
     }
 
     public virtual void Ability()
@@ -110,5 +111,34 @@ public class BaseShip : MonoBehaviour
 
     }
 
-
+    public virtual List<PickableItem> Drop()
+    {
+        Vector2 pos;
+        PickUpData data;
+        List<PickableItem> itemlist = new List<PickableItem>() ;
+        if(baseShipCfg.DropList?.Count <= 0)
+        {
+            return null;
+        }
+        for (int i = 0; i < baseShipCfg.DropList.Count; i++)
+        {
+            for (int n = 0; n < baseShipCfg.DropList[i].count; n++)
+            {
+                pos = MathExtensionTools.GetRadomPosFromOutRange(0, baseShipCfg.MapSize.Lager(), this.transform.position.ToVector2());
+                DataManager.Instance.PickUpDataDic.TryGetValue(baseShipCfg.DropList[i].pickuptype.ToString(), out data);
+                if(data == null)
+                {
+                    Debug.LogWarning(this.gameObject.name  +" [ " + baseShipCfg.DropList[i].pickuptype.ToString() + " ] Can't find drop data in datamanger");
+                    continue;
+                }
+                PoolManager.Instance.GetObjectSync(data.PrefabPath, true, (obj) =>
+                {
+                    obj.transform.position = pos;
+                    PickableItem item = obj.GetComponent<PickableItem>();
+                    itemlist.Add(item);
+                });
+            }
+        }
+        return itemlist;
+    }
 }

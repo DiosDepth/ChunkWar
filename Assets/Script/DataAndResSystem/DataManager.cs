@@ -16,6 +16,7 @@ public class DataManager : Singleton<DataManager>
     
     public Dictionary<string, LevelData> LevelDataDic = new Dictionary<string, LevelData>();
     public Dictionary<string, BulletData> BulletDataDic = new Dictionary<string, BulletData>();
+    public Dictionary<string, PickUpData> PickUpDataDic = new Dictionary<string, PickUpData>();
 
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
@@ -259,6 +260,13 @@ public class DataManager : Singleton<DataManager>
                 MonoManager.Instance.StartCoroutine(LoadingData<BulletData>(m_fileinfo, BulletDataDic, () =>
                 {
                     Debug.Log("BulletData has been loaded!");
+
+                }));
+                break;
+            case "PickUpData.csv":
+                MonoManager.Instance.StartCoroutine(LoadingData<PickUpData>(m_fileinfo, PickUpDataDic, () =>
+                {
+                    Debug.Log("PickUpData has been loaded!");
 
                 }));
                 break;

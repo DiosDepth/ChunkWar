@@ -350,7 +350,7 @@ public class RogueManager : Singleton<RogueManager>
 
         var cfg = waveCfg.SpawnConfig.Find(x => x.ID == ID);
 
-        Vector2 spawnpoint = GetRadomPosFromOutRange(20f, 50f);
+        Vector2 spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(20f, 50f, RogueManager.Instance.currentShip.transform.position.ToVector2());
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
         {
             AIFactory aIFactory = obj.GetComponent<AIFactory>();
@@ -364,24 +364,7 @@ public class RogueManager : Singleton<RogueManager>
         Debug.Log("Create Enemy Factory, ID = " + ID);
     }
 
-    /// <summary>
-    /// 获取当前ship位置的圆形区间范围随机点，
-    /// </summary>
-    /// <param name="innerrange"></param>
-    /// <param name="outrange"></param>
-    /// <returns></returns>
-    public Vector2 GetRadomPosFromOutRange(float innerrange, float outrange)
-    {
-        Random.InitState(Mathf.RoundToInt(Time.time));
-        float rad = Random.Range(0f, 2f) * Mathf.PI;
-        var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-
-        float distance = Random.Range(innerrange, outrange);
-        Vector2 pos = dir * distance + RogueManager.Instance.currentShip.transform.position.ToVector2();
-
-        return pos;
-    }
-
+ 
     #endregion
 
     #region Property

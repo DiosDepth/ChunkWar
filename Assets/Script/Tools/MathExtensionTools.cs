@@ -5,6 +5,7 @@ using UnityEngine;
 
 public static class MathExtensionTools 
 {
+
     public static bool IsEven(this float self)
     {
         return (self % 2 == 0);
@@ -20,6 +21,34 @@ public static class MathExtensionTools
         return new Vector2Int(Mathf.RoundToInt(v2.x), Mathf.RoundToInt(v2.y));
     }
 
+    /// <summary>
+    /// 获取当前ship位置的圆形区间范围随机点，
+    /// </summary>
+    /// <param name="innerrange"></param>
+    /// <param name="outrange"></param>
+    /// <returns></returns>
+    public static Vector2 GetRadomPosFromOutRange(float innerrange, float outrange, Vector2 referencepos)
+    {
+        UnityEngine.Random.InitState(Mathf.RoundToInt(Time.time));
+        float rad = UnityEngine.Random.Range(0f, 2f) * Mathf.PI;
+        var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+        float distance = UnityEngine.Random.Range(innerrange, outrange);
+        Vector2 pos = dir * distance + referencepos;
+        return pos;
+    }
+
+    public static float Lager(this Vector2 self)
+    {
+        if(self.x > self.y)
+        {
+            return self.x;
+        }
+        else
+        {
+            return self.y;
+        }
+    }
     public static Vector3 DirectionToXY(this Vector3 self, Vector3 target)
     {
         Vector3 a = new Vector3(self.x, self.y, 0);

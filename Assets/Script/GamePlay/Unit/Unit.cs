@@ -165,6 +165,7 @@ public class Unit : MonoBehaviour,IDamageble
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
+ 
 
     /// <summary>
     /// 当前升级点数

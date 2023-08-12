@@ -4,11 +4,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+[System.Serializable]
+public class DropInfo
+{
+    public AvaliablePickUp pickuptype;
+    public int count;
+}
+
+
 public class BaseShipConfig : BaseConfig
 {
 
 
-
+    public List<DropInfo> DropList;
     [System.Obsolete]
     protected override void OnEnable()
     {

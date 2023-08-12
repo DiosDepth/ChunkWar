@@ -90,6 +90,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     
     private AIFactory _lastAIfactory;
     public List<AIShip> aiShipList = new List<AIShip>();
+    public List<PickableItem> pickupList = new List<PickableItem>();
 
     public int levelWaveIndex = 0;
     public LevelManager()
