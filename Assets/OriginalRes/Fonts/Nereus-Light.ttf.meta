@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0100ac959a2b81b4785cfd0e3d118abf
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Nereus
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b0d14f68b6b29764abc57cdbc86a5b15, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

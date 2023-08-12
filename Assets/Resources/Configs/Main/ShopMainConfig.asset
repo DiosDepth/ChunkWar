@@ -240,3 +240,17 @@ MonoBehaviour:
     CostBase: 30
     Unique: 0
     MaxBuyCount: -1
+  - GoodID: 11
+    Weight: 20
+    ItemType: 0
+    TypeID: 10002
+    CostBase: 45
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 12
+    Weight: 20
+    ItemType: 0
+    TypeID: 10003
+    CostBase: 50
+    Unique: 0
+    MaxBuyCount: -1

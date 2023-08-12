@@ -426,7 +426,7 @@ MonoBehaviour:
   TotalDamageCount: 6
   ShootPerCount: 3
   CD: 5
-  DamageDeltaTime: 0.5
+  FireCD: 0.15
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0

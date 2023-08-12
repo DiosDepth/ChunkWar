@@ -90,9 +90,10 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
+  currentEvolvePoints: 0
   weaponmode: 0
   firemode: 0
-  bulletType: 3
+  bulletType: 2
   firePoint:
   - {fileID: 5501148320213267861}
   weaponAttribute:
@@ -102,7 +103,6 @@ MonoBehaviour:
     MagazineBased: 0
     MaxMagazineSize: 30
     BeforeDelay: 0
-    BetweenDelay: 1.5
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}

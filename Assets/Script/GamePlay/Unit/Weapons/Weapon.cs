@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 public enum WeaponControlType
 {
@@ -41,8 +42,9 @@ public class Weapon : Unit
     public AvaliableBulletType bulletType = AvaliableBulletType.None;
     public Transform[] firePoint;
 
-    [SerializeField]
     public WeaponAttribute weaponAttribute;
+
+    [ReadOnly]
     public int magazine;
 
     protected float _beforeDelayCounter;
@@ -60,8 +62,6 @@ public class Weapon : Unit
     public Bullet _lastbullet;
 
     protected WeaponConfig _weaponCfg;
-
-
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
@@ -546,10 +546,17 @@ public class Weapon : Unit
 
     public virtual void InitWeaponAttribute(bool isPlayerShip)
     {
-    
+        weaponAttribute.InitProeprty(this, _weaponCfg, isPlayerShip);
+        baseAttribute = weaponAttribute;
+
         if (weaponAttribute.MagazineBased)
         {
             magazine = weaponAttribute.MaxMagazineSize;
+        }
+        else
+        {
+            ///Fix Value
+            magazine = 1;
         }
 
         _beforeDelayCounter = weaponAttribute.BeforeDelay;
@@ -557,10 +564,6 @@ public class Weapon : Unit
         _afterDelayCounter = weaponAttribute.AfterDelay;
         _chargeCounter = weaponAttribute.ChargeTime;
         _reloadCounter = weaponAttribute.ReloadTime;
-
-        weaponAttribute.InitProeprty(this, _weaponCfg, isPlayerShip);
-        baseAttribute = weaponAttribute;
-
     }
 
     /// <summary>
