@@ -339,8 +339,9 @@ public class Weapon : Unit
 
     protected override void OnDestroy()
     {
+        weaponAttribute?.Destroy();
         base.OnDestroy();
-        weaponAttribute.Destroy();
+ 
 
     }
 

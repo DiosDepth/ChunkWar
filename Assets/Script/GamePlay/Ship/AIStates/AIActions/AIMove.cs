@@ -41,6 +41,11 @@ public class AIMove : AIAction
 
     protected virtual void CalculateMoveDirection()
     {
+        if(RogueManager.Instance.currentShip == null)
+        {
+            _moveDirection = Vector3.zero;
+            return;
+        }
         _moveDirection = (RogueManager.Instance.currentShip.transform.position - transform.position).normalized;
     }
 
