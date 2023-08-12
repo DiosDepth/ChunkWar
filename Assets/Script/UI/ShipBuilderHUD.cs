@@ -60,7 +60,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
 
     public void AddSlot(List<ItemGUISlot> list,InventoryItem m_item, RectTransform m_slotgroup)
     {
-        var obj = ResManager.Instance.Load<GameObject>(UIManager.Instance.resPath + "ItemGUISlot");
+        var obj = ResManager.Instance.Load<GameObject>(UIManager.Instance.resGUIPath + "ItemGUISlot");
         RectTransform rect = obj.GetComponent<RectTransform>();
         rect.SetParent(m_slotgroup);
         rect.localScale = Vector3.one;

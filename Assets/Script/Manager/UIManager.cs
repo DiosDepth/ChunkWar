@@ -42,7 +42,8 @@ public enum UIEventType
 
 public class UIManager : Singleton<UIManager>
 {
-    public string resPath = "Prefab/GUIPrefab/";
+    public string resGUIPath = "Prefab/GUIPrefab/";
+    public string resPoolUIPath = "Prefab/GUIPrefab/PoolUI/";
     public Dictionary<string, GUIBasePanel> panelDic = new Dictionary<string, GUIBasePanel>();
     private Transform canvas;
     public Transform Canvas { get { return canvas; } }
@@ -64,10 +65,10 @@ public class UIManager : Singleton<UIManager>
     public UIManager()
     {
         Initialization();
-        GameObject obj = ResManager.Instance.Load<GameObject>(resPath + "Canvas");
+        GameObject obj = ResManager.Instance.Load<GameObject>(resGUIPath + "Canvas");
         canvas = obj.transform;
         GameObject.DontDestroyOnLoad(obj);
-        obj = ResManager.Instance.Load<GameObject>(resPath + "EventSystem");
+        obj = ResManager.Instance.Load<GameObject>(resGUIPath + "EventSystem");
         GameObject.DontDestroyOnLoad(obj);
         GetUILayer(ref system, "System", canvas);
         GetUILayer(ref bot, "Bot", canvas);
@@ -116,13 +117,39 @@ public class UIManager : Singleton<UIManager>
     }
 
 
-    public void CreatePoolerUI<T>(string m_ui_res_path, bool m_isactive, UnityAction<T> callback) where T : GUIBasePanel
+    public void CreatePoolerUI<T>(string m_uiname, bool m_isactive, E_UI_Layer m_uilayer, object m_owner = null, UnityAction<T> callback = null ) where T : GUIBasePanel
     {
-        PoolManager.Instance.GetObjectAsync(m_ui_res_path, m_isactive, (obj) =>
+        PoolManager.Instance.GetObjectAsync(resPoolUIPath+m_uiname, m_isactive, (obj) =>
         {
+            Transform t_father = bot;
+            switch (m_uilayer)
+            {
+                case E_UI_Layer.Top:
+                    t_father = top;
+                    break;
+                case E_UI_Layer.Mid:
+                    t_father = mid;
+                    break;
+                case E_UI_Layer.Bot:
+                    t_father = bot;
+                    break;
+                case E_UI_Layer.System:
+                    t_father = system;
+                    break;
+            }
+
+            obj.transform.SetParent(t_father);
+            //obj.transform.localPosition = Vector3.zero;
+            obj.transform.localScale = Vector3.one;
+            (obj.transform as RectTransform).offsetMax = Vector2.zero;
+            (obj.transform as RectTransform).offsetMin = Vector2.zero;
+
+            T panel = obj.GetComponent<T>();
+            panel.owner = m_owner;
+           
             if (callback != null)
             {
-                callback(obj.GetComponent<T>());
+                callback(panel);
             }
         });
 
@@ -145,7 +172,7 @@ public class UIManager : Singleton<UIManager>
             }
         }
         tempowner = m_owner;
-        ResManager.Instance.LoadAsync<GameObject>(resPath + m_uiname, (obj) =>
+        ResManager.Instance.LoadAsync<GameObject>(resGUIPath + m_uiname, (obj) =>
         {
             Transform t_father = bot;
             switch (m_uilayer)
