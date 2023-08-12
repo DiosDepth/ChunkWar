@@ -152,7 +152,7 @@ public class AIFactory : MonoBehaviour,IPoolable
 
     public List<Vector2> CalculateFormPos(Vector2 referencepos)
     {
-        Vector2 interval = new Vector2(aiSpawnSetting.sizeInterval.x + _shipconfig.GetShipSize().x, aiSpawnSetting.sizeInterval.y + _shipconfig.GetShipSize().y);
+        Vector2 interval = new Vector2(aiSpawnSetting.sizeInterval.x + _shipconfig.GetMapSize().x, aiSpawnSetting.sizeInterval.y + _shipconfig.GetMapSize().y);
         Vector2 offset = Vector2.zero;
         if (_rectanglematirx.x.IsEven())
         {
