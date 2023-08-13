@@ -194,7 +194,7 @@ public class LevelTimerTrigger
             TriggerAction?.Invoke(paramInt);
             _currentLoopCount++;
             _secondTimer = 0;
-            if (!_isLoop && _currentLoopCount > _totalloopCount)
+            if (!_isLoop && _currentLoopCount >= _totalloopCount)
             {
                 IsNeedToRemove = true;
             }
