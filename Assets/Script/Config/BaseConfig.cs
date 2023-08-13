@@ -63,56 +63,13 @@ public class BaseConfig : SerializedScriptableObject
 
     protected virtual Vector2Int GetMapPivot()
     {
-
-        if (Map == null)
-            return Vector2Int.zero;
-        for (int x = 0; x < Map.GetLength(0); x++)
-        {
-            for (int y = 0; y < Map.GetLength(1); y++)
-            {
-                if (Map[x, y] == 1)
-                {
-                    return GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.ShipMapSize);
-                }
-            }
-        }
         return Vector2Int.zero;
     }
 
 
     public virtual Vector2 GetMapSize()
     {
-        Vector2Int min = Vector2Int.zero;
-        Vector2Int max = Vector2Int.zero;
-
-        Vector2Int tempvalue;
-        for (int row = 0; row < Map.GetLength(0); row++)
-        {
-            for (int colume = 0; colume < Map.GetLength(1); colume++)
-            {
-                if (Map[row, colume] != 0)
-                {
-                    tempvalue = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
-                    if (tempvalue.x > max.x)
-                    {
-                        max.x = tempvalue.x;
-                    }
-                    else if (tempvalue.x < min.x)
-                    {
-                        min.x = tempvalue.x;
-                    }
-                    if (tempvalue.y > max.y)
-                    {
-                        max.y = tempvalue.y;
-                    }
-                    else if (tempvalue.y < min.y)
-                    {
-                        min.y = tempvalue.y;
-                    }
-                }
-            }
-        }
-        return max - min + Vector2.one;
+        return Vector2.zero;
     }
     protected static int DrawTable(Rect rect, int value)
     {

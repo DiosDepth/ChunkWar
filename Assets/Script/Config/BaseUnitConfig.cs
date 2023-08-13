@@ -64,6 +64,15 @@ public class BaseUnitConfig : BaseConfig
     [LabelWidth(80)]
     public int BaseEnergyGenerate;
 
+
+    [System.Obsolete]
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        _mapSize = GetMapSize();
+    }
+
     [OnInspectorInit]
     protected override void InitData()
     {
@@ -89,6 +98,41 @@ public class BaseUnitConfig : BaseConfig
             }
         }
         return Vector2Int.zero;
+    }
+
+    public override Vector2 GetMapSize()
+    {
+        Vector2Int min = Vector2Int.zero;
+        Vector2Int max = Vector2Int.zero;
+
+        Vector2Int tempvalue;
+        for (int row = 0; row < Map.GetLength(0); row++)
+        {
+            for (int colume = 0; colume < Map.GetLength(1); colume++)
+            {
+                if (Map[row, colume] != 0)
+                {
+                    tempvalue = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.UnitMapSize);
+                    if (tempvalue.x > max.x)
+                    {
+                        max.x = tempvalue.x;
+                    }
+                    else if (tempvalue.x < min.x)
+                    {
+                        min.x = tempvalue.x;
+                    }
+                    if (tempvalue.y > max.y)
+                    {
+                        max.y = tempvalue.y;
+                    }
+                    else if (tempvalue.y < min.y)
+                    {
+                        min.y = tempvalue.y;
+                    }
+                }
+            }
+        }
+        return max - min + Vector2.one;
     }
 
     public Vector2Int[] GetReletiveCoordByCenter(Vector2Int centercoord)
