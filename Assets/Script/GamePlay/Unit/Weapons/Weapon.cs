@@ -597,7 +597,8 @@ public class Weapon : Unit
                 _lastbullet.PoolableSetActive();
                 _lastbullet.Initialization();
                 _lastbullet.SetOwner(this);
-            });
+                _lastbullet.Shoot();
+            }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
         }
     }
 
@@ -607,12 +608,13 @@ public class Weapon : Unit
         {
             obj.transform.SetTransform(trs);
             _lastbullet = obj.GetComponent<Bullet>();
-            _lastbullet.InitialmoveDirection = trs.transform.up;
+            _lastbullet.InitialmoveDirection = trs.up;
 
             _lastbullet.PoolableSetActive();
             _lastbullet.Initialization();
             _lastbullet.SetOwner(this);
-        });
+            _lastbullet.Shoot();
+        }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
 
     }
 

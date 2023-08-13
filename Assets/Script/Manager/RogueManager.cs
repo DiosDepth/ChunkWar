@@ -71,6 +71,8 @@ public class RogueManager : Singleton<RogueManager>
     public PlayerShip currentShip;
     public LevelTimer Timer;
 
+
+
     public HardLevelInfo CurrentHardLevel
     {
         get;
@@ -195,6 +197,7 @@ public class RogueManager : Singleton<RogueManager>
     public override void Initialization()
     {
         base.Initialization();
+
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         _playerCurrentGoods = new Dictionary<int, byte>();
     }

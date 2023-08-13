@@ -16,6 +16,7 @@ public class Projectile : Bullet, IDamageble
 {
 
     public Rigidbody2D rb;
+    public Collider2D bulletCollider;
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
     public float lifeTime = 10;
     public float speed = 2.5f;
@@ -35,7 +36,7 @@ public class Projectile : Bullet, IDamageble
     // Start is called before the first frame update
     protected override void Start()
     {
-        PoolableSetActive();
+        
     }
 
     // Update is called once per frame
@@ -43,10 +44,15 @@ public class Projectile : Bullet, IDamageble
     {
 
     }
-
+    public override void Shoot()
+    {
+        base.Shoot();
+        PoolableSetActive();
+    }
     public override void Initialization()
     {
         base.Initialization();
+        bulletCollider = transform.GetComponentInChildren<Collider2D>();
         HpComponent = new GeneralHPComponet(100, 100);
     }
 
@@ -124,20 +130,11 @@ public class Projectile : Bullet, IDamageble
             }
             Death();
         }
-
-
-
     }
 
-    public virtual void Death()
+    public override void Death()
     {
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + hitVFXName, true, (obj) =>
-        {
-            obj.transform.position = this.transform.position;
-            obj.GetComponent<ParticleController>().PoolableSetActive();
-            obj.GetComponent<ParticleController>().PlayVFX();
-        });
-        PoolableDestroy();
+        base.Death(); 
     }
 
 

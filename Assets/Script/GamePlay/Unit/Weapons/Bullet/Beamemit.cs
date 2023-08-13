@@ -13,38 +13,93 @@ public class Beamemit : Bullet
 {
     public LayerMask mask = 1 << 7;
     public BeamType beamtype;
-    public string beamVFX = "HitVFX";
+    
     public float maxDistance;
+    public float width = 0.25f;
+    public float emittime = 0.15f;
+    public float duration = 0.75f;
+    public float deathtime = 0.15f;
+
+    public LineRenderer beamline;
     public GameObject target;
 
 
-
-
     private Coroutine startEmitCoroutine;
-
-
-
     private RaycastHit2D[] hitlist;
 
 
-    public IEnumerator StartEmit()
+    public override void Shoot()
     {
-        
-        if (beamtype == BeamType.Directional)
+        if(beamtype == BeamType.Directional)
         {
+            DirectionalBeam();
+        }
+       
+    }
+
+
+    public void DirectionalBeam()
+    {
+        Debug.Log("BeamShoot");
+
+        beamline.startWidth = width;
+        beamline.endWidth = width;
+        LeanTween.value(0, maxDistance, emittime).setOnUpdate((value)=> 
+        {
+            beamline.SetPosition(1, new Vector3(0, value, 0));
+
+        }).setOnComplete(()=> 
+        {
+            //创建射线
             hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
-            if(hitlist != null && hitlist?.Length > 0)
+
+            if (hitlist != null && hitlist?.Length > 0)
             {
                 for (int i = 0; i < hitlist.Length; i++)
                 {
-                    if(hitlist[i].transform.gameObject != null)
+                    if (hitlist[i].collider.gameObject != null)
                     {
-                        yield return null;
+                        if (hitlist[i].collider.tag == this.tag)
+                        {
+                            continue;
+                        }
+                        // 创建特效表现
+
+                        PlayVFX(HitVFX, hitlist[i].point);
+
+                        //产生伤害
+                        if (_owner is Weapon)
+                        {
+                            int damage = (_owner as Weapon).weaponAttribute.GetDamage();
+                            hitlist[i].collider.GetComponent<Unit>()?.TakeDamage(-damage);
+                        }
                     }
                 }
             }
-        }
-            
+            //延迟激光然后销毁激光
+            LeanTween.delayedCall(duration, () =>
+            {
+                LeanTween.value(width, 0, deathtime).setOnUpdate((value) =>
+                {
+                    beamline.startWidth = value;
+                    beamline.endWidth = value;
+                }).setOnComplete(() =>
+                {
+                    Death();
+                });
+            });
+        });
+
+    }
+
+    public override void PlayVFX(string m_vfxname, Vector3 pos)
+    {
+        base.PlayVFX(m_vfxname, pos);
+    }
+    public override void Death()
+    {
+
+        PoolableDestroy();
     }
 
     protected override void OnEnable()
@@ -54,6 +109,8 @@ public class Beamemit : Bullet
     protected override void Start()
     {
         base.Start();
+
+  
     }
 
     // Update is called once per frame
@@ -65,6 +122,9 @@ public class Beamemit : Bullet
 
     public override void PoolableReset()
     {
+        beamline.startWidth = 1;
+        beamline.endWidth = 1;
+        beamline.SetPosition(1, Vector3.zero);
         base.PoolableReset();
     }
 

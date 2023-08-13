@@ -116,7 +116,7 @@ public class AIFactory : MonoBehaviour,IPoolable
                 tempship.Initialization();
                 _shiplist.Add(tempship);
 
-            });
+            }, (LevelManager.Instance.currentLevel as BattleLevel).AIPool.transform);
         }
         if(callback != null)
         {
@@ -202,6 +202,7 @@ public class AIFactory : MonoBehaviour,IPoolable
 
     public void PoolableReset()
     {
+        StopCoroutine(_spawncorotine);
        // throw new System.NotImplementedException();
     }
 

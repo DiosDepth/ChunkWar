@@ -52,12 +52,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3080632904786149587}
   buildingsParent: {fileID: 7848178516328607515}
+  deathVFXName: ExplodeVFX
   isDebug: 0
   container: {fileID: 0}
   sprite: {fileID: 8713110962467850695}
   shipMapCenter: {fileID: 5547455125292244162}
   mainWeapon: {fileID: 0}
   pickupCollider: {fileID: 0}
+  playerShipCfg: {fileID: 0}
 --- !u!50 &6859882484743535825
 Rigidbody2D:
   serializedVersion: 4

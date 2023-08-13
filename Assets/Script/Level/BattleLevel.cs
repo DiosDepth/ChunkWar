@@ -5,9 +5,12 @@ using UnityEngine;
 /*
  * MainLevel
  */
-public class BattleLevel_001 : LevelEntity
+public class BattleLevel : LevelEntity
 {
     private LevelTimer _timer;
+
+    public GameObject BulletPool;
+    public GameObject AIPool;
 
     protected override void Update()
     {
@@ -18,6 +21,8 @@ public class BattleLevel_001 : LevelEntity
 
     public override void Initialization()
     {
+        BulletPool = new GameObject("BulletPool");
+        AIPool = new GameObject("AIPool");
         startPoint = GameObject.Find("StartPoint").transform.position;
         cameraBoard = GameObject.Find("CameraBoard").GetComponent<PolygonCollider2D>();
         _timer = RogueManager.Instance.Timer;

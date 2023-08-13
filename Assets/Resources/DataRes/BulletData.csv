@@ -1,4 +1,5 @@
 ID,Name,PrefabPath,BulletType,OwnerType
-1,BasePlayerBullet,Prefab/GameplayPrefab/Bullets/BasePlayerBullet,Ballistic,Player
-2,BasePlayerBullet_02,Prefab/GameplayPrefab/Bullets/BasePlayerBullet_02,Ballistic,Player
-101,BaseAIBullet,Prefab/GameplayPrefab/Bullets/BaseAIBullet,Ballistic,AI
+1,BaseBullet_Player,Prefab/GameplayPrefab/Bullets/BaseBullet_Player,Ballistic,Player
+2,BaseBullet02_Player,Prefab/GameplayPrefab/Bullets/BaseBullet02_Player,Ballistic,Player
+3,BaseBeam_Player,Prefab/GameplayPrefab/Bullets/BaseBeam_Player,Energy,Energy
+101,BaseBullet_AI,Prefab/GameplayPrefab/Bullets/BaseBullet_AI,Ballistic,AI

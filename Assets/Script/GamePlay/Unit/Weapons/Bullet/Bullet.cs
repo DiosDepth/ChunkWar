@@ -14,20 +14,39 @@ public enum BulletType
 public enum AvaliableBulletType
 {
     None,
-    BaseAIBullet,
-    BasePlayerBullet,
-    BasePlayerBullet_02,
+    BaseBullet_AI,
+    BaseBullet_Player,
+    BaseBullet02_Player,
+    BaseBeam_Player,
 }
 public class Bullet : MonoBehaviour,IPoolable
 {
     public BulletType type;
     public OwnerType ownertype;
-    public Collider2D bulletCollider;
-    public string hitVFXName = "HitVFX";
+
+    public string ShootVFX = "HitVFX";
+    public string HitVFX = "HitVFX";
+    public string DeathVFX = "HitVFX";
     protected Unit _owner;
 
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     protected Vector2 _initialmoveDirection = Vector2.up;
+
+
+
+    public virtual void Initialization()
+    {
+
+
+    }
+    public virtual void SetOwner(Unit owner)
+    {
+        _owner = owner;
+    }
+    public virtual void Shoot()
+    {
+
+    }
 
     protected virtual void OnEnable()
     {
@@ -44,22 +63,27 @@ public class Bullet : MonoBehaviour,IPoolable
 
     }
 
+    public virtual void Death()
+    { 
+        PlayVFX(DeathVFX, this.transform.position);
+        PoolableDestroy();
+    }
+
+    public virtual void PlayVFX(string m_vfxname, Vector3 pos)
+    {
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + m_vfxname, true, (obj) =>
+        {
+            obj.transform.position = pos;
+            obj.GetComponent<ParticleController>().PoolableSetActive();
+            obj.GetComponent<ParticleController>().PlayVFX();
+        });
+    }
+
 
     public virtual void PoolableReset()
     {
  
     }
-
-    public virtual void SetOwner(Unit owner)
-    {
-        _owner = owner;
-    }
-    public virtual void Initialization()
-    {
-       
-        bulletCollider = transform.GetComponentInChildren<Collider2D>();
-    }
-
 
     public virtual void PoolableDestroy()
     {
