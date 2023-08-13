@@ -416,6 +416,7 @@ public class PlayerShip : BaseShip
         Unit tempunit = obj.GetComponent<Unit>();
         tempunit.direction = m_direction;
         tempunit.UnitID = m_unitconfig.ID;
+        tempunit.Initialization(this, m_unitconfig as BaseUnitConfig);
         RogueManager.Instance.AddNewShipUnit(tempunit);
         obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
         if (isEditorMode && tempunit is Weapon)

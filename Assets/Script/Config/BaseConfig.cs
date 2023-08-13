@@ -66,7 +66,6 @@ public class BaseConfig : SerializedScriptableObject
         return Vector2Int.zero;
     }
 
-
     public virtual Vector2 GetMapSize()
     {
         return Vector2.zero;

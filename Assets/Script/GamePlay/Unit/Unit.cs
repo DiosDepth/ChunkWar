@@ -192,6 +192,16 @@ public class Unit : MonoBehaviour,IDamageble
     /// </summary>
     public GeneralHPComponet HpComponent;
 
+    private Material _spriteMat;
+
+    public virtual void Awake()
+    {
+        if(unitSprite != null)
+        {
+            _spriteMat = unitSprite.material;
+        }
+    }
+
     public virtual void Start() { }
 
     public virtual void Update() { }
@@ -247,6 +257,24 @@ public class Unit : MonoBehaviour,IDamageble
             IsRestoreable = false;
         }
         Restore();
+    }
+
+    public void OutLineHighlight(bool highlight)
+    {
+        if (_spriteMat == null)
+            return;
+
+        if (highlight)
+        {
+            var color = GameHelper.GetRarityColor(_baseUnitConfig.GeneralConfig.Rarity);
+            _spriteMat.EnableKeyword("OUTBASE_ON");
+            _spriteMat.SetColor("_OutlineColor", color);
+        }
+        else
+        {
+            _spriteMat.DisableKeyword("OUTBASE_ON");
+        }
+        
     }
 
     public virtual bool TakeDamage(int value)

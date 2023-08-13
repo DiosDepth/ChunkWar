@@ -13,6 +13,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private Text _rerollCostText;
     private EnhancedScroller _plugGridScroller;
     private UnitDetailInfoPanel _detailPanel;
+    private BuildSelectHoverCmpt _hoverCmpt;
 
 
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
@@ -26,6 +27,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     {
         base.Awake();
         _shopContentRoot = transform.Find("ShopPanel/ShopContent");
+        _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
         propertyCmpts = transform.Find("ShopPanel/PropertyPanel").GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
         buildingSlotCmpts = transform.Find("BuildingPanel/Slot_Group").GetComponentsInChildren<ShipBuildingSlotCmpt>().ToList();
@@ -42,6 +44,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
         _detailPanel.Hide();
+        _hoverCmpt.SetActive(false);
         InitShopContent();
         InitBuildingSlots();
         RefreshGeneral();
@@ -116,6 +119,20 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
 
             case RogueEventType.HideUnitDetailPage:
                 HideUnitDetailPage();
+                break;
+
+            case RogueEventType.HoverUnitDisplay:
+                OnHoverUnitDisplay((Unit)evt.param[0]);
+                break;
+
+            case RogueEventType.HideHoverUnitDisplay:
+                OnHideHoverUnitDisplay((Unit)evt.param[0]);
+                break;
+
+            case RogueEventType.HoverUnitUpgradeDisplay:
+                Unit basedUnit = (Unit)evt.param[0];
+                InventoryItem item = (InventoryItem)evt.param[1];
+                OnShowUpgradeUnitDisplayInfo(basedUnit, item);
                 break;
         }
     }
@@ -289,5 +306,33 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private void HideUnitDetailPage()
     {
         _detailPanel.Hide();
+    }
+
+    /// <summary>
+    /// œ‘ æUnit—°÷–
+    /// </summary>
+    /// <param name="unit"></param>
+    private void OnHoverUnitDisplay(Unit unit)
+    {
+        var pos = UIManager.GetUIposBWorldPosition(unit.transform.position);
+        _hoverCmpt.SetUp(pos, unit._baseUnitConfig.GetMapSize(), unit);
+        unit.OutLineHighlight(true);
+        _hoverCmpt.SetActive(true);
+        
+    }
+
+    private void OnHideHoverUnitDisplay(Unit unit)
+    {
+        _hoverCmpt.SetActive(false);
+        if(unit != null)
+        {
+            unit.OutLineHighlight(false);
+        }
+    }
+
+    private void OnShowUpgradeUnitDisplayInfo(Unit unit, InventoryItem item)
+    {
+        OnHoverUnitDisplay(unit);
+
     }
 }

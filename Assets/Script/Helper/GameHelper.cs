@@ -18,7 +18,7 @@ public static class GameHelper
     private static Color RarityColor_T1 = Color.white;
     private static Color RarityColor_T2 = new Color(0, 0.83f, 1f);
     private static Color RarityColor_T3 = new Color(0.73f, 0f, 1f);
-    private static Color RarityColor_T4 = new Color(1f, 0.58f, 1f);
+    private static Color RarityColor_T4 = new Color(1f, 0.57f, 0.23f);
 
     private static Color DamageColor_Normal = Color.white;
     private static Color DamageColor_Critical = Color.yellow;
@@ -119,6 +119,7 @@ public static class GameHelper
     }
 
     #endregion
+
     public static Vector2Int CoordinateArrayToMap(Vector2Int arraycoord, int mapsize)
     {
         return new Vector2Int(arraycoord.x - mapsize, mapsize - arraycoord.y);
@@ -172,6 +173,20 @@ public static class GameHelper
         }
 
         return goods;
+    }
+
+    /// <summary>
+    /// 单位升级花费
+    /// </summary>
+    /// <param name="rarity"></param>
+    /// <returns></returns>
+    public static byte GetUnitUpgradeCost(GoodsItemRarity rarity)
+    {
+        var requireMap = DataManager.Instance.battleCfg.EvolveRequireMap;
+        if (rarity == GoodsItemRarity.Tier4)
+            return 0;
+
+        return requireMap[(int)rarity];
     }
 
     /// <summary>

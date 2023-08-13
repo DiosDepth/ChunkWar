@@ -54,7 +54,11 @@ public class ShipBuilder : MonoBehaviour
     private Vector2Int _temparray;
 
     private Chunk currentChunk;
+    private Unit _currentHoverUnit;
+
     private bool _isPointOverGameObject;
+    private bool _isDisplayingHoverUnit = false;
+    private int _currentUpgradeGroupID;
 
     private void Awake()
     {
@@ -78,6 +82,7 @@ public class ShipBuilder : MonoBehaviour
         CameraManager.Instance.vcam.m_Lens.OrthographicSize = cameraSize;
 
         _isInitial = true;
+        currentInventoryItem = null;
         editorBrush.Initialization();
         _reletiveCoord = new Vector2Int[2];
     }
@@ -162,72 +167,55 @@ public class ShipBuilder : MonoBehaviour
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                _mousePos = context.ReadValue<Vector2>();
-                _mouseWorldPos = CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_mousePos.x, _mousePos.y, 0));
-                _pointedShipCoord = GameHelper.GetReletiveCoordFromWorldPos(editorShip.shipMapCenter, _mouseWorldPos);
-                if (currentInventoryItem == null || currentInventoryItem.itemconfig == null)
-                {
-                    return;
-                }
 
-                _isValidPos = false;
-
-                //判断鼠标是否在建造范围内
-                if (Mathf.Abs(_pointedShipCoord.x) > GameGlobalConfig.ShipMapSize || Mathf.Abs(_pointedShipCoord.y) > GameGlobalConfig.ShipMapSize)
+                _isValidPos = IsCorsorInBuildRange(context);
+                if (!_isValidPos)
                 {
-                    editorBrush.gameObject.SetActive(false);
+                    editorBrush.ActiveBrush(false);
                     return;
-                }
-                else
-                {
-                    editorBrush.gameObject.SetActive(true);
-                    _isValidPos = true;
                 }
 
                 //判断鼠标是否在Chunk内
                 currentChunk = editorShip.GetChunkFromShipCoordinate(_pointedShipCoord);
-                if (currentChunk == null)
+                _isValidPos &= currentChunk != null;
+
+                ///空选中，显示信息
+                if (currentInventoryItem == null)
                 {
-                    _isValidPos = false;
-                }
-
-
-                _tempmap = _reletiveCoord.AddToAll(_pointedShipCoord);
-
-                //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
-                for (int i = 0; i < _tempmap.Length; i++)
-                {
-                    //Debug.Log("[" + i + "] " + "ReletiveCoord : " + _reletiveCoord[i] + "  Tempmap : " + _tempmap[i]);
-                    _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
-                    if (editorShip.ChunkMap[_temparray.x, _temparray.y] == null)
+                    ///Hover 
+                    if(_isValidPos && currentChunk.unit != null)
                     {
-                        _isValidPos = false;
-                        break;
+                        OnHoverUnitDisplay(currentChunk.unit);
                     }
-                    if (editorShip.ChunkMap[_temparray.x, _temparray.y].unit != null)
+                    else if (_isDisplayingHoverUnit)
                     {
-                        _isValidPos = false;
-                        break;
+                        ResetHoverUnit();
                     }
-                }
-                
-
-                if (currentChunk != null && _isValidPos)
-                {
-                    editorBrush.brushSprite.color = editorBrush.validColor;
-                    editorBrush.ChangeShadowColor(editorBrush.validColor);
                 }
                 else
                 {
-                    editorBrush.brushSprite.color = editorBrush.invalidColor;
-                    editorBrush.ChangeShadowColor(editorBrush.invalidColor);
+                    editorBrush.ActiveBrush(_isValidPos);
+                    if (!_isValidPos)
+                        return;
+
+                    //使用selectedChunk 和 当前选择的currentInventoryBuilding 中map信息 来计算是否有其他位置重合，
+                    //需要检测已经有的Building
+
+                    if (!DisplayUpgradeGroupInfo())
+                        return;
+
+                    if (_isValidPos)
+                    {
+                        editorBrush.brushSprite.color = editorBrush.validColor;
+                        editorBrush.ChangeShadowColor(editorBrush.validColor);
+                    }
+                    else
+                    {
+                        editorBrush.brushSprite.color = editorBrush.invalidColor;
+                        editorBrush.ChangeShadowColor(editorBrush.invalidColor);
+                    }
+                    editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);
                 }
-
-
-                //使用selectedChunk 和 当前选择的currentInventoryBuilding 中map信息 来计算是否有其他位置重合，
-                //需要检测已经有的Building
-                editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);
-
 
                 break;
             case InputActionPhase.Canceled:
@@ -397,9 +385,118 @@ public class ShipBuilder : MonoBehaviour
 
         RogueManager.Instance.CurrentSelectedHarborSlotIndex = 0;
         _itemDirection = 0;
+        _currentUpgradeGroupID = 0;
         editorBrush.ResetBrush();
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
         RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
+    }
+
+    private void OnHoverUnitDisplay(Unit targetUnit)
+    {
+        if (_isDisplayingHoverUnit && _currentHoverUnit == targetUnit)
+            return;
+
+        if(_isDisplayingHoverUnit && _currentHoverUnit != targetUnit)
+        {
+            RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, _currentHoverUnit);
+        }
+
+        SetHoverUnit(targetUnit);
+    }
+
+    /// <summary>
+    /// 是否在建造范围内
+    /// </summary>
+    /// <returns></returns>
+    private bool IsCorsorInBuildRange(InputAction.CallbackContext context)
+    {
+        _mousePos = context.ReadValue<Vector2>();
+        _mouseWorldPos = CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_mousePos.x, _mousePos.y, 0));
+        _pointedShipCoord = GameHelper.GetReletiveCoordFromWorldPos(editorShip.shipMapCenter, _mouseWorldPos);
+
+        return Mathf.Abs(_pointedShipCoord.x) <= GameGlobalConfig.ShipMapSize && Mathf.Abs(_pointedShipCoord.y) <= GameGlobalConfig.ShipMapSize;
+    }
+
+    /// <summary>
+    /// 显示升级组信息
+    /// </summary>
+    /// <returns></returns>
+    private bool DisplayUpgradeGroupInfo()
+    {
+        if (currentChunk == null)
+        {
+            _isValidPos = false;
+            return false;
+        }
+           
+        editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);
+
+        bool isSameGroup = true;
+
+        _tempmap = _reletiveCoord.AddToAll(_pointedShipCoord);
+        var groupID = currentInventoryItem.GetUpgradeGroupID();
+        //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
+        for (int i = 0; i < _tempmap.Length; i++)
+        {
+            //Debug.Log("[" + i + "] " + "ReletiveCoord : " + _reletiveCoord[i] + "  Tempmap : " + _tempmap[i]);
+            _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
+            var chunk = editorShip.ChunkMap[_temparray.x, _temparray.y];
+
+
+            if (chunk == null)
+            {
+                _isValidPos = false;
+                isSameGroup = false;
+                break;
+            }
+
+            if (chunk.unit != null)
+            {
+                if(chunk.unit._baseUnitConfig.UpgradeGroupID == groupID)
+                {
+                    //选中物件ID为同一个升级组
+                    
+                }
+                else
+                {
+                    _isValidPos = false;
+                    isSameGroup = false;
+                    return true;
+                }
+            }
+            else
+            {
+                isSameGroup = false;
+            }
+        }
+
+        if (isSameGroup && _currentUpgradeGroupID != groupID)
+        {
+            _currentUpgradeGroupID = groupID;
+            _isDisplayingHoverUnit = true;
+            _currentHoverUnit = currentChunk.unit;
+            RogueEvent.Trigger(RogueEventType.HoverUnitUpgradeDisplay, currentChunk.unit, currentInventoryItem);
+        }
+        else if (!isSameGroup && _currentUpgradeGroupID != 0)
+        {
+            RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, currentChunk.unit);
+        }
+       
+        return true;
+    }
+
+    private void SetHoverUnit(Unit targetUnit)
+    {
+        _isDisplayingHoverUnit = true;
+        _currentHoverUnit = targetUnit;
+        RogueEvent.Trigger(RogueEventType.HoverUnitDisplay, targetUnit);
+    }
+
+    private void ResetHoverUnit()
+    {
+        RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, _currentHoverUnit);
+        _currentHoverUnit = null;
+        _isDisplayingHoverUnit = false;
     }
 }
