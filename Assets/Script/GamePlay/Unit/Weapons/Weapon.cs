@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
-<<<<<<< .merge_file_a27548
 using Sirenix.Utilities;
-=======
+
 
 public struct DamageResultInfo
 {
@@ -13,7 +12,7 @@ public struct DamageResultInfo
     public bool IsCritical;
 
 }
->>>>>>> .merge_file_a27900
+
 
 [System.Serializable]
 public class WeaponAttribute : UnitBaseAttribute
@@ -103,18 +102,14 @@ public class WeaponAttribute : UnitBaseAttribute
     public float AfterDelay;
 
     private List<UnitPropertyModifyFrom> modifyFrom;
-<<<<<<< .merge_file_a27548
     private float BaseCritical;
     private float BaseWeaponRange;
     private float BaseReloadCD;
     private float BaseFireCD;
-=======
-    private float criticalBase;
     private float BaseCriticalDamagePercent;
-    private float rangeBase;
-    private float ReloadCDBase;
-    private float FireCDBase;
->>>>>>> .merge_file_a27900
+
+
+
     private int BaseMaxMagazineSize;
     private byte BaseTransfixion;
     private float BaseTransfixionReduce;
@@ -160,18 +155,11 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseDamage = _weaponCfg.DamageBase;
         DamageRatioMin = _weaponCfg.DamageRatioMin;
         DamageRatioMax = _weaponCfg.DamageRatioMax;
-<<<<<<< .merge_file_a27548
         BaseCritical = _weaponCfg.BaseCriticalRate;
         BaseWeaponRange = _weaponCfg.BaseRange;
         BaseReloadCD = _weaponCfg.CD;
         BaseFireCD = _weaponCfg.FireCD;
-=======
-        criticalBase = _weaponCfg.BaseCriticalRate;
         BaseCriticalDamagePercent = _weaponCfg.CriticalDamage;
-        rangeBase = _weaponCfg.BaseRange;
-        ReloadCDBase = _weaponCfg.CD;
-        FireCDBase = _weaponCfg.FireCD;
->>>>>>> .merge_file_a27900
         BaseMaxMagazineSize = _weaponCfg.TotalDamageCount;
         BaseTransfixion = _weaponCfg.BaseTransfixion;
         BaseTransfixionReduce = _weaponCfg.TransfixionReduce;
@@ -212,13 +200,9 @@ public class WeaponAttribute : UnitBaseAttribute
             FireCD = BaseFireCD;
             ReloadTime = BaseReloadCD;
             MaxMagazineSize = BaseMaxMagazineSize;
-<<<<<<< .merge_file_a27548
             WeaponRange = BaseWeaponRange;
-=======
-            WeaponRange = rangeBase;
             Transfixion = BaseTransfixion;
             TransfixionReduce = BaseTransfixionReduce;
->>>>>>> .merge_file_a27900
         }
     }
 
@@ -459,8 +443,6 @@ public class Weapon : Unit
                 WeaponOn();
             }
         }
-
-        
     }
 
     
@@ -865,6 +847,7 @@ public class Weapon : Unit
             _afterDelayCounter = weaponAttribute.AfterDelay;
             weaponstate.ChangeState(WeaponState.End);
         }
+
     }
 
     public virtual void WeaponEnd()
