@@ -72,4 +72,12 @@ public enum PropertyModifyKey
     /// 弹药量
     /// </summary>
     MagazineSize,
+    /// <summary>
+    /// 基础贯通
+    /// </summary>
+    Transfixion,
+    /// <summary>
+    /// 贯通衰减
+    /// </summary>
+    TransfixionReducePercent,
 }
