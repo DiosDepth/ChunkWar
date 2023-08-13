@@ -128,6 +128,12 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
             case RogueEventType.HideHoverUnitDisplay:
                 OnHideHoverUnitDisplay((Unit)evt.param[0]);
                 break;
+
+            case RogueEventType.HoverUnitUpgradeDisplay:
+                Unit basedUnit = (Unit)evt.param[0];
+                InventoryItem item = (InventoryItem)evt.param[1];
+                OnShowUpgradeUnitDisplayInfo(basedUnit, item);
+                break;
         }
     }
 
@@ -309,7 +315,7 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private void OnHoverUnitDisplay(Unit unit)
     {
         var pos = UIManager.GetUIposBWorldPosition(unit.transform.position);
-        _hoverCmpt.SetUp(pos, unit._baseUnitConfig.MapSize, unit);
+        _hoverCmpt.SetUp(pos, unit._baseUnitConfig.GetMapSize(), unit);
         unit.OutLineHighlight(true);
         _hoverCmpt.SetActive(true);
         
@@ -318,6 +324,15 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private void OnHideHoverUnitDisplay(Unit unit)
     {
         _hoverCmpt.SetActive(false);
-        unit.OutLineHighlight(false);
+        if(unit != null)
+        {
+            unit.OutLineHighlight(false);
+        }
+    }
+
+    private void OnShowUpgradeUnitDisplayInfo(Unit unit, InventoryItem item)
+    {
+        OnHoverUnitDisplay(unit);
+
     }
 }

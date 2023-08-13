@@ -1371,6 +1371,7 @@ MonoBehaviour:
   DropList:
   - pickuptype: 1
     count: 1
+    weight: 0
   CoreHP: 50
   SpeedBase: 10
   HardLevelCfg:

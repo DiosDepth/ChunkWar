@@ -52,6 +52,7 @@ public enum RogueEventType
     HideUnitDetailPage,
     HoverUnitDisplay,
     HideHoverUnitDisplay,
+    HoverUnitUpgradeDisplay,
 }
 
 public enum ShipPropertyEventType

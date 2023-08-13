@@ -36,4 +36,13 @@ public class InventoryItem
         count = m_count;
         itemconfig = m_item;
     }
+
+    public int GetUpgradeGroupID()
+    {
+        if(itemconfig != null && itemconfig is BaseUnitConfig)
+        {
+            return (itemconfig as BaseUnitConfig).UpgradeGroupID;
+        }
+        return -1;
+    }
 }
