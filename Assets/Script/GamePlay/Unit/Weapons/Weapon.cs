@@ -3,7 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+<<<<<<< .merge_file_a27548
 using Sirenix.Utilities;
+=======
+
+public struct DamageResultInfo
+{
+    public int Damage;
+    public bool IsCritical;
+
+}
+>>>>>>> .merge_file_a27900
 
 [System.Serializable]
 public class WeaponAttribute : UnitBaseAttribute
@@ -35,9 +45,24 @@ public class WeaponAttribute : UnitBaseAttribute
     public float CriticalRatio { get; protected set; }
 
     /// <summary>
+    /// 暴击伤害, 100百分比单位
+    /// </summary>
+    public float CriticalDamagePercent { get; protected set; }
+
+    /// <summary>
     /// 武器射程
     /// </summary>
     public float WeaponRange { get; protected set; }
+
+    /// <summary>
+    /// 贯穿数
+    /// </summary>
+    public byte Transfixion { get; protected set; }
+
+    /// <summary>
+    /// 贯穿衰减, 100百分比单位
+    /// </summary>
+    public float TransfixionReduce { get; protected set; }
 
     public float Rate;
 
@@ -78,11 +103,21 @@ public class WeaponAttribute : UnitBaseAttribute
     public float AfterDelay;
 
     private List<UnitPropertyModifyFrom> modifyFrom;
+<<<<<<< .merge_file_a27548
     private float BaseCritical;
     private float BaseWeaponRange;
     private float BaseReloadCD;
     private float BaseFireCD;
+=======
+    private float criticalBase;
+    private float BaseCriticalDamagePercent;
+    private float rangeBase;
+    private float ReloadCDBase;
+    private float FireCDBase;
+>>>>>>> .merge_file_a27900
     private int BaseMaxMagazineSize;
+    private byte BaseTransfixion;
+    private float BaseTransfixionReduce;
 
     /// <summary>
     /// 武器伤害
@@ -125,12 +160,21 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseDamage = _weaponCfg.DamageBase;
         DamageRatioMin = _weaponCfg.DamageRatioMin;
         DamageRatioMax = _weaponCfg.DamageRatioMax;
+<<<<<<< .merge_file_a27548
         BaseCritical = _weaponCfg.BaseCriticalRate;
         BaseWeaponRange = _weaponCfg.BaseRange;
         BaseReloadCD = _weaponCfg.CD;
         BaseFireCD = _weaponCfg.FireCD;
+=======
+        criticalBase = _weaponCfg.BaseCriticalRate;
+        BaseCriticalDamagePercent = _weaponCfg.CriticalDamage;
+        rangeBase = _weaponCfg.BaseRange;
+        ReloadCDBase = _weaponCfg.CD;
+        FireCDBase = _weaponCfg.FireCD;
+>>>>>>> .merge_file_a27900
         BaseMaxMagazineSize = _weaponCfg.TotalDamageCount;
-
+        BaseTransfixion = _weaponCfg.BaseTransfixion;
+        BaseTransfixionReduce = _weaponCfg.TransfixionReduce;
 
         if (isPlayerShip)
         {
@@ -147,6 +191,9 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
 
             CalculateBaseDamageModify();
             CalculateWeaponRange();
@@ -154,6 +201,9 @@ public class WeaponAttribute : UnitBaseAttribute
             CalculateReloadTime();
             CalculateDamageDeltaTime();
             CalculateMaxMagazineSize();
+            CalculateTransfixionCount();
+            CalculateTransfixionPercent();
+            CalculateCriticalDamagePercent();
         }
         else
         {
@@ -162,7 +212,13 @@ public class WeaponAttribute : UnitBaseAttribute
             FireCD = BaseFireCD;
             ReloadTime = BaseReloadCD;
             MaxMagazineSize = BaseMaxMagazineSize;
+<<<<<<< .merge_file_a27548
             WeaponRange = BaseWeaponRange;
+=======
+            WeaponRange = rangeBase;
+            Transfixion = BaseTransfixion;
+            TransfixionReduce = BaseTransfixionReduce;
+>>>>>>> .merge_file_a27900
         }
     }
 
@@ -177,6 +233,9 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
         }
     }
 
@@ -229,6 +288,28 @@ public class WeaponAttribute : UnitBaseAttribute
         var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.MagazineSize);
         var newValue = delta + BaseMaxMagazineSize;
         MaxMagazineSize = (int)Mathf.Clamp(newValue, 1, int.MaxValue);
+    }
+
+    private void CalculateTransfixionCount()
+    {
+        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.Transfixion);
+        var newValue = delta + BaseTransfixion;
+        Transfixion = (byte)Mathf.Clamp(newValue, 0, byte.MaxValue);
+    }
+
+    private void CalculateTransfixionPercent()
+    {
+        var reducemin = DataManager.Instance.battleCfg.TransfixionReduce_Max;
+        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.TransfixionReducePercent);
+        var newValue = delta + BaseTransfixionReduce;
+        TransfixionReduce = Mathf.Clamp(newValue, reducemin, newValue);
+    }
+
+    private void CalculateCriticalDamagePercent()
+    {
+        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.CriticalDamagePercentAdd);
+        var newValue = delta + BaseCriticalDamagePercent;
+        CriticalDamagePercent = Mathf.Max(newValue, 100f);
     }
 }
 public enum WeaponControlType

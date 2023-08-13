@@ -288,7 +288,7 @@ public class Unit : MonoBehaviour,IDamageble
           {
               panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
 
-              panel.SetText(value);
+              panel.SetText(Mathf.Abs(value));
               panel.Show();
 
           });

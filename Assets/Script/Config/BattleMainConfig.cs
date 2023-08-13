@@ -23,6 +23,7 @@ public class BattleMainConfig : SerializedScriptableObject
     public byte HardLevelWaveIndexMultiple = 20;
 
     public byte ShipMaxLevel;
+    public float TransfixionReduce_Max = 0;
 
     public byte[] EvolveRequireMap = new byte[3];
     public byte[] EvolveAddMap = new byte[4]; 

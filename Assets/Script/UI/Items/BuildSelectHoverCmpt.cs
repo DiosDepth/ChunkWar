@@ -25,9 +25,11 @@ public class BuildSelectHoverCmpt : MonoBehaviour
 
     public void SetUp(Vector2 pos, Vector2 size, Unit info)
     {
-        transform.SafeGetComponent<RectTransform>().anchoredPosition = pos;
-        _spriteRect.SetRectHeight(size.y * SizePerUnit);
-        _spriteRect.SetRectWidth(size.x * SizePerUnit);
+        var height = size.y * SizePerUnit;
+        var width = size.x * SizePerUnit;
+        transform.SafeGetComponent<RectTransform>().anchoredPosition = new Vector2(pos.x - width / 2, pos.y + height / 2);
+        _spriteRect.SetRectHeight(height);
+        _spriteRect.SetRectWidth(width);
 
         int minSize = (int)Mathf.Min(size.x, size.y);
         int sizeDelta = 3 - minSize;

@@ -480,6 +480,7 @@ public class ShipBuilder : MonoBehaviour
         }
         else if (!isSameGroup && _currentUpgradeGroupID != 0)
         {
+            _currentUpgradeGroupID = 0;
             RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, currentChunk.unit);
         }
        
