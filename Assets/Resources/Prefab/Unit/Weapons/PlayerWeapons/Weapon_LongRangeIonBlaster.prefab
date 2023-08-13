@@ -93,7 +93,14 @@ MonoBehaviour:
   currentEvolvePoints: 0
   weaponmode: 2
   firemode: 0
+  aimingtype: 2
   bulletType: 4
+  targetmode: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  targetList: []
+  maxTargetCount: 3
   firePoint:
   - {fileID: 2578667679939120713}
   weaponAttribute:

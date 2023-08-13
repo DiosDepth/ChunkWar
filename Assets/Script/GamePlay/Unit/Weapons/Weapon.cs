@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
-
+using Sirenix.Utilities;
 
 [System.Serializable]
 public class WeaponAttribute : UnitBaseAttribute
@@ -46,6 +46,7 @@ public class WeaponAttribute : UnitBaseAttribute
 
     public bool MagazineBased = true;
 
+
     /// <summary>
     /// 总弹药数量
     /// </summary>
@@ -54,6 +55,8 @@ public class WeaponAttribute : UnitBaseAttribute
         get;
         protected set;
     }
+
+    
 
     /// <summary>
     /// 装填CD
@@ -75,10 +78,10 @@ public class WeaponAttribute : UnitBaseAttribute
     public float AfterDelay;
 
     private List<UnitPropertyModifyFrom> modifyFrom;
-    private float criticalBase;
-    private float rangeBase;
-    private float ReloadCDBase;
-    private float FireCDBase;
+    private float BaseCritical;
+    private float BaseWeaponRange;
+    private float BaseReloadCD;
+    private float BaseFireCD;
     private int BaseMaxMagazineSize;
 
     /// <summary>
@@ -122,10 +125,10 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseDamage = _weaponCfg.DamageBase;
         DamageRatioMin = _weaponCfg.DamageRatioMin;
         DamageRatioMax = _weaponCfg.DamageRatioMax;
-        criticalBase = _weaponCfg.BaseCriticalRate;
-        rangeBase = _weaponCfg.BaseRange;
-        ReloadCDBase = _weaponCfg.CD;
-        FireCDBase = _weaponCfg.FireCD;
+        BaseCritical = _weaponCfg.BaseCriticalRate;
+        BaseWeaponRange = _weaponCfg.BaseRange;
+        BaseReloadCD = _weaponCfg.CD;
+        BaseFireCD = _weaponCfg.FireCD;
         BaseMaxMagazineSize = _weaponCfg.TotalDamageCount;
 
 
@@ -146,6 +149,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
 
             CalculateBaseDamageModify();
+            CalculateWeaponRange();
             CalculateCriticalRatio();
             CalculateReloadTime();
             CalculateDamageDeltaTime();
@@ -155,10 +159,10 @@ public class WeaponAttribute : UnitBaseAttribute
         {
             BaseDamageModifyValue = 0;
             CriticalRatio = 0;
-            FireCD = FireCDBase;
-            ReloadTime = ReloadCDBase;
+            FireCD = BaseFireCD;
+            ReloadTime = BaseReloadCD;
             MaxMagazineSize = BaseMaxMagazineSize;
-            WeaponRange = rangeBase;
+            WeaponRange = BaseWeaponRange;
         }
     }
 
@@ -199,24 +203,24 @@ public class WeaponAttribute : UnitBaseAttribute
     private void CalculateCriticalRatio()
     {
         var criticalRatio = mainProperty.GetPropertyFinal(PropertyModifyKey.Critical);
-        CriticalRatio = criticalRatio + criticalBase;
+        CriticalRatio = criticalRatio + BaseCritical;
     }
 
     private void CalculateWeaponRange()
     {
         var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponRange);
-        WeaponRange = rangeBase + weaponRange;
+        WeaponRange = BaseWeaponRange + weaponRange;
     }
 
     private void CalculateReloadTime()
     {
-        var cd = GameHelper.CalculatePlayerWeaponCD(ReloadCDBase);
+        var cd = GameHelper.CalculatePlayerWeaponCD(BaseReloadCD);
         ReloadTime = cd;
     }
 
     private void CalculateDamageDeltaTime()
     {
-        var cd = GameHelper.CalculatePlayerWeaponDamageDeltaCD(FireCDBase);
+        var cd = GameHelper.CalculatePlayerWeaponDamageDeltaCD(BaseFireCD);
         FireCD = cd;
     }
 
@@ -256,6 +260,18 @@ public enum WeaponFireMode
     Sequent,
 }
 
+public enum WeaponAimingType
+{
+    Directional,
+    TargetDirectional,
+    TargetBased,
+}
+public enum WeaponTargetMode
+{
+    Single,
+    Mutipule,
+}
+
 public enum DamageTextType
 {
     Normal,
@@ -267,9 +283,15 @@ public class Weapon : Unit
     public WeaponControlType weaponmode;
     public StateMachine<WeaponState> weaponstate;
     public WeaponFireMode firemode;
-
+    public WeaponAimingType aimingtype= WeaponAimingType.Directional;
     public AvaliableBulletType bulletType = AvaliableBulletType.None;
+    public WeaponTargetMode targetmode = WeaponTargetMode.Single;
+    public LayerMask mask = 1 << 7;
+    
+    public List<GameObject> targetList;
+    public int maxTargetCount = 3;
     public Transform[] firePoint;
+
 
     public WeaponAttribute weaponAttribute;
 
@@ -285,7 +307,8 @@ public class Weapon : Unit
     protected bool _isChargeFire;
     protected bool _isWeaponOn;
 
-
+    protected Collider2D[] _targetcandidates;
+  
     protected int _firepointindex = 0;
     protected BulletData _bulletdata;
     public Bullet _lastbullet;
@@ -411,10 +434,10 @@ public class Weapon : Unit
     public virtual void WeaponOn()
     {
         _isWeaponOn = true;
-        if (weaponstate.CurrentState != WeaponState.Reload)
-        {
-            weaponstate.ChangeState(WeaponState.Start);
-        }
+        //if (weaponstate.CurrentState != WeaponState.Reload)
+        //{
+        //    weaponstate.ChangeState(WeaponState.Start);
+        //}
 
     }
 
@@ -429,6 +452,10 @@ public class Weapon : Unit
     public virtual void WeaponReady()
     {
         Debug.Log(this.gameObject + " : WeaponReady");
+        if(_isWeaponOn)
+        {
+            weaponstate.ChangeState(WeaponState.Start);
+        }
     }
 
     public virtual void WeaponStart()
@@ -463,6 +490,59 @@ public class Weapon : Unit
         {
             _firepointindex = 0;
         }
+        // 搜索合适的target
+
+        if(aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetBased)
+        {
+
+            _targetcandidates = Physics2D.OverlapCircleAll(this.transform.position, weaponAttribute.WeaponRange, mask);
+
+            if(_targetcandidates.Length > 0)
+            {
+                if(targetmode == WeaponTargetMode.Single)
+                {
+                    GameObject temptarget = null;
+                    float tempsqedistance;
+                    float shortestdistance = float.MaxValue;
+                    // 筛选目标候选
+                    for (int i = 0; i < _targetcandidates.Length; i++)
+                    {
+                        tempsqedistance = transform.position.SqrDistanceXY(_targetcandidates[i].gameObject.transform.position);
+                        if (tempsqedistance <= shortestdistance)
+                        {
+                            tempsqedistance = shortestdistance;
+                            temptarget = _targetcandidates[i].gameObject;
+                        }
+                    }
+                    if(temptarget != null)
+                    {
+                        targetList.Add(temptarget);
+                    }
+                }
+                if(targetmode == WeaponTargetMode.Mutipule)
+                {
+                    float d1;
+                    float d2;
+                    // 筛选目标候选,按照距离排序
+                    _targetcandidates.Sort((x,y) => 
+                    {
+                        d1 = transform.position.SqrDistanceXY(x.gameObject.transform.position);
+                        d2 = transform.position.SqrDistanceXY(y.gameObject.transform.position);
+                        return d1.CompareTo(d2);
+                    });
+
+                    for (int i = 0; i < maxTargetCount; i++)
+                    {
+                        targetList.Add(_targetcandidates[i].gameObject);
+                    }
+                }
+            }
+        }
+
+
+
+
+
         // 进行开火条件的判定,成功则 WeaponFiring ,否则 WeaponEnd
         if (magazine <= 0 && weaponAttribute.MagazineBased)
         {
@@ -710,14 +790,23 @@ public class Weapon : Unit
     {
         Debug.Log(this.gameObject + " : WeaponEnd");
 
-        if (magazine <= 0 && weaponAttribute.MagazineBased)
+        if(_betweenDelayCounter >0)
         {
-            weaponstate.ChangeState(WeaponState.Reload);
+            _betweenDelayCounter -= Time.deltaTime;
         }
-        else
+        if (_betweenDelayCounter <= 0)
         {
-            weaponstate.ChangeState(WeaponState.Recover);
+            _betweenDelayCounter = weaponAttribute.FireCD;
+            if (magazine <= 0 && weaponAttribute.MagazineBased)
+            {
+                weaponstate.ChangeState(WeaponState.Reload);
+            }
+            else
+            {
+                weaponstate.ChangeState(WeaponState.Recover);
+            }
         }
+
 
     }
 

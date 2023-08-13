@@ -4,15 +4,11 @@ using UnityEngine;
 
 
 
-public enum BeamType
-{
-    Directional,
-    TargetBase,
-}
+
 public class Beamemit : Bullet
 {
     public LayerMask mask = 1 << 7;
-    public BeamType beamtype;
+
     
     public float maxDistance;
     public float width = 0.25f;
@@ -26,15 +22,25 @@ public class Beamemit : Bullet
 
     private Coroutine startEmitCoroutine;
     private RaycastHit2D[] hitlist;
+    private Collider2D[] overlaplist;
 
+    private float tempFalloff = 0.5f;
 
     public override void Shoot()
     {
-        if(beamtype == BeamType.Directional)
+        switch ((_owner as Weapon).aimingtype)
         {
-            DirectionalBeam();
+            case WeaponAimingType.Directional:
+                DirectionalBeam();
+                break;
+            case WeaponAimingType.TargetDirectional:
+                break;
+            case WeaponAimingType.TargetBased:
+                TargetBaseBeam();
+                break;
         }
-       
+
+
     }
 
 
@@ -71,6 +77,7 @@ public class Beamemit : Bullet
                         if (_owner is Weapon)
                         {
                             int damage = (_owner as Weapon).weaponAttribute.GetDamage();
+                            damage = Mathf.RoundToInt(damage * (Mathf.Pow(tempFalloff, i)));
                             hitlist[i].collider.GetComponent<Unit>()?.TakeDamage(-damage);
                         }
                     }
@@ -89,6 +96,13 @@ public class Beamemit : Bullet
                 });
             });
         });
+
+    }
+
+
+    public void TargetBaseBeam()
+    {
+
 
     }
 

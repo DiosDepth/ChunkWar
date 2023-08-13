@@ -5138,6 +5138,8 @@ MonoBehaviour:
   levelName: BattleLevel_001
   startPoint: {x: 0, y: 0, z: 0}
   cameraBoard: {fileID: 0}
+  BulletPool: {fileID: 0}
+  AIPool: {fileID: 0}
 --- !u!1 &2954968443916734408
 GameObject:
   m_ObjectHideFlags: 0
@@ -5245,12 +5247,12 @@ PrefabInstance:
     - target: {fileID: 609202034885141024, guid: 12669c6343034984da25379730f7c35d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 609202034885141024, guid: 12669c6343034984da25379730f7c35d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7120652881020514682, guid: 12669c6343034984da25379730f7c35d,
         type: 3}
@@ -5260,12 +5262,12 @@ PrefabInstance:
     - target: {fileID: 7120652881020514682, guid: 12669c6343034984da25379730f7c35d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.17
+      value: 36.6
       objectReference: {fileID: 0}
     - target: {fileID: 7120652881020514682, guid: 12669c6343034984da25379730f7c35d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.09
+      value: -12.2
       objectReference: {fileID: 0}
     - target: {fileID: 7120652881020514682, guid: 12669c6343034984da25379730f7c35d,
         type: 3}
