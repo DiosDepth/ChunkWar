@@ -125,8 +125,8 @@ public class Projectile : Bullet, IDamageble
         {
             if (_owner is Weapon)
             {
-                int damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                collision.GetComponent<Unit>()?.TakeDamage(-damage);
+                var damage = (_owner as Weapon).weaponAttribute.GetDamage();
+                collision.GetComponent<Unit>()?.TakeDamage(-damage.Damage, damage.IsCritical);
             }
             Death();
         }
@@ -138,7 +138,7 @@ public class Projectile : Bullet, IDamageble
     }
 
 
-    public bool TakeDamage(int value)
+    public bool TakeDamage(int value, bool isCritical)
     {
         if (HpComponent == null)
             return false;

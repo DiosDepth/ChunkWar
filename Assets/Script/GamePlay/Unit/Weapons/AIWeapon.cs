@@ -133,8 +133,8 @@ public class AIWeapon : Weapon
         base.WeaponRecover();
     }
 
-    public override bool TakeDamage(int value)
+    public override bool TakeDamage(int value, bool isCritical)
     {
-        return base.TakeDamage(value);
+        return base.TakeDamage(value, isCritical);
     }
 }

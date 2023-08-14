@@ -5,6 +5,6 @@ using UnityEngine;
 public interface IDamageble 
 {
 
-    bool TakeDamage(int value);
+    bool TakeDamage(int value, bool isCritical);
     void Death();
 }

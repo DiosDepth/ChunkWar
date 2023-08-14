@@ -57,7 +57,7 @@ public enum PropertyModifyKey
     /// <summary>
     /// 伤害间隔
     /// </summary>
-    DamageDeltaPercent,
+    FireSpeed,
     /// <summary>
     /// 护盾伤害额外加成
     /// </summary>

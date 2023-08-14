@@ -29,6 +29,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
     - {fileID: 21300000, guid: 911b3b45310cd8c429c04122313979a8, type: 3}
     - {fileID: 21300000, guid: 36ce59a4401ec5240b6992820c323be5, type: 3}
+    - {fileID: 21300000, guid: cdbda0e9c9c2b764c8f2a53fc0e6faf8, type: 3}
+    - {fileID: 21300000, guid: 964648ffe7791304a8712b96b53de3dd, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -367,7 +369,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 12
+      Data: 14
     - Name: 
       Entry: 7
       Data: 
@@ -693,6 +695,60 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 14
+    - Name: $v
+      Entry: 7
+      Data: 34|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: CriticalDamagePercentAdd
+    - Name: Icon
+      Entry: 10
+      Data: 13
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 21
+    - Name: $v
+      Entry: 7
+      Data: 35|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldHP
+    - Name: Icon
+      Entry: 10
+      Data: 14
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -703,6 +759,7 @@ MonoBehaviour:
   HardLevelDeltaSeconds: 120
   HardLevelWaveIndexMultiple: 20
   ShipMaxLevel: 50
+  TransfixionReduce_Max: 0
   EvolveRequireMap: 010408
   EvolveAddMap: 01020408
   EXPMap: 0f00000019000000230000002d00000037000000640000006e000000

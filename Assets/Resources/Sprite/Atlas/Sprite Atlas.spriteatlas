@@ -45,12 +45,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 36ce59a4401ec5240b6992820c323be5, type: 3}
   - {fileID: 21300000, guid: 911b3b45310cd8c429c04122313979a8, type: 3}
   - {fileID: 21300000, guid: 06f5fb8941942b543b831ac667f94d17, type: 3}
+  - {fileID: 21300000, guid: cdbda0e9c9c2b764c8f2a53fc0e6faf8, type: 3}
   - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
   - {fileID: 21300000, guid: e27f0d0c4b16d7a40a428f97006b6bbc, type: 3}
   - {fileID: 21300000, guid: 155625dc38cb90842a3d52f10ae91006, type: 3}
+  - {fileID: 21300000, guid: 1fa45f0ff1747e849b1cc4c10201bd51, type: 3}
   - {fileID: 21300000, guid: 9bf9634ff2a6cda4096accd22f9011d5, type: 3}
   - {fileID: 21300000, guid: 6616816f7d2803c45a12bd6cdbd52f0f, type: 3}
   - {fileID: 21300000, guid: e046afcf981feda46adb2d731711962c, type: 3}
+  - {fileID: 21300000, guid: 964648ffe7791304a8712b96b53de3dd, type: 3}
   m_PackedSpriteNamesToIndex:
   - VP9
   - CR21
@@ -59,12 +62,15 @@ SpriteAtlas:
   - S308
   - KVSKShoot
   - function_skill_icon_113
+  - Hunter4
   - Destroyer4
   - powBuff #5913
   - Destroyer3
+  - SMAW2
   - sniper
   - Nyto_tareus1
   - werdun
+  - BossCerberus3
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0

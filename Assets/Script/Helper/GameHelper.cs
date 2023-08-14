@@ -268,7 +268,7 @@ public static class GameHelper
 
     public static float CalculatePlayerWeaponDamageDeltaCD(float rowValue)
     {
-        var attackSpd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageDeltaPercent);
+        var attackSpd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.FireSpeed);
         if (attackSpd > 0)
         {
             float rate = (1 + attackSpd) / 100f;

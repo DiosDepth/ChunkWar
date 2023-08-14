@@ -87,3 +87,27 @@ MonoBehaviour:
     ChineseSimplified: "\u4F24\u5BB3\u95F4\u9694"
     English: 
     Japanese: 
+  - TextID: ShipMainProperty_Btn_Text
+    ChineseSimplified: "\u4E3B\u8981\u5C5E\u6027"
+    English: 
+    Japanese: 
+  - TextID: ShipSubProperty_Btn_Text
+    ChineseSimplified: "\u6B21\u8981\u5C5E\u6027"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_PhysicsDamage
+    ChineseSimplified: "\u5B9E\u5F39\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_EnergyDamage
+    ChineseSimplified: "\u80FD\u91CF\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: CriticalDamagePercentAdd
+    ChineseSimplified: "\u66B4\u51FB\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShieldHP
+    ChineseSimplified: "\u62A4\u76FE"
+    English: 
+    Japanese: 

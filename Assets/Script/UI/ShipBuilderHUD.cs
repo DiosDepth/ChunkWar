@@ -19,7 +19,14 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
+    /// <summary>
+    /// PropertyCmpt
+    /// </summary>
     private List<ShipPropertyItemCmpt> propertyCmpts = new List<ShipPropertyItemCmpt>();
+    private List<ShipPropertyItemCmpt> propertySubCmpts = new List<ShipPropertyItemCmpt>();
+    private CanvasGroup _mainPropertyCanvas;
+    private CanvasGroup _subPropertyCanvas;
+
     private List<ShipBuildingSlotCmpt> buildingSlotCmpts = new List<ShipBuildingSlotCmpt>();
     private GeneralScrollerGirdItemController _plugGridController;
 
@@ -29,7 +36,10 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _shopContentRoot = transform.Find("ShopPanel/ShopContent");
         _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
-        propertyCmpts = transform.Find("ShopPanel/PropertyPanel").GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
+        _mainPropertyCanvas = transform.Find("ShopPanel/PropertyGroup/PropertyPanel").SafeGetComponent<CanvasGroup>();
+        _subPropertyCanvas = transform.Find("ShopPanel/PropertyGroup/PropertySubPanel").SafeGetComponent<CanvasGroup>();
+        propertyCmpts = _mainPropertyCanvas.GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
+        propertySubCmpts = _subPropertyCanvas.GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
         buildingSlotCmpts = transform.Find("BuildingPanel/Slot_Group").GetComponentsInChildren<ShipBuildingSlotCmpt>().ToList();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = GetGUIComponent<Text>("RerollCost");
@@ -43,11 +53,14 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         this.EventStartListening<RogueEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
+        GetGUIComponent<Button>("MainPropertyBtn").onClick.AddListener(OnMainPropertyBtnClick);
+        GetGUIComponent<Button>("SubPropertyBtn").onClick.AddListener(OnSubPropertyBtnClick);
         _detailPanel.Hide();
         _hoverCmpt.SetActive(false);
         InitShopContent();
         InitBuildingSlots();
         RefreshGeneral();
+        OnMainPropertyBtnClick();
     }
 
     public override void Hidden( )
@@ -59,19 +72,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     public void OnLaunchBtnPressed()
     {
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
-    }
-
-    public void AddSlot(List<ItemGUISlot> list,InventoryItem m_item, RectTransform m_slotgroup)
-    {
-        var obj = ResManager.Instance.Load<GameObject>(UIManager.Instance.resGUIPath + "ItemGUISlot");
-        RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.SetParent(m_slotgroup);
-        rect.localScale = Vector3.one;
-
-
-        var slotinfo = obj.GetComponent<ItemGUISlot>();
-        list.Add(slotinfo);
-        slotinfo.Initialization(list.Count - 1, uiGroup.GetComponent<RectTransform>(), m_item);
     }
 
     public void RemoveSlot(int m_index)
@@ -141,7 +141,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     {
         RefreshCurrency();
         RefreshReroll();
-        propertyCmpts.ForEach(x => x.SetUp());
         InitPlugController();
     }
 
@@ -234,6 +233,20 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private void OnRerollBtnClick()
     {
         RogueManager.Instance.RefreshShop();
+    }
+
+    private void OnMainPropertyBtnClick()
+    {
+        _mainPropertyCanvas.ActiveCanvasGroup(true);
+        _subPropertyCanvas.ActiveCanvasGroup(false);
+        propertyCmpts.ForEach(x => x.SetUp());
+    }
+
+    private void OnSubPropertyBtnClick()
+    {
+        _mainPropertyCanvas.ActiveCanvasGroup(false);
+        _subPropertyCanvas.ActiveCanvasGroup(true);
+        propertySubCmpts.ForEach(x => x.SetUp());
     }
 
     /// <summary>

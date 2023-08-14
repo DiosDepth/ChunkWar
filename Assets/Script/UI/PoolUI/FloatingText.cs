@@ -6,7 +6,10 @@ using UnityEngine;
 public class FloatingText : GUIBasePanel,IPoolable
 {
     public float duration = 0.75f;
-    public Color textColor;
+
+    private static Color _colorNormal = Color.white;
+    private static Color _colorCritical = Color.yellow;
+
     public override void Initialization()
     {
         base.Initialization();
@@ -44,19 +47,18 @@ public class FloatingText : GUIBasePanel,IPoolable
         this.gameObject.SetActive(isactive);
     }
 
-    public void SetText(string text)
+    public void SetText(string text, bool isCritical)
     {
-        GetGUIComponent<TMP_Text>("Textinfo").SetText(text);
+        var txt = GetGUIComponent<TMP_Text>("Textinfo");
+        txt.SetText(text);
+        txt.color = isCritical ? _colorNormal : _colorCritical;
     }
 
-    public void SetText(float value)
+    public void SetText(float value, bool isCritical)
     {
-        GetGUIComponent<TMP_Text>("Textinfo").SetText(value.ToString());
-    }
-
-    public void SetColor(Color color)
-    {
-        GetGUIComponent<TMP_Text>("Textinfo").color = color;
+        var txt = GetGUIComponent<TMP_Text>("Textinfo");
+        txt.SetText(value.ToString());
+        txt.color = isCritical ? _colorNormal : _colorCritical;
     }
 
 }

@@ -12,6 +12,10 @@ public class ShipPropertyItemCmpt : MonoBehaviour
     private Text _nameText;
     private TextMeshProUGUI _valueText;
 
+    private static Color _normalColor = Color.white;
+    private static Color _positiveColor = new Color(0f, 0.92f, 1f);
+    private static Color _negativeColor = Color.red;
+
     public void Awake()
     {
         _icon = transform.Find("Icon").SafeGetComponent<Image>();
@@ -32,6 +36,19 @@ public class ShipPropertyItemCmpt : MonoBehaviour
             _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.NameText);
             _icon.sprite = cfg.Icon;
             _valueText.text = cfg.IsPercent ? string.Format("{0}%", targetValue) : targetValue.ToString();
+
+            if(targetValue > 0)
+            {
+                _valueText.color = cfg.ReverseColor ? _negativeColor : _positiveColor;
+            }
+            else if (targetValue == 0)
+            {
+                _valueText.color = _normalColor;
+            }
+            else
+            {
+                _valueText.color = cfg.ReverseColor ? _positiveColor : _negativeColor;
+            }
         }
     }
 

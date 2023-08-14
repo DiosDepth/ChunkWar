@@ -107,9 +107,6 @@ public class WeaponAttribute : UnitBaseAttribute
     private float BaseReloadCD;
     private float BaseFireCD;
     private float BaseCriticalDamagePercent;
-
-
-
     private int BaseMaxMagazineSize;
     private byte BaseTransfixion;
     private float BaseTransfixionReduce;
@@ -118,15 +115,25 @@ public class WeaponAttribute : UnitBaseAttribute
     /// Œ‰∆˜…À∫¶
     /// </summary>
     /// <returns></returns>
-    public int GetDamage()
+    public DamageResultInfo GetDamage()
     {
+        int Damage = 0;
+        bool isCritical = false;
         if (isPlayerShip)
         {
             var damage = BaseDamage + BaseDamageModifyValue;
             var damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.DamagePercent);
             var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             var finalDamage = Mathf.Clamp(damage * (1 + damagePercent / 100f) * ratio, 0, int.MaxValue);
-            return Mathf.RoundToInt(finalDamage);
+            bool critical = Utility.RandomResult(0, CriticalRatio);
+            if (critical)
+            {
+                Damage = Mathf.RoundToInt(finalDamage * (1 + CriticalDamagePercent / 100f));
+            }
+            else
+            {
+                Damage = Mathf.RoundToInt(finalDamage);
+            }
         }
         else
         {
@@ -140,8 +147,14 @@ public class WeaponAttribute : UnitBaseAttribute
 
             var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio + hardLevelRatio / 100f) * ratio, 0, int.MaxValue);
-            return Mathf.RoundToInt(damage);
+            Damage =  Mathf.RoundToInt(damage);
         }
+
+        return new DamageResultInfo
+        {
+            Damage = Damage,
+            IsCritical = isCritical
+        };
     }
 
     public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
@@ -177,7 +190,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
@@ -215,7 +228,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageDeltaPercent, CalculateDamageDeltaTime);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
@@ -252,7 +265,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private void CalculateWeaponRange()
     {
         var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponRange);
-        WeaponRange = BaseWeaponRange + weaponRange;
+        WeaponRange = Mathf.Clamp(BaseWeaponRange + weaponRange, 0, float.MaxValue);
     }
 
     private void CalculateReloadTime()
@@ -927,9 +940,9 @@ public class Weapon : Unit
         base.Restore();
     }
 
-    public override bool TakeDamage(int value)
+    public override bool TakeDamage(int value, bool isCritical)
     {
-        return base.TakeDamage(value);
+        return base.TakeDamage(value, isCritical);
     }
 
     public virtual void InitWeaponAttribute(bool isPlayerShip)

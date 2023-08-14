@@ -146,7 +146,7 @@ public class UnitBaseAttribute
     }
 }
 
-public class Unit : MonoBehaviour,IDamageble
+public class Unit : MonoBehaviour, IDamageble
 {
     public int UnitID;
     /// <summary>
@@ -277,21 +277,25 @@ public class Unit : MonoBehaviour,IDamageble
         
     }
 
-    public virtual bool TakeDamage(int value)
+    public virtual bool TakeDamage(int value, bool isCritial)
     {
         if (HpComponent == null)
             return false;
 
+        if(_owner is AIShip)
+        {
+            ///只有敌人才显示伤害数字
+            //这里需要显示对应的漂浮文字
+            UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
+            {
+                panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
 
-        //这里需要显示对应的漂浮文字
-        UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
-          {
-              panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
+                panel.SetText(Mathf.Abs(value), isCritial);
+                panel.Show();
 
-              panel.SetText(Mathf.Abs(value));
-              panel.Show();
-
-          });
+            });
+        }
+        
         bool isDie = HpComponent.ChangeHP(value);
         if(isDie)
         {

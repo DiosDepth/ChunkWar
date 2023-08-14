@@ -35,9 +35,9 @@ public class Chunk : IDamageble
         throw new System.NotImplementedException();
     }
 
-    public bool TakeDamage(int value)
+    public bool TakeDamage(int value, bool isCritical)
     {
-        return unit.TakeDamage(value);
+        return unit.TakeDamage(value, isCritical);
     }
 
 }
