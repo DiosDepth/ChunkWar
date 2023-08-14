@@ -24,6 +24,10 @@ public class BattleMainConfig : SerializedScriptableObject
 
     public byte ShipMaxLevel;
     public float TransfixionReduce_Max = 0;
+    /// <summary>
+    /// 护盾多久恢复一次
+    /// </summary>
+    public float ShieldRecoverCD = 0.3f;
 
     public byte[] EvolveRequireMap = new byte[3];
     public byte[] EvolveAddMap = new byte[4]; 

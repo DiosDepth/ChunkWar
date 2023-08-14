@@ -80,4 +80,9 @@ public enum PropertyModifyKey
     /// 贯通衰减
     /// </summary>
     TransfixionReducePercent,
+    ShieldRecoverValue,
+    /// <summary>
+    /// 护盾多久不受击恢复CD百分比
+    /// </summary>
+    ShieldRecoverTimeReduce,
 }

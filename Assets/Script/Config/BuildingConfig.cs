@@ -8,6 +8,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Configs_Building_", menuName = "Configs/Unit/BuildingConfig")]
 public class BuildingConfig : BaseUnitConfig
 {
+    public bool GenerateShield;
+
+    public int ShieldHP;
+    public int ShieldRecoverValue;
+    public float ShieldRecoverTime;
 
 
 }

@@ -10,7 +10,10 @@ public struct DamageResultInfo
 {
     public int Damage;
     public bool IsCritical;
+    public WeaponDamageType DamageType;
+    public float ShieldDamagePercent;
 
+    public int DamageTemp;
 }
 
 
@@ -20,11 +23,9 @@ public class WeaponAttribute : UnitBaseAttribute
     /// <summary>
     /// »ù´¡ÉËº¦
     /// </summary>
-    public float BaseDamage
-    {
-        get;
-        protected set;
-    }
+    public float BaseDamage { get; protected set; }
+
+    public WeaponDamageType DamageType { get; protected set; }
 
     /// <summary>
     /// »ù´¡ÉËº¦ÐÞÕý
@@ -62,6 +63,8 @@ public class WeaponAttribute : UnitBaseAttribute
     /// ¹á´©Ë¥¼õ, 100°Ù·Ö±Èµ¥Î»
     /// </summary>
     public float TransfixionReduce { get; protected set; }
+
+    public float ShieldDamagePercent { get; protected set; }
 
     public float Rate;
 
@@ -110,6 +113,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private int BaseMaxMagazineSize;
     private byte BaseTransfixion;
     private float BaseTransfixionReduce;
+    private float BaseShieldDamagePercent;
 
     /// <summary>
     /// ÎäÆ÷ÉËº¦
@@ -153,7 +157,9 @@ public class WeaponAttribute : UnitBaseAttribute
         return new DamageResultInfo
         {
             Damage = Damage,
-            IsCritical = isCritical
+            IsCritical = isCritical,
+            DamageType = DamageType,
+            ShieldDamagePercent = ShieldDamagePercent
         };
     }
 
@@ -165,6 +171,7 @@ public class WeaponAttribute : UnitBaseAttribute
         if (_weaponCfg == null)
             return;
 
+        DamageType = _weaponCfg.DamageType;
         BaseDamage = _weaponCfg.DamageBase;
         DamageRatioMin = _weaponCfg.DamageRatioMin;
         DamageRatioMax = _weaponCfg.DamageRatioMax;
@@ -176,6 +183,7 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseMaxMagazineSize = _weaponCfg.TotalDamageCount;
         BaseTransfixion = _weaponCfg.BaseTransfixion;
         BaseTransfixionReduce = _weaponCfg.TransfixionReduce;
+        BaseShieldDamagePercent = _weaponCfg.ShieldDamage;
 
         if (isPlayerShip)
         {
@@ -195,6 +203,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
 
             CalculateBaseDamageModify();
             CalculateWeaponRange();
@@ -205,6 +214,7 @@ public class WeaponAttribute : UnitBaseAttribute
             CalculateTransfixionCount();
             CalculateTransfixionPercent();
             CalculateCriticalDamagePercent();
+            CalculateShieldDamagePercent();
         }
         else
         {
@@ -233,6 +243,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
         }
     }
 
@@ -307,6 +318,13 @@ public class WeaponAttribute : UnitBaseAttribute
         var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.CriticalDamagePercentAdd);
         var newValue = delta + BaseCriticalDamagePercent;
         CriticalDamagePercent = Mathf.Max(newValue, 100f);
+    }
+
+    private void CalculateShieldDamagePercent()
+    {
+        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldDamageAdd);
+        var newValue = delta + BaseShieldDamagePercent;
+        ShieldDamagePercent = Mathf.Max(-100, newValue);
     }
 }
 public enum WeaponControlType
@@ -940,9 +958,9 @@ public class Weapon : Unit
         base.Restore();
     }
 
-    public override bool TakeDamage(int value, bool isCritical)
+    public override bool TakeDamage(ref DamageResultInfo info)
     {
-        return base.TakeDamage(value, isCritical);
+        return base.TakeDamage(ref info);
     }
 
     public virtual void InitWeaponAttribute(bool isPlayerShip)

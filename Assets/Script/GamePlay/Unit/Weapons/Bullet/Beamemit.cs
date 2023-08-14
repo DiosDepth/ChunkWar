@@ -77,8 +77,9 @@ public class Beamemit : Bullet
                         if (_owner is Weapon)
                         {
                             var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                            var damageValue = Mathf.RoundToInt(damage.Damage * (Mathf.Pow(tempFalloff, i)));
-                            hitlist[i].collider.GetComponent<Unit>()?.TakeDamage(-damageValue, damage.IsCritical);
+                            ///TODO Value
+                            damage.Damage = Mathf.RoundToInt(damage.Damage * tempFalloff);
+                            hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(ref damage);
                         }
                     }
                 }

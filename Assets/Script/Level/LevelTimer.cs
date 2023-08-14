@@ -98,7 +98,7 @@ public class LevelTimer
             if (trigger.IsNeedToRemove)
             {
                 _triggers.RemoveAt(i);
-                if (_triggerDic.ContainsKey(trigger.TriggerName))
+                if (!string.IsNullOrEmpty(trigger.TriggerName) && _triggerDic.ContainsKey(trigger.TriggerName))
                 {
                     _triggerDic.Remove(trigger.TriggerName);
                 }

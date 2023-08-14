@@ -277,26 +277,28 @@ public class Unit : MonoBehaviour, IDamageble
         
     }
 
-    public virtual bool TakeDamage(int value, bool isCritial)
+    public virtual bool TakeDamage(ref DamageResultInfo info)
     {
         if (HpComponent == null)
             return false;
 
         if(_owner is AIShip)
         {
+            int Damage = info.Damage;
+            bool critical = info.IsCritical;
             ///只有敌人才显示伤害数字
             //这里需要显示对应的漂浮文字
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
             {
                 panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
 
-                panel.SetText(Mathf.Abs(value), isCritial);
+                panel.SetText(Mathf.Abs(Damage), critical);
                 panel.Show();
 
             });
         }
         
-        bool isDie = HpComponent.ChangeHP(value);
+        bool isDie = HpComponent.ChangeHP(-info.Damage);
         if(isDie)
         {
             Death();

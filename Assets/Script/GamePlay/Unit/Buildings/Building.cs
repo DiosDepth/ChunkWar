@@ -18,9 +18,9 @@ public class Building : Unit
     }
 
 
-    public override bool TakeDamage(int value, bool isCritical)
+    public override bool TakeDamage(ref DamageResultInfo info)
     {
-        return base.TakeDamage(value, isCritical);
+        return base.TakeDamage(ref info);
     }
 
 }
