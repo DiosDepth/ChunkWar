@@ -343,6 +343,7 @@ public enum DamageTextType
     Critical
 }
 
+
 public class Weapon : Unit
 {
     public WeaponControlType weaponmode;
@@ -351,12 +352,14 @@ public class Weapon : Unit
     public WeaponAimingType aimingtype= WeaponAimingType.Directional;
     public AvaliableBulletType bulletType = AvaliableBulletType.None;
     public WeaponTargetMode targetmode = WeaponTargetMode.Single;
+
     public LayerMask mask = 1 << 7;
     
     public List<GameObject> targetList;
     public int maxTargetCount = 3;
     public Transform[] firePoint;
-
+    public Transform rotationRoot;
+    public float roatateSpeed = 180f;
 
     public WeaponAttribute weaponAttribute;
 

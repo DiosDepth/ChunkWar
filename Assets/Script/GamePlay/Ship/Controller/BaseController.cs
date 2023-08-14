@@ -89,9 +89,10 @@ public class BaseController : MonoBehaviour
 
     }
 
-    public virtual Quaternion CalculateRotation(Vector3 direction)
+    public virtual Quaternion CalculateRotation(Vector3 from, Vector3 to,float rotspeed)
     {
-        Quaternion targetrorate = Quaternion.LookRotation(new Vector3(0, 0, 1), direction);
-        return Quaternion.RotateTowards(transform.rotation, targetrorate, rotateSpeed * Time.deltaTime);
+        Quaternion fromrot = Quaternion.LookRotation(new Vector3(0, 0, 1), from);
+        Quaternion torot = Quaternion.LookRotation(new Vector3(0, 0, 1), to);
+        return Quaternion.RotateTowards(fromrot, torot, rotspeed * Time.deltaTime);
     }
 }

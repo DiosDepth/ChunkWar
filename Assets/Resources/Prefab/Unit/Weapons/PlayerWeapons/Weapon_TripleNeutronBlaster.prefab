@@ -145,21 +145,28 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
+  currentEvolvePoints: 0
   weaponmode: 1
   firemode: 0
+  aimingtype: 0
   bulletType: 2
+  targetmode: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  targetList: []
+  maxTargetCount: 3
   firePoint:
   - {fileID: 5020116889135989133}
   - {fileID: 2344244556410904751}
   - {fileID: 2698016624561835338}
+  rotationRoot: {fileID: 579860166384849199}
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
     MagazineBased: 0
-    MaxMagazineSize: 3
     BeforeDelay: 0
-    BetweenDelay: 0.5
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}

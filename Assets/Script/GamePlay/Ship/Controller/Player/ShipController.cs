@@ -51,6 +51,8 @@ public class ShipController : BaseController
         if (!IsUpdate) { return; }
         HandleMovement();
         HandleRotation();
+        HandleWeaponRotaion();
+
     }
 
     protected override void OnDestroy()
@@ -112,6 +114,16 @@ public class ShipController : BaseController
         controlledTarget.mainWeapon.HandleWeapon(context);
     }
 
+    public virtual void HandleWeaponRotaion()
+    {
+        if(controlledTarget.mainWeapon.rotationRoot == null)
+        {
+            return;
+        }
+        controlledTarget.mainWeapon.rotationRoot.rotation = CalculateRotation(controlledTarget.mainWeapon.transform.up, WorldDirection, controlledTarget.mainWeapon.roatateSpeed);
+
+    }
+
     public virtual void HandleMovement()
     {
         _deltaMovement = CalculateDeltaMovement(MovementInput);
@@ -125,7 +137,7 @@ public class ShipController : BaseController
         Debug.DrawLine(transform.position, WorldDirection * 100f, Color.red);
         Debug.DrawLine(transform.position, transform.up * 100f, Color.green);
 
-        transform.rotation = CalculateRotation(WorldDirection);
+        transform.rotation = CalculateRotation(transform.up, _movementInput , rotateSpeed);
     }
 
  
