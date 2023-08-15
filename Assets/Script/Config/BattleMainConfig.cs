@@ -28,6 +28,8 @@ public class BattleMainConfig : SerializedScriptableObject
     /// 护盾多久恢复一次
     /// </summary>
     public float ShieldRecoverCD = 0.3f;
+    public float ShipBaseSuckerRange = 10f;
+    public float ShipMinSuckerRange = 5f;
 
     public byte[] EvolveRequireMap = new byte[3];
     public byte[] EvolveAddMap = new byte[4]; 

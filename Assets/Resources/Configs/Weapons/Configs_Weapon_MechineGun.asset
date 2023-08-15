@@ -404,7 +404,7 @@ MonoBehaviour:
     IconSprite: {fileID: -339013081, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
     Name: Weapon_Name_003
     Desc: Weapon_Desc_003
-    Rarity: 0
+    Rarity: 3
   Prefab: {fileID: 579860166384849233, guid: d55b23bc57ac4f84bac74574af0f2617, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0

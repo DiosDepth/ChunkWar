@@ -125,15 +125,24 @@ MonoBehaviour:
   currentEvolvePoints: 0
   weaponmode: 0
   firemode: 1
+  aimingtype: 0
   bulletType: 2
+  targetmode: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  targetList: []
+  maxTargetCount: 3
   firePoint:
   - {fileID: 6516888820155779860}
   - {fileID: 5123346590922557502}
+  rotationRoot: {fileID: 0}
+  roatateSpeed: 180
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
-    MagazineBased: 0
+    MagazineBased: 1
     BeforeDelay: 0
     AfterDelay: 0
   magazine: 0

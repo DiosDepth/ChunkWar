@@ -213,18 +213,19 @@ public class PlayerShip : BaseShip
             mainWeapon.Initialization(this, weaponconfig);
         }
 
-        //创建PickUp用的Collider
-        GameObject obj = new GameObject("PickUpCollider");
-        obj.transform.SetParent(this.transform);
-        obj.layer = LayerMask.NameToLayer("Trigger");
-        obj.transform.localPosition = Vector3.zero;
-        pickupCollider = obj.AddComponent<CircleCollider2D>();
-        pickupCollider.radius = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
-
-      
+        InitPickUpRange();
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
         RefreshShipEnergy();
+    }
+
+    /// <summary>
+    /// 获取所有武器
+    /// </summary>
+    /// <returns></returns>
+    public List<Weapon> GetAllShipWeapons()
+    {
+        return _unitList.FindAll(x => x is Weapon).ConvertAll(x => x as Weapon);
     }
 
     /// <summary>
@@ -470,11 +471,12 @@ public class PlayerShip : BaseShip
             if (tempunit != null)
             {
                 tempunit.UnitID = m_unitInfo.UnitID;
+                tempunit.UID = m_unitInfo.UID;
                 tempunit.direction = m_unitInfo.direction;
                 tempunit.pivot = m_unitInfo.pivot;
                 tempunit.occupiedCoords = m_unitInfo.occupiedCoords;
                 tempunit.state = DamagableState.Normal;
-
+                
                 for (int n = 0; n < tempunit.occupiedCoords.Count; n++)
                 {
                     occupiedarray = GameHelper.CoordinateMapToArray(tempunit.occupiedCoords[n], GameGlobalConfig.ShipMapSize);
@@ -612,6 +614,30 @@ public class PlayerShip : BaseShip
     private void OnTriggerStay2D(Collider2D collision)
     {
 
+    }
+
+    private void InitPickUpRange()
+    {
+        //创建PickUp用的Collider
+        GameObject obj = new GameObject("PickUpCollider");
+        obj.transform.SetParent(this.transform);
+        obj.layer = LayerMask.NameToLayer("Trigger");
+        obj.transform.localPosition = Vector3.zero;
+        pickupCollider = obj.AddComponent<CircleCollider2D>();
+        RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.SuckerRange, CalculateNewSuckerRange);
+        CalculateNewSuckerRange();
+    }
+
+    /// <summary>
+    /// 计算拾取范围
+    /// </summary>
+    private void CalculateNewSuckerRange()
+    {
+        var defaultSuckerRange = DataManager.Instance.battleCfg.ShipBaseSuckerRange;
+        var minRange = DataManager.Instance.battleCfg.ShipMinSuckerRange;
+        var rangeAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
+        var newSuckerRange = Mathf.Clamp(defaultSuckerRange * (1 + rangeAdd / 100f), minRange, float.MaxValue);
+        pickupCollider.radius = newSuckerRange;
     }
 
 }

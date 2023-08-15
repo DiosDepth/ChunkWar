@@ -60,6 +60,8 @@ public enum ShipPropertyEventType
     CoreHPChange,
     EXPChange,
     LevelUp,
+    ReloadCDStart,
+    ReloadCDEnd,
 }
 
 public class RogueManager : Singleton<RogueManager>

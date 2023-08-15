@@ -103,11 +103,13 @@ MonoBehaviour:
   maxTargetCount: 3
   firePoint:
   - {fileID: 2578667679939120713}
+  rotationRoot: {fileID: 0}
+  roatateSpeed: 180
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
-    MagazineBased: 0
+    MagazineBased: 1
     BeforeDelay: 0
     AfterDelay: 0
   magazine: 0

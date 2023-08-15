@@ -9,7 +9,6 @@ public class ShipPropertySliderCmpt : MonoBehaviour
     public enum SliderPropertyType
     {
         HP,
-        Shield,
         EXP
     }
 

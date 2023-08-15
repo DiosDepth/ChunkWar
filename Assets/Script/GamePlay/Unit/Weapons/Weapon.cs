@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using System;
 
 
 public struct DamageResultInfo
@@ -368,13 +369,6 @@ public enum WeaponTargetMode
     Mutipule,
 }
 
-public enum DamageTextType
-{
-    Normal,
-    Critical
-}
-
-
 public class Weapon : Unit
 {
     public WeaponControlType weaponmode;
@@ -397,6 +391,17 @@ public class Weapon : Unit
     [ReadOnly]
     public int magazine;
 
+    /// <summary>
+    /// CD°Ù·Ö±È
+    /// </summary>
+    public float ReloadTimePercent
+    {
+        get
+        {
+            return _reloadCounter / weaponAttribute.ReloadTime;
+        }
+    }
+
     protected float _beforeDelayCounter;
     protected float _betweenDelayCounter;
     protected float _afterDelayCounter;
@@ -413,6 +418,10 @@ public class Weapon : Unit
     public Bullet _lastbullet;
 
     protected WeaponConfig _weaponCfg;
+
+    /* Call Back */
+    public Action<float> OnReloadCDUpdate;
+    public Action<int> OnMagazineChange;
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
@@ -757,7 +766,8 @@ public class Weapon : Unit
         }
         if (weaponAttribute.MagazineBased)
         {
-          magazine -= firecount;
+            magazine -= firecount;
+            OnMagazineChange?.Invoke(magazine);
         }
     }
 
@@ -869,7 +879,6 @@ public class Weapon : Unit
                 weaponstate.ChangeState(WeaponState.AfterDelay);
                 break;
         }
-
     }
 
     public virtual void WeaponAfterDelay()
@@ -898,6 +907,7 @@ public class Weapon : Unit
             if (magazine <= 0 && weaponAttribute.MagazineBased)
             {
                 weaponstate.ChangeState(WeaponState.Reload);
+                ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
             }
             else
             {
@@ -913,6 +923,7 @@ public class Weapon : Unit
     {
         Debug.Log(this.gameObject + " : WeaponReload");
         _reloadCounter -= Time.deltaTime;
+        OnReloadCDUpdate?.Invoke(_reloadCounter);
         if (_reloadCounter < 0)
         {
             _reloadCounter = weaponAttribute.ReloadTime;
@@ -936,6 +947,7 @@ public class Weapon : Unit
             else
             {
                 weaponstate.ChangeState(WeaponState.Recover);
+                ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDEnd, UID);
             }
         }
     }

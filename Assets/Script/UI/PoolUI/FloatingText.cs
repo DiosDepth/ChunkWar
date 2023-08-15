@@ -51,14 +51,14 @@ public class FloatingText : GUIBasePanel,IPoolable
     {
         var txt = GetGUIComponent<TMP_Text>("Textinfo");
         txt.SetText(text);
-        txt.color = isCritical ? _colorNormal : _colorCritical;
+        txt.color = isCritical ? _colorCritical : _colorNormal;
     }
 
     public void SetText(float value, bool isCritical)
     {
         var txt = GetGUIComponent<TMP_Text>("Textinfo");
         txt.SetText(value.ToString());
-        txt.color = isCritical ? _colorNormal : _colorCritical;
+        txt.color = isCritical ? _colorCritical : _colorNormal;
     }
 
 }

@@ -10,8 +10,11 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private TextMeshProUGUI _timerTextID;
     private TextMeshProUGUI _currencyText;
     private ShipPropertySliderCmpt _hpSliderCmpt;
-    private ShipPropertySliderCmpt _shieldCmpt;
     private ShipPropertySliderCmpt _expCmpt;
+
+    private List<WeaponRuntimeItemCmpt> _weaponItemCmpts = new List<WeaponRuntimeItemCmpt>();
+
+    private static string WeaponRuntimeItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/WeaponRuntimeItem";
 
     protected override void Awake()
     {
@@ -19,9 +22,8 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         _waveTextID = transform.Find("WaveIndex/WaveInfo/Value").SafeGetComponent<TextMeshProUGUI>();
         _timerTextID = transform.Find("WaveIndex/Time").SafeGetComponent<TextMeshProUGUI>();
         _currencyText = transform.Find("Currency/Currency/Value").SafeGetComponent<TextMeshProUGUI>();
-        _hpSliderCmpt = transform.Find("ShipInfo/HPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
-        _shieldCmpt = transform.Find("ShipInfo/ShieldSlider").SafeGetComponent<ShipPropertySliderCmpt>();
-        _expCmpt = transform.Find("ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _hpSliderCmpt = transform.Find("InfoContent/ShipInfo/HPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _expCmpt = transform.Find("InfoContent/ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
     }
 
     public override void Initialization()
@@ -33,6 +35,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         BindTimerChange(true);
         SetUpSlider();
         RefreshCurrency();
+        InitShipWeaponCmpts();
     }
 
     public override void Hidden()
@@ -52,7 +55,6 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private void SetUpSlider()
     {
         _hpSliderCmpt.RefreshProperty();
-        _shieldCmpt.RefreshProperty();
         _expCmpt.RefreshProperty();
     }
 
@@ -71,6 +73,14 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
             case ShipPropertyEventType.CoreHPChange:
                 RefreshShipCoreHP();
                 break;
+
+            case ShipPropertyEventType.ReloadCDStart:
+                OnWeaponReloadCDStart((uint)evt.param[0]);
+                break;
+
+            case ShipPropertyEventType.ReloadCDEnd:
+                OnWeaponReloadCDEnd((uint)evt.param[0]);
+                break;
         }
     }
 
@@ -81,6 +91,28 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
             case RogueEventType.CurrencyChange:
                 RefreshCurrency();
                 break;
+        }
+    }
+
+    /// <summary>
+    /// 初始化舰船武器信息
+    /// </summary>
+    private void InitShipWeaponCmpts()
+    {
+        var currentShip = RogueManager.Instance.currentShip;
+        if (currentShip == null)
+            return;
+
+        var parnetTrans = transform.Find("InfoContent/WeaponContent");
+        var allWeapons = currentShip.GetAllShipWeapons();
+        for(int i = 0; i < allWeapons.Count; i++)
+        {
+            PoolManager.Instance.GetObjectSync(WeaponRuntimeItem_PrefabPath, true, (obj) =>
+            {
+                var cmpt = obj.transform.SafeGetComponent<WeaponRuntimeItemCmpt>();
+                cmpt.SetUp(allWeapons[i]);
+                _weaponItemCmpts.Add(cmpt);
+            }, parnetTrans);
         }
     }
 
@@ -121,5 +153,34 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private void UpdateWaveTimer(int totalSecond)
     {
         _timerTextID.text = string.Format("{0:d2} : {1:d2}", totalSecond / 60, totalSecond % 60);
+    }
+
+    private void OnWeaponReloadCDStart(uint weaponUID)
+    {
+        var cmpt = GetWeaponItemCmpt(weaponUID);
+        if(cmpt != null)
+        {
+            cmpt.StartReloadCDTimer();
+        }
+    }
+
+    private void OnWeaponReloadCDEnd(uint weaponUID)
+    {
+        var cmpt = GetWeaponItemCmpt(weaponUID);
+        if (cmpt != null)
+        {
+            cmpt.EndReloadCDTimer();
+        }
+    }
+
+    private WeaponRuntimeItemCmpt GetWeaponItemCmpt(uint weaponUID)
+    {
+        for (int i = 0; i < _weaponItemCmpts.Count; i++) 
+        {
+            var cmpt = _weaponItemCmpts[i];
+            if (cmpt != null && cmpt._targetWeapon != null && cmpt._targetWeapon.UID == weaponUID)
+                return cmpt;
+        }
+        return null;
     }
 }

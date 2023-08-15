@@ -194,11 +194,12 @@ MonoBehaviour:
   - {fileID: 8026445630799378438}
   - {fileID: 8093382484892464697}
   rotationRoot: {fileID: 579860166384849199}
+  roatateSpeed: 180
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
-    MagazineBased: 0
+    MagazineBased: 1
     BeforeDelay: 0
     AfterDelay: 0
   magazine: 0

@@ -3,27 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sim_FrameWork
+[RequireComponent(typeof(Text))]
+public class GetTextByID : MonoBehaviour
 {
-    [RequireComponent(typeof(Text))]
-    public class GetTextByID : MonoBehaviour
+    public string Textid;
+    void Start()
     {
-        public string Textid;
-        void Start()
-        {
-            InitText();
-        }
+        InitText();
+    }
 
-        void InitText()
+    void InitText()
+    {
+        if (!string.IsNullOrEmpty(Textid))
         {
-            if (!string.IsNullOrEmpty(Textid))
-            {
-                GetComponent<Text>().text = LocalizationManager.Instance.GetTextValue(Textid);
-            }
-            else
-            {
-                GetComponent<Text>().text = "Error!+" + Textid;
-            }
+            GetComponent<Text>().text = LocalizationManager.Instance.GetTextValue(Textid);
+        }
+        else
+        {
+            GetComponent<Text>().text = "Error!+" + Textid;
         }
     }
 }

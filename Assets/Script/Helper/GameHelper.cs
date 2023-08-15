@@ -20,9 +20,6 @@ public static class GameHelper
     private static Color RarityColor_T3 = new Color(0.73f, 0f, 1f);
     private static Color RarityColor_T4 = new Color(1f, 0.57f, 0.23f);
 
-    private static Color DamageColor_Normal = Color.white;
-    private static Color DamageColor_Critical = Color.yellow;
-
 
     /// <summary>
     /// 获取稀有度颜色
@@ -41,19 +38,6 @@ public static class GameHelper
                 return RarityColor_T3;
             case GoodsItemRarity.Tier4:
                 return RarityColor_T4;
-            default:
-                return Color.white;
-        }
-    }
-
-    public static Color GetDamageTextColor(DamageTextType type)
-    {
-        switch (type)
-        {
-            case DamageTextType.Critical:
-                return DamageColor_Critical;
-            case DamageTextType.Normal:
-                return DamageColor_Normal;
             default:
                 return Color.white;
         }

@@ -13,6 +13,7 @@ public class MapInfo
 }
 public class UnitInfo : MapInfo
 {
+    public uint UID;
     public int UnitID;
     public int direction = 0;
     public Vector2Int pivot;
@@ -30,6 +31,7 @@ public class UnitInfo : MapInfo
 
     public UnitInfo(Unit m_unit)
     {
+        UID = m_unit.UID;
         UnitID = m_unit.UnitID;
         state = m_unit.state;
         direction = m_unit.direction;
