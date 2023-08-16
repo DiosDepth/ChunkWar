@@ -11,7 +11,7 @@ public class BaseController : MonoBehaviour
     public new PolygonCollider2D collider;
     public Vector3 MovementInput { get { return _movementInput; } }
     protected Vector3 _movementInput;
-
+    protected Vector2 _lastmovementInput;
 
     public float maxSpeed = 10;
     public float acceleration = 10;
@@ -89,10 +89,5 @@ public class BaseController : MonoBehaviour
 
     }
 
-    public virtual Quaternion CalculateRotation(Vector3 from, Vector3 to,float rotspeed)
-    {
-        Quaternion fromrot = Quaternion.LookRotation(new Vector3(0, 0, 1), from);
-        Quaternion torot = Quaternion.LookRotation(new Vector3(0, 0, 1), to);
-        return Quaternion.RotateTowards(fromrot, torot, rotspeed * Time.deltaTime);
-    }
+
 }

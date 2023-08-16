@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class Building : Unit
 {
 
+
     public override void Start()
     {
         base.Start();
@@ -15,6 +16,7 @@ public class Building : Unit
     public override void Update()
     {
         base.Update();
+       
     }
 
 

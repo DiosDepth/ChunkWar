@@ -16,7 +16,8 @@ public class ShipController : BaseController
     public  Vector3 WorldPointInput { get { return CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_pointInput.x, _pointInput.y, 0)); } }
     public  Vector3 WorldDirection { get { return (WorldPointInput - transform.position).normalized; } }
     public Vector2 PointInput { get { return _pointInput; } }
-    private Vector2 _pointInput;
+    protected Vector2 _pointInput;
+
 
 
 
@@ -76,6 +77,8 @@ public class ShipController : BaseController
             case InputActionPhase.Performed:
                 _movementInput.x = context.ReadValue<Vector2>().x;
                 _movementInput.y = context.ReadValue<Vector2>().y;
+                _lastmovementInput = _movementInput;
+
                 break;
             case InputActionPhase.Canceled:
                 _movementInput.x = context.ReadValue<Vector2>().x;
@@ -120,7 +123,7 @@ public class ShipController : BaseController
         {
             return;
         }
-        controlledTarget.mainWeapon.rotationRoot.rotation = CalculateRotation(controlledTarget.mainWeapon.transform.up, WorldDirection, controlledTarget.mainWeapon.roatateSpeed);
+        controlledTarget.mainWeapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(controlledTarget.mainWeapon.transform.up, WorldDirection, controlledTarget.mainWeapon.roatateSpeed);
 
     }
 
@@ -137,7 +140,7 @@ public class ShipController : BaseController
         Debug.DrawLine(transform.position, WorldDirection * 100f, Color.red);
         Debug.DrawLine(transform.position, transform.up * 100f, Color.green);
 
-        transform.rotation = CalculateRotation(transform.up, _movementInput , rotateSpeed);
+        transform.rotation = MathExtensionTools.CalculateRotation(transform.up, _lastmovementInput, rotateSpeed);
     }
 
  

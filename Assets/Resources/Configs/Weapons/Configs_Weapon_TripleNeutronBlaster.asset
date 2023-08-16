@@ -420,7 +420,7 @@ MonoBehaviour:
   DamageRatioMin: 0.9
   DamageRatioMax: 1.1
   DamageType: 0
-  BaseRange: 50
+  BaseRange: 150
   BaseCriticalRate: 0
   CriticalDamage: 0
   TotalDamageCount: 12

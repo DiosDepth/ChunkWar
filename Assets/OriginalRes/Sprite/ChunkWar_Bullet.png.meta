@@ -113,7 +113,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -121,6 +121,35 @@ TextureImporter:
       bones: []
       spriteID: b59c374821c89ad4ca29b9748803da87
       internalID: -1479985463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChunkWar_Bullet_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 240
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 2, y: 7}
+        - {x: -2, y: 7}
+        - {x: -4, y: 4}
+        - {x: -5, y: -1}
+        - {x: -5, y: -7}
+        - {x: 5, y: -7}
+        - {x: 5, y: -1}
+        - {x: 4, y: 4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5b48afd415c361409521504d6b81928
+      internalID: 953333986
       vertices: []
       indices: 
       edges: []
@@ -136,6 +165,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      ChunkWar_Bullet_1: 953333986
       ChunkWar_Bullet_0: -1479985463
   spritePackingTag: 
   pSDRemoveMatte: 0

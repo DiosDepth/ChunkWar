@@ -58,7 +58,7 @@ public class AIMove : AIAction
 
     public void Rotate()
     {
-        _controller.transform.rotation = _controller.CalculateRotation(_controller.transform.up, _moveDirection, _controller.rotateSpeed);
+        _controller.transform.rotation = MathExtensionTools.CalculateRotation(_controller.transform.up, _moveDirection, _controller.rotateSpeed);
     }
 
 

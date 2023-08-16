@@ -16,11 +16,50 @@ public static class MathExtensionTools
         return (self % 2 == 0);
     }
 
+
+
     public static Vector2Int Round(this Vector2 v2)
     {
         return new Vector2Int(Mathf.RoundToInt(v2.x), Mathf.RoundToInt(v2.y));
     }
 
+    public static float ToAngleZ(this Vector2 dir)
+    {
+        Vector2 normaldir = dir.normalized;
+        return Quaternion.LookRotation(new Vector3(0, 0, 1), normaldir).eulerAngles.z;
+    }
+
+    /// <summary>
+    ///  reference dirction with angle
+    /// </summary>
+    /// <param name="m_refdir"></param>
+    /// <param name="m_rangeangle"></param>
+    /// <returns></returns>
+
+    public static Vector2 GetRandomDirection(Vector2 m_refdir, float m_rangeangle)
+    {
+
+        UnityEngine.Random.InitState(Mathf.RoundToInt(Time.time));
+        float randomangle = UnityEngine.Random.Range(-m_rangeangle, m_rangeangle);
+
+         Vector3 dir = Quaternion.Euler(0, 0, randomangle) * m_refdir;
+
+        return dir;
+    }
+
+    /// <summary>
+    /// 获取每一帧的转向角度
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <param name="rotspeed"></param>
+    /// <returns></returns>
+    public static Quaternion CalculateRotation(Vector3 from, Vector3 to, float rotspeed)
+    {
+        Quaternion fromrot = Quaternion.LookRotation(new Vector3(0, 0, 1), from);
+        Quaternion torot = Quaternion.LookRotation(new Vector3(0, 0, 1), to);
+        return Quaternion.RotateTowards(fromrot, torot, rotspeed);
+    }
     /// <summary>
     /// 获取当前ship位置的圆形区间范围随机点，
     /// </summary>

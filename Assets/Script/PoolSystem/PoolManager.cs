@@ -84,7 +84,29 @@ public class PoolManager : Singleton<PoolManager>
     {
         base.Initialization();
     }
-    public void GetObjectAsync(string m_key, bool m_active, Transform trs = null, UnityAction<GameObject,Transform> callback = null,  Transform parentTrans = null)
+    public void GetBulletAsync(string m_key, bool m_active, Transform m_trs = null,GameObject m_ref = null, UnityAction<GameObject, Transform, GameObject> callback = null, Transform parentTrans = null)
+    {
+        if (poolDic.ContainsKey(m_key) && poolDic[m_key].poolList.Count > 0)
+        {
+            GameObject obj = poolDic[m_key].GetObject(m_active);
+            callback(obj,m_trs, m_ref);
+        }
+        else
+        {
+            ResManager.Instance.LoadAsync<GameObject>(m_key, (obj) =>
+            {
+                obj.name = m_key;
+                obj.SetActive(m_active);
+
+                if (parentTrans != null)
+                    obj.transform.SetParent(parentTrans, false);
+
+                callback(obj, m_trs, m_ref);
+            });
+  
+        }
+    }
+    public void GetBulletAsync(string m_key, bool m_active, Transform trs = null, UnityAction<GameObject,Transform> callback = null,  Transform parentTrans = null)
     {
         //GameObject temp_obj = null;
 

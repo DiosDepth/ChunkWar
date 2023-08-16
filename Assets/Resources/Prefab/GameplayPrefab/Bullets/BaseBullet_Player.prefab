@@ -96,12 +96,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   ownertype: 0
-  bulletCollider: {fileID: 7448544990957314191}
-  hitVFXName: HitVFX
+  ShootVFX: HitVFX
+  HitVFX: HitVFX
+  DeathVFX: HitVFX
+  target: {fileID: 0}
   rb: {fileID: 5862403524487350706}
+  bulletCollider: {fileID: 7448544990957314191}
   movementType: 0
   lifeTime: 5
-  speed: 100
+  maxSpeed: 70
+  rotSpeed: 180
+  acceleration: 0.25
+  IsinterceptTarget: 1
 --- !u!1001 &7432321191980077571
 PrefabInstance:
   m_ObjectHideFlags: 0

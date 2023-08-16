@@ -18,6 +18,7 @@ public enum AvaliableBulletType
     BaseBullet_Player,
     BaseBullet02_Player,
     BaseBeam_Player,
+    BaseHommingBullet_Player,
 }
 public class Bullet : MonoBehaviour,IPoolable
 {
@@ -29,6 +30,7 @@ public class Bullet : MonoBehaviour,IPoolable
     public string DeathVFX = "HitVFX";
     protected Unit _owner;
 
+    public GameObject target;
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     protected Vector2 _initialmoveDirection = Vector2.up;
 
@@ -42,6 +44,11 @@ public class Bullet : MonoBehaviour,IPoolable
     public virtual void SetOwner(Unit owner)
     {
         _owner = owner;
+    }
+
+    public virtual void SetTarget(GameObject m_target)
+    {
+        target = m_target;
     }
     public virtual void Shoot()
     {
@@ -82,7 +89,7 @@ public class Bullet : MonoBehaviour,IPoolable
 
     public virtual void PoolableReset()
     {
- 
+        target = null;
     }
 
     public virtual void PoolableDestroy()

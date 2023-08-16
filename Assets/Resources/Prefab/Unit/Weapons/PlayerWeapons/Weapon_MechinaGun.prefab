@@ -180,19 +180,20 @@ MonoBehaviour:
   currentEvolvePoints: 0
   weaponmode: 1
   firemode: 1
-  aimingtype: 0
-  bulletType: 2
-  targetmode: 0
+  aimingtype: 2
+  bulletType: 5
+  targetmode: 1
   mask:
     serializedVersion: 2
     m_Bits: 128
   targetList: []
-  maxTargetCount: 3
+  maxTargetCount: 5
   firePoint:
   - {fileID: 5020116889135989133}
   - {fileID: 3619440253569204300}
   - {fileID: 8026445630799378438}
   - {fileID: 8093382484892464697}
+  scatter: 5
   rotationRoot: {fileID: 579860166384849199}
   roatateSpeed: 180
   weaponAttribute:

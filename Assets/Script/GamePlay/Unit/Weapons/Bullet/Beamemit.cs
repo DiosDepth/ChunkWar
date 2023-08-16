@@ -17,7 +17,7 @@ public class Beamemit : Bullet
     public float deathtime = 0.15f;
 
     public LineRenderer beamline;
-    public GameObject target;
+
 
 
     private Coroutine startEmitCoroutine;
@@ -28,6 +28,7 @@ public class Beamemit : Bullet
 
     public override void Shoot()
     {
+        tempFalloff = (_owner as Weapon).weaponAttribute.TransfixionReduce / 100f;
         switch ((_owner as Weapon).aimingtype)
         {
             case WeaponAimingType.Directional:
@@ -78,7 +79,7 @@ public class Beamemit : Bullet
                         {
                             var damage = (_owner as Weapon).weaponAttribute.GetDamage();
                             ///TODO Value
-                            damage.Damage = Mathf.RoundToInt(damage.Damage * tempFalloff);
+                            damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
                             hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(ref damage);
                         }
                     }

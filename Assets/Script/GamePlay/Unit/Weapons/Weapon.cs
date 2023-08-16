@@ -379,10 +379,11 @@ public class Weapon : Unit
     public WeaponTargetMode targetmode = WeaponTargetMode.Single;
 
     public LayerMask mask = 1 << 7;
-    
-    public List<GameObject> targetList;
+
+    public List<GameObject> targetList = new List<GameObject>();
     public int maxTargetCount = 3;
     public Transform[] firePoint;
+    public float scatter = 0f;
     public Transform rotationRoot;
     public float roatateSpeed = 180f;
 
@@ -414,6 +415,7 @@ public class Weapon : Unit
     protected Collider2D[] _targetcandidates;
   
     protected int _firepointindex = 0;
+    protected int _targetindex = 0;
     protected BulletData _bulletdata;
     public Bullet _lastbullet;
 
@@ -453,6 +455,7 @@ public class Weapon : Unit
         }
 
         _firepointindex = 0;
+        _targetindex = 0;
 
     }
 
@@ -600,6 +603,7 @@ public class Weapon : Unit
 
         if(aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetBased)
         {
+            targetList.Clear();
 
             _targetcandidates = Physics2D.OverlapCircleAll(this.transform.position, weaponAttribute.WeaponRange, mask);
 
@@ -613,6 +617,10 @@ public class Weapon : Unit
                     // 筛选目标候选
                     for (int i = 0; i < _targetcandidates.Length; i++)
                     {
+                        if(_targetcandidates[i].tag == this.tag)
+                        {
+                            continue;
+                        }
                         tempsqedistance = transform.position.SqrDistanceXY(_targetcandidates[i].gameObject.transform.position);
                         if (tempsqedistance <= shortestdistance)
                         {
@@ -636,16 +644,28 @@ public class Weapon : Unit
                         d2 = transform.position.SqrDistanceXY(y.gameObject.transform.position);
                         return d1.CompareTo(d2);
                     });
-
-                    for (int i = 0; i < maxTargetCount; i++)
+                    int tempcount = 0;
+                    for (int i = 0; i < _targetcandidates.Length; i++)
                     {
-                        targetList.Add(_targetcandidates[i].gameObject);
+                        if(_targetcandidates[i].tag == this.tag)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            
+                            targetList.Add(_targetcandidates[i].gameObject);
+                            tempcount++;
+                            if( tempcount >= maxTargetCount)
+                            {
+                                break;
+                            }
+                        }
+              
                     }
                 }
             }
         }
-
-
 
 
 
@@ -669,39 +689,7 @@ public class Weapon : Unit
 
     public virtual void DoFire()
     {
-        int firecount = 0;
-        
-        if(weaponAttribute.MagazineBased)
-        {
-            if (firemode == WeaponFireMode.Sequent)
-            {
-                firecount = 1;
-            }
-            if (firemode == WeaponFireMode.Simultaneous)
-            {
-                if (magazine >= firePoint.Length)
-                {
-                    firecount = firePoint.Length;
-                }
-                else
-                {
-                    firecount = magazine;
-                }
-            }
-        }
-        else
-        {
-            if(firemode == WeaponFireMode.Sequent)
-            {
-                firecount = 1;
-            }
-            if(firemode == WeaponFireMode.Simultaneous)
-            {
-                firecount = firePoint.Length;
-            }
-        }
-
-
+        int firecount = CalculateFireCount();
 
         switch (weaponmode)
         {
@@ -709,8 +697,13 @@ public class Weapon : Unit
                 Debug.Log(this.gameObject + " : SemiAuto Firing!!!");
                 if(firemode == WeaponFireMode.Sequent)
                 {
-                    FireSequent(_firepointindex);
+                    if(_targetindex >= targetList.Count)
+                    {
+                        _targetindex = 0;
+                    }
+                    FireSequent(_firepointindex, _targetindex);
                     _firepointindex++;
+                    _targetindex++;
                 }
 
                 if(firemode ==WeaponFireMode.Simultaneous)
@@ -724,8 +717,13 @@ public class Weapon : Unit
                     Debug.Log(this.gameObject + " : Manual Charge Firing!!!");
                     if (firemode == WeaponFireMode.Sequent)
                     {
-                        FireSequent(_firepointindex);
+                        if (_targetindex >= targetList.Count)
+                        {
+                            _targetindex = 0;
+                        }
+                        FireSequent(_firepointindex, _targetindex);
                         _firepointindex++;
+                        _targetindex++;
                     }
                     if (firemode == WeaponFireMode.Simultaneous)
                     {
@@ -739,8 +737,13 @@ public class Weapon : Unit
                     Debug.Log(this.gameObject + " : Manual Firing!!!");
                     if (firemode == WeaponFireMode.Sequent)
                     {
-                        FireSequent(_firepointindex);
+                        if (_targetindex >= targetList.Count)
+                        {
+                            _targetindex = 0;
+                        }
+                        FireSequent(_firepointindex, _targetindex);
                         _firepointindex++;
+                        _targetindex++;
                     }
                     if (firemode == WeaponFireMode.Simultaneous)
                     {
@@ -754,8 +757,13 @@ public class Weapon : Unit
                 Debug.Log(this.gameObject + " : Autonomy Firing!!!");
                 if (firemode == WeaponFireMode.Sequent)
                 {
-                    FireSequent(_firepointindex);
+                    if (_targetindex >= targetList.Count)
+                    {
+                        _targetindex = 0;
+                    }
+                    FireSequent(_firepointindex, _targetindex);
                     _firepointindex++;
+                    _targetindex++;
                 }
                 if (firemode == WeaponFireMode.Simultaneous)
                 {
@@ -771,37 +779,138 @@ public class Weapon : Unit
         }
     }
 
-    public virtual void FireSimultaneous(int firecount, UnityAction<Bullet> callback = null)
+    public virtual int CalculateFireCount()
     {
-        for (int i = 0; i < firecount; i++)
+        int count = 1;
+        if (weaponAttribute.MagazineBased)
         {
-            PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, firePoint[i], (obj,trs) =>
+            if (firemode == WeaponFireMode.Sequent)
             {
-                obj.transform.SetTransform(trs);
-                _lastbullet = obj.GetComponent<Bullet>();
-                _lastbullet.InitialmoveDirection = trs.up;
-
-                _lastbullet.PoolableSetActive();
-                _lastbullet.Initialization();
-                _lastbullet.SetOwner(this);
-                _lastbullet.Shoot();
-            }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                count = 1;
+            }
+            if (firemode == WeaponFireMode.Simultaneous)
+            {
+                if (magazine >= firePoint.Length)
+                {
+                    count = firePoint.Length;
+                }
+                else
+                {
+                    count = magazine;
+                }
+            }
         }
+        else
+        {
+            if (firemode == WeaponFireMode.Sequent)
+            {
+                count = 1;
+            }
+            if (firemode == WeaponFireMode.Simultaneous)
+            {
+                count = firePoint.Length;
+            }
+        }
+
+        return count;
+
     }
 
-    public virtual void FireSequent(int firepointindex)
+    public virtual void FireSimultaneous(int firecount, UnityAction<Bullet> callback = null)
     {
-        PoolManager.Instance.GetObjectAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex],(obj,trs) =>
+        if ((aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional) && targetList?.Count > 0)
         {
-            obj.transform.SetTransform(trs);
-            _lastbullet = obj.GetComponent<Bullet>();
-            _lastbullet.InitialmoveDirection = trs.up;
+            _targetindex = 0;
+            for (int i = 0; i < firecount; i++)
+            {
+                if (_targetindex >= targetList.Count)
+                {
+                    _targetindex = 0;
+                }
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[i], targetList[_targetindex], (obj, trs, target) =>
+                {
+                    obj.transform.SetTransform(trs);
+                    _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.SetTarget(target);
+                    _lastbullet.PoolableSetActive();
+                    _lastbullet.Initialization();
+                    _lastbullet.SetOwner(this);
+                    _lastbullet.Shoot();
+                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                _targetindex++;
+            }
+        }
+        else
+        {
+            WeaponAimingType temptype = aimingtype;
+            aimingtype = WeaponAimingType.Directional;
+            if (aimingtype == WeaponAimingType.Directional)
+            {
+                for (int i = 0; i < firecount; i++)
+                {
+                    PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[i], (obj, trs) =>
+                    {
+                        obj.transform.SetTransform(trs);
+                        _lastbullet = obj.GetComponent<Bullet>();
+                        _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
 
-            _lastbullet.PoolableSetActive();
-            _lastbullet.Initialization();
-            _lastbullet.SetOwner(this);
-            _lastbullet.Shoot();
-        }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                        _lastbullet.PoolableSetActive();
+                        _lastbullet.Initialization();
+                        _lastbullet.SetOwner(this);
+                        _lastbullet.Shoot();
+                    }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                }
+            }
+            aimingtype = temptype;
+
+        }
+
+        
+
+    }
+
+    public virtual void FireSequent(int firepointindex, int targetindex)
+    {
+        if ((aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional) && targetList?.Count > 0)
+        {
+            {
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], targetList[targetindex], (obj, trs, target) =>
+                {
+                    obj.transform.SetTransform(trs);
+                    _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.SetTarget(target);
+                    _lastbullet.PoolableSetActive();
+                    _lastbullet.Initialization();
+                    _lastbullet.SetOwner(this);
+                    _lastbullet.Shoot();
+                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+            }
+        }
+        else
+        {
+            WeaponAimingType temptype = aimingtype;
+            aimingtype = WeaponAimingType.Directional;
+            if (aimingtype == WeaponAimingType.Directional)
+            {
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], (obj, trs) =>
+                {
+                    obj.transform.SetTransform(trs);
+                    _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+
+                    _lastbullet.PoolableSetActive();
+                    _lastbullet.Initialization();
+                    _lastbullet.SetOwner(this);
+                    _lastbullet.Shoot();
+                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+            }
+            aimingtype = temptype;
+
+        }
+
+
 
     }
 
@@ -896,7 +1005,8 @@ public class Weapon : Unit
     public virtual void WeaponEnd()
     {
         Debug.Log(this.gameObject + " : WeaponEnd");
-
+        _firepointindex = 0;
+        _targetindex = 0;
         if(_betweenDelayCounter >0)
         {
             _betweenDelayCounter -= Time.deltaTime;
