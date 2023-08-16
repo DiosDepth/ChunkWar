@@ -409,6 +409,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ChunkWar_Shadow
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 208
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3f4e7c66d843f4ab6e7d8e57ed5d8e
+      internalID: 670874701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -420,6 +441,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      ChunkWar_Shadow: 670874701
       ChunkWar_Buildings_1: 742372061
       ChunkWar_Weapon_TripleNeutronBlaster: 1469649811
       ChunkWar_Weapon_MachineGun: -339013081
