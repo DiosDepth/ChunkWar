@@ -10,6 +10,7 @@ public class BuildSelectHoverCmpt : MonoBehaviour
     private Image _sprite;
     private RectTransform _spriteRect;
     private TextMeshProUGUI _nameText;
+    private Transform _levelMaxDesc;
 
     private List<UnitUpgradeNodeCmpt> upgradeNodeCmpts;
 
@@ -20,6 +21,7 @@ public class BuildSelectHoverCmpt : MonoBehaviour
         _sprite = transform.Find("Image").SafeGetComponent<Image>();
         _spriteRect = transform.Find("Image").SafeGetComponent<RectTransform>();
         _nameText = transform.Find("InfoContent/Name").SafeGetComponent<TextMeshProUGUI>();
+        _levelMaxDesc = transform.Find("InfoContent/MaxLevelDesc");
         upgradeNodeCmpts = transform.Find("InfoContent/Upgrade").GetComponentsInChildren<UnitUpgradeNodeCmpt>().ToList();
     }
 
@@ -52,7 +54,10 @@ public class BuildSelectHoverCmpt : MonoBehaviour
         var currentUpgradeCost = info.currentEvolvePoints;
 
         upgradeNodeCmpts.ForEach(x => x.SetVisiable(false));
-        if(generalCfg.Rarity != GoodsItemRarity.Tier4)
+
+        var isMaxLevel = generalCfg.Rarity == GoodsItemRarity.Tier4;
+        _levelMaxDesc.SafeSetActive(isMaxLevel);
+        if (!isMaxLevel)
         {
             for (int i = 0; i < currentRarityCost; i++)
             {

@@ -111,3 +111,7 @@ MonoBehaviour:
     ChineseSimplified: "\u62A4\u76FE"
     English: 
     Japanese: 
+  - TextID: BuildSelectHover_MaxLevel
+    ChineseSimplified: "\u5DF2\u8FBE\u5230\u6700\u9AD8\u7B49\u7EA7"
+    English: 
+    Japanese: 

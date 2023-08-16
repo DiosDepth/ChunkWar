@@ -1370,5 +1370,5 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   DropList: []
   ShipType: 2
-  MainWeaponID: 2
+  MainWeaponID: 3
   CorePlugID: 1

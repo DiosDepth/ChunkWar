@@ -54,6 +54,7 @@ public class WeaponRuntimeItemCmpt : MonoBehaviour, IPoolable
     {
         _cdImage.transform.SafeSetActive(false);
         armorCmpts.ForEach(x => x.SetActive(true));
+        _armorText.text = _targetWeapon.magazine.ToString();
     }
 
 

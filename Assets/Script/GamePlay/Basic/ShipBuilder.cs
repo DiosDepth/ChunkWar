@@ -60,9 +60,15 @@ public class ShipBuilder : MonoBehaviour
     private bool _isDisplayingHoverUnit = false;
     private int _currentUpgradeGroupID;
 
+    private List<ShipChunkGrid> _shipGrids;
+
+    private const string ShipChunkGrid_PrefabPath = "Prefab/Chunk/ShipChunkGrid";
+
+
     private void Awake()
     {
         instance = this;
+        _shipGrids = new List<ShipChunkGrid>();
     }
 
     public void Initialization()
@@ -127,6 +133,7 @@ public class ShipBuilder : MonoBehaviour
             editorShip.LoadRuntimeData(runtimedata);
         }
         editorShip.CreateShip(true);
+        InitShipChunkGrids();
     }
 
     /// <summary>
@@ -492,12 +499,51 @@ public class ShipBuilder : MonoBehaviour
         _isDisplayingHoverUnit = true;
         _currentHoverUnit = targetUnit;
         RogueEvent.Trigger(RogueEventType.HoverUnitDisplay, targetUnit);
+        RogueEvent.Trigger(RogueEventType.ShowUnitDetailPage, targetUnit._baseUnitConfig);
     }
 
     private void ResetHoverUnit()
     {
         RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, _currentHoverUnit);
+        RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
         _currentHoverUnit = null;
         _isDisplayingHoverUnit = false;
     }
+
+    #region Grid
+
+   
+
+    private void InitShipChunkGrids()
+    {
+        if (editorShip == null)
+            return;
+
+        var root = transform.Find("Grids");
+        var allChunks = editorShip.ChunkMap;
+        var rowCount = allChunks.GetLength(0);
+        var columeCount = allChunks.GetLength(1);
+
+        for (int row = 0; row < rowCount; row++)
+        {
+            for (int colume = 0; colume < columeCount; colume++)
+            {
+                var chunk = allChunks[row, colume];
+                if(chunk != null)
+                {
+                    PoolManager.Instance.GetObjectSync(ShipChunkGrid_PrefabPath, true, (obj) =>
+                    {
+                        var cmpt = obj.transform.SafeGetComponent<ShipChunkGrid>();
+                        var pos = new Vector2(chunk.shipCoord.x, chunk.shipCoord.y);
+                        cmpt.SetUp(pos, chunk.isOccupied);
+                        _shipGrids.Add(cmpt);
+
+                    }, root);
+                }
+            }
+        }
+    }
+
+
+    #endregion
 }

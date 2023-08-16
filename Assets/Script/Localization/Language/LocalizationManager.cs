@@ -44,7 +44,6 @@ public class LocalizationManager : Singleton<LocalizationManager>
     {
         if (string.IsNullOrEmpty(key))
         {
-            Debug.LogError("[TextID] is null!");
             return string.Empty;
         }
 
