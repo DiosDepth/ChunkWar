@@ -161,5 +161,6 @@ public class PickableItem : MonoBehaviour, IPoolable
     public void PoolableSetActive(bool isactive = true)
     {
         this.gameObject.SetActive(isactive);
+        trigger.enabled = true;
     }
 }
