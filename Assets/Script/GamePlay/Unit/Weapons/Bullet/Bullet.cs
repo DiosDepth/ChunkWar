@@ -15,6 +15,7 @@ public enum AvaliableBulletType
 {
     None,
     BaseBullet_AI,
+    BaseHommingBullet_AI,
     BaseBullet_Player,
     BaseBullet02_Player,
     BaseBeam_Player,

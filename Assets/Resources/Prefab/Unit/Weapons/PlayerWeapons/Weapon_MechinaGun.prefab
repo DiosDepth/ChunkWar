@@ -181,7 +181,7 @@ MonoBehaviour:
   weaponmode: 1
   firemode: 1
   aimingtype: 2
-  bulletType: 5
+  bulletType: 6
   targetmode: 1
   mask:
     serializedVersion: 2

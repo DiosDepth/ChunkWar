@@ -6,6 +6,7 @@ using UnityEngine;
 public enum AvaliableAIType
 {
     AI_Flyings = 1,
+    AI_Fighter = 2,
 }
 
 

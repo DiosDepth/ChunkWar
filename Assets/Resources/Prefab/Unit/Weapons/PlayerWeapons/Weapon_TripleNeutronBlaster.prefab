@@ -147,9 +147,9 @@ MonoBehaviour:
   occupiedCoords: []
   currentEvolvePoints: 0
   weaponmode: 1
-  firemode: 1
+  firemode: 0
   aimingtype: 0
-  bulletType: 2
+  bulletType: 4
   targetmode: 0
   mask:
     serializedVersion: 2
@@ -160,6 +160,7 @@ MonoBehaviour:
   - {fileID: 5020116889135989133}
   - {fileID: 2344244556410904751}
   - {fileID: 2698016624561835338}
+  scatter: 0
   rotationRoot: {fileID: 579860166384849199}
   roatateSpeed: 180
   weaponAttribute:

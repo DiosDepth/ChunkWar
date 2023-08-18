@@ -418,7 +418,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -426,6 +426,35 @@ TextureImporter:
       bones: []
       spriteID: cf3f4e7c66d843f4ab6e7d8e57ed5d8e
       internalID: 670874701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChunkWar_Weapon_MissileLauncher
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 240
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -5, y: 7}
+        - {x: -6, y: 0}
+        - {x: -6, y: -6}
+        - {x: -4, y: -8}
+        - {x: 4, y: -8}
+        - {x: 6, y: -6}
+        - {x: 6, y: 0}
+        - {x: 5, y: 7}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 685f7ce3021e00d4cb3b5e2d5e50412b
+      internalID: 908907847
       vertices: []
       indices: 
       edges: []
@@ -447,6 +476,7 @@ TextureImporter:
       ChunkWar_Weapon_MachineGun: -339013081
       ChunkWar_Building_Shadow: 655584963
       ChunkWar_ChunkPart_002: 1819244928
+      ChunkWar_Weapon_MissileLauncher: 908907847
       ChunkWar_Base_000: 143168726
       ChunkWar_Weapon_LightAutoCannon: -2039262277
       ChunkWar_Core_000: -228024418

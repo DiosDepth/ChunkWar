@@ -4,3 +4,4 @@ ID,Name,PrefabPath,BulletType,OwnerType
 3,BaseBeam_Player,Prefab/GameplayPrefab/Bullets/BaseBeam_Player,Energy,Player
 4,BaseHommingBullet_Player,Prefab/GameplayPrefab/Bullets/BaseHommingBullet_Player,Ballistic,Player
 101,BaseBullet_AI,Prefab/GameplayPrefab/Bullets/BaseBullet_AI,Ballistic,AI
+102,BaseHommingBullet_AI,Prefab/GameplayPrefab/Bullets/BaseHommingBullet_AI,Ballistic,AI
