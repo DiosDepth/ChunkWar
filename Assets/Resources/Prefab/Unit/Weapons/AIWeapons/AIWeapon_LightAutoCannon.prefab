@@ -82,7 +82,7 @@ MonoBehaviour:
   UID: 0
   state: 0
   IsRestoreable: 0
-  IsCoreUnit: 0
+  IsCoreUnit: 1
   deathVFXName: ExplodeVFX
   _isTarget: 1
   unitSprite: {fileID: 4947179279536623990}
@@ -90,17 +90,27 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
+  currentEvolvePoints: 0
   weaponmode: 1
   firemode: 0
+  aimingtype: 0
   bulletType: 1
+  targetmode: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  targetList: []
+  maxTargetCount: 3
   firePoint:
   - {fileID: 3324133008493171840}
+  scatter: 0
+  rotationRoot: {fileID: 0}
+  roatateSpeed: 180
   weaponAttribute:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
     MagazineBased: 0
-    MaxMagazineSize: 30
     BeforeDelay: 0
     AfterDelay: 0
   magazine: 0
@@ -130,18 +140,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.3125, y: 0.1875}
-      - {x: 0.25, y: 0.375}
-      - {x: 0.125, y: 0.5}
-      - {x: -0.125, y: 0.5}
-      - {x: -0.25, y: 0.375}
-      - {x: -0.3125, y: 0.1875}
-      - {x: -0.375, y: 0.125}
-      - {x: -0.375, y: -0.375}
-      - {x: -0.25, y: -0.5}
-      - {x: 0.25, y: -0.5}
-      - {x: 0.375, y: -0.375}
-      - {x: 0.375, y: 0.125}
+    - - {x: -0.014610022, y: 0.29315847}
+      - {x: -0.25974, y: -0.45878395}
+      - {x: 0.02530384, y: -0.6685221}
+      - {x: 0.21124578, y: -0.53919476}
+      - {x: 0.26343918, y: -0.19274896}
 --- !u!1 &4947179279536623991
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +218,7 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 10
-  m_Sprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a577b55865e2cac4f9c79295220e9190, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

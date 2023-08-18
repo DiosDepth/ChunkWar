@@ -18,6 +18,11 @@ public class UnitUpgradeNodeCmpt : MonoBehaviour
         transform.SafeSetActive(visiable);
     }
 
+    public void SetUpgradeDisplay()
+    {
+        SetVisiable(true);
+    }
+
     public void SetUp(bool hasValue)
     {
         emptyTrans.SafeSetActive(!hasValue);

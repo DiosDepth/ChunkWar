@@ -58,6 +58,7 @@ public class ShipBuilder : MonoBehaviour
 
     private bool _isPointOverGameObject;
     private bool _isDisplayingHoverUnit = false;
+    private bool _isShowingUnitUpgrade = false;
     private int _currentUpgradeGroupID;
 
     private List<ShipChunkGrid> _shipGrids;
@@ -353,13 +354,6 @@ public class ShipBuilder : MonoBehaviour
         return newcoord;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(_mouseWorldPos, 0.1f);
-        Gizmos.DrawLine(_mouseWorldPos.ToVector3(), _mouseWorldPos.ToVector3() + _mouseRay.direction * 10f);
-    }
-
     /// <summary>
     /// 建造
     /// </summary>
@@ -368,7 +362,18 @@ public class ShipBuilder : MonoBehaviour
         if (!_isValidPos || currentInventoryItem == null)
             return;
 
-        editorShip.AddUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection, true);
+        var unit = editorShip.AddUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection, true);
+        var chunks = unit.occupiedCoords;
+        for (int i = 0; i < chunks.Count; i++) 
+        {
+            var chunk = chunks[i];
+            var grid = GetChunkGridByPos(chunk.x, chunk.y);
+            if(grid != null)
+            {
+                grid.SetOccupied(true);
+            }
+        }
+
         _itemDirection = 0;
         editorBrush.ResetBrush();
         var slotIndex = RogueManager.Instance.CurrentSelectedHarborSlotIndex;
@@ -463,7 +468,6 @@ public class ShipBuilder : MonoBehaviour
                 if(chunk.unit._baseUnitConfig.UpgradeGroupID == groupID)
                 {
                     //选中物件ID为同一个升级组
-                    
                 }
                 else
                 {
@@ -508,6 +512,7 @@ public class ShipBuilder : MonoBehaviour
         RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
         _currentHoverUnit = null;
         _isDisplayingHoverUnit = false;
+        _currentUpgradeGroupID = 0;
     }
 
     #region Grid
@@ -534,14 +539,18 @@ public class ShipBuilder : MonoBehaviour
                     PoolManager.Instance.GetObjectSync(ShipChunkGrid_PrefabPath, true, (obj) =>
                     {
                         var cmpt = obj.transform.SafeGetComponent<ShipChunkGrid>();
-                        var pos = new Vector2(chunk.shipCoord.x, chunk.shipCoord.y);
-                        cmpt.SetUp(pos, chunk.isOccupied);
+                        cmpt.SetUp(chunk.shipCoord, chunk.isOccupied);
                         _shipGrids.Add(cmpt);
 
                     }, root);
                 }
             }
         }
+    }
+
+    private ShipChunkGrid GetChunkGridByPos(int x, int y)
+    {
+        return _shipGrids.Find(grid => grid.PosX == x && grid.PosY == y);
     }
 
 

@@ -16,6 +16,9 @@ public class BuildSelectHoverCmpt : MonoBehaviour
 
     private static float SizePerUnit = 45;
 
+    private BaseConfig _currentPreviewUpgradeItem;
+    private Unit currentUnit;
+
     public void Awake()
     {
         _sprite = transform.Find("Image").SafeGetComponent<Image>();
@@ -39,6 +42,26 @@ public class BuildSelectHoverCmpt : MonoBehaviour
         SetUpUnitInfo(info);
     }
 
+    public void SetUpUpgradePreivew(BaseConfig basedCfg)
+    {
+        if (_currentPreviewUpgradeItem == basedCfg)
+            return;
+
+        if (!ResetLevelNode())
+        {
+            _currentPreviewUpgradeItem = basedCfg;
+            var addNode = GameHelper.GetEvoluveRarityPoints(basedCfg.GeneralConfig.Rarity);
+            for (int i = upgradeNodeCmpts.Count - 1; i >= 0; i--) 
+            {
+                var nodeCmpt = upgradeNodeCmpts[i];
+                if (addNode > 0 && !nodeCmpt.isActiveAndEnabled) 
+                {
+                    nodeCmpt.SetUpgradeDisplay();
+                }
+            }
+        }
+    }
+
     public void SetActive(bool active)
     {
         transform.SafeSetActive(active);
@@ -46,15 +69,25 @@ public class BuildSelectHoverCmpt : MonoBehaviour
 
     private void SetUpUnitInfo(Unit info)
     {
+        currentUnit = info;
         var generalCfg = info._baseUnitConfig.GeneralConfig;
         _nameText.text = LocalizationManager.Instance.GetTextValue(generalCfg.Name);
         _nameText.color = GameHelper.GetRarityColor(generalCfg.Rarity);
+        ResetLevelNode();
+    }
 
-        var currentRarityCost = GameHelper.GetUnitUpgradeCost(generalCfg.Rarity);
-        var currentUpgradeCost = info.currentEvolvePoints;
+    private void OnDisable()
+    {
+        _currentPreviewUpgradeItem = null;
+    }
 
+    private bool ResetLevelNode()
+    {
+        var generalCfg = currentUnit._baseUnitConfig.GeneralConfig;
         upgradeNodeCmpts.ForEach(x => x.SetVisiable(false));
 
+        var currentRarityCost = GameHelper.GetUnitUpgradeCost(generalCfg.Rarity);
+        var currentUpgradeCost = currentUnit.currentEvolvePoints;
         var isMaxLevel = generalCfg.Rarity == GoodsItemRarity.Tier4;
         _levelMaxDesc.SafeSetActive(isMaxLevel);
         if (!isMaxLevel)
@@ -64,5 +97,6 @@ public class BuildSelectHoverCmpt : MonoBehaviour
                 upgradeNodeCmpts[i].SetUp(currentUpgradeCost > i);
             }
         }
+        return isMaxLevel;
     }
 }

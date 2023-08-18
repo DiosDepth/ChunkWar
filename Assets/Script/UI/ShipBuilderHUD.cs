@@ -331,7 +331,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _hoverCmpt.SetUp(pos, unit._baseUnitConfig.GetMapSize(), unit);
         unit.OutLineHighlight(true);
         _hoverCmpt.SetActive(true);
-        
     }
 
     private void OnHideHoverUnitDisplay(Unit unit)
@@ -343,9 +342,13 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         }
     }
 
+    /// <summary>
+    /// Õ¹Ê¾Éý¼¶Ô¤ÀÀ
+    /// </summary>
     private void OnShowUpgradeUnitDisplayInfo(Unit unit, InventoryItem item)
     {
         OnHoverUnitDisplay(unit);
-
+        _hoverCmpt.SetUpUpgradePreivew(item.itemconfig);
     }
+
 }

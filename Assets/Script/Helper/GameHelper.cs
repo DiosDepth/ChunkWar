@@ -173,6 +173,12 @@ public static class GameHelper
         return requireMap[(int)rarity];
     }
 
+    public static byte GetEvoluveRarityPoints(GoodsItemRarity rarity)
+    {
+        var addMap = DataManager.Instance.battleCfg.EvolveAddMap;
+        return addMap[(int)rarity];
+    }
+
     /// <summary>
     /// 获取升级后的稀有度
     /// </summary>

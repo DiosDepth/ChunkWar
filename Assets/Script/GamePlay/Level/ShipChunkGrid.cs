@@ -5,6 +5,9 @@ using UnityEngine;
 public class ShipChunkGrid : MonoBehaviour, IPoolable
 {
 
+    public int PosX;
+    public int PosY;
+
     private SpriteRenderer _fill;
 
     public void Awake()
@@ -12,9 +15,16 @@ public class ShipChunkGrid : MonoBehaviour, IPoolable
         _fill = transform.Find("Fill").SafeGetComponent<SpriteRenderer>();
     }
 
-    public void SetUp(Vector2 position, bool occupied)
+    public void SetUp(Vector2Int position, bool occupied)
     {
-        transform.position = position;
+        PosX = position.x;
+        PosY = position.y;
+        transform.position = new Vector3(position.x, position.y);
+        _fill.transform.SafeSetActive(occupied);
+    }
+
+    public void SetOccupied(bool occupied)
+    {
         _fill.transform.SafeSetActive(occupied);
     }
 
