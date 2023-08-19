@@ -543,17 +543,13 @@ public class Weapon : Unit
     public virtual void WeaponOn()
     {
         _isWeaponOn = true;
-        //if (weaponstate.CurrentState != WeaponState.Reload)
-        //{
-        //    weaponstate.ChangeState(WeaponState.Start);
-        //}
-
     }
 
     public virtual void WeaponOff()
     {
         _isWeaponOn = false;
         _lastbullet = null;
+
     }
 
 
@@ -1065,8 +1061,7 @@ public class Weapon : Unit
     {
         Debug.Log(this.gameObject + " : WeaponRecover");
         _isChargeFire = false;
-        _isWeaponOn = false;
-        _lastbullet = null;
+        WeaponOff();
         weaponstate.ChangeState(WeaponState.Ready);
     }
 

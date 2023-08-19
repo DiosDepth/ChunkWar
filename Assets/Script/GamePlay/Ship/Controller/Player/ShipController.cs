@@ -78,7 +78,7 @@ public class ShipController : BaseController
                 _movementInput.x = context.ReadValue<Vector2>().x;
                 _movementInput.y = context.ReadValue<Vector2>().y;
                 _lastmovementInput = _movementInput;
-
+                
                 break;
             case InputActionPhase.Canceled:
                 _movementInput.x = context.ReadValue<Vector2>().x;
@@ -112,7 +112,11 @@ public class ShipController : BaseController
 
     public void HandleAttackInput(InputAction.CallbackContext context)
     {
-
+        if(controlledTarget.conditionState.CurrentState == ShipConditionState.Freeze || 
+            controlledTarget.conditionState.CurrentState == ShipConditionState.Death)
+        {
+            return;
+        }
         Debug.Log("HandleAttackInput : " + context.phase);
         controlledTarget.mainWeapon.HandleWeapon(context);
     }
@@ -129,10 +133,27 @@ public class ShipController : BaseController
 
     public virtual void HandleMovement()
     {
+        if(controlledTarget.conditionState.CurrentState == ShipConditionState.Immovable ||
+            controlledTarget.conditionState.CurrentState == ShipConditionState.Freeze ||
+            controlledTarget.conditionState.CurrentState == ShipConditionState.Death)
+        {
+            return;
+        }
+        
         _deltaMovement = CalculateDeltaMovement(MovementInput);
+
+        if(_deltaMovement.sqrMagnitude == 0)
+        {
+            controlledTarget.movementState.ChangeState(ShipMovementState.Idle);
+        }
+        else
+        {
+            controlledTarget.movementState.ChangeState(ShipMovementState.Move);
+        }
 
         var newMovement =rb.position + _deltaMovement * Time.fixedDeltaTime;
         rb.MovePosition(newMovement);
+        
     }
 
     public virtual void HandleRotation()

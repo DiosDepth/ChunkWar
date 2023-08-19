@@ -202,6 +202,13 @@ public class RogueManager : Singleton<RogueManager>
         CreateNewSaveData();
     }
 
+    public void RogueBattleOver()
+    {
+        Timer.Pause();
+        Timer.RemoveAllTrigger();
+
+    }
+
     public override void Initialization()
     {
         base.Initialization();
@@ -304,6 +311,8 @@ public class RogueManager : Singleton<RogueManager>
         CalculateHardLevelIndex();
         GenerateEnemyAIFactory();
     }
+
+
 
     private int GetCurrentWaveTime()
     {

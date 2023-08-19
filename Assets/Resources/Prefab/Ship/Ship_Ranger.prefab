@@ -198,12 +198,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4449337182308972381}
   buildingsParent: {fileID: 8905295549096286357}
+  deathVFXName: ExplodeVFX
   isDebug: 0
   container: {fileID: 0}
   sprite: {fileID: 8040213517790051913}
   shipMapCenter: {fileID: 3345105427411786821}
   mainWeapon: {fileID: 0}
   pickupCollider: {fileID: 0}
+  playerShipCfg: {fileID: 0}
 --- !u!50 &5209698434383203167
 Rigidbody2D:
   serializedVersion: 4
@@ -323,5 +325,5 @@ MonoBehaviour:
   collider: {fileID: 7157877339878687929}
   maxSpeed: 10
   acceleration: 3
-  rotateSpeed: 45
+  rotateSpeed: 0.25
   controlledTarget: {fileID: 0}

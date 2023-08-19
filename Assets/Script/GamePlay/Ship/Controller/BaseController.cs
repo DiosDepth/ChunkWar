@@ -43,6 +43,10 @@ public class BaseController : MonoBehaviour
 
     }
 
+    public virtual void SetControllerUpdate(bool isupdate)
+    {
+        IsUpdate = isupdate;
+    }
 
     public virtual Vector2 CalculateDeltaMovement(Vector2 m_dir, float m_speedmodify = 1)
     {

@@ -10,6 +10,26 @@ public enum OwnerType
     AI,
 }
 
+public struct ShipStateEvent
+{
+
+    public ShipMovementState movementState;
+    public ShipConditionState conditionState;
+    public ShipStateEvent(ShipMovementState m_movmentstate , ShipConditionState m_conditionstate)
+    {
+        movementState = m_movmentstate;
+        conditionState = m_conditionstate;
+    }
+
+    public static ShipStateEvent e;
+    public static void Trigger(ShipMovementState m_movmentstate, ShipConditionState m_conditionstate)
+    {
+        e.movementState = m_movmentstate;
+        e.conditionState = m_conditionstate;
+        EventCenter.Instance.TriggerEvent<ShipStateEvent>(e);
+    }
+}
+
 [ShowOdinSerializedPropertiesInInspector]
 public class BaseShip : MonoBehaviour,IDropable
 {
@@ -90,10 +110,8 @@ public class BaseShip : MonoBehaviour,IDropable
     }
     public virtual void Death()
     {
-        if(this is AIShip)
-        {
-            LevelManager.Instance.pickupList.AddRange(Drop());
-        }
+        conditionState.ChangeState(ShipConditionState.Death);
+        ShipStateEvent.Trigger(movementState.CurrentState, conditionState.CurrentState);
     }
 
     public virtual void Ability()

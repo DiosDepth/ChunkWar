@@ -39,13 +39,15 @@ public enum ShipMovementState
 {
     Idle,
     Move,
-    Death,
+
 }
 
 public enum ShipConditionState
 {
     Normal,
-    Attack,
+    Freeze, // can't move and attack
+    Immovable, // can't move
+    Death,
 }
 
 public class PlayerShip : BaseShip
@@ -286,14 +288,26 @@ public class PlayerShip : BaseShip
     {
         base.Death();
 
+
+
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive();
             vfx.GetComponent<ParticleController>().PlayVFX();
-            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameOver);
-            Destroy(this.gameObject);
+            GameEvent.Trigger(EGameState.EGameState_GameOver);
         });
+
+        //loop all unit to disable it 
+
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].SetUnitProcess(false);
+        }
+        //disable controller and inputhandle
+        controller.SetControllerUpdate(false);
+        //
+
     }
 
     public override void ResetShip()

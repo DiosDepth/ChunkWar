@@ -209,6 +209,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public void OnEvent(GameStateTransitionEvent evt)
     {
+
         UIManager.Instance.ShowUI<LoadingScreen>("LoadingScreen", E_UI_Layer.Top, this, (panel) =>
         {
             panel.Initialization();

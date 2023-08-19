@@ -208,6 +208,9 @@ public class Unit : MonoBehaviour, IDamageble
 
     public virtual void Death()
     {
+        state = DamagableState.Destroyed;
+        this.gameObject.SetActive(false);
+
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
             SetUnitProcess(false);
@@ -218,12 +221,7 @@ public class Unit : MonoBehaviour, IDamageble
 
             if (IsCoreUnit)
             {
-    
                 _owner.Death();
-                
-
-                state = DamagableState.Destroyed;
-                this.gameObject.SetActive(false);
                 //destroy owner
             }
 
@@ -281,7 +279,11 @@ public class Unit : MonoBehaviour, IDamageble
     {
         if (HpComponent == null)
             return false;
-
+        //已经死亡的不会收到更多伤害
+        if(state == DamagableState.Destroyed)
+        {
+            return false;
+        }
         if(_owner is AIShip)
         {
             int Damage = info.Damage;

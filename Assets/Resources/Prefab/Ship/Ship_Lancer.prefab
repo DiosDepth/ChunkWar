@@ -197,7 +197,7 @@ MonoBehaviour:
   collider: {fileID: 441694745270459029}
   maxSpeed: 10
   acceleration: 3
-  rotateSpeed: 45
+  rotateSpeed: 0.25
   controlledTarget: {fileID: 0}
 --- !u!1 &7848178516328607515
 GameObject:

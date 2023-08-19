@@ -101,7 +101,15 @@ public class AIDecisionDistanceToTarget : AIDecision
 
     public void GetTarget()
     {
-        target = RogueManager.Instance.currentShip.transform;
+        if(RogueManager.Instance.currentShip != null)
+        {
+            target = RogueManager.Instance.currentShip.transform;
+        }
+        else
+        {
+            target = null;
+        }
+   
     }
 
 }

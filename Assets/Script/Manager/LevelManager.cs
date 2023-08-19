@@ -72,7 +72,7 @@ public enum AvaliableLevel
     ShipSelectionLevel,
 }
 
-public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, EventListener<PickableItemEvent>, EventListener<AISpawnEvent>
+public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, EventListener<PickableItemEvent>, EventListener<AISpawnEvent>,EventListener<ShipStateEvent>
 {
 
     private AsyncOperation asy;
@@ -99,6 +99,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         this.EventStartListening<LevelEvent>();
         this.EventStartListening<PickableItemEvent>();
         this.EventStartListening<AISpawnEvent>();
+        this.EventStartListening<ShipStateEvent>();
+    }
+
+    ~LevelManager()
+    {
+        this.EventStopListening<LevelEvent>();
+        this.EventStopListening<PickableItemEvent>();
+        this.EventStopListening<AISpawnEvent>();
+        this.EventStopListening<ShipStateEvent>();
     }
 
     public override void Initialization()
@@ -134,18 +143,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             RogueManager.Instance.AddEXP(gold.EXPGain);
         }
     }
-
-
-
-
-
-    public void StopAISpawn()
-    {
-
-    }
-
-
- 
 
     public PlayerShip SpawnShipAtPos(GameObject ship, Vector3 pos, Quaternion rot, bool isactive)
     {
@@ -249,13 +246,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         }
 
 
-        var types = UnityEngine.MonoBehaviour.FindObjectsOfType<MonoBehaviour>().OfType<IPoolable>();
-        foreach (IPoolable t in types)
-        {
-            t.PoolableDestroy();
-        }
-       
-
+        PoolManager.Instance.Recycle();
         GameObject.Destroy(currentLevel.gameObject);
         currentLevel = null;
 
@@ -263,7 +254,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public void GameOver()
     {
-        StopAISpawn();
+        PoolManager.Instance.Recycle();
         CameraManager.Instance.SetCameraUpdate(false);
     }
 
@@ -272,6 +263,17 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     }
 
+    public void LevelStop()
+    {
+        for (int i = 0; i < aiShipList.Count; i++)
+        {
+            for (int n = 0; n < aiShipList[i].UnitList.Count; n++)
+            {
+                aiShipList[i].UnitList[n].SetUnitProcess(false);
+            }
+            aiShipList[i].controller.SetControllerUpdate(false);
+        }
+    }
     public void OnEvent(AISpawnEvent evt)
     {
         switch (evt.evtType)
@@ -279,6 +281,22 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             case AISpawnEventType.SpawnRequest:
                 break;
             case AISpawnEventType.StopRequest:
+                break;
+        }
+    }
+
+    public void OnEvent(ShipStateEvent evt)
+    {
+        switch (evt.conditionState)
+        {
+            case ShipConditionState.Normal:
+                break;
+            case ShipConditionState.Freeze:
+                break;
+            case ShipConditionState.Immovable:
+                break;
+            case ShipConditionState.Death:
+                LevelStop();
                 break;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -252,5 +253,15 @@ public class PoolManager : Singleton<PoolManager>
         
         }
         poolDic.Clear();
+    }
+
+    public void Recycle()
+    {
+        var types = UnityEngine.MonoBehaviour.FindObjectsOfType<MonoBehaviour>().OfType<IPoolable>();
+        foreach (IPoolable t in types)
+        {
+            t.PoolableDestroy();
+        }
+
     }
 }
