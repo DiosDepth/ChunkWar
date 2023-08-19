@@ -42,6 +42,8 @@ public class BattleMainConfig : SerializedScriptableObject
     [DictionaryDrawerSettings()]
     public Dictionary<PropertyModifyKey, PropertyDisplayConfig> PropertyDisplay = new Dictionary<PropertyModifyKey, PropertyDisplayConfig>();
 
+
+
     public PropertyDisplayConfig GetPropertyDisplayConfig(PropertyModifyKey key)
     {
         if (PropertyDisplay.ContainsKey(key))

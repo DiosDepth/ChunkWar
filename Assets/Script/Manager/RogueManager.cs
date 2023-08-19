@@ -53,6 +53,7 @@ public enum RogueEventType
     HoverUnitDisplay,
     HideHoverUnitDisplay,
     HoverUnitUpgradeDisplay,
+    WreckageDropRefresh,
 }
 
 public enum ShipPropertyEventType
@@ -62,6 +63,7 @@ public enum ShipPropertyEventType
     LevelUp,
     ReloadCDStart,
     ReloadCDEnd,
+    EnergyChange,
 }
 
 public class RogueManager : Singleton<RogueManager>
@@ -76,7 +78,14 @@ public class RogueManager : Singleton<RogueManager>
     public PlayerShip currentShip;
     public LevelTimer Timer;
 
-
+    private Dictionary<GoodsItemRarity, int> _inLevelDropItems;
+    /// <summary>
+    /// 获取局内残骸掉落
+    /// </summary>
+    public Dictionary<GoodsItemRarity, int> GetInLevelWreckageDrops
+    {
+        get { return _inLevelDropItems; }
+    }
 
     public HardLevelInfo CurrentHardLevel
     {
@@ -191,6 +200,13 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void InitRogueBattle()
     {
+        _inLevelDropItems = new Dictionary<GoodsItemRarity, int>
+        {
+            { GoodsItemRarity.Tier1, 0 },
+            { GoodsItemRarity.Tier2, 0 },
+            { GoodsItemRarity.Tier3, 0 },
+            { GoodsItemRarity.Tier4, 0 },
+        };
         MainPropertyData.Clear();
         _currentShipPlugs.Clear();
         InitWave();
@@ -270,6 +286,20 @@ public class RogueManager : Singleton<RogueManager>
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.PhysicsDamage, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.EnergyDamage, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
     }
+
+    #region Drop
+
+    /// <summary>
+    /// 增加局内掉落
+    /// </summary>
+    /// <param name="rarity"></param>
+    public void AddInLevelDrop(GoodsItemRarity rarity)
+    {
+        _inLevelDropItems[rarity]++;
+        RogueEvent.Trigger(RogueEventType.WreckageDropRefresh);
+    }
+
+    #endregion
 
     #region Wave & HardLevel
 

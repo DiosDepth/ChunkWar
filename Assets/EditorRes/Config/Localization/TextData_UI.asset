@@ -159,3 +159,7 @@ MonoBehaviour:
     ChineseSimplified: "\u6E38\u620F\u6A21\u5F0F"
     English: 
     Japanese: 
+  - TextID: ShipHUD_Title_ShipEnergy
+    ChineseSimplified: "\u80FD\u6E90"
+    English: 
+    Japanese: 

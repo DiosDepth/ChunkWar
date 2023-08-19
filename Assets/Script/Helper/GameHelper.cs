@@ -20,6 +20,12 @@ public static class GameHelper
     private static Color RarityColor_T3 = new Color(0.73f, 0f, 1f);
     private static Color RarityColor_T4 = new Color(1f, 0.57f, 0.23f);
 
+    private struct TempDropRandomItem : RandomObject
+    {
+        public int Weight { get; set; }
+        public GoodsItemRarity Rarity;
+    }
+
 
     /// <summary>
     /// 获取稀有度颜色
@@ -41,6 +47,30 @@ public static class GameHelper
             default:
                 return Color.white;
         }
+    }
+
+    /// <summary>
+    /// 获取敌人掉落稀有度
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    public static GoodsItemRarity GetEnemyShipDropUnitRarity(BaseShipConfig cfg)
+    {
+        List<TempDropRandomItem> ranItems = new List<TempDropRandomItem>();
+        var rarityDic = cfg.UnitDropRate;
+        foreach(var item in rarityDic)
+        {
+            ///Luck & HardLevel modify
+            TempDropRandomItem temp = new TempDropRandomItem
+            {
+                Rarity = item.Key,
+                Weight = (int)item.Value
+            };
+            ranItems.Add(temp);
+        }
+
+        var ranResult = Utility.GetRandomList<TempDropRandomItem>(ranItems, 1);
+        return ranResult[0].Rarity;
     }
 
     #region Battle

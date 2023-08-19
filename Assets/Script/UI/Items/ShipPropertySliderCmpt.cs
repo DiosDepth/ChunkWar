@@ -9,6 +9,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
     public enum SliderPropertyType
     {
         HP,
+        Energy,
         EXP
     }
 
@@ -32,7 +33,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         {
             _levelText = transform.Find("Content/Info/Title").SafeGetComponent<TextMeshProUGUI>();
         }
-        else
+        else if (PropertyType == SliderPropertyType.HP)
         {
             _fillImage2 = transform.Find("Content/Slider/Fill_2").SafeGetComponent<Image>();
         }
@@ -80,6 +81,16 @@ public class ShipPropertySliderCmpt : MonoBehaviour
             _fillImage.fillAmount = mgr.EXPPercent;
             _levelText.text = string.Format("Lv.{0}", mgr.GetCurrentShipLevel);
         }
+        else if (PropertyType == SliderPropertyType.Energy)
+        {
+            var currentShip = RogueManager.Instance.currentShip;
+            if(currentShip != null)
+            {
+                currentValue = currentShip.CurrentUsedEnergy;
+                maxValue = currentShip.TotalEnergy;
+                _fillImage.fillAmount = currentValue / (float)maxValue;
+            }
+        }
 
         _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
        
@@ -116,6 +127,22 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         var currentValue = mgr.GetCurrentExp;
         _fillImage.fillAmount = mgr.EXPPercent;
         _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
+    }
+
+    public void RefreshEnergy()
+    {
+        if (PropertyType != SliderPropertyType.Energy)
+            return;
+
+        var currentShip = RogueManager.Instance.currentShip;
+        if (currentShip != null)
+        {
+            var currentValue = currentShip.CurrentUsedEnergy;
+            var maxValue = currentShip.TotalEnergy;
+            _fillImage.fillAmount = currentValue / (float)maxValue;
+            _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
+        }
+        
     }
 
     public void RefreshLevelUp()

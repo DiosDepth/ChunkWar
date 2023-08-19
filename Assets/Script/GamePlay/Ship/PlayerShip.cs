@@ -243,6 +243,8 @@ public class PlayerShip : BaseShip
             TotalEnergy += unit.baseAttribute.EnergyGenerate;
             CurrentUsedEnergy += unit.baseAttribute.EnergyCost;
         }
+
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.EnergyChange);
     }
 
     public virtual void ActiveShipUnit()

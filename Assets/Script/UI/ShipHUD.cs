@@ -8,9 +8,15 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
 {
     private TextMeshProUGUI _waveTextID;
     private TextMeshProUGUI _timerTextID;
-    private TextMeshProUGUI _currencyText;
+    private TextMeshProUGUI _normalDropText;
+    private TextMeshProUGUI _Wreckage_T1_Text;
+    private TextMeshProUGUI _Wreckage_T2_Text;
+    private TextMeshProUGUI _Wreckage_T3_Text;
+    private TextMeshProUGUI _Wreckage_T4_Text;
+
     private ShipPropertySliderCmpt _hpSliderCmpt;
     private ShipPropertySliderCmpt _expCmpt;
+    private ShipPropertySliderCmpt _energyCmpt;
 
     private List<WeaponRuntimeItemCmpt> _weaponItemCmpts = new List<WeaponRuntimeItemCmpt>();
 
@@ -20,9 +26,14 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     {
         base.Awake();
         _waveTextID = transform.Find("WaveIndex/WaveInfo/Value").SafeGetComponent<TextMeshProUGUI>();
+        _Wreckage_T1_Text = transform.Find("Currency/Wreckage_T1/Value").SafeGetComponent<TextMeshProUGUI>();
+        _Wreckage_T2_Text = transform.Find("Currency/Wreckage_T2/Value").SafeGetComponent<TextMeshProUGUI>();
+        _Wreckage_T3_Text = transform.Find("Currency/Wreckage_T3/Value").SafeGetComponent<TextMeshProUGUI>();
+        _Wreckage_T4_Text = transform.Find("Currency/Wreckage_T4/Value").SafeGetComponent<TextMeshProUGUI>();
         _timerTextID = transform.Find("WaveIndex/Time").SafeGetComponent<TextMeshProUGUI>();
-        _currencyText = transform.Find("Currency/Currency/Value").SafeGetComponent<TextMeshProUGUI>();
+        _normalDropText = transform.Find("Currency/NormalDrop/Value").SafeGetComponent<TextMeshProUGUI>();
         _hpSliderCmpt = transform.Find("InfoContent/ShipInfo/HPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _energyCmpt = transform.Find("InfoContent/ShipInfo/EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _expCmpt = transform.Find("InfoContent/ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
     }
 
@@ -35,6 +46,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         BindTimerChange(true);
         SetUpSlider();
         RefreshCurrency();
+        RefreshWreckageDrops();
         InitShipWeaponCmpts();
     }
 
@@ -56,6 +68,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     {
         _hpSliderCmpt.RefreshProperty();
         _expCmpt.RefreshProperty();
+        _energyCmpt.RefreshProperty();
     }
 
     public void OnEvent(ShipPropertyEvent evt)
@@ -74,6 +87,10 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
                 RefreshShipCoreHP();
                 break;
 
+            case ShipPropertyEventType.EnergyChange:
+                RefreshShipEnergy();
+                break;
+
             case ShipPropertyEventType.ReloadCDStart:
                 OnWeaponReloadCDStart((uint)evt.param[0]);
                 break;
@@ -90,6 +107,10 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         {
             case RogueEventType.CurrencyChange:
                 RefreshCurrency();
+                break;
+
+            case RogueEventType.WreckageDropRefresh:
+                RefreshWreckageDrops();
                 break;
         }
     }
@@ -123,7 +144,16 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
 
     private void RefreshCurrency()
     {
-        _currencyText.text = RogueManager.Instance.CurrentCurrency.ToString();
+        _normalDropText.text = RogueManager.Instance.CurrentCurrency.ToString();
+    }
+
+    private void RefreshWreckageDrops()
+    {
+        var drops = RogueManager.Instance.GetInLevelWreckageDrops;
+        _Wreckage_T1_Text.text = drops[GoodsItemRarity.Tier1].ToString();
+        _Wreckage_T2_Text.text = drops[GoodsItemRarity.Tier2].ToString();
+        _Wreckage_T3_Text.text = drops[GoodsItemRarity.Tier3].ToString();
+        _Wreckage_T4_Text.text = drops[GoodsItemRarity.Tier4].ToString();
     }
 
     private void RefreshLevelUp()
@@ -134,6 +164,11 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private void RefreshShipCoreHP()
     {
         _hpSliderCmpt.RefreshHP();
+    }
+
+    private void RefreshShipEnergy()
+    {
+        _energyCmpt.RefreshEnergy();
     }
 
     private void BindTimerChange(bool bind)
