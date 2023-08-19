@@ -7,9 +7,7 @@ using UnityEditor;
 #endif
 
 
-    /// <summary>
-    /// Allows the save and load of objects in a specific folder and file.
-    /// </summary>
+
     public class SaveLoadManager: Singleton<SaveLoadManager>
     {
         private const string _baseFolderName = "/Data/";
@@ -98,7 +96,6 @@ using UnityEditor;
 
             object returnObject;
 
-            // if the MMSaves directory or the save file doesn't exist, there's nothing to load, we do nothing and exit
             if (!Directory.Exists(savePath) || !File.Exists(saveFileName))
             {
             Debug.Log("Can't find " + fileName);
@@ -113,11 +110,7 @@ using UnityEditor;
 
         }
 
-        /// <summary>
-        /// Removes a save from disk
-        /// </summary>
-        /// <param name="fileName">File name.</param>
-        /// <param name="folderName">Folder name.</param>
+
         public static void DeleteSave(string fileName, string folderName = _defaultFolderName)
         {
             string savePath = DetermineSavePath(folderName);
