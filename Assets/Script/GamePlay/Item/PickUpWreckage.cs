@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpWreckage : PickableItem
 {
-    public int qualityID = 1;
+    public GoodsItemRarity DropRarity;
 
 
     protected override void Start()
@@ -21,7 +21,7 @@ public class PickUpWreckage : PickableItem
     public override void PickUp(GameObject picker)
     {
         base.PickUp(picker);
-
+        RogueManager.Instance.AddInLevelDrop(DropRarity);
 
         LeanTween.value(0, 1, 0.75f).setOnUpdate((alpha) =>
         {
