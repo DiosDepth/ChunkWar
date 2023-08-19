@@ -50,29 +50,15 @@ public class MainMenu : GUIBasePanel
 
     private void LoadSaveButtonPressed()
     {
-
+        UIManager.Instance.ShowUI<GameSavePage>("GameSavePage", E_UI_Layer.Mid, owner, (panel) =>
+        {
+            panel.Initialization();
+        });
     }
 
     private void CollectionButtonPressed()
     {
 
     }
-
-    public void LoadSaveData()
-    {
-
-
-        RogueManager.Instance.saveData = SaveLoadManager.Load("SaveData") as SaveData;
-
-        if (RogueManager.Instance.saveData == null)
-        {
-            RogueManager.Instance.saveData = new SaveData();
-            SaveLoadManager.Save(RogueManager.Instance.saveData, "SaveData");
-        }
-
-
- 
-    }
-
 
 }

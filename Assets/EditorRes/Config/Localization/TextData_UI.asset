@@ -115,3 +115,47 @@ MonoBehaviour:
     ChineseSimplified: "\u5DF2\u8FBE\u5230\u6700\u9AD8\u7B49\u7EA7"
     English: 
     Japanese: 
+  - TextID: UI_General_Back
+    ChineseSimplified: "\u8FD4\u56DE"
+    English: 
+    Japanese: 
+  - TextID: GameSavePage_Title
+    ChineseSimplified: "\u6E38\u620F\u5B58\u6863"
+    English: 
+    Japanese: 
+  - TextID: GameSavePage_NOSave
+    ChineseSimplified: "\u6682\u65E0\u5B58\u6863"
+    English: 
+    Japanese: 
+  - TextID: GameSavePage_WaveTitle
+    ChineseSimplified: "\u5F53\u524D\u6CE2\u6B21"
+    English: 
+    Japanese: 
+  - TextID: GameSavePage_CurrencyTitle
+    ChineseSimplified: "\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: GameSavePage_DeleteSave
+    ChineseSimplified: "\u5220\u9664\u5B58\u6863"
+    English: 
+    Japanese: 
+  - TextID: GameSavePage_LoadSave
+    ChineseSimplified: "\u8BFB\u53D6\u5B58\u6863"
+    English: 
+    Japanese: 
+  - TextID: GameSavePage_Empty
+    ChineseSimplified: "\u7A7A"
+    English: 
+    Japanese: 
+  - TextID: GameSaveItem_GameTime
+    ChineseSimplified: "\u6E38\u620F\u65F6\u957F"
+    English: 
+    Japanese: 
+  - TextID: GameSaveItem_SaveTime
+    ChineseSimplified: "\u5B58\u6863\u65F6\u95F4"
+    English: 
+    Japanese: 
+  - TextID: GameSaveItem_GameMode
+    ChineseSimplified: "\u6E38\u620F\u6A21\u5F0F"
+    English: 
+    Japanese: 

@@ -197,6 +197,9 @@ public class RogueManager : Singleton<RogueManager>
         InitShopData();
         InitAllGoodsItems();
         AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
+
+        ///CreateSave
+        CreateNewSaveData();
     }
 
     public override void Initialization()
@@ -898,5 +901,20 @@ public class RogueManager : Singleton<RogueManager>
         }
         return 0;
     }
+    #endregion
+
+    #region Save
+
+    private void CreateNewSaveData()
+    {
+        var newIndex = SaveLoadManager.Instance.GetSaveIndex();
+        SaveData sav = new SaveData(newIndex);
+        sav.SaveName = string.Format("NEW_SAVE_{0}", newIndex);
+        sav.ModeID = CurrentHardLevel.HardLevelID;
+        sav.GameTime = 0;
+        SaveLoadManager.Save<SaveData>(sav, sav.SaveName);
+        SaveLoadManager.Instance.AddSaveData(sav);
+    }
+
     #endregion
 }

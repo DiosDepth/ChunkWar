@@ -6,17 +6,19 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData 
 {
+    public int SaveIndex;
+
     public int newRecord;
     public string date;
 
+    public string SaveName;
+    public int GameTime;
+    public int ModeID;
 
-
-
-
-    public SaveData()
+    public SaveData(int saveIndex)
     {
-        newRecord = 0;
-        date = System.DateTime.Now.ToString("yyyy:mm:dd");
+        this.SaveIndex = saveIndex;
+        date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
     }
 }
 

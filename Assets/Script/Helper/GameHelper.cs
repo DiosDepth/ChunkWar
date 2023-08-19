@@ -129,6 +129,16 @@ public static class GameHelper
     }
 
     /// <summary>
+    /// 所有存档ID
+    /// </summary>
+    /// <returns></returns>
+    public static List<uint> GetAllSaveIDs()
+    {
+        var allsav = SaveLoadManager.Instance.GetAllSave;
+        return allsav.Select(x => (uint)x.SaveIndex).ToList();
+    }
+
+    /// <summary>
     /// 全部舰船ID
     /// </summary>
     /// <returns></returns>
@@ -205,6 +215,15 @@ public static class GameHelper
         }
         outRank = (byte)totalRank;
         return (GoodsItemRarity)tempRarity;
+    }
+
+    public static string GetTimeStringBySeconds(int time)
+    {
+        int hour = time / 3600;
+        int minute = time % 3600 / 60;
+        int second = time % 3600 % 60;
+
+        return string.Format("{0:D2}-{1:D2}-{2:D2}", hour, minute, second);
     }
 
     public static string GetHardLevelModifyTypeName(HardLevelModifyType type)
