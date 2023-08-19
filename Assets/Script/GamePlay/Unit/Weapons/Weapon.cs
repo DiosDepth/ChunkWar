@@ -591,7 +591,14 @@ public class Weapon : Unit
     }
     public virtual void FireRequest()
     {
-        if(_firepointindex >= firePoint.Length)
+        if (magazine <= 0 && weaponAttribute.MagazineBased)
+        {
+            weaponstate.ChangeState(WeaponState.Reload);
+            ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
+
+        }
+
+        if (_firepointindex >= firePoint.Length)
         {
             _firepointindex = 0;
         }
@@ -1014,6 +1021,7 @@ public class Weapon : Unit
             {
                 weaponstate.ChangeState(WeaponState.Reload);
                 ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
+
             }
             else
             {
@@ -1028,6 +1036,7 @@ public class Weapon : Unit
     public virtual void WeaponReload()
     {
         Debug.Log(this.gameObject + " : WeaponReload");
+
         _reloadCounter -= Time.deltaTime;
         OnReloadCDUpdate?.Invoke(_reloadCounter);
         if (_reloadCounter < 0)
