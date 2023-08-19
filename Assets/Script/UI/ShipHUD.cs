@@ -17,6 +17,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private ShipPropertySliderCmpt _hpSliderCmpt;
     private ShipPropertySliderCmpt _expCmpt;
     private ShipPropertySliderCmpt _energyCmpt;
+    private ShipPropertySliderCmpt _loadCmpt;
 
     private List<WeaponRuntimeItemCmpt> _weaponItemCmpts = new List<WeaponRuntimeItemCmpt>();
 
@@ -33,7 +34,8 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         _timerTextID = transform.Find("WaveIndex/Time").SafeGetComponent<TextMeshProUGUI>();
         _normalDropText = transform.Find("Currency/NormalDrop/Value").SafeGetComponent<TextMeshProUGUI>();
         _hpSliderCmpt = transform.Find("InfoContent/ShipInfo/HPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
-        _energyCmpt = transform.Find("InfoContent/ShipInfo/EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _energyCmpt = transform.Find("OtherInfo/EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _loadCmpt = transform.Find("OtherInfo/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _expCmpt = transform.Find("InfoContent/ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
     }
 

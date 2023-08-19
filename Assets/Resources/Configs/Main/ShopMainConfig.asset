@@ -198,20 +198,6 @@ MonoBehaviour:
     CostBase: 55
     Unique: 0
     MaxBuyCount: 4
-  - GoodID: 5
-    Weight: 20
-    ItemType: 0
-    TypeID: 10000
-    CostBase: 15
-    Unique: 0
-    MaxBuyCount: -1
-  - GoodID: 6
-    Weight: 20
-    ItemType: 0
-    TypeID: 10001
-    CostBase: 22
-    Unique: 0
-    MaxBuyCount: -1
   - GoodID: 7
     Weight: 20
     ItemType: 1
@@ -240,17 +226,16 @@ MonoBehaviour:
     CostBase: 30
     Unique: 0
     MaxBuyCount: -1
-  - GoodID: 11
+  WreckageDrops:
+  - UnitID: 10000
     Weight: 20
-    ItemType: 0
-    TypeID: 10002
-    CostBase: 45
-    Unique: 0
-    MaxBuyCount: -1
-  - GoodID: 12
+    SellPrice: 0
+  - UnitID: 10001
     Weight: 20
-    ItemType: 0
-    TypeID: 10003
-    CostBase: 50
-    Unique: 0
-    MaxBuyCount: -1
+    SellPrice: 0
+  - UnitID: 10002
+    Weight: 20
+    SellPrice: 0
+  - UnitID: 10003
+    Weight: 20
+    SellPrice: 0

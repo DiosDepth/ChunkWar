@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 
-public class ShopGoodsRarityItem : RandomObject
+public struct GeneralRarityRandomItem : RandomObject
 {
     public GoodsItemRarity Rarity;
     public int Weight { get; set; }
 
-    public ShopGoodsRarityItem(GoodsItemRarity rarity, float weight)
+    public GeneralRarityRandomItem(GoodsItemRarity rarity, float weight)
     {
         this.Rarity = rarity;
         this.Weight = Mathf.CeilToInt(weight * 100);

@@ -15,6 +15,10 @@ public class ShopMainConfig : SerializedScriptableObject
     [HideReferenceObjectPicker]
     public List<ShopGoodsItemConfig> Goods = new List<ShopGoodsItemConfig>();
 
+    [TableList(ShowIndexLabels = true)]
+    [HideReferenceObjectPicker]
+    public List<WreckageDropItemConfig> WreckageDrops = new List<WreckageDropItemConfig>();
+
     [DictionaryDrawerSettings(DisplayMode =  DictionaryDisplayOptions.Foldout)]
     public Dictionary<GoodsItemRarity, ShopGoodsRarityConfig> RarityMap = new Dictionary<GoodsItemRarity, ShopGoodsRarityConfig>();
 
@@ -32,6 +36,22 @@ public enum GoodsItemType
 {
     ShipUnit,
     ShipPlug,
+}
+
+[System.Serializable]
+public class WreckageDropItemConfig
+{
+    [TableColumnWidth(150, false)]
+    public int UnitID;
+
+    [TableColumnWidth(150, false)]
+    public byte Weight = 20;
+
+    [TableColumnWidth(150, false)]
+    public int SellPrice;
+
+    [TableColumnWidth(150, false)]
+    public byte LoadCount;
 }
 
 [System.Serializable]

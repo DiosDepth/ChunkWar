@@ -267,15 +267,13 @@ public class EGameState_GameStart : GameState
             InputDispatcher.Instance.ChangeInputMode("UI");
         }
         
-
-
         UIManager.Instance.HiddenUIALLBut(new List<string> { "LoadingScreen" }, false);
         LoadingScreen loadingscreen = UIManager.Instance.GetGUIFromDic("LoadingScreen") as LoadingScreen;
         if (loadingscreen != null)
         {
             if (LevelManager.Instance.needServicing)
             {
-
+                RogueManager.Instance.OnEnterHarborInit();
 
                 UIManager.Instance.ShowUI<ShipBuilderHUD>("ShipBuilderHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
                 {

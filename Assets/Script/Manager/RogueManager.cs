@@ -97,6 +97,7 @@ public class RogueManager : Singleton<RogueManager>
     /// 所有商店物品
     /// </summary>
     private Dictionary<int, ShopGoodsInfo> goodsItems;
+    private Dictionary<int, WreckageItemInfo> wreckageItems;
 
     private Dictionary<int, byte> _playerCurrentGoods;
 
@@ -166,6 +167,15 @@ public class RogueManager : Singleton<RogueManager>
         private set;
     }
 
+    /// <summary>
+    /// 当前进入站点时Unit
+    /// </summary>
+    public List<WreckageItemInfo> CurrentWreckageItems
+    {
+        get;
+        private set;
+    }
+
     public RogueManager()
     {
         Initialization();
@@ -178,6 +188,17 @@ public class RogueManager : Singleton<RogueManager>
     {
         MainPropertyData = new UnitPropertyData();
         InitDefaultProperty();
+    }
+
+    /// <summary>
+    /// 进入harbor
+    /// </summary>
+    public void OnEnterHarborInit()
+    {
+        var newWreckage = GenerateWreckageItems();
+        CurrentWreckageItems.AddRange(newWreckage);
+        ///Reset
+        _inLevelDropItems.Clear();
     }
 
     /// <summary>
@@ -202,14 +223,15 @@ public class RogueManager : Singleton<RogueManager>
     {
         _inLevelDropItems = new Dictionary<GoodsItemRarity, int>
         {
-            { GoodsItemRarity.Tier1, 0 },
-            { GoodsItemRarity.Tier2, 0 },
+            { GoodsItemRarity.Tier1, 2 },
+            { GoodsItemRarity.Tier2, 1 },
             { GoodsItemRarity.Tier3, 0 },
-            { GoodsItemRarity.Tier4, 0 },
+            { GoodsItemRarity.Tier4, 1 },
         };
         MainPropertyData.Clear();
         _currentShipPlugs.Clear();
         InitWave();
+        InitWreckageData();
         InitShopData();
         InitAllGoodsItems();
         AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
@@ -297,6 +319,61 @@ public class RogueManager : Singleton<RogueManager>
     {
         _inLevelDropItems[rarity]++;
         RogueEvent.Trigger(RogueEventType.WreckageDropRefresh);
+    }
+
+    /// <summary>
+    /// 生成局内掉落物品
+    /// </summary>
+    /// <returns></returns>
+    private List<WreckageItemInfo> GenerateWreckageItems()
+    {
+        List<WreckageItemInfo> result = new List<WreckageItemInfo>();
+        foreach(var rarity in _inLevelDropItems)
+        {
+            var vaildItems = GetAllWreckageItemsByRarity(rarity.Key);
+            var count = rarity.Value;
+            for (int i = 0; i < count; i++) 
+            {
+                var outItem = Utility.GetRandomList<WreckageItemInfo>(vaildItems, 1);
+                if(outItem != null && outItem.Count == 1)
+                {
+                    result.Add(outItem[0]);
+                }
+            }
+        }
+
+#if UNITY_EDITOR
+        StringBuilder sb = new StringBuilder();
+        sb.Append("=======Generate WreckageItems ======= \n");
+        for(int i = 0; i < result.Count; i++)
+        {
+            sb.Append(result[i].GetLog());
+        }
+        sb.Append("==========END==========");
+        Debug.Log(sb.ToString());
+#endif
+
+        return result;
+    }
+
+    /// <summary>
+    /// 初始化掉落
+    /// </summary>
+    private void InitWreckageData()
+    {
+        CurrentWreckageItems = new List<WreckageItemInfo>();
+        wreckageItems = new Dictionary<int, WreckageItemInfo>();
+        var allWreckgeData = DataManager.Instance.shopCfg.WreckageDrops;
+        for(int i = 0; i < allWreckgeData.Count; i++)
+        {
+            WreckageItemInfo info = WreckageItemInfo.CreateInfo(allWreckgeData[i]);
+            wreckageItems.Add(info.UnitID, info);
+        }
+    }
+
+    private List<WreckageItemInfo> GetAllWreckageItemsByRarity(GoodsItemRarity rarity)
+    {
+        return wreckageItems.Values.ToList().FindAll(x => x.Rarity == rarity);
     }
 
     #endregion
@@ -604,15 +681,15 @@ public class RogueManager : Singleton<RogueManager>
         var tier4Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier4);
         var tier1Rate = 100 - tier2Rate - tier3Rate - tier4Rate;
         
-        List<ShopGoodsRarityItem> rarityItems = new List<ShopGoodsRarityItem>();
-        rarityItems.Add(new ShopGoodsRarityItem(GoodsItemRarity.Tier2, tier2Rate));
-        rarityItems.Add(new ShopGoodsRarityItem(GoodsItemRarity.Tier3, tier3Rate));
-        rarityItems.Add(new ShopGoodsRarityItem(GoodsItemRarity.Tier4, tier4Rate));
-        rarityItems.Add(new ShopGoodsRarityItem(GoodsItemRarity.Tier1, tier1Rate));
+        List<GeneralRarityRandomItem> rarityItems = new List<GeneralRarityRandomItem>();
+        rarityItems.Add(new GeneralRarityRandomItem(GoodsItemRarity.Tier2, tier2Rate));
+        rarityItems.Add(new GeneralRarityRandomItem(GoodsItemRarity.Tier3, tier3Rate));
+        rarityItems.Add(new GeneralRarityRandomItem(GoodsItemRarity.Tier4, tier4Rate));
+        rarityItems.Add(new GeneralRarityRandomItem(GoodsItemRarity.Tier1, tier1Rate));
 
         for (int i = 0; i < count; i++) 
         {
-            var rarityResult = Utility.GetRandomList<ShopGoodsRarityItem>(rarityItems, 1);
+            var rarityResult = Utility.GetRandomList<GeneralRarityRandomItem>(rarityItems, 1);
             if(rarityResult.Count <= 0)
             {
                 Debug.LogError("Shop Item RandomError! WaveIndex = " + enterCount);

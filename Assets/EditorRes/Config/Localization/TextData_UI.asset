@@ -163,3 +163,7 @@ MonoBehaviour:
     ChineseSimplified: "\u80FD\u6E90"
     English: 
     Japanese: 
+  - TextID: ShipHUD_Title_ShipLoad
+    ChineseSimplified: "\u8D1F\u8F7D"
+    English: 
+    Japanese: 

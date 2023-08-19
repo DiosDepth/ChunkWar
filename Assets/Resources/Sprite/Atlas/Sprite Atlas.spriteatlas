@@ -39,6 +39,7 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: ba5e47215639b1748b058387d5aea65a, type: 3}
+  - {fileID: 21300000, guid: 6273dd62b902491419ba50210e01a0f1, type: 3}
   - {fileID: 21300000, guid: 0b43561315597b844ad1b435728ed5b0, type: 3}
   - {fileID: 21300000, guid: 1d763a7303eeeef499065ec693e8562e, type: 3}
   - {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
@@ -57,6 +58,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 964648ffe7791304a8712b96b53de3dd, type: 3}
   m_PackedSpriteNamesToIndex:
   - VP9
+  - Invincible
   - CR21
   - rico
   - FlightChessBuff_24

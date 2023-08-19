@@ -10,7 +10,8 @@ public class ShipPropertySliderCmpt : MonoBehaviour
     {
         HP,
         Energy,
-        EXP
+        EXP,
+        Load
     }
 
     public SliderPropertyType PropertyType;
@@ -73,6 +74,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
             currentValue = hpCmpt.GetCurrentHP;
             _fillImage.fillAmount = hpCmpt.HPPercent;
             _fillImage2.fillAmount = hpCmpt.HPPercent;
+            _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
         }
         else if (PropertyType == SliderPropertyType.EXP)
         {
@@ -80,6 +82,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
             currentValue = mgr.GetCurrentExp;
             _fillImage.fillAmount = mgr.EXPPercent;
             _levelText.text = string.Format("Lv.{0}", mgr.GetCurrentShipLevel);
+            _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
         }
         else if (PropertyType == SliderPropertyType.Energy)
         {
@@ -89,11 +92,14 @@ public class ShipPropertySliderCmpt : MonoBehaviour
                 currentValue = currentShip.CurrentUsedEnergy;
                 maxValue = currentShip.TotalEnergy;
                 _fillImage.fillAmount = currentValue / (float)maxValue;
+                _valueText.text = string.Format("{0}%", (int)(currentValue / (float)maxValue));
             }
-        }
 
-        _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
-       
+        }
+        else if (PropertyType == SliderPropertyType.Load)
+        {
+
+        }
     }
 
     /// <summary>

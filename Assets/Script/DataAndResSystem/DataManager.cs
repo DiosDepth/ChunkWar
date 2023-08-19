@@ -19,6 +19,7 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<string, PickUpData> PickUpDataDic = new Dictionary<string, PickUpData>();
 
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
+    private Dictionary<int, WreckageDropItemConfig> _wreckageItemDic = new Dictionary<int, WreckageDropItemConfig>();
     private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
     private Dictionary<int, PlayerShipConfig> _shipConfigDic = new Dictionary<int, PlayerShipConfig>();
     private Dictionary<int, AIShipConfig> _AIShipConfigDic = new Dictionary<int, AIShipConfig>();
@@ -123,6 +124,15 @@ public class DataManager : Singleton<DataManager>
                     _shopGoodsDic.Add(goodLst[i].GoodID, goodLst[i]);
                 }
             }
+
+            var wreckageData = shopCfg.WreckageDrops;
+            for(int i = 0; i < wreckageData.Count; i++)
+            {
+                if (!_wreckageItemDic.ContainsKey(wreckageData[i].UnitID))
+                {
+                    _wreckageItemDic.Add(wreckageData[i].UnitID, wreckageData[i]);
+                }
+            }
         }
 
         if (shipPlugCfg != null)
@@ -187,6 +197,14 @@ public class DataManager : Singleton<DataManager>
         ShopGoodsItemConfig result = null;
         _shopGoodsDic.TryGetValue(goodsID, out result);
         Debug.Assert(result != null, "GetShopGoodsCfg Null! ID= " + goodsID);
+        return result;
+    }
+
+    public WreckageDropItemConfig GetWreckageDropItemConfig(int unitID)
+    {
+        WreckageDropItemConfig result = null;
+        _wreckageItemDic.TryGetValue(unitID, out result);
+        Debug.Assert(result != null, "GetWreckageDropItemConfig Null! ID= " + unitID);
         return result;
     }
 
