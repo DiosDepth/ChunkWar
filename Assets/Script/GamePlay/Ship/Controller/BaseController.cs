@@ -15,9 +15,10 @@ public class BaseController : MonoBehaviour
 
     public float maxSpeed = 10;
     public float acceleration = 10;
-    public float rotateSpeed = 15;
+    public float maxRotateSpeed = 15;
+
     protected Vector2 _lerpedInput;
-    protected Vector2 _deltaMovement;
+    public  Vector2 _deltaMovement;
     protected float _deltaSpeed;
     protected float _deltaAcceleration;
 

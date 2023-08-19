@@ -18,13 +18,14 @@ public class ShipController : BaseController
     public Vector2 PointInput { get { return _pointInput; } }
     protected Vector2 _pointInput;
 
+    public float rotationAcceleration = 0.25f;
+    public float rotationSpeedDamping = 0.25f;
 
 
 
 
-
-
-
+    public float _refrotationspeed;
+    public float _crossZ;
     protected override void Start()
     {
         //InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
@@ -142,14 +143,17 @@ public class ShipController : BaseController
         
         _deltaMovement = CalculateDeltaMovement(MovementInput);
 
-        if(_deltaMovement.sqrMagnitude == 0)
+        if (Mathf.Approximately( _deltaMovement.sqrMagnitude , 0))
         {
             controlledTarget.movementState.ChangeState(ShipMovementState.Idle);
+            _deltaMovement = Vector2.zero;
         }
         else
         {
             controlledTarget.movementState.ChangeState(ShipMovementState.Move);
+            
         }
+
 
         var newMovement =rb.position + _deltaMovement * Time.fixedDeltaTime;
         rb.MovePosition(newMovement);
@@ -158,10 +162,70 @@ public class ShipController : BaseController
 
     public virtual void HandleRotation()
     {
-        Debug.DrawLine(transform.position, WorldDirection * 100f, Color.red);
-        Debug.DrawLine(transform.position, transform.up * 100f, Color.green);
 
-        transform.rotation = MathExtensionTools.CalculateRotation(transform.up, _lastmovementInput, rotateSpeed);
+        if (MovementInput.sqrMagnitude == 0)
+        {
+            _crossZ = 0;
+        }
+        else
+        {
+            _crossZ = Vector3.Cross(transform.up, _lastmovementInput).z;
+        }
+
+        //Debug.DrawLine(transform.position, WorldDirection * 100f, Color.red);
+        //Debug.DrawLine(transform.position, transform.up * 100f, Color.green);
+        //calculate deacceleration ref rotation speed;
+        //if(Mathf.Approximately(_crossZ,0))
+        //{
+        //    if(_refrotationspeed >0)
+        //    {
+        //        _refrotationspeed -= rotationSpeedDamping * Time.deltaTime;
+        //    }
+        //    if(_refrotationspeed < 0)
+        //    {
+        //        _refrotationspeed += rotationSpeedDamping * Time.deltaTime;
+        //    }
+        //    if(Mathf.Approximately(_refrotationspeed, 0))
+        //    {
+        //        _refrotationspeed = 0;
+        //    }
+        //}
+        ////turn right
+        //if(_crossZ <0)
+        //{
+        //    _refrotationspeed += -1 * rotationAcceleration * Time.deltaTime;
+        //    if(_refrotationspeed <= (-1 * maxRotateSpeed))
+        //    {
+        //        _refrotationspeed = (-1 * maxRotateSpeed);
+        //    }
+        //}
+        ////turn left
+        //if (_crossZ >0)
+        //{
+        //    _refrotationspeed +=  rotationAcceleration * Time.deltaTime;
+        //    if (_refrotationspeed >=  maxRotateSpeed)
+        //    {
+        //        _refrotationspeed = maxRotateSpeed;
+        //    }
+        //}
+        if (Mathf.Approximately(_crossZ, 0))
+        {
+            _refrotationspeed -= rotationSpeedDamping * Time.deltaTime;
+        }
+        else
+        {
+            _refrotationspeed += rotationAcceleration * Time.deltaTime;
+        }
+
+        _refrotationspeed =  Mathf.Clamp(_refrotationspeed, 0, maxRotateSpeed);
+
+        if(!Mathf.Approximately(_refrotationspeed, 0))
+        {
+            transform.rotation = MathExtensionTools.CalculateRotation(transform.up, _lastmovementInput, _refrotationspeed * Time.deltaTime);
+        }
+
+            //transform.Rotate(new Vector3(0, 0, ));
+          
     }
 
  
