@@ -9,27 +9,14 @@ using UnityEngine.Events;
 public class MainMenu : GUIBasePanel
 {
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public override void Initialization()
     {
         base.Initialization();
         GetGUIComponent<Button>("Play").onClick.AddListener(PlayButtonPressed);
         GetGUIComponent<Button>("Options").onClick.AddListener(OptionButtonPressed);
         GetGUIComponent<Button>("Quit").onClick.AddListener(QuitButtonPressed);
-
+        GetGUIComponent<Button>("Load").onClick.AddListener(LoadSaveButtonPressed);
+        GetGUIComponent<Button>("Collection").onClick.AddListener(CollectionButtonPressed);
     }
 
     public override void Show()
@@ -59,6 +46,16 @@ public class MainMenu : GUIBasePanel
     public void QuitButtonPressed()
     {
         Application.Quit();
+    }
+
+    private void LoadSaveButtonPressed()
+    {
+
+    }
+
+    private void CollectionButtonPressed()
+    {
+
     }
 
     public void LoadSaveData()

@@ -90,7 +90,10 @@ public class BaseShip : MonoBehaviour,IDropable
     }
     public virtual void Death()
     {
-        LevelManager.Instance.pickupList.AddRange(Drop());
+        if(this is AIShip)
+        {
+            LevelManager.Instance.pickupList.AddRange(Drop());
+        }
     }
 
     public virtual void Ability()
