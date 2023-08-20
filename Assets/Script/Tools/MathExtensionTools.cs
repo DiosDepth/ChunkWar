@@ -39,7 +39,7 @@ public static class MathExtensionTools
     public static Vector2 GetRandomDirection(Vector2 m_refdir, float m_rangeangle)
     {
 
-        UnityEngine.Random.InitState(Mathf.RoundToInt(Time.time));
+        UnityEngine.Random.InitState(Mathf.RoundToInt(System.DateTime.Now.Ticks));
         float randomangle = UnityEngine.Random.Range(-m_rangeangle, m_rangeangle);
 
          Vector3 dir = Quaternion.Euler(0, 0, randomangle) * m_refdir;
