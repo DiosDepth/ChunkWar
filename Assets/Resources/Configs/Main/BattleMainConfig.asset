@@ -129,19 +129,19 @@ MonoBehaviour:
       Data: 2
     - Name: DurationDelta
       Entry: 3
-      Data: 0
+      Data: 5
     - Name: LoopCount
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: StartTime
       Entry: 3
       Data: 10
     - Name: TotalCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -763,6 +763,7 @@ MonoBehaviour:
   ShieldRecoverCD: 0.3
   ShipBaseSuckerRange: 10
   ShipMinSuckerRange: 5
+  ShipLoadBase: 50
   EvolveRequireMap: 010408
   EvolveAddMap: 01020408
   EXPMap: 0f00000019000000230000002d00000037000000640000006e000000

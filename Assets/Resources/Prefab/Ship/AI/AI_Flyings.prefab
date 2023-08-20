@@ -156,8 +156,8 @@ MonoBehaviour:
   collider: {fileID: 5808496827415363717}
   maxSpeed: 7
   acceleration: 15
-  rotateSpeed: 180
-  isComplexAI: 0
+  maxRotateSpeed: 15
+  _deltaMovement: {x: 0, y: 0}
   controlledTarget: {fileID: 3502843801109665848}
   updateFrequence: 0.003
   States:
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Label: 
-  isDebug: 0
+  isDebug: 1
 --- !u!114 &3443234521725163642
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,10 +6,11 @@ public class AIMove : AIAction
 {
 
     private Vector3 _moveDirection;
-  
 
 
 
+    private Vector3 _randomdir;
+    private Vector3 _destination;
     public override void Initialization()
     {
         base.Initialization();
@@ -46,7 +47,19 @@ public class AIMove : AIAction
             _moveDirection = Vector3.zero;
             return;
         }
-        _moveDirection = (RogueManager.Instance.currentShip.transform.position - transform.position).normalized;
+
+        
+        if(RogueManager.Instance.currentShip.transform.position.SqrDistanceXY(this.transform.position) <= Mathf.Pow(30f, 2))
+        {
+            _randomdir = MathExtensionTools.GetRandomDirection((transform.position - RogueManager.Instance.currentShip.transform.position).normalized, 45);
+            _destination = _randomdir * (20f + UnityEngine.Random.Range(-1, 1)) + RogueManager.Instance.currentShip.transform.position;
+
+            _moveDirection = (_destination - transform.position).normalized;
+        }
+        else
+        {
+            _moveDirection = (RogueManager.Instance.currentShip.transform.position - this.transform.position).normalized;
+        }
     }
 
     public void Move()
@@ -80,5 +93,12 @@ public class AIMove : AIAction
         {
             return;
         }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, _destination);
+        Gizmos.DrawWireSphere(_destination, 0.5f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, _moveDirection * 5f + transform.position);
     }
 }

@@ -10,7 +10,7 @@ using UnityEngine;
 public class AIController : BaseController
 {
 
-    public bool isComplexAI = false;
+
     public AIShip controlledTarget;
     public float updateFrequence = 0.05f;
     [ListDrawerSettings(DraggableItems = true,Expanded =true)]
@@ -24,8 +24,6 @@ public class AIController : BaseController
 
     protected AIDecision[] _decisions;
 
-    public Dictionary<string, List<GameObject>> hearingDic = new Dictionary<string, List<GameObject>>();
-    public Dictionary<string, List<GameObject>> seeingDic = new Dictionary<string, List<GameObject>>();
 
     protected float _nextupdatetime;
     
@@ -124,42 +122,10 @@ public class AIController : BaseController
         return null;
     }
 
+    
 
-    public virtual List<GameObject> GetHearingTargetList(string layername)
-    {
-        if (hearingDic.ContainsKey(layername))
-        {
-            return hearingDic[layername];
-        }
-        return null;
-    }
 
-    public virtual List<GameObject> GetSeeingTargetList(string layername)
-    {
-        if (seeingDic.ContainsKey(layername))
-        {
-            return seeingDic[layername];
-        }
-        return null;
-    }
 
-    public virtual GameObject GetHearingPlayerTarget(string layername = "Player")
-    {
-        if (hearingDic.ContainsKey("Player"))
-        {
-            return hearingDic["Player"][0];
-        }
-        return null;
-    }
-
-    public virtual GameObject GetSeeingPlayerTarget(string layername = "Player")
-    {
-        if (seeingDic.ContainsKey("Player"))
-        {
-            return hearingDic["Player"][0];
-        }
-        return null;
-    }
 
 
 

@@ -46,15 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de27bf7242c7fa4469d29b8097d007f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  trigger: {fileID: 0}
+  sprite: {fileID: 1274314703757555511}
+  trigger: {fileID: 8822171429785856819}
   itemType: 3
   disableOnPick: 1
   pickedItem:
     iscountless: 0
     count: 0
     itemconfig: {fileID: 0}
-  qualityID: 1
+  DropRarity: 0
 --- !u!1 &1965891023306217747
 GameObject:
   m_ObjectHideFlags: 0

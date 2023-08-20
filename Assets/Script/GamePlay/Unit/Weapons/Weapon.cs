@@ -384,7 +384,7 @@ public class Weapon : Unit
     public int maxTargetCount = 3;
     public Transform[] firePoint;
     public float scatter = 0f;
-    public Transform rotationRoot;
+
     public float roatateSpeed = 180f;
 
     public WeaponAttribute weaponAttribute;

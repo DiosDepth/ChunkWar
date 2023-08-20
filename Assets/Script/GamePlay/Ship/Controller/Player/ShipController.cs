@@ -53,8 +53,8 @@ public class ShipController : BaseController
         if (!IsUpdate) { return; }
         HandleMovement();
         HandleRotation();
-        HandleWeaponRotaion();
-
+        HandleMainWeaponRotaion();
+        HandleOtherWeaponRotation();
     }
 
     protected override void OnDestroy()
@@ -122,7 +122,7 @@ public class ShipController : BaseController
         controlledTarget.mainWeapon.HandleWeapon(context);
     }
 
-    public virtual void HandleWeaponRotaion()
+    public virtual void HandleMainWeaponRotaion()
     {
         if(controlledTarget.mainWeapon.rotationRoot == null)
         {
@@ -130,6 +130,33 @@ public class ShipController : BaseController
         }
         controlledTarget.mainWeapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(controlledTarget.mainWeapon.transform.up, WorldDirection, controlledTarget.mainWeapon.roatateSpeed);
 
+    }
+
+    public virtual void HandleOtherWeaponRotation()
+    {
+        Weapon tempweapon;
+        for (int i = 0; i < controlledTarget.UnitList.Count; i++)
+        {
+            if(!(controlledTarget.UnitList[i] is Weapon))
+            {
+                continue;
+            }
+            tempweapon = controlledTarget.UnitList[i] as Weapon;
+            if (tempweapon.rotationRoot != null)
+            {
+                if(tempweapon.targetList.Count>0)
+                {
+                    tempweapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(tempweapon.transform.up, tempweapon.transform.up.DirectionToXY(tempweapon.targetList[0].transform.position), tempweapon.roatateSpeed);
+                }
+                else
+                {
+                    tempweapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(tempweapon.transform.up, transform.up, tempweapon.roatateSpeed);
+                }
+
+            }
+
+
+        }
     }
 
     public virtual void HandleMovement()

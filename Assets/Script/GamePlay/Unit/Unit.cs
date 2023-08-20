@@ -161,6 +161,7 @@ public class Unit : MonoBehaviour, IDamageble
     [SerializeField]
     private bool _isTarget;
     public SpriteRenderer unitSprite;
+    public Transform rotationRoot;
     public bool redirection = true;
     public int direction = 0;
     public Vector2Int pivot;
