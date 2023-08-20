@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4139111094964381583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0.294, y: 1.638, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -92,12 +92,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.20935054, y: 0.7826464}
-      - {x: -0.17718016, y: 0.7895858}
-      - {x: -0.44164613, y: -0.007776715}
-      - {x: -0.30927575, y: -0.39016688}
-      - {x: 0.27289686, y: -0.39509097}
-      - {x: 0.4255067, y: -0.011333697}
+    - - {x: 0.41112417, y: 1.6746985}
+      - {x: -0.3948834, y: 1.6285396}
+      - {x: -0.93546075, y: -0.20424053}
+      - {x: -0.4632609, y: -0.8415028}
+      - {x: 0.59148705, y: -0.89421546}
+      - {x: 0.8927721, y: -0.06974178}
 --- !u!114 &765962645083886639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9825ba9b981c6f419d442425e37e47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 10001
+  UnitID: 0
   UID: 0
   state: 1
   IsRestoreable: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   firePoint:
   - {fileID: 6516888820155779860}
   - {fileID: 5123346590922557502}
+  scatter: 0
   rotationRoot: {fileID: 0}
   roatateSpeed: 180
   weaponAttribute:
@@ -272,7 +273,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8364843252387233737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: 0.8, z: 0}
+  m_LocalPosition: {x: -0.25, y: 1.638, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

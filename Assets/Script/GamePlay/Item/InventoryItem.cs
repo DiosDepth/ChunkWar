@@ -26,6 +26,7 @@ public struct InventoryEvent
 [System.Serializable]
 public class InventoryItem
 {
+    public uint RefUID;
     public bool iscountless;
     public int count;
     public BaseConfig itemconfig;

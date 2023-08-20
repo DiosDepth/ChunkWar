@@ -44,7 +44,7 @@ public class UnitDetailInfoPanel : MonoBehaviour
         if (_isShowing)
         {
             _isMoving = true;
-            LeanTween.move(_parentTrans, new Vector3 (700f,0,0), 0.1f).setOnComplete(() =>
+            LeanTween.move(_parentTrans, new Vector3 (0,1000f,0), 0.1f).setOnComplete(() =>
             {
                 _parentTrans.transform.SafeSetActive(false);
                 _isMoving = false;
@@ -62,7 +62,7 @@ public class UnitDetailInfoPanel : MonoBehaviour
         {
             _isMoving = true;
             _parentTrans.transform.SafeSetActive(true);
-            LeanTween.move(_parentTrans, new Vector3(0, 0, 0),0.1f).setOnComplete(() =>
+            LeanTween.move(_parentTrans, new Vector3(0, 15, 0),0.1f).setOnComplete(() =>
             {
                 _isMoving = false;
                 _isShowing = true;

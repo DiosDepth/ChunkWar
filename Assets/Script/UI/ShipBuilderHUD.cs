@@ -27,7 +27,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
     private CanvasGroup _mainPropertyCanvas;
     private CanvasGroup _subPropertyCanvas;
 
-    private List<ShipBuildingSlotCmpt> buildingSlotCmpts = new List<ShipBuildingSlotCmpt>();
     private GeneralScrollerGirdItemController _plugGridController;
 
     protected override void Awake()
@@ -40,7 +39,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _subPropertyCanvas = transform.Find("ShopPanel/PropertyGroup/PropertySubPanel").SafeGetComponent<CanvasGroup>();
         propertyCmpts = _mainPropertyCanvas.GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
         propertySubCmpts = _subPropertyCanvas.GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
-        buildingSlotCmpts = transform.Find("BuildingPanel/Slot_Group").GetComponentsInChildren<ShipBuildingSlotCmpt>().ToList();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = GetGUIComponent<Text>("RerollCost");
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
@@ -58,7 +56,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _detailPanel.Hide();
         _hoverCmpt.SetActive(false);
         InitShopContent();
-        InitBuildingSlots();
         RefreshGeneral();
         OnMainPropertyBtnClick();
     }
@@ -98,13 +95,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
 
             case RogueEventType.ShipPlugChange:
                 RefreshShipPlugsContent();
-                break;
-
-            case RogueEventType.ShipUnitTempSlotChange:
-                bool isadd = (bool)evt.param[0];
-                int unitID = (int)evt.param[1];
-                byte slotIndex = (byte)evt.param[2];
-                RefreshShipUnitSlotContent(isadd, unitID, slotIndex);
                 break;
 
             case RogueEventType.RefreshShopWeaponInfo:
@@ -152,14 +142,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _plugGridController.OnItemSelected += OnPlugItemSelect;
         _plugGridScroller.Delegate = _plugGridController;
         RefreshShipPlugsContent();
-    }
-
-    private void InitBuildingSlots()
-    {
-        for (int i = 0; i < buildingSlotCmpts.Count; i++) 
-        {
-            buildingSlotCmpts[i].Index = (byte)i;
-        }
     }
 
     private void InitShopContent()
@@ -259,26 +241,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         _plugGridScroller.ReloadData();
     }
 
-    private void RefreshShipUnitSlotContent(bool isAdd, int unitID, byte SlotIndex)
-    {
-        if (isAdd)
-        {
-            var cmpt = GetEmptyBuildingSlotByIndex(SlotIndex);
-            if(cmpt != null)
-            {
-                cmpt.SetUp(unitID);
-            }
-        }
-        else
-        {
-            var cmpt = GetEmptyBuildingSlotByIndex(SlotIndex);
-            if(cmpt != null)
-            {
-                cmpt.SetEmpty();
-            }
-        }
-    }
-
     /// <summary>
     /// 选择插件显示详情
     /// </summary>
@@ -299,15 +261,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
                 item.RefreshWeaponProperty(type);
             }
         }
-    }
-
-    /// <summary>
-    /// 空的临时建筑槽
-    /// </summary>
-    /// <returns></returns>
-    private ShipBuildingSlotCmpt GetEmptyBuildingSlotByIndex(byte index)
-    {
-        return buildingSlotCmpts.Find(x => x.Index == index);
     }
 
     private void ShowUnitDetailPanel(BaseUnitConfig cfg)

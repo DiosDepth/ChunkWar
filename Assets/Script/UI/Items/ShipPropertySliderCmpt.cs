@@ -58,50 +58,6 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         }
     }
 
-    public void RefreshProperty()
-    {
-        int maxValue = 0;
-        int currentValue = 0;
-
-        var mgr = RogueManager.Instance;
-        if(PropertyType == SliderPropertyType.HP)
-        {
-            var hpCmpt = GameHelper.GetPlayerShipHPComponet();
-            if (hpCmpt == null)
-                return;
-
-            maxValue = hpCmpt.MaxHP;
-            currentValue = hpCmpt.GetCurrentHP;
-            _fillImage.fillAmount = hpCmpt.HPPercent;
-            _fillImage2.fillAmount = hpCmpt.HPPercent;
-            _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
-        }
-        else if (PropertyType == SliderPropertyType.EXP)
-        {
-            maxValue = mgr.CurrentRequireEXP;
-            currentValue = mgr.GetCurrentExp;
-            _fillImage.fillAmount = mgr.EXPPercent;
-            _levelText.text = string.Format("Lv.{0}", mgr.GetCurrentShipLevel);
-            _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
-        }
-        else if (PropertyType == SliderPropertyType.Energy)
-        {
-            var currentShip = RogueManager.Instance.currentShip;
-            if(currentShip != null)
-            {
-                currentValue = currentShip.CurrentUsedEnergy;
-                maxValue = currentShip.TotalEnergy;
-                _fillImage.fillAmount = currentValue / (float)maxValue;
-                _valueText.text = string.Format("{0}%", (int)(currentValue / (float)maxValue));
-            }
-
-        }
-        else if (PropertyType == SliderPropertyType.Load)
-        {
-
-        }
-    }
-
     /// <summary>
     /// Ë¢ÐÂHPÏÔÊ¾
     /// </summary>
@@ -140,11 +96,20 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         if (PropertyType != SliderPropertyType.Energy)
             return;
 
-        var currentShip = RogueManager.Instance.currentShip;
-        if (currentShip != null)
+        PlayerShip ship = null;
+        if(ShipBuilder.instance != null)
         {
-            var currentValue = currentShip.CurrentUsedEnergy;
-            var maxValue = currentShip.TotalEnergy;
+            ship = ShipBuilder.instance.editorShip;
+        }
+        else
+        {
+            ship = RogueManager.Instance.currentShip;
+        }
+
+        if (ship != null)
+        {
+            var currentValue = ship.CurrentUsedEnergy;
+            var maxValue = ship.TotalEnergy;
             _fillImage.fillAmount = currentValue / (float)maxValue;
             _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
         }

@@ -199,6 +199,12 @@ public static class GameHelper
         return goods;
     }
 
+    public static List<uint> GetCurrentWreckageItems()
+    {
+        var allItems = RogueManager.Instance.CurrentWreckageItems;
+        return allItems.Values.Select(x => x.UID).ToList();
+    }
+
     /// <summary>
     /// 单位升级花费
     /// </summary>

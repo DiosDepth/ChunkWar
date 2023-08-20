@@ -46,7 +46,6 @@ public enum RogueEventType
     ShopReroll,
     ShopCostChange,
     ShipPlugChange,
-    ShipUnitTempSlotChange,
     RefreshShopWeaponInfo,
     ShowUnitDetailPage,
     HideUnitDetailPage,
@@ -54,6 +53,8 @@ public enum RogueEventType
     HideHoverUnitDisplay,
     HoverUnitUpgradeDisplay,
     WreckageDropRefresh,
+    CancelWreckageSelect,
+    WreckageAddToShip,
 }
 
 public enum ShipPropertyEventType
@@ -170,7 +171,7 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// 当前进入站点时Unit
     /// </summary>
-    public List<WreckageItemInfo> CurrentWreckageItems
+    public Dictionary<uint, WreckageItemInfo> CurrentWreckageItems
     {
         get;
         private set;
@@ -196,7 +197,14 @@ public class RogueManager : Singleton<RogueManager>
     public void OnEnterHarborInit()
     {
         var newWreckage = GenerateWreckageItems();
-        CurrentWreckageItems.AddRange(newWreckage);
+        for(int i = 0; i < newWreckage.Count; i++)
+        {
+            var uid = GetWreckageUID();
+            var wreckage = newWreckage[i];
+            wreckage.UID = uid;
+            CurrentWreckageItems.Add(uid, wreckage);
+        }
+
         ///Reset
         _inLevelDropItems.Clear();
     }
@@ -225,7 +233,7 @@ public class RogueManager : Singleton<RogueManager>
         {
             { GoodsItemRarity.Tier1, 2 },
             { GoodsItemRarity.Tier2, 1 },
-            { GoodsItemRarity.Tier3, 0 },
+            { GoodsItemRarity.Tier3, 4 },
             { GoodsItemRarity.Tier4, 1 },
         };
         MainPropertyData.Clear();
@@ -321,6 +329,18 @@ public class RogueManager : Singleton<RogueManager>
         RogueEvent.Trigger(RogueEventType.WreckageDropRefresh);
     }
 
+    public WreckageItemInfo GetCurrentWreckageByUID(uint uid)
+    {
+        if (CurrentWreckageItems.ContainsKey(uid))
+            return CurrentWreckageItems[uid];
+        return null;
+    }
+
+    public void RemoveWreckageByUID(uint uid)
+    {
+        CurrentWreckageItems.Remove(uid);
+    }
+
     /// <summary>
     /// 生成局内掉落物品
     /// </summary>
@@ -337,7 +357,7 @@ public class RogueManager : Singleton<RogueManager>
                 var outItem = Utility.GetRandomList<WreckageItemInfo>(vaildItems, 1);
                 if(outItem != null && outItem.Count == 1)
                 {
-                    result.Add(outItem[0]);
+                    result.Add(outItem[0].Clone());
                 }
             }
         }
@@ -361,7 +381,7 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     private void InitWreckageData()
     {
-        CurrentWreckageItems = new List<WreckageItemInfo>();
+        CurrentWreckageItems = new Dictionary<uint, WreckageItemInfo>();
         wreckageItems = new Dictionary<int, WreckageItemInfo>();
         var allWreckgeData = DataManager.Instance.shopCfg.WreckageDrops;
         for(int i = 0; i < allWreckgeData.Count; i++)
@@ -374,6 +394,14 @@ public class RogueManager : Singleton<RogueManager>
     private List<WreckageItemInfo> GetAllWreckageItemsByRarity(GoodsItemRarity rarity)
     {
         return wreckageItems.Values.ToList().FindAll(x => x.Rarity == rarity);
+    }
+
+    private uint GetWreckageUID()
+    {
+        uint id = (uint)UnityEngine.Random.Range(1, uint.MaxValue);
+        if (CurrentWreckageItems.ContainsKey(id))
+            return GetWreckageUID();
+        return id;
     }
 
     #endregion
@@ -594,7 +622,7 @@ public class RogueManager : Singleton<RogueManager>
             return false;
 
         ///临时仓库已满，无法购买
-        if (info._cfg.ItemType == GoodsItemType.ShipUnit && IsTempUnitHarborFull())
+        if (info._cfg.ItemType == GoodsItemType.ShipUnit)
             return false;
 
 
@@ -623,11 +651,6 @@ public class RogueManager : Singleton<RogueManager>
         if (itemType == GoodsItemType.ShipPlug)
         {
             AddNewShipPlug(typeID, info.GoodsID);
-        }
-        else if (itemType == GoodsItemType.ShipUnit)
-        {
-            AddNewTempUintToHarbor(typeID, info.GoodsID);
-            ///只有装备上去再加数量
         }
     }
     
@@ -829,32 +852,6 @@ public class RogueManager : Singleton<RogueManager>
 
     #region Ship Unit
 
-
-    private int[] harborTempUnitSlotIDs;
-    /// <summary>
-    /// 临时建筑组件库存
-    /// </summary>
-    public int[] HarborTempUnitSlots
-    {
-        get { return harborTempUnitSlotIDs; }
-    }
-    public byte CurrentSelectedHarborSlotIndex;
-    
-    public void InitTempUnitSlots()
-    {
-        var count = DataManager.Instance.battleCfg.HarborMapTempUnitSlotCount;
-        harborTempUnitSlotIDs = new int[count];
-        for (int i = 0; i < harborTempUnitSlotIDs.Length; i++) 
-        {
-            harborTempUnitSlotIDs[i] = -1;
-        }
-    }
-
-    public void RemoveTempUnitInHarbor(byte slotIndex)
-    {
-        harborTempUnitSlotIDs[slotIndex] = -1;
-    }
-
     public void AddNewShipUnit(Unit unit)
     {
         var uid = GetShipUnitUID();
@@ -899,35 +896,6 @@ public class RogueManager : Singleton<RogueManager>
         }
     }
 
-    /// <summary>
-    /// 临时仓库是否已满
-    /// </summary>
-    /// <returns></returns>
-    private bool IsTempUnitHarborFull()
-    {
-        for(int i =0;i< harborTempUnitSlotIDs.Length; i++)
-        {
-            if (harborTempUnitSlotIDs[i] == -1)
-                return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// 添加建筑到临时库存
-    /// </summary>
-    /// <param name="unitID"></param>
-    /// <param name="goodsID"></param>
-    private void AddNewTempUintToHarbor(int unitID, int goodsID = -1)
-    {
-        var emptySlot = GetEmptyTempUnitSlot();
-        if (emptySlot == -1)
-            return;
-
-        harborTempUnitSlotIDs[emptySlot] = unitID;
-        RogueEvent.Trigger(RogueEventType.ShipUnitTempSlotChange, true, unitID, (byte)emptySlot);
-    }
-
     private uint GetShipUnitUID()
     {
         var uid = (uint)UnityEngine.Random.Range(ShopGoods_UID_Sep, uint.MaxValue);
@@ -935,16 +903,6 @@ public class RogueManager : Singleton<RogueManager>
             return GetShipUnitUID();
 
         return uid;
-    }
-
-    private int GetEmptyTempUnitSlot()
-    {
-        for (int i = 0; i < harborTempUnitSlotIDs.Length; i++) 
-        {
-            if (harborTempUnitSlotIDs[i] == -1)
-                return i;
-        }
-        return -1;
     }
 
     #endregion

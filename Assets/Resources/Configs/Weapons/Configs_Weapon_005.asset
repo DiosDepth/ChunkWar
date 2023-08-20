@@ -209,7 +209,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 3
       Data: 1
@@ -242,10 +242,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 3
       Data: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
-  redirection: 1
+  redirection: 0
   UpgradeGroupID: 10001
   EditBrushSprite: {fileID: 21300000, guid: 4496b99d0334a184c84911a7e45d5071, type: 3}
   EditorBrushDefaultRotation: 180
@@ -423,10 +423,10 @@ MonoBehaviour:
   BaseRange: 100
   BaseCriticalRate: 20
   CriticalDamage: 130
-  TotalDamageCount: 5
-  ShootPerCount: 1
+  TotalDamageCount: 12
+  ShootPerCount: 2
   CD: 4
-  FireCD: 5
+  FireCD: 0.2
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0

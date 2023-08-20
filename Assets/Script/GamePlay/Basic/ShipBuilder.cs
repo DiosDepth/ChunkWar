@@ -74,7 +74,6 @@ public class ShipBuilder : MonoBehaviour
 
     public void Initialization()
     {
-        RogueManager.Instance.InitTempUnitSlots();
         InputDispatcher.Instance.Action_GamePlay_Point += HandleBuildMouseMove;
         InputDispatcher.Instance.Action_GamePlay_LeftClick += HandleBuildOperation;
         InputDispatcher.Instance.Action_GamePlay_RightClick += HandleRemoveOperation;
@@ -376,15 +375,11 @@ public class ShipBuilder : MonoBehaviour
 
         _itemDirection = 0;
         editorBrush.ResetBrush();
-        var slotIndex = RogueManager.Instance.CurrentSelectedHarborSlotIndex;
-        RogueEvent.Trigger(RogueEventType.ShipUnitTempSlotChange, false, currentInventoryItem.itemconfig.ID, slotIndex);
-
+        RogueManager.Instance.RemoveWreckageByUID(currentInventoryItem.RefUID);
         ///Reset
-        RogueManager.Instance.CurrentSelectedHarborSlotIndex = 0;
-        RogueManager.Instance.RemoveTempUnitInHarbor(slotIndex); 
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
-        RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
+        RogueEvent.Trigger(RogueEventType.WreckageAddToShip);
     }
 
     /// <summary>
@@ -395,13 +390,12 @@ public class ShipBuilder : MonoBehaviour
         if (currentInventoryItem == null)
             return;
 
-        RogueManager.Instance.CurrentSelectedHarborSlotIndex = 0;
         _itemDirection = 0;
         _currentUpgradeGroupID = 0;
         editorBrush.ResetBrush();
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
-        RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
+        RogueEvent.Trigger(RogueEventType.CancelWreckageSelect);
     }
 
     private void OnHoverUnitDisplay(Unit targetUnit)

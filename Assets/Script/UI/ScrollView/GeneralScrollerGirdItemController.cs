@@ -57,6 +57,14 @@ public class GeneralScrollerGirdItemController : IEnhancedScrollerDelegate
         return Mathf.CeilToInt((_itemData.Count / (float)numberOfCellsPerRow));
     }
 
+    public void CalcelSelectAll()
+    {
+        for (var i = 0; i < _itemData.Count; i++)
+        {
+            _itemData[i].Selected = false;
+        }
+    }
+
     private void ItemSelected(IScrollGirdCmpt view)
     {
         if (view != null)

@@ -275,7 +275,7 @@ public class EGameState_GameStart : GameState
             {
                 RogueManager.Instance.OnEnterHarborInit();
 
-                UIManager.Instance.ShowUI<ShipBuilderHUD>("ShipBuilderHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
+                UIManager.Instance.ShowUI<HarborHUD>("HarborHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
                 {
                     panel.Initialization();
 

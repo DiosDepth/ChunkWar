@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class WreckageItemInfo : RandomObject
 {
     public int UnitID;
+
+    public uint UID;
 
     public WreckageDropItemConfig _cfg;
 
@@ -16,6 +17,12 @@ public class WreckageItemInfo : RandomObject
     }
 
     public GoodsItemRarity Rarity;
+
+    public WreckageItemInfo Clone()
+    {
+        WreckageItemInfo info = (WreckageItemInfo)this.MemberwiseClone();
+        return info;
+    }
 
     public static WreckageItemInfo CreateInfo(WreckageDropItemConfig cfg)
     {
