@@ -51,7 +51,8 @@ public class WreckageDropItemConfig
     public int SellPrice;
 
     [TableColumnWidth(150, false)]
-    public byte LoadCount;
+    public int LoadCost;
+
 }
 
 [System.Serializable]

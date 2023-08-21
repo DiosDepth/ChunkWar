@@ -71,7 +71,8 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         _hpSliderCmpt.RefreshHP();
         _expCmpt.RefreshEXP();
         _expCmpt.RefreshLevelUp();
-        _energyCmpt.RefreshEXP();
+        _energyCmpt.RefreshEnergy();
+        _loadCmpt.RefreshLoad();
     }
 
     public void OnEvent(ShipPropertyEvent evt)

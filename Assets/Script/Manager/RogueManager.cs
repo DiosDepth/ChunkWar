@@ -65,6 +65,7 @@ public enum ShipPropertyEventType
     ReloadCDStart,
     ReloadCDEnd,
     EnergyChange,
+    WreckageLoadChange,
 }
 
 public class RogueManager : Singleton<RogueManager>
@@ -204,7 +205,7 @@ public class RogueManager : Singleton<RogueManager>
             wreckage.UID = uid;
             CurrentWreckageItems.Add(uid, wreckage);
         }
-
+        CalculateTotalLoadCost();
         ///Reset
         _inLevelDropItems.Clear();
     }
@@ -320,6 +321,32 @@ public class RogueManager : Singleton<RogueManager>
     #region Drop
 
     /// <summary>
+    /// 总负载消耗
+    /// </summary>
+    public int WreckageTotalLoadCost
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// 总负载值
+    /// </summary>
+    public int WreckageTotalLoadValue
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// 负载百分比
+    /// </summary>
+    public float WreckageLoadPercent
+    {
+        get { return WreckageTotalLoadValue / (float)WreckageTotalLoadCost; }
+    }
+
+    /// <summary>
     /// 增加局内掉落
     /// </summary>
     /// <param name="rarity"></param>
@@ -338,6 +365,12 @@ public class RogueManager : Singleton<RogueManager>
 
     public void RemoveWreckageByUID(uint uid)
     {
+        var info = GetCurrentWreckageByUID(uid);
+        CalculateTotalLoadCost();
+        if (info != null)
+        {
+            info.OnRemove();
+        }
         CurrentWreckageItems.Remove(uid);
     }
 
@@ -361,7 +394,6 @@ public class RogueManager : Singleton<RogueManager>
                 }
             }
         }
-
 #if UNITY_EDITOR
         StringBuilder sb = new StringBuilder();
         sb.Append("=======Generate WreckageItems ======= \n");
@@ -389,6 +421,9 @@ public class RogueManager : Singleton<RogueManager>
             WreckageItemInfo info = WreckageItemInfo.CreateInfo(allWreckgeData[i]);
             wreckageItems.Add(info.UnitID, info);
         }
+
+        CalculateTotalLoadValue();
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShipWreckageLoadTotal, CalculateTotalLoadCost);
     }
 
     private List<WreckageItemInfo> GetAllWreckageItemsByRarity(GoodsItemRarity rarity)
@@ -402,6 +437,26 @@ public class RogueManager : Singleton<RogueManager>
         if (CurrentWreckageItems.ContainsKey(id))
             return GetWreckageUID();
         return id;
+    }
+
+    /// <summary>
+    /// 计算总负载
+    /// </summary>
+    private void CalculateTotalLoadCost()
+    {
+        WreckageTotalLoadCost = 0;
+        foreach(var item in CurrentWreckageItems.Values)
+        {
+            WreckageTotalLoadCost += item.LoadCost;
+        }
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.WreckageLoadChange);
+    }
+
+    private void CalculateTotalLoadValue()
+    {
+        var loadRow = DataManager.Instance.battleCfg.ShipLoadBase;
+        var loadAdd = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipWreckageLoadTotal);
+        WreckageTotalLoadValue = (int)Mathf.Clamp(loadAdd + loadRow, 0, int.MaxValue);
     }
 
     #endregion

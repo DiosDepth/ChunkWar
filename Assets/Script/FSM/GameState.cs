@@ -313,7 +313,6 @@ public class EGameState_GameStart : GameState
         base.OnUpdate();
         if (LevelManager.Instance.needServicing)
         {
-            ///会引发Input的问题， 在按下案件的时候，同时 触发start和 canceled
             if (UIManager.Instance.IsMouseOverUI())
             {
                 InputDispatcher.Instance.ChangeInputMode("UI");

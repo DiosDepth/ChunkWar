@@ -16,7 +16,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private Image _icon;
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
-    private Text _costText;
+    private TextMeshProUGUI _sellText;
     private Transform _unitInfoRoot;
     private Text _typeText;
 
@@ -29,6 +29,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
         _descText = transform.Find("Content/Desc").GetComponent<TextMeshProUGUI>();
         _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
+        _sellText = transform.Find("Content/Sell/Value").SafeGetComponent<TextMeshProUGUI>();
         _unitInfoRoot = transform.Find("Content/UnitInfo");
         transform.Find("BG").SafeGetComponent<Button>().onClick.AddListener(OnBtnClick);
     }
@@ -64,23 +65,14 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         if (info == null)
             return;
 
-        var cfg = DataManager.Instance.GetUnitConfig(info.UnitID);
-        if (cfg == null)
-            return;
+        _nameText.text = info.Name;
+        _descText.text = info.Desc;
+        _icon.sprite = info.UnitConfig.GeneralConfig.IconSprite;
+        _nameText.color = info.RarityColor;
+        _typeText.text = info.TypeName;
+        _sellText.text = info.SellPrice.ToString();
 
-        _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Name);
-        _descText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Desc);
-        _icon.sprite = cfg.GeneralConfig.IconSprite;
-        _nameText.color = GameHelper.GetRarityColor(cfg.GeneralConfig.Rarity);
-        if (cfg.unitType == UnitType.Weapons)
-        {
-            _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipWeapon_Text);
-        }
-        else if (cfg.unitType == UnitType.Buildings)
-        {
-            _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipBuilding_Text);
-        }
-        SetUpUintInfo(cfg);
+        SetUpUintInfo(info.UnitConfig);
 
         var contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);

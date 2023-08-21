@@ -229,33 +229,33 @@ MonoBehaviour:
   WreckageDrops:
   - UnitID: 10000
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 100
+    LoadCost: 10
   - UnitID: 10001
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 42
+    LoadCost: 15
   - UnitID: 10002
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 23
+    LoadCost: 15
   - UnitID: 10003
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 123
+    LoadCost: 15
   - UnitID: 10005
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 12
+    LoadCost: 18
   - UnitID: 10006
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 43
+    LoadCost: 18
   - UnitID: 10007
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 23
+    LoadCost: 18
   - UnitID: 10008
     Weight: 20
-    SellPrice: 0
-    LoadCount: 0
+    SellPrice: 54
+    LoadCost: 18

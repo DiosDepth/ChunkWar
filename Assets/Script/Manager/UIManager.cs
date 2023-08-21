@@ -334,7 +334,7 @@ public class UIManager : Singleton<UIManager>
         return screenPos;
     }
 
-    public  bool IsMouseOverUI()
+    public bool IsMouseOverUI()
     {
         bool mouseOverUI = false;
         pointerEventData = new PointerEventData(EventSystem.current);
