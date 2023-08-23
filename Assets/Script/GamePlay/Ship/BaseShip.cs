@@ -12,20 +12,26 @@ public enum OwnerType
 
 public struct ShipStateEvent
 {
-
+    public BaseShip Ship;
     public ShipMovementState movementState;
     public ShipConditionState conditionState;
-    public ShipStateEvent(ShipMovementState m_movmentstate , ShipConditionState m_conditionstate)
+    public bool IsPlayer;
+
+    public ShipStateEvent(BaseShip ship, ShipMovementState m_movmentstate , ShipConditionState m_conditionstate, bool isPlayer)
     {
+        Ship = ship;
         movementState = m_movmentstate;
         conditionState = m_conditionstate;
+        IsPlayer = isPlayer;
     }
 
     public static ShipStateEvent e;
-    public static void Trigger(ShipMovementState m_movmentstate, ShipConditionState m_conditionstate)
+    public static void Trigger(BaseShip ship, ShipMovementState m_movmentstate, ShipConditionState m_conditionstate, bool isPlayer)
     {
+        e.Ship = ship;
         e.movementState = m_movmentstate;
         e.conditionState = m_conditionstate;
+        e.IsPlayer = isPlayer;
         EventCenter.Instance.TriggerEvent<ShipStateEvent>(e);
     }
 }
@@ -111,7 +117,7 @@ public class BaseShip : MonoBehaviour,IDropable
     public virtual void Death()
     {
         conditionState.ChangeState(ShipConditionState.Death);
-        ShipStateEvent.Trigger(movementState.CurrentState, conditionState.CurrentState);
+        ShipStateEvent.Trigger(this, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
     }
 
     public virtual void Ability()

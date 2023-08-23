@@ -57,4 +57,12 @@ public class MainCollectionEditor : OdinEditorWindow
         var win = GetWindow<MainCollectionEditor>();
         win.Close();
     }
+
+    [Button("≥…æÕ≈‰÷√", ButtonSizes.Large)]
+    public static void ShowAchievementEditor()
+    {
+        AchievementEditor.ShowWindow();
+        var win = GetWindow<MainCollectionEditor>();
+        win.Close();
+    }
 }

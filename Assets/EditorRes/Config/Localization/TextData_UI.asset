@@ -167,3 +167,15 @@ MonoBehaviour:
     ChineseSimplified: "\u8D27\u4ED3\u8D1F\u8F7D"
     English: 
     Japanese: 
+  - TextID: AchievementPage_Title
+    ChineseSimplified: "\u6210\u5C31"
+    English: 
+    Japanese: 
+  - TextID: GameMenu_Achievement
+    ChineseSimplified: "\u6210\u5C31"
+    English: 
+    Japanese: 
+  - TextID: GameMenu_Collection
+    ChineseSimplified: "\u6536\u85CF\u56FE\u9274"
+    English: 
+    Japanese: 

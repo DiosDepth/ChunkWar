@@ -69,6 +69,8 @@ public class WreckageItemInfo : RandomObject
 
     public BaseUnitConfig UnitConfig;
 
+    private bool _isSell = false;
+
     public WreckageItemInfo Clone()
     {
         WreckageItemInfo info = (WreckageItemInfo)this.MemberwiseClone();
@@ -89,6 +91,17 @@ public class WreckageItemInfo : RandomObject
         info._cfg = cfg;
         info.Init();
         return info;
+    }
+
+    public void Sell()
+    {
+        if (_isSell)
+            return;
+
+        RogueManager.Instance.AddCurrency(SellPrice);
+        RogueManager.Instance.RemoveWreckageByUID(UID);
+        RogueEvent.Trigger(RogueEventType.RefreshWreckage);
+        _isSell = true;
     }
 
     public void OnRemove()
@@ -123,7 +136,7 @@ public class WreckageItemInfo : RandomObject
     private void CalculateLoadCost()
     {
         var loadCost = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitLoadCost);
-        var load = Mathf.Clamp(_cfg.SellPrice * (1 + loadCost / 100f), 0, float.MaxValue);
+        var load = Mathf.Clamp(_cfg.LoadCost * (1 + loadCost / 100f), 0, float.MaxValue);
         LoadCost = Mathf.CeilToInt(load);
     }
 

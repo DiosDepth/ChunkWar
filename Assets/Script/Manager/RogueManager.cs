@@ -55,6 +55,7 @@ public enum RogueEventType
     WreckageDropRefresh,
     CancelWreckageSelect,
     WreckageAddToShip,
+    RefreshWreckage,
 }
 
 public enum ShipPropertyEventType
@@ -366,12 +367,12 @@ public class RogueManager : Singleton<RogueManager>
     public void RemoveWreckageByUID(uint uid)
     {
         var info = GetCurrentWreckageByUID(uid);
-        CalculateTotalLoadCost();
         if (info != null)
         {
             info.OnRemove();
         }
         CurrentWreckageItems.Remove(uid);
+        CalculateTotalLoadCost();
     }
 
     /// <summary>

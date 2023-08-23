@@ -32,6 +32,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _sellText = transform.Find("Content/Sell/Value").SafeGetComponent<TextMeshProUGUI>();
         _unitInfoRoot = transform.Find("Content/UnitInfo");
         transform.Find("BG").SafeGetComponent<Button>().onClick.AddListener(OnBtnClick);
+        transform.Find("Content/Sell").SafeGetComponent<Button>().onClick.AddListener(OnSellBtnClick);
     }
 
     public void SetDataGrid(int dataIndex, SelectableItemBase item, SelectedDelegate selected)
@@ -149,5 +150,13 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         item.RefUID = _info.UID;
         shipBuilder.currentInventoryItem = item;
         shipBuilder.SetBrushSprite();
+    }
+
+    private void OnSellBtnClick()
+    {
+        if (_info == null)
+            return;
+
+        _info.Sell();
     }
 }

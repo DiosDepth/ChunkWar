@@ -81,6 +81,10 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
                 OnHoverUnitDisplay((Unit)evt.param[0]);
                 break;
 
+            case RogueEventType.RefreshWreckage:
+                RefreshWreckageContent();
+                break;
+
             case RogueEventType.HideHoverUnitDisplay:
                 OnHideHoverUnitDisplay((Unit)evt.param[0]);
                 break;
