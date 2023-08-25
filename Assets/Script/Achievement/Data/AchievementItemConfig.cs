@@ -12,6 +12,7 @@ public enum AchievementConLstType
 
 public enum AchievementGroupType
 {
+    NONE,
     Normal,
     Battle,
 }
@@ -49,6 +50,11 @@ public class AchievementItemConfig : SerializedScriptableObject
 
     [PreviewField(200, Alignment = ObjectFieldAlignment.Left)]
     public Sprite Icon;
+
+    [LabelText("·Ö×é")]
+    [LabelWidth(80)]
+    [HorizontalGroup("AB", 300)]
+    public AchievementGroupType GroupType;
 
     public AchievementConLstType ListType;
 

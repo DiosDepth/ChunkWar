@@ -26,6 +26,13 @@ public struct AchievementEvent
     }
 }
 
+[System.Serializable]
+public class AchievementSaveData
+{
+    public int AchievementID;
+    public bool Unlock;
+    public string SaveTime;
+}
 
 public class AchievementManager : Singleton<AchievementManager>
 {
@@ -33,7 +40,6 @@ public class AchievementManager : Singleton<AchievementManager>
     private Dictionary<AchievementWatcherType, IAchievementWatcher> _watcherDic;
 
     private Dictionary<string, ChangeValue<int>> _game_statistics_int;
-
 
     public AchievementManager()
     {

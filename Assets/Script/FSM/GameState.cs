@@ -33,7 +33,6 @@ public class EGameState_WelcomScreen : GameState
         {
             MonoManager.Instance.StartCoroutine(DataManager.Instance.LoadAllData(() =>
             {
-
                 MonoManager.Instance.StartDelay(1.75f, () =>
                 {
                     LeanTween.alpha(panel.uiGroup.gameObject, 0, 0.25f).setOnComplete(() =>
@@ -43,6 +42,7 @@ public class EGameState_WelcomScreen : GameState
                     });
 
                 });
+                SaveLoadManager.Instance.Initialization();
             }));
         });
 

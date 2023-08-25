@@ -1,8 +1,39 @@
-
-
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 全局存档
+/// </summary>
+[System.Serializable]
+public class GlobalSaveData
+{
+    public List<AchievementSaveData> AchievementSaveData;
+
+    public static GlobalSaveData GenerateNewSaveData()
+    {
+        GlobalSaveData data = new GlobalSaveData();
+        ///Create Achievement
+        data.AchievementSaveData = new List<AchievementSaveData>();
+        var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
+
+        for (int i = 0; i < allAchievement.Count; i++) 
+        {
+            var achievementItem = allAchievement[i];
+            AchievementSaveData aSav = new AchievementSaveData();
+            aSav.AchievementID = achievementItem.AchievementID;
+            aSav.Unlock = false;
+            aSav.SaveTime = string.Empty;
+
+            data.AchievementSaveData.Add(aSav);
+        }
+
+        return data;
+    }
+}
+
+/// <summary>
+/// 局内存档
+/// </summary>
 [System.Serializable]
 public class SaveData 
 {

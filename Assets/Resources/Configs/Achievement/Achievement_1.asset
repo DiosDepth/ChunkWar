@@ -25,6 +25,7 @@ MonoBehaviour:
   AchievementName: AchievementName_1
   AchievementDesc: AchievementDesc_1
   Icon: {fileID: 21300000, guid: a549a779f89e4974aad822f86395d1c5, type: 3}
+  GroupType: 2
   ListType: 0
   Conditions:
   - AchievementKey: ENEMY_TOTAL_KILL

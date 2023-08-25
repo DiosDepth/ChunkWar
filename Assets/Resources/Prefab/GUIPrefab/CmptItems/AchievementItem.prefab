@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f421d700532f8164cbcc88f6545b5ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellIdentifier: 
 --- !u!1 &798997856647506125
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 798997856996340925}
   - component: {fileID: 798997856996340924}
+  - component: {fileID: 361091792796645465}
   m_Layer: 5
   m_Name: Finish
   m_TagString: Untagged
@@ -535,6 +537,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &361091792796645465
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798997856996340926}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &798997857090016346
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +907,7 @@ GameObject:
   - component: {fileID: 798997857593180929}
   - component: {fileID: 798997857593180943}
   - component: {fileID: 798997857593180928}
+  - component: {fileID: 5404198979306602770}
   m_Layer: 5
   m_Name: Progress
   m_TagString: Untagged
@@ -1018,6 +1033,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &5404198979306602770
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798997857593180930}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &798997857714776009
 GameObject:
   m_ObjectHideFlags: 0

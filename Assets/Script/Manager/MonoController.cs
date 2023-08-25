@@ -87,4 +87,9 @@ public class MonoController : MonoBehaviour
         DontDestroyOnLoad(target);
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveLoadManager.Instance.SaveGlobalSaveData();
+    }
+
 }

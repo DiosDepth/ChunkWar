@@ -39,3 +39,11 @@ MonoBehaviour:
     ChineseSimplified: "\u5B87\u5B99\u4E07\u8C61"
     English: 
     Japanese: 
+  - TextID: AchievementName_2
+    ChineseSimplified: "\u6210\u5C31\u6D4B\u8BD52"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_2
+    ChineseSimplified: "\u51FB\u67402000\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 

@@ -34,11 +34,11 @@ public class GameSavePage : GUIBasePanel
 
     private void InitPage()
     {
-        IniSaveController();
+        InitSaveController();
         RefreshSaveSelection();
     }
 
-    private void IniSaveController()
+    private void InitSaveController()
     {
         _itemController = new GeneralScrollerItemController();
         _itemController.InitPrefab(SaveItem_PrefabPath, true);

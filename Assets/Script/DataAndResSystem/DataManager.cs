@@ -227,6 +227,11 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
+    public List<AchievementItemConfig> GetAllAchievementConfigs()
+    {
+        return _achievementDic.Values.ToList();
+    }
+
     private IEnumerator LoadingData<T>(FileInfo file, Dictionary<string, T> dic, UnityAction callback) where T : DataInfo, new()
     {
 

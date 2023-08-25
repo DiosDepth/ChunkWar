@@ -168,6 +168,12 @@ public static class GameHelper
         return allsav.Select(x => (uint)x.SaveIndex).ToList();
     }
 
+    public static List<uint> GetAchievementsByGroupType(AchievementGroupType type)
+    {
+        var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
+        return allAchievement.FindAll(x => x.GroupType == type).Select(item => (uint)item.AchievementID).ToList();
+    }
+
     /// <summary>
     /// È«²¿½¢´¬ID
     /// </summary>
