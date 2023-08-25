@@ -22,7 +22,7 @@ public class GlobalSaveData
             AchievementSaveData aSav = new AchievementSaveData();
             aSav.AchievementID = achievementItem.AchievementID;
             aSav.Unlock = false;
-            aSav.SaveTime = string.Empty;
+            aSav.FinishTime = string.Empty;
 
             data.AchievementSaveData.Add(aSav);
         }

@@ -179,3 +179,7 @@ MonoBehaviour:
     ChineseSimplified: "\u6536\u85CF\u56FE\u9274"
     English: 
     Japanese: 
+  - TextID: AchievementItem_Complete
+    ChineseSimplified: "\u5B8C\u6210"
+    English: 
+    Japanese: 

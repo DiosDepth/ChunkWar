@@ -10,9 +10,11 @@ public class AchievementItemCmpt : EnhancedScrollerCellView
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
     private TextMeshProUGUI _progressText;
+    private TextMeshProUGUI _finishTimeText;
 
     private CanvasGroup _progressCanvas;
     private CanvasGroup _finishCanvas;
+    private Transform _unfinishMask;
 
     protected override void Awake()
     {
@@ -20,10 +22,13 @@ public class AchievementItemCmpt : EnhancedScrollerCellView
         _icon = transform.Find("Content/Icon/Image").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Name").SafeGetComponent<TextMeshProUGUI>();
         _descText = transform.Find("Content/Info/Desc").SafeGetComponent<TextMeshProUGUI>();
+        _finishTimeText = transform.Find("Content/Complete/Finish/Time").SafeGetComponent<TextMeshProUGUI>();
 
         _progressCanvas = transform.Find("Content/Complete/Progress").SafeGetComponent<CanvasGroup>();
         _progressText = transform.Find("Content/Complete/Progress").SafeGetComponent<TextMeshProUGUI>();
         _finishCanvas = transform.Find("Content/Complete/Finish").SafeGetComponent<CanvasGroup>();
+        _unfinishMask = transform.Find("Content/Icon/UnfinishMask");
+
     }
 
     public override void SetData(int index, SelectableItemBase item)
@@ -40,15 +45,16 @@ public class AchievementItemCmpt : EnhancedScrollerCellView
         _icon.sprite = info.Icon;
         _nameText.text = LocalizationManager.Instance.GetTextValue(info.AchievementName);
         _descText.text = LocalizationManager.Instance.GetTextValue(info.AchievementDesc);
-        var saveInfo = SaveLoadManager.Instance.GetSaveDataByID((int)ItemUID);
+        var saveInfo = SaveLoadManager.Instance.GetAchievementSaveDataByID((int)ItemUID);
         if(saveInfo != null)
         {
             _progressCanvas.ActiveCanvasGroup(!saveInfo.Unlock);
             _finishCanvas.ActiveCanvasGroup(saveInfo.Unlock);
+            _unfinishMask.SafeSetActive(!saveInfo.Unlock);
 
             if (saveInfo.Unlock)
             {
-
+                _finishTimeText.text = saveInfo.FinishTime;
             }
             else
             {

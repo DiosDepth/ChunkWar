@@ -31,3 +31,4 @@ MonoBehaviour:
   - AchievementKey: ENEMY_TOTAL_KILL
     Compare: 1
     Value: 1
+    CheckBoolValue: 0

@@ -246,8 +246,6 @@ public class RogueManager : Singleton<RogueManager>
         InitAllGoodsItems();
         AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
 
-        ///CreateSave
-        CreateNewSaveData();
     }
 
     public void RogueBattleOver()

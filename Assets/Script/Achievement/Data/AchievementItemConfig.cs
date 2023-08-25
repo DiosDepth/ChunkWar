@@ -95,4 +95,9 @@ public class AchievementConditionConfig
 
     public CompareType Compare;
     public int Value;
+
+    /// <summary>
+    /// Bool¿‡–Õ
+    /// </summary>
+    public bool CheckBoolValue = false;
 }

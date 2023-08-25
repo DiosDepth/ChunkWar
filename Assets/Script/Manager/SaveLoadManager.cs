@@ -301,7 +301,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 
     #region Game
 
-    public AchievementSaveData GetSaveDataByID(int achievementID)
+    public AchievementSaveData GetAchievementSaveDataByID(int achievementID)
     {
         if (_achievementSaveDatas.ContainsKey(achievementID))
             return _achievementSaveDatas[achievementID];

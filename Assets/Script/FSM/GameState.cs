@@ -43,6 +43,7 @@ public class EGameState_WelcomScreen : GameState
 
                 });
                 SaveLoadManager.Instance.Initialization();
+                AchievementManager.Instance.Initialization();
             }));
         });
 

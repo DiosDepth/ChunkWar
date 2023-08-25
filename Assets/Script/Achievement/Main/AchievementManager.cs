@@ -5,7 +5,15 @@ using System;
 
 public enum AchievementEventType
 {
-    UI_GroupSelected
+    UI_GroupSelected,
+    UI_ShowAchievementFinish,
+}
+
+public enum GameStatisticsType
+{
+    Int_Sum,
+    Int_Max,
+    Bool
 }
 
 public struct AchievementEvent
@@ -31,7 +39,69 @@ public class AchievementSaveData
 {
     public int AchievementID;
     public bool Unlock;
-    public string SaveTime;
+    public string FinishTime;
+}
+
+/// <summary>
+/// 统计数据
+/// </summary>
+public class GameStatisticsData
+{
+    public GameStatisticsType StatisticsType;
+
+    public ChangeValue<int> ValueInt;
+
+    public bool ValueBool = false;
+
+    private List<AchievementItemConfig> watcherAchievements;
+
+    public GameStatisticsData(GameStatisticsType type)
+    {
+        this.StatisticsType = type;
+        ValueInt = new ChangeValue<int>(0, 0, int.MaxValue);
+        watcherAchievements = new List<AchievementItemConfig>();
+    }
+
+    public void AddWatcher(AchievementItemConfig cfg)
+    {
+        if (!watcherAchievements.Contains(cfg))
+        {
+            watcherAchievements.Add(cfg);
+        }
+    }
+
+    public void AddValue(int value)
+    {
+        int newValue = ValueInt.Value + value;
+        ValueInt.Set(newValue);
+        CheckAchievementVaild();
+    }
+
+    public void SetValue(bool value)
+    {
+        if(ValueBool != value)
+        {
+            ValueBool = value;
+            CheckAchievementVaild();
+        }
+    }
+
+    public void SetValueMax(int value)
+    {
+        if (ValueInt.Value <= value)
+            return;
+
+        ValueInt.Set(value);
+        CheckAchievementVaild();
+    }
+
+    private void CheckAchievementVaild()
+    {
+        for (int i = 0; i < watcherAchievements.Count; i++) 
+        {
+            AchievementManager.Instance.CheckAchievementFinish(watcherAchievements[i]);
+        }
+    }
 }
 
 public class AchievementManager : Singleton<AchievementManager>
@@ -39,18 +109,19 @@ public class AchievementManager : Singleton<AchievementManager>
 
     private Dictionary<AchievementWatcherType, IAchievementWatcher> _watcherDic;
 
-    private Dictionary<string, ChangeValue<int>> _game_statistics_int;
+    private Dictionary<string, GameStatisticsData> _game_statistics_data;
 
     public AchievementManager()
     {
-        _watcherDic = new Dictionary<AchievementWatcherType, IAchievementWatcher>();
+       
     }
 
 
     public override void Initialization()
     {
         base.Initialization();
-        _game_statistics_int = new Dictionary<string, ChangeValue<int>>();
+        _watcherDic = new Dictionary<AchievementWatcherType, IAchievementWatcher>();
+        _game_statistics_data = new Dictionary<string, GameStatisticsData>();
         BindWatcherListener();
     }
 
@@ -84,9 +155,87 @@ public class AchievementManager : Singleton<AchievementManager>
         }
     }
 
+    /// <summary>
+    /// 成就是否完成
+    /// </summary>
+    /// <param name="cfg"></param>
+    public void CheckAchievementFinish(AchievementItemConfig cfg)
+    {
+        ///CheckUnlock 如果已经解锁，跳过
+        var sav = SaveLoadManager.Instance.GetAchievementSaveDataByID(cfg.AchievementID);
+        if (sav == null || sav.Unlock)
+            return;
+
+
+        bool result = true;
+        var con = cfg.Conditions;
+        for(int i = 0; i < con.Count; i++)
+        {
+            if(cfg.ListType == AchievementConLstType.And)
+            {
+                result &= AchievementConditionResult(con[i]);
+            }
+            else
+            {
+                result |= AchievementConditionResult(con[i]);
+            }
+        }
+
+        if (result)
+        {
+            ///Finish
+            Debug.Log(string.Format("Achievement Finish ! ID = {0}, Name = {1}, Desc = {2}", cfg.AchievementID, LocalizationManager.Instance.GetTextValue(cfg.AchievementName), LocalizationManager.Instance.GetTextValue(cfg.AchievementDesc)));
+
+            ///DisplayUI
+            AchievementEvent.Trigger(AchievementEventType.UI_ShowAchievementFinish, cfg);
+
+            sav.Unlock = true;
+            sav.FinishTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+        }
+    }
+
     private void BindWatcherListener()
     {
         AddWatcherListener<BaseShip>(AchievementWatcherType.EnemyKill, Watcher_OnEnmeyDie);
+        RegisterAchievementWatcher();
+    }
+
+    private void RegisterAchievementWatcher()
+    {
+        var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
+        for (int i = 0; i < allAchievement.Count; i++) 
+        {
+            var cfg = allAchievement[i];
+            _RegisterAchievementConditionWatcher(cfg);
+        }
+    }
+
+    private void _RegisterAchievementConditionWatcher(AchievementItemConfig cfg)
+    {
+        var con = cfg.Conditions;
+        for(int i = 0; i < con.Count; i++)
+        {
+            var key = con[i].AchievementKey;
+            var content = GetOrCreateStatistics_Content(key);
+            content.AddWatcher(cfg);
+        }
+    }
+
+    /// <summary>
+    /// 成就条件判断
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    private bool AchievementConditionResult(AchievementConditionConfig cfg)
+    {
+        var content = GetOrCreateStatistics_Content(cfg.AchievementKey);
+        if (cfg.CheckBoolValue)
+        {
+            return content.ValueBool;
+        }
+
+        var value = content.ValueInt.Value;
+        return MathExtensionTools.CalculateCompareType(value, cfg.Value, cfg.Compare);
     }
 
     #region Statistics
@@ -94,21 +243,37 @@ public class AchievementManager : Singleton<AchievementManager>
     /***敌人总击杀***/
     public const string StatisticsKey_ENEMY_TOTAL_KILL = "ENEMY_TOTAL_KILL";
 
-    public void AddStatistics_Int(string key, int value)
+    public void ChangeStatistics_Int(string key, int value)
     {
-        var content = GetOrCreateStatistics_IntContent(key);
-        int newValue = content.Value + value;
-        content.Set(newValue);
+        var content = GetOrCreateStatistics_Content(key);
+        if(content.StatisticsType == GameStatisticsType.Int_Max)
+        {
+            content.SetValueMax(value);
+        }
+        else if (content.StatisticsType == GameStatisticsType.Int_Sum)
+        {
+            content.AddValue(value);
+        }
     }
 
-    private ChangeValue<int> GetOrCreateStatistics_IntContent(string key)
+    private GameStatisticsData GetOrCreateStatistics_Content(string key)
     {
-        if (_game_statistics_int.ContainsKey(key))
-            return _game_statistics_int[key];
+        if (_game_statistics_data.ContainsKey(key))
+            return _game_statistics_data[key];
 
-        var content = new ChangeValue<int>(0, 0, int.MaxValue);
-        _game_statistics_int.Add(key, content);
+        var content = new GameStatisticsData(GetGameStasticsDataType(key));
+        _game_statistics_data.Add(key, content);
         return content;
+    }
+
+    private GameStatisticsType GetGameStasticsDataType(string key)
+    {
+        if (string.Compare(StatisticsKey_ENEMY_TOTAL_KILL, key) == 0) 
+        {
+            return GameStatisticsType.Int_Sum;
+        }
+
+        return GameStatisticsType.Int_Sum;
     }
 
     #endregion
@@ -117,7 +282,7 @@ public class AchievementManager : Singleton<AchievementManager>
 
     private void Watcher_OnEnmeyDie(BaseShip ship)
     {
-        AddStatistics_Int(StatisticsKey_ENEMY_TOTAL_KILL, 1);
+        ChangeStatistics_Int(StatisticsKey_ENEMY_TOTAL_KILL, 1);
     }
 
     #endregion
