@@ -24,11 +24,11 @@ MonoBehaviour:
   TextSetName: TextData_
   Texts:
   - TextID: AchievementName_1
-    ChineseSimplified: "\u6210\u5C31\u6D4B\u8BD51"
+    ChineseSimplified: "\u51FB\u67401"
     English: 
     Japanese: 
   - TextID: AchievementDesc_1
-    ChineseSimplified: "\u51FB\u67401000\u4E2A\u654C\u4EBA"
+    ChineseSimplified: "\u51FB\u6740500\u4E2A\u654C\u4EBA"
     English: 
     Japanese: 
   - TextID: AchievementGroup_Name_Battle
@@ -40,10 +40,102 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: AchievementName_2
-    ChineseSimplified: "\u6210\u5C31\u6D4B\u8BD52"
+    ChineseSimplified: "\u51FB\u67402"
     English: 
     Japanese: 
   - TextID: AchievementDesc_2
-    ChineseSimplified: "\u51FB\u67402000\u4E2A\u654C\u4EBA"
+    ChineseSimplified: "\u51FB\u67405000\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_3
+    ChineseSimplified: "\u51FB\u67403"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_3
+    ChineseSimplified: "\u51FB\u674010000\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_4
+    ChineseSimplified: "\u51FB\u67404"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_4
+    ChineseSimplified: "\u51FB\u674050000\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_5
+    ChineseSimplified: "\u51FA\u552E1"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_5
+    ChineseSimplified: "\u51FA\u552E100\u4E2A\u90E8\u4EF6"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_6
+    ChineseSimplified: "\u51FA\u552E2"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_6
+    ChineseSimplified: "\u51FA\u552E1000\u4E2A\u90E8\u4EF6"
+    English: 
+    Japanese: 
+  - TextID: AchievementGroup_Name_Economy
+    ChineseSimplified: "\u62FE\u8352\u8005"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_7
+    ChineseSimplified: "\u5408\u91D11"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_7
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F975000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_8
+    ChineseSimplified: "\u5408\u91D12"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_8
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F9710000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_9
+    ChineseSimplified: "\u5408\u91D13"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_9
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F97100000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_10
+    ChineseSimplified: "\u6301\u6709"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_10
+    ChineseSimplified: "\u5355\u573A\u6E38\u620F\u4E2D\u6700\u591A\u6301\u67091000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_11
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F971"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_11
+    ChineseSimplified: "\u83B7\u5F97\u76D2\u5B50100\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_12
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F972"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_12
+    ChineseSimplified: "\u83B7\u5F97\u76D2\u5B50500\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_13
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F973"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_13
+    ChineseSimplified: "\u83B7\u5F97\u76D2\u5B501000\u4E2A"
     English: 
     Japanese: 

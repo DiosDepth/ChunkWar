@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public enum AchievementConLstType
 {
@@ -15,9 +16,10 @@ public enum AchievementGroupType
     NONE,
     Normal,
     Battle,
+    Economy
 }
 
-public class AchievementItemConfig : SerializedScriptableObject
+public class AchievementItemConfig : SerializedScriptableObject, IComparable<AchievementItemConfig>
 {
     [LabelText("成就ID")]
     [LabelWidth(80)]
@@ -50,6 +52,11 @@ public class AchievementItemConfig : SerializedScriptableObject
 
     [PreviewField(200, Alignment = ObjectFieldAlignment.Left)]
     public Sprite Icon;
+
+    [LabelText("排序")]
+    [LabelWidth(80)]
+    [HorizontalGroup("AB", 300)]
+    public int Order;
 
     [LabelText("分组")]
     [LabelWidth(80)]
@@ -85,6 +92,13 @@ public class AchievementItemConfig : SerializedScriptableObject
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
+
+    public int CompareTo(AchievementItemConfig other)
+    {
+        var unlockSelf = SaveLoadManager.Instance.GetAchievementUnlockState(this.AchievementID);
+        var unlockOther = SaveLoadManager.Instance.GetAchievementUnlockState(other.AchievementID);
+        return unlockSelf.CompareTo(unlockOther);
+    }
 }
 
 [HideReferenceObjectPicker]
@@ -93,6 +107,7 @@ public class AchievementConditionConfig
 {
     public string AchievementKey;
 
+    public bool DisplayProgress = true; 
     public CompareType Compare;
     public int Value;
 

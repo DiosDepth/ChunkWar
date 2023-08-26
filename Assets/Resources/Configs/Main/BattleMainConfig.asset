@@ -129,13 +129,13 @@ MonoBehaviour:
       Data: 1
     - Name: DurationDelta
       Entry: 3
-      Data: 5
+      Data: 2
     - Name: LoopCount
       Entry: 3
       Data: 1
     - Name: StartTime
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: TotalCount
       Entry: 3
       Data: 4

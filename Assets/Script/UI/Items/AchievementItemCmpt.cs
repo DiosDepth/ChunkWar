@@ -11,10 +11,12 @@ public class AchievementItemCmpt : EnhancedScrollerCellView
     private TextMeshProUGUI _descText;
     private TextMeshProUGUI _progressText;
     private TextMeshProUGUI _finishTimeText;
+    private TextMeshProUGUI _statisticsText;
 
     private CanvasGroup _progressCanvas;
     private CanvasGroup _finishCanvas;
     private Transform _unfinishMask;
+    private Transform _statisticsContent;
 
     protected override void Awake()
     {
@@ -23,11 +25,13 @@ public class AchievementItemCmpt : EnhancedScrollerCellView
         _nameText = transform.Find("Content/Info/Name").SafeGetComponent<TextMeshProUGUI>();
         _descText = transform.Find("Content/Info/Desc").SafeGetComponent<TextMeshProUGUI>();
         _finishTimeText = transform.Find("Content/Complete/Finish/Time").SafeGetComponent<TextMeshProUGUI>();
+        _statisticsText = transform.Find("Content/Complete/Finish/Statistics/Value").SafeGetComponent<TextMeshProUGUI>();
 
         _progressCanvas = transform.Find("Content/Complete/Progress").SafeGetComponent<CanvasGroup>();
         _progressText = transform.Find("Content/Complete/Progress").SafeGetComponent<TextMeshProUGUI>();
         _finishCanvas = transform.Find("Content/Complete/Finish").SafeGetComponent<CanvasGroup>();
         _unfinishMask = transform.Find("Content/Icon/UnfinishMask");
+        _statisticsContent = transform.Find("Content/Complete/Finish/Statistics");
 
     }
 
@@ -58,7 +62,32 @@ public class AchievementItemCmpt : EnhancedScrollerCellView
             }
             else
             {
+                SetProgressText(info);
+            }
+        }
+    }
 
+    private void SetProgressText(AchievementItemConfig cfg)
+    {
+        var cons = cfg.Conditions;
+        for(int i = 0; i < cons.Count; i++)
+        {
+            var con = cons[i];
+            if (con.DisplayProgress)
+            {
+
+                ///Show Progress
+                int totalProgress = con.CheckBoolValue ? 1 : con.Value;
+                var currentProgress = AchievementManager.Instance.GetStatisticsValue(con.AchievementKey);
+                _progressText.text = string.Format("{0} / {1}", currentProgress, totalProgress);
+
+                ///累计进度显示
+                _statisticsContent.SafeSetActive(!con.CheckBoolValue);
+                if (!con.CheckBoolValue)
+                {
+                    _statisticsText.text = currentProgress.ToString();
+                }
+                return;
             }
         }
     }

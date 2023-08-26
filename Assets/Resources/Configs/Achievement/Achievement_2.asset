@@ -25,10 +25,12 @@ MonoBehaviour:
   AchievementName: AchievementName_2
   AchievementDesc: AchievementDesc_2
   Icon: {fileID: 21300000, guid: 5a5c21dfd44ba1546b95d8e9ec60d095, type: 3}
+  Order: 2
   GroupType: 2
   ListType: 0
   Conditions:
   - AchievementKey: ENEMY_TOTAL_KILL
+    DisplayProgress: 1
     Compare: 1
     Value: 1
     CheckBoolValue: 0

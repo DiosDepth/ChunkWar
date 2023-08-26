@@ -28,3 +28,6 @@ MonoBehaviour:
   - Type: 2
     GroupName: AchievementGroup_Name_Battle
     GroupIcon: {fileID: 21300000, guid: c651e9515bf5d9a4684e12a666740c0c, type: 3}
+  - Type: 3
+    GroupName: AchievementGroup_Name_Economy
+    GroupIcon: {fileID: 21300000, guid: aca82c182ff6696419dffe6bb29083d9, type: 3}

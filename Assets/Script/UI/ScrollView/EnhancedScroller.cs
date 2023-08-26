@@ -1753,9 +1753,13 @@ public class EnhancedScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         go = new GameObject("Container", typeof(RectTransform));
         go.transform.SetParent(_scrollRectTransform);
         if (scrollDirection == ScrollDirectionEnum.Vertical)
+        {
             go.AddComponent<VerticalLayoutGroup>();
+        }
         else
+        {
             go.AddComponent<HorizontalLayoutGroup>();
+        }
         _container = go.GetComponent<RectTransform>();
 
         // set the containers anchor and pivot
@@ -1797,7 +1801,7 @@ public class EnhancedScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         _layoutGroup.childAlignment = TextAnchor.MiddleLeft;
         _layoutGroup.childForceExpandHeight = true;
         _layoutGroup.childForceExpandWidth = true;
-        _layoutGroup.childControlHeight = false;
+        _layoutGroup.childControlHeight = true;
 
         // force the scroller to scroll in the direction we want
         _scrollRect.horizontal = scrollDirection == ScrollDirectionEnum.Horizontal;

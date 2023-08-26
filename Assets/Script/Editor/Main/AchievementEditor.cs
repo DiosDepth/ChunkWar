@@ -23,8 +23,17 @@ public class AchievementEditor : OdinMenuEditorWindow
         var tree = new OdinMenuTree(true);
         tree.Config.DrawSearchToolbar = true;
 
-        tree.AddAllAssetsAtPath("成就列表", "Assets/Resources/Configs/Achievement", typeof(AchievementItemConfig), true, true);
-
+        var menu = tree.AddAllAssetsAtPath("成就列表", "Assets/Resources/Configs/Achievement", typeof(AchievementItemConfig), true, true);
+        menu.ForEach(x =>
+        {
+            var childs = x.ChildMenuItems;
+            childs.ForEach(child =>
+            {
+                AchievementItemConfig info = child.Value as AchievementItemConfig;
+                child.Name = string.Format("{0}_{1}", info.AchievementID, LocalizationManager.Instance.GetTextValue(info.AchievementName));
+            });
+        });
+        tree.SortMenuItemsByName();
         return tree;
     }
 

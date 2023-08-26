@@ -42,6 +42,15 @@ public class AchievementSaveData
     public string FinishTime;
 }
 
+[System.Serializable]
+public class GameStatisticsSaveData
+{
+    public string KeyName;
+    public GameStatisticsType StatisticsType;
+    public bool ValueBool;
+    public int ValueInt;
+}
+
 /// <summary>
 /// 统计数据
 /// </summary>
@@ -60,6 +69,15 @@ public class GameStatisticsData
         this.StatisticsType = type;
         ValueInt = new ChangeValue<int>(0, 0, int.MaxValue);
         watcherAchievements = new List<AchievementItemConfig>();
+    }
+
+    public GameStatisticsSaveData CreateSaveData()
+    {
+        GameStatisticsSaveData sav = new GameStatisticsSaveData();
+        sav.StatisticsType = StatisticsType;
+        sav.ValueInt = ValueInt.Value;
+        sav.ValueBool = ValueBool;
+        return sav;
     }
 
     public void AddWatcher(AchievementItemConfig cfg)
@@ -145,6 +163,7 @@ public class AchievementManager : Singleton<AchievementManager>
     public override void Initialization()
     {
         base.Initialization();
+        LoadSaveData();
         BindWatcherListener();
     }
 
@@ -220,6 +239,9 @@ public class AchievementManager : Singleton<AchievementManager>
     private void BindWatcherListener()
     {
         AddWatcherListener<BaseShip>(AchievementWatcherType.EnemyKill, Watcher_OnEnmeyDie);
+        AddWatcherListener<BaseUnitConfig>(AchievementWatcherType.WreckageSell, Watcher_HarborUnitSell);
+        AddWatcherListener<int>(AchievementWatcherType.CurrencyChange, Watcher_CurrencyChange);
+        AddWatcherListener<GoodsItemRarity>(AchievementWatcherType.WreckageGain, Watcher_WreckageGain);
         RegisterAchievementWatcher();
     }
 
@@ -265,6 +287,25 @@ public class AchievementManager : Singleton<AchievementManager>
 
     /***敌人总击杀***/
     public const string StatisticsKey_ENEMY_TOTAL_KILL = "ENEMY_TOTAL_KILL";
+    /***出售总数***/
+    public const string StatisticsKey_HARBOR_SELLCOUNT_TOTAL = "HARBOR_SELLCOUNT_TOTAL";
+    /***总金币***/
+    public const string StatisticsKey_CURRENCY_GAIN_TOTAL = "CURRENCY_GAIN_TOTAL";
+    /***单局最大金币***/
+    public const string StatisticsKey_CURRENCY_MAX_PERBATTLE = "CURRENCY_MAX_PERBATTLE";
+    /***累计残骸***/
+    public const string StatisticsKey_WRECKAGE_GAIN_TOTAL = "WRECKAGE_GAIN_TOTAL";
+
+    public int GetStatisticsValue(string key)
+    {
+        var content = GetOrCreateStatistics_Content(key);
+        if(content.StatisticsType == GameStatisticsType.Bool)
+        {
+            return content.ValueBool ? 1 : 0;
+        }
+
+        return content.ValueInt.Value;
+    }
 
     public void ChangeStatistics_Int(string key, int value)
     {
@@ -291,9 +332,10 @@ public class AchievementManager : Singleton<AchievementManager>
 
     private GameStatisticsType GetGameStasticsDataType(string key)
     {
-        if (string.Compare(StatisticsKey_ENEMY_TOTAL_KILL, key) == 0) 
+        switch (key)
         {
-            return GameStatisticsType.Int_Sum;
+            case StatisticsKey_CURRENCY_MAX_PERBATTLE:
+                return GameStatisticsType.Int_Max;
         }
 
         return GameStatisticsType.Int_Sum;
@@ -303,9 +345,69 @@ public class AchievementManager : Singleton<AchievementManager>
 
     #region Watcher
 
+    /// <summary>
+    /// 单位死亡
+    /// </summary>
+    /// <param name="ship"></param>
     private void Watcher_OnEnmeyDie(BaseShip ship)
     {
         ChangeStatistics_Int(StatisticsKey_ENEMY_TOTAL_KILL, 1);
+    }
+
+    /// <summary>
+    /// 出售单位
+    /// </summary>
+    /// <param name="unitCfg"></param>
+    private void Watcher_HarborUnitSell(BaseUnitConfig unitCfg)
+    {
+        ChangeStatistics_Int(StatisticsKey_HARBOR_SELLCOUNT_TOTAL, 1);
+    }
+
+    private void Watcher_CurrencyChange(int value)
+    {
+        ChangeStatistics_Int(StatisticsKey_CURRENCY_GAIN_TOTAL, 1);
+        var currentCurrency = RogueManager.Instance.CurrentCurrency;
+        ChangeStatistics_Int(StatisticsKey_CURRENCY_MAX_PERBATTLE, currentCurrency);
+    }
+
+    private void Watcher_WreckageGain(GoodsItemRarity rarity)
+    {
+        ChangeStatistics_Int(StatisticsKey_WRECKAGE_GAIN_TOTAL, 1);
+    }
+
+    #endregion
+
+    #region Save
+
+    public void LoadSaveData()
+    {
+        var allStatisticsData = SaveLoadManager.Instance.globalSaveData.StatisticsSaveData;
+        if (allStatisticsData != null && allStatisticsData.Count > 0) 
+        {
+            for (int i = 0; i < allStatisticsData.Count; i++) 
+            {
+                    var sav = allStatisticsData[i];
+                if (_game_statistics_data.ContainsKey(sav.KeyName))
+                    continue;
+
+                GameStatisticsData data = new GameStatisticsData(sav.StatisticsType);
+                data.ValueBool = sav.ValueBool;
+                data.ValueInt.Set(sav.ValueInt);
+                _game_statistics_data.Add(sav.KeyName, data);
+            }
+        }
+    }
+
+    public List<GameStatisticsSaveData> GenerateGameStatisticsSaveData()
+    {
+        List<GameStatisticsSaveData> result = new List<GameStatisticsSaveData>();
+        foreach (var data in _game_statistics_data)
+        {
+            GameStatisticsSaveData sav = data.Value.CreateSaveData();
+            sav.KeyName = data.Key;
+            result.Add(sav);
+        }
+        return result;
     }
 
     #endregion

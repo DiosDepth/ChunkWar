@@ -6,6 +6,9 @@ using System;
 public enum AchievementWatcherType
 {
     EnemyKill,
+    WreckageSell,
+    CurrencyChange,
+    WreckageGain,
 }
 
 public interface IAchievementWatcher

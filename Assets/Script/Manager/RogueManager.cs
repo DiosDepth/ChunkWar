@@ -299,6 +299,12 @@ public class RogueManager : Singleton<RogueManager>
     private void OnCurrencyChange(float oldValue, float newValue)
     {
         RogueEvent.Trigger(RogueEventType.CurrencyChange);
+        var delta = newValue - oldValue;
+        if(delta > 0)
+        {
+            ///Achievement
+            AchievementManager.Instance.Trigger<int>(AchievementWatcherType.CurrencyChange, Mathf.CeilToInt(delta));
+        }
     }
 
     private void InitDefaultProperty()
@@ -353,6 +359,7 @@ public class RogueManager : Singleton<RogueManager>
     {
         _inLevelDropItems[rarity]++;
         RogueEvent.Trigger(RogueEventType.WreckageDropRefresh);
+        AchievementManager.Instance.Trigger<GoodsItemRarity>(AchievementWatcherType.WreckageGain, rarity);
     }
 
     public WreckageItemInfo GetCurrentWreckageByUID(uint uid)

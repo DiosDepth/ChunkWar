@@ -101,6 +101,7 @@ public class WreckageItemInfo : RandomObject
         RogueManager.Instance.AddCurrency(SellPrice);
         RogueManager.Instance.RemoveWreckageByUID(UID);
         RogueEvent.Trigger(RogueEventType.RefreshWreckage);
+        AchievementManager.Instance.Trigger<BaseUnitConfig>(AchievementWatcherType.WreckageSell, UnitConfig);
         _isSell = true;
     }
 

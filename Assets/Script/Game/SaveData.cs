@@ -8,6 +8,7 @@ using UnityEngine;
 public class GlobalSaveData
 {
     public List<AchievementSaveData> AchievementSaveData;
+    public List<GameStatisticsSaveData> StatisticsSaveData;
 
     public static GlobalSaveData GenerateNewSaveData()
     {
@@ -28,6 +29,31 @@ public class GlobalSaveData
         }
 
         return data;
+    }
+
+    public void CombineAchievementSaves()
+    {
+        var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
+        for (int i = 0; i < allAchievement.Count; i++)
+        {
+            var achievementItem = allAchievement[i];
+            ///Exists
+            if (AchievementSaveData.Find(x => x.AchievementID == achievementItem.AchievementID) != null)
+                continue;
+
+            ///Add New
+            AchievementSaveData aSav = new AchievementSaveData();
+            aSav.AchievementID = achievementItem.AchievementID;
+            aSav.Unlock = false;
+            aSav.FinishTime = string.Empty;
+
+            AchievementSaveData.Add(aSav);
+        }
+    }
+
+    public void Save()
+    {
+        StatisticsSaveData = AchievementManager.Instance.GenerateGameStatisticsSaveData();
     }
 }
 

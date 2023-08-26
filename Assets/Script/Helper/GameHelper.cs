@@ -168,10 +168,19 @@ public static class GameHelper
         return allsav.Select(x => (uint)x.SaveIndex).ToList();
     }
 
+    /// <summary>
+    /// 获取成就分类
+    /// 排序 => ID， 解锁状态
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public static List<uint> GetAchievementsByGroupType(AchievementGroupType type)
     {
         var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
-        return allAchievement.FindAll(x => x.GroupType == type).Select(item => (uint)item.AchievementID).ToList();
+        var lst = allAchievement.FindAll(x => x.GroupType == type)
+            .OrderBy(item => item.Order).ToList();
+        lst.Sort();
+        return lst.Select(item => (uint)item.AchievementID).ToList();
     }
 
     /// <summary>

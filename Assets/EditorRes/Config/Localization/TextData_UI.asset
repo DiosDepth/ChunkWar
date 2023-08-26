@@ -187,3 +187,7 @@ MonoBehaviour:
     ChineseSimplified: "\u6210\u5C31\u5B8C\u6210"
     English: 
     Japanese: 
+  - TextID: Achivement_Statistics_Total
+    ChineseSimplified: "\u603B\u8BA1"
+    English: 
+    Japanese: 

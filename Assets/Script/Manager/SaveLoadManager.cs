@@ -102,6 +102,8 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         var fullPath = savePath + DetermineSaveFileName(globalSaveName);
         if (File.Exists(fullPath) && globalSaveData != null)
         {
+            globalSaveData.Save();
+
             var saveBytes = SerializationUtility.SerializeValue<GlobalSaveData>(globalSaveData, DataFormat.Binary);
             using (FileStream fs = new FileStream(fullPath, FileMode.Create))
             {
@@ -144,6 +146,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
             globalSaveData = SerializationUtility.DeserializeValue<GlobalSaveData>(bytes, DataFormat.Binary);
             Debug.Assert(globalSaveData != null, "GlobalSaveData Null!");
         }
+        globalSaveData.CombineAchievementSaves();
         InitAchievementInfo();
     }
 
@@ -305,6 +308,20 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         if (_achievementSaveDatas.ContainsKey(achievementID))
             return _achievementSaveDatas[achievementID];
         return null;
+    }
+
+    /// <summary>
+    /// 成就是否解锁
+    /// </summary>
+    /// <param name="achievementID"></param>
+    /// <returns></returns>
+    public bool GetAchievementUnlockState(int achievementID)
+    {
+        var achievement = GetAchievementSaveDataByID(achievementID);
+        if (achievement == null)
+            return false;
+
+        return achievement.Unlock;
     }
 
     private void InitAchievementInfo()
