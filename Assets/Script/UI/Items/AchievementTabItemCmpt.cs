@@ -11,12 +11,16 @@ public class AchievementTabItemCmpt : MonoBehaviour, IPoolable
     private Image _icon;
     private TextMeshProUGUI _nameText;
     private Transform _selectedObj;
+    private Image _progressImage;
+    private TextMeshProUGUI _progressText;
 
     public void Awake()
     {
         _icon = transform.Find("Content/Icon").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Name").SafeGetComponent<TextMeshProUGUI>();
         _selectedObj = transform.Find("Selected");
+        _progressImage = transform.Find("Content/Info/Progress/Fill").SafeGetComponent<Image>();
+        _progressText = transform.Find("Content/Info/Progress/Value").SafeGetComponent<TextMeshProUGUI>();
         transform.Find("BG").SafeGetComponent<Button>().onClick.AddListener(OnBtnClick);
         SetSelected(false);
     }
@@ -30,6 +34,10 @@ public class AchievementTabItemCmpt : MonoBehaviour, IPoolable
             _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.GroupName);
             _icon.sprite = cfg.GroupIcon;
         }
+
+        var progress = GameHelper.GetAchievementGroupProgress(type);
+        _progressImage.fillAmount = progress;
+        _progressText.text = string.Format("{0}%", (int)(progress * 100));
     }
 
     private void OnBtnClick()

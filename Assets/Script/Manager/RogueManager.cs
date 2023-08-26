@@ -207,8 +207,12 @@ public class RogueManager : Singleton<RogueManager>
             CurrentWreckageItems.Add(uid, wreckage);
         }
         CalculateTotalLoadCost();
+
         ///Reset
-        _inLevelDropItems.Clear();
+        _inLevelDropItems[GoodsItemRarity.Tier1] = 0;
+        _inLevelDropItems[GoodsItemRarity.Tier2] = 0;
+        _inLevelDropItems[GoodsItemRarity.Tier3] = 0;
+        _inLevelDropItems[GoodsItemRarity.Tier4] = 0;
     }
 
     /// <summary>

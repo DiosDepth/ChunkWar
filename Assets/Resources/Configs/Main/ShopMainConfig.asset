@@ -259,3 +259,7 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 54
     LoadCost: 18
+  - UnitID: 1001
+    Weight: 100
+    SellPrice: 40
+    LoadCost: 10

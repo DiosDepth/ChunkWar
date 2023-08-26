@@ -416,7 +416,9 @@ MonoBehaviour:
   BaseHP: 0
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
-  GenerateShield: 0
-  ShieldHP: 0
-  ShieldRecoverValue: 0
-  ShieldRecoverTime: 0
+  ShieldConfig:
+    GenerateShield: 0
+    ShieldHP: 0
+    ShieldRecoverValue: 0
+    ShieldRecoverTime: 0
+    ShieldBaseRatio: 0

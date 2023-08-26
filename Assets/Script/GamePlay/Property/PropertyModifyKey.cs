@@ -97,4 +97,8 @@ public enum PropertyModifyKey
     /// 总负载能力，固定值
     /// </summary>
     ShipWreckageLoadTotal,
+    /// <summary>
+    /// 护盾半径增加
+    /// </summary>
+    ShieldRatioAdd,
 }

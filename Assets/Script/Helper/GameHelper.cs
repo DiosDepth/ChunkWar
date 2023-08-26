@@ -241,6 +241,30 @@ public static class GameHelper
     }
 
     /// <summary>
+    /// 成就组进度
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static float GetAchievementGroupProgress(AchievementGroupType type)
+    {
+        int unlockCount = 0;
+        var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
+        var items = allAchievement.FindAll(x => x.GroupType == type);
+        if (items == null || items.Count <= 0)
+            return 0;
+
+        for(int i = 0; i < items.Count; i++)
+        {
+            if(SaveLoadManager.Instance.GetAchievementUnlockState(items[i].AchievementID))
+            {
+                unlockCount++;
+            }
+        }
+
+        return unlockCount / (float)items.Count;
+    }
+
+    /// <summary>
     /// 获取升级后的稀有度
     /// </summary>
     /// <param name="baseRarity"></param>

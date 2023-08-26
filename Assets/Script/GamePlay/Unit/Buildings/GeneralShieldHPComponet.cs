@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneralShieldHPComponet
+public class GeneralShieldHPComponet : BaseBuildingComponent
 {
     public int ShieldRecoverValue
     {
@@ -19,7 +19,8 @@ public class GeneralShieldHPComponet
         get;
         protected set;
     }
-    
+
+    public MonoShield monoShield;
 
     private int _shieldRecoverValueBase;
     private int _shieldHPBase;
@@ -66,6 +67,16 @@ public class GeneralShieldHPComponet
     }
 
     /// <summary>
+    /// 护盾半径
+    /// </summary>
+    public float ShieldRatio
+    {
+        get;
+        private set;
+    }
+
+    private float _shieldRatioBase = 0;
+    /// <summary>
     /// 护盾受击回复Timer
     /// </summary>
     private float _shieldRecoverTimer = 0;
@@ -79,26 +90,43 @@ public class GeneralShieldHPComponet
     private float _recoverDeltaTimer = 0;
     private float _recoverDeltaTime;
 
-    public GeneralShieldHPComponet(BuildingConfig cfg)
+    public GeneralShieldHPComponet(BuildingShieldConfig cfg)
     {
         _shieldRecoverValueBase = cfg.ShieldRecoverValue;
         _shieldRecoverCDBase = cfg.ShieldRecoverTime;
         _shieldHPBase = cfg.ShieldHP;
-
+        _shieldRatioBase = cfg.ShieldBaseRatio;
         _recoverDeltaTime = DataManager.Instance.battleCfg.ShieldRecoverCD;
         mainProperty = RogueManager.Instance.MainPropertyData;
-
-        mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldHP, CalculateMaxShieldHP);
-        mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRecoverValue, CalculateShieldRecoverValue);
-        mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRecoverTimeReduce, CalculateShieldRecoverTime);
-
-        CalculateMaxShieldHP();
-        CalculateShieldRecoverValue();
-        CalculateShieldRecoverTime();
-        _currentShieldHP = new ChangeValue<int>(MaxShieldHP, 0, MaxShieldHP);
     }
 
-    public void OnUpdate()
+    public override void OnInit(BaseShip owner)
+    {
+        base.OnInit(owner);
+        _currentShieldHP = new ChangeValue<int>(MaxShieldHP, 0, MaxShieldHP);
+        if (owner is PlayerShip)
+        {
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldHP, CalculateMaxShieldHP);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRecoverValue, CalculateShieldRecoverValue);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRecoverTimeReduce, CalculateShieldRecoverTime);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRatioAdd, CalculateShieldRatio);
+            CalculateMaxShieldHP();
+            CalculateShieldRecoverValue();
+            CalculateShieldRecoverTime();
+            CalculateShieldRatio();
+        }
+        else
+        {
+            ///Enemy
+            MaxShieldHP = _shieldHPBase;
+            ShieldRatio = _shieldRatioBase;
+            ShieldRecoverTime = _shieldRecoverCDBase;
+            ShieldRecoverValue = _shieldRecoverValueBase;
+        }
+        _currentShieldHP.Set(MaxShieldHP);
+    }
+
+    public override void OnUpdate()
     {
         ///护盾满则不恢复
         if (GetCurrentShieldHP >= MaxShieldHP)
@@ -125,13 +153,16 @@ public class GeneralShieldHPComponet
         }
     }
 
-    public void OnDestroy()
+    public override void OnRemove()
     {
-        mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldHP, CalculateMaxShieldHP);
-        mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldRecoverValue, CalculateShieldRecoverValue);
-        mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldRecoverTimeReduce, CalculateShieldRecoverTime);
+        base.OnRemove();
+        if(OwnerShip is PlayerShip)
+        {
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldHP, CalculateMaxShieldHP);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldRecoverValue, CalculateShieldRecoverValue);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldRecoverTimeReduce, CalculateShieldRecoverTime);
+        }
     }
-
     /// <summary>
     /// 改变血量
     /// </summary>
@@ -174,6 +205,13 @@ public class GeneralShieldHPComponet
             _recoverDeltaTimer = 0;
             _shieldRecoverTimer = 0;
         }
+    }
+
+    private void CalculateShieldRatio()
+    {
+        var shieldMinRatio = DataManager.Instance.battleCfg.ShieldRatioMin;
+        var ratioValue = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldRatioAdd);
+        ShieldRatio = Mathf.Clamp(ratioValue + _shieldRatioBase, shieldMinRatio, int.MaxValue);
     }
 
     /// <summary>

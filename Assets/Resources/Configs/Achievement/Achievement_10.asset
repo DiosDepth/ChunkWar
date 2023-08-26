@@ -30,6 +30,7 @@ MonoBehaviour:
   ListType: 0
   Conditions:
   - AchievementKey: CURRENCY_MAX_PERBATTLE
+    DisplayProgress: 1
     Compare: 1
     Value: 1000
     CheckBoolValue: 0

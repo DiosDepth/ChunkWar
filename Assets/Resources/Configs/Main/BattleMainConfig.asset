@@ -760,7 +760,7 @@ MonoBehaviour:
   HardLevelWaveIndexMultiple: 20
   ShipMaxLevel: 50
   TransfixionReduce_Max: 0
-  ShieldRecoverCD: 0.3
+  ShieldRecoverCD: 0.5
   ShipBaseSuckerRange: 10
   ShipMinSuckerRange: 5
   ShipLoadBase: 50

@@ -20,10 +20,25 @@ public class MonoShield : MonoBehaviour
     private MeshFilter m_mesh;
     private MeshRenderer m_render;
 
+    private GeneralShieldHPComponet shieldCmpt;
+    private BaseShip ownerShip;
+
     public void Awake()
     {
         m_mesh = transform.SafeGetComponent<MeshFilter>();
         m_render = transform.SafeGetComponent<MeshRenderer>();
+    }
+
+    public void InitShield(GeneralShieldHPComponet cmpt, BaseShip ownerShip)
+    {
+        shieldCmpt = cmpt;
+        this.ownerShip = ownerShip;
+        UpdateShieldRatio();
+    }
+
+    public void UpdateShieldRatio()
+    {
+        Radius = shieldCmpt.ShieldRatio;
         GetSector(transform.position, angle, Radius, Quality);
     }
 

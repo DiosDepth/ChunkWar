@@ -1754,11 +1754,11 @@ public class EnhancedScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         go.transform.SetParent(_scrollRectTransform);
         if (scrollDirection == ScrollDirectionEnum.Vertical)
         {
-            go.AddComponent<VerticalLayoutGroup>();
+            var cmpt = go.AddComponent<VerticalLayoutGroup>();
         }
         else
         {
-            go.AddComponent<HorizontalLayoutGroup>();
+            var cmpt = go.AddComponent<HorizontalLayoutGroup>();
         }
         _container = go.GetComponent<RectTransform>();
 
@@ -1796,12 +1796,17 @@ public class EnhancedScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandle
 
         // cache the layout group and set up its spacing and padding
         _layoutGroup = _container.GetComponent<HorizontalOrVerticalLayoutGroup>();
+
+        _layoutGroup.childForceExpandHeight = scrollDirection == ScrollDirectionEnum.Vertical;
+        _layoutGroup.childControlHeight = scrollDirection == ScrollDirectionEnum.Vertical;
+
+        _layoutGroup.childForceExpandWidth = scrollDirection == ScrollDirectionEnum.Horizontal;
+        _layoutGroup.childControlWidth = scrollDirection == ScrollDirectionEnum.Horizontal;
+
         _layoutGroup.spacing = spacing;
         _layoutGroup.padding = padding;
         _layoutGroup.childAlignment = TextAnchor.MiddleLeft;
-        _layoutGroup.childForceExpandHeight = true;
         _layoutGroup.childForceExpandWidth = true;
-        _layoutGroup.childControlHeight = true;
 
         // force the scroller to scroll in the direction we want
         _scrollRect.horizontal = scrollDirection == ScrollDirectionEnum.Horizontal;
