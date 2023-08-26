@@ -30,5 +30,5 @@ MonoBehaviour:
   Conditions:
   - AchievementKey: ENEMY_TOTAL_KILL
     Compare: 1
-    Value: 2000
+    Value: 1
     CheckBoolValue: 0

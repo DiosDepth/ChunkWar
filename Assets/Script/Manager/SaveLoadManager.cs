@@ -143,9 +143,8 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
             var bytes = File.ReadAllBytes(fullPath);
             globalSaveData = SerializationUtility.DeserializeValue<GlobalSaveData>(bytes, DataFormat.Binary);
             Debug.Assert(globalSaveData != null, "GlobalSaveData Null!");
-
-            InitAchievementInfo();
         }
+        InitAchievementInfo();
     }
 
 

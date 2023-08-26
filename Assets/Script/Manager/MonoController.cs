@@ -29,6 +29,7 @@ public class MonoController : MonoBehaviour
 
     void Update()
     {
+        AchievementManager.Instance.OnUpdate();
         if (updateEvent != null)
         {
             updateEvent();

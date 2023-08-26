@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Cysharp.Threading.Tasks;
 
 public enum AchievementEventType
 {
     UI_GroupSelected,
-    UI_ShowAchievementFinish,
 }
 
 public enum GameStatisticsType
@@ -111,17 +111,40 @@ public class AchievementManager : Singleton<AchievementManager>
 
     private Dictionary<string, GameStatisticsData> _game_statistics_data;
 
+    private Queue<AchievementItemConfig> _achievementUIQueue;
+    private bool _isShowingAchievement = false;
+
     public AchievementManager()
     {
-       
+        _achievementUIQueue = new Queue<AchievementItemConfig>();
+        _watcherDic = new Dictionary<AchievementWatcherType, IAchievementWatcher>();
+        _game_statistics_data = new Dictionary<string, GameStatisticsData>();
     }
 
+    public async void OnUpdate()
+    {
+        if (_achievementUIQueue.Count <= 0)
+            return;
+
+        if(_achievementUIQueue.Count > 0 && !_isShowingAchievement)
+        {
+            _isShowingAchievement = true;
+            var achievement = _achievementUIQueue.Dequeue();
+            AchievementUI m_ui = null;
+            UIManager.Instance.CreatePoolerUI<AchievementUI>("AchievementUI", true, E_UI_Layer.Top, null, (panel) =>
+            {
+                m_ui = panel;
+                panel.SetUp(achievement);
+            });
+            await UniTask.WaitUntil(() => m_ui != null);
+            await UniTask.WaitUntil(() => m_ui.IsFinish);
+            _isShowingAchievement = false;
+        }
+    }
 
     public override void Initialization()
     {
         base.Initialization();
-        _watcherDic = new Dictionary<AchievementWatcherType, IAchievementWatcher>();
-        _game_statistics_data = new Dictionary<string, GameStatisticsData>();
         BindWatcherListener();
     }
 
@@ -187,7 +210,7 @@ public class AchievementManager : Singleton<AchievementManager>
             Debug.Log(string.Format("Achievement Finish ! ID = {0}, Name = {1}, Desc = {2}", cfg.AchievementID, LocalizationManager.Instance.GetTextValue(cfg.AchievementName), LocalizationManager.Instance.GetTextValue(cfg.AchievementDesc)));
 
             ///DisplayUI
-            AchievementEvent.Trigger(AchievementEventType.UI_ShowAchievementFinish, cfg);
+            _achievementUIQueue.Enqueue(cfg);
 
             sav.Unlock = true;
             sav.FinishTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");

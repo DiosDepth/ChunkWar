@@ -22,3 +22,4 @@ ChunkWarProject.sln
 .vs/ChunkWarProject/v15/Server/sqlite3/storage.ide-shm
 .vs/ChunkWarProject/v15/Server/sqlite3/storage.ide-wal
 Assets/Data/PlayerSaveInfo
+Assets/Data/GlobalSaveData.sav

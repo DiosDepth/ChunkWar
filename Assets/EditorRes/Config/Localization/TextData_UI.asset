@@ -183,3 +183,7 @@ MonoBehaviour:
     ChineseSimplified: "\u5B8C\u6210"
     English: 
     Japanese: 
+  - TextID: AchievementFinish_Title
+    ChineseSimplified: "\u6210\u5C31\u5B8C\u6210"
+    English: 
+    Japanese: 
