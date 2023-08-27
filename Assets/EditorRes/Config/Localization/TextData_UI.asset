@@ -191,3 +191,19 @@ MonoBehaviour:
     ChineseSimplified: "\u603B\u8BA1"
     English: 
     Japanese: 
+  - TextID: CollectionMenu_ShipPlug
+    ChineseSimplified: "\u8230\u8239\u90E8\u4EF6"
+    English: 
+    Japanese: 
+  - TextID: CollectionMenu_Introduction
+    ChineseSimplified: "\u4ECB\u7ECD"
+    English: 
+    Japanese: 
+  - TextID: CollectionMenu_IntroductionBattle
+    ChineseSimplified: "\u6218\u6597\u540D\u8BCD"
+    English: 
+    Japanese: 
+  - TextID: 
+    ChineseSimplified: 
+    English: 
+    Japanese: 
