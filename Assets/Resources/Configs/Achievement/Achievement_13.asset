@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed362995b05dc0b42bd9fb75d12bfe58, type: 3}
+  m_Name: Achievement_13
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  AchievementID: 13
+  AchievementName: AchievementName_13
+  AchievementDesc: AchievementDesc_13
+  Icon: {fileID: 21300000, guid: e2d640be12a5d9c4c8a66a44898c0e35, type: 3}
+  Order: 9
+  GroupType: 3
+  ListType: 0
+  Conditions:
+  - AchievementKey: WRECKAGE_GAIN_TOTAL
+    DisplayProgress: 1
+    Compare: 1
+    Value: 1000
+    CheckBoolValue: 0

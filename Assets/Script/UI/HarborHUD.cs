@@ -15,9 +15,11 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     private Text _propertyBtnText;
 
     private ShipPropertySliderCmpt _energySlider;
+    private ShipPropertySliderCmpt _loadSlider;
     private BuildSelectHoverCmpt _hoverCmpt;
     private ShipPropertyGroupPanel _propertyGroup;
     private UnitDetailInfoPanel _detailPanel;
+
 
 
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
@@ -32,11 +34,13 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
         _wreckageSlotScroller = transform.Find("ItemPanel/Content/ItemContent/Scroll View").SafeGetComponent<EnhancedScroller>();
         _energySlider = transform.Find("EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _loadSlider = transform.Find("ItemPanel/Top/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _propertyGroup = transform.Find("ItemPanel/Content/Property/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
         _propertyBtnText = transform.Find("ItemPanel/Content/Property/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
         _detailPanel = transform.Find("UnitDetailPanel/Content").SafeGetComponent<UnitDetailInfoPanel>();
+
     }
 
     public override void Initialization()
@@ -49,6 +53,8 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         _detailPanel.Hide();
         _hoverCmpt.SetActive(false);
         RefreshGeneral();
+
+        
     }
 
     public override void Hidden()
@@ -75,6 +81,10 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
                 OnHoverUnitDisplay((Unit)evt.param[0]);
                 break;
 
+            case RogueEventType.RefreshWreckage:
+                RefreshWreckageContent();
+                break;
+
             case RogueEventType.HideHoverUnitDisplay:
                 OnHideHoverUnitDisplay((Unit)evt.param[0]);
                 break;
@@ -96,6 +106,10 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
             case ShipPropertyEventType.EnergyChange:
                 RefreshEnergySlider();
                 break;
+
+            case ShipPropertyEventType.WreckageLoadChange:
+                RefreshLoadSlider();
+                break;
         }
     }
 
@@ -104,12 +118,18 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         InitPlugController();
         InitWreckageController();
         RefreshEnergySlider();
+        RefreshLoadSlider();
         OnShipPropertySwitchClick();
     }
 
     private void RefreshEnergySlider()
     {
         _energySlider.RefreshEnergy();
+    }
+    
+    private void RefreshLoadSlider()
+    {
+        _loadSlider.RefreshLoad();
     }
 
     /// <summary>

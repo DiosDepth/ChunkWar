@@ -29,6 +29,7 @@ public class MonoController : MonoBehaviour
 
     void Update()
     {
+        AchievementManager.Instance.OnUpdate();
         if (updateEvent != null)
         {
             updateEvent();
@@ -85,6 +86,11 @@ public class MonoController : MonoBehaviour
     public void DontDestroy(Object target)
     {
         DontDestroyOnLoad(target);
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveLoadManager.Instance.SaveGlobalSaveData();
     }
 
 }

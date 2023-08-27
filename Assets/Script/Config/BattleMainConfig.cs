@@ -27,7 +27,8 @@ public class BattleMainConfig : SerializedScriptableObject
     /// <summary>
     /// 护盾多久恢复一次
     /// </summary>
-    public float ShieldRecoverCD = 0.3f;
+    public float ShieldRecoverCD = 0.5f;
+    public float ShieldRatioMin = 1f;
     public float ShipBaseSuckerRange = 10f;
     public float ShipMinSuckerRange = 5f;
     public int ShipLoadBase = 50;

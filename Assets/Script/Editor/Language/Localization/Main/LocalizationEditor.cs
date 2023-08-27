@@ -116,7 +116,7 @@ public class LocalizationEditor : OdinMenuEditorWindow
             {
                 if (!string.IsNullOrEmpty(item.TextID))
                 {
-                    if (!languageDic[SystemLanguage.ChineseSimplified].ContainsKey(item.TextID))
+                    if (!languageDic[SystemLanguage.ChineseSimplified].ContainsKey(item.TextID) && !string.IsNullOrEmpty(item.ChineseSimplified))
                     {
                         ///Replace
                         string replaceLine = item.ChineseSimplified.Replace("\\n", "\n");
@@ -125,16 +125,16 @@ public class LocalizationEditor : OdinMenuEditorWindow
                     }
                     else
                     {
-                        ErrorSb.Append(string.Format("存在相同文本ID, ID = {0} \n", item.TextID));
+                        ErrorSb.Append(string.Format("存在相同文本ID或文本为空, ID = {0} \n", item.TextID));
                         continue;
                     }
 
-                    if (!languageDic[SystemLanguage.English].ContainsKey(item.TextID))
+                    if (!languageDic[SystemLanguage.English].ContainsKey(item.TextID) && !string.IsNullOrEmpty(item.English))
                     {
                         languageDic[SystemLanguage.English].Add(item.TextID, item.English);
                     }
 
-                    if (!languageDic[SystemLanguage.Japanese].ContainsKey(item.TextID))
+                    if (!languageDic[SystemLanguage.Japanese].ContainsKey(item.TextID) && !string.IsNullOrEmpty(item.Japanese))
                     {
                         languageDic[SystemLanguage.Japanese].Add(item.TextID, item.Japanese);
                     }

@@ -169,6 +169,21 @@ public static class GameHelper
     }
 
     /// <summary>
+    /// 获取成就分类
+    /// 排序 => ID， 解锁状态
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static List<uint> GetAchievementsByGroupType(AchievementGroupType type)
+    {
+        var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
+        var lst = allAchievement.FindAll(x => x.GroupType == type)
+            .OrderBy(item => item.Order).ToList();
+        lst.Sort();
+        return lst.Select(item => (uint)item.AchievementID).ToList();
+    }
+
+    /// <summary>
     /// 全部舰船ID
     /// </summary>
     /// <returns></returns>
@@ -223,6 +238,30 @@ public static class GameHelper
     {
         var addMap = DataManager.Instance.battleCfg.EvolveAddMap;
         return addMap[(int)rarity];
+    }
+
+    /// <summary>
+    /// 成就组进度
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static float GetAchievementGroupProgress(AchievementGroupType type)
+    {
+        int unlockCount = 0;
+        var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
+        var items = allAchievement.FindAll(x => x.GroupType == type);
+        if (items == null || items.Count <= 0)
+            return 0;
+
+        for(int i = 0; i < items.Count; i++)
+        {
+            if(SaveLoadManager.Instance.GetAchievementUnlockState(items[i].AchievementID))
+            {
+                unlockCount++;
+            }
+        }
+
+        return unlockCount / (float)items.Count;
     }
 
     /// <summary>

@@ -507,10 +507,7 @@ public class PlayerShip : BaseShip
                 }
                 else
                 {
-                    if(unitconfig.unitType == UnitType.Weapons)
-                    {
-                        (tempunit as ShipWeapon).Initialization(this, unitconfig);
-                    }
+                    tempunit.Initialization(this, unitconfig);
                 }
 
                 obj.transform.parent = buildingsParent.transform;

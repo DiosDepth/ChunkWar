@@ -77,11 +77,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     private AsyncOperation asy;
  
-
-
-
- 
-
     public LevelEntity currentLevel;
     public LevelDataInfo LevelInfo;
 
@@ -114,6 +109,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         base.Initialization();
     }
+
     public void OnEvent(LevelEvent evt)
     {
         switch (evt.evtType)
@@ -296,8 +292,24 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             case ShipConditionState.Immovable:
                 break;
             case ShipConditionState.Death:
-                LevelStop();
+                if (evt.IsPlayer)
+                {
+                    LevelStop();
+                }
+                else
+                {
+                    OnEnemyShipDie(evt.Ship);
+                }
                 break;
         }
+    }
+
+    /// <summary>
+    /// 敌人死亡
+    /// </summary>
+    /// <param name="ship"></param>
+    private void OnEnemyShipDie(BaseShip ship)
+    {
+        AchievementManager.Instance.Trigger<BaseShip>(AchievementWatcherType.EnemyKill, ship);
     }
 }

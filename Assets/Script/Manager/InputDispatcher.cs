@@ -41,6 +41,9 @@ public class InputDispatcher : MonoBehaviour
     /// <param name="inputmapname"></param>
     public void ChangeInputMode(string inputmapname)
     {
+        if (string.Compare(playerInput.currentActionMap.name, inputmapname) == 0)
+            return;
+
         playerInput.SwitchCurrentActionMap(inputmapname);
         playerInput.currentActionMap.Enable();
     }

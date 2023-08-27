@@ -23,6 +23,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
     private Dictionary<int, PlayerShipConfig> _shipConfigDic = new Dictionary<int, PlayerShipConfig>();
     private Dictionary<int, AIShipConfig> _AIShipConfigDic = new Dictionary<int, AIShipConfig>();
+    private Dictionary<int, AchievementItemConfig> _achievementDic = new Dictionary<int, AchievementItemConfig>();
 
     /// <summary>
     /// Unit 升级组
@@ -32,6 +33,7 @@ public class DataManager : Singleton<DataManager>
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
     public ShipPlugConfig shipPlugCfg;
+    public GameMiscConfig gameMiscCfg;
 
     public DataManager()
     {
@@ -113,6 +115,7 @@ public class DataManager : Singleton<DataManager>
         battleCfg = ResManager.Instance.Load<BattleMainConfig>(DataConfigPath.BattleMainConfigPath);
         shopCfg = ResManager.Instance.Load<ShopMainConfig>(DataConfigPath.ShopMainConfigPath);
         shipPlugCfg = ResManager.Instance.Load<ShipPlugConfig>(DataConfigPath.ShipPlugMainConfigPath);
+        gameMiscCfg = ResManager.Instance.Load<GameMiscConfig>(DataConfigPath.GameMiscConfigPath);
 
         if (shopCfg != null)
         {
@@ -216,6 +219,19 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
+    public AchievementItemConfig GetAchievementItemConfig(int id)
+    {
+        AchievementItemConfig result = null;
+        _achievementDic.TryGetValue(id, out result);
+        Debug.Assert(result != null, "GetAchievementItemConfig Null! ID= " + id);
+        return result;
+    }
+
+    public List<AchievementItemConfig> GetAllAchievementConfigs()
+    {
+        return _achievementDic.Values.ToList();
+    }
+
     private IEnumerator LoadingData<T>(FileInfo file, Dictionary<string, T> dic, UnityAction callback) where T : DataInfo, new()
     {
 
@@ -305,6 +321,7 @@ public class DataManager : Singleton<DataManager>
         var ships = Resources.LoadAll<PlayerShipConfig>(DataConfigPath.ShipConfigRoot);
         var weapons = Resources.LoadAll<WeaponConfig>(DataConfigPath.WeaponConfigRoot);
         var enemy = Resources.LoadAll<AIShipConfig>(DataConfigPath.EnemyShipConfigRoot);
+        var achievement = Resources.LoadAll<AchievementItemConfig>(DataConfigPath.AchievementConfigRoot);
 
         if (builds != null && builds.Length > 0)
         {
@@ -345,6 +362,19 @@ public class DataManager : Singleton<DataManager>
                     continue;
                 }
                 _AIShipConfigDic.Add(enemy[i].ID, enemy[i]);
+            }
+        }
+
+        if(achievement != null && achievement.Length > 0)
+        {
+            for (int i = 0; i < achievement.Length; i++) 
+            {
+                if (_achievementDic.ContainsKey(achievement[i].AchievementID))
+                {
+                    Debug.LogError("Find Same achievementID !" + achievement[i].AchievementID);
+                    continue;
+                }
+                _achievementDic.Add(achievement[i].AchievementID, achievement[i]);
             }
         }
     }

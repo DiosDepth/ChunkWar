@@ -33,7 +33,6 @@ public class EGameState_WelcomScreen : GameState
         {
             MonoManager.Instance.StartCoroutine(DataManager.Instance.LoadAllData(() =>
             {
-
                 MonoManager.Instance.StartDelay(1.75f, () =>
                 {
                     LeanTween.alpha(panel.uiGroup.gameObject, 0, 0.25f).setOnComplete(() =>
@@ -43,6 +42,8 @@ public class EGameState_WelcomScreen : GameState
                     });
 
                 });
+                SaveLoadManager.Instance.Initialization();
+                AchievementManager.Instance.Initialization();
             }));
         });
 
@@ -313,7 +314,6 @@ public class EGameState_GameStart : GameState
         base.OnUpdate();
         if (LevelManager.Instance.needServicing)
         {
-            ///会引发Input的问题， 在按下案件的时候，同时 触发start和 canceled
             if (UIManager.Instance.IsMouseOverUI())
             {
                 InputDispatcher.Instance.ChangeInputMode("UI");

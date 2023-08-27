@@ -138,11 +138,8 @@ public class UIManager : Singleton<UIManager>
                     break;
             }
 
-            obj.transform.SetParent(t_father);
-            //obj.transform.localPosition = Vector3.zero;
+            obj.transform.SetParent(t_father, false);
             obj.transform.localScale = Vector3.one;
-            (obj.transform as RectTransform).offsetMax = Vector2.zero;
-            (obj.transform as RectTransform).offsetMin = Vector2.zero;
 
             T panel = obj.GetComponent<T>();
             panel.owner = m_owner;
@@ -334,7 +331,7 @@ public class UIManager : Singleton<UIManager>
         return screenPos;
     }
 
-    public  bool IsMouseOverUI()
+    public bool IsMouseOverUI()
     {
         bool mouseOverUI = false;
         pointerEventData = new PointerEventData(EventSystem.current);

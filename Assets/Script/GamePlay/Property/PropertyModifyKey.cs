@@ -85,4 +85,20 @@ public enum PropertyModifyKey
     /// 护盾多久不受击恢复CD百分比
     /// </summary>
     ShieldRecoverTimeReduce,
+    /// <summary>
+    /// 出售价格加成
+    /// </summary>
+    SellPrice,
+    /// <summary>
+    /// 负载消耗，百分比
+    /// </summary>
+    UnitLoadCost,
+    /// <summary>
+    /// 总负载能力，固定值
+    /// </summary>
+    ShipWreckageLoadTotal,
+    /// <summary>
+    /// 护盾半径增加
+    /// </summary>
+    ShieldRatioAdd,
 }

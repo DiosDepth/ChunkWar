@@ -17,6 +17,7 @@ public class MainMenu : GUIBasePanel
         GetGUIComponent<Button>("Quit").onClick.AddListener(QuitButtonPressed);
         GetGUIComponent<Button>("Load").onClick.AddListener(LoadSaveButtonPressed);
         GetGUIComponent<Button>("Collection").onClick.AddListener(CollectionButtonPressed);
+        GetGUIComponent<Button>("Achievement").onClick.AddListener(AchievementButtonPressed);
     }
 
     public override void Show()
@@ -61,4 +62,11 @@ public class MainMenu : GUIBasePanel
 
     }
 
+    private void AchievementButtonPressed()
+    {
+        UIManager.Instance.ShowUI<AchievementPage>("AchievementPage", E_UI_Layer.Mid, owner, (panel) =>
+        {
+            panel.Initialization();
+        });
+    }
 }

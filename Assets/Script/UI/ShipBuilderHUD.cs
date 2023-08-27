@@ -93,8 +93,8 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
                 RefreshAllShopItemCost();
                 break;
 
-            case RogueEventType.ShipPlugChange:
-                RefreshShipPlugsContent();
+            case RogueEventType.RefreshWreckage:
+
                 break;
 
             case RogueEventType.RefreshShopWeaponInfo:

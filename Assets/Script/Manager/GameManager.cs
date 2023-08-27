@@ -82,7 +82,6 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         Initialization();
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         GMTalkManager.Instance.Initialization();
-        SaveLoadManager.Instance.Initialization();
     }
 
     public override void Initialization()

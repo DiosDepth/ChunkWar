@@ -14,19 +14,29 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     private const string _baseFolderName = "/Data/";
     private const string _defaultFolderName = "PlayerSaveInfo";
 
+    private const string globalSaveName = "GlobalSaveData";
+
     private List<SaveData> _allSaves;
     public List<SaveData> GetAllSave
     {
         get { return _allSaves; }
     }
 
+    public GlobalSaveData globalSaveData;
+
+    /// <summary>
+    /// Achievement
+    /// </summary>
+    private Dictionary<int, AchievementSaveData> _achievementSaveDatas;
+
     public SaveLoadManager()
     {
-
+        _achievementSaveDatas = new Dictionary<int, AchievementSaveData>();
     }
     public override void Initialization()
     {
         base.Initialization();
+        LoadGlobalSaveData();
         var allSaves = LoadAllSaveData();
         _allSaves = allSaves;
     }
@@ -81,6 +91,63 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
             result.Add(savData);
         }
         return result;
+    }
+
+    /// <summary>
+    /// Save
+    /// </summary>
+    public void SaveGlobalSaveData()
+    {
+        string savePath = DetermineSavePath(string.Empty);
+        var fullPath = savePath + DetermineSaveFileName(globalSaveName);
+        if (File.Exists(fullPath) && globalSaveData != null)
+        {
+            globalSaveData.Save();
+
+            var saveBytes = SerializationUtility.SerializeValue<GlobalSaveData>(globalSaveData, DataFormat.Binary);
+            using (FileStream fs = new FileStream(fullPath, FileMode.Create))
+            {
+                for (int i = 0; i < saveBytes.Length; i++)
+                {
+                    fs.WriteByte(saveBytes[i]);
+                }
+
+                fs.Seek(0, SeekOrigin.Begin);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 加载全局存档
+    /// </summary>
+    private void LoadGlobalSaveData()
+    {
+        string savePath = DetermineSavePath(string.Empty);
+        var fullPath = savePath + DetermineSaveFileName(globalSaveName);
+        if (!File.Exists(fullPath))
+        {
+            globalSaveData = GlobalSaveData.GenerateNewSaveData();
+            ///Create
+            var saveBytes = SerializationUtility.SerializeValue<GlobalSaveData>(globalSaveData, DataFormat.Binary);
+            using (FileStream fs = new FileStream(fullPath, FileMode.Create))
+            {
+                for (int i = 0; i < saveBytes.Length; i++)
+                {
+                    fs.WriteByte(saveBytes[i]);
+                }
+
+                fs.Seek(0, SeekOrigin.Begin);
+            }
+        }
+        else
+        {
+            ///Load
+            var bytes = File.ReadAllBytes(fullPath);
+            globalSaveData = SerializationUtility.DeserializeValue<GlobalSaveData>(bytes, DataFormat.Binary);
+            Debug.Assert(globalSaveData != null, "GlobalSaveData Null!");
+        }
+        globalSaveData.CombineAchievementSaves();
+        InitAchievementInfo();
     }
 
 
@@ -233,4 +300,45 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         }
         return false;
     }
+
+    #region Game
+
+    public AchievementSaveData GetAchievementSaveDataByID(int achievementID)
+    {
+        if (_achievementSaveDatas.ContainsKey(achievementID))
+            return _achievementSaveDatas[achievementID];
+        return null;
+    }
+
+    /// <summary>
+    /// 成就是否解锁
+    /// </summary>
+    /// <param name="achievementID"></param>
+    /// <returns></returns>
+    public bool GetAchievementUnlockState(int achievementID)
+    {
+        var achievement = GetAchievementSaveDataByID(achievementID);
+        if (achievement == null)
+            return false;
+
+        return achievement.Unlock;
+    }
+
+    private void InitAchievementInfo()
+    {
+        if (globalSaveData == null)
+            return;
+
+        var achievementInfos = globalSaveData.AchievementSaveData;
+        for (int i = 0; i < achievementInfos.Count; i++) 
+        {
+            var info = achievementInfos[i];
+            if (!_achievementSaveDatas.ContainsKey(info.AchievementID))
+            {
+                _achievementSaveDatas.Add(info.AchievementID, info);
+            }
+        }
+    }
+
+    #endregion
 }

@@ -15,9 +15,11 @@ public class ShipPropertySliderCmpt : MonoBehaviour
     }
 
     public SliderPropertyType PropertyType;
+    public bool PercentMode = true;
 
     private TextMeshProUGUI _valueText;
     private TextMeshProUGUI _levelText;
+    private TextMeshProUGUI _value2Text;
     private Image _fillImage;
     private Image _fillImage2;
 
@@ -37,6 +39,11 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         else if (PropertyType == SliderPropertyType.HP)
         {
             _fillImage2 = transform.Find("Content/Slider/Fill_2").SafeGetComponent<Image>();
+        }
+
+        if((PropertyType == SliderPropertyType.Energy || PropertyType == SliderPropertyType.Load) && !PercentMode)
+        {
+            _value2Text = transform.Find("Content/Slider/Value").SafeGetComponent<TextMeshProUGUI>();
         }
     }
 
@@ -91,6 +98,26 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
     }
 
+    public void RefreshLoad()
+    {
+        if (PropertyType != SliderPropertyType.Load)
+            return;
+
+        var currentValue = RogueManager.Instance.WreckageTotalLoadCost;
+        var maxValue = RogueManager.Instance.WreckageTotalLoadValue;
+        var percent = currentValue / (float)maxValue;
+        _fillImage.fillAmount = percent;
+        if (PercentMode)
+        {
+            _valueText.text = string.Format("{0}%", (int)(percent * 100f));
+        }
+        else
+        {
+            _valueText.text = string.Format("{0}%", (int)(percent * 100f));
+            _value2Text.text = string.Format("{0} / {1}", currentValue, maxValue);
+        }
+    }
+
     public void RefreshEnergy()
     {
         if (PropertyType != SliderPropertyType.Energy)
@@ -110,10 +137,18 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         {
             var currentValue = ship.CurrentUsedEnergy;
             var maxValue = ship.TotalEnergy;
-            _fillImage.fillAmount = currentValue / (float)maxValue;
-            _valueText.text = string.Format("{0} / {1}", currentValue, maxValue);
+            var percent = currentValue / (float)maxValue;
+            _fillImage.fillAmount = percent;
+            if (PercentMode)
+            {
+                _valueText.text = string.Format("{0}%", (int)(percent * 100f));
+            }
+            else
+            {
+                _valueText.text = string.Format("{0}%", (int)(percent * 100f));
+                _value2Text.text = string.Format("{0} / {1}", currentValue, maxValue);
+            }
         }
-        
     }
 
     public void RefreshLevelUp()

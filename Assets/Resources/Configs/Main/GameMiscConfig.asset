@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d50c09b96e09ce48a87522e86846c0f, type: 3}
+  m_Name: GameMiscConfig
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  AchievementGroupConfig:
+  - Type: 1
+    GroupName: AchievementGroup_Name_Normal
+    GroupIcon: {fileID: 21300000, guid: ee04001b08b00554a9ed7516dc5414ba, type: 3}
+  - Type: 2
+    GroupName: AchievementGroup_Name_Battle
+    GroupIcon: {fileID: 21300000, guid: c651e9515bf5d9a4684e12a666740c0c, type: 3}
+  - Type: 3
+    GroupName: AchievementGroup_Name_Economy
+    GroupIcon: {fileID: 21300000, guid: aca82c182ff6696419dffe6bb29083d9, type: 3}

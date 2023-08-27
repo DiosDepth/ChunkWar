@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c0fd7b75669624fac471e6c891cecd, type: 3}
+  m_Name: TextData_Achievement
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  TextSetName: TextData_
+  Texts:
+  - TextID: AchievementName_1
+    ChineseSimplified: "\u51FB\u67401"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_1
+    ChineseSimplified: "\u51FB\u6740500\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: AchievementGroup_Name_Battle
+    ChineseSimplified: "\u6218\u610F"
+    English: 
+    Japanese: 
+  - TextID: AchievementGroup_Name_Normal
+    ChineseSimplified: "\u5B87\u5B99\u4E07\u8C61"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_2
+    ChineseSimplified: "\u51FB\u67402"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_2
+    ChineseSimplified: "\u51FB\u67405000\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_3
+    ChineseSimplified: "\u51FB\u67403"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_3
+    ChineseSimplified: "\u51FB\u674010000\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_4
+    ChineseSimplified: "\u51FB\u67404"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_4
+    ChineseSimplified: "\u51FB\u674050000\u4E2A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_5
+    ChineseSimplified: "\u51FA\u552E1"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_5
+    ChineseSimplified: "\u51FA\u552E100\u4E2A\u90E8\u4EF6"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_6
+    ChineseSimplified: "\u51FA\u552E2"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_6
+    ChineseSimplified: "\u51FA\u552E1000\u4E2A\u90E8\u4EF6"
+    English: 
+    Japanese: 
+  - TextID: AchievementGroup_Name_Economy
+    ChineseSimplified: "\u62FE\u8352\u8005"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_7
+    ChineseSimplified: "\u5408\u91D11"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_7
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F975000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_8
+    ChineseSimplified: "\u5408\u91D12"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_8
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F9710000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_9
+    ChineseSimplified: "\u5408\u91D13"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_9
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F97100000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_10
+    ChineseSimplified: "\u6301\u6709"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_10
+    ChineseSimplified: "\u5355\u573A\u6E38\u620F\u4E2D\u6700\u591A\u6301\u67091000\u4E2A\u5408\u91D1"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_11
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F971"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_11
+    ChineseSimplified: "\u83B7\u5F97\u76D2\u5B50100\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_12
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F972"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_12
+    ChineseSimplified: "\u83B7\u5F97\u76D2\u5B50500\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: AchievementName_13
+    ChineseSimplified: "\u7D2F\u8BA1\u83B7\u5F973"
+    English: 
+    Japanese: 
+  - TextID: AchievementDesc_13
+    ChineseSimplified: "\u83B7\u5F97\u76D2\u5B501000\u4E2A"
+    English: 
+    Japanese: 
