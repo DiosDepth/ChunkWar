@@ -9,20 +9,11 @@ public class BaseController : MonoBehaviour
 
     public Rigidbody2D rb;
     public new PolygonCollider2D collider;
-    public Vector3 MovementInput { get { return _movementInput; } }
-    protected Vector3 _movementInput;
-    protected Vector2 _lastmovementInput;
-
-    public float maxSpeed = 10;
-    public float acceleration = 10;
-    public float maxRotateSpeed = 15;
 
     protected Vector2 _lerpedInput;
-    public  Vector2 _deltaMovement;
+    protected Vector2 _deltaMovement;
     protected float _deltaSpeed;
     protected float _deltaAcceleration;
-
-
 
     public virtual void Initialization()
     {
@@ -39,6 +30,11 @@ public class BaseController : MonoBehaviour
         
     }
 
+    protected virtual void FixedUpdate()
+    {
+
+    }
+
     protected virtual void OnDestroy()
     {
 
@@ -49,11 +45,11 @@ public class BaseController : MonoBehaviour
         IsUpdate = isupdate;
     }
 
-    public virtual Vector2 CalculateDeltaMovement(Vector2 m_dir, float m_speedmodify = 1)
+    public virtual Vector2 CalculateDeltaMovement(Vector2 m_dir, float m_acceleration, float m_maxspeed, float m_speedmodify = 1)
     {
         if (m_dir.sqrMagnitude != 0)//当操作输入不为0 也就是有操作输入进来的时候 , 做加速运动
         {
-            _deltaAcceleration = Mathf.Lerp(_deltaAcceleration, 1, acceleration * Time.deltaTime);//这里计算当前帧的加速度比例, 比如每秒的加速度是acceleration, 当前的加速度会从0开始到1 按照这个比例进行计算, 每一帧积累会无限接近于1
+            _deltaAcceleration = Mathf.Lerp(_deltaAcceleration, 1, m_acceleration * Time.deltaTime);//这里计算当前帧的加速度比例, 比如每秒的加速度是acceleration, 当前的加速度会从0开始到1 按照这个比例进行计算, 每一帧积累会无限接近于1
             if (Mathf.Approximately(_deltaAcceleration, 1))
             {
                 _deltaAcceleration = 1;
@@ -81,13 +77,13 @@ public class BaseController : MonoBehaviour
 
 
         _deltaMovement = _lerpedInput;
-        _deltaSpeed = Mathf.Lerp(0, maxSpeed, _deltaAcceleration) * m_speedmodify;//根据当前帧的加速比例 计算当前帧的移动速度
+        _deltaSpeed = Mathf.Lerp(0, m_maxspeed, _deltaAcceleration) * m_speedmodify;//根据当前帧的加速比例 计算当前帧的移动速度
         _deltaMovement *= _deltaSpeed;
 
         //限制最大移动速度
-        if (_deltaMovement.magnitude > maxSpeed)
+        if (_deltaMovement.magnitude > m_maxspeed)
         {
-            _deltaMovement = Vector3.ClampMagnitude(_deltaMovement, maxSpeed);
+            _deltaMovement = Vector3.ClampMagnitude(_deltaMovement, m_maxspeed);
         }
 
         return _deltaMovement;

@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ShipController : BaseController
+public class ShipController : BaseController, IBoid
 {
 
     public PlayerShip controlledTarget;
 
 
     // Start is called before the first frame update
+    public Vector3 MovementInput { get { return _movementInput; } }
+    protected Vector3 _movementInput;
+    protected Vector2 _lastmovementInput;
+
+    public float maxSpeed = 10;
+    public float acceleration = 10;
+    public float maxRotateSpeed = 15;
 
 
 
-    public  Vector3 WorldPointInput { get { return CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_pointInput.x, _pointInput.y, 0)); } }
+
+
+    public Vector3 WorldPointInput { get { return CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_pointInput.x, _pointInput.y, 0)); } }
     public  Vector3 WorldDirection { get { return (WorldPointInput - transform.position).normalized; } }
     public Vector2 PointInput { get { return _pointInput; } }
     protected Vector2 _pointInput;
@@ -26,6 +35,9 @@ public class ShipController : BaseController
 
     public float _refrotationspeed;
     public float _crossZ;
+
+    protected Vector3 velocity;
+    protected Vector3 lastpos;
     protected override void Start()
     {
         //InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
@@ -51,10 +63,19 @@ public class ShipController : BaseController
         base.Update();
         if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
         if (!IsUpdate) { return; }
-        HandleMovement();
         HandleRotation();
         HandleMainWeaponRotaion();
         HandleOtherWeaponRotation();
+    }
+
+    protected override void FixedUpdate()
+    {
+
+        if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
+        if (!IsUpdate) { return; }
+        base.FixedUpdate();
+        HandleMovement();
+        UpdateIBoid();
     }
 
     protected override void OnDestroy()
@@ -168,7 +189,7 @@ public class ShipController : BaseController
             return;
         }
         
-        _deltaMovement = CalculateDeltaMovement(MovementInput);
+        _deltaMovement = CalculateDeltaMovement(MovementInput,acceleration, maxSpeed);
 
         if (Mathf.Approximately( _deltaMovement.sqrMagnitude , 0))
         {
@@ -255,6 +276,27 @@ public class ShipController : BaseController
           
     }
 
- 
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return velocity;
+    }
+    public void SetVelocity(Vector3 m_vect)
+    {
+        velocity = m_vect;
+
+    }
+    public void UpdateIBoid()
+    {
+        velocity = (transform.position - lastpos) / Time.deltaTime;
+        lastpos = transform.position;
+    }
+
+
 }
     

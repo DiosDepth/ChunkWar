@@ -7,7 +7,8 @@ public class AIAttack : AIAction
 
     private Vector3 _moveDirection;
 
-
+    public float attackRange;
+    public float maxRotateSpeed = 15;
 
     private Vector2 _aimdirection;
     public override void Initialization()
@@ -27,11 +28,15 @@ public class AIAttack : AIAction
     public override void UpdateAction()
     {
         _aimdirection = (RogueManager.Instance.currentShip.transform.position - this.transform.position).normalized;
-        UpdateShipRotation();
+        //UpdateShipRotation();
         UpdateWeaponRotation();
 
 
 
+    }
+    public override void FixedUpdateAction()
+    {
+        
     }
 
     public override void OnExitAction()
@@ -57,7 +62,7 @@ public class AIAttack : AIAction
 
     public void UpdateShipRotation()
     {
-            _controller.transform.rotation = MathExtensionTools.CalculateRotation(_controller.transform.up, _aimdirection, _controller.maxRotateSpeed);
+            _controller.transform.rotation = MathExtensionTools.CalculateRotation(_controller.transform.up, _aimdirection, maxRotateSpeed);
     }
 
     public void UpdateWeaponRotation()

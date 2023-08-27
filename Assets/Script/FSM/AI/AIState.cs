@@ -22,10 +22,13 @@ public class AIState : State
 {
     [SerializeField]
     public string StateName;
-
+   
     [ListDrawerSettings(DraggableItems = true, Expanded = true)]
     // [Reorderable(null, "Action", null)]
     public List<AIAction> Actions;
+
+    [ListDrawerSettings(DraggableItems = true, Expanded = true)]
+    public List<AIAction> FixedActions;
     [ListDrawerSettings(DraggableItems = true, Expanded = true)]
     // [Reorderable(null, "Transitions", null)]
     public List<AITransition> Transitions;
@@ -80,6 +83,12 @@ public class AIState : State
         UpdateTrasitions();
     }
 
+    public override void OnFixedUpdate()
+    {
+        FixedUpdateActions();
+        //UpdateTrasitions();
+    }
+
     public override void OnExit()
     {
         foreach (AIAction action in Actions)
@@ -112,6 +121,22 @@ public class AIState : State
             else
             {
                 Debug.LogError("An action in " + _controller.gameObject.name + " is null");
+            }
+        }
+    }
+
+    public virtual void FixedUpdateActions()
+    {
+        if (FixedActions.Count == 0) { return; }
+        for (int i = 0; i < FixedActions.Count; i++)
+        {
+            if (FixedActions[i] != null)
+            {
+                FixedActions[i].FixedUpdateAction();
+            }
+            else
+            {
+                Debug.LogError("An fixed action in " + _controller.gameObject.name + " is null");
             }
         }
     }

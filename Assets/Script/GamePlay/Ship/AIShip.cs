@@ -46,6 +46,7 @@ public class AIShip : BaseShip,IPoolable
     {
         base.Death();
         LevelManager.Instance.pickupList.AddRange(Drop());
+        LevelManager.Instance.aiShipList.Remove(this);
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
             vfx.transform.position = this.transform.position;
@@ -126,6 +127,7 @@ public class AIShip : BaseShip,IPoolable
 
     public void PoolableDestroy()
     {
+        
         PoolableReset();
         PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }

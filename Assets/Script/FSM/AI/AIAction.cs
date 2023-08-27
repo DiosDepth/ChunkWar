@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class AIAction : MonoBehaviour
 {
     public string Label;
+
     public bool isDebug = false;
     public bool ActionInProgress { get; set; }
 
@@ -15,6 +16,7 @@ public abstract class AIAction : MonoBehaviour
     // Start is called before the first frame update
 
     public abstract void UpdateAction();
+    public abstract void FixedUpdateAction();
     protected virtual void Start()
     {
         //_brain = this.gameObject.GetComponent<TDAIBrain>();

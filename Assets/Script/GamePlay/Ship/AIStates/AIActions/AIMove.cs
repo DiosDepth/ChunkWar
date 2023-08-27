@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AIMove : AIAction
 {
+    public float maxSpeed = 7;
+    public float acceleration = 15;
+    public float maxRotateSpeed = 15;
 
     private Vector3 _moveDirection;
-
-
-
     private Vector3 _randomdir;
     private Vector3 _destination;
     public override void Initialization()
@@ -32,6 +32,11 @@ public class AIMove : AIAction
             Move();
 
 
+    }
+
+    public override void FixedUpdateAction()
+    {
+       
     }
 
     public override void OnExitAction()
@@ -64,14 +69,14 @@ public class AIMove : AIAction
 
     public void Move()
     {
-        Vector2 _deltaMovement = _controller.CalculateDeltaMovement(_moveDirection);
+        Vector2 _deltaMovement = _controller.CalculateDeltaMovement(_moveDirection,acceleration,maxSpeed);
         var newMovement = _controller.rb.position + _deltaMovement * Time.fixedDeltaTime;
         _controller.rb.MovePosition(newMovement);
     }
 
     public void Rotate()
     {
-        _controller.transform.rotation = MathExtensionTools.CalculateRotation(_controller.transform.up, _moveDirection, _controller.maxRotateSpeed);
+        _controller.transform.rotation = MathExtensionTools.CalculateRotation(_controller.transform.up, _moveDirection,maxRotateSpeed);
     }
 
 

@@ -20,6 +20,11 @@ public class State
 
     }
 
+    public virtual void OnFixedUpdate()
+    {
+
+    }
+
     public virtual void OnExit()
     {
 

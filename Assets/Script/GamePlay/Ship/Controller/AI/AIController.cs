@@ -56,6 +56,13 @@ public class AIController : BaseController
                     action.Initialization();
                 }
             }
+            foreach(AIAction action in state.FixedActions)
+            {
+                if (action != null)
+                {
+                    action.Initialization();
+                }
+            }
             foreach (AITransition transition in state.Transitions)
             {
                 if (transition != null)
@@ -86,7 +93,15 @@ public class AIController : BaseController
             currentState.OnUpdate();
             _nextupdatetime = Time.time;
         }
-        
+    }
+
+    public virtual void FixedUpdateState()
+    {
+        if (!IsUpdate || currentState == null)
+        {
+            return;
+        }
+            currentState.OnFixedUpdate();
     }
 
     public virtual void TransitionToState(string newstatename)
@@ -140,6 +155,12 @@ public class AIController : BaseController
     {
         base.Update();
         UpdateState();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        FixedUpdateState();
     }
 
     protected override void OnDestroy()
