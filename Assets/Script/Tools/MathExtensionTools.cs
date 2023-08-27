@@ -98,11 +98,26 @@ public static class MathExtensionTools
         return (b - a).normalized;
     }
 
+    public static Vector2 DirectionToXY(this Vector2 self, Vector2 target)
+    {
+        Vector2 a = new Vector2(self.x, self.y);
+        Vector2 b = new Vector2(target.x, target.y);
+
+        return (b - a).normalized;
+    }
+
     public static float DistanceXY(this Vector3 self, Vector3 target)
     {
         Vector3 a = new Vector3(self.x, self.y, 0);
         Vector3 b = new Vector3(target.x, target.y, 0);
 
+        return Vector3.Distance(a, b);
+    }
+
+    public static float DistanceXY(this Vector2 self, Vector2 target)
+    {
+        Vector2 a = new Vector2(self.x, self.y);
+        Vector2 b = new Vector2(target.x, target.y);
         return Vector3.Distance(a, b);
     }
 
@@ -127,10 +142,6 @@ public static class MathExtensionTools
         return false;
     }
 
-    public static Vector3 DirectionXY(this Vector3 self, Vector3 target)
-    {
-        return (target - self).normalized;
-    }
 
     public static bool IsInRange(this float value,float min, float max)
     {
