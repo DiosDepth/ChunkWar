@@ -31,10 +31,6 @@ public class MainMenu : GUIBasePanel
 
     }
 
-
-
-
-
     public void OptionButtonPressed()
     {
         UIManager.Instance.ShowUI<Options>("Options", E_UI_Layer.Mid,owner, (panel) => 
@@ -59,7 +55,10 @@ public class MainMenu : GUIBasePanel
 
     private void CollectionButtonPressed()
     {
-
+        UIManager.Instance.ShowUI<CollectionMainPage>("CollectionMainPage", E_UI_Layer.Mid, owner, (panel) =>
+        {
+            panel.Initialization();
+        });
     }
 
     private void AchievementButtonPressed()

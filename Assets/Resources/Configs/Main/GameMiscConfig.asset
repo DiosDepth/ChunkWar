@@ -31,3 +31,16 @@ MonoBehaviour:
   - Type: 3
     GroupName: AchievementGroup_Name_Economy
     GroupIcon: {fileID: 21300000, guid: aca82c182ff6696419dffe6bb29083d9, type: 3}
+  CollectionMenu:
+  - Key: SHIP_PLUG
+    Name: CollectionMenu_ShipPlug
+    Order: 0
+    SubMenus: []
+  - Key: INTRODUCTION
+    Name: CollectionMenu_Introduction
+    Order: 0
+    SubMenus:
+    - Key: INTRO_BATTLE
+      Name: CollectionMenu_IntroductionBattle
+      Order: 0
+      SubMenus: []

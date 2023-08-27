@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameMiscConfig : SerializedScriptableObject
 {
     public List<AchievementGroupItemConfig> AchievementGroupConfig = new List<AchievementGroupItemConfig>();
+    public CollectionMenuKey[] CollectionMenu = new CollectionMenuKey[0];
 
     public AchievementGroupItemConfig GetAchievementGroupConfig(AchievementGroupType type)
     {
@@ -20,4 +21,14 @@ public class AchievementGroupItemConfig
     public AchievementGroupType Type;
     public string GroupName;
     public Sprite GroupIcon;
+}
+
+[System.Serializable]
+public class CollectionMenuKey
+{
+    public string Key;
+    public string Name;
+    public int Order;
+
+    public CollectionMenuKey[] SubMenus = new CollectionMenuKey[0];
 }
