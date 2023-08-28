@@ -179,6 +179,11 @@ public class RogueManager : Singleton<RogueManager>
         private set;
     }
 
+    /// <summary>
+    /// 舰船升级时属性随机池
+    /// </summary>
+    private List<ShipLevelUpItem> _allShipLevelUpItems;
+
     public RogueManager()
     {
         Initialization();
@@ -262,9 +267,9 @@ public class RogueManager : Singleton<RogueManager>
     public override void Initialization()
     {
         base.Initialization();
-
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         _playerCurrentGoods = new Dictionary<int, byte>();
+        InitShipLevelUpItems();
     }
 
     /// <summary>
@@ -1041,6 +1046,116 @@ public class RogueManager : Singleton<RogueManager>
         return 0;
     }
     #endregion
+
+    #region Ship LevelUp
+
+    public List<ShipLevelUpItem> CurrentShipLevelUpItems
+    {
+        get;
+        private set;
+    }
+
+    public void ShipLevelUp()
+    {
+        var randomCount = DataManager.Instance.battleCfg.ShipLevelUp_GrowthItem_Count;
+        CurrentShipLevelUpItems = GenerateUpgradeItem(randomCount);
+    }
+
+
+    /// <summary>
+    /// 初始化属性随机池
+    /// </summary>
+    private void InitShipLevelUpItems()
+    {
+        _allShipLevelUpItems = new List<ShipLevelUpItem>();
+        var allItems = DataManager.Instance.battleCfg.ShipLevelUpGrowthItems;
+        for (int i = 0; i < allItems.Count; i++) 
+        {
+            var rarityMap = allItems[i].RarityValueMap;
+            for(int j = 0; j < rarityMap.Length; j++)
+            {
+                ShipLevelUpItem item = new ShipLevelUpItem(allItems[i], (GoodsItemRarity)rarityMap[j]);
+                item.Weight = 10;
+                _allShipLevelUpItems.Add(item);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 随机生成当前升级项
+    /// </summary>
+    /// <returns></returns>
+    private List<ShipLevelUpItem> GenerateUpgradeItem(int count)
+    {
+        List<ShipLevelUpItem> result = new List<ShipLevelUpItem>();
+
+        var weightMap = RefreshShipLevelUpItemWeight();
+        float totalWeight = 0f;
+        foreach(var item in weightMap.Values)
+        {
+            totalWeight += item;
+        }
+
+        if (count <= 0)
+            return result;
+
+        ///Random
+        for (int i = 0; i < count; i++) 
+        {
+            float randomResult = UnityEngine.Random.Range(0, totalWeight);
+            GoodsItemRarity outRarity = GoodsItemRarity.Tier1;
+            foreach (var rarityItem in weightMap)
+            {
+                if (rarityItem.Value>= randomResult)
+                {
+                    outRarity = rarityItem.Key;
+                    break;
+                }
+            }
+
+            ///Random Items
+            var allRarityItems = _allShipLevelUpItems.FindAll(x => x.Rarity == outRarity);
+            ///剔除相同属性
+            for(int j = 0; j < result.Count; j++)
+            {
+                allRarityItems.Remove(result[j]);
+            }
+
+            var outItem = Utility.GetRandomList<ShipLevelUpItem>(allRarityItems, 1);
+            if (outItem.Count == 1) 
+            {
+                result.Add(outItem[0]);
+            }
+        }
+       
+        return result;
+    }
+
+    /// <summary>
+    /// 刷新当前升级项的权重
+    /// </summary>
+    private Dictionary<GoodsItemRarity, float> RefreshShipLevelUpItemWeight()
+    {
+        Dictionary<GoodsItemRarity, float> result = new Dictionary<GoodsItemRarity, float>();
+        var luck = MainPropertyData.GetPropertyFinal(PropertyModifyKey.Luck);
+        var currentShipLevel = GetCurrentShipLevel;
+
+        foreach(GoodsItemRarity rarity in System.Enum.GetValues(typeof(GoodsItemRarity)))
+        {
+            if (rarity == GoodsItemRarity.Tier5)
+                continue;
+
+            var cfg = DataManager.Instance.battleCfg.GetShipLevelUpItemRarityConfigByRarity(rarity);
+            var weight = (Mathf.Max(currentShipLevel - cfg.MinLevel, 0) * cfg.WeightAddPerLevel + cfg.WeightBase) * (1 + luck / 100f);
+            result.Add(rarity, weight);
+        }
+
+        return result;
+    }
+
+
+    #endregion
+
 
     #region Save
 

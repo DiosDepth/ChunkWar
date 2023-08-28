@@ -117,6 +117,14 @@ public class DataManager : Singleton<DataManager>
         shipPlugCfg = ResManager.Instance.Load<ShipPlugConfig>(DataConfigPath.ShipPlugMainConfigPath);
         gameMiscCfg = ResManager.Instance.Load<GameMiscConfig>(DataConfigPath.GameMiscConfigPath);
 
+#if UNITY_EDITOR
+        if(battleCfg != null)
+        {
+            battleCfg.DataCheck();
+        }
+
+#endif
+
         if (shopCfg != null)
         {
             var goodLst = shopCfg.Goods;

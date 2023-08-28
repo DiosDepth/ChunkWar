@@ -203,7 +203,27 @@ MonoBehaviour:
     ChineseSimplified: "\u6218\u6597\u540D\u8BCD"
     English: 
     Japanese: 
-  - TextID: 
-    ChineseSimplified: 
+  - TextID: CollectionMenu_Enemy
+    ChineseSimplified: "\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: CollectionMenu_EnemyNormal
+    ChineseSimplified: "\u666E\u901A\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: CollectionMenu_EnemyElite
+    ChineseSimplified: "\u7CBE\u82F1\u654C\u4EBA"
+    English: 
+    Japanese: 
+  - TextID: CollectionMenu_Boss
+    ChineseSimplified: "\u9996\u9886"
+    English: 
+    Japanese: 
+  - TextID: CollectionMenu_ShipEquip
+    ChineseSimplified: "\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 
+  - TextID: CollectionMenu_ShipWeapon
+    ChineseSimplified: "\u6B66\u5668"
     English: 
     Japanese: 

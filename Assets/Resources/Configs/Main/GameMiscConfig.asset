@@ -44,3 +44,27 @@ MonoBehaviour:
       Name: CollectionMenu_IntroductionBattle
       Order: 0
       SubMenus: []
+  - Key: ENEMY
+    Name: CollectionMenu_Enemy
+    Order: 0
+    SubMenus:
+    - Key: ENEMY_NORMAL
+      Name: CollectionMenu_EnemyNormal
+      Order: 0
+      SubMenus: []
+    - Key: ENEMY_ELITE
+      Name: CollectionMenu_EnemyElite
+      Order: 0
+      SubMenus: []
+    - Key: ENEMY_BOSS
+      Name: CollectionMenu_Boss
+      Order: 0
+      SubMenus: []
+  - Key: SHIP_EQUIP
+    Name: CollectionMenu_ShipEquip
+    Order: 0
+    SubMenus:
+    - Key: SHIP_WEAPON
+      Name: CollectionMenu_ShipWeapon
+      Order: 0
+      SubMenus: []

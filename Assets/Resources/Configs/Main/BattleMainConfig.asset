@@ -129,7 +129,7 @@ MonoBehaviour:
       Data: 1
     - Name: DurationDelta
       Entry: 3
-      Data: 3
+      Data: 1
     - Name: LoopCount
       Entry: 3
       Data: 1
@@ -138,10 +138,10 @@ MonoBehaviour:
       Data: 0
     - Name: TotalCount
       Entry: 3
-      Data: 35
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
-      Data: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -718,3 +718,33 @@ MonoBehaviour:
   EvolveRequireMap: 010408
   EvolveAddMap: 01020408
   EXPMap: 0f00000019000000230000002d00000037000000640000006e000000
+  ShipLevelUpGrowthItems:
+  - Icon: {fileID: 0}
+    Name: 
+    ModifyKey: 0
+    RarityValueMap:
+    - 0
+    - 0
+    - 0
+    - 0
+  ShipLevelUpItemRarityMap:
+  - Rarity: 0
+    MinLevel: 1
+    WeightBase: 100
+    WeightAddPerLevel: 0
+    WeightMax: 100
+  - Rarity: 1
+    MinLevel: 1
+    WeightBase: 0
+    WeightAddPerLevel: 5
+    WeightMax: 55
+  - Rarity: 2
+    MinLevel: 4
+    WeightBase: 0
+    WeightAddPerLevel: 2
+    WeightMax: 25
+  - Rarity: 0
+    MinLevel: 9
+    WeightBase: 0
+    WeightAddPerLevel: 0.2
+    WeightMax: 10

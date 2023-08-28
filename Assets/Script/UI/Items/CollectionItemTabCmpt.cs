@@ -18,6 +18,7 @@ public class CollectionItemTabCmpt : MonoBehaviour, IPoolable
 
     private RectTransform rect;
     private Vector2 startSize;
+    private TextMeshProUGUI _nameText;
 
     private bool isOpen
     {
@@ -28,6 +29,7 @@ public class CollectionItemTabCmpt : MonoBehaviour, IPoolable
     {
         transform.Find("Content/Btn").SafeGetComponent<Button>().onClick.AddListener(OnButtonClick);
         DownArrowRect = transform.Find("Content/Arrow").SafeGetComponent<RectTransform>();
+        _nameText = transform.Find("Content/Name").SafeGetComponent<TextMeshProUGUI>();
         rect = GetComponent<RectTransform>();
         startSize = rect.sizeDelta;
         isOpen = false;
@@ -35,7 +37,7 @@ public class CollectionItemTabCmpt : MonoBehaviour, IPoolable
 
     public void SetUp(CollectionMenuKey menu)
     {
-        
+        _nameText.text = LocalizationManager.Instance.GetTextValue(menu.Name);
     }
 
     public void SetItemParent(CollectionItemTabCmpt parent)
@@ -43,7 +45,7 @@ public class CollectionItemTabCmpt : MonoBehaviour, IPoolable
         transform.parent = parent.transform;
         parent.AddChild(this);
         ///Offset
-        GetComponent<VerticalLayoutGroup>().padding = new RectOffset((int)parent.DownArrowRect.sizeDelta.x, 0, 0, 0);
+        GetComponent<VerticalLayoutGroup>().padding = new RectOffset((int)parent.DownArrowRect.sizeDelta.x + 20, 0, 0, 0);
 
         if (parent.isOpen)
         {
@@ -58,6 +60,7 @@ public class CollectionItemTabCmpt : MonoBehaviour, IPoolable
     public void UpdateRectTransformSize(int change)
     {
         rect.sizeDelta = new Vector2(startSize.x, rect.sizeDelta.y + change);
+        Debug.Log(rect.sizeDelta.y);
     }
 
     /// <summary>
@@ -113,6 +116,7 @@ public class CollectionItemTabCmpt : MonoBehaviour, IPoolable
             child.AddParnetSize(-(int)child.rect.sizeDelta.y);
         }
         ///SetArrow
+        DownArrowRect.LeanRotateZ(0f, 0.2f);
     }
 
     private void OpenClilds()
@@ -123,9 +127,10 @@ public class CollectionItemTabCmpt : MonoBehaviour, IPoolable
         foreach(var child in childCmpts)
         {
             child.gameObject.SetActive(true);
-            child.AddParnetSize((int)rect.sizeDelta.y);
+            child.AddParnetSize((int)child.rect.sizeDelta.y);
         }
         ///SetArrow
+        DownArrowRect.LeanRotateZ(-90f, 0.2f);
     }
 
     public void PoolableReset()

@@ -29,7 +29,8 @@ public enum GoodsItemRarity
     Tier1,
     Tier2,
     Tier3,
-    Tier4
+    Tier4,
+    Tier5,
 }
 
 public enum GoodsItemType

@@ -15,6 +15,7 @@ public class BattleMainConfig : SerializedScriptableObject
 {
     public byte RogueShop_Origin_RefreshNum = 4;
     public byte HarborMapTempUnitSlotCount = 6;
+    public byte ShipLevelUp_GrowthItem_Count = 4;
 
     /// <summary>
     /// hardLevel每X秒增加1
@@ -44,7 +45,8 @@ public class BattleMainConfig : SerializedScriptableObject
     [DictionaryDrawerSettings()]
     public Dictionary<PropertyModifyKey, PropertyDisplayConfig> PropertyDisplay = new Dictionary<PropertyModifyKey, PropertyDisplayConfig>();
 
-
+    public List<ShipLevelUpGrowthItemConfig> ShipLevelUpGrowthItems = new List<ShipLevelUpGrowthItemConfig>();
+    public List<ShipLevelUpItemRarityConfig> ShipLevelUpItemRarityMap = new List<ShipLevelUpItemRarityConfig>();
 
     public PropertyDisplayConfig GetPropertyDisplayConfig(PropertyModifyKey key)
     {
@@ -58,6 +60,11 @@ public class BattleMainConfig : SerializedScriptableObject
         return HardLevels.Find(x => x.HardLevelID == hardLevelID);
     }
 
+    public ShipLevelUpItemRarityConfig GetShipLevelUpItemRarityConfigByRarity(GoodsItemRarity rarity)
+    {
+        return ShipLevelUpItemRarityMap.Find(x => x.Rarity == rarity);
+    }
+
 #if UNITY_EDITOR
 
     [OnInspectorDispose]
@@ -67,6 +74,18 @@ public class BattleMainConfig : SerializedScriptableObject
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
+
+    public void DataCheck()
+    {
+        for (int i = 0; i < ShipLevelUpGrowthItems.Count; i++)
+        {
+            if(ShipLevelUpGrowthItems[i].RarityValueMap.Length != 4)
+            {
+                Debug.LogError("舰船升级属性稀有度配置错误！ Name = " + ShipLevelUpGrowthItems[i].Name);
+            }
+        }
+    }
+
 #endif
 }
 
@@ -132,4 +151,35 @@ public class PropertyMidifyConfig
     [LabelText("值")]
     [LabelWidth(80)]
     public float Value;
+}
+
+[System.Serializable]
+public class ShipLevelUpGrowthItemConfig
+{
+    public Sprite Icon;
+    public string Name;
+    public PropertyModifyKey ModifyKey;
+    public float[] RarityValueMap = new float[4];
+}
+
+[System.Serializable]
+public class ShipLevelUpItemRarityConfig
+{
+    public GoodsItemRarity Rarity;
+    public int MinLevel;
+
+    [HorizontalGroup("Ship", 200)]
+    [LabelText("基础权重")]
+    [LabelWidth(80)]
+    public float WeightBase;
+
+    [HorizontalGroup("Ship", 200)]
+    [LabelText("每等级增加权重")]
+    [LabelWidth(80)]
+    public float WeightAddPerLevel;
+
+    [HorizontalGroup("Ship", 200)]
+    [LabelText("最大权重")]
+    [LabelWidth(80)]
+    public float WeightMax;
 }
