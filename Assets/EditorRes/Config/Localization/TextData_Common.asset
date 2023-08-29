@@ -163,3 +163,39 @@ MonoBehaviour:
     ChineseSimplified: "\u62A4\u76FE\u4F24\u5BB3"
     English: 
     Japanese: 
+  - TextID: ShipLevelUp_Damage
+    ChineseSimplified: "\u9AD8\u7EA7\u706B\u63A7"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_Critical
+    ChineseSimplified: "\u7CBE\u51C6\u5236\u5BFC"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_PhysicsDamage
+    ChineseSimplified: "\u52A0\u88C5\u5F39\u836F"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_EnergyDamage
+    ChineseSimplified: "\u9AD8\u80FD\u5149\u675F"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_ShieldHP
+    ChineseSimplified: "\u62A4\u76FE\u5F3A\u5316"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_ShipHP
+    ChineseSimplified: "\u5F3A\u5316\u8239\u4F53"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_Range
+    ChineseSimplified: "\u9AD8\u6548\u7D22\u654C"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_AttackSpeed
+    ChineseSimplified: "\u51B7\u5374\u5355\u5143"
+    English: 
+    Japanese: 
+  - TextID: 
+    ChineseSimplified: 
+    English: 
+    Japanese: 

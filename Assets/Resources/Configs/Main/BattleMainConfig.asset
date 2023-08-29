@@ -706,6 +706,7 @@ MonoBehaviour:
       Data: 
   RogueShop_Origin_RefreshNum: 3
   HarborMapTempUnitSlotCount: 6
+  ShipLevelUp_GrowthItem_Count: 4
   HardLevelDeltaSeconds: 120
   HardLevelWaveIndexMultiple: 20
   ShipMaxLevel: 50
@@ -719,14 +720,70 @@ MonoBehaviour:
   EvolveAddMap: 01020408
   EXPMap: 0f00000019000000230000002d00000037000000640000006e000000
   ShipLevelUpGrowthItems:
-  - Icon: {fileID: 0}
-    Name: 
-    ModifyKey: 0
+  - Icon: {fileID: 21300000, guid: 4fc20a58e9f0eaf40876d8b8d7b90e67, type: 3}
+    Name: ShipLevelUp_Damage
+    ModifyKey: 2
     RarityValueMap:
-    - 0
-    - 0
-    - 0
-    - 0
+    - 5
+    - 10
+    - 15
+    - 20
+  - Icon: {fileID: 21300000, guid: b0fccbf6b9513df4f8ab62aeb427ee10, type: 3}
+    Name: ShipLevelUp_Critical
+    ModifyKey: 3
+    RarityValueMap:
+    - 3
+    - 5
+    - 7
+    - 9
+  - Icon: {fileID: 21300000, guid: b46ea879db66b1443a890409770a88e1, type: 3}
+    Name: ShipLevelUp_PhysicsDamage
+    ModifyKey: 15
+    RarityValueMap:
+    - 1
+    - 2
+    - 4
+    - 6
+  - Icon: {fileID: 21300000, guid: 7e5dc8cbe0666104f87f69b645d04983, type: 3}
+    Name: ShipLevelUp_EnergyDamage
+    ModifyKey: 16
+    RarityValueMap:
+    - 1
+    - 2
+    - 4
+    - 6
+  - Icon: {fileID: 21300000, guid: f9acc49ebe6701c4a8c85a339510fe0b, type: 3}
+    Name: ShipLevelUp_ShieldHP
+    ModifyKey: 21
+    RarityValueMap:
+    - 25
+    - 50
+    - 75
+    - 100
+  - Icon: {fileID: 21300000, guid: e276ccff26564664abe3bebbf68baed8, type: 3}
+    Name: ShipLevelUp_ShipHP
+    ModifyKey: 1
+    RarityValueMap:
+    - 50
+    - 100
+    - 150
+    - 200
+  - Icon: {fileID: 21300000, guid: f673cfd6bcc6672409353fb81c09603d, type: 3}
+    Name: ShipLevelUp_Range
+    ModifyKey: 5
+    RarityValueMap:
+    - 10
+    - 20
+    - 30
+    - 50
+  - Icon: {fileID: 21300000, guid: 504ab1a3a635c5246ac501fb39724300, type: 3}
+    Name: ShipLevelUp_AttackSpeed
+    ModifyKey: 8
+    RarityValueMap:
+    - 3
+    - 5
+    - 7
+    - 10
   ShipLevelUpItemRarityMap:
   - Rarity: 0
     MinLevel: 1
@@ -743,7 +800,7 @@ MonoBehaviour:
     WeightBase: 0
     WeightAddPerLevel: 2
     WeightMax: 25
-  - Rarity: 0
+  - Rarity: 3
     MinLevel: 9
     WeightBase: 0
     WeightAddPerLevel: 0.2

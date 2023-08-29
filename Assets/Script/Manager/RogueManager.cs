@@ -60,6 +60,7 @@ public enum RogueEventType
 
 public enum ShipPropertyEventType
 {
+    MainPropertyValueChange,
     CoreHPChange,
     EXPChange,
     LevelUp,
@@ -261,7 +262,19 @@ public class RogueManager : Singleton<RogueManager>
     {
         Timer.Pause();
         Timer.RemoveAllTrigger();
+    }
 
+    /// <summary>
+    /// 暂停
+    /// </summary>
+    public void Pause()
+    {
+        Timer.Pause();
+    }
+
+    public void Resume()
+    {
+        Timer.StartTimer();
     }
 
     public override void Initialization()
@@ -638,13 +651,20 @@ public class RogueManager : Singleton<RogueManager>
         var expAddtion = MainPropertyData.GetPropertyFinal(PropertyModifyKey.EXPAddPercent);
 
         var targetValue = GetCurrentExp + value * (1 + expAddtion / 100f);
+        int levelUpCount = 0;
         while (targetValue >= CurrentRequireEXP)
         {
             ///LevelUp
             LevelUp();
+            levelUpCount++;
             targetValue = targetValue - CurrentRequireEXP;
         }
         _currentEXP.Set(targetValue);
+        ///Show UI
+        if(levelUpCount > 0)
+        {
+            ShipLevelUp(levelUpCount);
+        }
     }
 
     private void LevelUp()
@@ -1055,12 +1075,42 @@ public class RogueManager : Singleton<RogueManager>
         private set;
     }
 
-    public void ShipLevelUp()
+    public int CurrentLevelUpitemRerollCost
+    {
+        get;
+        private set;
+    }
+
+    public void ShipLevelUp(int levelUpCount = 1)
+    {
+        RefreshShipLevelUpItems(false);
+        Pause();
+        ///DisplayUI
+        UIManager.Instance.ShowUI<ShipLevelUpPage>("ShipLevelUpPage", E_UI_Layer.Top, RogueManager.Instance, (panel) =>
+        {
+            panel.Initialization(levelUpCount);
+            panel.Initialization();
+        });
+    }
+
+    /// <summary>
+    /// 刷新选择
+    /// </summary>
+    public void RefreshShipLevelUpItems(bool isReroll)
     {
         var randomCount = DataManager.Instance.battleCfg.ShipLevelUp_GrowthItem_Count;
         CurrentShipLevelUpItems = GenerateUpgradeItem(randomCount);
     }
 
+    /// <summary>
+    /// Select Item
+    /// </summary>
+    /// <param name="item"></param>
+    public void SelectShipLevelUpItem(ShipLevelUpItem item)
+    {
+        ///AddProperty
+        MainPropertyData.AddPropertyRowValue(item.Config.ModifyKey, item.GetModifyValue());
+    }
 
     /// <summary>
     /// 初始化属性随机池
@@ -1074,7 +1124,7 @@ public class RogueManager : Singleton<RogueManager>
             var rarityMap = allItems[i].RarityValueMap;
             for(int j = 0; j < rarityMap.Length; j++)
             {
-                ShipLevelUpItem item = new ShipLevelUpItem(allItems[i], (GoodsItemRarity)rarityMap[j]);
+                ShipLevelUpItem item = new ShipLevelUpItem(allItems[i], (GoodsItemRarity)j);
                 item.Weight = 10;
                 _allShipLevelUpItems.Add(item);
             }
@@ -1142,13 +1192,26 @@ public class RogueManager : Singleton<RogueManager>
 
         foreach(GoodsItemRarity rarity in System.Enum.GetValues(typeof(GoodsItemRarity)))
         {
-            if (rarity == GoodsItemRarity.Tier5)
+            if (rarity == GoodsItemRarity.Tier5 || rarity == GoodsItemRarity.Tier1)
                 continue;
 
             var cfg = DataManager.Instance.battleCfg.GetShipLevelUpItemRarityConfigByRarity(rarity);
+            if (cfg == null)
+                continue;
+
             var weight = (Mathf.Max(currentShipLevel - cfg.MinLevel, 0) * cfg.WeightAddPerLevel + cfg.WeightBase) * (1 + luck / 100f);
+            weight = Mathf.Min(weight, cfg.WeightMax);
             result.Add(rarity, weight);
         }
+
+        ///Calculate Tier1
+        float totalWeight = 0;
+        foreach(var item in result.Values)
+        {
+            totalWeight += item;
+        }
+
+        result.Add(GoodsItemRarity.Tier1, Mathf.Max(0, 100 - totalWeight));
 
         return result;
     }

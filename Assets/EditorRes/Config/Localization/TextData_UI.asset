@@ -227,3 +227,15 @@ MonoBehaviour:
     ChineseSimplified: "\u6B66\u5668"
     English: 
     Japanese: 
+  - TextID: ShipLevelUpPage_Title
+    ChineseSimplified: "\u8230\u8239\u5347\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUpSelectItem_Selected
+    ChineseSimplified: "\u9009\u62E9"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUpPage_Reroll
+    ChineseSimplified: "\u5237\u65B0"
+    English: 
+    Japanese: 

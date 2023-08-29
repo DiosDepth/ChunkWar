@@ -31,6 +31,15 @@ public class ShipPropertyGroupPanel : MonoBehaviour
         propertySubCmpts = transform.Find("PropertySubPanel").GetComponentsInChildren<ShipPropertyItemCmpt>();
     }
 
+    public void RefreshPropertyByKey(PropertyModifyKey key)
+    {
+        var cmpt = GetCmptByKey(key);
+        if(cmpt != null)
+        {
+            cmpt.SetUp();
+        }
+    }
+
     public void SwitchGroupType()
     {
         if(CurrentGroupType == GroupType.Main)
@@ -60,5 +69,21 @@ public class ShipPropertyGroupPanel : MonoBehaviour
         _mainPropertyCanvas.ActiveCanvasGroup(CurrentGroupType == GroupType.Main);
         _subPropertyCanvas.ActiveCanvasGroup(CurrentGroupType == GroupType.Sub);
         
+    }
+
+    private ShipPropertyItemCmpt GetCmptByKey(PropertyModifyKey key)
+    {
+        for (int i = 0; i < propertyCmpts.Length; i++) 
+        {
+            if (propertyCmpts[i].PropertyKey == key)
+                return propertyCmpts[i];
+        }
+
+        for (int i = 0; i < propertySubCmpts.Length; i++)
+        {
+            if (propertySubCmpts[i].PropertyKey == key)
+                return propertySubCmpts[i];
+        }
+        return null;
     }
 }

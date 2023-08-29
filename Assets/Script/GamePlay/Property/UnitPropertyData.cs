@@ -22,7 +22,7 @@ public class UnitPropertyData
     {
         if (!_propertyRow.ContainsKey(key))
         {
-            ChangeValue<float> item = new ChangeValue<float>(rowValue, float.MaxValue, float.MaxValue);
+            ChangeValue<float> item = new ChangeValue<float>(rowValue, float.MinValue, float.MaxValue);
             _propertyRow.Add(key, item);
         }
     }
@@ -67,6 +67,20 @@ public class UnitPropertyData
             return;
 
         pool.AddToPool(fromUID, value);
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
+    }
+
+    public void AddPropertyRowValue(PropertyModifyKey propertyKey, float value)
+    {
+        if (!_propertyRow.ContainsKey(propertyKey))
+        {
+            RegisterRowProperty(propertyKey, 0);
+        }
+
+        var content = _propertyRow[propertyKey];
+        var newValue = content.Value + value;
+        content.Set(newValue);
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
     public float GetPropertyRowValue(PropertyModifyKey propertyKey)
@@ -89,6 +103,7 @@ public class UnitPropertyData
             return;
 
         pool.SetValue(fromUID, value);
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
     /// <summary>
@@ -103,6 +118,7 @@ public class UnitPropertyData
             return;
 
         pool.RemoveFromPool(fromUID);
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
     /// <summary>
@@ -142,8 +158,6 @@ public class UnitPropertyData
         PropertyPool.Add(propertyKey, pool);
         return pool;
     }
-
-
 }
 
 public class UnitPropertyPool

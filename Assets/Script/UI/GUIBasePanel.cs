@@ -33,6 +33,11 @@ public class GUIBasePanel : MonoBehaviour
 
     }
 
+    public virtual void Initialization(params object[] param)
+    {
+
+    }
+
     protected T GetGUIComponent<T>(string groupname) where T : UIBehaviour
     {
         if (GUIDic.ContainsKey(groupname))

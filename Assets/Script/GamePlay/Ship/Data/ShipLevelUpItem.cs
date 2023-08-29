@@ -17,6 +17,11 @@ public class ShipLevelUpItem : RandomObject
 
     public ShipLevelUpGrowthItemConfig Config;
 
+    public float GetModifyValue()
+    {
+        return Config.RarityValueMap[(int)Rarity];
+    }
+
     public ShipLevelUpItem(ShipLevelUpGrowthItemConfig cfg, GoodsItemRarity rarity)
     {
         this.Rarity = rarity;
