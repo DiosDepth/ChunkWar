@@ -114,7 +114,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         else
         {
             _valueText.text = string.Format("{0}%", (int)(percent * 100f));
-            _value2Text.text = string.Format("{0} / {1}", currentValue, maxValue);
+            _value2Text.text = string.Format("{0:F1} / {1}", currentValue, maxValue);
         }
     }
 

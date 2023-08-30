@@ -165,6 +165,9 @@ public static class GameHelper
     public static List<uint> GetAllSaveIDs()
     {
         var allsav = SaveLoadManager.Instance.GetAllSave;
+        if (allsav == null || allsav.Count <= 0)
+            return new List<uint>();
+
         return allsav.Select(x => (uint)x.SaveIndex).ToList();
     }
 
@@ -216,8 +219,16 @@ public static class GameHelper
 
     public static List<uint> GetCurrentWreckageItems()
     {
+        List<uint> result = new List<uint>();
+        ///Waste
+        if (RogueManager.Instance.GetDropWasteCount > 0)
+        {
+            result.Add(0);
+        }
+        
         var allItems = RogueManager.Instance.CurrentWreckageItems;
-        return allItems.Values.Select(x => x.UID).ToList();
+        result.AddRange( allItems.Values.Select(x => x.UID).ToList());
+        return result;
     }
 
     /// <summary>

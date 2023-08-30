@@ -105,4 +105,12 @@ public enum PropertyModifyKey
     /// 船体装甲
     /// </summary>
     ShipArmor,
+    /// <summary>
+    /// 废品出售价格
+    /// </summary>
+    WasteSellPriceAdd,
+    /// <summary>
+    /// 废品负重比例
+    /// </summary>
+    WasteLoadPercent,
 }

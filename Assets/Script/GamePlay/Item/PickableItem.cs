@@ -36,7 +36,7 @@ public enum PickableItemType
 public enum AvaliablePickUp
 {
     None = 0,
-    GoldPickup = 1,
+    WastePickup = 1,
     HarborTeleportPickup = 2,
 }
 

@@ -693,7 +693,7 @@ public class Weapon : Unit
     public virtual void DoFire()
     {
         int firecount = CalculateFireCount();
-
+        SoundManager.Instance.Play(_weaponCfg.FireAudioClip, SoundManager.SoundType.SFX);
         switch (weaponmode)
         {
             case WeaponControlType.SemiAuto:

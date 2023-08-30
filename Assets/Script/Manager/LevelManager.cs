@@ -132,10 +132,10 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void OnEvent(PickableItemEvent evt)
     {
         var pickedItem = evt.PickedItem;
-        if(pickedItem is PickUpGold)
+        if(pickedItem is PickUpWaste)
         {
-            var gold = pickedItem as PickUpGold;
-            RogueManager.Instance.AddCurrency(gold.CurrencyGain);
+            var gold = pickedItem as PickUpWaste;
+            RogueManager.Instance.AddDropWasteCount(gold.WasteGain);
             RogueManager.Instance.AddEXP(gold.EXPGain);
         }
     }

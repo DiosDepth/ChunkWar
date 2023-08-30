@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7120652881020514682}
   - component: {fileID: 8490063224441083541}
   m_Layer: 14
-  m_Name: GoldPickup
+  m_Name: WastePickup
   m_TagString: PickUps
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

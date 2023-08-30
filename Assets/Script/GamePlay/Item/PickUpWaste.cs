@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpGold : PickableItem
+public class PickUpWaste : PickableItem
 {
-
-    public float CurrencyGain = 1;
+    public int WasteGain = 1;
     public float EXPGain = 1;
 
     // Start is called before the first frame update

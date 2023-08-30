@@ -38,6 +38,7 @@ public class BattleMainConfig : SerializedScriptableObject
     public float ShipBaseSuckerRange = 10f;
     public float ShipMinSuckerRange = 5f;
     public int ShipLoadBase = 50;
+    public float Drop_Waste_LoadCostBase;
 
     public byte[] EvolveRequireMap = new byte[3];
     public byte[] EvolveAddMap = new byte[4]; 

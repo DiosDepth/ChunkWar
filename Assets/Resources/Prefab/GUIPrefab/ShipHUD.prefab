@@ -974,6 +974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertyType: 2
+  PercentMode: 1
 --- !u!1 &1171881098434057054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertyType: 0
+  PercentMode: 1
 --- !u!1 &1193243498055068201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,6 +1882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertyType: 1
+  PercentMode: 1
 --- !u!1 &2797704636586617998
 GameObject:
   m_ObjectHideFlags: 0
@@ -3829,6 +3832,7 @@ GameObject:
   - component: {fileID: 3831640344643205711}
   - component: {fileID: 5941782476546209525}
   - component: {fileID: 2852344850876909368}
+  - component: {fileID: 1938238539570719220}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3878,7 +3882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3954,6 +3958,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1938238539570719220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6415186749154810615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700d27995536fe04194a7d709e080d6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Textid: ShipHUD_DropTitle
 --- !u!1 &6761241203476219809
 GameObject:
   m_ObjectHideFlags: 0
@@ -4464,6 +4481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertyType: 3
+  PercentMode: 1
 --- !u!1 &7509150992906965277
 GameObject:
   m_ObjectHideFlags: 0
