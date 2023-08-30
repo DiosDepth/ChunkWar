@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DataConfigPath 
 {
+    public const string LevelSpawnConfigRoot = "Configs/Levels";
     public const string BuildingConfigRoot = "Configs/Buildings";
     public const string WeaponConfigRoot = "Configs/Weapons";
     public const string ShipConfigRoot = "Configs/Ships";

@@ -101,4 +101,8 @@ public enum PropertyModifyKey
     /// 护盾半径增加
     /// </summary>
     ShieldRatioAdd,
+    /// <summary>
+    /// 船体装甲
+    /// </summary>
+    ShipArmor,
 }

@@ -24,6 +24,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, PlayerShipConfig> _shipConfigDic = new Dictionary<int, PlayerShipConfig>();
     private Dictionary<int, AIShipConfig> _AIShipConfigDic = new Dictionary<int, AIShipConfig>();
     private Dictionary<int, AchievementItemConfig> _achievementDic = new Dictionary<int, AchievementItemConfig>();
+    private Dictionary<int, LevelSpawnConfig> _levelPresetDic = new Dictionary<int, LevelSpawnConfig>();
 
     /// <summary>
     /// Unit 升级组
@@ -69,6 +70,7 @@ public class DataManager : Singleton<DataManager>
 
     public IEnumerator LoadAllData(UnityAction callback = null)
     {
+        LoadLevelConfig();
         LoadAllBaseUnitConfig();
         LoadMiscData();
         bool iscompleted = CollectCSV();
@@ -157,6 +159,14 @@ public class DataManager : Singleton<DataManager>
                 }
             }
         }
+    }
+
+    public LevelSpawnConfig GetLevelSpawnConfig(int presetID)
+    {
+        LevelSpawnConfig result = null;
+        _levelPresetDic.TryGetValue(presetID, out result);
+        Debug.Assert(result != null, "GetLevelSpawnConfig Null! ID= " + presetID);
+        return result;
     }
 
     public List<PlayerShipConfig> GetAllShipConfigs()
@@ -321,6 +331,23 @@ public class DataManager : Singleton<DataManager>
         path = path.Substring(0, path.Length - 4);
         path = "DataRes/" + path;
         return path;
+    }
+
+    private void LoadLevelConfig()
+    {
+        var allLevelPresets = Resources.LoadAll<LevelSpawnConfig>(DataConfigPath.LevelSpawnConfigRoot);
+        if(allLevelPresets != null && allLevelPresets.Length > 0)
+        {
+            for(int i = 0; i < allLevelPresets.Length; i++)
+            {
+                if (_levelPresetDic.ContainsKey(allLevelPresets[i].LevelPresetID))
+                {
+                    Debug.LogError("Find Same LevelPresetID !" + allLevelPresets[i].LevelPresetID);
+                    continue;
+                }
+                _levelPresetDic.Add(allLevelPresets[i].LevelPresetID, allLevelPresets[i]);
+            }
+        }
     }
 
     private void LoadAllBaseUnitConfig()

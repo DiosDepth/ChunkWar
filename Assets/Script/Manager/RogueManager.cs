@@ -557,7 +557,7 @@ public class RogueManager : Singleton<RogueManager>
 
     private bool IsFinalWave()
     {
-        var waveCount = CurrentHardLevel.Cfg.WaveConfig.Count;
+        var waveCount = CurrentHardLevel.WaveCount;
         return GetCurrentWaveIndex >= waveCount;
     }
 
@@ -594,12 +594,15 @@ public class RogueManager : Singleton<RogueManager>
             AIFactory aIFactory = obj.GetComponent<AIFactory>();
             aIFactory.PoolableSetActive(true);
             aIFactory.Initialization();
-            aIFactory.StartSpawn(spawnpoint, new RectAISpawnSetting((int)cfg.AIType, cfg.TotalCount, cfg.MaxRowCount), (list) =>
+            RectAISpawnSetting spawnSetting = new RectAISpawnSetting((int)cfg.AIType, cfg.TotalCount, cfg.MaxRowCount);
+            spawnSetting.spawnIntervalTime = cfg.SpawnIntervalTime;
+            spawnSetting.spawnShape = cfg.SpawnShpe;
+
+            aIFactory.StartSpawn(spawnpoint, spawnSetting, (list) =>
             {
                 LevelManager.Instance.aiShipList.AddRange(list);
             });
         });
-        Debug.Log("Create Enemy Factory, ID = " + ID);
     }
 
  

@@ -239,3 +239,7 @@ MonoBehaviour:
     ChineseSimplified: "\u5237\u65B0"
     English: 
     Japanese: 
+  - TextID: PropertyName_ShipArmor
+    ChineseSimplified: "\u88C5\u7532"
+    English: 
+    Japanese: 

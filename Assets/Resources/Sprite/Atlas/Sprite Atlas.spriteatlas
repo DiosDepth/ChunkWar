@@ -49,6 +49,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cdbda0e9c9c2b764c8f2a53fc0e6faf8, type: 3}
   - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
   - {fileID: 21300000, guid: f7c7d68bb3b0eb34a832ede2f6cdb955, type: 3}
+  - {fileID: 21300000, guid: ec61eadb7162bea48b41c2b9559d51c7, type: 3}
   - {fileID: 21300000, guid: e27f0d0c4b16d7a40a428f97006b6bbc, type: 3}
   - {fileID: 21300000, guid: 155625dc38cb90842a3d52f10ae91006, type: 3}
   - {fileID: 21300000, guid: 1fa45f0ff1747e849b1cc4c10201bd51, type: 3}
@@ -68,6 +69,7 @@ SpriteAtlas:
   - Hunter4
   - Destroyer4
   - G36Buff
+  - Rouge_592101 #5427
   - powBuff #5913
   - Destroyer3
   - SMAW2

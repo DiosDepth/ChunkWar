@@ -26,6 +26,11 @@ public class BattleMainConfig : SerializedScriptableObject
     public byte ShipMaxLevel;
     public float TransfixionReduce_Max = 0;
     /// <summary>
+    /// 装甲减伤计算参数
+    /// </summary>
+    public float PlayerShip_ArmorDamageReduce_Param = 25;
+
+    /// <summary>
     /// 护盾多久恢复一次
     /// </summary>
     public float ShieldRecoverCD = 0.5f;
@@ -97,37 +102,12 @@ public class HardLevelConfig
     public string Desc;
     public Sprite Icon;
 
+    public int LevelPresetID;
+
     [DictionaryDrawerSettings()]
     public Dictionary<HardLevelModifyType, float> ModifyDic = new Dictionary<HardLevelModifyType, float>();
 
-    public List<WaveConfig> WaveConfig = new List<WaveConfig>();
 }
-
-[HideReferenceObjectPicker]
-public class WaveConfig
-{
-    public int WaveIndex;
-    public ushort DurationTime;
-
-    [TableList]
-    [LabelText("敌人波次配置")]
-    public List<WaveEnemySpawnConfig> SpawnConfig = new List<WaveEnemySpawnConfig>();
-}
-
-/// <summary>
-/// 敌人刷新配置
-/// </summary>
-public class WaveEnemySpawnConfig
-{
-    public int ID;
-    public AvaliableAIType AIType;
-    public int DurationDelta;
-    public int LoopCount;
-    public int StartTime;
-    public int TotalCount;
-    public int MaxRowCount;
-}
-
 
 [System.Serializable]
 [HideReferenceObjectPicker]

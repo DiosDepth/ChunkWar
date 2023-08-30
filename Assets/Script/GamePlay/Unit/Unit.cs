@@ -300,6 +300,11 @@ public class Unit : MonoBehaviour, IDamageble
 
             });
         }
+        else if (_owner is PlayerShip)
+        {
+            ///CalculatePlayerDamage
+            GameHelper.ResolvePlayerUnitDamage(ref info);
+        }
         
         bool isDie = HpComponent.ChangeHP(-info.Damage);
         if(isDie)

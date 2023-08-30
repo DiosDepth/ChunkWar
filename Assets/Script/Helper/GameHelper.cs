@@ -326,6 +326,15 @@ public static class GameHelper
         }
     }
 
+    public static void ResolvePlayerUnitDamage(ref DamageResultInfo info)
+    {
+        var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
+        var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
+        armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
+        float DamageTake = 1 / (float)(1 + armor / armorParam);
+        info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
+    }
+
     /// <summary>
     /// º∆À„ µº CD
     /// </summary>
