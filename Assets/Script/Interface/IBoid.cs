@@ -7,6 +7,7 @@ public interface IBoid
     
     Vector3 GetPosition();
     Vector3 GetVelocity();
+    float GetRadius();
     void SetVelocity( Vector3 m_vect);
 
     void UpdateIBoid();

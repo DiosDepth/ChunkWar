@@ -43,6 +43,16 @@ public class MonoManager : Singleton<MonoManager>
         controller.RemoveUpdateListener(fun);
     }
 
+    public void AddFixedUpdateListener(UnityAction fun)
+    {
+        controller.AddFixedUpdateListener(fun);
+    }
+
+    public void RemoveFixedUpdateListener(UnityAction fun)
+    {
+        controller.RemoveFixedUpdateListener(fun);
+    }
+
     public void AddLaterUpdateListener(UnityAction fun)
     {
         controller.AddLaterUpdateListener(fun);

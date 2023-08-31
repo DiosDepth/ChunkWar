@@ -13,11 +13,12 @@ public class ShipController : BaseController, IBoid
     public Vector3 MovementInput { get { return _movementInput; } }
     protected Vector3 _movementInput;
     protected Vector2 _lastmovementInput;
+    
 
     public float maxSpeed = 10;
     public float acceleration = 10;
     public float maxRotateSpeed = 15;
-
+    public float boidRadius = 10f;
 
 
 
@@ -285,6 +286,11 @@ public class ShipController : BaseController, IBoid
     public Vector3 GetVelocity()
     {
         return velocity;
+    }
+
+    public float GetRadius()
+    {
+        return boidRadius;
     }
     public void SetVelocity(Vector3 m_vect)
     {

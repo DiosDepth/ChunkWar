@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -10,6 +11,7 @@ public static class CommonExtensionTools
         return new Vector2(v3.x, v3.y);
     }
 
+
     public static Vector3 ToVector3(this Vector2 v2)
     {
         return new Vector3(v2.x, v2.y, 0);
@@ -18,6 +20,16 @@ public static class CommonExtensionTools
     public static Vector3 ToVector3(this Vector2Int v2)
     {
         return new Vector3(v2.x, v2.y, 0);
+    }
+
+    public static Vector3 ToVector3(this float3 f3)
+    {
+        return new Vector3(f3.x, f3.y, f3.z);
+    }
+
+    public static float3 ToFloat3(this Vector3 v3)
+    {
+        return new float3(v3.x, v3.y, v3.z);
     }
 
     public static void SetTransform(this Transform trs, Transform newtrs, bool setscale = false)

@@ -193,8 +193,7 @@ MonoBehaviour:
   States:
   - StateName: Steering
     Actions: []
-    FixedActions:
-    - {fileID: 1067569461047974568}
+    FixedActions: []
     Transitions: []
   currentState:
     StateName: 
@@ -228,8 +227,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: 
   isDebug: 0
-  maxAcceleration: 35
+  maxAcceleration: 10
   maxAngularAcceleration: 45
+  boidRadius: 1
+  arriveBehavior: 1
+  faceBehavior: 0
+  cohesionBehavior: 0
+  separationBehavior: 0
+  aligmentBehavior: 0
   drag: 2
   velocity: {x: 0, y: 0, z: 0}
   lastpos: {x: 0, y: 0, z: 0}
@@ -279,6 +284,10 @@ MonoBehaviour:
   weight: 2
   threshold: 1.5
   decayCoefficient: -25
+  detacteRadius: 3
+  mask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &-2281209857848645774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +303,10 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1.5
   viewAngle: 30
+  cohesionRadius: 10
+  mask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &608938921625966677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +322,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   alignDistance: 1.5
+  detacteRadius: 5
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

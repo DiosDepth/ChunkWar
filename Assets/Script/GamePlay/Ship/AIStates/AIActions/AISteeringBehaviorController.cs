@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class AISteeringBehaviorController : AIAction,IBoid
@@ -7,11 +9,17 @@ public class AISteeringBehaviorController : AIAction,IBoid
 
    //public SteeringBehaviorController steeringBehaviorController;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private SteeringBehavior[] steerings;
     public float maxAcceleration = 10f;
     public float maxAngularAcceleration = 3f;
+    public float boidRadius = 1f;
 
+    public bool arriveBehavior = false;
+    public bool faceBehavior = false;
+    public bool cohesionBehavior = false;
+    public bool separationBehavior = false;
+    public bool aligmentBehavior = false;
 
     public float drag = 1f;
     public Vector3 velocity;
@@ -25,6 +33,11 @@ public class AISteeringBehaviorController : AIAction,IBoid
     public Vector3 GetVelocity()
     {
         return velocity;
+    }
+
+    public float GetRadius()
+    {
+        return boidRadius;
     }
     public void SetVelocity(Vector3 m_vect)
     {
@@ -41,15 +54,15 @@ public class AISteeringBehaviorController : AIAction,IBoid
     {
         base.Initialization();
         rb = GetComponent<Rigidbody2D>();
-        steerings = GetComponents<SteeringBehavior>();
+        //steerings = GetComponents<SteeringBehavior>();
         rb.drag = drag;
 
-        for (int i = 0; i < steerings.Length; i++)
-        {
-            steerings[i].SetTarget(RogueManager.Instance.currentShip.transform);
-            //steerings[i].SetEnvAgents(LevelManager.Instance.aiShipList);
-            // steerings[i].SetTarget(AIManager.Instance.target);
-        }
+        //for (int i = 0; i < steerings.Length; i++)
+        //{
+        //    steerings[i].SetTarget(RogueManager.Instance.currentShip.transform);
+        //    //steerings[i].SetEnvAgents(LevelManager.Instance.aiShipList);
+        //    // steerings[i].SetTarget(AIManager.Instance.target);
+        //}
 
         lastpos = transform.position;
         //rb.velocity = Vector3.up;

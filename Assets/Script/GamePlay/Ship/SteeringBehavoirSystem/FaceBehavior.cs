@@ -1,10 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
+using Unity.Burst;
 
-  public class FaceBehavior : SteeringBehavior
+public class FaceBehavior : SteeringBehavior
     {
-        public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
+
+    [BurstCompile]
+    public struct FaceBehaviorJob : IJob
+    {
+        public void Execute()
+        {
+          
+        }
+    }
+
+    public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
         {
             SteeringData steering = new SteeringData();
             Vector3 velocity = GetComponent<IBoid>().GetVelocity();

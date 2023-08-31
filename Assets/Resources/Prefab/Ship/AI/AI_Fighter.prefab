@@ -154,16 +154,13 @@ MonoBehaviour:
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
   collider: {fileID: 5808496827415363717}
-  maxSpeed: 7
-  acceleration: 15
-  maxRotateSpeed: 15
-  _deltaMovement: {x: 0, y: 0}
   controlledTarget: {fileID: 3502843801109665848}
   updateFrequence: 0.003
   States:
   - StateName: Move
     Actions:
     - {fileID: 2903285305435842433}
+    FixedActions: []
     Transitions:
     - Decision: {fileID: 46565608200515095}
       TrueState: Attack
@@ -171,6 +168,7 @@ MonoBehaviour:
   - StateName: Attack
     Actions:
     - {fileID: 3443234521725163642}
+    FixedActions: []
     Transitions:
     - Decision: {fileID: 46565608200515095}
       TrueState: 
@@ -179,6 +177,7 @@ MonoBehaviour:
     StateName: 
     Actions:
     - {fileID: 0}
+    FixedActions: []
     Transitions:
     - Decision: {fileID: 0}
       TrueState: 
@@ -187,6 +186,7 @@ MonoBehaviour:
     StateName: 
     Actions:
     - {fileID: 0}
+    FixedActions: []
     Transitions:
     - Decision: {fileID: 0}
       TrueState: 
@@ -205,6 +205,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: 
   isDebug: 1
+  maxSpeed: 7
+  acceleration: 15
+  maxRotateSpeed: 15
 --- !u!114 &3443234521725163642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: 
   isDebug: 0
+  attackRange: 0
+  maxRotateSpeed: 15
 --- !u!114 &46565608200515095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +312,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -689723199
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 58c50a3456f669c4da191e0ab2b96467, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

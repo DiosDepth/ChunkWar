@@ -596,7 +596,7 @@ public class RogueManager : Singleton<RogueManager>
             aIFactory.Initialization();
             aIFactory.StartSpawn(spawnpoint, new RectAISpawnSetting((int)cfg.AIType, cfg.TotalCount, cfg.MaxRowCount), (list) =>
             {
-                LevelManager.Instance.aiShipList.AddRange(list);
+                LevelManager.Instance.airuntimedata.AddAIDataRange(list);
             });
         });
         Debug.Log("Create Enemy Factory, ID = " + ID);

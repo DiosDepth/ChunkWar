@@ -6,9 +6,12 @@ using UnityEngine.Events;
 public class MonoController : MonoBehaviour
 {
     private event UnityAction updateEvent;
+    private event UnityAction fixedUpdateEvent;
     private event UnityAction laterUpdateEvent;
     private event UnityAction awakeEvent;
     private event UnityAction startEvent;
+
+
 
     private void Awake()
     {
@@ -44,7 +47,27 @@ public class MonoController : MonoBehaviour
         }
     }
 
-    public void AddUpdateListener(UnityAction fun)
+    private void FixedUpdate()
+    {
+        if(fixedUpdateEvent != null)
+        {
+            fixedUpdateEvent();
+        }
+    }
+
+
+    public void AddFixedUpdateListener(UnityAction fun)
+    {
+        fixedUpdateEvent += fun;
+    }
+    
+
+    public void RemoveFixedUpdateListener(UnityAction fun)
+    {
+        fixedUpdateEvent -= fun;
+    }
+
+public void AddUpdateListener(UnityAction fun)
     {
         updateEvent += fun;
     }

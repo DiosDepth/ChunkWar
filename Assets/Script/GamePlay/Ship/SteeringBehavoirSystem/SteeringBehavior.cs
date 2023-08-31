@@ -9,7 +9,8 @@ public class SteeringData
     public float angular;
     public SteeringData()
     {
-        linear = Vector3.zero; angular = 0f;
+        linear = Vector3.zero;
+        angular = 0f;
     }
 }
 
@@ -33,7 +34,7 @@ public  class SteeringBehavior : MonoBehaviour
         return null;
     }
 
-    public float GetWeight() { return weight; }
+    public virtual float GetWeight() { return weight; }
 
     public virtual void SetEnvAgents(List<Transform> m_agents)
     {
