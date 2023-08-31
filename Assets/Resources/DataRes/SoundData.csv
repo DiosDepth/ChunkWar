@@ -4,3 +4,4 @@ ID,Name,SoundSourcePath
 3,SFX_shotgun_reload,Music/SFX/SFX_shotgun_reload
 4,SFX_shotgun_shot,Music/SFX/SFX_shotgun_shot
 5,BGM_Acapella,Music/BGM/BGM_Acapella
+7,SFX_Missile_Fire_001,Music/SFX/Missiles/IonTorpLaunch1

@@ -36,7 +36,7 @@ public enum PickableItemType
 public enum AvaliablePickUp
 {
     None = 0,
-    GoldPickup = 1,
+    WastePickup = 1,
     HarborTeleportPickup = 2,
 }
 
@@ -52,13 +52,11 @@ public class PickableItem : MonoBehaviour, IPoolable
 
     public InventoryItem pickedItem;
 
-    // Start is called before the first frame update
     protected virtual void Start()
     {
         
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         
@@ -124,7 +122,10 @@ public class PickableItem : MonoBehaviour, IPoolable
 
     public  void PoolableReset()
     {
-        if(LevelManager.Instance != null)
+        ///Reset
+        trigger.enabled = true;
+
+        if (LevelManager.Instance != null)
         {
             LevelManager.Instance.pickupList.Remove(this);
         }

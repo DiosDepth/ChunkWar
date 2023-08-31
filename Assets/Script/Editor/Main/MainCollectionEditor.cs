@@ -42,6 +42,15 @@ public class MainCollectionEditor : OdinEditorWindow
         win.Close();
     }
 
+
+    [Button("πÿø®‘§…Ë±‡º≠", ButtonSizes.Large), GUIColor(0, 1, 0)]
+    public static void ShowLevelEditor()
+    {
+        LevelPresetEditor.ShowWindow();
+        var win = GetWindow<MainCollectionEditor>();
+        win.Close();
+    }
+
     [Button("…ÃµÍ≈‰÷√", ButtonSizes.Large)]
     public static void ShowShopEditor()
     {

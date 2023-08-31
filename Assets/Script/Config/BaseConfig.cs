@@ -25,7 +25,8 @@ public class BaseConfig : SerializedScriptableObject
     public GameObject Prefab;
 
     [TableMatrix(ResizableColumns = false, SquareCells = true, DrawElementMethod = "DrawTable")]
-    [HorizontalGroup("A", 600)]
+    [FoldoutGroup("Õ¯∏Ò≈‰÷√")]
+    [HorizontalGroup("Õ¯∏Ò≈‰÷√/A", 600)]
     public int[,] Map;
 
     public Vector2Int MapPivot

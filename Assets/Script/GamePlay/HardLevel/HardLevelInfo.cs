@@ -7,6 +7,8 @@ public class HardLevelInfo
     public int HardLevelID;
     public HardLevelConfig Cfg;
 
+    private LevelSpawnConfig _spawnConfig;
+
     public bool Unlock
     {
         get { return _unlock; }
@@ -23,8 +25,20 @@ public class HardLevelInfo
         get { return LocalizationManager.Instance.GetTextValue(Cfg.Desc); }
     }
 
+    /// <summary>
+    /// ²¨´ÎÊýÁ¿
+    /// </summary>
+    public int WaveCount
+    {
+        get
+        {
+            return _spawnConfig.WaveConfig.Count;
+        }
+    }
+
     public HardLevelInfo(HardLevelConfig cfg)
     {
+        _spawnConfig = DataManager.Instance.GetLevelSpawnConfig(cfg.LevelPresetID);
         HardLevelID = cfg.HardLevelID;
         Cfg = cfg;
     }
@@ -35,13 +49,16 @@ public class HardLevelInfo
         if (hardLevelCfg == null)
             return;
 
+        _spawnConfig = DataManager.Instance.GetLevelSpawnConfig(hardLevelCfg.LevelPresetID);
         HardLevelID = hardLevelID;
         Cfg = hardLevelCfg;
     }
 
     public WaveConfig GetWaveConfig(int waveIndex)
     {
-        return Cfg.WaveConfig.Find(x => x.WaveIndex == waveIndex);
+        var waveConfigs = _spawnConfig.WaveConfig;
+
+        return waveConfigs.Find(x => x.WaveIndex == waveIndex);
     }
 
     /// <summary>

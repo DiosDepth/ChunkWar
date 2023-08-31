@@ -107,5 +107,10 @@ public class WeaponConfig : BaseUnitConfig
     [LabelText("伤害来源修正")]
     [LabelWidth(100)]
     public List<UnitPropertyModifyFrom> DamageModifyFrom = new List<UnitPropertyModifyFrom>();
+
+    [FoldoutGroup("音频配置")]
+    [LabelText("开火音效")]
+    [LabelWidth(100)]
+    public string FireAudioClip;
 }
 

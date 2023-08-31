@@ -277,7 +277,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private void CalculateWeaponRange()
     {
         var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponRange);
-        WeaponRange = Mathf.Clamp(BaseWeaponRange + weaponRange, 0, float.MaxValue);
+        WeaponRange = Mathf.Clamp(BaseWeaponRange + weaponRange / 10f, 0, float.MaxValue);
     }
 
     private void CalculateReloadTime()
@@ -693,7 +693,7 @@ public class Weapon : Unit
     public virtual void DoFire()
     {
         int firecount = CalculateFireCount();
-
+        SoundManager.Instance.Play(_weaponCfg.FireAudioClip, SoundManager.SoundType.SFX);
         switch (weaponmode)
         {
             case WeaponControlType.SemiAuto:

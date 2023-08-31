@@ -1,3 +1,3 @@
 ID,Name,PrefabPath
-1,GoldPickup,Prefab/PickUps/GoldPickup
+1,WastePickup,Prefab/PickUps/WastePickup
 2,HarborTeleportPickup,Prefab/PickUps/HarborTeleportPickup

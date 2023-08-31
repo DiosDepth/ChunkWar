@@ -56,6 +56,7 @@ public enum RogueEventType
     CancelWreckageSelect,
     WreckageAddToShip,
     RefreshWreckage,
+    WasteCountChange,
 }
 
 public enum ShipPropertyEventType
@@ -350,7 +351,7 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// ×Ü¸ºÔØÏûºÄ
     /// </summary>
-    public int WreckageTotalLoadCost
+    public float WreckageTotalLoadCost
     {
         get;
         private set;
@@ -371,6 +372,30 @@ public class RogueManager : Singleton<RogueManager>
     public float WreckageLoadPercent
     {
         get { return WreckageTotalLoadValue / (float)WreckageTotalLoadCost; }
+    }
+
+    private ChangeValue<int> _dropWasteCount;
+
+    /// <summary>
+    /// ½¢´¬²Ðº¡ÊýÁ¿
+    /// </summary>
+    public int GetDropWasteCount
+    {
+        get { return _dropWasteCount.Value; }
+    }
+
+    /// <summary>
+    /// ½¢´¬²Ðº¡¸ºÔØ
+    /// </summary>
+    public float GetDropWasteLoad
+    {
+        get
+        {
+            var baseValue = DataManager.Instance.battleCfg.Drop_Waste_LoadCostBase;
+            var loadcostPercent = 100 - MainPropertyData.GetPropertyFinal(PropertyModifyKey.WasteLoadPercent);
+            loadcostPercent = Mathf.Clamp(loadcostPercent, 0, float.MaxValue);
+            return GetDropWasteCount * baseValue * loadcostPercent / 100f;
+        }
     }
 
     /// <summary>
@@ -400,6 +425,16 @@ public class RogueManager : Singleton<RogueManager>
         }
         CurrentWreckageItems.Remove(uid);
         CalculateTotalLoadCost();
+    }
+
+    public void AddDropWasteCount(int count)
+    {
+        int newCount = GetDropWasteCount + count;
+        _dropWasteCount.Set(newCount);
+        ///UpdateLoad
+        CalculateTotalLoadCost();
+
+        RogueEvent.Trigger(RogueEventType.WasteCountChange);
     }
 
     /// <summary>
@@ -441,6 +476,7 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     private void InitWreckageData()
     {
+        _dropWasteCount = new ChangeValue<int>(0, 0, int.MaxValue);
         CurrentWreckageItems = new Dictionary<uint, WreckageItemInfo>();
         wreckageItems = new Dictionary<int, WreckageItemInfo>();
         var allWreckgeData = DataManager.Instance.shopCfg.WreckageDrops;
@@ -477,6 +513,9 @@ public class RogueManager : Singleton<RogueManager>
         {
             WreckageTotalLoadCost += item.LoadCost;
         }
+        ///Calculate Waste
+        WreckageTotalLoadCost += GetDropWasteLoad;
+
         ShipPropertyEvent.Trigger(ShipPropertyEventType.WreckageLoadChange);
     }
 
@@ -557,7 +596,7 @@ public class RogueManager : Singleton<RogueManager>
 
     private bool IsFinalWave()
     {
-        var waveCount = CurrentHardLevel.Cfg.WaveConfig.Count;
+        var waveCount = CurrentHardLevel.WaveCount;
         return GetCurrentWaveIndex >= waveCount;
     }
 
@@ -594,12 +633,15 @@ public class RogueManager : Singleton<RogueManager>
             AIFactory aIFactory = obj.GetComponent<AIFactory>();
             aIFactory.PoolableSetActive(true);
             aIFactory.Initialization();
-            aIFactory.StartSpawn(spawnpoint, new RectAISpawnSetting((int)cfg.AIType, cfg.TotalCount, cfg.MaxRowCount), (list) =>
+            RectAISpawnSetting spawnSetting = new RectAISpawnSetting((int)cfg.AIType, cfg.TotalCount, cfg.MaxRowCount);
+            spawnSetting.spawnIntervalTime = cfg.SpawnIntervalTime;
+            spawnSetting.spawnShape = cfg.SpawnShpe;
+
+            aIFactory.StartSpawn(spawnpoint, spawnSetting, (list) =>
             {
                 LevelManager.Instance.airuntimedata.AddAIDataRange(list);
             });
         });
-        Debug.Log("Create Enemy Factory, ID = " + ID);
     }
 
  

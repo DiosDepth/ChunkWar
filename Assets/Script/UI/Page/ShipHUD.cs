@@ -47,7 +47,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         SetUpGeneral();
         BindTimerChange(true);
         SetUpSlider();
-        RefreshCurrency();
+        RefreshWasteCount();
         RefreshWreckageDrops();
         InitShipWeaponCmpts();
     }
@@ -109,8 +109,8 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     {
         switch (evt.type)
         {
-            case RogueEventType.CurrencyChange:
-                RefreshCurrency();
+            case RogueEventType.WasteCountChange:
+                RefreshWasteCount();
                 break;
 
             case RogueEventType.WreckageDropRefresh:
@@ -146,9 +146,9 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         _expCmpt.RefreshEXP();
     }
 
-    private void RefreshCurrency()
+    private void RefreshWasteCount()
     {
-        _normalDropText.text = RogueManager.Instance.CurrentCurrency.ToString();
+        _normalDropText.text = RogueManager.Instance.GetDropWasteCount.ToString();
     }
 
     private void RefreshWreckageDrops()

@@ -19,32 +19,53 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _sellText;
     private Transform _unitInfoRoot;
     private Text _typeText;
+    private CanvasGroup _contentCanvas;
+    private CanvasGroup _wasteCanvas;
+
+    private TextMeshProUGUI _wasteValueText;
+    private TextMeshProUGUI _wasteLoadValueText;
 
     private WreckageItemInfo _info;
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
 
     public void Awake()
     {
+        _wasteCanvas = transform.Find("WasteContent").SafeGetComponent<CanvasGroup>();
+        _contentCanvas = transform.Find("Content").SafeGetComponent<CanvasGroup>();
         _icon = transform.Find("Content/Info/Icon").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
         _descText = transform.Find("Content/Desc").GetComponent<TextMeshProUGUI>();
         _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
         _sellText = transform.Find("Content/Sell/Value").SafeGetComponent<TextMeshProUGUI>();
         _unitInfoRoot = transform.Find("Content/UnitInfo");
+
+        _wasteValueText = _wasteCanvas.transform.Find("Count/Value").SafeGetComponent<TextMeshProUGUI>();
+        _wasteLoadValueText = _wasteCanvas.transform.Find("Load/Value").SafeGetComponent<TextMeshProUGUI>();
+
         transform.Find("BG").SafeGetComponent<Button>().onClick.AddListener(OnBtnClick);
         transform.Find("Content/Sell").SafeGetComponent<Button>().onClick.AddListener(OnSellBtnClick);
+        transform.Find("WasteContent/WasteSell").SafeGetComponent<Button>().onClick.AddListener(OnWasteSellClick);
     }
 
     public void SetDataGrid(int dataIndex, SelectableItemBase item, SelectedDelegate selected)
     {
         this.selected = selected;
-        transform.SafeGetComponent<CanvasGroup>().ActiveCanvasGroup(item != null);
         if (item != null)
         {
             ItemUID = (uint)item.content;
-
-            _info = RogueManager.Instance.GetCurrentWreckageByUID(ItemUID);
-            SetUp(_info);
+            if(ItemUID == 0)
+            {
+                _contentCanvas.ActiveCanvasGroup(false);
+                _wasteCanvas.ActiveCanvasGroup(true);
+                SetUpWaste();
+            }
+            else
+            {
+                _contentCanvas.ActiveCanvasGroup(true);
+                _wasteCanvas.ActiveCanvasGroup(false);
+                _info = RogueManager.Instance.GetCurrentWreckageByUID(ItemUID);
+                SetUp(_info);
+            }
         }
 
         if (_item != null)
@@ -59,6 +80,15 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
             _item.selectedChanged += SelectedChanged;
             SelectedChanged(_item.Selected);
         }
+    }
+
+    /// <summary>
+    /// ∑œ∆∑–≈œ¢
+    /// </summary>
+    private void SetUpWaste()
+    {
+        _wasteValueText.text = RogueManager.Instance.GetDropWasteCount.ToString();
+        _wasteLoadValueText.text = string.Format("{0:F1}", RogueManager.Instance.GetDropWasteLoad);
     }
 
     private void SetUp(WreckageItemInfo info)
@@ -141,6 +171,10 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     {
         _item.Selected = true;
         selected?.Invoke(this);
+
+        if (ItemUID == 0)
+            return;
+
         var cfg = DataManager.Instance.GetUnitConfig(_info.UnitID);
         var shipBuilder = ShipBuilder.instance;
         if (shipBuilder == null || cfg == null)
@@ -158,5 +192,11 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
             return;
 
         _info.Sell();
+    }
+
+    private void OnWasteSellClick()
+    {
+        if (ItemUID != 0)
+            return;
     }
 }

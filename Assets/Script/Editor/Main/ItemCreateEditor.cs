@@ -9,6 +9,7 @@ using UnityEngine;
 public enum ItemCreateType
 {
     Achievement,
+    LevelPreset
 }
 
 public class ItemCreateEditor : OdinEditorWindow
@@ -29,6 +30,10 @@ public class ItemCreateEditor : OdinEditorWindow
         {
             CurrentCreateItemID = AchievementDataOverview.Instance.GetNextIndex();
         }
+        else if (CreateType == ItemCreateType.LevelPreset)
+        {
+            CurrentCreateItemID = LevelPresetDataOverview.Instance.GetNextIndex();
+        }
         OnItemIDChange();
     }
 
@@ -45,6 +50,10 @@ public class ItemCreateEditor : OdinEditorWindow
         {
             _itemCreateError = CurrentCreateItemID <= 0 || AchievementDataOverview.Instance.IsAchievementIDExists(CurrentCreateItemID);
         }
+        else if (CreateType == ItemCreateType.LevelPreset)
+        {
+            _itemCreateError = CurrentCreateItemID <= 0 || LevelPresetDataOverview.Instance.IsLevelPresetIDExists(CurrentCreateItemID);
+        }
     }
     [HideInEditorMode]
     public bool _itemCreateError = true;
@@ -60,6 +69,10 @@ public class ItemCreateEditor : OdinEditorWindow
         {
             CreateStorageItem();
         }
+        else if (CreateType == ItemCreateType.LevelPreset)
+        {
+            CreateLevelPreset();
+        }
         Close();
     }
 
@@ -71,6 +84,19 @@ public class ItemCreateEditor : OdinEditorWindow
             obj.AchievementID = CurrentCreateItemID;
             AchievementDataOverview.Instance.AddInfoToRefDic(CurrentCreateItemID, obj);
             var parentWin = GetWindow<AchievementEditor>();
+            parentWin.TrySelectMenuItemWithObject(obj);
+        });
+        Debug.Log("创建成功");
+    }
+
+    private void CreateLevelPreset()
+    {
+        string fileName = string.Format("LevelPreset_{0}", CurrentCreateItemID);
+        var itemAssets = SimEditorUtility.CreateAssets<LevelSpawnConfig>("Assets/Resources/Configs/Levels", fileName, obj =>
+        {
+            obj.LevelPresetID = CurrentCreateItemID;
+            LevelPresetDataOverview.Instance.AddInfoToRefDic(CurrentCreateItemID, obj);
+            var parentWin = GetWindow<LevelPresetEditor>();
             parentWin.TrySelectMenuItemWithObject(obj);
         });
         Debug.Log("创建成功");

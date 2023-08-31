@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public enum Shape
 [System.Serializable]
 public class RectAISpawnSetting
 {
+    public Shape spawnShape = Shape.Rectangle;
     public int spawnUnitID;
     public int totalCount;
     public int maxRowCount;
@@ -50,51 +52,33 @@ public class RectAISpawnSetting
 
 public class AIFactory : MonoBehaviour,IPoolable
 {
-
-
     public Shape spawnShape = Shape.Rectangle;
 
     //Rectangle settings
     public RectAISpawnSetting aiSpawnSetting = new RectAISpawnSetting();
     public Transform target;
 
-
-
     private Vector2Int _rectanglematirx;
     private List<Vector2> _formposlist = new List<Vector2>();
     private List<AIShip> _shiplist = new List<AIShip>();
-    private Coroutine _spawncorotine;
 
     private Vector2 _spawnreferencedir;
     private AIShipConfig _shipconfig;
 
-    
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public virtual void Initialization()
     {
 
     }
 
-    public void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, UnityAction<List<AIShip>> callback = null)
+    public async void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, UnityAction<List<AIShip>> callback = null)
     {
+        spawnShape = spawnsettings.spawnShape;
         aiSpawnSetting = spawnsettings;
         target = RogueManager.Instance.currentShip.transform;
-        _spawncorotine = StartCoroutine(Spawn(referencepos, callback));
+        await Spawn(referencepos, callback);
     }
 
-    public IEnumerator Spawn(Vector2 referencepos, UnityAction<List<AIShip>> callback)
+    public async UniTask Spawn(Vector2 referencepos, UnityAction<List<AIShip>> callback)
     {
         AIShip tempship;
 
@@ -107,7 +91,7 @@ public class AIFactory : MonoBehaviour,IPoolable
         for (int i = 0; i < _formposlist.Count; i++)
         {
             //实例化所有的配置敌人ＡＩ
-            yield return new WaitForSeconds (aiSpawnSetting.spawnIntervalTime);
+            await UniTask.Delay((int)aiSpawnSetting.spawnIntervalTime * 1000);
             PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + _shipconfig.Prefab.name, true, (obj) => 
             {
                 obj.transform.position = _formposlist[i];
@@ -118,23 +102,16 @@ public class AIFactory : MonoBehaviour,IPoolable
 
             }, (LevelManager.Instance.currentLevel as BattleLevel).AIPool.transform);
         }
-        if(callback != null)
-        {
-            callback.Invoke(_shiplist);
-        }
+        callback?.Invoke(_shiplist);
+        Debug.Log(string.Format("Create Enemy Success! UnitID = {0} , Count = {1}", aiSpawnSetting.spawnUnitID, _shiplist.Count));
         PoolableDestroy();
     }
 
     public void StopSpawn(UnityAction<List<AIShip>> callback)
     {
-        if(callback != null)
-        {
-            callback.Invoke(_shiplist);
-        }
-        StopCoroutine(_spawncorotine);
+        callback?.Invoke(_shiplist);
         PoolableDestroy();
     }
-
 
     public Vector2 GetSpawnReferenceDir()
     {
@@ -199,11 +176,12 @@ public class AIFactory : MonoBehaviour,IPoolable
         return null;
     }
 
-
     public void PoolableReset()
     {
-        StopCoroutine(_spawncorotine);
-       // throw new System.NotImplementedException();
+        aiSpawnSetting = null;
+        _shipconfig = null;
+        _formposlist.Clear();
+        _shiplist.Clear();
     }
 
     public void PoolableDestroy()

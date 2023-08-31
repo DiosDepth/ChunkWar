@@ -165,6 +165,9 @@ public static class GameHelper
     public static List<uint> GetAllSaveIDs()
     {
         var allsav = SaveLoadManager.Instance.GetAllSave;
+        if (allsav == null || allsav.Count <= 0)
+            return new List<uint>();
+
         return allsav.Select(x => (uint)x.SaveIndex).ToList();
     }
 
@@ -216,8 +219,16 @@ public static class GameHelper
 
     public static List<uint> GetCurrentWreckageItems()
     {
+        List<uint> result = new List<uint>();
+        ///Waste
+        if (RogueManager.Instance.GetDropWasteCount > 0)
+        {
+            result.Add(0);
+        }
+        
         var allItems = RogueManager.Instance.CurrentWreckageItems;
-        return allItems.Values.Select(x => x.UID).ToList();
+        result.AddRange( allItems.Values.Select(x => x.UID).ToList());
+        return result;
     }
 
     /// <summary>
@@ -324,6 +335,15 @@ public static class GameHelper
             default:
                 return string.Empty;
         }
+    }
+
+    public static void ResolvePlayerUnitDamage(ref DamageResultInfo info)
+    {
+        var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
+        var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
+        armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
+        float DamageTake = 1 / (float)(1 + armor / armorParam);
+        info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
     }
 
     /// <summary>

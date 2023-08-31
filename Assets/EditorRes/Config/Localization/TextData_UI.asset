@@ -239,3 +239,27 @@ MonoBehaviour:
     ChineseSimplified: "\u5237\u65B0"
     English: 
     Japanese: 
+  - TextID: PropertyName_ShipArmor
+    ChineseSimplified: "\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipHUD_DropTitle
+    ChineseSimplified: "\u6389\u843D"
+    English: 
+    Japanese: 
+  - TextID: WreckageSlot_Waste_Name
+    ChineseSimplified: "\u8230\u8239\u6B8B\u9AB8"
+    English: 
+    Japanese: 
+  - TextID: WreckageItem_Waste_Count
+    ChineseSimplified: "\u6570\u91CF"
+    English: 
+    Japanese: 
+  - TextID: WreckageItem_Waste_Load
+    ChineseSimplified: "\u8D1F\u8F7D"
+    English: 
+    Japanese: 
+  - TextID: WreckageSlotItem_WasteSell
+    ChineseSimplified: "\u51FA\u552E\u6B8B\u9AB8"
+    English: 
+    Japanese: 
