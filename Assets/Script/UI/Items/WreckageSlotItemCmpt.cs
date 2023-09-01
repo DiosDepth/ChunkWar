@@ -173,8 +173,10 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         selected?.Invoke(this);
 
         if (ItemUID == 0)
+        {
             return;
-
+        }
+            
         var cfg = DataManager.Instance.GetUnitConfig(_info.UnitID);
         var shipBuilder = ShipBuilder.instance;
         if (shipBuilder == null || cfg == null)
@@ -198,5 +200,11 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     {
         if (ItemUID != 0)
             return;
+
+        ///ShowSell Dialog
+        UIManager.Instance.ShowUI<WasteSellDialog>("WasteSellDialog", E_UI_Layer.Top, this, (panel)=> 
+        {
+            panel.Initialization();
+        });
     }
 }

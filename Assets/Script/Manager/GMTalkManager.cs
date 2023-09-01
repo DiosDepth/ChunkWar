@@ -59,6 +59,16 @@ public class GMTalkManager : Singleton<GMTalkManager>
             return true;
         });
 
+
+        AddGMFunctionToDic("waste", (param) =>
+        {
+            if (param.Length != 1)
+                return false;
+            int value = 0;
+            int.TryParse(param[0], out value);
+            RogueManager.Instance.AddDropWasteCount(value);
+            return true;
+        });
     }
 
     

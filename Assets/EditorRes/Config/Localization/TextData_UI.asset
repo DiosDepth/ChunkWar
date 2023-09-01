@@ -263,3 +263,19 @@ MonoBehaviour:
     ChineseSimplified: "\u51FA\u552E\u6B8B\u9AB8"
     English: 
     Japanese: 
+  - TextID: WasteSellDialog_Title
+    ChineseSimplified: "\u51FA\u552E\u8230\u8239\u6B8B\u9AB8"
+    English: 
+    Japanese: 
+  - TextID: WasteSellDialog_WasteTotal_Title
+    ChineseSimplified: "\u6B8B\u9AB8\u603B\u91CF:"
+    English: 
+    Japanese: 
+  - TextID: WasteSellDialog_LoadTotal_Title
+    ChineseSimplified: "\u5F53\u524D\u8D1F\u8F7D:"
+    English: 
+    Japanese: 
+  - TextID: WasteSellDialog_SellButton
+    ChineseSimplified: "\u51FA\u552E"
+    English: 
+    Japanese: 
