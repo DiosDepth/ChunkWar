@@ -347,6 +347,19 @@ public static class GameHelper
     }
 
     /// <summary>
+    /// 计算残骸出售价格
+    /// </summary>
+    /// <param name="wasteCount"></param>
+    /// <returns></returns>
+    public static int CalculateWasteSellPrice(int wasteCount)
+    {
+        var sellAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WasteSellPriceAdd);
+        float sellPercent = Mathf.Clamp(sellAdd / 100f + 1, 0, float.MaxValue);
+        return Mathf.RoundToInt(wasteCount * sellPercent);
+    }
+   
+
+    /// <summary>
     /// 计算实际CD
     /// </summary>
     /// <param name="rowValue"></param>

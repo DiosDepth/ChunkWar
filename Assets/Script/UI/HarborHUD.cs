@@ -81,10 +81,6 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
                 OnHoverUnitDisplay((Unit)evt.param[0]);
                 break;
 
-            case RogueEventType.RefreshWreckage:
-                RefreshWreckageContent();
-                break;
-
             case RogueEventType.HideHoverUnitDisplay:
                 OnHideHoverUnitDisplay((Unit)evt.param[0]);
                 break;
@@ -93,7 +89,9 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
                 CancelWreckageSelect();
                 break;
 
+            case RogueEventType.RefreshWreckage:
             case RogueEventType.WreckageAddToShip:
+            case RogueEventType.WasteCountChange:
                 RefreshWreckageContent();
                 break;
         }

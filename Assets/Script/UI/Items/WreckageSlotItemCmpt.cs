@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,11 +26,15 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _wasteValueText;
     private TextMeshProUGUI _wasteLoadValueText;
 
+    private RectTransform _mainContentRect;
+
     private WreckageItemInfo _info;
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
 
     public void Awake()
     {
+        _mainContentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
+
         _wasteCanvas = transform.Find("WasteContent").SafeGetComponent<CanvasGroup>();
         _contentCanvas = transform.Find("Content").SafeGetComponent<CanvasGroup>();
         _icon = transform.Find("Content/Info/Icon").SafeGetComponent<Image>();
@@ -50,6 +55,14 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     public void SetDataGrid(int dataIndex, SelectableItemBase item, SelectedDelegate selected)
     {
         this.selected = selected;
+        if(item == null)
+        {
+            transform.SafeGetComponent<CanvasGroup>().ActiveCanvasGroup(false);
+            return;
+        }
+
+        transform.SafeGetComponent<CanvasGroup>().ActiveCanvasGroup(true);
+
         if (item != null)
         {
             ItemUID = (uint)item.content;
@@ -91,7 +104,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _wasteLoadValueText.text = string.Format("{0:F1}", RogueManager.Instance.GetDropWasteLoad);
     }
 
-    private void SetUp(WreckageItemInfo info)
+    private async void SetUp(WreckageItemInfo info)
     {
         if (info == null)
             return;
@@ -104,9 +117,8 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _sellText.text = info.SellPrice.ToString();
 
         SetUpUintInfo(info.UnitConfig);
-
-        var contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
+        await UniTask.WaitForFixedUpdate();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_mainContentRect);
     }
 
     /// <summary>

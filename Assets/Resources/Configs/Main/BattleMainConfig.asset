@@ -624,6 +624,7 @@ MonoBehaviour:
   ShipBaseSuckerRange: 10
   ShipMinSuckerRange: 5
   ShipLoadBase: 50
+  Drop_Waste_LoadCostBase: 0.1
   EvolveRequireMap: 010408
   EvolveAddMap: 01020408
   EXPMap: 0f00000019000000230000002d00000037000000640000006e000000

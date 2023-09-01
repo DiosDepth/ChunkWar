@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class LongClickButton : Button
 {
-    [SerializeField]
     private float ClickDelta = 0.2f;
 
     private bool _isPointerDown = false;

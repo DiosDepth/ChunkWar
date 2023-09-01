@@ -1276,7 +1276,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  ClickDelta: 200
+  ClickDelta: 0.2
 --- !u!1 &4408175496850155605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,7 +2437,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  ClickDelta: 200
+  ClickDelta: 0.2
 --- !u!1 &4408175497622299807
 GameObject:
   m_ObjectHideFlags: 0
