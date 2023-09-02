@@ -10,7 +10,7 @@ public class LocalizationSerlizationData : SerializedScriptableObject
     public string TextSetName;
 
     [HideReferenceObjectPicker]
-    [TableList(DrawScrollView = true, ShowIndexLabels = true, NumberOfItemsPerPage = 100)]
+    [TableList(DrawScrollView = true, ShowIndexLabels = true, NumberOfItemsPerPage = 40, ShowPaging = true)]
     [LabelText("文本")]
     [Searchable]
     [InfoBox("后缀带有（Auto）的文件为自动生成，不要手动更改！！！！ \n如果需要搜索，点击右侧+号左边的按钮切换显示模式", InfoMessageType = InfoMessageType.Info)]

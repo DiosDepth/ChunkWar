@@ -41,7 +41,19 @@ public class ShipSelectionInfoPanel : MonoBehaviour
                 PoolManager.Instance.GetObjectSync(ShipProperty_ItemPrefabPath, true, (obj) =>
                 {
                     var cmpt = obj.GetComponent<ItemPropertyModifyCmpt>();
-                    cmpt.SetUp(property.ModifyKey, property.Value);
+                    cmpt.SetUp(property.ModifyKey, property.Value, false);
+                }, _propertyContent);
+            }
+
+            foreach (var property in plugCfg.PropertyPercentModify)
+            {
+                if (property.Value == 0)
+                    continue;
+
+                PoolManager.Instance.GetObjectSync(ShipProperty_ItemPrefabPath, true, (obj) =>
+                {
+                    var cmpt = obj.GetComponent<ItemPropertyModifyCmpt>();
+                    cmpt.SetUp(property.ModifyKey, property.Value, true);
                 }, _propertyContent);
             }
         }

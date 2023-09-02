@@ -212,6 +212,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_DamagePercent
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_DamagePercent
     - Name: Icon
       Entry: 10
       Data: 2
@@ -239,6 +242,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_AttackSpeed
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 3
@@ -266,6 +272,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_Critical
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_Critical
     - Name: Icon
       Entry: 10
       Data: 4
@@ -293,6 +302,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopRefreshCount
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 5
@@ -320,6 +332,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopCostPercent
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 6
@@ -347,6 +362,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipHP
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyNameShipHP
     - Name: Icon
       Entry: 10
       Data: 7
@@ -374,6 +392,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_WeaponRange
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 8
@@ -401,6 +422,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_Luck
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 9
@@ -428,6 +452,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_SuckerRange
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 5
@@ -455,6 +482,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_PhysicsDamage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 10
@@ -482,6 +512,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnergyDamage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 11
@@ -509,6 +542,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_DamageDeltaPercent
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 12
@@ -536,6 +572,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: CriticalDamagePercentAdd
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 13
@@ -563,6 +602,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShieldHP
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 14
@@ -590,6 +632,9 @@ MonoBehaviour:
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipArmor
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 15

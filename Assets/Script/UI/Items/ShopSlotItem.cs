@@ -197,18 +197,19 @@ public class ShopSlotItem : MonoBehaviour
         if(type == GoodsItemType.ShipPlug)
         {
             var plugCfg = DataManager.Instance.GetShipPlugItemConfig(_goodsInfo._cfg.TypeID);
-            if(plugCfg != null)
+            PropertyModifyRoot.Pool_BackAllChilds(ShopPropertyItem_PrefabPath);
+            if (plugCfg != null)
             {
-                SetUpPropertyCmpt(plugCfg.PropertyModify);
+                SetUpPropertyCmpt(plugCfg.PropertyModify, false);
+                SetUpPropertyCmpt(plugCfg.PropertyPercentModify, true);
             }
         }
         var rect = PropertyModifyRoot.GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }
 
-    private void SetUpPropertyCmpt(List<PropertyMidifyConfig> cfgs)
+    private void SetUpPropertyCmpt(List<PropertyMidifyConfig> cfgs, bool modifyPercent)
     {
-        PropertyModifyRoot.Pool_BackAllChilds(ShopPropertyItem_PrefabPath);
         if (cfgs == null || cfgs.Count <= 0)
             return;
 
@@ -218,10 +219,9 @@ public class ShopSlotItem : MonoBehaviour
             PoolManager.Instance.GetObjectSync(ShopPropertyItem_PrefabPath, true, (obj) =>
             {
                 var cmpt = obj.GetComponent<ItemPropertyModifyCmpt>();
-                cmpt.SetUp(cfgs[index].ModifyKey, cfgs[index].Value);
+                cmpt.SetUp(cfgs[index].ModifyKey, cfgs[index].Value, modifyPercent);
                 index++;
             }, PropertyModifyRoot);
         }
-        
     }
 }

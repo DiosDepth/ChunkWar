@@ -43,6 +43,7 @@ MonoBehaviour:
       Value: 15
     - ModifyKey: 9
       Value: 15
+    PropertyPercentModify: []
   - ID: 2
     GeneralConfig:
       IconSprite: {fileID: 0}
@@ -64,6 +65,7 @@ MonoBehaviour:
       Value: 0
     - ModifyKey: 9
       Value: 5
+    PropertyPercentModify: []
   - ID: 3
     GeneralConfig:
       IconSprite: {fileID: 0}
@@ -85,6 +87,7 @@ MonoBehaviour:
       Value: 0
     - ModifyKey: 9
       Value: 15
+    PropertyPercentModify: []
   - ID: 4
     GeneralConfig:
       IconSprite: {fileID: 0}
@@ -106,6 +109,7 @@ MonoBehaviour:
       Value: 0
     - ModifyKey: 9
       Value: 5
+    PropertyPercentModify: []
   - ID: 5
     GeneralConfig:
       IconSprite: {fileID: 0}
@@ -127,6 +131,7 @@ MonoBehaviour:
       Value: 0
     - ModifyKey: 9
       Value: 5
+    PropertyPercentModify: []
   - ID: 6
     GeneralConfig:
       IconSprite: {fileID: 0}
@@ -148,6 +153,7 @@ MonoBehaviour:
       Value: 0
     - ModifyKey: 9
       Value: 5
+    PropertyPercentModify: []
   - ID: 7
     GeneralConfig:
       IconSprite: {fileID: 0}
@@ -169,6 +175,7 @@ MonoBehaviour:
       Value: 0
     - ModifyKey: 9
       Value: 5
+    PropertyPercentModify: []
   - ID: 1001
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: 895bf709adba5a948aa8b04a6662b2be, type: 3}
@@ -180,6 +187,7 @@ MonoBehaviour:
       Value: -5
     - ModifyKey: 3
       Value: 10
+    PropertyPercentModify: []
   - ID: 1002
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
@@ -189,6 +197,7 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 2
       Value: 10
+    PropertyPercentModify: []
   - ID: 1003
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
@@ -200,6 +209,7 @@ MonoBehaviour:
       Value: 1
     - ModifyKey: 7
       Value: 10
+    PropertyPercentModify: []
   - ID: 1004
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
@@ -209,6 +219,7 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 7
       Value: -8
+    PropertyPercentModify: []
   - ID: 1005
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: 33cfd0cda32286c4aa31bc2f3525a095, type: 3}
@@ -220,6 +231,7 @@ MonoBehaviour:
       Value: 20
     - ModifyKey: 8
       Value: 4
+    PropertyPercentModify: []
   - ID: 1006
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: d08eb80599c10094ea51f7ffb717fad9, type: 3}
@@ -233,6 +245,7 @@ MonoBehaviour:
       Value: 2
     - ModifyKey: 2
       Value: 3
+    PropertyPercentModify: []
   - ID: 1007
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: 14a76ec0b97236147aa0e7afdc58e48b, type: 3}
@@ -242,6 +255,7 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 50
+    PropertyPercentModify: []
   - ID: 1008
     GeneralConfig:
       IconSprite: {fileID: 21300000, guid: 71264b5575a033d42ab94ce01a1b3d93, type: 3}
@@ -251,3 +265,4 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 21
       Value: 75
+    PropertyPercentModify: []

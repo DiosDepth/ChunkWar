@@ -20,13 +20,20 @@ public class ItemPropertyModifyCmpt : MonoBehaviour,IPoolable
         _valueText = transform.Find("PropertyValue").SafeGetComponent<TextMeshProUGUI>();
     }
 
-    public void SetUp(PropertyModifyKey key, float value)
+    public void SetUp(PropertyModifyKey key, float value, bool modifyPercent)
     {
         var targetValue = Mathf.RoundToInt(value);
         var cfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(key);
         if(cfg != null)
         {
-            _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.NameText);
+            if (modifyPercent)
+            {
+                _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.ModifyPercentNameText);
+            }
+            else
+            {
+                _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.NameText);
+            }
             _icon.sprite = cfg.Icon;
             string figure = targetValue > 0 ? "+" : "";
             _valueText.text = cfg.IsPercent ? string.Format("{0}{1}%", figure, targetValue) :

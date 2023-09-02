@@ -18,6 +18,8 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
     private TextMeshProUGUI _sellText;
+    private TextMeshProUGUI _energyCostText;
+    private TextMeshProUGUI _loadCostText;
     private Transform _unitInfoRoot;
     private Text _typeText;
     private CanvasGroup _contentCanvas;
@@ -34,10 +36,13 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     public void Awake()
     {
         _mainContentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
+        var _energyContent = transform.Find("Content/Info/Icon/Content");
+        _energyCostText = _energyContent.Find("Energy/EnergyValue").SafeGetComponent<TextMeshProUGUI>();
+        _loadCostText = _energyContent.Find("Load/LoadValue").SafeGetComponent<TextMeshProUGUI>();
 
         _wasteCanvas = transform.Find("WasteContent").SafeGetComponent<CanvasGroup>();
         _contentCanvas = transform.Find("Content").SafeGetComponent<CanvasGroup>();
-        _icon = transform.Find("Content/Info/Icon").SafeGetComponent<Image>();
+        _icon = transform.Find("Content/Info/Icon/Image").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
         _descText = transform.Find("Content/Desc").GetComponent<TextMeshProUGUI>();
         _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
@@ -115,6 +120,9 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _nameText.color = info.RarityColor;
         _typeText.text = info.TypeName;
         _sellText.text = info.SellPrice.ToString();
+
+        _loadCostText.text = ((int)info.LoadCost).ToString();
+        _energyCostText.text = ((int)info.GetEnergyCost()).ToString();
 
         SetUpUintInfo(info.UnitConfig);
         await UniTask.WaitForFixedUpdate();

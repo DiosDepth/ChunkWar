@@ -279,3 +279,15 @@ MonoBehaviour:
     ChineseSimplified: "\u51FA\u552E"
     English: 
     Japanese: 
+  - TextID: MP_PropertyNameShipHP
+    ChineseSimplified: "\u8239\u4F53\u503C\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_DamagePercent
+    ChineseSimplified: "\u4F24\u5BB3\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_Critical
+    ChineseSimplified: "\u66B4\u51FB\u7387\u4FEE\u6B63"
+    English: 
+    Japanese: 
