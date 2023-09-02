@@ -27,9 +27,9 @@ public class ShipPlugConfig : SerializedScriptableObject
 [System.Serializable]
 public class ShipPlugItemConfig
 {
-    [HorizontalGroup("A", 150)]
+    [HorizontalGroup("A", 70)]
     [LabelText("ID")]
-    [LabelWidth(80)]
+    [LabelWidth(30)]
     public int ID;
 
     [HorizontalGroup("A", 300)]
@@ -37,9 +37,15 @@ public class ShipPlugItemConfig
     [LabelWidth(80)]
     public GeneralItemConfig GeneralConfig = new GeneralItemConfig();
 
-    [HorizontalGroup("A", 800)]
+    [HorizontalGroup("A", 470)]
     [LabelText("属性修正")]
     [LabelWidth(80)]
     [ListDrawerSettings(DraggableItems = false)]
     public List<PropertyMidifyConfig> PropertyModify = new List<PropertyMidifyConfig>();
+
+    [HorizontalGroup("A", 470)]
+    [LabelText("属性百分比修改")]
+    [LabelWidth(80)]
+    [ListDrawerSettings(DraggableItems = false)]
+    public List<PropertyMidifyConfig> PropertyPercentModify = new List<PropertyMidifyConfig>();
 }

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
     private TextMeshProUGUI _sellText;
+    private TextMeshProUGUI _energyCostText;
+    private TextMeshProUGUI _loadCostText;
     private Transform _unitInfoRoot;
     private Text _typeText;
     private CanvasGroup _contentCanvas;
@@ -25,14 +28,21 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _wasteValueText;
     private TextMeshProUGUI _wasteLoadValueText;
 
+    private RectTransform _mainContentRect;
+
     private WreckageItemInfo _info;
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
 
     public void Awake()
     {
+        _mainContentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
+        var _energyContent = transform.Find("Content/Info/Icon/Content");
+        _energyCostText = _energyContent.Find("Energy/EnergyValue").SafeGetComponent<TextMeshProUGUI>();
+        _loadCostText = _energyContent.Find("Load/LoadValue").SafeGetComponent<TextMeshProUGUI>();
+
         _wasteCanvas = transform.Find("WasteContent").SafeGetComponent<CanvasGroup>();
         _contentCanvas = transform.Find("Content").SafeGetComponent<CanvasGroup>();
-        _icon = transform.Find("Content/Info/Icon").SafeGetComponent<Image>();
+        _icon = transform.Find("Content/Info/Icon/Image").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
         _descText = transform.Find("Content/Desc").GetComponent<TextMeshProUGUI>();
         _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
@@ -50,6 +60,14 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     public void SetDataGrid(int dataIndex, SelectableItemBase item, SelectedDelegate selected)
     {
         this.selected = selected;
+        if(item == null)
+        {
+            transform.SafeGetComponent<CanvasGroup>().ActiveCanvasGroup(false);
+            return;
+        }
+
+        transform.SafeGetComponent<CanvasGroup>().ActiveCanvasGroup(true);
+
         if (item != null)
         {
             ItemUID = (uint)item.content;
@@ -91,7 +109,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _wasteLoadValueText.text = string.Format("{0:F1}", RogueManager.Instance.GetDropWasteLoad);
     }
 
-    private void SetUp(WreckageItemInfo info)
+    private async void SetUp(WreckageItemInfo info)
     {
         if (info == null)
             return;
@@ -103,10 +121,12 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _typeText.text = info.TypeName;
         _sellText.text = info.SellPrice.ToString();
 
-        SetUpUintInfo(info.UnitConfig);
+        _loadCostText.text = ((int)info.LoadCost).ToString();
+        _energyCostText.text = ((int)info.GetEnergyCost()).ToString();
 
-        var contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
+        SetUpUintInfo(info.UnitConfig);
+        await UniTask.WaitForFixedUpdate();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_mainContentRect);
     }
 
     /// <summary>
@@ -173,8 +193,10 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         selected?.Invoke(this);
 
         if (ItemUID == 0)
+        {
             return;
-
+        }
+            
         var cfg = DataManager.Instance.GetUnitConfig(_info.UnitID);
         var shipBuilder = ShipBuilder.instance;
         if (shipBuilder == null || cfg == null)
@@ -198,5 +220,11 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     {
         if (ItemUID != 0)
             return;
+
+        ///ShowSell Dialog
+        UIManager.Instance.ShowUI<WasteSellDialog>("WasteSellDialog", E_UI_Layer.Top, this, (panel)=> 
+        {
+            panel.Initialization();
+        });
     }
 }

@@ -161,6 +161,35 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
+    /// <summary>
+    /// 根据稀有度获取掉落物
+    /// </summary>
+    /// <param name="rarity"></param>
+    /// <returns></returns>
+    public PickUpData GetWreckagePickUpData(GoodsItemRarity rarity)
+    {
+        foreach(var item in PickUpDataDic.Values)
+        {
+            if (item.Type == AvaliablePickUp.Wreckage && item.Rarity == rarity)
+                return item;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 获取所有残骸拾取类型
+    /// </summary>
+    /// <returns></returns>
+    public List<PickUpData> GetAllWastePickUpData()
+    {
+        var lst= PickUpDataDic.Values.ToList().FindAll(x => x.Type == AvaliablePickUp.WastePickup);
+        lst.Sort((x, y) => 
+        {
+            return x.CountRef - y.CountRef;
+        });
+        return lst;
+    }
+
     public LevelSpawnConfig GetLevelSpawnConfig(int presetID)
     {
         LevelSpawnConfig result = null;

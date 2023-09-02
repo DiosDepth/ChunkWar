@@ -9,7 +9,7 @@ public class DropInfo
 {
     public AvaliablePickUp pickuptype;
     public int count;
-    public float weight;
+    public float dropRate;
 }
 
 

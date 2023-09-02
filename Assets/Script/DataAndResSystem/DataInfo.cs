@@ -102,6 +102,16 @@ public class BulletData : DataInfo
 public class PickUpData : DataInfo
 {
     public string PrefabPath;
+
+    public AvaliablePickUp Type;
+    public GoodsItemRarity Rarity;
+
+    /// <summary>
+    /// 用于掉落物计算参数
+    /// </summary>
+    public byte CountRef;
+    public float EXPAdd;
+
     public PickUpData() { }
 
     public PickUpData(string[] row)
@@ -109,7 +119,10 @@ public class PickUpData : DataInfo
         int.TryParse(row[0], out ID);
         Name = row[1];
         PrefabPath = row[2];
-
+        AvaliablePickUp.TryParse(row[3], out Type);
+        GoodsItemRarity.TryParse(row[4], out Rarity);
+        CountRef = byte.Parse(row[5]);
+        float.TryParse(row[6], out EXPAdd);
     }
 
     public override void Initialization(string[] row)
@@ -117,7 +130,10 @@ public class PickUpData : DataInfo
         int.TryParse(row[0], out ID);
         Name = row[1];
         PrefabPath = row[2];
-
+        AvaliablePickUp.TryParse(row[3], out Type);
+        GoodsItemRarity.TryParse(row[4], out Rarity);
+        CountRef = byte.Parse(row[5]);
+        float.TryParse(row[6], out EXPAdd);
     }
 }
 

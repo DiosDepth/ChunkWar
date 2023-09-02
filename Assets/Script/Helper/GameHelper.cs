@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public static class GameHelper 
 {
@@ -101,6 +102,70 @@ public static class GameHelper
             return int.MaxValue;
         }
         return expMap[level];
+    }
+
+    /// <summary>
+    /// 计算掉落概率
+    /// </summary>
+    /// <param name="baseRate"></param>
+    /// <returns></returns>
+    public static float CalculateDropRate(float baseRate)
+    {
+        var luck = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Luck);
+        return baseRate * (100 + luck) / 100f;
+    }
+
+    /// <summary>
+    /// 生成掉落信息
+    /// </summary>
+    /// <returns></returns>
+    public static Dictionary<PickUpData, int> GeneratePickUpdata(float dropCount)
+    {
+        Dictionary<PickUpData, int> result = new Dictionary<PickUpData, int>();
+        var allpickUpWaste = DataManager.Instance.GetAllWastePickUpData();
+        int safeLoop = 0;
+
+        Action<PickUpData, int> addDrop = (drop, count) =>
+        {
+            if (result.ContainsKey(drop))
+            {
+                result[drop]++;
+            }
+            else
+            {
+                result.Add(drop, 1);
+            }
+        };
+
+        while(dropCount >= 0)
+        {
+            safeLoop++;
+            if (safeLoop > 100)
+                break;
+
+            ///DropCount不足1的部分概率掉落
+            if(dropCount < 1)
+            {
+                bool drop = Utility.RandomResultWithOne(0, dropCount);
+                if (drop)
+                {
+                    addDrop(allpickUpWaste[0], 1);
+                }
+            }
+
+            ///从大到小计算掉落物大小以及数量
+            for (int i = allpickUpWaste.Count - 1; i >= 0; i--)  
+            {
+                var wasteInfo = allpickUpWaste[i];
+                if(dropCount >= wasteInfo.CountRef)
+                {
+                    dropCount -= wasteInfo.CountRef;
+                    addDrop(wasteInfo, wasteInfo.CountRef);
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     /// <summary>
@@ -345,6 +410,19 @@ public static class GameHelper
         float DamageTake = 1 / (float)(1 + armor / armorParam);
         info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
     }
+
+    /// <summary>
+    /// 计算残骸出售价格
+    /// </summary>
+    /// <param name="wasteCount"></param>
+    /// <returns></returns>
+    public static int CalculateWasteSellPrice(int wasteCount)
+    {
+        var sellAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WasteSellPriceAdd);
+        float sellPercent = Mathf.Clamp(sellAdd / 100f + 1, 0, float.MaxValue);
+        return Mathf.RoundToInt(wasteCount * sellPercent);
+    }
+   
 
     /// <summary>
     /// 计算实际CD

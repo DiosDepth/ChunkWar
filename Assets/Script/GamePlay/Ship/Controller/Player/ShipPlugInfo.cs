@@ -45,5 +45,15 @@ public class ShipPlugInfo
                 RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PlugUID, modify.Value);
             }
         }
+
+        var propertyPercentModify = _cfg.PropertyPercentModify;
+        if(propertyPercentModify != null && propertyPercentModify.Count > 0)
+        {
+            for (int i = 0; i < propertyPercentModify.Count; i++)
+            {
+                var modify = propertyPercentModify[i];
+                RogueManager.Instance.MainPropertyData.AddPropertyModifyPercentValue(modify.ModifyKey, PlugUID, modify.Value);
+            }
+        }
     }
 }

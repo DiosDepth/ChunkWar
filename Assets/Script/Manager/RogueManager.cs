@@ -409,6 +409,20 @@ public class RogueManager : Singleton<RogueManager>
         AchievementManager.Instance.Trigger<GoodsItemRarity>(AchievementWatcherType.WreckageGain, rarity);
     }
 
+    /// <summary>
+    /// ³öÊÛ²Ðº¡
+    /// </summary>
+    /// <param name="count"></param>
+    public void SellWaste(int count)
+    {
+        int sellCount = Mathf.Clamp(count, 0, GetDropWasteCount);
+        var sellPrice = GameHelper.CalculateWasteSellPrice(sellCount);
+        AddCurrency(sellPrice);
+        var newCount = GetDropWasteCount - sellCount;
+        _dropWasteCount.Set(newCount);
+        RogueEvent.Trigger(RogueEventType.WasteCountChange);
+    }
+
     public WreckageItemInfo GetCurrentWreckageByUID(uint uid)
     {
         if (CurrentWreckageItems.ContainsKey(uid))
@@ -1133,6 +1147,7 @@ public class RogueManager : Singleton<RogueManager>
         {
             panel.Initialization(levelUpCount);
             panel.Initialization();
+            InputDispatcher.Instance.ChangeInputMode("UI");
         });
     }
 

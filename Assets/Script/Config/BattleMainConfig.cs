@@ -115,6 +115,7 @@ public class HardLevelConfig
 public class PropertyDisplayConfig
 {
     public string NameText;
+    public string ModifyPercentNameText;
     public Sprite Icon;
     public bool IsPercent;
     public bool ReverseColor = false;
@@ -123,14 +124,14 @@ public class PropertyDisplayConfig
 [System.Serializable]
 public class PropertyMidifyConfig
 {
-    [HorizontalGroup("B", 300)]
+    [HorizontalGroup("B", 280)]
     [LabelText("ÐÞÕýKey")]
-    [LabelWidth(100)]
+    [LabelWidth(60)]
     public PropertyModifyKey ModifyKey;
 
-    [HorizontalGroup("B", 200)]
+    [HorizontalGroup("B", 150)]
     [LabelText("Öµ")]
-    [LabelWidth(80)]
+    [LabelWidth(30)]
     public float Value;
 }
 

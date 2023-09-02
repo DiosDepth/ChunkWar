@@ -32,7 +32,7 @@ public class ShipLevelUpSelectItem : MonoBehaviour, IPoolable, IHoverUIItem
         this._levelItem = item;
         _icon.sprite = item.Config.Icon;
         _nameText.text = LocalizationManager.Instance.GetTextValue(item.Config.Name);
-        _propertyCmpt.SetUp(item.Config.ModifyKey, item.GetModifyValue());
+        _propertyCmpt.SetUp(item.Config.ModifyKey, item.GetModifyValue(), false);
         transform.Find("Frame").SafeGetComponent<Image>().color = GameHelper.GetRarityColor(item.Rarity);
     }
 

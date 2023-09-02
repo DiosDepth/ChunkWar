@@ -12,12 +12,6 @@ public class HarborTeleport : PickableItem
 
     }
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-
-    }
-
     public override void PickUp(GameObject picker)
     {
         base.PickUp(picker);

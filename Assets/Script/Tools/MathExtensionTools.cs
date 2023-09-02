@@ -95,7 +95,6 @@ public static class MathExtensionTools
     /// <returns></returns>
     public static Vector2 GetRadomPosFromOutRange(float innerrange, float outrange, Vector2 referencepos)
     {
-        UnityEngine.Random.InitState(Mathf.RoundToInt(Time.time));
         float rad = UnityEngine.Random.Range(0f, 2f) * Mathf.PI;
         var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
@@ -103,8 +102,6 @@ public static class MathExtensionTools
         Vector2 pos = dir * distance + referencepos;
         return pos;
     }
-
-
 
     public static float Lager(this Vector2 self)
     {

@@ -38,6 +38,7 @@ public enum AvaliablePickUp
     None = 0,
     WastePickup = 1,
     HarborTeleportPickup = 2,
+    Wreckage = 3,
 }
 
 
@@ -53,11 +54,6 @@ public class PickableItem : MonoBehaviour, IPoolable
     public InventoryItem pickedItem;
 
     protected virtual void Start()
-    {
-        
-    }
-
-    protected virtual void Update()
     {
         
     }

@@ -1,3 +1,9 @@
-ID,Name,PrefabPath
-1,WastePickup,Prefab/PickUps/WastePickup
-2,HarborTeleportPickup,Prefab/PickUps/HarborTeleportPickup
+ID,Name,PrefabPath,Type,Rarity,CountRef,EXPAdd
+1,WastePickup_Small,Prefab/PickUps/WastePickup_Small,WastePickup,Tier1,1,1
+2,WastePickup_Middle,Prefab/PickUps/WastePickup_Middle,WastePickup,Tier1,5,5
+3,WastePickup_Large,Prefab/PickUps/WastePickup_Large,WastePickup,Tier1,10,10
+4,HarborTeleportPickup,Prefab/PickUps/HarborTeleportPickup,HarborTeleportPickup,Tier1,1,1
+5,Wreckage_Tier1,Prefab/PickUps/PickUpWreckage_Tier1,Wreckage,Tier1,1,5
+6,Wreckage_Tier2,Prefab/PickUps/PickUpWreckage_Tier2,Wreckage,Tier2,1,10
+7,Wreckage_Tier3,Prefab/PickUps/PickUpWreckage_Tier3,Wreckage,Tier3,1,15
+8,Wreckage_Tier4,Prefab/PickUps/PickUpWreckage_Tier4,Wreckage,Tier4,1,25

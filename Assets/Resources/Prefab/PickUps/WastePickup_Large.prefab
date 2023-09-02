@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7120652881020514682}
   - component: {fileID: 8490063224441083541}
   m_Layer: 14
-  m_Name: WastePickup
+  m_Name: WastePickup_Large
   m_TagString: PickUps
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,9 +51,12 @@ MonoBehaviour:
   itemType: 3
   disableOnPick: 1
   pickedItem:
+    RefUID: 0
     iscountless: 0
     count: 0
     itemconfig: {fileID: 0}
+  WasteGain: 10
+  EXPGain: 10
 --- !u!1 &1965891023306217747
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +104,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
 --- !u!1 &6554370255867181568
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +131,7 @@ Transform:
   m_GameObject: {fileID: 6554370255867181568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7120652881020514682}
@@ -177,7 +180,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5,
     type: 3}
-  m_Color: {r: 1, g: 0.6648264, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.39741516, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

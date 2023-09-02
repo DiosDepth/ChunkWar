@@ -127,6 +127,14 @@ public class WreckageItemInfo : RandomObject
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.UnitLoadCost, CalculateLoadCost);
     }
 
+    public float GetEnergyCost()
+    {
+        var energyCostBase = UnitConfig.BaseEnergyCost;
+        var costModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+        var cost = Mathf.Clamp(energyCostBase * (1 + costModify / 100f), 0, float.MaxValue);
+        return cost;
+    }
+
     private void CalculateSellPrice()
     {
         var sellPriceAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SellPrice);
