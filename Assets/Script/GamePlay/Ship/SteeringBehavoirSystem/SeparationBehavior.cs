@@ -63,11 +63,11 @@ public class SeparationBehavior : SteeringBehavior
             job_decayCoefficient = decayCoefficient,
             job_detacteRadius = detacteRadius,
             job_selfpos = transform.position,
-            job_targetspos = LevelManager.Instance.steeringBehaviorJob_aiShipPos,
+            job_targetspos = AIManager.Instance.steeringBehaviorJob_aiShipPos,
             job_linear = templiner
         };
 
-        JobHandle jobHandle = separationBehaviorJob.Schedule(LevelManager.Instance.steeringBehaviorJob_aiShipPos.Length, 20);
+        JobHandle jobHandle = separationBehaviorJob.Schedule(AIManager.Instance.steeringBehaviorJob_aiShipPos.Length, 20);
         jobHandle.Complete();
         steering.linear = templiner[0];
         templiner.Dispose();

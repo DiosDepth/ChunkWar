@@ -66,7 +66,7 @@ public class ShipController : BaseController, IBoid
         if (!IsUpdate) { return; }
         HandleRotation();
         HandleMainWeaponRotaion();
-        HandleOtherWeaponRotation();
+        //HandleOtherWeaponRotation();
     }
 
     protected override void FixedUpdate()
@@ -154,32 +154,7 @@ public class ShipController : BaseController, IBoid
 
     }
 
-    public virtual void HandleOtherWeaponRotation()
-    {
-        Weapon tempweapon;
-        for (int i = 0; i < controlledTarget.UnitList.Count; i++)
-        {
-            if(!(controlledTarget.UnitList[i] is Weapon))
-            {
-                continue;
-            }
-            tempweapon = controlledTarget.UnitList[i] as Weapon;
-            if (tempweapon.rotationRoot != null)
-            {
-                if(tempweapon.targetList.Count>0)
-                {
-                    tempweapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(tempweapon.transform.up, tempweapon.transform.up.DirectionToXY(tempweapon.targetList[0].transform.position), tempweapon.roatateSpeed);
-                }
-                else
-                {
-                    tempweapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(tempweapon.transform.up, transform.up, tempweapon.roatateSpeed);
-                }
-
-            }
-
-
-        }
-    }
+   
 
     public virtual void HandleMovement()
     {
@@ -291,6 +266,11 @@ public class ShipController : BaseController, IBoid
     public float GetRadius()
     {
         return boidRadius;
+    }
+
+    public float GetRotationZ()
+    {
+        return transform.rotation.eulerAngles.z;
     }
     public void SetVelocity(Vector3 m_vect)
     {

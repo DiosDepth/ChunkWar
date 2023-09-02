@@ -70,67 +70,33 @@ public class ArriveBehavior : SteeringBehavior
 
     }
 
-    public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
-    {
-        SteeringData steering = new SteeringData();
-        NativeArray<bool> isvelzero = new NativeArray<bool>(1, Allocator.Temp);
-        NativeArray<float3> linear = new NativeArray<float3>(1, Allocator.Temp);
-
-        ArriveBehaviorJob arriveBehaviorJob = new ArriveBehaviorJob
-        {
-            job_selfPos = transform.position,
-            job_selfVel = selfboid.GetVelocity(),
-            job_targetPos = target.position,
-            job_targetRadius = targetRadius,
-
-
-            job_slowRadius = slowRadius,
-            job_maxAcceleration = steeringcontroller.maxAcceleration,
-
-            JRD_isvelzero = isvelzero,
-            JRD_linear = linear,
-        };
-
-        JobHandle jobHandle = arriveBehaviorJob.Schedule();
-        jobHandle.Complete();
-
-      
-        if (isvelzero[0])
-        {
-            isvelzero.Dispose();
-            linear.Dispose();
-            steeringcontroller.SetVelocity(Vector3.zero);
-            return steering;
-        }
-        steering.linear = linear[0];
-        isvelzero.Dispose();
-        linear.Dispose();
-        return steering;
-    }
-
-
+    //public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
+    //{
     //    SteeringData steering = new SteeringData();
     //    Vector3 direction = target.position - transform.position;
     //    float distance = direction.magnitude;
-    //        if (distance<targetRadius)
-    //        {
-    //            steeringcontroller.SetVelocity(Vector3.zero);
-    //            return steering;
-    //        }
-
-    //float targetSpeed;
-    //        if (distance > slowRadius)
-    //            targetSpeed = steeringcontroller.maxAcceleration;
-    //        else targetSpeed = steeringcontroller.maxAcceleration* (distance / slowRadius);
-    //        Vector3 targetVelocity = direction;
-    //targetVelocity.Normalize();
-    //        targetVelocity *= targetSpeed;
-    //        steering.linear = targetVelocity - new Vector3(steeringcontroller.GetComponent<IBoid>().GetVelocity().x, steeringcontroller.GetComponent<IBoid>().GetVelocity().y, 0);
-    //        if (steering.linear.magnitude > steeringcontroller.maxAcceleration)
-    //        {
-    //            steering.linear.Normalize();
-    //            steering.linear *= steeringcontroller.maxAcceleration;
-    //        }
-    //        steering.angular = 0;
+    //    if (distance < targetRadius)
+    //    {
+    //        steeringcontroller.SetVelocity(Vector3.zero);
     //        return steering;
+    //    }
+
+    //    float targetSpeed;
+    //    if (distance > slowRadius)
+    //        targetSpeed = steeringcontroller.maxAcceleration;
+    //    else targetSpeed = steeringcontroller.maxAcceleration * (distance / slowRadius);
+    //    Vector3 targetVelocity = direction;
+    //    targetVelocity.Normalize();
+    //    targetVelocity *= targetSpeed;
+    //    steering.linear = targetVelocity - new Vector3(steeringcontroller.GetComponent<IBoid>().GetVelocity().x, steeringcontroller.GetComponent<IBoid>().GetVelocity().y, 0);
+    //    if (steering.linear.magnitude > steeringcontroller.maxAcceleration)
+    //    {
+    //        steering.linear.Normalize();
+    //        steering.linear *= steeringcontroller.maxAcceleration;
+    //    }
+    //    steering.angular = 0;
+    //    return steering;
+    //}
+
+
 }

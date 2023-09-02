@@ -114,9 +114,9 @@ public class CollisionAvoidanceBehavior : SteeringBehavior
             job_selfRadius = selfboid.GetRadius(),
             job_selfVel = selfboid.GetVelocity(),
 
-            job_targetsPos = LevelManager.Instance.steeringBehaviorJob_aiShipPos,
-            job_targetsRadius = LevelManager.Instance.steeringBehaviorJob_aiShipRadius,
-            job_targetsVel = LevelManager.Instance.steeringBehaviorJob_aiShipVelocity,
+            job_targetsPos = AIManager.Instance.steeringBehaviorJob_aiShipPos,
+            job_targetsRadius = AIManager.Instance.steeringBehaviorJob_aiShipRadius,
+            job_targetsVel = AIManager.Instance.steeringBehaviorJob_aiShipVelocity,
 
             JRD_float = JRD_float,
             JRD_float3 = JRD_float3,
@@ -124,7 +124,7 @@ public class CollisionAvoidanceBehavior : SteeringBehavior
 
         };
 
-        JobHandle jobHandle = collisionAvoidanceBehaviorJob.Schedule(LevelManager.Instance.airuntimedata.Count, 20);
+        JobHandle jobHandle = collisionAvoidanceBehaviorJob.Schedule(AIManager.Instance.ShipCount, 20);
 
         jobHandle.Complete();
 

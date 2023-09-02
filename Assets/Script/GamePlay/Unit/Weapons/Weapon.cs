@@ -5,7 +5,9 @@ using UnityEngine.Events;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System;
-
+using Unity.Jobs;
+using Unity.Mathematics;
+using Unity.Collections;
 
 public struct DamageResultInfo
 {
@@ -389,7 +391,7 @@ public class Weapon : Unit
 
     public WeaponAttribute weaponAttribute;
 
-    [ReadOnly]
+    [Sirenix.OdinInspector.ReadOnly]
     public int magazine;
 
     /// <summary>
@@ -468,6 +470,7 @@ public class Weapon : Unit
     public override void Update()
     {
         base.Update();
+        
         ProcessWeapon();
     }
 
@@ -475,7 +478,59 @@ public class Weapon : Unit
     {
         weaponAttribute?.Destroy();
         base.OnDestroy();
- 
+    }
+
+    public struct FindWeaponTargetsJob : IJobParallelForBatch
+    {
+        [Unity.Collections.ReadOnly] public float job_attackRange;
+        [Unity.Collections.ReadOnly] public float3 job_selfPos;
+        [Unity.Collections.ReadOnly] public int job_maxTargetCount;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos; 
+        //这里返回的时对应的target在list中的index
+        public NativeArray<int> JRD_targetsIndex;
+
+        int targetindex;
+        public void Execute(int startIndex, int count)
+        {
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+
+                if(math.distance(job_selfPos, job_targetsPos[i]) <= job_attackRange)
+                {
+                    JRD_targetsIndex[targetindex] = i;
+                    targetindex++;
+                    if (targetindex >= job_maxTargetCount)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public struct CalculateWeaponRotateJob : IJobParallelForBatch
+    {
+        [Unity.Collections.ReadOnly] public float3 job_targetPos;
+        public void Execute(int startIndex, int count)
+        {
+            
+        }
+    }
+    public virtual void HandleOtherWeaponRotation()
+    {
+
+        if (rotationRoot == null)
+        {
+            return;
+        }
+        if (targetList.Count > 0)
+        {
+            rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, transform.up.DirectionToXY(targetList[0].transform.position), roatateSpeed);
+        }
+        else
+        {
+            rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, transform.up, roatateSpeed);
+        }
 
     }
 
@@ -498,6 +553,7 @@ public class Weapon : Unit
         if (!_isProcess)
             return;
 
+        HandleOtherWeaponRotation();
         switch (weaponstate.CurrentState)
         {
             case WeaponState.Ready:
@@ -556,7 +612,7 @@ public class Weapon : Unit
 
     public virtual void WeaponReady()
     {
-        Debug.Log(this.gameObject + " : WeaponReady");
+        //Debug.Log(this.gameObject + " : WeaponReady");
         if(_isWeaponOn)
         {
             weaponstate.ChangeState(WeaponState.Start);
@@ -565,7 +621,7 @@ public class Weapon : Unit
 
     public virtual void WeaponStart()
     {
-        Debug.Log(this.gameObject + " : WeaponStart");
+        //Debug.Log(this.gameObject + " : WeaponStart");
         _beforeDelayCounter = weaponAttribute.BeforeDelay;
         _betweenDelayCounter = weaponAttribute.FireCD;
         _afterDelayCounter = weaponAttribute.AfterDelay;
@@ -581,7 +637,7 @@ public class Weapon : Unit
     }
     public virtual void WeaponBeforeDelay()
     {
-        Debug.Log(this.gameObject + " : WeaponBeforeDelay");
+        //Debug.Log(this.gameObject + " : WeaponBeforeDelay");
         _beforeDelayCounter -= Time.deltaTime;
         if (_beforeDelayCounter < 0)
         {
@@ -591,6 +647,20 @@ public class Weapon : Unit
     }
     public virtual void FireRequest()
     {
+
+        for (int i = 0; i < targetList.Count; i++)
+        {
+            if (targetList[i] != null && targetList[i].activeSelf)
+            {
+                break;
+            }
+            else
+            {
+                //如果没有任何一个target
+                weaponstate.ChangeState(WeaponState.AfterDelay);
+            }
+        }
+
         if (magazine <= 0 && weaponAttribute.MagazineBased)
         {
             weaponstate.ChangeState(WeaponState.Reload);
@@ -836,7 +906,7 @@ public class Weapon : Unit
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.SetTarget(target);
-                    _lastbullet.PoolableSetActive();
+                    //_lastbullet.PoolableSetActive();
                     _lastbullet.Initialization();
                     _lastbullet.SetOwner(this);
                     _lastbullet.Shoot();
@@ -858,7 +928,7 @@ public class Weapon : Unit
                         _lastbullet = obj.GetComponent<Bullet>();
                         _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
 
-                        _lastbullet.PoolableSetActive();
+                       // _lastbullet.PoolableSetActive();
                         _lastbullet.Initialization();
                         _lastbullet.SetOwner(this);
                         _lastbullet.Shoot();
@@ -884,7 +954,7 @@ public class Weapon : Unit
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.SetTarget(target);
-                    _lastbullet.PoolableSetActive();
+                   // _lastbullet.PoolableSetActive();
                     _lastbullet.Initialization();
                     _lastbullet.SetOwner(this);
                     _lastbullet.Shoot();
@@ -903,7 +973,7 @@ public class Weapon : Unit
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
 
-                    _lastbullet.PoolableSetActive();
+                    //_lastbullet.PoolableSetActive();
                     _lastbullet.Initialization();
                     _lastbullet.SetOwner(this);
                     _lastbullet.Shoot();
@@ -920,7 +990,7 @@ public class Weapon : Unit
 
     public virtual void WeaponBetweenDelay()
     {
-        Debug.Log(this.gameObject + " : WeaponBetweenDelay");
+        //Debug.Log(this.gameObject + " : WeaponBetweenDelay");
         if(!_isWeaponOn)
         {
             weaponstate.ChangeState(WeaponState.AfterDelay);
@@ -942,7 +1012,7 @@ public class Weapon : Unit
     }
     public virtual void WeaponCharging()
     {
-        Debug.Log(this.gameObject + " : WeaponCharging");
+        //Debug.Log(this.gameObject + " : WeaponCharging");
 
         _chargeCounter -= Time.deltaTime;
         if (_chargeCounter < 0)
@@ -956,7 +1026,7 @@ public class Weapon : Unit
 
     public virtual void WeaponCharged()
     {
-        Debug.Log(this.gameObject + " : WeaponCharged");
+        //Debug.Log(this.gameObject + " : WeaponCharged");
         _isChargeFire = true;
     }
 
@@ -964,7 +1034,7 @@ public class Weapon : Unit
 
     public virtual void WeaponFired()
     {
-        Debug.Log(this.gameObject + " : WeaponFired");
+        //Debug.Log(this.gameObject + " : WeaponFired");
         switch (weaponmode)
         {
             case WeaponControlType.Autonomy:
@@ -995,7 +1065,7 @@ public class Weapon : Unit
 
     public virtual void WeaponAfterDelay()
     {
-        Debug.Log(this.gameObject + " : WeaponAfterDelay");
+        //Debug.Log(this.gameObject + " : WeaponAfterDelay");
         _afterDelayCounter -= Time.deltaTime;
         if (_afterDelayCounter < 0)
         {
@@ -1007,7 +1077,7 @@ public class Weapon : Unit
 
     public virtual void WeaponEnd()
     {
-        Debug.Log(this.gameObject + " : WeaponEnd");
+        //Debug.Log(this.gameObject + " : WeaponEnd");
         _firepointindex = 0;
         _targetindex = 0;
         if(_betweenDelayCounter >0)
@@ -1035,7 +1105,7 @@ public class Weapon : Unit
 
     public virtual void WeaponReload()
     {
-        Debug.Log(this.gameObject + " : WeaponReload");
+        //Debug.Log(this.gameObject + " : WeaponReload");
 
         _reloadCounter -= Time.deltaTime;
         OnReloadCDUpdate?.Invoke(_reloadCounter);
@@ -1068,7 +1138,7 @@ public class Weapon : Unit
     }
     public virtual void WeaponRecover()
     {
-        Debug.Log(this.gameObject + " : WeaponRecover");
+        //Debug.Log(this.gameObject + " : WeaponRecover");
         _isChargeFire = false;
         WeaponOff();
         weaponstate.ChangeState(WeaponState.Ready);

@@ -39,7 +39,10 @@ public class Bullet : MonoBehaviour,IPoolable
 
     public virtual void Initialization()
     {
-
+        if(ownertype == OwnerType.AI && _owner is AIWeapon)
+        {
+            AIManager.Instance.AddBullet(this);
+        }
 
     }
     public virtual void SetOwner(Unit owner)
@@ -74,6 +77,11 @@ public class Bullet : MonoBehaviour,IPoolable
     public virtual void Death()
     { 
         PlayVFX(DeathVFX, this.transform.position);
+        if(ownertype == OwnerType.AI && _owner is AIWeapon)
+        {
+            AIManager.Instance.aibulletsList.Remove(this);
+        }
+
         PoolableDestroy();
     }
 

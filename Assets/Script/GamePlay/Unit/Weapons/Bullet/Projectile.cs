@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.ParticleSystemJobs;
+using Unity.Collections;
+using Unity.Mathematics;
 
 public enum ProjectileMovementType
 {
@@ -29,28 +32,59 @@ public class Projectile : Bullet, IDamageble
     /// </summary>
     public GeneralHPComponet HpComponent;
 
-    private Coroutine startmovingCoroutine;
+    //private Coroutine startmovingCoroutine;
     private float _movetimestamp;
     protected float _beforemovetimestamp;
     private Vector3 _move;
 
     private Vector2 _movedirection;
-    protected Vector2 _tempmovement;
+    protected NativeArray<float3> _tempmovement;
     // Start is called before the first frame update
     protected override void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     protected override void Update()
     {
+        while (Time.time < _movetimestamp)
+        {
+            _tempmovement = new NativeArray<float3>(1, Allocator.TempJob);
 
+            switch (movementType)
+            {
+                case ProjectileMovementType.Straight:
+
+                    StaightJob staightJob = new StaightJob
+                    {
+                        job_selfPos = transform.position,
+                        job_deltatime = Time.deltaTime,
+                        job_maxSpeed = maxSpeed,
+                        job_moveDirection = _movedirection.ToVector3(),
+
+                        JRD_movement = _tempmovement,
+                    };
+
+                    break;
+                case ProjectileMovementType.StraightToPos:
+
+                    break;
+                case ProjectileMovementType.FollowTarget:
+
+                    break;
+            }
+        }
     }
+
     public override void Shoot()
     {
         base.Shoot();
+
         PoolableSetActive();
+        _movetimestamp = Time.time + lifeTime;
+        _movedirection = InitialmoveDirection;
+
     }
 
     public override void Initialization()
@@ -58,60 +92,71 @@ public class Projectile : Bullet, IDamageble
         base.Initialization();
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
         HpComponent = new GeneralHPComponet(100, 100);
+     
     }
 
 
-    public IEnumerator Straight(UnityAction callback)
+    public struct StaightJob : IJob
     {
-        _movetimestamp = Time.time + lifeTime;
+        [ReadOnly] public float3 job_selfPos;
+        [ReadOnly] public float3 job_moveDirection;
+        [ReadOnly] public float job_maxSpeed;
+        [ReadOnly] public float job_deltatime;
 
-        while(Time.time < _movetimestamp)
+        public NativeArray<float3> JRD_movement;
+        public void Execute()
         {
-            _tempmovement = transform.position.ToVector2() + (_movedirection * maxSpeed * Time.deltaTime);
-          
-            rb.MovePosition(_tempmovement);
-            yield return null;
+            JRD_movement[0] = job_selfPos + (job_moveDirection * job_maxSpeed * job_deltatime);
         }
-        callback?.Invoke();
+
+
     }
 
-    public IEnumerator FollowTarget(UnityAction callback)
+
+
+    public void Move()
     {
-        _beforemovetimestamp = Time.time + 0.5f;
-        float currentspeed = initialSpeed;
+
+    }
+
+
+    //public IEnumerator FollowTarget(UnityAction callback)
+    //{
+    //    _beforemovetimestamp = Time.time + 0.5f;
+    //    float currentspeed = initialSpeed;
         
 
-        while (Time.time < _beforemovetimestamp)
-        {
-            currentspeed += acceleration;
-            _tempmovement = transform.position.ToVector2() + (_movedirection * currentspeed * Time.deltaTime);
+    //    while (Time.time < _beforemovetimestamp)
+    //    {
+    //        currentspeed += acceleration;
+    //        _tempmovement = transform.position.ToVector2() + (_movedirection * currentspeed * Time.deltaTime);
 
-            //transform.rotation = MathExtensionTools.CalculateRotation(this.transform.up, _movedirection, rotSpeed);
-            rb.MovePosition(_tempmovement);
-            yield return null;
-        }
-        _movetimestamp = Time.time + lifeTime;
+    //        //transform.rotation = MathExtensionTools.CalculateRotation(this.transform.up, _movedirection, rotSpeed);
+    //        rb.MovePosition(_tempmovement);
+    //        yield return null;
+    //    }
+    //    _movetimestamp = Time.time + lifeTime;
 
         
-        while (Time.time < _movetimestamp)
-        {
-            if(target != null)
-            {
-                _movedirection = transform.position.DirectionToXY(target.transform.position);
-            }
+    //    while (Time.time < _movetimestamp)
+    //    {
+    //        if(target != null)
+    //        {
+    //            _movedirection = transform.position.DirectionToXY(target.transform.position);
+    //        }
 
 
-            currentspeed += acceleration;
-            transform.rotation = MathExtensionTools.CalculateRotation(this.transform.up, _movedirection, rotSpeed);
+    //        currentspeed += acceleration;
+    //        transform.rotation = MathExtensionTools.CalculateRotation(this.transform.up, _movedirection, rotSpeed);
 
-            _tempmovement = transform.position.ToVector2() + (transform.up.ToVector2() * currentspeed * Time.deltaTime);
+    //        _tempmovement = transform.position.ToVector2() + (transform.up.ToVector2() * currentspeed * Time.deltaTime);
 
-            rb.MovePosition(_tempmovement);
+    //        rb.MovePosition(_tempmovement);
 
-            yield return null;
-        }
-        callback?.Invoke();
-    }
+    //        yield return null;
+    //    }
+    //    callback?.Invoke();
+    //}
 
 
 
@@ -126,30 +171,11 @@ public class Projectile : Bullet, IDamageble
     {
         base.PoolableSetActive(isactive);
 
-        if(movementType == ProjectileMovementType.Straight)
-        {
-            _movedirection = InitialmoveDirection;
-            startmovingCoroutine = StartCoroutine(Straight(() =>
-            {
-                PoolableDestroy();
-            }));
-        }
-
-        if(movementType == ProjectileMovementType.FollowTarget)
-        {
-            _movedirection = InitialmoveDirection;
-            startmovingCoroutine = StartCoroutine(FollowTarget(() =>
-            {
-                PoolableDestroy();
-            }));
-        }
-
-
     }
 
     public override void PoolableDestroy()
     {
-        StopCoroutine(startmovingCoroutine);
+        
         base.PoolableDestroy();
 
 

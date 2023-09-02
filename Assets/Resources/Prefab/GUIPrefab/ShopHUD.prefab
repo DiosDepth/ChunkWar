@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 342.5, y: 0}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3752904471206937392
@@ -325,6 +325,44 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &561240391034938072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4476415923461280595, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 6734596483631761445}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7904808094987105905}
+  m_Layer: 0
+  m_Name: 'ShipBuildingSlot (3) (Missing Prefab with guid: 3766d31d90a20a34393c6389936c7b72)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7904808094987105905
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 6734596483631761445}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561240391034938072}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3493202874101029865}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &663339764978693094
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,7 +816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 342.5, y: 0}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5476309445509851194
@@ -969,6 +1007,44 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: WeaponName
+--- !u!1 &1174890958606134096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4476415923461280595, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 638893456333895720}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4042082851783149180}
+  m_Layer: 0
+  m_Name: 'ShipBuildingSlot (Missing Prefab with guid: 3766d31d90a20a34393c6389936c7b72)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4042082851783149180
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 638893456333895720}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174890958606134096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3493202874101029865}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1436706843290370741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,6 +1185,44 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1875464773219632829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4476415923461280595, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 4112019140695493778}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 708544369067750086}
+  m_Layer: 0
+  m_Name: 'ShipBuildingSlot (2) (Missing Prefab with guid: 3766d31d90a20a34393c6389936c7b72)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &708544369067750086
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 4112019140695493778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875464773219632829}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3493202874101029865}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2194621098239216329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,6 +1762,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!1 &3412773763408730585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4476415923461280595, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 2439842090397592433}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232189364869535013}
+  m_Layer: 0
+  m_Name: 'ShipBuildingSlot (1) (Missing Prefab with guid: 3766d31d90a20a34393c6389936c7b72)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1232189364869535013
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 2439842090397592433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3412773763408730585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3493202874101029865}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3486637955652948957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +2452,44 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &5363958368070224835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4476415923461280595, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 1487435552363324462}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2621653568117463674}
+  m_Layer: 0
+  m_Name: 'ShipBuildingSlot (5) (Missing Prefab with guid: 3766d31d90a20a34393c6389936c7b72)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2621653568117463674
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 1487435552363324462}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5363958368070224835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3493202874101029865}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5458821064897770185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,7 +2685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 116, y: 0}
   m_SizeDelta: {x: 0, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6948572308754535216
@@ -2554,6 +2744,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!1 &5835553459312041592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4476415923461280595, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 2121763237326008220}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3294267311571947976}
+  m_Layer: 0
+  m_Name: 'ShipBuildingSlot (4) (Missing Prefab with guid: 3766d31d90a20a34393c6389936c7b72)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3294267311571947976
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
+    type: 3}
+  m_PrefabInstance: {fileID: 2121763237326008220}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5835553459312041592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3493202874101029865}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5983102767466558359
 GameObject:
   m_ObjectHideFlags: 0
@@ -2884,7 +3112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 342.5, y: 0}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2002446444858081186
@@ -5190,12 +5418,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3766d31d90a20a34393c6389936c7b72, type: 3}
---- !u!224 &4042082851783149180 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
-    type: 3}
-  m_PrefabInstance: {fileID: 638893456333895720}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1293148115593930538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5725,12 +5947,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3766d31d90a20a34393c6389936c7b72, type: 3}
---- !u!224 &2621653568117463674 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
-    type: 3}
-  m_PrefabInstance: {fileID: 1487435552363324462}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2121763237326008220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5880,12 +6096,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3766d31d90a20a34393c6389936c7b72, type: 3}
---- !u!224 &3294267311571947976 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
-    type: 3}
-  m_PrefabInstance: {fileID: 2121763237326008220}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2169889761834864026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6225,12 +6435,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3766d31d90a20a34393c6389936c7b72, type: 3}
---- !u!224 &1232189364869535013 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
-    type: 3}
-  m_PrefabInstance: {fileID: 2439842090397592433}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2786290017499281500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7075,12 +7279,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3766d31d90a20a34393c6389936c7b72, type: 3}
---- !u!224 &708544369067750086 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
-    type: 3}
-  m_PrefabInstance: {fileID: 4112019140695493778}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4165096527281880995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8115,12 +8313,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3766d31d90a20a34393c6389936c7b72, type: 3}
---- !u!224 &7904808094987105905 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3514376466540396116, guid: 3766d31d90a20a34393c6389936c7b72,
-    type: 3}
-  m_PrefabInstance: {fileID: 6734596483631761445}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6904250653301147566
 PrefabInstance:
   m_ObjectHideFlags: 0

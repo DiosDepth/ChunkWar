@@ -432,4 +432,4 @@ MonoBehaviour:
   BaseTransfixion: 0
   TransfixionReduce: 0
   DamageModifyFrom: []
-  FireAudioClip: {fileID: 0}
+  FireAudioClip: 

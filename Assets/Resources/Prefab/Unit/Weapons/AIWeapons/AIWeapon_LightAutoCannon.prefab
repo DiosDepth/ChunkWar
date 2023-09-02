@@ -86,6 +86,7 @@ MonoBehaviour:
   deathVFXName: ExplodeVFX
   _isTarget: 1
   unitSprite: {fileID: 4947179279536623990}
+  rotationRoot: {fileID: 0}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}
@@ -100,11 +101,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   targetList: []
-  maxTargetCount: 3
+  maxTargetCount: 1
   firePoint:
   - {fileID: 3324133008493171840}
   scatter: 0
-  rotationRoot: {fileID: 0}
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0

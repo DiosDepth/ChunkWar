@@ -38,6 +38,12 @@ public class AIWeapon : Weapon
         base.Initialization(m_owner, m_unitconfig);
     }
 
+    public override void Death()
+    {
+  
+
+        base.Death();
+    }
     public override void SetUnitProcess(bool isprocess)
     {
         base.SetUnitProcess(isprocess);

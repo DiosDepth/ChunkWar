@@ -179,6 +179,7 @@ public class Unit : MonoBehaviour, IDamageble
         private set;
     }
 
+    public bool IsProcess { get { return _isProcess; } }
     protected bool _isProcess = true;
 
     public UnitBaseAttribute baseAttribute;
@@ -210,11 +211,22 @@ public class Unit : MonoBehaviour, IDamageble
     public virtual void Death()
     {
         state = DamagableState.Destroyed;
-        this.gameObject.SetActive(false);
 
+        if(_owner is AIShip)
+        {
+            AIManager.Instance.RemoveSingleUnit(this);
+        }
+
+        if(_owner is PlayerShip)
+        {
+            AIManager.Instance.RemoveTargetUnit(this);
+        }
+        this.gameObject.SetActive(false);
+        SetUnitProcess(false);
+        
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
-            SetUnitProcess(false);
+            
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
@@ -232,6 +244,15 @@ public class Unit : MonoBehaviour, IDamageble
 
     public virtual void Restore()
     {
+        if( _owner is AIShip)
+        {
+            AIManager.Instance.AddSingleUnit(this);
+        }
+        if(_owner is PlayerShip)
+        {
+            AIManager.Instance.AddTargetUnit(this);
+        }
+       
         SetUnitProcess(true);
         unitSprite.color = Color.white;
     }

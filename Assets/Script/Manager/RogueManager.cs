@@ -639,7 +639,8 @@ public class RogueManager : Singleton<RogueManager>
 
             aIFactory.StartSpawn(spawnpoint, spawnSetting, (list) =>
             {
-                LevelManager.Instance.airuntimedata.AddAIDataRange(list);
+                AIManager.Instance.AddAIRange(list);
+                //LevelManager.Instance.airuntimedata.AddAIDataRange(list);
             });
         });
     }

@@ -39,6 +39,13 @@ public class AISteeringBehaviorController : AIAction,IBoid
     {
         return boidRadius;
     }
+
+
+    public float GetRotationZ()
+    {
+        return transform.rotation.eulerAngles.z;
+    }
+    
     public void SetVelocity(Vector3 m_vect)
     {
         velocity = m_vect;
@@ -53,9 +60,6 @@ public class AISteeringBehaviorController : AIAction,IBoid
     public override void Initialization()
     {
         base.Initialization();
-        rb = GetComponent<Rigidbody2D>();
-        //steerings = GetComponents<SteeringBehavior>();
-        rb.drag = drag;
 
         //for (int i = 0; i < steerings.Length; i++)
         //{
@@ -64,12 +68,18 @@ public class AISteeringBehaviorController : AIAction,IBoid
         //    // steerings[i].SetTarget(AIManager.Instance.target);
         //}
 
-        lastpos = transform.position;
+
         //rb.velocity = Vector3.up;
 
     }
 
-
+    protected override void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        //steerings = GetComponents<SteeringBehavior>();
+        rb.drag = drag;
+        lastpos = transform.position;
+    }
     public override void OnEnterAction()
     {
         base.OnEnterAction();
@@ -82,33 +92,7 @@ public class AISteeringBehaviorController : AIAction,IBoid
 
     public override void FixedUpdateAction()
     {
-        Vector3 accelaration = Vector3.zero;
-        Vector3 deltamovement = Vector3.zero;
-        float rotation = 0f;
-        foreach (SteeringBehavior behavior in steerings)
-        {
-            SteeringData steering = behavior.GetSteering(this);
-            accelaration += steering.linear * behavior.GetWeight();
-            rotation += steering.angular * behavior.GetWeight();
-        }
 
-        if (accelaration.magnitude > maxAcceleration)
-        {
-            accelaration.Normalize();
-            accelaration *= maxAcceleration;
-        }
-
-        deltamovement = (velocity + accelaration * 0.5f * Time.fixedDeltaTime * drag);
-
-        rb.MovePosition(transform.position + deltamovement * Time.fixedDeltaTime);
-        //rb.AddForce(accelaration);
-
-        UpdateIBoid();
-
-        if (rotation != 0)
-        {
-            rb.rotation = rotation; //Quaternion.Euler(0, rotation, 0);
-        }
     }
 
     public override void OnExitAction()
