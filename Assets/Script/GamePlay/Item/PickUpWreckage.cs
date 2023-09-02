@@ -5,15 +5,10 @@ using UnityEngine;
 public class PickUpWreckage : PickableItem
 {
     public GoodsItemRarity DropRarity;
+    public float EXPAdd;
 
 
     protected override void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    protected override void Update()
     {
 
     }
@@ -22,6 +17,8 @@ public class PickUpWreckage : PickableItem
     {
         base.PickUp(picker);
         RogueManager.Instance.AddInLevelDrop(DropRarity);
+        ///Add EXP
+        RogueManager.Instance.AddEXP(EXPAdd);
 
         LeanTween.value(0, 1, 0.75f).setOnUpdate((alpha) =>
         {

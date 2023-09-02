@@ -1146,6 +1146,7 @@ public class RogueManager : Singleton<RogueManager>
         {
             panel.Initialization(levelUpCount);
             panel.Initialization();
+            InputDispatcher.Instance.ChangeInputMode("UI");
         });
     }
 

@@ -113,4 +113,8 @@ public enum PropertyModifyKey
     /// 废品负重比例
     /// </summary>
     WasteLoadPercent,
+    /// <summary>
+    /// 敌人掉落
+    /// </summary>
+    EnemyDropCountPercent
 }

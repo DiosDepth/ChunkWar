@@ -1444,8 +1444,11 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   DropList:
   - pickuptype: 1
+    count: 16
+    dropRate: 100
+  - pickuptype: 3
     count: 1
-    weight: 1
+    dropRate: 100
   CoreHP: 50
   SpeedBase: 10
   HardLevelCfg:

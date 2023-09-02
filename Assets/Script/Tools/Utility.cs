@@ -75,6 +75,20 @@ public static class Utility
         return BitConverter.ToInt32(bytes, 0);
     }
 
+    public static bool RandomResultWithOne(float min, float max)
+    {
+        if (min < 0)
+            min = 0;
+        if (max > 1)
+            max = 1;
+
+        float dice = UnityEngine.Random.Range(0, 1f);
+
+        if (dice >= min && dice <= max)
+            return true;
+        return false;
+    }
+
     /// <summary>
     /// 在中间返回true
     /// </summary>

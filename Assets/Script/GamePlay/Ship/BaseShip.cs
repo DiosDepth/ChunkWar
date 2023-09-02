@@ -140,8 +140,6 @@ public class BaseShip : MonoBehaviour,IDropable
 
     public virtual List<PickableItem> Drop()
     {
-        Vector2 pos;
-        PickUpData data;
         List<PickableItem> itemlist = new List<PickableItem>() ;
         if(baseShipCfg.DropList?.Count <= 0)
         {
@@ -149,23 +147,109 @@ public class BaseShip : MonoBehaviour,IDropable
         }
         for (int i = 0; i < baseShipCfg.DropList.Count; i++)
         {
-            for (int n = 0; n < baseShipCfg.DropList[i].count; n++)
+            var dropInfo = baseShipCfg.DropList[i];
+            var dropRate = GameHelper.CalculateDropRate(dropInfo.dropRate);
+            bool isDrop = Utility.RandomResultWithOne(0, dropRate);
+            if (!isDrop)
+                continue;
+
+            if (dropInfo.pickuptype == AvaliablePickUp.WastePickup)
             {
-                pos = MathExtensionTools.GetRadomPosFromOutRange(0, baseShipCfg.MapSize.Lager(), this.transform.position.ToVector2());
-                DataManager.Instance.PickUpDataDic.TryGetValue(baseShipCfg.DropList[i].pickuptype.ToString(), out data);
-                if(data == null)
+                itemlist.AddRange(HandleWasteDropPickUp(dropInfo));
+            }
+            else if (dropInfo.pickuptype == AvaliablePickUp.Wreckage)
+            {
+                var wreckageDrop = HandleWreckageDropPickUp(dropInfo);
+                if(wreckageDrop != null)
                 {
-                    Debug.LogWarning(this.gameObject.name  +" [ " + baseShipCfg.DropList[i].pickuptype.ToString() + " ] Can't find drop data in datamanger");
-                    continue;
+                    itemlist.Add(wreckageDrop);
                 }
-                PoolManager.Instance.GetObjectSync(data.PrefabPath, true, (obj) =>
-                {
-                    obj.transform.position = pos;
-                    PickableItem item = obj.GetComponent<PickableItem>();
-                    itemlist.Add(item);
-                });
             }
         }
         return itemlist;
+    }
+
+    /// <summary>
+    /// ×°±¸²Ðº¡µôÂä
+    /// </summary>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    private PickableItem HandleWreckageDropPickUp(DropInfo info)
+    {
+        var dropRateCfg = baseShipCfg.UnitDropRate;
+        List<GeneralRarityRandomItem> randomLst = new List<GeneralRarityRandomItem>();
+        foreach(var item in dropRateCfg)
+        {
+            GeneralRarityRandomItem random = new GeneralRarityRandomItem
+            {
+                Rarity = item.Key,
+                Weight = (int)item.Value * 10
+            };
+            randomLst.Add(random);
+        }
+
+        var randomResult = Utility.GetRandomList<GeneralRarityRandomItem>(randomLst, 1);
+        if(randomResult.Count == 1)
+        {
+            var result = randomResult[0];
+
+            var pickUpData = DataManager.Instance.GetWreckagePickUpData(result.Rarity);
+            if (pickUpData == null)
+                return null;
+
+            PickUpWreckage item = null;
+
+            PoolManager.Instance.GetObjectSync(pickUpData.PrefabPath, true, (obj) =>
+            {
+                obj.transform.position = GetDropPosition();
+                item = obj.GetComponent<PickUpWreckage>();
+                item.DropRarity = pickUpData.Rarity;
+                item.EXPAdd = pickUpData.EXPAdd;
+            });
+            return item;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// ´¦Àí²Ðº¡µôÂä
+    /// </summary>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    private List<PickableItem> HandleWasteDropPickUp(DropInfo info)
+    {
+        List<PickableItem> outLst = new List<PickableItem>();
+
+        ///Calculate DropCount
+        var dropCountAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyDropCountPercent);
+        var dropRatio = Mathf.Clamp(dropCountAdd / 100f + 1, 0, float.MaxValue);
+        float dropCount = info.count * dropRatio;
+        var dropResult = GameHelper.GeneratePickUpdata(dropCount);
+
+        foreach(var result in dropResult)
+        {
+            int count = result.Value;
+            var data = result.Key;
+            ///Drop
+            for (int i = 0; i < count; i++) 
+            {
+                PoolManager.Instance.GetObjectSync(data.PrefabPath, true, (obj) =>
+                {
+                    obj.transform.position = GetDropPosition();
+                    PickUpWaste item = obj.GetComponent<PickUpWaste>();
+                    item.WasteGain = data.CountRef;
+                    item.EXPGain = data.EXPAdd;
+                    outLst.Add(item);
+                });
+            }
+        }
+        return outLst;
+    }
+
+    private Vector2 GetDropPosition()
+    {
+        float MaxSize = Mathf.Max(baseShipCfg.MapSize.Lager(), 2);
+        Vector2 shipPos = transform.position.ToVector2();
+        return MathExtensionTools.GetRadomPosFromOutRange(0.5f, MaxSize, shipPos);
     }
 }
