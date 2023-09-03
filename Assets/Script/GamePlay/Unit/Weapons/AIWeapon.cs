@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AIWeapon : Weapon
 {
@@ -83,8 +84,21 @@ public class AIWeapon : Weapon
 
     public override void FireRequest()
     {
+
+        if(targetList == null || targetList.Count == 0)
+        {
+            weaponstate.ChangeState(WeaponState.End);
+        }
+        if(aimingtype == WeaponAimingType.TargetDirectional || aimingtype == WeaponAimingType.Directional)
+        {
+            
+        }
+        if(aimingtype == WeaponAimingType.TargetBased )
         base.FireRequest();
+
     }
+
+    
 
     public override void WeaponFiring()
     {
@@ -95,6 +109,7 @@ public class AIWeapon : Weapon
     {
         base.DoFire();
     }
+
 
     public override void WeaponBetweenDelay()
     {

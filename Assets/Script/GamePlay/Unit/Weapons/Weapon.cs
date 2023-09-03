@@ -8,6 +8,8 @@ using System;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Collections;
+using Unity.Burst;
+
 
 public struct DamageResultInfo
 {
@@ -371,6 +373,33 @@ public enum WeaponTargetMode
     Mutipule,
 }
 
+/// <summary>
+/// 这里的index指的是，当前的target在Ai manager.targetActiveUnitList中的位置
+/// distance 和 direction都是当前的weapon 对于target位置来说的
+/// </summary>
+public class WeaponTargetInfo
+{
+    public GameObject target;
+    public int index;
+    public float distance;
+    public Vector3 direction;
+
+    public WeaponTargetInfo()
+    {
+        target = null;
+        index = -1;
+        distance = 0;
+        direction = Vector3.zero;
+    }
+    public WeaponTargetInfo(GameObject m_target, int m_index, float m_distance, Vector3 m_direction )
+    {
+        target = m_target;
+        index = m_index;
+        distance = m_distance;
+        direction = m_direction;
+    }
+}
+
 public class Weapon : Unit
 {
     public WeaponControlType weaponmode;
@@ -382,7 +411,8 @@ public class Weapon : Unit
 
     public LayerMask mask = 1 << 7;
 
-    public List<GameObject> targetList = new List<GameObject>();
+
+    public List<WeaponTargetInfo> targetList = new List<WeaponTargetInfo>();
     public int maxTargetCount = 3;
     public Transform[] firePoint;
     public float scatter = 0f;
@@ -480,42 +510,86 @@ public class Weapon : Unit
         base.OnDestroy();
     }
 
+    public struct JRD_WeaponTargetInfo : IComparable<JRD_WeaponTargetInfo>
+    {
+        public int JRD_targetIndex;
+        public float JRD_distanceToTarget;
+        public float3 JRD_targetPos;
+        public float3 JRD_targetDirection;
+
+        public int CompareTo(JRD_WeaponTargetInfo other)
+        {
+
+            return JRD_distanceToTarget.CompareTo(other.JRD_distanceToTarget);
+        }
+    }
+
+    [BurstCompile]
     public struct FindWeaponTargetsJob : IJobParallelForBatch
     {
         [Unity.Collections.ReadOnly] public float job_attackRange;
         [Unity.Collections.ReadOnly] public float3 job_selfPos;
         [Unity.Collections.ReadOnly] public int job_maxTargetCount;
-        [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos; 
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
-        public NativeArray<int> JRD_targetsIndex;
+        public NativeArray<JRD_WeaponTargetInfo> JRD_targetsInfo;
 
+        JRD_WeaponTargetInfo tempinfo;
         int targetindex;
         public void Execute(int startIndex, int count)
         {
+            targetindex = 0;
+            
             for (int i = startIndex; i < startIndex + count; i++)
             {
-
                 if(math.distance(job_selfPos, job_targetsPos[i]) <= job_attackRange)
                 {
-                    JRD_targetsIndex[targetindex] = i;
+                    tempinfo.JRD_targetIndex = i;
+                    tempinfo.JRD_distanceToTarget = math.distance(job_selfPos, job_targetsPos[i]);
+                    tempinfo.JRD_targetDirection = math.normalize(job_targetsPos[i] - job_selfPos);
+                    tempinfo.JRD_targetPos = job_targetsPos[i];
+
+                    JRD_targetsInfo[targetindex] = tempinfo;
                     targetindex++;
+
                     if (targetindex >= job_maxTargetCount)
                     {
-                        return;
+
+                        JRD_targetsInfo.Sort();
+                        break;
                     }
                 }
             }
+
         }
+    }
+
+    public struct IntDataComparer : IComparer<float3>
+    {
+        public NativeArray<float3> job_comparerPos;
+
+        public int Compare(float3 self, float3 other)
+        {
+            throw new NotImplementedException();
+        }
+
+      
+
     }
 
     public struct CalculateWeaponRotateJob : IJobParallelForBatch
     {
         [Unity.Collections.ReadOnly] public float3 job_targetPos;
+
+
+        public NativeArray<int> JRD_rotations;
         public void Execute(int startIndex, int count)
         {
             
         }
     }
+
+
     public virtual void HandleOtherWeaponRotation()
     {
 
@@ -525,14 +599,15 @@ public class Weapon : Unit
         }
         if (targetList.Count > 0)
         {
-            rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, transform.up.DirectionToXY(targetList[0].transform.position), roatateSpeed);
+            rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, targetList[0].direction, roatateSpeed);
         }
         else
         {
             rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, transform.up, roatateSpeed);
         }
-
     }
+
+
 
     public override void SetUnitProcess(bool isprocess)
     {
@@ -552,8 +627,7 @@ public class Weapon : Unit
     {
         if (!_isProcess)
             return;
-
-        //HandleOtherWeaponRotation();
+        HandleOtherWeaponRotation();
         switch (weaponstate.CurrentState)
         {
             case WeaponState.Ready:
@@ -647,18 +721,16 @@ public class Weapon : Unit
     }
     public virtual void FireRequest()
     {
-
-        if (magazine <= 0 && weaponAttribute.MagazineBased)
+        if(weaponAttribute.MagazineBased)
         {
-            weaponstate.ChangeState(WeaponState.Reload);
-            ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
-
+            if(magazine <=0 )
+            {
+                weaponstate.ChangeState(WeaponState.End);
+                //ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
+            }
         }
 
-        if (_firepointindex >= firePoint.Length)
-        {
-            _firepointindex = 0;
-        }
+
         // 搜索合适的target
         /*
         if(aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetBased)
@@ -729,13 +801,11 @@ public class Weapon : Unit
         */
 
 
-        // 进行开火条件的判定,成功则 WeaponFiring ,否则 WeaponEnd
-        if (magazine <= 0 && weaponAttribute.MagazineBased)
-        {
-            weaponstate.ChangeState(WeaponState.End);
-            return;
-        }
 
+        if (_firepointindex >= firePoint.Length)
+        {
+            _firepointindex = 0;
+        }
         weaponstate.ChangeState(WeaponState.Firing);
     }
 
@@ -887,7 +957,7 @@ public class Weapon : Unit
                 {
                     _targetindex = 0;
                 }
-                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[i], targetList[_targetindex], (obj, trs, target) =>
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[i], targetList[_targetindex].target, (obj, trs, target) =>
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
@@ -937,7 +1007,7 @@ public class Weapon : Unit
         if ((aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional) && targetList?.Count > 0)
         {
             {
-                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], targetList[targetindex], (obj, trs, target) =>
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], targetList[targetindex].target, (obj, trs, target) =>
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();

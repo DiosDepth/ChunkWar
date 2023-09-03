@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4115382653730551155}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.617, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,7 +86,7 @@ MonoBehaviour:
   deathVFXName: ExplodeVFX
   _isTarget: 1
   unitSprite: {fileID: 4947179279536623990}
-  rotationRoot: {fileID: 0}
+  rotationRoot: {fileID: 4947179278027536151}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}
@@ -100,7 +100,6 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
-  targetList: []
   maxTargetCount: 1
   firePoint:
   - {fileID: 3324133008493171840}
@@ -125,14 +124,14 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    border: {x: 0, y: 0, z: 0, w: 0.40625}
+    pivot: {x: 0.5, y: 0.2}
+    oldSize: {x: 0.5, y: 1.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -140,11 +139,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.014610022, y: 0.29315847}
-      - {x: -0.25974, y: -0.45878395}
-      - {x: 0.02530384, y: -0.6685221}
-      - {x: 0.21124578, y: -0.53919476}
-      - {x: 0.26343918, y: -0.19274896}
+    - - {x: -0.09375, y: 0.59375}
+      - {x: -0.21875, y: 0.125}
+      - {x: -0.21875, y: -0.0625}
+      - {x: -0.0625, y: -0.21875}
+      - {x: 0.0625, y: -0.21875}
+      - {x: 0.21875, y: -0.0625}
+      - {x: 0.21875, y: 0.125}
+      - {x: 0.09375, y: 0.59375}
 --- !u!1 &4947179279536623991
 GameObject:
   m_ObjectHideFlags: 0

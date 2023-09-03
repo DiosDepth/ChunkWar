@@ -48,9 +48,8 @@ public class AIManager : Singleton<AIManager>
     public NativeList<JobHandle> jobhandleList_AI;
     public NativeList<JobHandle> jobHandleList_AIWeapon;
 
-    //weapon Update job data
-    NativeArray<int>[] targetsindex;
-
+    //weapon Update job result data
+    NativeArray<Weapon.JRD_WeaponTargetInfo>[] weaponTargetsInfo;
 
     //arrivebehavior native data
     public NativeArray<float3>[] arrivebehavior_steeringlinear;
@@ -387,7 +386,7 @@ public class AIManager : Singleton<AIManager>
             return;
         }
         AIWeapon weapon;
-        targetsindex = new NativeArray<int>[aiActiveUnitList.Count];
+        weaponTargetsInfo = new NativeArray<Weapon.JRD_WeaponTargetInfo>[aiActiveUnitList.Count];
         jobHandleList_AIWeapon = new NativeList<JobHandle>(Allocator.TempJob);
 
         for (int i = 0; i < aiActiveUnitList.Count; i++)
@@ -410,8 +409,9 @@ public class AIManager : Singleton<AIManager>
             }
 
             // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
+            //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
            
-            targetsindex[i] = new NativeArray<int>(weapon.maxTargetCount, Allocator.TempJob);
+            weaponTargetsInfo[i] = new NativeArray<Weapon.JRD_WeaponTargetInfo>(weapon.maxTargetCount, Allocator.TempJob);
 
             Weapon.FindWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindWeaponTargetsJob
             {
@@ -420,7 +420,7 @@ public class AIManager : Singleton<AIManager>
                 job_targetsPos = targetActiveUnitPos,
                 job_maxTargetCount = weapon.maxTargetCount,
 
-                JRD_targetsIndex = targetsindex[i],
+                JRD_targetsInfo = weaponTargetsInfo[i],
 
             };
 
@@ -431,7 +431,8 @@ public class AIManager : Singleton<AIManager>
         //执行Job 并且等待结果。
         JobHandle.CompleteAll(jobHandleList_AIWeapon);
 
-        //更具记录的的结果， 更新武器的WeaponOn  WeaponOff 状态
+
+
         for (int i = 0; i < aiActiveUnitList.Count; i++)
         {
             if( aiActiveUnitList[i] is AIWeapon)
@@ -442,32 +443,42 @@ public class AIManager : Singleton<AIManager>
             {
                 continue;
             }
-            if(targetsindex[i].Length <= 0)
+            if(weaponTargetsInfo[i].Length <= 0)
             {
                 weapon.WeaponOff();
+
             }
             else
             {
                 weapon.targetList.Clear();
                 for (int n = 0; n < weapon.maxTargetCount; n++)
                 {
-                 
-                    weapon.targetList.Add( targetActiveUnitList[ targetsindex[i][n] ].gameObject );
+                    weapon.targetList.Add(new WeaponTargetInfo
+                        (
+                            targetActiveUnitList[ weaponTargetsInfo[i][n].JRD_targetIndex].gameObject,
+                            weaponTargetsInfo[i][n].JRD_targetIndex,
+                            weaponTargetsInfo[i][n].JRD_distanceToTarget,
+                            weaponTargetsInfo[i][n].JRD_targetDirection
+                        ));
                 }
-                weapon.WeaponOn();
+               
+
+                weapon.ProcessWeapon();
             }
 
-            weapon.ProcessWeapon();
+
+            //更具结果计算对应的AI旋转角度
+
+
+            
         }
 
 
         //Dispose all Job tempdata
-        for (int i = 0; i < targetsindex.Length; i++)
+        for (int i = 0; i < weaponTargetsInfo.Length; i++)
         {
-            targetsindex[i].Dispose();
+            weaponTargetsInfo[i].Dispose();
         }
-
-
     }
 
     public void UpdateBullet()
