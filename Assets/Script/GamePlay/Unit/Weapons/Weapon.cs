@@ -471,7 +471,7 @@ public class Weapon : Unit
     {
         base.Update();
         
-        ProcessWeapon();
+        //ProcessWeapon();
     }
 
     protected override void OnDestroy()
@@ -553,7 +553,7 @@ public class Weapon : Unit
         if (!_isProcess)
             return;
 
-        HandleOtherWeaponRotation();
+        //HandleOtherWeaponRotation();
         switch (weaponstate.CurrentState)
         {
             case WeaponState.Ready:
@@ -648,19 +648,6 @@ public class Weapon : Unit
     public virtual void FireRequest()
     {
 
-        for (int i = 0; i < targetList.Count; i++)
-        {
-            if (targetList[i] != null && targetList[i].activeSelf)
-            {
-                break;
-            }
-            else
-            {
-                //如果没有任何一个target
-                weaponstate.ChangeState(WeaponState.AfterDelay);
-            }
-        }
-
         if (magazine <= 0 && weaponAttribute.MagazineBased)
         {
             weaponstate.ChangeState(WeaponState.Reload);
@@ -673,7 +660,7 @@ public class Weapon : Unit
             _firepointindex = 0;
         }
         // 搜索合适的target
-
+        /*
         if(aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetBased)
         {
             targetList.Clear();
@@ -739,7 +726,7 @@ public class Weapon : Unit
                 }
             }
         }
-
+        */
 
 
         // 进行开火条件的判定,成功则 WeaponFiring ,否则 WeaponEnd
@@ -907,8 +894,9 @@ public class Weapon : Unit
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.SetTarget(target);
                     //_lastbullet.PoolableSetActive();
-                    _lastbullet.Initialization();
                     _lastbullet.SetOwner(this);
+                    _lastbullet.Initialization();
+                 
                     _lastbullet.Shoot();
                 }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
                 _targetindex++;
@@ -926,11 +914,12 @@ public class Weapon : Unit
                     {
                         obj.transform.SetTransform(trs);
                         _lastbullet = obj.GetComponent<Bullet>();
-                        _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                        _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
 
-                       // _lastbullet.PoolableSetActive();
-                        _lastbullet.Initialization();
                         _lastbullet.SetOwner(this);
+                        // _lastbullet.PoolableSetActive();
+                        _lastbullet.Initialization();
+                       
                         _lastbullet.Shoot();
                     }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
                 }
@@ -954,9 +943,10 @@ public class Weapon : Unit
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.SetTarget(target);
-                   // _lastbullet.PoolableSetActive();
-                    _lastbullet.Initialization();
+                    // _lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);
+                    _lastbullet.Initialization();
+                  
                     _lastbullet.Shoot();
                 }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
             }
@@ -974,8 +964,9 @@ public class Weapon : Unit
                     _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
 
                     //_lastbullet.PoolableSetActive();
-                    _lastbullet.Initialization();
                     _lastbullet.SetOwner(this);
+                    _lastbullet.Initialization();
+            
                     _lastbullet.Shoot();
                 }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
             }

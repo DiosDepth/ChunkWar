@@ -48,33 +48,33 @@ public class Projectile : Bullet, IDamageble
     // Update is called once per frame
     protected override void Update()
     {
-        while (Time.time < _movetimestamp)
-        {
-            _tempmovement = new NativeArray<float3>(1, Allocator.TempJob);
+        //while (Time.time < _movetimestamp)
+        //{
+        //    _tempmovement = new NativeArray<float3>(1, Allocator.TempJob);
 
-            switch (movementType)
-            {
-                case ProjectileMovementType.Straight:
+        //    switch (movementType)
+        //    {
+        //        case ProjectileMovementType.Straight:
 
-                    StaightJob staightJob = new StaightJob
-                    {
-                        job_selfPos = transform.position,
-                        job_deltatime = Time.deltaTime,
-                        job_maxSpeed = maxSpeed,
-                        job_moveDirection = _movedirection.ToVector3(),
+        //            //StaightJob staightJob = new StaightJob
+        //            //{
+        //            //    job_selfPos = transform.position,
+        //            //    job_deltatime = Time.deltaTime,
+        //            //    job_maxSpeed = maxSpeed,
+        //            //    job_moveDirection = _movedirection.ToVector3(),
 
-                        JRD_movement = _tempmovement,
-                    };
+        //            //    JRD_movement = _tempmovement,
+        //            //};
 
-                    break;
-                case ProjectileMovementType.StraightToPos:
+        //            break;
+        //        case ProjectileMovementType.StraightToPos:
 
-                    break;
-                case ProjectileMovementType.FollowTarget:
+        //            break;
+        //        case ProjectileMovementType.FollowTarget:
 
-                    break;
-            }
-        }
+        //            break;
+        //    }
+        //}
     }
 
     public override void Shoot()

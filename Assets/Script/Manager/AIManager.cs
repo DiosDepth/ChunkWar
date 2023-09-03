@@ -137,23 +137,23 @@ public class AIManager : Singleton<AIManager>
 
     private void LaterUpdate()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         UpdateJobData();
 
         UpdateAI();
         //update Ai
 
         //update weapon
-       UpdateAIWeapon();
+        UpdateAIWeapon();
 
         //update bullet
         UpdateBullet();
 
         DisposeJobData();
-    }
-
-    private void FixedUpdate()
-    {
-
     }
 
 
@@ -280,17 +280,12 @@ public class AIManager : Singleton<AIManager>
         {
             return;
         }
-       
-
-
 
         arrivebehavior_steeringlinear = new NativeArray<float3>[ShipCount];
         facebehavior_steeringangle = new NativeArray<float3>[ShipCount];
         cohesionbehavior_steeringlinear = new NativeArray<float3>[ShipCount];
         separationbehavior_steeringlinear = new NativeArray<float3>[ShipCount];
         alignmentbehavior_steeringlinear = new NativeArray<float3>[ShipCount];
-
-
 
         arrive_isVelZero = new NativeArray<bool>[ShipCount];
         jobhandleList_AI = new NativeList<JobHandle>(Allocator.TempJob);
@@ -356,8 +351,9 @@ public class AIManager : Singleton<AIManager>
             }
 
             //Calculate movement delta
-            deltamovement = (aiSteeringBehaviorControllerList[i].velocity + accelaration.ToVector3() * 0.5f * Time.fixedDeltaTime * aiSteeringBehaviorControllerList[i].drag);
-            aiSteeringBehaviorControllerList[i].rb.MovePosition(aiShipList[i].transform.position + deltamovement * Time.fixedDeltaTime);
+            deltamovement = (aiSteeringBehaviorControllerList[i].velocity + accelaration.ToVector3() * 0.5f * Time.deltaTime * aiSteeringBehaviorControllerList[i].drag);
+            aiSteeringBehaviorControllerList[i].Move(aiShipList[i].transform.position + deltamovement * Time.deltaTime);
+            //aiSteeringBehaviorControllerList[i].rb.MovePosition();
             //rb.AddForce(accelaration);
 
             //Update Boiddata;
@@ -452,9 +448,10 @@ public class AIManager : Singleton<AIManager>
             }
             else
             {
+                weapon.targetList.Clear();
                 for (int n = 0; n < weapon.maxTargetCount; n++)
                 {
-                    weapon.targetList.Clear();
+                 
                     weapon.targetList.Add( targetActiveUnitList[ targetsindex[i][n] ].gameObject );
                 }
                 weapon.WeaponOn();

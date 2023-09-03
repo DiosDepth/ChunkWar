@@ -47,10 +47,7 @@ public class AIWeapon : Weapon
     public override void SetUnitProcess(bool isprocess)
     {
         base.SetUnitProcess(isprocess);
-        if (_weaponCfg.unitType != UnitType.MainWeapons)
-        {
-            WeaponOn();
-        }
+
 
     }
 

@@ -60,17 +60,6 @@ public class AISteeringBehaviorController : AIAction,IBoid
     public override void Initialization()
     {
         base.Initialization();
-
-        //for (int i = 0; i < steerings.Length; i++)
-        //{
-        //    steerings[i].SetTarget(RogueManager.Instance.currentShip.transform);
-        //    //steerings[i].SetEnvAgents(LevelManager.Instance.aiShipList);
-        //    // steerings[i].SetTarget(AIManager.Instance.target);
-        //}
-
-
-        //rb.velocity = Vector3.up;
-
     }
 
     protected override void Start()
@@ -79,6 +68,16 @@ public class AISteeringBehaviorController : AIAction,IBoid
         //steerings = GetComponents<SteeringBehavior>();
         rb.drag = drag;
         lastpos = transform.position;
+    }
+
+    public virtual void Move(Vector3 movepos)
+    {
+        if(rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+        
+       rb.MovePosition(movepos);
     }
     public override void OnEnterAction()
     {
