@@ -7,19 +7,17 @@ using UnityEngine;
 using Unity.Burst;
 
 
+[System.Serializable]
 public class AlignmentBehavior : SteeringBehavior
 {
     [SerializeField] private float alignDistance = 8f;
     [SerializeField] private float detacteRadius = 5f;
-    private IBoid selfboid;
-    void Start()
-    {
-        selfboid = GetComponent<IBoid>();
-    }
+
+
 
     public struct AligmentBehaviorJob : IJob
     {
-       
+
         [ReadOnly] public float job_alignDistance;
         [ReadOnly] public float job_detacteRadius;
         [ReadOnly] public float job_maxAcceleration;
@@ -29,7 +27,7 @@ public class AlignmentBehavior : SteeringBehavior
         [ReadOnly] public float3 job_selfPos;
         [ReadOnly] public float3 job_selfVel;
         [ReadOnly] public float job_selfRadius;
-        
+
 
         public NativeArray<int> JRD_count;
         public NativeArray<float3> JRD_linear;
@@ -52,11 +50,11 @@ public class AlignmentBehavior : SteeringBehavior
                 }
             }
 
-            if(JRD_count[0] >0)
+            if (JRD_count[0] > 0)
             {
                 //全部加权完成后， 取加权后的steering量级平均值，加上最大值的限制 就是列队情况下的steering值
                 JRD_linear[0] = JRD_linear[0] / JRD_count[0];
-                if (math.length(JRD_linear[0] )> job_maxAcceleration)
+                if (math.length(JRD_linear[0]) > job_maxAcceleration)
                 {
                     JRD_linear[0] = math.normalize(JRD_linear[0]) * job_maxAcceleration;
                 }
@@ -64,23 +62,24 @@ public class AlignmentBehavior : SteeringBehavior
 
         }
     }
+}
     
 
 
 
 
-    public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
-    {
-        SteeringData steering = new SteeringData();
-        NativeArray<int> count = new NativeArray<int>(1, Allocator.Temp);
-        NativeArray<float3> linear = new NativeArray<float3>(1, Allocator.Temp);
+//    public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
+//    {
+//        SteeringData steering = new SteeringData();
+//        NativeArray<int> count = new NativeArray<int>(1, Allocator.Temp);
+//        NativeArray<float3> linear = new NativeArray<float3>(1, Allocator.Temp);
 
 
 
-        return steering;
-    }
+//        return steering;
+//    }
 
-}
+//}
 
 //steering.linear = Vector3.zero;
 //        int count = 0;

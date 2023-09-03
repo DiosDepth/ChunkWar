@@ -17,15 +17,15 @@ public class WanderBehavior : SteeringBehavior
         return new Vector3(Mathf.Cos(orientation), Mathf.Sin(orientation),0);
     }
 
-    public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
-    {
-        SteeringData steering = new SteeringData();
-        wanderOrientation += RandomBinomial() * wanderRate;
-        float characterOrientation = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
-        float targetOrientation = wanderOrientation + characterOrientation;
-        Vector3 targetPosition = transform.position + (wanderOffset * OrientationToVector(characterOrientation));
-        targetPosition += wanderRadius * OrientationToVector(targetOrientation); steering.linear = targetPosition - transform.position; steering.linear.Normalize();
-        steering.linear *= steeringcontroller.maxAcceleration;
-        return steering;
-    }
+    //public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
+    //{
+    //    SteeringData steering = new SteeringData();
+    //    wanderOrientation += RandomBinomial() * wanderRate;
+    //    float characterOrientation = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+    //    float targetOrientation = wanderOrientation + characterOrientation;
+    //    Vector3 targetPosition = transform.position + (wanderOffset * OrientationToVector(characterOrientation));
+    //    targetPosition += wanderRadius * OrientationToVector(targetOrientation); steering.linear = targetPosition - transform.position; steering.linear.Normalize();
+    //    steering.linear *= steeringcontroller.maxAcceleration;
+    //    return steering;
+    //}
 }

@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Unity.Burst;
 
+[System.Serializable]
 public class SeparationBehavior : SteeringBehavior
 {
    
@@ -51,28 +52,28 @@ public class SeparationBehavior : SteeringBehavior
         }
     }
 
-    public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
-    {
-        SteeringData steering = new SteeringData();
+    //public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
+    //{
+    //    SteeringData steering = new SteeringData();
 
-        NativeArray<float3> templiner = new NativeArray<float3>(1, Allocator.TempJob);
-        SeparationBehaviorJob separationBehaviorJob = new SeparationBehaviorJob
-        {
-            job_maxAcceleration = steeringcontroller.maxAcceleration,
-            job_threshold = threshold,
-            job_decayCoefficient = decayCoefficient,
-            job_detacteRadius = detacteRadius,
-            job_selfpos = transform.position,
-            job_targetspos = AIManager.Instance.steeringBehaviorJob_aiShipPos,
-            job_linear = templiner
-        };
+    //    NativeArray<float3> templiner = new NativeArray<float3>(1, Allocator.TempJob);
+    //    SeparationBehaviorJob separationBehaviorJob = new SeparationBehaviorJob
+    //    {
+    //        job_maxAcceleration = steeringcontroller.maxAcceleration,
+    //        job_threshold = threshold,
+    //        job_decayCoefficient = decayCoefficient,
+    //        job_detacteRadius = detacteRadius,
+    //        job_selfpos = transform.position,
+    //        job_targetspos = AIManager.Instance.steeringBehaviorJob_aiShipPos,
+    //        job_linear = templiner
+    //    };
 
-        JobHandle jobHandle = separationBehaviorJob.Schedule(AIManager.Instance.steeringBehaviorJob_aiShipPos.Length, 20);
-        jobHandle.Complete();
-        steering.linear = templiner[0];
-        templiner.Dispose();
-        return steering;
-    }
+    //    JobHandle jobHandle = separationBehaviorJob.Schedule(AIManager.Instance.steeringBehaviorJob_aiShipPos.Length, 20);
+    //    jobHandle.Complete();
+    //    steering.linear = templiner[0];
+    //    templiner.Dispose();
+    //    return steering;
+    //}
 
 //    SteeringData steering = new SteeringData();
 

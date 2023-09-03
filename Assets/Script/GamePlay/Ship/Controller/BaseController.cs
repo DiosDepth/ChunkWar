@@ -8,7 +8,7 @@ public class BaseController : MonoBehaviour
 
 
     public Rigidbody2D rb;
-    public new PolygonCollider2D collider;
+    public new Collider2D collider;
 
     protected Vector2 _lerpedInput;
     protected Vector2 _deltaMovement;

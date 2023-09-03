@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4947179278027536151}
   - component: {fileID: 1550267850732327031}
-  - component: {fileID: 3676271341615170573}
+  - component: {fileID: 2713715349414749016}
   m_Layer: 7
   m_Name: AIWeapon_LightAutoCannon
   m_TagString: AI
@@ -114,8 +114,8 @@ MonoBehaviour:
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}
---- !u!60 &3676271341615170573
-PolygonCollider2D:
+--- !u!70 &2713715349414749016
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,26 +127,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0.40625}
-    pivot: {x: 0.5, y: 0.2}
-    oldSize: {x: 0.5, y: 1.25}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.09375, y: 0.59375}
-      - {x: -0.21875, y: 0.125}
-      - {x: -0.21875, y: -0.0625}
-      - {x: -0.0625, y: -0.21875}
-      - {x: 0.0625, y: -0.21875}
-      - {x: 0.21875, y: -0.0625}
-      - {x: 0.21875, y: 0.125}
-      - {x: 0.09375, y: 0.59375}
+  m_Offset: {x: 0, y: 0.18}
+  m_Size: {x: 0.35, y: 0.79}
+  m_Direction: 0
 --- !u!1 &4947179279536623991
 GameObject:
   m_ObjectHideFlags: 0

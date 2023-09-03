@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Unity.Burst;
 
+[System.Serializable]
 public class FaceBehavior : SteeringBehavior
 {
 

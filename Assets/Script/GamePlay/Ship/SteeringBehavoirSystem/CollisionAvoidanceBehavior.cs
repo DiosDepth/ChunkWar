@@ -9,15 +9,6 @@ using UnityEngine;
 public class CollisionAvoidanceBehavior : SteeringBehavior
 {
     [SerializeField] private float detacteRadius = 5f;
-    private IBoid selfboid;
-
-
-    private void Start()
-    {
-        selfboid = GetComponent<IBoid>();
-    }
-
-
 
     [BurstCompile]
     public struct CollisionAvoidanceBehaviorJob : IJobParallelFor
@@ -80,81 +71,81 @@ public class CollisionAvoidanceBehavior : SteeringBehavior
     }
 
 
-    public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
-    {
-        SteeringData steering = new SteeringData();
+    //public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
+    //{
+    //    SteeringData steering = new SteeringData();
 
-        ///
-        ///  0 = shortestTime, 1 = firstMinSeparation, 2 =firstDistance, 3=firstRadius
-        ///
-        NativeArray<float> JRD_float = new NativeArray<float>(4, Allocator.TempJob);
+    //    ///
+    //    ///  0 = shortestTime, 1 = firstMinSeparation, 2 =firstDistance, 3=firstRadius
+    //    ///
+    //    NativeArray<float> JRD_float = new NativeArray<float>(4, Allocator.TempJob);
      
-        JRD_float[0] = float.PositiveInfinity;
-        JRD_float[1] = 0;
-        JRD_float[2] = 0;
-        JRD_float[3] = 0;
+    //    JRD_float[0] = float.PositiveInfinity;
+    //    JRD_float[1] = 0;
+    //    JRD_float[2] = 0;
+    //    JRD_float[3] = 0;
 
-        NativeArray<bool> JRD_havefirsttarget = new NativeArray<bool>(1, Allocator.TempJob);
-        JRD_havefirsttarget[0] = false;
+    //    NativeArray<bool> JRD_havefirsttarget = new NativeArray<bool>(1, Allocator.TempJob);
+    //    JRD_havefirsttarget[0] = false;
 
-        ///
-        ///0 = firstTargetPos, 1 = firstRelativePos, 2 = firstRelativeVel
-        ///
-        NativeArray<float3> JRD_float3 = new NativeArray<float3>(3, Allocator.TempJob);
-        JRD_float3[0] = Vector3.zero;
-        JRD_float3[1] = Vector3.zero;
-        JRD_float3[2] = Vector3.zero;
-
-
-        //start Job
-        CollisionAvoidanceBehaviorJob collisionAvoidanceBehaviorJob = new CollisionAvoidanceBehaviorJob
-        {
-            job_detacteRadius = detacteRadius,
-            job_selfPos = transform.position,
-            job_selfRadius = selfboid.GetRadius(),
-            job_selfVel = selfboid.GetVelocity(),
-
-            job_targetsPos = AIManager.Instance.steeringBehaviorJob_aiShipPos,
-            job_targetsRadius = AIManager.Instance.steeringBehaviorJob_aiShipRadius,
-            job_targetsVel = AIManager.Instance.steeringBehaviorJob_aiShipVelocity,
-
-            JRD_float = JRD_float,
-            JRD_float3 = JRD_float3,
-            JRD_havefirsttarget = JRD_havefirsttarget,
-
-        };
-
-        JobHandle jobHandle = collisionAvoidanceBehaviorJob.Schedule(AIManager.Instance.ShipCount, 20);
-
-        jobHandle.Complete();
+    //    ///
+    //    ///0 = firstTargetPos, 1 = firstRelativePos, 2 = firstRelativeVel
+    //    ///
+    //    NativeArray<float3> JRD_float3 = new NativeArray<float3>(3, Allocator.TempJob);
+    //    JRD_float3[0] = Vector3.zero;
+    //    JRD_float3[1] = Vector3.zero;
+    //    JRD_float3[2] = Vector3.zero;
 
 
-        if (!JRD_havefirsttarget[0])
-        {
-            JRD_float.Dispose();
-            JRD_float3.Dispose();
-            JRD_havefirsttarget.Dispose();
-            return steering;
-        }
+    //    //start Job
+    //    CollisionAvoidanceBehaviorJob collisionAvoidanceBehaviorJob = new CollisionAvoidanceBehaviorJob
+    //    {
+    //        job_detacteRadius = detacteRadius,
+    //        job_selfPos = transform.position,
+    //        job_selfRadius = selfboid.GetRadius(),
+    //        job_selfVel = selfboid.GetVelocity(),
+
+    //        job_targetsPos = AIManager.Instance.steeringBehaviorJob_aiShipPos,
+    //        job_targetsRadius = AIManager.Instance.steeringBehaviorJob_aiShipRadius,
+    //        job_targetsVel = AIManager.Instance.steeringBehaviorJob_aiShipVelocity,
+
+    //        JRD_float = JRD_float,
+    //        JRD_float3 = JRD_float3,
+    //        JRD_havefirsttarget = JRD_havefirsttarget,
+
+    //    };
+
+    //    JobHandle jobHandle = collisionAvoidanceBehaviorJob.Schedule(AIManager.Instance.ShipCount, 20);
+
+    //    jobHandle.Complete();
+
+
+    //    if (!JRD_havefirsttarget[0])
+    //    {
+    //        JRD_float.Dispose();
+    //        JRD_float3.Dispose();
+    //        JRD_havefirsttarget.Dispose();
+    //        return steering;
+    //    }
                
 
-        if (JRD_float[1] <= 0 || JRD_float[2] < selfboid.GetRadius() + JRD_float[3])
-        {
-            steering.linear = transform.position - new Vector3(JRD_float3[0].x, JRD_float3[0].y, JRD_float3[0].z);
-        }
-        else
-        {
-            steering.linear = JRD_float3[1] + JRD_float3[2] * JRD_float[0];
-        }
+    //    if (JRD_float[1] <= 0 || JRD_float[2] < selfboid.GetRadius() + JRD_float[3])
+    //    {
+    //        steering.linear = transform.position - new Vector3(JRD_float3[0].x, JRD_float3[0].y, JRD_float3[0].z);
+    //    }
+    //    else
+    //    {
+    //        steering.linear = JRD_float3[1] + JRD_float3[2] * JRD_float[0];
+    //    }
                
-        steering.linear.Normalize();
-        steering.linear *= steeringcontroller.maxAcceleration;
+    //    steering.linear.Normalize();
+    //    steering.linear *= steeringcontroller.maxAcceleration;
 
-        JRD_float.Dispose();
-        JRD_float3.Dispose();
-        JRD_havefirsttarget.Dispose();
-        return steering;
-    }
+    //    JRD_float.Dispose();
+    //    JRD_float3.Dispose();
+    //    JRD_havefirsttarget.Dispose();
+    //    return steering;
+    //}
 
 
 }
