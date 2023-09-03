@@ -216,6 +216,9 @@ public class ShopSlotItem : MonoBehaviour
         var index = 0;
         for (int i = 0; i < cfgs.Count; i++)
         {
+            if (cfgs[i].BySpecialValue)
+                continue;
+
             PoolManager.Instance.GetObjectSync(ShopPropertyItem_PrefabPath, true, (obj) =>
             {
                 var cmpt = obj.GetComponent<ItemPropertyModifyCmpt>();

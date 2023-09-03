@@ -120,13 +120,10 @@ public class GeneralItemConfig
     [LabelText("Í¼±ê")]
     public Sprite IconSprite;
 
-    [VerticalGroup("AA")]
-    [HorizontalGroup("AA/C", 300)]
     [LabelText("Ãû³Æ")]
     [LabelWidth(80)]
     public string Name;
 
-    [HorizontalGroup("AA/C")]
     [LabelText("CN")]
     [LabelWidth(80)]
     [ShowInInspector]
@@ -160,7 +157,7 @@ public class GeneralItemConfig
         }
         if (!string.IsNullOrEmpty(Desc))
         {
-            DescPreview = LocalizationManager.Instance.GetTextValue(DescPreview);
+            DescPreview = LocalizationManager.Instance.GetTextValue(Desc);
         }
     }
 

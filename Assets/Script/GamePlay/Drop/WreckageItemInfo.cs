@@ -131,7 +131,13 @@ public class WreckageItemInfo : RandomObject
     {
         var energyCostBase = UnitConfig.BaseEnergyCost;
         var costModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
-        var cost = Mathf.Clamp(energyCostBase * (1 + costModify / 100f), 0, float.MaxValue);
+        float ShieldModify = 0;
+        ///ShieldModify
+        if(UnitConfig.HasUnitTag(ItemTag.Shield))
+        {
+            ShieldModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
+        }
+        var cost = Mathf.Clamp(energyCostBase * (1 + (costModify + ShieldModify) / 100f), 0, float.MaxValue);
         return cost;
     }
 

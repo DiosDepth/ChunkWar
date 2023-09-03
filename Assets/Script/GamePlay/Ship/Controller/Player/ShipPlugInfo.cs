@@ -17,6 +17,9 @@ public class ShipPlugInfo
     public int GoodsID;
 
     private ShipPlugItemConfig _cfg;
+
+    private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
+
     public static ShipPlugInfo CreateInfo(int plugID, int goodsID)
     {
         var plugCfg = DataManager.Instance.GetShipPlugItemConfig(plugID);
@@ -42,7 +45,15 @@ public class ShipPlugInfo
             for(int i = 0; i < propertyModify.Count; i++)
             {
                 var modify = propertyModify[i];
-                RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PlugUID, modify.Value);
+                if (!modify.BySpecialValue)
+                {
+                    RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PlugUID, modify.Value);
+                }
+                else
+                {
+                    PropertyModifySpecialData specialData = new PropertyModifySpecialData(modify, PlugUID);
+                    _modifySpecialDatas.Add(specialData);
+                }
             }
         }
 
@@ -55,5 +66,13 @@ public class ShipPlugInfo
                 RogueManager.Instance.MainPropertyData.AddPropertyModifyPercentValue(modify.ModifyKey, PlugUID, modify.Value);
             }
         }
+
+        ///Handle SpecialDatas
+        for (int i = 0; i < _modifySpecialDatas.Count; i++)
+        {
+            _modifySpecialDatas[i].HandlePropetyModifyBySpecialValue();
+        }
     }
+
+
 }

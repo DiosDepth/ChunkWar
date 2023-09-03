@@ -738,6 +738,38 @@ MonoBehaviour:
     - 5
     - 7
     - 10
+  - Icon: {fileID: 21300000, guid: ec61eadb7162bea48b41c2b9559d51c7, type: 3}
+    Name: ShipLevelUp_Armor
+    ModifyKey: 31
+    RarityValueMap:
+    - 1
+    - 3
+    - 5
+    - 7
+  - Icon: {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
+    Name: ShipLevelUp_Luck
+    ModifyKey: 4
+    RarityValueMap:
+    - 5
+    - 10
+    - 15
+    - 20
+  - Icon: {fileID: 21300000, guid: 5ae778513b13e67479241f3b6ce72c31, type: 3}
+    Name: ShipLevelUp_ShieldArmor
+    ModifyKey: 35
+    RarityValueMap:
+    - 1
+    - 3
+    - 5
+    - 8
+  - Icon: {fileID: 21300000, guid: fda083d8e658ad848b3b6cd85450dde5, type: 3}
+    Name: ShipLevelUp_EnergyTotalAdd
+    ModifyKey: 36
+    RarityValueMap:
+    - 20
+    - 30
+    - 40
+    - 50
   ShipLevelUpItemRarityMap:
   - Rarity: 0
     MinLevel: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Text;
+using UnityEngine.Events;
 
 public struct RogueEvent
 {
@@ -185,6 +186,13 @@ public class RogueManager : Singleton<RogueManager>
     /// 舰船升级时属性随机池
     /// </summary>
     private List<ShipLevelUpItem> _allShipLevelUpItems;
+
+    #region Action 
+
+    /* 负载百分比变化 */
+    public UnityAction<float> OnWreckageLoadPercentChange;
+
+    #endregion
 
     public RogueManager()
     {
@@ -501,7 +509,9 @@ public class RogueManager : Singleton<RogueManager>
         }
 
         CalculateTotalLoadValue();
-        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShipWreckageLoadTotal, CalculateTotalLoadCost);
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShipWreckageLoadTotal, CalculateTotalLoadValue);
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.UnitLoadCost, CalculateTotalLoadCost);
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.WasteLoadPercent, CalculateTotalLoadCost);
     }
 
     private List<WreckageItemInfo> GetAllWreckageItemsByRarity(GoodsItemRarity rarity)
@@ -529,7 +539,7 @@ public class RogueManager : Singleton<RogueManager>
         }
         ///Calculate Waste
         WreckageTotalLoadCost += GetDropWasteLoad;
-
+        OnWreckageLoadPercentChange?.Invoke(WreckageLoadPercent * 100);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.WreckageLoadChange);
     }
 
@@ -538,6 +548,7 @@ public class RogueManager : Singleton<RogueManager>
         var loadRow = DataManager.Instance.battleCfg.ShipLoadBase;
         var loadAdd = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipWreckageLoadTotal);
         WreckageTotalLoadValue = (int)Mathf.Clamp(loadAdd + loadRow, 0, int.MaxValue);
+        OnWreckageLoadPercentChange?.Invoke(WreckageLoadPercent * 100);
     }
 
     #endregion

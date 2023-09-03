@@ -116,5 +116,17 @@ public enum PropertyModifyKey
     /// <summary>
     /// 敌人掉落
     /// </summary>
-    EnemyDropCountPercent
+    EnemyDropCountPercent,
+    /// <summary>
+    /// 护盾强化
+    /// </summary>
+    ShieldArmor,
+    /// <summary>
+    /// 总能量值
+    /// </summary>
+    EnergyTotalAdd,
+    /// <summary>
+    /// 护盾能源消耗
+    /// </summary>
+    ShieldEnergyCostPercent,
 }

@@ -413,6 +413,7 @@ MonoBehaviour:
   UpgradeGroupID: 0
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
+  ItemTags: 0
   BaseHP: 500
   BaseEnergyCost: 0
   BaseEnergyGenerate: 100

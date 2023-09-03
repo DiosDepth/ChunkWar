@@ -19,14 +19,15 @@ public class ShipPlugMainEditor : OdinEditorWindow
     public static void ShowWindow()
     {
         var win = GetWindow<ShipPlugMainEditor>("½¢´¬²å¼þ±à¼­Æ÷");
-        win.position = GUIHelper.GetEditorWindowRect().AlignCenter(1400, 800);
-        win.minSize = new Vector2(1500, 900);
+        win.position = GUIHelper.GetEditorWindowRect().AlignCenter(1800, 800);
+        win.minSize = new Vector2(1800, 900);
         win.Show();
     }
 
     protected override void Initialize()
     {
         base.Initialize();
+        LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         ShipPlugCfg = AssetDatabase.LoadAssetAtPath<ShipPlugConfig>(ShipPlugConfigPath);
     }
 

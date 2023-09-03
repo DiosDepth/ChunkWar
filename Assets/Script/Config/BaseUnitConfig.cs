@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Flags]
+public enum ItemTag : ulong
+{
+    Shield = 1<<1,
+    Weapon = 1<<2,
+}
+
 [System.Serializable]
 public class UnitPropertyModifyFrom
 {
@@ -45,6 +52,12 @@ public class BaseUnitConfig : BaseConfig
     [LabelWidth(70)]
     [HorizontalGroup("C", 130)]
     public int EditorBrushDefaultRotation;
+
+    [LabelText("Tag")]
+    [HorizontalGroup("D")]
+    [EnumToggleButtons]
+    public ItemTag ItemTags;
+
 
     [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/A", 200)]
@@ -98,6 +111,11 @@ public class BaseUnitConfig : BaseConfig
             }
         }
         return Vector2Int.zero;
+    }
+
+    public bool HasUnitTag(ItemTag tag)
+    {
+        return ItemTags.HasFlag(tag);
     }
 
     public override Vector2 GetMapSize()

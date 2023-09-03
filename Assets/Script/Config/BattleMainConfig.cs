@@ -11,6 +11,14 @@ public enum HardLevelModifyType
     EnemyDamage,
 }
 
+public enum ModifySpecialType
+{
+    /// <summary>
+    /// 低于100%的部分等比转化
+    /// </summary>
+    Less100OneByOne,
+}
+
 public class BattleMainConfig : SerializedScriptableObject
 {
     public byte RogueShop_Origin_RefreshNum = 4;
@@ -124,15 +132,33 @@ public class PropertyDisplayConfig
 [System.Serializable]
 public class PropertyMidifyConfig
 {
-    [HorizontalGroup("B", 280)]
+    [HorizontalGroup("B", 250)]
     [LabelText("修正Key")]
     [LabelWidth(60)]
     public PropertyModifyKey ModifyKey;
 
-    [HorizontalGroup("B", 150)]
+    [HorizontalGroup("B", 100)]
     [LabelText("值")]
     [LabelWidth(30)]
     public float Value;
+
+    [HorizontalGroup("B", 100)]
+    [LabelText("使用特殊修正")]
+    [LabelWidth(80)]
+    public bool BySpecialValue;
+
+    [ShowIf("BySpecialValue")]
+    [HorizontalGroup("C", 200)]
+    [LabelText("类型")]
+    [LabelWidth(30)]
+    public ModifySpecialType SpecialType;
+
+    [ShowIf("BySpecialValue")]
+    [HorizontalGroup("C", 250)]
+    [LabelText("Key参数")]
+    [LabelWidth(60)]
+    public string SpecialKeyParam;
+
 }
 
 [System.Serializable]

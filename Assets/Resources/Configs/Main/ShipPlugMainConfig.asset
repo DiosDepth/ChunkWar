@@ -31,18 +31,39 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 500
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 15
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 4
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 5
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 15
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 9
       Value: 15
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 2
     GeneralConfig:
@@ -53,18 +74,39 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 500
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 4
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 5
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 9
       Value: 5
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 3
     GeneralConfig:
@@ -75,18 +117,39 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 500
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 4
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 5
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 9
       Value: 15
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 4
     GeneralConfig:
@@ -97,18 +160,39 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 500
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 4
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 5
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 9
       Value: 5
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 5
     GeneralConfig:
@@ -119,18 +203,39 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 500
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 4
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 5
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 9
       Value: 5
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 6
     GeneralConfig:
@@ -141,18 +246,39 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 500
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 4
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 5
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 9
       Value: 5
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 7
     GeneralConfig:
@@ -163,18 +289,39 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 500
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 4
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 5
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 0
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 9
       Value: 5
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1001
     GeneralConfig:
@@ -185,8 +332,14 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 2
       Value: -5
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1002
     GeneralConfig:
@@ -197,6 +350,9 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 2
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1003
     GeneralConfig:
@@ -207,8 +363,14 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 6
       Value: 1
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 7
       Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1004
     GeneralConfig:
@@ -219,6 +381,9 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 7
       Value: -8
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1005
     GeneralConfig:
@@ -229,8 +394,14 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 5
       Value: 20
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 8
       Value: 4
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1006
     GeneralConfig:
@@ -241,10 +412,19 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 5
       Value: 50
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 3
       Value: 2
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     - ModifyKey: 2
       Value: 3
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1007
     GeneralConfig:
@@ -255,6 +435,9 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 1
       Value: 50
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
     PropertyPercentModify: []
   - ID: 1008
     GeneralConfig:
@@ -265,4 +448,123 @@ MonoBehaviour:
     PropertyModify:
     - ModifyKey: 21
       Value: 75
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
+    PropertyPercentModify: []
+  - ID: 1009
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: ShipPlug_Name_1009
+      Desc: 
+      Rarity: 1
+    PropertyModify:
+    - ModifyKey: 32
+      Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
+    - ModifyKey: 33
+      Value: -10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
+    PropertyPercentModify: []
+  - ID: 1010
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: ShipPlug_Name_1010
+      Desc: 
+      Rarity: 0
+    PropertyModify:
+    - ModifyKey: 29
+      Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 0
+    PropertyPercentModify: []
+  - ID: 1011
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: ShipPlug_Name_1011
+      Desc: ShipPlug_Desc_1011
+      Rarity: 3
+    PropertyModify:
+    - ModifyKey: 2
+      Value: 0
+      BySpecialValue: 1
+      SpecialType: 0
+      SpecialKeyParam: LoadPercent
+    PropertyPercentModify: []
+  - ID: 1012
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: ShipPlug_Name_1012
+      Desc: 
+      Rarity: 2
+    PropertyModify:
+    - ModifyKey: 28
+      Value: -30
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
+    PropertyPercentModify: []
+  - ID: 1013
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: ShipPlug_Name_1013
+      Desc: 
+      Rarity: 1
+    PropertyModify:
+    - ModifyKey: 35
+      Value: 1
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
+    - ModifyKey: 21
+      Value: 30
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
+    - ModifyKey: 37
+      Value: 5
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
+    PropertyPercentModify: []
+  - ID: 1014
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: ShipPlug_Name_1014
+      Desc: 
+      Rarity: 2
+    PropertyModify:
+    - ModifyKey: 35
+      Value: 3
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
+    - ModifyKey: 37
+      Value: 10
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
+    PropertyPercentModify: []
+  - ID: 1015
+    GeneralConfig:
+      IconSprite: {fileID: 0}
+      Name: ShipPlug_Name_1015
+      Desc: 
+      Rarity: 1
+    PropertyModify:
+    - ModifyKey: 21
+      Value: 150
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
+    - ModifyKey: 35
+      Value: -2
+      BySpecialValue: 0
+      SpecialType: 0
+      SpecialKeyParam: 
     PropertyPercentModify: []

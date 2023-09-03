@@ -243,6 +243,8 @@ public class PlayerShip : BaseShip
             TotalEnergy += unit.baseAttribute.EnergyGenerate;
             CurrentUsedEnergy += unit.baseAttribute.EnergyCost;
         }
+        var energyAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnergyTotalAdd);
+        TotalEnergy = (int)Mathf.Clamp(TotalEnergy + energyAdd, 0, int.MaxValue);
 
         ShipPropertyEvent.Trigger(ShipPropertyEventType.EnergyChange);
     }

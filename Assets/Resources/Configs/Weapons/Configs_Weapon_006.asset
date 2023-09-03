@@ -413,6 +413,7 @@ MonoBehaviour:
   UpgradeGroupID: 10001
   EditBrushSprite: {fileID: 21300000, guid: 4496b99d0334a184c84911a7e45d5071, type: 3}
   EditorBrushDefaultRotation: 180
+  ItemTags: 0
   BaseHP: 100
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
@@ -432,3 +433,4 @@ MonoBehaviour:
   BaseTransfixion: 0
   TransfixionReduce: 0
   DamageModifyFrom: []
+  FireAudioClip: 

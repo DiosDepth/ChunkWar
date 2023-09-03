@@ -195,7 +195,19 @@ MonoBehaviour:
     ChineseSimplified: "\u51B7\u5374\u5355\u5143"
     English: 
     Japanese: 
-  - TextID: 
-    ChineseSimplified: 
+  - TextID: ShipLevelUp_Armor
+    ChineseSimplified: "\u786C\u5316\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_Luck
+    ChineseSimplified: "\u5E78\u8FD0\u589E\u5F3A"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_ShieldArmor
+    ChineseSimplified: "\u786C\u5316\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: ShipLevelUp_EnergyTotalAdd
+    ChineseSimplified: "\u80FD\u6E90\u9635\u5217"
     English: 
     Japanese: 

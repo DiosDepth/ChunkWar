@@ -596,4 +596,5 @@ public static class GameHelper
             return reverse ? Color_Blue_Code : Color_Red_Code;
         }
     }
+
 }
