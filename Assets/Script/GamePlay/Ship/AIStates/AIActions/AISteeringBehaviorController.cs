@@ -88,7 +88,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
     }
 
 
-
+    [BurstCompatible]
     public struct CalculateDeltaMovePosJob : IJobParallelForBatch
     {
         [ReadOnly] public NativeArray<float> job_aiShipMaxAcceleration;

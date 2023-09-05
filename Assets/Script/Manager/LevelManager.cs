@@ -281,7 +281,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public void LevelActive()
     {
-        AIManager.Instance.Initialization();
+
         isLevelUpdate = true;
     }
 

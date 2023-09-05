@@ -45,6 +45,11 @@ public class UnitBaseAttribute
     private int BaseEnergyGenerate;
 
     /// <summary>
+    /// Œ‰∆˜…‰≥Ã
+    /// </summary>
+    public float WeaponRange { get; protected set; }
+
+    /// <summary>
     ///  «∑ÒÕÊº“Ω¢¥¨£¨”∞œÏ…À∫¶º∆À„
     /// </summary>
     protected bool isPlayerShip;
@@ -154,18 +159,22 @@ public class Unit : MonoBehaviour, IDamageble
     /// </summary>
     public uint UID;
     public DamagableState state = DamagableState.None;
+
     public bool IsTarget { get { return _isTarget; } }
     public bool IsRestoreable = false;
     public bool IsCoreUnit = false;
     public string deathVFXName = "ExplodeVFX";
-    [SerializeField]
-    private bool _isTarget;
+    public List<WeaponTargetInfo> targetList = new List<WeaponTargetInfo>();
+    public int maxTargetCount = 3;
+
+    protected bool _isTarget;
     public SpriteRenderer unitSprite;
     public Transform rotationRoot;
     public bool redirection = true;
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
+
  
 
     /// <summary>

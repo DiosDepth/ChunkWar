@@ -212,7 +212,7 @@ public class PlayerShip : BaseShip
             DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
             Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);
             mainWeapon = AddUnit(weaponconfig, _reletivemap, core.shipCoord, 0) as ShipWeapon;
-            mainWeapon.Initialization(this, weaponconfig);
+            //mainWeapon.Initialization(this, weaponconfig);
         }
 
         InitPickUpRange();

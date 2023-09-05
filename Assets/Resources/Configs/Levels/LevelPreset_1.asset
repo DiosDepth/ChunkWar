@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 1
     - Name: DurationTime
       Entry: 3
-      Data: 30
+      Data: 500
     - Name: SpawnConfig
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
@@ -54,10 +54,10 @@ MonoBehaviour:
       Data: 1
     - Name: DurationDelta
       Entry: 3
-      Data: 5
+      Data: 3
     - Name: LoopCount
       Entry: 3
-      Data: 10
+      Data: 30
     - Name: StartTime
       Entry: 3
       Data: 5

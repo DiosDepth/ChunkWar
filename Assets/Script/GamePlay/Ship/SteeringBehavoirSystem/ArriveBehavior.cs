@@ -15,56 +15,9 @@ public class ArriveBehavior : SteeringBehavior
     [SerializeField] public float slowRadius = 5f;
 
 
-    [BurstCompile]
-    public struct ArriveBehaviorJob : IJob
-    {
-        [ReadOnly] public float3 job_selfPos;
-        [ReadOnly] public float3 job_selfVel;
-        [ReadOnly] public float3 job_targetPos;
-        [ReadOnly] public float job_targetRadius;
-
-    
-        [ReadOnly] public float job_slowRadius;
-        [ReadOnly] public float job_maxAcceleration;
-
-        public NativeArray<bool> JRD_isvelzero;
-        public NativeArray<float3> JRD_linear;
-       
-
-        public void Execute()
-        {
-            float3 direction = job_targetPos - job_selfPos;
-            float distance = math.length(direction);
-            if (distance < job_targetRadius)
-            {
-                JRD_isvelzero[0] = true;
-                return;
-            }
-
-            float targetSpeed;
-            if (distance > job_slowRadius)
-            {
-                targetSpeed = job_maxAcceleration;
-            }
-            else
-            {
-                targetSpeed = job_maxAcceleration * (distance / job_slowRadius);
-            }
-            float3 targetVelocity = math.normalize (direction);
-            
-            targetVelocity *= targetSpeed;
-            JRD_linear[0] = targetVelocity - new float3(job_selfVel.x, job_selfVel.y, 0);
-            if (math.length(JRD_linear[0]) > job_maxAcceleration)
-            {
-                JRD_linear[0] = math.normalize(JRD_linear[0]);
-                JRD_linear[0] *= job_maxAcceleration;
-            }
-        }
-    }
 
 
-
-
+    [BurstCompatible]
     public struct ArriveBehaviorJobs : IJobParallelForBatch
     {
         [ReadOnly] public NativeArray<float3> job_aiShipPos;
@@ -79,7 +32,9 @@ public class ArriveBehavior : SteeringBehavior
 
 
         public NativeArray<bool> rv_isVelZero;
-        public NativeArray<SteeringBehaviorInfo> rv_Steering;
+        public NativeArray<SteeringBehaviorInfo> rv_Steerings;
+
+
 
         private SteeringBehaviorInfo steering;
         private float3 direction;
@@ -98,7 +53,7 @@ public class ArriveBehavior : SteeringBehavior
                     rv_isVelZero[i] = true;
                     steering.linear = float3.zero;
                     steering.angular = 0;
-                    rv_Steering[i] = steering;
+                    rv_Steerings[i] = steering;
                     continue;
                 }
 
@@ -122,8 +77,9 @@ public class ArriveBehavior : SteeringBehavior
                 }
 
                 steering.angular = 0;
-                rv_Steering[i] = steering;
+                rv_Steerings[i] = steering;
             }
+
         }
     }
 

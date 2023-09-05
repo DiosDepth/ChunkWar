@@ -54,10 +54,7 @@ public class WeaponAttribute : UnitBaseAttribute
     /// </summary>
     public float CriticalDamagePercent { get; protected set; }
 
-    /// <summary>
-    /// 武器射程
-    /// </summary>
-    public float WeaponRange { get; protected set; }
+
 
     /// <summary>
     /// 贯穿数
@@ -412,8 +409,7 @@ public class Weapon : Unit
     public LayerMask mask = 1 << 7;
 
 
-    public List<WeaponTargetInfo> targetList = new List<WeaponTargetInfo>();
-    public int maxTargetCount = 3;
+
     public Transform[] firePoint;
     public float scatter = 0f;
 
@@ -510,82 +506,102 @@ public class Weapon : Unit
         base.OnDestroy();
     }
 
-    public struct JRD_WeaponTargetInfo : IComparable<JRD_WeaponTargetInfo>
+    public struct RV_WeaponTargetInfo : IComparable<RV_WeaponTargetInfo>
     {
-        public int JRD_targetIndex;
-        public float JRD_distanceToTarget;
-        public float3 JRD_targetPos;
-        public float3 JRD_targetDirection;
+        public int targetIndex;
+        public float distanceToTarget;
+        public float3 targetPos;
+        public float3 targetDirection;
 
-        public int CompareTo(JRD_WeaponTargetInfo other)
+        public int CompareTo(RV_WeaponTargetInfo other)
         {
-
-            return JRD_distanceToTarget.CompareTo(other.JRD_distanceToTarget);
+            return distanceToTarget.CompareTo(other.distanceToTarget);
         }
     }
 
     [BurstCompile]
     public struct FindWeaponTargetsJob : IJobParallelForBatch
     {
-        [Unity.Collections.ReadOnly] public float job_attackRange;
-        [Unity.Collections.ReadOnly] public float3 job_selfPos;
-        [Unity.Collections.ReadOnly] public int job_maxTargetCount;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_attackRange;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_selfPos;
+        [Unity.Collections.ReadOnly] public NativeArray<int> job_maxTargetCount;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
-        public NativeArray<JRD_WeaponTargetInfo> JRD_targetsInfo;
+        public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
 
-        JRD_WeaponTargetInfo tempinfo;
-        int targetindex;
+
+    
+        RV_WeaponTargetInfo tempinfo;
+        int index;
         public void Execute(int startIndex, int count)
         {
-            targetindex = 0;
-            
+            NativeList<RV_WeaponTargetInfo>  tempinfolist = new NativeList<RV_WeaponTargetInfo>(Allocator.Temp);
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                if(math.distance(job_selfPos, job_targetsPos[i]) <= job_attackRange)
+    
+                //找到所有在范围内的target
+                for (int n = 0; n < job_targetsPos.Length; n++)
                 {
-                    tempinfo.JRD_targetIndex = i;
-                    tempinfo.JRD_distanceToTarget = math.distance(job_selfPos, job_targetsPos[i]);
-                    tempinfo.JRD_targetDirection = math.normalize(job_targetsPos[i] - job_selfPos);
-                    tempinfo.JRD_targetPos = job_targetsPos[i];
-
-                    JRD_targetsInfo[targetindex] = tempinfo;
-                    targetindex++;
-
-                    if (targetindex >= job_maxTargetCount)
+                    if (math.distance(job_selfPos[i], job_targetsPos[n]) <= job_attackRange[i])
                     {
+                        tempinfo.targetPos = job_targetsPos[n];
+                        tempinfo.targetIndex = n;
+                        tempinfo.targetDirection = math.normalize(job_targetsPos[n] - job_selfPos[i]);
+                        tempinfo.distanceToTarget = math.distance(job_targetsPos[n], job_selfPos[i]);
+                        tempinfolist.Add(tempinfo);
+                    }
+                }
 
-                        JRD_targetsInfo.Sort();
-                        break;
+                index = 0;
+                for (int c = 0; c < startIndex; c++)
+                {
+                    index += job_maxTargetCount[c];
+                }
+
+               
+                if(tempinfolist.Length > 0)
+                {
+                    //全部找完了之后进行排序
+                    tempinfolist.Sort();
+                    //排序之后按照最大目标数量进行结果装填
+                    for (int s = 0; s < job_maxTargetCount[i]; s++)
+                    {
+                        //当前的index不大于 临时目标列表的长度
+                        if (s <= tempinfolist.Length - 1)
+                        {
+                            rv_targetsInfo[index + s] = tempinfolist[s];
+                        }
+                        else
+                        {
+                            rv_targetsInfo[index + s] = tempinfolist[s - tempinfolist.Length];
+                        }
+                    }
+                }
+                else
+                {
+                    for (int s = 0; s < job_maxTargetCount[i]; s++)
+                    {
+                        tempinfo.targetIndex = -1;
+                        rv_targetsInfo[index + s] = tempinfo;
                     }
                 }
             }
-
+            tempinfolist.Dispose();
         }
     }
 
-    public struct IntDataComparer : IComparer<float3>
-    {
-        public NativeArray<float3> job_comparerPos;
 
-        public int Compare(float3 self, float3 other)
-        {
-            throw new NotImplementedException();
-        }
-
-      
-
-    }
 
     public struct CalculateWeaponRotateJob : IJobParallelForBatch
     {
-        [Unity.Collections.ReadOnly] public float3 job_targetPos;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetPos;
 
 
-        public NativeArray<int> JRD_rotations;
+        public NativeArray<float> rv_rotation;
         public void Execute(int startIndex, int count)
         {
             
+
         }
     }
 

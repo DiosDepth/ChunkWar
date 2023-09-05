@@ -9,7 +9,7 @@ public  class SteeringBehavior
     
     //[SerializeField] protected List<Transform> envAgents;
     [SerializeField] public Transform target ;
-    [SerializeField] public float weight = 1f;
+    [SerializeField] protected float weight = 1f;
 
 
     public virtual float GetWeight() { return weight; }

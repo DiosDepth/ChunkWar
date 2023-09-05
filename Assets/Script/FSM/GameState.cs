@@ -203,9 +203,12 @@ public class EGameState_GamePrepare : GameState
         {
             MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadLevel("BattleLevel_001", (level) =>
             {
+               
                 RogueManager.Instance.currentShip =  LevelManager.Instance.SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint,Quaternion.identity,false);
                 RogueManager.Instance.currentShip.LoadRuntimeData(RogueManager.Instance.ShipMapData);
                 RogueManager.Instance.currentShip.gameObject.SetActive(true);
+                //在初始化Ship之前先准备好Aimanager，会把对应的信息放入
+                AIManager.Instance.Initialization();
                 RogueManager.Instance.currentShip.Initialization();
                 RogueManager.Instance.currentShip.CreateShip();
                 RogueManager.Instance.currentShip.ActiveShipUnit();

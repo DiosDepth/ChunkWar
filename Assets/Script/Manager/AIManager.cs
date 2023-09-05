@@ -20,68 +20,75 @@ public class AIManager : Singleton<AIManager>
     public List<AIShip> aiShipList = new List<AIShip>();
     public List<Bullet> aibulletsList = new List<Bullet>();
 
-    public List<Unit> aiActiveUnitList = new List<Unit>();
+ 
     public List<AISteeringBehaviorController> aiSteeringBehaviorControllerList = new List<AISteeringBehaviorController>();
     public List<IBoid> aiShipBoidList = new List<IBoid>();
 
-    //AI component list
-    public List<ArriveBehavior> arriveBehavior = new List<ArriveBehavior>();
-    public List<FaceBehavior> faceBehavior = new List<FaceBehavior>();
-    public List<CohesionBehavior> cohesionBehavior = new List<CohesionBehavior>();
-    public List<SeparationBehavior> separationBehavior = new List<SeparationBehavior>();
-    public List<AlignmentBehavior> aligmentBehavior = new List<AlignmentBehavior>();
+    //需要吧每个AI的Behavior数据单独存下来， 跟随ShipCount
+    //public List<ArriveBehavior> arriveBehavior = new List<ArriveBehavior>();
+    //public List<FaceBehavior> faceBehavior = new List<FaceBehavior>();
+    //public List<CohesionBehavior> cohesionBehavior = new List<CohesionBehavior>();
+    //public List<SeparationBehavior> separationBehavior = new List<SeparationBehavior>();
+    //public List<AlignmentBehavior> aligmentBehavior = new List<AlignmentBehavior>();
 
-    //target info
+    //玩家Ship作为目标存储起来，需要按照Unit是否激活来更新targetActiveUnitList，同时更新targetActiveUnitPos
     public IBoid targetBoid;
     public List<Unit> targetActiveUnitList = new List<Unit>();
-
-
-    public NativeList<float3> aiActiveUnitPos;
     public NativeList<float3> targetActiveUnitPos;
 
 
+
+    public List<Unit> aiActiveUnitList = new List<Unit>();
+    //需要根据aiship Unit生死来更新的Jobdata
+    public NativeList<float3> aiActiveUnitPos;
+    public NativeList<float> aiActiveUnitAttackRange;
+    public NativeList<int> aiActiveUnitMaxTargetsCount;
+
+
+  
+
+
+    //全局的Jobdata， 数量跟随ShipCount ------------------------------------------------
     public NativeList<float3> steeringBehaviorJob_aiShipPos;
     public NativeList<float3> steeringBehaviorJob_aiShipVelocity;
-    public NativeList<float> steeringBehavorJob_aiShipRotationZ;
+    public NativeList<float> steeringBehaviorJob_aiShipRotationZ;
     public NativeList<float> steeringBehaviorJob_aiShipRadius;
     public NativeList<float> aiSteeringBehaviorController_aiShipMaxAcceleration;
     public NativeList<float> aiSteeringBehaviorController_aiShipDrag;
 
-
-
-    public NativeList<JobHandle> jobHandleList_AIWeapon;
-
-    //weapon Update job result data
-    NativeArray<Weapon.JRD_WeaponTargetInfo>[] weaponTargetsInfo;
-
-
     //arrivebehavior return data
-    public NativeList<SteeringBehaviorInfo> rv_arrive_steeringInfo;
-    public NativeList<bool> rv_arrive_isVelZero;
+    public NativeArray<SteeringBehaviorInfo> rv_arrive_steeringInfo;
+    public NativeArray<bool> rv_arrive_isVelZero;
     //arrivebehavior job input data
     public NativeList<float> arrive_arriveRadius;
     public NativeList<float> arrive_slowRadius;
     public NativeList<float> arrive_weight;
 
-
-
     //facebehavior return data
-    public NativeList<SteeringBehaviorInfo> rv_face_steeringInfo;
+    public NativeArray<SteeringBehaviorInfo> rv_face_steeringInfo;
     //facebehavior job input data
     public NativeList<float> face_weight;
 
 
 
-    public NativeList<SteeringBehaviorInfo> rv_cohesion_steeringInfo;
+    public NativeArray<SteeringBehaviorInfo> rv_cohesion_steeringInfo;
     public NativeList<float> cohesion_weight;
 
-    public NativeList<SteeringBehaviorInfo> rv_separation_steeringInfo;
+    public NativeArray<SteeringBehaviorInfo> rv_separation_steeringInfo;
     public NativeList<float> separation_weight;
 
-    public NativeList<SteeringBehaviorInfo> rv_alignment_steeringInfo;
+    public NativeArray<SteeringBehaviorInfo> rv_alignment_steeringInfo;
     public NativeList<float> alignment_weight;
 
-    public NativeList<SteeringBehaviorInfo> rv_deltaMovement;
+    public NativeArray<SteeringBehaviorInfo> rv_deltaMovement;
+
+
+
+
+
+
+    //weapon Update job result data
+    NativeArray<Weapon.RV_WeaponTargetInfo> rv_weaponTargetsInfo;
 
     // Start is called before the first frame update
     public AIManager()
@@ -115,9 +122,13 @@ public class AIManager : Singleton<AIManager>
         targetActiveUnitPos = new NativeList<float3>(Allocator.Persistent);
         aiActiveUnitPos = new NativeList<float3>(Allocator.Persistent);
 
+        aiActiveUnitAttackRange = new NativeList<float>(Allocator.Persistent);
+        aiActiveUnitMaxTargetsCount = new NativeList<int>(Allocator.Persistent);
+
+
         steeringBehaviorJob_aiShipPos = new NativeList<float3>(Allocator.Persistent);
         steeringBehaviorJob_aiShipVelocity = new NativeList<float3>(Allocator.Persistent);
-        steeringBehavorJob_aiShipRotationZ = new NativeList<float>(Allocator.Persistent);
+        steeringBehaviorJob_aiShipRotationZ = new NativeList<float>(Allocator.Persistent);
         steeringBehaviorJob_aiShipRadius = new NativeList<float>(Allocator.Persistent);
 
         aiSteeringBehaviorController_aiShipMaxAcceleration = new NativeList<float>(Allocator.Persistent);
@@ -125,8 +136,6 @@ public class AIManager : Singleton<AIManager>
 
 
         //arrivebehavior return data
-        rv_arrive_steeringInfo = new NativeList<SteeringBehaviorInfo>(Allocator.Persistent);
-        rv_arrive_isVelZero= new NativeList<bool>(Allocator.Persistent);
         //arrivebehavior job input data
         arrive_arriveRadius = new NativeList<float>(Allocator.Persistent);
         arrive_slowRadius = new NativeList<float>(Allocator.Persistent);
@@ -134,22 +143,19 @@ public class AIManager : Singleton<AIManager>
 
 
         //facebehavior return data
-        rv_face_steeringInfo = new NativeList<SteeringBehaviorInfo>(Allocator.Persistent);
+    
         //facebehavior job input data
         face_weight = new NativeList<float>(Allocator.Persistent);
 
 
 
-        rv_cohesion_steeringInfo = new NativeList<SteeringBehaviorInfo>(Allocator.Persistent);
         cohesion_weight = new NativeList<float>(Allocator.Persistent);
 
-        rv_separation_steeringInfo = new NativeList<SteeringBehaviorInfo>(Allocator.Persistent);
         separation_weight = new NativeList<float>(Allocator.Persistent);
 
-        rv_alignment_steeringInfo = new NativeList<SteeringBehaviorInfo>(Allocator.Persistent);
         alignment_weight = new NativeList<float>(Allocator.Persistent);
 
-        rv_deltaMovement = new NativeList<SteeringBehaviorInfo>(Allocator.Persistent);
+
     }
 
 public virtual void UpdateJobData()
@@ -163,33 +169,39 @@ public virtual void UpdateJobData()
                 steeringBehaviorJob_aiShipPos[i] = aiShipBoidList[i].GetPosition();
                 steeringBehaviorJob_aiShipVelocity[i] = aiShipBoidList[i].GetVelocity();
                 steeringBehaviorJob_aiShipRadius[i] = aiShipBoidList[i].GetRadius();
-                steeringBehavorJob_aiShipRotationZ[i] = aiShipBoidList[i].GetRotationZ();
+                steeringBehaviorJob_aiShipRotationZ[i] = aiShipBoidList[i].GetRotationZ();
             }
         }
 
         //weapon job data
-
-
-        for (int i = 0; i < targetActiveUnitList.Count; i++)
+        if(targetActiveUnitList.Count >0)
         {
-            targetActiveUnitPos[i] = targetActiveUnitList[i].transform.position;
+            for (int i = 0; i < targetActiveUnitList.Count; i++)
+            {
+                targetActiveUnitPos[i] = targetActiveUnitList[i].transform.position;
+            }
         }
 
-        for (int i = 0; i < aiActiveUnitList.Count; i++)
+        if (aiActiveUnitList.Count > 0)
         {
-            aiActiveUnitPos[i] = aiActiveUnitList[i].transform.position;
+            for (int i = 0; i < aiActiveUnitList.Count; i++)
+            {
+                aiActiveUnitPos[i] = aiActiveUnitList[i].transform.position;
+            }
         }
-
-
     }
     public virtual void DisposeAIJobData()
     {
+        if (targetActiveUnitPos.IsCreated) { targetActiveUnitPos.Dispose(); }
+        if (aiActiveUnitPos.IsCreated) { aiActiveUnitPos.Dispose(); }
+        if(aiActiveUnitAttackRange.IsCreated) { aiActiveUnitAttackRange.Dispose(); }
+        if (aiActiveUnitMaxTargetsCount.IsCreated) { aiActiveUnitMaxTargetsCount.Dispose(); }
 
         //ai data dispose
         if (steeringBehaviorJob_aiShipPos.IsCreated) { steeringBehaviorJob_aiShipPos.Dispose(); }
         if (steeringBehaviorJob_aiShipVelocity.IsCreated) { steeringBehaviorJob_aiShipVelocity.Dispose(); }
         if (steeringBehaviorJob_aiShipRadius.IsCreated) { steeringBehaviorJob_aiShipRadius.Dispose(); }
-        if (steeringBehavorJob_aiShipRotationZ.IsCreated) { steeringBehavorJob_aiShipRotationZ.Dispose(); }
+        if (steeringBehaviorJob_aiShipRotationZ.IsCreated) { steeringBehaviorJob_aiShipRotationZ.Dispose(); }
 
         if (aiSteeringBehaviorController_aiShipMaxAcceleration.IsCreated) { aiSteeringBehaviorController_aiShipMaxAcceleration.Dispose(); }
         if (aiSteeringBehaviorController_aiShipDrag.IsCreated) { aiSteeringBehaviorController_aiShipDrag.Dispose(); }
@@ -197,36 +209,30 @@ public virtual void UpdateJobData()
 
 
         //dispose arrive job data
-        if (rv_arrive_steeringInfo.IsCreated) { rv_arrive_steeringInfo.Dispose(); };
-        if (rv_arrive_isVelZero.IsCreated) { rv_arrive_isVelZero.Dispose(); }
+
         if (arrive_arriveRadius.IsCreated) { arrive_arriveRadius.Dispose(); }
         if (arrive_slowRadius.IsCreated) { arrive_slowRadius.Dispose(); }
         if (arrive_weight.IsCreated) { arrive_weight.Dispose(); }
 
 
         //dispose face job data
-        if (rv_face_steeringInfo.IsCreated) { rv_face_steeringInfo.Dispose(); }
+
         if (face_weight.IsCreated) { face_weight.Dispose(); }
 
-        if (rv_separation_steeringInfo.IsCreated) { rv_separation_steeringInfo.Dispose(); }
         if (separation_weight.IsCreated) { separation_weight.Dispose(); }
 
 
-        if (rv_cohesion_steeringInfo.IsCreated) { rv_cohesion_steeringInfo.Dispose(); }
         if (cohesion_weight.IsCreated) { cohesion_weight.Dispose(); }
 
-        if (rv_alignment_steeringInfo.IsCreated) { rv_alignment_steeringInfo.Dispose(); }
         if (alignment_weight.IsCreated) { alignment_weight.Dispose(); }
 
-        if (rv_deltaMovement.IsCreated) { rv_deltaMovement.Dispose(); }
 
         //weapon job data dispose
     }
     public virtual void DisposeAIJobDataFrame()
     {
-        if (targetActiveUnitPos.IsCreated) { targetActiveUnitPos.Dispose(); }
-        if (aiActiveUnitPos.IsCreated) { aiActiveUnitPos.Dispose(); }
-        if (jobHandleList_AIWeapon.IsCreated) { jobHandleList_AIWeapon.Dispose(); }
+
+
     }
 
     public void Unload()
@@ -275,7 +281,7 @@ public virtual void UpdateJobData()
     private void Update()
     {
         //update weapon
-        //UpdateAIWeapon();
+        UpdateAIWeapon();
         UpdateBullet();
     }
 
@@ -301,12 +307,35 @@ public virtual void UpdateJobData()
             return;
         }
         aiShipList.Add(ship);
-        aiShipBoidList.Add(ship.GetComponent<IBoid>());
+        IBoid boid = ship.GetComponent<IBoid>();
+        aiShipBoidList.Add(boid);
 
         AddUnit(ship);
-        aiSteeringBehaviorControllerList.Add(ship.GetComponent<AISteeringBehaviorController>());
+        AISteeringBehaviorController controller = ship.GetComponent<AISteeringBehaviorController>();
+        aiSteeringBehaviorControllerList.Add(controller);
 
         //更新Job信息
+
+        steeringBehaviorJob_aiShipPos.Add(boid.GetPosition());
+        steeringBehaviorJob_aiShipRadius.Add(boid.GetRadius());
+        steeringBehaviorJob_aiShipVelocity.Add(boid.GetVelocity());
+        steeringBehaviorJob_aiShipRotationZ.Add(boid.GetRotationZ());
+
+        aiSteeringBehaviorController_aiShipMaxAcceleration.Add(controller.maxAcceleration);
+        aiSteeringBehaviorController_aiShipDrag.Add(controller.drag);
+
+        arrive_arriveRadius.Add(controller.arrivelBehaviorInfo.arriveRadius);
+        arrive_slowRadius.Add(controller.arrivelBehaviorInfo.slowRadius);
+        arrive_weight.Add(controller.arrivelBehaviorInfo.GetWeight());
+
+
+        face_weight.Add(controller.faceBehaviorInfo.GetWeight());
+
+        cohesion_weight.Add(controller.cohesionBehaviorInfo.GetWeight());
+
+        separation_weight.Add(controller.separationBehaviorInfo.GetWeight());
+
+        alignment_weight.Add(controller.alignmentBehaviorInfo.GetWeight());
 
 
     }
@@ -332,6 +361,28 @@ public virtual void UpdateJobData()
         aiSteeringBehaviorControllerList.RemoveAt(index);
 
 
+        steeringBehaviorJob_aiShipPos.RemoveAt(index);
+        steeringBehaviorJob_aiShipRadius.RemoveAt(index);
+        steeringBehaviorJob_aiShipVelocity.RemoveAt(index);
+        steeringBehaviorJob_aiShipRotationZ.RemoveAt(index);
+
+        aiSteeringBehaviorController_aiShipMaxAcceleration.RemoveAt(index);
+        aiSteeringBehaviorController_aiShipDrag.RemoveAt(index);
+
+        arrive_arriveRadius.RemoveAt(index);
+        arrive_slowRadius.RemoveAt(index);
+        arrive_weight.RemoveAt(index);
+
+
+        face_weight.RemoveAt(index);
+
+        cohesion_weight.RemoveAt(index);
+
+        separation_weight.RemoveAt(index);
+
+        alignment_weight.RemoveAt(index);
+
+
     }
 
 
@@ -353,7 +404,7 @@ public virtual void UpdateJobData()
         {
             if( ship.UnitList[i].isActiveAndEnabled &&  !aiActiveUnitList.Contains(ship.UnitList[i]))
             {
-                aiActiveUnitList.Add(ship.UnitList[i]);
+                AddSingleUnit(ship.UnitList[i]);
             }
         }
     }
@@ -362,6 +413,9 @@ public virtual void UpdateJobData()
         if(!aiActiveUnitList.Contains(unit))
         {
             aiActiveUnitList.Add(unit);
+            aiActiveUnitPos.Add(unit.transform.position);
+            aiActiveUnitAttackRange.Add(unit.baseAttribute.WeaponRange);
+            aiActiveUnitMaxTargetsCount.Add(unit.maxTargetCount);
         }
     }
     public void RemoveReminedUnit(AIShip ship)
@@ -370,15 +424,20 @@ public virtual void UpdateJobData()
         {
             if(ship.UnitList[i].isActiveAndEnabled)
             {
-                aiActiveUnitList.Remove(ship.UnitList[i]);
+                RemoveSingleUnit(ship.UnitList[i]);
             }
         }
     }
 
     public void RemoveSingleUnit(Unit unit)
     {
-        aiActiveUnitList.Remove(unit);
+        int index = aiActiveUnitList.IndexOf(unit);
+        aiActiveUnitList.RemoveAt(index);
+        aiActiveUnitPos.RemoveAt(index);
+        aiActiveUnitAttackRange.RemoveAt(index);
+        aiActiveUnitMaxTargetsCount.RemoveAt(index);
     }
+
     public void AddBullet(Bullet bullet)
     {
         if(!aibulletsList.Contains(bullet))
@@ -393,7 +452,12 @@ public virtual void UpdateJobData()
     public void AddTargetUnit(Unit unit)
     {
         if (!targetActiveUnitList.Contains(unit))
+        {
             targetActiveUnitList.Add(unit);
+            targetActiveUnitPos.Add(unit.transform.position);
+        }
+         
+
     }
 
     public void RemoveTargetUnit(Unit unit)
@@ -411,8 +475,13 @@ public virtual void UpdateJobData()
         JobHandle jobhandle_arrivebehavior;
         //jobhandleList_AI = new NativeList<JobHandle>(Allocator.TempJob);
 
-        rv_arrive_isVelZero.Clear();
-        rv_arrive_steeringInfo.Clear();
+        rv_arrive_isVelZero = new NativeArray<bool>(ShipCount, Allocator.TempJob);
+        rv_arrive_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
+
+        rv_face_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
+        rv_cohesion_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
+        rv_separation_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
+        rv_alignment_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
 
         ArriveBehavior.ArriveBehaviorJobs arriveBehaviorJobs = new ArriveBehavior.ArriveBehaviorJobs
         {
@@ -426,10 +495,10 @@ public virtual void UpdateJobData()
             job_targetRadius = targetBoid.GetRadius(),
 
             rv_isVelZero = rv_arrive_isVelZero,
-            rv_Steering = rv_arrive_steeringInfo,
+            rv_Steerings = rv_arrive_steeringInfo,
 
         };
-        jobhandle_arrivebehavior = arriveBehaviorJobs.ScheduleBatch(ShipCount, 32);
+        jobhandle_arrivebehavior = arriveBehaviorJobs.ScheduleBatch(ShipCount, 2);
         //需要添加其他behavior的Job ，统一计算；
 
         //for (int i = 0; i < ShipCount; i++)
@@ -460,6 +529,9 @@ public virtual void UpdateJobData()
 
         jobhandle_arrivebehavior.Complete();
 
+
+        rv_deltaMovement = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
+
         JobHandle jobhandle_deltamoveposjob;
         AISteeringBehaviorController.CalculateDeltaMovePosJob calculateDeltaMovePosJob = new AISteeringBehaviorController.CalculateDeltaMovePosJob
         {
@@ -486,7 +558,10 @@ public virtual void UpdateJobData()
             rv_deltainfo = rv_deltaMovement,
         };
 
-        jobhandle_deltamoveposjob = calculateDeltaMovePosJob.ScheduleBatch(ShipCount, 32);
+        jobhandle_deltamoveposjob = calculateDeltaMovePosJob.ScheduleBatch(ShipCount, 2);
+
+        jobhandle_deltamoveposjob.Complete();
+      
 
         for (int i = 0; i < ShipCount; i++)
         {
@@ -494,6 +569,17 @@ public virtual void UpdateJobData()
             aiSteeringBehaviorControllerList[i].Move(rv_deltaMovement[i].linear);
            
         }
+
+        rv_arrive_isVelZero.Dispose();
+        rv_arrive_steeringInfo.Dispose();
+
+        rv_face_steeringInfo.Dispose();
+        rv_cohesion_steeringInfo.Dispose();
+        rv_separation_steeringInfo.Dispose();
+        rv_alignment_steeringInfo.Dispose();
+
+        rv_deltaMovement.Dispose();
+
     }
 
 
@@ -508,95 +594,85 @@ public virtual void UpdateJobData()
             return;
         }
         AIWeapon weapon;
-        weaponTargetsInfo = new NativeArray<Weapon.JRD_WeaponTargetInfo>[aiActiveUnitList.Count];
-        jobHandleList_AIWeapon = new NativeList<JobHandle>(Allocator.TempJob);
 
+        int targetstotalcount = 0;
         for (int i = 0; i < aiActiveUnitList.Count; i++)
         {
-            //检查unit是否为AIweapon
-            // 检查所有AIweapon的状态， 是否被击破
-            if (aiActiveUnitList[i] is AIWeapon)
-            {
-                weapon = aiActiveUnitList[i] as AIWeapon;
-            }
-            else
-            {
-                continue;
-            }
-
-            // 检查所有AiWeapon是否 isprocess 并且 武器状态时Ready
-            if (!weapon.IsProcess && weapon.weaponstate.CurrentState != WeaponState.Ready)
-            {
-                continue;
-            }
-
-            // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
-            //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
-           
-            weaponTargetsInfo[i] = new NativeArray<Weapon.JRD_WeaponTargetInfo>(weapon.maxTargetCount, Allocator.TempJob);
-
-            Weapon.FindWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindWeaponTargetsJob
-            {
-                job_attackRange = weapon.weaponAttribute.WeaponRange,
-                job_selfPos = weapon.transform.position,
-                job_targetsPos = targetActiveUnitPos,
-                job_maxTargetCount = weapon.maxTargetCount,
-
-                JRD_targetsInfo = weaponTargetsInfo[i],
-
-            };
-
-            JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(targetActiveUnitList.Count, 20);
-            jobHandleList_AIWeapon.Add(jobHandle);
+            targetstotalcount += aiActiveUnitList[i].maxTargetCount;
         }
 
+        rv_weaponTargetsInfo = new NativeArray<Weapon.RV_WeaponTargetInfo>(targetstotalcount, Allocator.TempJob);
+
+        // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
+        //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
+
+
+        Weapon.FindWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindWeaponTargetsJob
+        {
+            job_attackRange = aiActiveUnitAttackRange,
+            job_selfPos = aiActiveUnitPos,
+            job_targetsPos =targetActiveUnitPos,
+            job_maxTargetCount = aiActiveUnitMaxTargetsCount,
+
+            rv_targetsInfo = rv_weaponTargetsInfo,
+
+        };
+
+        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(targetActiveUnitList.Count, 1);
+
+
+        jobHandle.Complete();
         //执行Job 并且等待结果。
-        JobHandle.CompleteAll(jobHandleList_AIWeapon);
 
 
 
+        int startindex;
+        int targetindex;
         for (int i = 0; i < aiActiveUnitList.Count; i++)
         {
-            if( aiActiveUnitList[i] is AIWeapon)
+            //获取Flat Array中的startindex 为后续的拆分做准备
+            //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
+            startindex = 0;
+            for (int c = 0; c < i; c++)
+            {
+                startindex += aiActiveUnitMaxTargetsCount[i];
+            }
+
+            if(aiActiveUnitList[i] is AIWeapon)
             {
                 weapon = aiActiveUnitList[i] as AIWeapon;
-            }
-            else
-            {
-                continue;
-            }
-            if(weaponTargetsInfo[i].Length <= 0)
-            {
-                weapon.WeaponOff();
 
-            }
-            else
-            {
-                weapon.targetList.Clear();
-                for (int n = 0; n < weapon.maxTargetCount; n++)
+
+
+
+
+                for (int n = 0; n < aiActiveUnitMaxTargetsCount[i]; n++)
                 {
-                    weapon.targetList.Add(new WeaponTargetInfo
-                        (
-                            targetActiveUnitList[ weaponTargetsInfo[i][n].JRD_targetIndex].gameObject,
-                            weaponTargetsInfo[i][n].JRD_targetIndex,
-                            weaponTargetsInfo[i][n].JRD_distanceToTarget,
-                            weaponTargetsInfo[i][n].JRD_targetDirection
-                        ));
+                    targetindex = rv_weaponTargetsInfo[startindex + n].targetIndex;
+                    if (targetindex == -1)
+                    {
+                        weapon.WeaponOff();
+                        break;
+                    }
+                    else
+                    {
+                        weapon.targetList.Clear();
+                        weapon.targetList.Add(new WeaponTargetInfo
+                            (
+                                targetActiveUnitList[targetindex].gameObject,
+                                rv_weaponTargetsInfo[startindex + n].targetIndex,
+                                rv_weaponTargetsInfo[startindex + n].distanceToTarget,
+                                rv_weaponTargetsInfo[startindex + n].targetDirection
+                            ));
+                        weapon.WeaponOn();
+                    }
                 }
-               
-
                 weapon.ProcessWeapon();
-                weaponTargetsInfo[i].Dispose();
             }
-
-
-            //更具结果计算对应的AI旋转角度
-
-
             
         }
 
-
+        rv_weaponTargetsInfo.Dispose();
         //Dispose all Job tempdata
     }
 
