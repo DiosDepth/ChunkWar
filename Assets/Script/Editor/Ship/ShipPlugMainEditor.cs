@@ -19,8 +19,8 @@ public class ShipPlugMainEditor : OdinEditorWindow
     public static void ShowWindow()
     {
         var win = GetWindow<ShipPlugMainEditor>("½¢´¬²å¼þ±à¼­Æ÷");
-        win.position = GUIHelper.GetEditorWindowRect().AlignCenter(1800, 800);
-        win.minSize = new Vector2(1800, 900);
+        win.position = GUIHelper.GetEditorWindowRect().AlignCenter(1800, 950);
+        win.minSize = new Vector2(1800, 950);
         win.Show();
     }
 

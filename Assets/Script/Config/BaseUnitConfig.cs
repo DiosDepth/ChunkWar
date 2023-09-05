@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Flags]
-public enum ItemTag : ulong
+public enum ItemTag 
 {
     Shield = 1<<1,
     Weapon = 1<<2,

@@ -269,7 +269,7 @@ public static class GameHelper
 
     public static List<uint> GetRogueShipPlugItems()
     {
-        var allItems = RogueManager.Instance.GetAllCurrentShipPlugs;
+        var allItems = RogueManager.Instance.AllCurrentShipPlugs;
         List<uint> goods = new List<uint>();
         for(int i = 0; i < allItems.Count; i++)
         {

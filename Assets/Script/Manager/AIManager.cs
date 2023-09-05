@@ -94,16 +94,16 @@ public class AIManager : Singleton<AIManager>
     public AIManager()
     {
 
-        //MonoManager.Instance.AddUpdateListener(Update);
-        //MonoManager.Instance.AddLaterUpdateListener(LaterUpdate);
-        //MonoManager.Instance.AddFixedUpdateListener(FixedUpdate);
+        MonoManager.Instance.AddUpdateListener(Update);
+        MonoManager.Instance.AddLaterUpdateListener(LaterUpdate);
+        MonoManager.Instance.AddFixedUpdateListener(FixedUpdate);
     }
     ~AIManager()
     {
 
-        //MonoManager.Instance.RemoveUpdateListener(Update);
-        //MonoManager.Instance.RemoveUpdateListener(LaterUpdate);
-        //MonoManager.Instance.RemoveFixedUpdateListener(FixedUpdate);
+        MonoManager.Instance.RemoveUpdateListener(Update);
+        MonoManager.Instance.RemoveUpdateListener(LaterUpdate);
+        MonoManager.Instance.RemoveFixedUpdateListener(FixedUpdate);
     }
 
     public override void Initialization()

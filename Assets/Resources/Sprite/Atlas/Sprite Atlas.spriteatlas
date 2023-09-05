@@ -39,12 +39,14 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: ba5e47215639b1748b058387d5aea65a, type: 3}
+  - {fileID: 21300000, guid: 5ae778513b13e67479241f3b6ce72c31, type: 3}
   - {fileID: 21300000, guid: 6273dd62b902491419ba50210e01a0f1, type: 3}
   - {fileID: 21300000, guid: 0b43561315597b844ad1b435728ed5b0, type: 3}
   - {fileID: 21300000, guid: 1d763a7303eeeef499065ec693e8562e, type: 3}
   - {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
   - {fileID: 21300000, guid: 36ce59a4401ec5240b6992820c323be5, type: 3}
   - {fileID: 21300000, guid: 911b3b45310cd8c429c04122313979a8, type: 3}
+  - {fileID: 21300000, guid: fda083d8e658ad848b3b6cd85450dde5, type: 3}
   - {fileID: 21300000, guid: 06f5fb8941942b543b831ac667f94d17, type: 3}
   - {fileID: 21300000, guid: cdbda0e9c9c2b764c8f2a53fc0e6faf8, type: 3}
   - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
@@ -59,12 +61,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 964648ffe7791304a8712b96b53de3dd, type: 3}
   m_PackedSpriteNamesToIndex:
   - VP9
+  - Nytow3
   - Invincible
   - CR21
   - rico
   - FlightChessBuff_24
   - S308
   - KVSKShoot
+  - APS
   - function_skill_icon_113
   - Hunter4
   - Destroyer4

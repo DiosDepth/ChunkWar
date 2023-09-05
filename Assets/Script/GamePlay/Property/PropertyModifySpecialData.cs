@@ -43,12 +43,12 @@ public class PropertyModifySpecialData
         if(percent >= 100)
         {
             ///¼Ó³É¹é0
-            RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, UID, 0);
+            RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, 0);
         }
 
         float delta = 100 - percent;
         delta = Mathf.Clamp(delta, 0, 100f);
-        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, UID, delta);
+        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta);
     }
 
     

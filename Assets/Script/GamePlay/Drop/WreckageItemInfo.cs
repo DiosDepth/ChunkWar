@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WreckageItemInfo : RandomObject
+public class WreckageItemInfo : RandomObject, IPropertyModify
 {
     public int UnitID;
 
-    public uint UID;
+    public uint UID { get; set; }
 
     public WreckageDropItemConfig _cfg;
 
@@ -63,6 +63,11 @@ public class WreckageItemInfo : RandomObject
         {
             return GameHelper.GetRarityColor(UnitConfig.GeneralConfig.Rarity);
         }
+    }
+
+    public PropertyModifyCategory Category
+    {
+        get { return PropertyModifyCategory.Wreckage; }
     }
 
     public GoodsItemRarity Rarity;

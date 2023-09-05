@@ -8,7 +8,6 @@ using System.Linq;
 using System.IO;
 using UnityEditor;
 using Sirenix.OdinInspector;
-using UnityEditor.SceneManagement;
 
 public static class SimEditorUtility
 {

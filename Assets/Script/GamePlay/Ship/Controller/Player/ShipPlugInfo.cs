@@ -6,10 +6,12 @@ using UnityEngine;
  * 舰船部件
  */
 
-public class ShipPlugInfo 
+public class ShipPlugInfo : IPropertyModify
 {
     public int PlugID;
-    public uint PlugUID;
+    public uint UID { get; set; }
+
+    public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipPlug; } }
 
     /// <summary>
     /// 商品ID
@@ -19,6 +21,7 @@ public class ShipPlugInfo
     private ShipPlugItemConfig _cfg;
 
     private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
+    private List<ModifyTriggerData> _triggerDatas = new List<ModifyTriggerData>();
 
     public static ShipPlugInfo CreateInfo(int plugID, int goodsID)
     {
@@ -34,6 +37,14 @@ public class ShipPlugInfo
         return info;
     }
 
+    public void OnBattleUpdate()
+    {
+        for (int i = 0; i < _triggerDatas.Count; i++) 
+        {
+            _triggerDatas[i].OnUpdateBattle();
+        }
+    }
+
     /// <summary>
     /// 修正属性
     /// </summary>
@@ -47,11 +58,11 @@ public class ShipPlugInfo
                 var modify = propertyModify[i];
                 if (!modify.BySpecialValue)
                 {
-                    RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PlugUID, modify.Value);
+                    RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PropertyModifyType.Modify, UID, modify.Value);
                 }
                 else
                 {
-                    PropertyModifySpecialData specialData = new PropertyModifySpecialData(modify, PlugUID);
+                    PropertyModifySpecialData specialData = new PropertyModifySpecialData(modify, UID);
                     _modifySpecialDatas.Add(specialData);
                 }
             }
@@ -63,7 +74,7 @@ public class ShipPlugInfo
             for (int i = 0; i < propertyPercentModify.Count; i++)
             {
                 var modify = propertyPercentModify[i];
-                RogueManager.Instance.MainPropertyData.AddPropertyModifyPercentValue(modify.ModifyKey, PlugUID, modify.Value);
+                RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PropertyModifyType.ModifyPercent, UID, modify.Value);
             }
         }
 
@@ -72,7 +83,25 @@ public class ShipPlugInfo
         {
             _modifySpecialDatas[i].HandlePropetyModifyBySpecialValue();
         }
+
+        InitModifyTrigger();
     }
 
-
+    private void InitModifyTrigger()
+    {
+        var triggers = _cfg.ModifyTriggers;
+        if (triggers != null && triggers.Count > 0) 
+        {
+            for (int i = 0; i < triggers.Count; i++) 
+            {
+                var triggerData = ModifyTriggerData.CreateTrigger(triggers[i], UID);
+                if(triggerData != null)
+                {
+                    var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
+                    triggerData.UID = uid;
+                    _triggerDatas.Add(triggerData);
+                }
+            }
+        }
+    }
 }

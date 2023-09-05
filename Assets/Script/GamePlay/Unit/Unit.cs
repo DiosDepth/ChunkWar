@@ -151,13 +151,16 @@ public class UnitBaseAttribute
     }
 }
 
-public class Unit : MonoBehaviour, IDamageble
+public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 {
     public int UnitID;
     /// <summary>
     /// UniqueID
     /// </summary>
-    public uint UID;
+    public uint UID { get; set; }
+
+    public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipUnit; } }
+
     public DamagableState state = DamagableState.None;
 
     public bool IsTarget { get { return _isTarget; } }

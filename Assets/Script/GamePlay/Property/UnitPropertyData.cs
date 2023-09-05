@@ -3,34 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PropertyModifyType
+{
+    Row,
+    Modify,
+    ModifyPercent,
+    TempModify
+}
+
 public class UnitPropertyData 
 {
     private Dictionary<PropertyModifyKey, UnitPropertyPool> PropertyPool = new Dictionary<PropertyModifyKey, UnitPropertyPool>();
 
-    /// <summary>
-    /// 属性修正池
-    /// E.G : 伤害修改+100%
-    /// </summary>
-    private Dictionary<PropertyModifyKey, UnitPropertyPool> PropertyModifyPercentPool = new Dictionary<PropertyModifyKey, UnitPropertyPool>();
-
-    /// <summary>
-    /// 初始属性
-    /// </summary>
-    private Dictionary<PropertyModifyKey, ChangeValue<float>> _propertyRow = new Dictionary<PropertyModifyKey, ChangeValue<float>>();
-
     public void Clear()
     {
         PropertyPool.Clear();
-        _propertyRow.Clear();
-    }
-
-    public void RegisterRowProperty(PropertyModifyKey key, float rowValue)
-    {
-        if (!_propertyRow.ContainsKey(key))
-        {
-            ChangeValue<float> item = new ChangeValue<float>(rowValue, float.MinValue, float.MaxValue);
-            _propertyRow.Add(key, item);
-        }
     }
 
     /// <summary>
@@ -42,38 +29,12 @@ public class UnitPropertyData
     {
         var pool = GetOrCreatePropertyPool(key);
         pool.BindChangeAction(changeAction);
-
-        if (_propertyRow.ContainsKey(key))
-        {
-            _propertyRow[key].BindChangeAction(changeAction);
-        }
     }
 
     public void UnBindPropertyChangeAction(PropertyModifyKey key, Action changeAction)
     {
         var pool = GetOrCreatePropertyPool(key);
         pool.UnBindChangeAction(changeAction);
-
-        if (_propertyRow.ContainsKey(key))
-        {
-            _propertyRow[key].UnBindChangeAction(changeAction);
-        }
-    }
-
-    /// <summary>
-    /// 增加属性修改
-    /// </summary>
-    /// <param name="propertyKey"></param>
-    /// <param name="fromUID"></param>
-    /// <param name="value"></param>
-    public void AddPropertyModifyPercentValue(PropertyModifyKey propertyKey, uint fromUID, float value)
-    {
-        var pool = GetOrCreatePropertyModifyPercentPool(propertyKey);
-        if (pool == null)
-            return;
-
-        pool.AddToPool(fromUID, value);
-        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
     /// <summary>
@@ -82,34 +43,13 @@ public class UnitPropertyData
     /// <param name="propertyKey"></param>
     /// <param name="fromUID"></param>
     /// <param name="value"></param>
-    public void AddPropertyModifyValue(PropertyModifyKey propertyKey, uint fromUID, float value)
+    public void AddPropertyModifyValue(PropertyModifyKey propertyKey, PropertyModifyType type, uint fromUID, float value)
     {
         var pool = GetOrCreatePropertyPool(propertyKey);
         if (pool == null)
             return;
 
-        pool.AddToPool(fromUID, value);
-        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
-    }
-
-    public void AddPropertyRowValue(PropertyModifyKey propertyKey, float value)
-    {
-        if (!_propertyRow.ContainsKey(propertyKey))
-        {
-            RegisterRowProperty(propertyKey, 0);
-        }
-
-        var content = _propertyRow[propertyKey];
-        var newValue = content.Value + value;
-        content.Set(newValue);
-        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
-    }
-
-    public float GetPropertyRowValue(PropertyModifyKey propertyKey)
-    {
-        if (_propertyRow.ContainsKey(propertyKey))
-            return _propertyRow[propertyKey].Value;
-        return 0;
+        pool.AddToPool(type, fromUID, value);
     }
 
     /// <summary>
@@ -118,13 +58,13 @@ public class UnitPropertyData
     /// <param name="propertyKey"></param>
     /// <param name="fromUID"></param>
     /// <param name="value"></param>
-    public void SetPropertyModifyValue(PropertyModifyKey propertyKey, uint fromUID, float value)
+    public void SetPropertyModifyValue(PropertyModifyKey propertyKey, PropertyModifyType type, uint fromUID, float value)
     {
         var pool = GetOrCreatePropertyPool(propertyKey);
         if (pool == null)
             return;
 
-        pool.SetValue(fromUID, value);
+        pool.SetValue(type, fromUID, value);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
@@ -139,17 +79,7 @@ public class UnitPropertyData
         if (pool == null)
             return;
 
-        pool.RemoveFromPool(fromUID);
-        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
-    }
-
-    public void RemovePropertyModifyPercentValue(PropertyModifyKey propertyKey, uint fromUID)
-    {
-        var pool = GetOrCreatePropertyModifyPercentPool(propertyKey);
-        if (pool == null)
-            return;
-
-        pool.RemoveFromPool(fromUID);
+        pool.RemoveFromPool_Modify(fromUID);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
@@ -160,47 +90,8 @@ public class UnitPropertyData
     /// <returns></returns>
     public float GetPropertyFinal(PropertyModifyKey key)
     {
-        var modifyPercent = GetPropertyModifyPercentValue(key);
-        modifyPercent = Mathf.Clamp(modifyPercent, 0, float.MaxValue);
-
-        var rowValue = GetPropertyRowValue(key);
-        return (rowValue + GetPropertyModifyValue(key)) * (1 + modifyPercent / 100f);
-    }
-
-    /// <summary>
-    /// 获取属性修正值
-    /// </summary>
-    /// <param name="propertyKey"></param>
-    /// <returns></returns>
-    public float GetPropertyModifyValue(PropertyModifyKey propertyKey)
-    {
-        if (PropertyPool.ContainsKey(propertyKey))
-        {
-            return PropertyPool[propertyKey].GetFinialValue();
-        }
-        return 0;
-    }
-
-    public float GetPropertyModifyPercentValue(PropertyModifyKey propertyKey)
-    {
-        if (PropertyModifyPercentPool.ContainsKey(propertyKey))
-        {
-            return PropertyModifyPercentPool[propertyKey].GetFinialValue();
-        }
-        return 0;
-    }
-
-    private UnitPropertyPool GetOrCreatePropertyModifyPercentPool(PropertyModifyKey propertyKey)
-    {
-        if (propertyKey == PropertyModifyKey.NONE)
-            return null;
-
-        if (PropertyModifyPercentPool.ContainsKey(propertyKey))
-            return PropertyModifyPercentPool[propertyKey];
-
-        UnitPropertyPool pool = new UnitPropertyPool(propertyKey);
-        PropertyModifyPercentPool.Add(propertyKey, pool);
-        return pool;
+        var pool = GetOrCreatePropertyPool(key);
+        return pool.GetFinialValue();
     }
 
     private UnitPropertyPool GetOrCreatePropertyPool(PropertyModifyKey propertyKey)
@@ -221,14 +112,33 @@ public class UnitPropertyPool
 {
     public PropertyModifyKey PropertyKey;
 
-    private Hashtable _propertyTable;
+    private Hashtable _propertyTable_Modify;
 
     private Action propertychangeAction;
+
+    /// <summary>
+    /// 初始属性
+    /// </summary>
+    private ChangeValue<float> _propertyRow;
+
+    /// <summary>
+    /// 临时修正
+    /// </summary>
+    private ChangeValue<float> _propertyTemp;
+
+    /// <summary>
+    /// 属性修正池
+    /// E.G : 伤害修改+100%
+    /// </summary>
+    private Hashtable _propertyTable_ModifyPercent;
 
     public UnitPropertyPool(PropertyModifyKey propertyKey)
     {
         this.PropertyKey = propertyKey;
-        _propertyTable = new Hashtable();
+        _propertyTable_Modify = new Hashtable();
+        _propertyTable_ModifyPercent = new Hashtable();
+        _propertyRow = new ChangeValue<float>(0, float.MinValue, float.MaxValue);
+        _propertyTemp = new ChangeValue<float>(0, float.MinValue, float.MaxValue);
     }
 
     public void BindChangeAction(Action action)
@@ -241,13 +151,30 @@ public class UnitPropertyPool
         propertychangeAction -= action;
     }
 
-    public bool AddToPool(uint key, float value)
+    public bool AddToPool(PropertyModifyType type, uint key, float value)
     {
-        if (_propertyTable.ContainsKey(key))
-            return false;
-
-        _propertyTable.Add(key, value);
-        propertychangeAction?.Invoke();
+        bool succ = false;
+        switch (type)
+        {
+            case PropertyModifyType.Modify:
+                succ = AddPropertyModifyValue(key, value);
+                break;
+            case PropertyModifyType.ModifyPercent:
+                succ = AddPropertyModifyPercentValue(key, value);
+                break;
+            case PropertyModifyType.Row:
+                succ = AddPropertyRowValue(value);
+                break;
+            case PropertyModifyType.TempModify:
+                succ = AddPropertyTempValue(value);
+                break;
+        }
+        if (succ)
+        {
+            propertychangeAction?.Invoke();
+            ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
+        }
+        
         return true;
     }
 
@@ -256,28 +183,117 @@ public class UnitPropertyPool
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    public void SetValue(uint key, float value)
+    public void SetValue(PropertyModifyType type, uint key, float value)
     {
-        if (_propertyTable.ContainsKey(key))
+        switch (type)
         {
-            _propertyTable[key] = value;
+            case PropertyModifyType.Modify:
+                if (_propertyTable_Modify.ContainsKey(key))
+                {
+                    _propertyTable_Modify[key] = value;
+                }
+                else
+                {
+                    _propertyTable_Modify.Add(key, value);
+                }
+                break;
+            case PropertyModifyType.ModifyPercent:
+                if (_propertyTable_ModifyPercent.ContainsKey(key))
+                {
+                    _propertyTable_ModifyPercent[key] = value;
+                }
+                else
+                {
+                    _propertyTable_ModifyPercent.Add(key, value);
+                }
+                break;
         }
-        else
-        {
-            _propertyTable.Add(key, value);
-        }
-    }
-
-    public void RemoveFromPool(uint key)
-    {
-        _propertyTable.Remove(key);
         propertychangeAction?.Invoke();
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
     }
 
+    public void RemoveFromPool_Modify(uint key)
+    {
+        _propertyTable_Modify.Remove(key);
+        propertychangeAction?.Invoke();
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
+    }
+
+    public void RemoveFromPool_ModifyPercent(uint fromUID)
+    {
+        _propertyTable_ModifyPercent.Remove(fromUID);
+        propertychangeAction?.Invoke();
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
+    }
+
+    /// <summary>
+    /// 移除临时修正属性
+    /// </summary>
+    public void ClearTempValue()
+    {
+        _propertyTemp.Set(0);
+    }
+
+    /// <summary>
+    /// 获取最终属性
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public float GetFinialValue()
     {
+        ///Modify
         float result = 0;
-        foreach (var value in _propertyTable.Values)
+        foreach (var value in _propertyTable_Modify.Values)
+        {
+            result += (float)value;
+        }
+        ///ModifyPercent
+        var modifyPercent = GetPropertyModifyPercentValue();
+        modifyPercent = Mathf.Clamp(modifyPercent, 0, float.MaxValue);
+
+        return (_propertyRow.Value + result + _propertyTemp.Value) * (1 + modifyPercent / 100f);
+    }
+
+    /// <summary>
+    /// 修正基础属性
+    /// </summary>
+    /// <param name="value"></param>
+    private bool AddPropertyRowValue(float value)
+    {
+        var newValue = _propertyRow.Value + value;
+        _propertyRow.Set(newValue);
+        return true;
+    }
+
+    private bool AddPropertyTempValue(float value)
+    {
+        var newValue = _propertyTemp.Value + value;
+        _propertyTemp.Set(newValue);
+        return true;
+    }
+
+    private bool AddPropertyModifyValue(uint key, float value)
+    {
+        if (_propertyTable_Modify.ContainsKey(key))
+            return false;
+
+        _propertyTable_Modify.Add(key, value);
+        return true;
+    }
+
+    private bool AddPropertyModifyPercentValue(uint key, float value)
+    {
+        if (_propertyTable_ModifyPercent.ContainsKey(key))
+            return false;
+
+        _propertyTable_ModifyPercent.Add(key, value);
+        return true;
+    }
+
+    private float GetPropertyModifyPercentValue()
+    {
+        float result = 0;
+        foreach (var value in _propertyTable_ModifyPercent.Values)
         {
             result += (float)value;
         }

@@ -111,10 +111,7 @@ public class RogueManager : Singleton<RogueManager>
     /// 当前舰船插件物品
     /// </summary>
     private Dictionary<uint, ShipPlugInfo> _currentShipPlugs = new Dictionary<uint, ShipPlugInfo>();
-    public List<ShipPlugInfo> GetAllCurrentShipPlugs
-    {
-        get { return _currentShipPlugs.Values.ToList(); }
-    }
+    public List<ShipPlugInfo> AllCurrentShipPlugs = new List<ShipPlugInfo>();
 
     /// <summary>
     /// 当前舰船建筑组件
@@ -162,8 +159,6 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     private byte _shopEnterTotalCount = 0;
 
-    private static int ShopGoods_UID_Sep = 1000000;
-
     /// <summary>
     /// 当前随机商店物品
     /// </summary>
@@ -209,6 +204,17 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
+    /// 更新战斗
+    /// </summary>
+    public void OnUpdateBattle()
+    {
+        for (int i = 0; i < AllCurrentShipPlugs.Count; i++) 
+        {
+            AllCurrentShipPlugs[i].OnBattleUpdate();
+        }
+    }
+
+    /// <summary>
     /// 进入harbor
     /// </summary>
     public void OnEnterHarborInit()
@@ -216,8 +222,8 @@ public class RogueManager : Singleton<RogueManager>
         var newWreckage = GenerateWreckageItems();
         for(int i = 0; i < newWreckage.Count; i++)
         {
-            var uid = GetWreckageUID();
             var wreckage = newWreckage[i];
+            var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.Wreckage, wreckage);
             wreckage.UID = uid;
             CurrentWreckageItems.Add(uid, wreckage);
         }
@@ -259,6 +265,7 @@ public class RogueManager : Singleton<RogueManager>
         };
         MainPropertyData.Clear();
         _currentShipPlugs.Clear();
+        AllCurrentShipPlugs.Clear();
         InitWave();
         InitWreckageData();
         InitShopData();
@@ -446,6 +453,7 @@ public class RogueManager : Singleton<RogueManager>
             info.OnRemove();
         }
         CurrentWreckageItems.Remove(uid);
+        ModifyUIDManager.Instance.RemoveUID(uid);
         CalculateTotalLoadCost();
     }
 
@@ -517,14 +525,6 @@ public class RogueManager : Singleton<RogueManager>
     private List<WreckageItemInfo> GetAllWreckageItemsByRarity(GoodsItemRarity rarity)
     {
         return wreckageItems.Values.ToList().FindAll(x => x.Rarity == rarity);
-    }
-
-    private uint GetWreckageUID()
-    {
-        uint id = (uint)UnityEngine.Random.Range(1, uint.MaxValue);
-        if (CurrentWreckageItems.ContainsKey(id))
-            return GetWreckageUID();
-        return id;
     }
 
     /// <summary>
@@ -783,7 +783,6 @@ public class RogueManager : Singleton<RogueManager>
         if (info._cfg.ItemType == GoodsItemType.ShipUnit)
             return false;
 
-
         var cost = info.Cost;
         AddCurrency(-cost);
         info.OnItemSold();
@@ -917,7 +916,7 @@ public class RogueManager : Singleton<RogueManager>
 
     private void InitShopData()
     {
-        MainPropertyData.RegisterRowProperty(PropertyModifyKey.ShopRefreshCount, DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum);
+        MainPropertyData.AddPropertyModifyValue(PropertyModifyKey.ShopRefreshCount, PropertyModifyType.Row, 0,DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum);
         _playerCurrency = new ChangeValue<float>(1000, int.MinValue, int.MaxValue);
         _playerCurrency.BindChangeAction(OnCurrencyChange);
         CurrentRerollCost = GetCurrentRefreshCost();
@@ -1012,7 +1011,7 @@ public class RogueManager : Singleton<RogueManager>
 
     public void AddNewShipUnit(Unit unit)
     {
-        var uid = GetShipUnitUID();
+        var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipUnit, unit);
         unit.UID = uid;
         _currentShipUnits.Add(uid, unit);
     }
@@ -1052,15 +1051,6 @@ public class RogueManager : Singleton<RogueManager>
             currentShip.RemoveUnit(targetUnit);
             //currentShip.AddUnit(newUnitCfg,)
         }
-    }
-
-    private uint GetShipUnitUID()
-    {
-        var uid = (uint)UnityEngine.Random.Range(ShopGoods_UID_Sep, uint.MaxValue);
-        if (_currentShipUnits.ContainsKey(uid))
-            return GetShipUnitUID();
-
-        return uid;
     }
 
     #endregion
@@ -1106,21 +1096,12 @@ public class RogueManager : Singleton<RogueManager>
         if (plugInfo == null)
             return;
 
-        var uid = GetShipPlugUID();
-        plugInfo.PlugUID = uid;
+        var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipPlug, plugInfo);
+        plugInfo.UID = uid;
         plugInfo.OnAdded();
         _currentShipPlugs.Add(uid, plugInfo);
+        AllCurrentShipPlugs.Add(plugInfo);
         RogueEvent.Trigger(RogueEventType.ShipPlugChange);
-    }
-
-
-    private uint GetShipPlugUID()
-    {
-        var uid = (uint)UnityEngine.Random.Range(1, ShopGoods_UID_Sep);
-        if (_currentShipPlugs.ContainsKey(uid))
-            return GetShipPlugUID();
-
-        return uid;
     }
 
     private int GetGoodsIDByPlugID(int plugID)
@@ -1178,7 +1159,7 @@ public class RogueManager : Singleton<RogueManager>
     public void SelectShipLevelUpItem(ShipLevelUpItem item)
     {
         ///AddProperty
-        MainPropertyData.AddPropertyRowValue(item.Config.ModifyKey, item.GetModifyValue());
+        MainPropertyData.AddPropertyModifyValue(item.Config.ModifyKey, PropertyModifyType.Row, 0, item.GetModifyValue());
     }
 
     /// <summary>

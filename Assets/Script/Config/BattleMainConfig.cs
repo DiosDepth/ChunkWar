@@ -19,6 +19,13 @@ public enum ModifySpecialType
     Less100OneByOne,
 }
 
+public enum ModifyTriggerType
+{
+    OnKillEnemy,
+    OnWaveEnd,
+    OnWaveStart,
+}
+
 public class BattleMainConfig : SerializedScriptableObject
 {
     public byte RogueShop_Origin_RefreshNum = 4;

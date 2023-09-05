@@ -88,7 +88,10 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 
             var bytes = File.ReadAllBytes(files[i].FullName);
             var savData = SerializationUtility.DeserializeValue<SaveData>(bytes, DataFormat.Binary);
-            result.Add(savData);
+            if(savData != null)
+            {
+                result.Add(savData);
+            }
         }
         return result;
     }

@@ -90,6 +90,13 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public List<PickableItem> pickupList = new List<PickableItem>();
 
+    #region Actions
+
+    /* 飞船死亡 */
+    public UnityAction<BaseShip> Action_OnShipDie;
+
+
+    #endregion
 
 
 
@@ -361,6 +368,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /// <param name="ship"></param>
     private void OnEnemyShipDie(BaseShip ship)
     {
+        Action_OnShipDie?.Invoke(ship);
         AchievementManager.Instance.Trigger<BaseShip>(AchievementWatcherType.EnemyKill, ship);
     }
 }
