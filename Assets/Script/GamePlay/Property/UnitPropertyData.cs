@@ -8,7 +8,11 @@ public enum PropertyModifyType
     Row,
     Modify,
     ModifyPercent,
-    TempModify
+    TempModify,
+    /// <summary>
+    /// 转化
+    /// </summary>
+    PropertyTransfer
 }
 
 public class UnitPropertyData 
@@ -73,13 +77,13 @@ public class UnitPropertyData
     /// </summary>
     /// <param name="propertyKey"></param>
     /// <param name="fromUID"></param>
-    public void RemovePropertyModifyValue(PropertyModifyKey propertyKey, uint fromUID)
+    public void RemovePropertyModifyValue(PropertyModifyKey propertyKey, PropertyModifyType type, uint fromUID)
     {
         var pool = GetOrCreatePropertyPool(propertyKey);
         if (pool == null)
             return;
 
-        pool.RemoveFromPool_Modify(fromUID);
+        pool.RemoveFromPool_Modify(type, fromUID);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
@@ -92,6 +96,12 @@ public class UnitPropertyData
     {
         var pool = GetOrCreatePropertyPool(key);
         return pool.GetFinialValue();
+    }
+
+    public float GetPropertyFinalWithoutTransfer(PropertyModifyKey key)
+    {
+        var pool = GetOrCreatePropertyPool(key);
+        return pool.GetPropertyFinalWithoutTransfer();
     }
 
     private UnitPropertyPool GetOrCreatePropertyPool(PropertyModifyKey propertyKey)
@@ -132,11 +142,17 @@ public class UnitPropertyPool
     /// </summary>
     private Hashtable _propertyTable_ModifyPercent;
 
+    /// <summary>
+    /// 转化属性 e.g 每1% A 属性 转化为 1%B属性
+    /// </summary>
+    private Hashtable _propertyTable_Transfer;
+
     public UnitPropertyPool(PropertyModifyKey propertyKey)
     {
         this.PropertyKey = propertyKey;
         _propertyTable_Modify = new Hashtable();
         _propertyTable_ModifyPercent = new Hashtable();
+        _propertyTable_Transfer = new Hashtable();
         _propertyRow = new ChangeValue<float>(0, float.MinValue, float.MaxValue);
         _propertyTemp = new ChangeValue<float>(0, float.MinValue, float.MaxValue);
     }
@@ -167,6 +183,10 @@ public class UnitPropertyPool
                 break;
             case PropertyModifyType.TempModify:
                 succ = AddPropertyTempValue(value);
+                break;
+
+            case PropertyModifyType.PropertyTransfer:
+                ///转化属性只能set
                 break;
         }
         if (succ)
@@ -207,14 +227,37 @@ public class UnitPropertyPool
                     _propertyTable_ModifyPercent.Add(key, value);
                 }
                 break;
+
+            case PropertyModifyType.PropertyTransfer:
+                if (_propertyTable_Transfer.ContainsKey(key))
+                {
+                    _propertyTable_Transfer[key] = value;
+                }
+                else
+                {
+                    _propertyTable_Transfer.Add(key, value);
+                }
+                break;
         }
         propertychangeAction?.Invoke();
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
     }
 
-    public void RemoveFromPool_Modify(uint key)
+    public void RemoveFromPool_Modify(PropertyModifyType type, uint key)
     {
-        _propertyTable_Modify.Remove(key);
+        switch (type)
+        {
+            case PropertyModifyType.Modify:
+                _propertyTable_Modify.Remove(key);
+                break;
+            case PropertyModifyType.ModifyPercent:
+                _propertyTable_ModifyPercent.Remove(key);
+                break;
+            case PropertyModifyType.PropertyTransfer:
+                _propertyTable_Transfer.Remove(key);
+                break;
+        }
+        
         propertychangeAction?.Invoke();
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
     }
@@ -251,7 +294,28 @@ public class UnitPropertyPool
         var modifyPercent = GetPropertyModifyPercentValue();
         modifyPercent = Mathf.Clamp(modifyPercent, 0, float.MaxValue);
 
-        return (_propertyRow.Value + result + _propertyTemp.Value) * (1 + modifyPercent / 100f);
+        var proerptyTransfer = GetPropertyTransferValue();
+
+        return (_propertyRow.Value + result + proerptyTransfer + _propertyTemp.Value) * (1 + modifyPercent / 100f);
+    }
+
+    /// <summary>
+    /// 获取除转化属性外的属性值，防止循环
+    /// </summary>
+    /// <returns></returns>
+    public float GetPropertyFinalWithoutTransfer()
+    {
+        ///Modify
+        float result = 0;
+        foreach (var value in _propertyTable_Modify.Values)
+        {
+            result += (float)value;
+        }
+        ///ModifyPercent
+        var modifyPercent = GetPropertyModifyPercentValue();
+        modifyPercent = Mathf.Clamp(modifyPercent, 0, float.MaxValue);
+
+        return (_propertyRow.Value + result  + _propertyTemp.Value) * (1 + modifyPercent / 100f);
     }
 
     /// <summary>
@@ -294,6 +358,16 @@ public class UnitPropertyPool
     {
         float result = 0;
         foreach (var value in _propertyTable_ModifyPercent.Values)
+        {
+            result += (float)value;
+        }
+        return result;
+    }
+
+    private float GetPropertyTransferValue()
+    {
+        float result = 0;
+        foreach (var value in _propertyTable_Transfer.Values)
         {
             result += (float)value;
         }

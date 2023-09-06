@@ -22,6 +22,10 @@ public class ShipPlugInfo : IPropertyModify
 
     private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
     private List<ModifyTriggerData> _triggerDatas = new List<ModifyTriggerData>();
+    public List<ModifyTriggerData> AllTriggerDatas
+    {
+        get { return _triggerDatas; }
+    }
 
     public static ShipPlugInfo CreateInfo(int plugID, int goodsID)
     {
@@ -51,9 +55,9 @@ public class ShipPlugInfo : IPropertyModify
     public void OnAdded()
     {
         var propertyModify = _cfg.PropertyModify;
-        if(propertyModify != null && propertyModify.Count > 0)
+        if(propertyModify != null && propertyModify.Length > 0)
         {
-            for(int i = 0; i < propertyModify.Count; i++)
+            for(int i = 0; i < propertyModify.Length; i++)
             {
                 var modify = propertyModify[i];
                 if (!modify.BySpecialValue)
@@ -69,9 +73,9 @@ public class ShipPlugInfo : IPropertyModify
         }
 
         var propertyPercentModify = _cfg.PropertyPercentModify;
-        if(propertyPercentModify != null && propertyPercentModify.Count > 0)
+        if(propertyPercentModify != null && propertyPercentModify.Length > 0)
         {
-            for (int i = 0; i < propertyPercentModify.Count; i++)
+            for (int i = 0; i < propertyPercentModify.Length; i++)
             {
                 var modify = propertyPercentModify[i];
                 RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PropertyModifyType.ModifyPercent, UID, modify.Value);
@@ -90,15 +94,16 @@ public class ShipPlugInfo : IPropertyModify
     private void InitModifyTrigger()
     {
         var triggers = _cfg.ModifyTriggers;
-        if (triggers != null && triggers.Count > 0) 
+        if (triggers != null && triggers.Length > 0) 
         {
-            for (int i = 0; i < triggers.Count; i++) 
+            for (int i = 0; i < triggers.Length; i++) 
             {
                 var triggerData = ModifyTriggerData.CreateTrigger(triggers[i], UID);
                 if(triggerData != null)
                 {
                     var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
                     triggerData.UID = uid;
+                    triggerData.OnTriggerAdd();
                     _triggerDatas.Add(triggerData);
                 }
             }

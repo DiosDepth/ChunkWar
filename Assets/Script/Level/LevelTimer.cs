@@ -83,6 +83,14 @@ public class LevelTimer
         _pause = true;
     }
 
+    public void PauseAndSetZero()
+    {
+        _pause = true;
+        _timer = 0;
+        _currentSecond = 0;
+        OnTimeSecondUpdate?.Invoke(_currentSecond);
+    }
+
     public void RemoveAllTrigger()
     {
         _triggerDic.Clear();

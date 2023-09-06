@@ -77,6 +77,21 @@ public class BaseUnitConfig : BaseConfig
     [LabelWidth(80)]
     public int BaseEnergyGenerate;
 
+    [FoldoutGroup("基础属性")]
+    [LabelText("属性修正")]
+    [LabelWidth(80)]
+    [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]
+    [HideReferenceObjectPicker]
+    public PropertyMidifyConfig[] PropertyModify = new PropertyMidifyConfig[0];
+
+    [FoldoutGroup("基础属性")]
+    [LabelText("触发配置")]
+    [LabelWidth(80)]
+    [DisableContextMenu(DisableForMember = true, DisableForCollectionElements = true)]
+    [ValueDropdown("GetTriggerLst", DrawDropdownForListElements = false)]
+    [HideReferenceObjectPicker]
+    public ModifyTriggerConfig[] ModifyTriggers = new ModifyTriggerConfig[0];
+
 
     [System.Obsolete]
     protected override void OnEnable()
@@ -93,6 +108,16 @@ public class BaseUnitConfig : BaseConfig
         {
             Map = new int[GameGlobalConfig.UnitMaxSize, GameGlobalConfig.UnitMaxSize];
         }
+    }
+
+    private PropertyMidifyConfig AddPropertyMidifyConfig()
+    {
+        return new PropertyMidifyConfig();
+    }
+
+    private ValueDropdownList<ModifyTriggerConfig> GetTriggerLst()
+    {
+        return ModifyTriggerConfig.GetModifyTriggerList();
     }
 
     protected override Vector2Int GetMapPivot()

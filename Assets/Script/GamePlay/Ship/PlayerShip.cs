@@ -516,7 +516,6 @@ public class PlayerShip : BaseShip
                 obj.transform.localPosition = new Vector3(tempunit.pivot.x + shipMapCenter.localPosition.x, tempunit.pivot.y + shipMapCenter.localPosition.y, 0);
                 obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
 
-                
                 _unitList.Add(tempunit);
             }
         }
@@ -534,7 +533,7 @@ public class PlayerShip : BaseShip
             _chunkMap[temparrycoord.x, temparrycoord.y].unit = null;
             _chunkMap[temparrycoord.x, temparrycoord.y].isBuildingPiovt = false;
         }
-
+        RogueManager.Instance.RemoveShipUnit(m_unit);
         UnitList.Remove(m_unit);
         RefreshShipEnergy();
         GameObject.Destroy(m_unit.gameObject);

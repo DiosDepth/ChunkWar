@@ -178,7 +178,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
 
- 
+    private List<ModifyTriggerData> _modifyTriggerDatas = new List<ModifyTriggerData>();
+    private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
 
     /// <summary>
     /// 当前升级点数
@@ -289,6 +290,68 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
             IsRestoreable = false;
         }
         Restore();
+    }
+
+    public void OnUpdateTrigger()
+    {
+        for (int i = 0; i < _modifyTriggerDatas.Count; i++) 
+        {
+            _modifyTriggerDatas[i].OnUpdateBattle();
+        }
+    }
+
+    /// <summary>
+    /// 处理OnAdd 属性 & 机制
+    /// </summary>
+    public void OnAdded()
+    {
+        var propertyModify = _baseUnitConfig.PropertyModify;
+        if (propertyModify != null && propertyModify.Length > 0)
+        {
+            for (int i = 0; i < propertyModify.Length; i++)
+            {
+                var modify = propertyModify[i];
+                if (!modify.BySpecialValue)
+                {
+                    RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PropertyModifyType.Modify, UID, modify.Value);
+                }
+                else
+                {
+                    PropertyModifySpecialData specialData = new PropertyModifySpecialData(modify, UID);
+                    _modifySpecialDatas.Add(specialData);
+                }
+            }
+        }
+        ///Handle SpecialDatas
+        for (int i = 0; i < _modifySpecialDatas.Count; i++)
+        {
+            _modifySpecialDatas[i].HandlePropetyModifyBySpecialValue();
+        }
+
+        var triggers = _baseUnitConfig.ModifyTriggers;
+        if (triggers != null && triggers.Length > 0)
+        {
+            for (int i = 0; i < triggers.Length; i++)
+            {
+                var triggerData = ModifyTriggerData.CreateTrigger(triggers[i], UID);
+                if (triggerData != null)
+                {
+                    var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
+                    triggerData.UID = uid;
+                    triggerData.OnTriggerAdd();
+                    _modifyTriggerDatas.Add(triggerData);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 处理OnRemove 属性 & 机制
+    /// </summary>
+    public void OnRemove()
+    {
+        _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
+        _modifySpecialDatas.ForEach(x => x.OnRemove());
     }
 
     public void OutLineHighlight(bool highlight)

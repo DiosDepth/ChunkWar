@@ -103,7 +103,7 @@ public class WeaponConfig : BaseUnitConfig
     public float TransfixionReduce;
 
     [FoldoutGroup("基础属性")]
-    [HorizontalGroup("基础属性/E", 500)]
+    [HorizontalGroup("基础属性/E")]
     [LabelText("伤害来源修正")]
     [LabelWidth(100)]
     public List<UnitPropertyModifyFrom> DamageModifyFrom = new List<UnitPropertyModifyFrom>();

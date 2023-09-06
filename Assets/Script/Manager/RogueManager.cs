@@ -117,6 +117,7 @@ public class RogueManager : Singleton<RogueManager>
     /// 当前舰船建筑组件
     /// </summary>
     private Dictionary<uint, Unit> _currentShipUnits = new Dictionary<uint, Unit>();
+    public List<Unit> AllShipUnits = new List<Unit>();
 
     /// <summary>
     /// 当前刷新次数
@@ -186,6 +187,12 @@ public class RogueManager : Singleton<RogueManager>
 
     /* 负载百分比变化 */
     public UnityAction<float> OnWreckageLoadPercentChange;
+    /* 残骸数量变化 */
+    public UnityAction<int> OnWasteCountChange;
+    /* 残骸物件数量变化  ID : Count*/
+    public UnityAction<int, int> OnShipPlugCountChange;
+    /* 波次变化  bool : 波次开始或结束*/
+    public UnityAction<bool> OnWaveStateChange;
 
     #endregion
 
@@ -211,6 +218,11 @@ public class RogueManager : Singleton<RogueManager>
         for (int i = 0; i < AllCurrentShipPlugs.Count; i++) 
         {
             AllCurrentShipPlugs[i].OnBattleUpdate();
+        }
+
+        for (int i = 0; i < AllShipUnits.Count; i++) 
+        {
+            AllShipUnits[i].OnUpdateTrigger();
         }
     }
 
@@ -435,6 +447,7 @@ public class RogueManager : Singleton<RogueManager>
         AddCurrency(sellPrice);
         var newCount = GetDropWasteCount - sellCount;
         _dropWasteCount.Set(newCount);
+        OnWasteCountChange?.Invoke(newCount);
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
     }
 
@@ -461,9 +474,9 @@ public class RogueManager : Singleton<RogueManager>
     {
         int newCount = GetDropWasteCount + count;
         _dropWasteCount.Set(newCount);
+        OnWasteCountChange?.Invoke(newCount);
         ///UpdateLoad
         CalculateTotalLoadCost();
-
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
     }
 
@@ -607,8 +620,10 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// 波次结束
     /// </summary>
-    public void OnWaveFinish()
+    public async void OnWaveFinish()
     {
+        ///Reset TriggerDatas
+        ReserAllPlugModifierTriggerDatas();
         if (IsFinalWave())
         {
             ///Level Success
@@ -617,6 +632,17 @@ public class RogueManager : Singleton<RogueManager>
 
         _waveIndex++;
         _tempWaveTime = GetCurrentWaveTime();
+        Timer.PauseAndSetZero();
+        ///无限波次等处理
+        OnWaveStateChange?.Invoke(false);
+    }
+
+    /// <summary>
+    /// 波次开始
+    /// </summary>
+    public async void OnNewWaveStart()
+    {
+        OnWaveStateChange?.Invoke(true);
     }
 
     private bool IsFinalWave()
@@ -1013,11 +1039,15 @@ public class RogueManager : Singleton<RogueManager>
     {
         var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipUnit, unit);
         unit.UID = uid;
+        unit.OnAdded();
         _currentShipUnits.Add(uid, unit);
+        AllShipUnits.Add(unit);
     }
 
     public void RemoveShipUnit(Unit unit)
     {
+        unit.OnRemove();
+        AllShipUnits.Remove(unit);
         _currentShipUnits.Remove(unit.UID);
     }
 
@@ -1081,6 +1111,22 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
+    /// 获取相同插件总数
+    /// </summary>
+    /// <param name="plugID"></param>
+    /// <returns></returns>
+    public int GetSameShipPlugTotalCount(int plugID)
+    {
+        int result = 0;
+        for(int i =0;i< AllCurrentShipPlugs.Count; i++)
+        {
+            if (AllCurrentShipPlugs[i].PlugID == plugID)
+                result++;
+        }
+        return result;
+    }
+
+    /// <summary>
     /// 增加插件
     /// </summary>
     /// <param name="plugID"></param>
@@ -1101,6 +1147,7 @@ public class RogueManager : Singleton<RogueManager>
         plugInfo.OnAdded();
         _currentShipPlugs.Add(uid, plugInfo);
         AllCurrentShipPlugs.Add(plugInfo);
+        OnShipPlugCountChange?.Invoke(plugID, GetSameShipPlugTotalCount(plugID));
         RogueEvent.Trigger(RogueEventType.ShipPlugChange);
     }
 
@@ -1114,6 +1161,34 @@ public class RogueManager : Singleton<RogueManager>
         }
         return 0;
     }
+
+    /// <summary>
+    /// 重置所有插件触发器
+    /// </summary>
+    private void ReserAllPlugModifierTriggerDatas()
+    {
+        var allTriggers = GetAllPlugModifierTriggerDatas();
+        allTriggers.ForEach(x => x.Reset());
+    }
+
+    /// <summary>
+    /// 获取所有插件触发器
+    /// </summary>
+    /// <returns></returns>
+    private List<ModifyTriggerData> GetAllPlugModifierTriggerDatas()
+    {
+        List<ModifyTriggerData> result = new List<ModifyTriggerData>();
+        for (int i = 0; i < AllCurrentShipPlugs.Count; i++)
+        {
+            var triggerDatas = AllCurrentShipPlugs[i].AllTriggerDatas;
+            if(triggerDatas.Count > 0)
+            {
+                result.AddRange(triggerDatas);
+            }
+        }
+        return result;
+    }
+
     #endregion
 
     #region Ship LevelUp

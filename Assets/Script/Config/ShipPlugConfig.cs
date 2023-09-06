@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class ShipPlugConfig : SerializedScriptableObject
 {
-    [ListDrawerSettings( NumberOfItemsPerPage = 15)]
+    [ListDrawerSettings( NumberOfItemsPerPage = 15, CustomAddFunction = "AddItem")]
     [HideReferenceObjectPicker]
     [LabelText("插件列表")]
     public List<ShipPlugItemConfig> PlugConfigs = new List<ShipPlugItemConfig>();
@@ -23,12 +23,17 @@ public class ShipPlugConfig : SerializedScriptableObject
         AssetDatabase.Refresh();
     }
 #endif
+
+    private ShipPlugItemConfig AddItem()
+    {
+        return new ShipPlugItemConfig();
+    }
 }
 
 
 public class ShipPlugItemConfig
 {
-    [HorizontalGroup("A", 70)]
+    [HorizontalGroup("A", 80)]
     [LabelText("ID")]
     [LabelWidth(30)]
     public int ID;
@@ -43,26 +48,25 @@ public class ShipPlugItemConfig
     [HorizontalGroup("修正配置/B", 500)]
     [LabelText("属性修正")]
     [LabelWidth(80)]
-    [ListDrawerSettings(DraggableItems = false)]
+    [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]
     [HideReferenceObjectPicker]
-    public List<PropertyMidifyConfig> PropertyModify = new List<PropertyMidifyConfig>();
+    public PropertyMidifyConfig[] PropertyModify = new PropertyMidifyConfig[0];
 
     [FoldoutGroup("修正配置")]
     [HorizontalGroup("修正配置/B", 500)]
     [LabelText("属性百分比修改")]
     [LabelWidth(80)]
-    [ListDrawerSettings(DraggableItems = false)]
+    [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]
     [HideReferenceObjectPicker]
-    public List<PropertyMidifyConfig> PropertyPercentModify = new List<PropertyMidifyConfig>();
+    public PropertyMidifyConfig[] PropertyPercentModify = new PropertyMidifyConfig[0];
 
-    [HorizontalGroup("A", 600)]
+    [HorizontalGroup("A", 1000)]
     [LabelText("触发配置")]
     [LabelWidth(80)]
     [DisableContextMenu(DisableForMember = true, DisableForCollectionElements = true)]
     [ValueDropdown("GetTriggerLst", DrawDropdownForListElements = false)]
-    [OnCollectionChanged("Change")]
     [HideReferenceObjectPicker]
-    public List<ModifyTriggerConfig> ModifyTriggers = new List<ModifyTriggerConfig>();
+    public ModifyTriggerConfig[] ModifyTriggers = new ModifyTriggerConfig[0];
 
 
     private ValueDropdownList<ModifyTriggerConfig> GetTriggerLst()
@@ -70,11 +74,9 @@ public class ShipPlugItemConfig
         return ModifyTriggerConfig.GetModifyTriggerList();
     }
 
-    private void Change(CollectionChangeInfo info, object lst)
-    {
-        if (info.ChangeType == CollectionChangeType.Add)
-        {
 
-        }
+    private PropertyMidifyConfig AddPropertyMidifyConfig()
+    {
+        return new PropertyMidifyConfig();
     }
 }

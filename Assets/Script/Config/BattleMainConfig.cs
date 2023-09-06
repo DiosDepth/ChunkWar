@@ -24,6 +24,22 @@ public enum ModifyTriggerType
     OnKillEnemy,
     OnWaveEnd,
     OnWaveStart,
+    /// <summary>
+    /// 属性互相转化
+    /// </summary>
+    PropertyTransfer,
+    /// <summary>
+    /// 根据物件转化
+    /// </summary>
+    ItemTransfer,
+    WaveState,
+    Timer,
+}
+
+public enum ModifyTriggerEffectType
+{
+    AddPropertyValue,
+
 }
 
 public class BattleMainConfig : SerializedScriptableObject

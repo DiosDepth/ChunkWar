@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class ModifyTriggerData : IPropertyModify
 {
     public ModifyTriggerConfig Config;
-
     public uint UID { get; set; }
     public PropertyModifyCategory Category
     {
@@ -14,6 +13,8 @@ public abstract class ModifyTriggerData : IPropertyModify
             return PropertyModifyCategory.ModifyTrigger;
         }
     }
+
+    protected int currentTriggerCount;
 
     public ModifyTriggerData(ModifyTriggerConfig cfg, uint uid)
     {
@@ -33,6 +34,8 @@ public abstract class ModifyTriggerData : IPropertyModify
         {
             case ModifyTriggerType.OnKillEnemy:
                 return new MT_ShipDie(cfg, uid);
+            case ModifyTriggerType.PropertyTransfer:
+                return new MT_PropertyTransfer(cfg, uid);
         }
 
         Debug.LogError("ModifyTriggerData Create Error ! Type = " + cfg.TriggerType);
@@ -44,14 +47,29 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     }
 
+    public virtual void OnTriggerRemove()
+    {
+
+    }
+
     public virtual void OnUpdateBattle()
     {
 
     }
 
-    public virtual void Trigger()
+    public virtual void Reset()
     {
 
+    }
+
+    protected virtual void Trigger()
+    {
+        currentTriggerCount++;
+        var effects = Config.Effects;
+        for(int i = 0; i < effects.Length; i++)
+        {
+            effects[i].Excute();
+        }
     }
 
     private void ClearTrigger()

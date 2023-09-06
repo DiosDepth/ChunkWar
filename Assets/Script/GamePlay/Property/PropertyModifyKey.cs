@@ -129,4 +129,12 @@ public enum PropertyModifyKey
     /// 护盾能源消耗
     /// </summary>
     ShieldEnergyCostPercent,
+    /// <summary>
+    /// 舰船速度
+    /// </summary>
+    ShipSpeed,
+    /// <summary>
+    /// 舰船闪避
+    /// </summary>
+    ShipParry,
 }
