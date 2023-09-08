@@ -168,6 +168,15 @@ public static class GameHelper
         return result;
     }
 
+    public static Vector2 GetPlayerShipPosition()
+    {
+        var currentShip = RogueManager.Instance.currentShip;
+        if (currentShip == null)
+            return Vector2.zero;
+
+        return currentShip.transform.position;
+    }
+
     /// <summary>
     /// 获取玩家飞船核心属性
     /// </summary>

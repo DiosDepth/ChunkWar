@@ -179,6 +179,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public List<Vector2Int> occupiedCoords;
 
     private List<ModifyTriggerData> _modifyTriggerDatas = new List<ModifyTriggerData>();
+    public List<ModifyTriggerData> AllTriggerDatas
+    {
+        get { return _modifyTriggerDatas; }
+    }
+
     private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
 
     /// <summary>

@@ -623,15 +623,15 @@ public class RogueManager : Singleton<RogueManager>
     public async void OnWaveFinish()
     {
         ///Reset TriggerDatas
-        ReserAllPlugModifierTriggerDatas();
+        ResetAllPlugModifierTriggerDatas();
+        ResetAllUnitModifierTriggerDatas();
         if (IsFinalWave())
         {
             ///Level Success
             return;
         }
-
-        _waveIndex++;
-        _tempWaveTime = GetCurrentWaveTime();
+        LevelManager.Instance.CreateHarborPickUp();
+        
         Timer.PauseAndSetZero();
         ///无限波次等处理
         OnWaveStateChange?.Invoke(false);
@@ -642,6 +642,8 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public async void OnNewWaveStart()
     {
+        _waveIndex++;
+        _tempWaveTime = GetCurrentWaveTime();
         OnWaveStateChange?.Invoke(true);
     }
 
@@ -1083,6 +1085,33 @@ public class RogueManager : Singleton<RogueManager>
         }
     }
 
+    /// <summary>
+    /// 获取所有插件触发器
+    /// </summary>
+    /// <returns></returns>
+    private List<ModifyTriggerData> GetAllUnitModifierTriggerDatas()
+    {
+        List<ModifyTriggerData> result = new List<ModifyTriggerData>();
+        for (int i = 0; i < AllShipUnits.Count; i++)
+        {
+            var triggerDatas = AllShipUnits[i].AllTriggerDatas;
+            if (triggerDatas.Count > 0)
+            {
+                result.AddRange(triggerDatas);
+            }
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 重置所有插件触发器
+    /// </summary>
+    private void ResetAllUnitModifierTriggerDatas()
+    {
+        var allTriggers = GetAllUnitModifierTriggerDatas();
+        allTriggers.ForEach(x => x.Reset());
+    }
+
     #endregion
 
     #region Ship Plug
@@ -1165,7 +1194,7 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// 重置所有插件触发器
     /// </summary>
-    private void ReserAllPlugModifierTriggerDatas()
+    private void ResetAllPlugModifierTriggerDatas()
     {
         var allTriggers = GetAllPlugModifierTriggerDatas();
         allTriggers.ForEach(x => x.Reset());

@@ -34,12 +34,17 @@ public enum ModifyTriggerType
     ItemTransfer,
     WaveState,
     Timer,
+    /// <summary>
+    /// ÃÌº” ±
+    /// </summary>
+    OnAdd,
+    OnPlayerShipMove,
 }
 
 public enum ModifyTriggerEffectType
 {
     AddPropertyValue,
-
+    SetPropertyMaxValue,
 }
 
 public class BattleMainConfig : SerializedScriptableObject

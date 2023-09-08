@@ -16,22 +16,25 @@ public struct ShipStateEvent
     public ShipMovementState movementState;
     public ShipConditionState conditionState;
     public bool IsPlayer;
+    public bool MovementChange;
 
-    public ShipStateEvent(BaseShip ship, ShipMovementState m_movmentstate , ShipConditionState m_conditionstate, bool isPlayer)
+    public ShipStateEvent(BaseShip ship, ShipMovementState m_movmentstate , ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
     {
         Ship = ship;
         movementState = m_movmentstate;
         conditionState = m_conditionstate;
         IsPlayer = isPlayer;
+        MovementChange = movementChange;
     }
 
     public static ShipStateEvent e;
-    public static void Trigger(BaseShip ship, ShipMovementState m_movmentstate, ShipConditionState m_conditionstate, bool isPlayer)
+    public static void Trigger(BaseShip ship, ShipMovementState m_movmentstate, ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
     {
         e.Ship = ship;
         e.movementState = m_movmentstate;
         e.conditionState = m_conditionstate;
         e.IsPlayer = isPlayer;
+        e.MovementChange = movementChange;
         EventCenter.Instance.TriggerEvent<ShipStateEvent>(e);
     }
 }
@@ -50,8 +53,7 @@ public class BaseShip : MonoBehaviour,IDropable
     public StateMachine<ShipConditionState> conditionState;
 
     public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
-    [ShowInInspector]
-    [ListDrawerSettings(DraggableItems = true)]
+
     protected Chunk[,] _chunkMap;
 
 

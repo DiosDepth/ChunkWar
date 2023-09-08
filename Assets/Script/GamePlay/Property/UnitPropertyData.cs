@@ -57,6 +57,20 @@ public class UnitPropertyData
     }
 
     /// <summary>
+    /// 设置限制最大值
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="maxValue"></param>
+    public void SetPropertyMaxValue(PropertyModifyKey key, float maxValue)
+    {
+        var pool = GetOrCreatePropertyPool(key);
+        if (pool == null)
+            return;
+
+        pool.SetProeprtyMaxValue(maxValue);
+    }
+
+    /// <summary>
     /// 设置修正
     /// </summary>
     /// <param name="propertyKey"></param>
@@ -147,6 +161,12 @@ public class UnitPropertyPool
     /// </summary>
     private Hashtable _propertyTable_Transfer;
 
+    public float PropertyMaxValue
+    {
+        get;
+        private set;
+    }
+
     public UnitPropertyPool(PropertyModifyKey propertyKey)
     {
         this.PropertyKey = propertyKey;
@@ -155,6 +175,7 @@ public class UnitPropertyPool
         _propertyTable_Transfer = new Hashtable();
         _propertyRow = new ChangeValue<float>(0, float.MinValue, float.MaxValue);
         _propertyTemp = new ChangeValue<float>(0, float.MinValue, float.MaxValue);
+        PropertyMaxValue = float.MaxValue;
     }
 
     public void BindChangeAction(Action action)
@@ -196,6 +217,15 @@ public class UnitPropertyPool
         }
         
         return true;
+    }
+
+    /// <summary>
+    /// 设置限制最大值
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetProeprtyMaxValue(float value)
+    {
+        PropertyMaxValue = value;
     }
 
     /// <summary>
@@ -296,11 +326,12 @@ public class UnitPropertyPool
 
         var proerptyTransfer = GetPropertyTransferValue();
 
-        return (_propertyRow.Value + result + proerptyTransfer + _propertyTemp.Value) * (1 + modifyPercent / 100f);
+        var outResult = (_propertyRow.Value + result + proerptyTransfer + _propertyTemp.Value) * (1 + modifyPercent / 100f);
+        return Mathf.Clamp(outResult, float.MinValue, PropertyMaxValue);
     }
 
     /// <summary>
-    /// 获取除转化属性外的属性值，防止循环
+    /// 获取除转化属性外的属性值，防止循环， 无视最大值限制
     /// </summary>
     /// <returns></returns>
     public float GetPropertyFinalWithoutTransfer()

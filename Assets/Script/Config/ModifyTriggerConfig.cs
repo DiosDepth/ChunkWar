@@ -54,6 +54,14 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_Timer(type));
             }
+            else if (type == ModifyTriggerType.OnAdd)
+            {
+                result.Add(type.ToString(), new MTC_OnAdd(type));
+            }
+            else if (type == ModifyTriggerType.OnPlayerShipMove)
+            {
+                result.Add(type.ToString(), new MTC_OnPlayerShipMove(type));
+            }
         }
 
         return result;
@@ -62,6 +70,14 @@ public abstract class ModifyTriggerConfig
     private static ValueDropdownList<ModifyTriggerEffectConfig> GetEffectList()
     {
         return ModifyTriggerEffectConfig.GetModifyEffectTriggerList();
+    }
+}
+
+public class MTC_OnAdd : ModifyTriggerConfig
+{
+    public MTC_OnAdd(ModifyTriggerType type) : base(type)
+    {
+
     }
 }
 
@@ -195,6 +211,19 @@ public class MTC_ItemTransfer : ModifyTriggerConfig
     public float TargetValuePer;
 
     public MTC_ItemTransfer(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnPlayerShipMove : ModifyTriggerConfig
+{
+    [HorizontalGroup("AB", 200)]
+    [LabelText(" «∑Ò“∆∂Ø")]
+    [LabelWidth(50)]
+    public bool IsMoving;
+
+    public MTC_OnPlayerShipMove(ModifyTriggerType type) : base(type)
     {
 
     }

@@ -36,6 +36,18 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return new MT_ShipDie(cfg, uid);
             case ModifyTriggerType.PropertyTransfer:
                 return new MT_PropertyTransfer(cfg, uid);
+            case ModifyTriggerType.ItemTransfer:
+                return new MT_ItemTransfer(cfg, uid);
+            case ModifyTriggerType.OnWaveEnd:
+            case ModifyTriggerType.OnWaveStart:
+                return new MT_WaveState(cfg, uid);
+            case ModifyTriggerType.Timer:
+                return new MT_Timer(cfg, uid);
+            case ModifyTriggerType.OnAdd:
+                return new MT_OnAdd(cfg, uid);
+            case ModifyTriggerType.OnPlayerShipMove:
+                return new MT_PlayerShipMove(cfg, uid);
+
         }
 
         Debug.LogError("ModifyTriggerData Create Error ! Type = " + cfg.TriggerType);
@@ -68,7 +80,7 @@ public abstract class ModifyTriggerData : IPropertyModify
         var effects = Config.Effects;
         for(int i = 0; i < effects.Length; i++)
         {
-            effects[i].Excute();
+            effects[i].Excute(this);
         }
     }
 
@@ -77,4 +89,18 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     }
 
+}
+
+public class MT_OnAdd : ModifyTriggerData
+{
+    public MT_OnAdd(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        Trigger();
+    }
 }

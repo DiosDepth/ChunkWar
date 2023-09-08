@@ -9,6 +9,10 @@ using UnityEngine;
 [System.Serializable]
 public abstract class ModifyTriggerEffectConfig 
 {
+    [ReadOnly]
+    [HorizontalGroup("AA", 150)]
+    [LabelText("类型")]
+    [LabelWidth(50)]
     public ModifyTriggerEffectType EffectType;
 
     public ModifyTriggerEffectConfig(ModifyTriggerEffectType type)
@@ -16,7 +20,7 @@ public abstract class ModifyTriggerEffectConfig
         this.EffectType = type;
     }
 
-    public abstract void Excute();
+    public abstract void Excute(ModifyTriggerData data);
 
     public static ValueDropdownList<ModifyTriggerEffectConfig> GetModifyEffectTriggerList()
     {
@@ -27,6 +31,10 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_AddPropertyValue(type));
             }
+            else if (type == ModifyTriggerEffectType.SetPropertyMaxValue)
+            {
+                result.Add(type.ToString(), new MTEC_SetPropertyMaxValue(type));
+            }
         }
 
         return result;
@@ -35,14 +43,47 @@ public abstract class ModifyTriggerEffectConfig
 
 public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
 {
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public PropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public float Value;
+
     public MTEC_AddPropertyValue(ModifyTriggerEffectType type) : base(type)
     {
 
     }
 
-    public override void Excute()
+    public override void Excute(ModifyTriggerData data)
     {
 
     }
 
+}
+
+public class MTEC_SetPropertyMaxValue : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public PropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public float Value;
+
+    public MTEC_SetPropertyMaxValue(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data)
+    {
+        RogueManager.Instance.MainPropertyData.SetPropertyMaxValue(ModifyKey, Value);
+    }
 }

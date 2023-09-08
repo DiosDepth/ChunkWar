@@ -153,10 +153,12 @@ public class PlayerShip : BaseShip
 
     public override void Initialization()
     {
-        base.Initialization();
         var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
         playerShipCfg = shipCfg;
         baseShipCfg = shipCfg;
+        ///Init ShipClass
+        InitShipClass();
+        base.Initialization();
     }
 
     public void CreateShip(bool editorShip = false)
@@ -652,6 +654,20 @@ public class PlayerShip : BaseShip
         var rangeAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
         var newSuckerRange = Mathf.Clamp(defaultSuckerRange * (1 + rangeAdd / 100f), minRange, float.MaxValue);
         pickupCollider.radius = newSuckerRange;
+    }
+
+    /// <summary>
+    /// 初始化舰船等级配置
+    /// </summary>
+    private void InitShipClass()
+    {
+        var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(playerShipCfg.ShipClass);
+        if(classCfg != null)
+        {
+            var mainProperty = RogueManager.Instance.MainPropertyData;
+            mainProperty.SetPropertyModifyValue(PropertyModifyKey.ShipParry, PropertyModifyType.Modify, GameGlobalConfig.PropertyModifyUID_ShipClass, classCfg.BaseParry);
+            mainProperty.SetPropertyMaxValue(PropertyModifyKey.ShipParry, classCfg.MaxParry);
+        }
     }
 
 }

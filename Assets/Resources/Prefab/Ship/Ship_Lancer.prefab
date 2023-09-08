@@ -195,13 +195,7 @@ MonoBehaviour:
   IsUpdate: 0
   rb: {fileID: 6859882484743535825}
   collider: {fileID: 441694745270459029}
-  maxSpeed: 10
-  acceleration: 3
-  maxRotateSpeed: 45
-  _deltaMovement: {x: 0, y: 0}
   controlledTarget: {fileID: 0}
-  rotationAcceleration: 75
-  rotationSpeedDamping: 45
   _refrotationspeed: 0
   _crossZ: 0
 --- !u!1 &7848178516328607515
@@ -306,9 +300,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -402000637
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1508105767, guid: c4c2e7d773109364ea51d8a53fa5df77, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3fbac2ed7839911468e00acb2a4d6512, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

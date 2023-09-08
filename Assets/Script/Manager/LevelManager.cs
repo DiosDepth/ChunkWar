@@ -94,8 +94,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     /* 飞船死亡 */
     public UnityAction<BaseShip> Action_OnShipDie;
-
-
+    /* 玩家飞船运动 */
+    public UnityAction<bool> OnPlayerShipMove;
     #endregion
 
 
@@ -131,7 +131,13 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public virtual void LevelUpdate()
     {
+        if (!isLevelUpdate)
+            return;
 
+        if (IsBattleLevel())
+        {
+            RogueManager.Instance.OnUpdateBattle();
+        }
     }
 
     public virtual void LevelFixedUpdate()
@@ -141,20 +147,12 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             return;
         }
 
-
-
-
-
     }
     
     public virtual void LevelLaterUpdate()
     {
         //steeringBehaviorJob_aiShipPos.Dispose();
     }
-
-
-
-
 
     public void AddAIData()
     {
@@ -360,6 +358,11 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
                 }
                 break;
         }
+
+        if(evt.Ship is PlayerShip)
+        {
+            OnPlayerShipStateChange(evt);
+        }
     }
 
     /// <summary>
@@ -371,4 +374,42 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         Action_OnShipDie?.Invoke(ship);
         AchievementManager.Instance.Trigger<BaseShip>(AchievementWatcherType.EnemyKill, ship);
     }
+
+    private void OnPlayerShipStateChange(ShipStateEvent state)
+    {
+        if (state.MovementChange)
+        {
+            OnPlayerShipMove?.Invoke(state.movementState == ShipMovementState.Move);
+        }
+    }
+
+    #region Battle Misc
+
+    private static string Harbor_Teleport_Path = "Prefab/PickUps/HarborTeleportPickup";
+
+    /// <summary>
+    /// 是否战斗场景
+    /// </summary>
+    /// <returns></returns>
+    public bool IsBattleLevel()
+    {
+        return currentLevel is BattleLevel;
+    }
+
+    /// <summary>
+    /// 创建太空站
+    /// </summary>
+    public void CreateHarborPickUp()
+    {
+        var miscConfig = DataManager.Instance.gameMiscCfg;
+        var playerShipPosition = GameHelper.GetPlayerShipPosition();
+        var targetPos = MathExtensionTools.GetRadomPosFromOutRange(miscConfig.Harbor_Teleport_RandomRangeMin, miscConfig.Harbor_Teleport_RandomRangeMax, playerShipPosition);
+
+        PoolManager.Instance.GetObjectSync(Harbor_Teleport_Path, true, (obj)=> 
+        {
+            obj.transform.position = targetPos;
+        });
+    }
+
+    #endregion
 }
