@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using System.Linq;
 
 public enum EGameState
 {
@@ -68,6 +68,15 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     public List<HardLevelInfo> GetAllHardLevelInfos
     {
         get { return _hardLevels; }
+    }
+
+    /// <summary>
+    /// 阵营信息, Global
+    /// </summary>
+    private Dictionary<int, CampData> _campDatas;
+    public List<CampData> GetAllCampData
+    {
+        get { return _campDatas.Values.ToList(); }
     }
 
     public GameManager()
@@ -258,6 +267,12 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     }
 
+    public void InitData()
+    {
+        InitHardLevelData();
+        InitCampData();
+    }
+
     #region HardLevel
 
     public HardLevelInfo GetHardLevelInfoByID(int hardLevelID)
@@ -277,7 +292,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         }
     }
 
-    public void InitHardLevelData()
+    private void InitHardLevelData()
     {
         _hardLevels = new List<HardLevelInfo>();
         var allhardLevels = DataManager.Instance.battleCfg.HardLevels;
@@ -289,4 +304,29 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     }
 
     #endregion
+    /// <summary>
+    /// 获取阵营数据
+    /// </summary>
+    /// <param name="campID"></param>
+    /// <returns></returns>
+    public CampData GetCampDataByID(int campID)
+    {
+        if (_campDatas.ContainsKey(campID))
+            return _campDatas[campID];
+        return null;
+    }
+
+    /// <summary>
+    /// 初始化阵营数据
+    /// </summary>
+    private void InitCampData()
+    {
+        _campDatas = new Dictionary<int, CampData>();
+        var allCamps = DataManager.Instance.GetAllCampConfigs();
+        for(int i = 0; i < allCamps.Count; i++)
+        {
+            CampData data = CampData.CreateData(allCamps[i]);
+            _campDatas.Add(data.CampID, data);
+        }
+    }
 }

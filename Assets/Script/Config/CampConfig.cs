@@ -21,6 +21,14 @@ public class CampConfig : SerializedScriptableObject
     [LabelWidth(50)]
     public string CampDesc;
 
+    [HorizontalGroup("B", 200)]
+    [LabelText("默认解锁")]
+    [LabelWidth(50)]
+    public bool Unlock;
+
+    [PreviewField(80, Alignment = ObjectFieldAlignment.Left)]
+    public Sprite CampIcon;
+
     [ListDrawerSettings(CustomAddFunction ="AddLevel")]
     [LabelText("等级配置")]
     public CampLevelConfig[] LevelConfigs = new CampLevelConfig[0];
@@ -51,7 +59,7 @@ public enum GeneralUnlockItemType
 public class CampLevelConfig
 {
     public int LevelIndex;
-    public int RequireEXP;
+    public int RequireTotalEXP;
 
     public GeneralUnlockItemType UnlockType;
     public int UnlockItemID;

@@ -260,6 +260,12 @@ public static class GameHelper
         return lst.Select(item => (uint)item.AchievementID).ToList();
     }
 
+    public static List<uint> GetAllCampIDs()
+    {
+        var allcampData = GameManager.Instance.GetAllCampData;
+        return allcampData.Select(x => (uint)x.CampID).ToList();
+    }
+
     /// <summary>
     /// È«²¿½¢´¬ID
     /// </summary>

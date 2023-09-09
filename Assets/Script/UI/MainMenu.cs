@@ -18,6 +18,7 @@ public class MainMenu : GUIBasePanel
         GetGUIComponent<Button>("Load").onClick.AddListener(LoadSaveButtonPressed);
         GetGUIComponent<Button>("Collection").onClick.AddListener(CollectionButtonPressed);
         GetGUIComponent<Button>("Achievement").onClick.AddListener(AchievementButtonPressed);
+        GetGUIComponent<Button>("CampBtn").onClick.AddListener(CampPagePressed);
     }
 
     public override void Show()
@@ -64,6 +65,14 @@ public class MainMenu : GUIBasePanel
     private void AchievementButtonPressed()
     {
         UIManager.Instance.ShowUI<AchievementPage>("AchievementPage", E_UI_Layer.Mid, owner, (panel) =>
+        {
+            panel.Initialization();
+        });
+    }
+
+    private void CampPagePressed()
+    {
+        UIManager.Instance.ShowUI<CampSelectPage>("CampSelectPage", E_UI_Layer.Mid, owner, (panel) =>
         {
             panel.Initialization();
         });

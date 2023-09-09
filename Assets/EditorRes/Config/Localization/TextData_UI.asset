@@ -299,3 +299,11 @@ MonoBehaviour:
     ChineseSimplified: "\u8D38\u6613\u8239\u5373\u5C06\u79BB\u5F00"
     English: 
     Japanese: 
+  - TextID: CampSelectItem_ScoreTitle
+    ChineseSimplified: "\u9635\u8425\u79EF\u5206"
+    English: 
+    Japanese: 
+  - TextID: CampSelectItem_Locked
+    ChineseSimplified: "\u672A\u89E3\u9501"
+    English: 
+    Japanese: 

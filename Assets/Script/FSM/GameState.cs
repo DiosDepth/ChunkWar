@@ -42,6 +42,7 @@ public class EGameState_WelcomScreen : GameState
                     });
 
                 });
+                GameManager.Instance.InitData();
                 SaveLoadManager.Instance.Initialization();
                 AchievementManager.Instance.Initialization();
             }));
@@ -129,7 +130,6 @@ public class EGameState_ShipSelection : GameState
         base.OnEnter();
         RogueManager.Instance.InitShipSelection();
         Debug.Log("GameState = ShipSelection");
-        GameManager.Instance.InitHardLevelData();
         UIManager.Instance.HiddenUIALLBut(new List<string> { "LoadingScreen" });
         MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(1, (ac) =>
         {
