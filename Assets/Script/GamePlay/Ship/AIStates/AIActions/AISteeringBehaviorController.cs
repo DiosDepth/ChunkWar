@@ -189,7 +189,9 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
 
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                if(!job_isVelZero[i])
+                angle = 0;
+                accelaration = Vector3.zero;
+                if (!job_isVelZero[i])
                 {
                     accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
                 }
