@@ -54,61 +54,27 @@ public class FaceBehavior : SteeringBehavior
                 //steering.angular = targetangle;
 
                 //to 360
-                if (targetangle >= 0)
+                if (targetangle < 0)
                 {
-                    targetangle = 360 - targetangle;
-                }
-                else
-                {
-                    targetangle = targetangle * -1;
+                    targetangle = 360 + targetangle;
                 }
 
 
                 fromangle = job_aiShipRotationZ[i];
 
                 //to 360
-                if (fromangle >= 0)
+                if (fromangle < 0)
                 {
-                    fromangle = 360 - fromangle;
-                }
-                else
-                {
-                    fromangle = fromangle * -1;
+                    fromangle = 360 + fromangle;
                 }
 
-                diff = math.abs(fromangle - targetangle) % 360;
+                diff = (targetangle -fromangle) % 360;
+                diff = (2 * diff) % 360 - diff;
                 //get diff between tareget and from angle
+                diff = math.lerp(0, diff, math.clamp(job_maxAngularAcceleration[i] * job_deltatime, 0, 1));
 
-                if( diff >= 180)
-                {
-                    diff = 360 - diff;
-                    diff = math.lerp(0, diff, math.clamp(job_maxAngularAcceleration[i] * job_deltatime, 0, 1));
-                    resultangle = (fromangle - diff) % 360;
-                }
-                else
-                {
-                    diff = math.lerp(0, diff, math.clamp(job_maxAngularAcceleration[i] * job_deltatime, 0, 1));
-                    resultangle = (fromangle + diff) % 360;
-                }
-
-                //repeat from and to angle
-
-                //if (resultangle != 0)
-                //{
-                //    resultangle = resultangle % 360;
-                //}
-
-
-                //from 360 to [-180, 180]
-                if (resultangle >= 180)
-                {
-                    resultangle = (360 - resultangle);
-                }
-                else
-                {
-                    resultangle = resultangle * -1;
-                }
-
+                resultangle = (fromangle + diff) % 360;
+                
                 steering.angular = resultangle;
 
                 rv_Steerings[i] = steering;

@@ -54,7 +54,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
 
     public Vector3 GetVelocity()
     {
-        return velocity;
+        return (transform.position - lastpos) / Time.fixedDeltaTime;
     }
 
     public float GetRadius()
@@ -76,7 +76,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
     }
     public void UpdateIBoid()
     {
-        velocity = (transform.position - lastpos) / Time.deltaTime;
+        velocity = (transform.position - lastpos) / Time.fixedDeltaTime;
         lastpos = transform.position;
     }
     // Start is called before the first frame update
@@ -147,7 +147,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
 
 
 
-    [BurstCompatible]
+    
     public struct CalculateDeltaMovePosJob : IJobParallelForBatch
     {
         [ReadOnly] public NativeArray<float> job_aiShipMaxAcceleration;
@@ -182,13 +182,18 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
         float3 accelaration;
         float angle;
         float3 deltamovement;
+        float3 vel;
         public void Execute(int startIndex, int count)
         {
             // apply steering data to ai ship
 
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
+                if(!job_isVelZero[i])
+                {
+                    accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
+                }
+
                 accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
                 accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
                 accelaration += job_separationSteering[i].linear * job_separationWeight[i];
@@ -203,7 +208,15 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
                     accelaration *= job_aiShipMaxAcceleration[i];
                 }
 
-                deltamovement = job_aiShipVelocity[i] + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+                if(job_isVelZero[i])
+                {
+                    vel = float3.zero;
+                }
+                else
+                {
+                    vel = job_aiShipVelocity[i];
+                }
+                deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
                 deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;
 
                 deltainfo.linear = deltamovement;

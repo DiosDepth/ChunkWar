@@ -539,7 +539,7 @@ public virtual void UpdateJobData()
         jobhandle_arrivebehavior = arriveBehaviorJobs.ScheduleBatch(ShipCount, 2);
         jobhandle_arrivebehavior.Complete();
 
-        //FaceBehavior Job
+        ////FaceBehavior Job
         FaceBehavior.FaceBehaviorJob faceBehaviorJob = new FaceBehavior.FaceBehaviorJob
         {
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
@@ -676,10 +676,7 @@ public virtual void UpdateJobData()
         for (int i = 0; i < ShipCount; i++)
         {
             aiSteeringBehaviorControllerList[i].UpdateIBoid();
-            if(rv_arrive_isVelZero[i])
-            {
-                aiSteeringBehaviorControllerList[i].SetVelocity(Vector3.zero);
-            }
+
             aiSteeringBehaviorControllerList[i].Move(rv_deltaMovement[i].linear);
             aiSteeringBehaviorControllerList[i].transform.rotation = Quaternion.Euler(0, 0,rv_deltaMovement[i].angular);
 
