@@ -45,6 +45,7 @@ public class AIShip : BaseShip,IPoolable
     public override void Death()
     {
         base.Death();
+        DestroyAIShipBillBoard();
         LevelManager.Instance.pickupList.AddRange(Drop());
         AIManager.Instance.RemoveAI(this);
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
@@ -115,9 +116,8 @@ public class AIShip : BaseShip,IPoolable
            
             _unitList[i].Initialization(this, unitconfig);
             _unitList[i].SetUnitProcess(true);
-            //_unitList[i].Initialization(this);
-            //_unitList[i].SetUnitActive(true);
         }
+        InitAIShipBillBoard();
     }
 
     public void PoolableReset()
@@ -137,4 +137,25 @@ public class AIShip : BaseShip,IPoolable
         this.gameObject.SetActive(isactive);
     }
 
+    private void InitAIShipBillBoard()
+    {
+        if (!AIShipCfg.ShowHPBillboard)
+            return;
+
+        if(AIShipCfg.BillboardType == EnemyHPBillBoardType.Boss_UI)
+        {
+            RogueEvent.Trigger(RogueEventType.RegisterBossHPBillBoard, this);
+        }
+    }
+
+    private void DestroyAIShipBillBoard()
+    {
+        if (!AIShipCfg.ShowHPBillboard)
+            return;
+
+        if(AIShipCfg.BillboardType == EnemyHPBillBoardType.Boss_UI)
+        {
+            RogueEvent.Trigger(RogueEventType.RemoveBossHPBillBoard, this);
+        }
+    }
 }

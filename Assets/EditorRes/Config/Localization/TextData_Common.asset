@@ -211,3 +211,27 @@ MonoBehaviour:
     ChineseSimplified: "\u80FD\u6E90\u9635\u5217"
     English: 
     Japanese: 
+  - TextID: ShipClassName_Corvette
+    ChineseSimplified: "\u62A4\u536B\u8230"
+    English: 
+    Japanese: 
+  - TextID: ShipClassName_Destroyer
+    ChineseSimplified: "\u9A71\u9010\u8230"
+    English: 
+    Japanese: 
+  - TextID: ShipClassName_Cruiser
+    ChineseSimplified: "\u5DE1\u6D0B\u8230"
+    English: 
+    Japanese: 
+  - TextID: ShipClassName_BattleCruiser
+    ChineseSimplified: "\u6218\u5217\u5DE1\u6D0B\u8230"
+    English: 
+    Japanese: 
+  - TextID: ShipClassName_BattleShip
+    ChineseSimplified: "\u6218\u5217\u8230"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Flyings
+    ChineseSimplified: "\u91CF\u4EA7\u578B\u62A4\u536B\u8230"
+    English: 
+    Japanese: 

@@ -135,14 +135,18 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
     public float GetEnergyCost()
     {
         var energyCostBase = UnitConfig.BaseEnergyCost;
-        var costModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
-        float ShieldModify = 0;
+        var costModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
+        float modify = 0;
         ///ShieldModify
         if(UnitConfig.HasUnitTag(ItemTag.Shield))
         {
-            ShieldModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
+            modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
         }
-        var cost = Mathf.Clamp(energyCostBase * (1 + (costModify + ShieldModify) / 100f), 0, float.MaxValue);
+        else if (UnitConfig.HasUnitTag(ItemTag.Weapon))
+        {
+            modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
+        }
+        var cost = Mathf.Clamp(energyCostBase * (1 + (costModify + modify) / 100f), 0, float.MaxValue);
         return cost;
     }
 

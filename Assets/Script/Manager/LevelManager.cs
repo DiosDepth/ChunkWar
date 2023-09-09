@@ -94,13 +94,12 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     /* 飞船死亡 */
     public UnityAction<BaseShip> Action_OnShipDie;
-
-
+    /* 玩家飞船运动 */
+    public UnityAction<bool> OnPlayerShipMove;
     #endregion
 
+    private BattleMiscRefreshConfig _refreshMiscConfig;
 
-
-    public int levelWaveIndex = 0;
     public LevelManager()
     {
         Initialization();
@@ -127,11 +126,18 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public override void Initialization()
     {
         base.Initialization();
+        _refreshMiscConfig = DataManager.Instance.gameMiscCfg.RefreshConfig;
     }
 
     public virtual void LevelUpdate()
     {
+        if (!isLevelUpdate)
+            return;
 
+        if (IsBattleLevel())
+        {
+            RogueManager.Instance.OnUpdateBattle();
+        }
     }
 
     public virtual void LevelFixedUpdate()
@@ -141,20 +147,12 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             return;
         }
 
-
-
-
-
     }
     
     public virtual void LevelLaterUpdate()
     {
         //steeringBehaviorJob_aiShipPos.Dispose();
     }
-
-
-
-
 
     public void AddAIData()
     {
@@ -297,7 +295,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         if(currentLevel == null) { return; }
         isLevelUpdate = false;
         currentLevel.Unload();
-        levelWaveIndex = 0;
         AIManager.Instance.Unload();
 
 
@@ -360,6 +357,11 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
                 }
                 break;
         }
+
+        if(evt.Ship is PlayerShip)
+        {
+            OnPlayerShipStateChange(evt);
+        }
     }
 
     /// <summary>
@@ -371,4 +373,71 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         Action_OnShipDie?.Invoke(ship);
         AchievementManager.Instance.Trigger<BaseShip>(AchievementWatcherType.EnemyKill, ship);
     }
+
+    private void OnPlayerShipStateChange(ShipStateEvent state)
+    {
+        if (state.MovementChange)
+        {
+            OnPlayerShipMove?.Invoke(state.movementState == ShipMovementState.Move);
+        }
+    }
+
+    #region Battle Misc
+
+    private static string Harbor_Teleport_Path = "Prefab/PickUps/HarborTeleportPickup";
+    private static string Shop_Teleport_Path = "Prefab/PickUps/ShopTeleportPickup";
+
+    /// <summary>
+    /// 是否战斗场景
+    /// </summary>
+    /// <returns></returns>
+    public bool IsBattleLevel()
+    {
+        return currentLevel is BattleLevel;
+    }
+
+    /// <summary>
+    /// 拾取所有可吸取物件
+    /// </summary>
+    public void CollectAllPickUps()
+    {
+        var picker = RogueManager.Instance.currentShip.gameObject;
+        for (int i = 0; i < pickupList.Count; i++) 
+        {
+            var pick = pickupList[i];
+            if (pick.CanAutoPickUp)
+            {
+                pick.PickUp(picker);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 创建太空站
+    /// </summary>
+    public void CreateHarborPickUp()
+    {
+        var playerShipPosition = GameHelper.GetPlayerShipPosition();
+        var targetPos = MathExtensionTools.GetRadomPosFromOutRange(_refreshMiscConfig.Harbor_Teleport_RandomRangeMin, _refreshMiscConfig.Harbor_Teleport_RandomRangeMax, playerShipPosition);
+
+        PoolManager.Instance.GetObjectSync(Harbor_Teleport_Path, true, (obj)=> 
+        {
+            obj.transform.position = targetPos;
+        });
+    }
+
+    public void CreateShopPickUp()
+    {
+        var playerShipPosition = GameHelper.GetPlayerShipPosition();
+        var targetPos = MathExtensionTools.GetRadomPosFromOutRange(_refreshMiscConfig.Shop_Teleport_RandomRangeMin, _refreshMiscConfig.Shop_Teleport_RandomRangeMax, playerShipPosition);
+        Debug.Log("Create Shop Teleport");
+        PoolManager.Instance.GetObjectSync(Shop_Teleport_Path, true, (obj) =>
+        {
+            obj.transform.position = targetPos;
+            obj.transform.SafeGetComponent<ShopTeleport>().Initialization();
+        });
+        RogueEvent.Trigger(RogueEventType.ShopTeleportSpawn);
+    }
+
+    #endregion
 }

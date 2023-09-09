@@ -208,13 +208,13 @@ public class ShopSlotItem : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }
 
-    private void SetUpPropertyCmpt(List<PropertyMidifyConfig> cfgs, bool modifyPercent)
+    private void SetUpPropertyCmpt(PropertyMidifyConfig[] cfgs, bool modifyPercent)
     {
-        if (cfgs == null || cfgs.Count <= 0)
+        if (cfgs == null || cfgs.Length <= 0)
             return;
 
         var index = 0;
-        for (int i = 0; i < cfgs.Count; i++)
+        for (int i = 0; i < cfgs.Length; i++)
         {
             if (cfgs[i].BySpecialValue)
                 continue;

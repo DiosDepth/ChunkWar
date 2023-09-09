@@ -24,6 +24,27 @@ public enum ModifyTriggerType
     OnKillEnemy,
     OnWaveEnd,
     OnWaveStart,
+    /// <summary>
+    /// 属性互相转化
+    /// </summary>
+    PropertyTransfer,
+    /// <summary>
+    /// 根据物件转化
+    /// </summary>
+    ItemTransfer,
+    WaveState,
+    Timer,
+    /// <summary>
+    /// 添加时
+    /// </summary>
+    OnAdd,
+    OnPlayerShipMove,
+}
+
+public enum ModifyTriggerEffectType
+{
+    AddPropertyValue,
+    SetPropertyMaxValue,
 }
 
 public class BattleMainConfig : SerializedScriptableObject
@@ -44,6 +65,7 @@ public class BattleMainConfig : SerializedScriptableObject
     /// 装甲减伤计算参数
     /// </summary>
     public float PlayerShip_ArmorDamageReduce_Param = 25;
+    public float PlayerShip_ShieldDamageReduce_Param = 25;
 
     /// <summary>
     /// 护盾多久恢复一次

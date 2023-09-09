@@ -456,6 +456,7 @@ public class Weapon : Unit
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         this._weaponCfg = m_unitconfig as WeaponConfig;
+        base.Initialization(m_owner, m_unitconfig);
         InitWeaponAttribute(m_owner is PlayerShip);
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
         DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
@@ -469,13 +470,10 @@ public class Weapon : Unit
             Debug.LogError(this.gameObject.name + " has no fire point!");
         }
 
-        base.Initialization(m_owner, m_unitconfig);
-
         if (_owner is PlayerShip)
         {
             var playerShip = _owner as PlayerShip;
-            _isProcess = !playerShip.IsEditorShip;
-            if(!playerShip.IsEditorShip && playerShip.playerShipCfg.MainWeaponID == _weaponCfg.ID)
+            if(playerShip.playerShipCfg.MainWeaponID == _weaponCfg.ID)
             {
                 ///MainCore
                 InitCoreData();
@@ -485,6 +483,13 @@ public class Weapon : Unit
         _firepointindex = 0;
         _targetindex = 0;
 
+    }
+
+    public override void InitializationEditorUnit(PlayerEditShip ship, BaseUnitConfig m_unitconfig)
+    {
+        this._weaponCfg = m_unitconfig as WeaponConfig;
+        base.InitializationEditorUnit(ship, m_unitconfig);
+        InitWeaponAttribute(true);
     }
 
     public override void Start()

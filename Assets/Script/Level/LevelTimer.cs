@@ -83,6 +83,14 @@ public class LevelTimer
         _pause = true;
     }
 
+    public void PauseAndSetZero()
+    {
+        _pause = true;
+        _timer = 0;
+        _currentSecond = 0;
+        OnTimeSecondUpdate?.Invoke(_currentSecond);
+    }
+
     public void RemoveAllTrigger()
     {
         _triggerDic.Clear();
@@ -140,7 +148,8 @@ public class LevelTimerTrigger
 
     private int _secondTimer;
 
-    public Action<int> TriggerAction;
+    public Action<int> TriggerActionInt;
+    public Action TriggerAction;
 
     private int paramInt;
 
@@ -172,6 +181,11 @@ public class LevelTimerTrigger
     public void BindChangeAction(Action<int> action, int param = 0)
     {
         this.paramInt = param;
+        TriggerActionInt = action;
+    }
+
+    public void BindChangeAction(Action action)
+    {
         TriggerAction = action;
     }
 
@@ -191,7 +205,8 @@ public class LevelTimerTrigger
 
         if(_secondTimer >= _secondDelta)
         {
-            TriggerAction?.Invoke(paramInt);
+            TriggerActionInt?.Invoke(paramInt);
+            TriggerAction?.Invoke();
             _currentLoopCount++;
             _secondTimer = 0;
             if (!_isLoop && _currentLoopCount >= _totalloopCount)

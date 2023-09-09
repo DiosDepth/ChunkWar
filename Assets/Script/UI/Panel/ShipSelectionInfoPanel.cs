@@ -7,6 +7,8 @@ using TMPro;
 public class ShipSelectionInfoPanel : MonoBehaviour
 {
     private Text _nameText;
+    private Image _classIcon;
+    private TextMeshProUGUI _className;
     private Transform _propertyContent;
     private TextMeshProUGUI _descText;
     private RectTransform _infoRect;
@@ -18,7 +20,9 @@ public class ShipSelectionInfoPanel : MonoBehaviour
     {
         _weaponInfoPanel = transform.Find("WeaponInfo").SafeGetComponent<UnitDetailInfoPanel>();
         _propertyContent = transform.Find("ShipInfo/PropertyContent");
-        _nameText = transform.Find("ShipInfo/Name").SafeGetComponent<Text>();
+        _nameText = transform.Find("ShipInfo/ShipClassInfo/Name").SafeGetComponent<Text>();
+        _classIcon = transform.Find("ShipInfo/ShipClassInfo/ClassIcon").SafeGetComponent<Image>();
+        _className = transform.Find("ShipInfo/ShipClassInfo/ClassName").SafeGetComponent<TextMeshProUGUI>();
         _descText = transform.Find("ShipInfo/Desc").SafeGetComponent<TextMeshProUGUI>();
         _infoRect = transform.Find("ShipInfo").SafeGetComponent<RectTransform>();
     }
@@ -29,6 +33,13 @@ public class ShipSelectionInfoPanel : MonoBehaviour
         _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Name);
         _descText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Desc);
         _propertyContent.Pool_BackAllChilds(ShipProperty_ItemPrefabPath);
+
+        var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(cfg.ShipClass);
+        if(classCfg != null)
+        {
+            _classIcon.sprite = classCfg.ClassIcon;
+            _className.text = LocalizationManager.Instance.GetTextValue(classCfg.ClassName);
+        }
 
         var plugCfg = DataManager.Instance.GetShipPlugItemConfig(cfg.CorePlugID);
         if(plugCfg != null)

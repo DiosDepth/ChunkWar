@@ -19,9 +19,15 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private ShipPropertySliderCmpt _energyCmpt;
     private ShipPropertySliderCmpt _loadCmpt;
 
+    private ShipHUDMessagePanel _messagePanel;
+
     private List<WeaponRuntimeItemCmpt> _weaponItemCmpts = new List<WeaponRuntimeItemCmpt>();
+    private List<BOSSHPSlider> _bossHPSliderCmpts = new List<BOSSHPSlider>();
 
     private static string WeaponRuntimeItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/WeaponRuntimeItem";
+    private static string EnemyBoss_HPSlider_PrefabPath = "Prefab/GUIPrefab/CmptItems/BOSSHPSlider";
+    private const string Shop_Teleport_ShowText = "Shop_Teleport_ShowText";
+    private const string Shop_Teleport_WarningText = "Shop_Teleport_WarningText";
 
     protected override void Awake()
     {
@@ -37,6 +43,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         _energyCmpt = transform.Find("OtherInfo/EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _loadCmpt = transform.Find("OtherInfo/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _expCmpt = transform.Find("InfoContent/ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _messagePanel = transform.Find("MessageContent").SafeGetComponent<ShipHUDMessagePanel>();
     }
 
     public override void Initialization()
@@ -102,6 +109,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
             case ShipPropertyEventType.ReloadCDEnd:
                 OnWeaponReloadCDEnd((uint)evt.param[0]);
                 break;
+
         }
     }
 
@@ -115,6 +123,26 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
 
             case RogueEventType.WreckageDropRefresh:
                 RefreshWreckageDrops();
+                break;
+
+            case RogueEventType.ShopTeleportSpawn:
+                var text1 = LocalizationManager.Instance.GetTextValue(Shop_Teleport_ShowText);
+                _messagePanel.ShowTopMessage(text1);
+                break;
+
+            case RogueEventType.ShopTeleportWarning:
+                var text2 = LocalizationManager.Instance.GetTextValue(Shop_Teleport_WarningText);
+                _messagePanel.ShowTopMessage(text2);
+                break;
+
+            case RogueEventType.RegisterBossHPBillBoard:
+                var aiShip = (AIShip)evt.param[0];
+                AddBossHPBillboard(aiShip);
+                break;
+
+            case RogueEventType.RemoveBossHPBillBoard:
+                var aiShip2 = (AIShip)evt.param[0];
+                RemoveBossHPBillBoard(aiShip2);
                 break;
         }
     }
@@ -221,5 +249,37 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
                 return cmpt;
         }
         return null;
+    }
+
+    private void AddBossHPBillboard(AIShip ship)
+    {
+        var slider = GetBossHPSlider(ship);
+        if (slider != null)
+            return;
+
+        var root = transform.Find("BossHPContent");
+        var obj = ResManager.Instance.Load<GameObject>(EnemyBoss_HPSlider_PrefabPath);
+        if(obj != null)
+        {
+            var cmpt = obj.transform.SafeGetComponent<BOSSHPSlider>();
+            cmpt.transform.SetParent(root, false);
+            cmpt.SetUpSlider(ship);
+            _bossHPSliderCmpts.Add(cmpt);
+        }
+    }
+
+    private void RemoveBossHPBillBoard(AIShip ship)
+    {
+        var slider = GetBossHPSlider(ship);
+        if(slider != null)
+        {
+            slider.RemoveSlider();
+            _bossHPSliderCmpts.Remove(slider);
+        }
+    }
+
+    private BOSSHPSlider GetBossHPSlider(AIShip ship)
+    {
+        return _bossHPSliderCmpts.Find(x => x._targetShip == ship);
     }
 }

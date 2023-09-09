@@ -73,7 +73,8 @@ public class UnitBaseAttribute
 
             if(BaseEnergyCost != 0)
             {
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
             }
             
             if(BaseEnergyGenerate != 0)
@@ -97,8 +98,9 @@ public class UnitBaseAttribute
         if (isPlayerShip)
         {
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
         }
         else
         {
@@ -114,7 +116,15 @@ public class UnitBaseAttribute
 
     private void CalculateEnergyCost()
     {
-        var rate = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+        float rate = 0;
+        if(_parentUnit._baseUnitConfig.HasUnitTag(ItemTag.Weapon))
+        {
+            rate = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
+        }
+        else if (_parentUnit._baseUnitConfig.HasUnitTag(ItemTag.Shield))
+        {
+            rate = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
+        }
         rate = Mathf.Clamp(rate, -100, float.MaxValue);
         EnergyCost = Mathf.RoundToInt(BaseEnergyCost * (100 + rate) / 100f);
 
@@ -178,7 +188,13 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
 
- 
+    private List<ModifyTriggerData> _modifyTriggerDatas = new List<ModifyTriggerData>();
+    public List<ModifyTriggerData> AllTriggerDatas
+    {
+        get { return _modifyTriggerDatas; }
+    }
+
+    private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
 
     /// <summary>
     /// 当前升级点数
@@ -291,6 +307,86 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         Restore();
     }
 
+    /// <summary>
+    /// Player Create Use
+    /// </summary>
+    /// <param name="ship"></param>
+    /// <param name="m_unitconfig"></param>
+    public virtual void InitializationEditorUnit(PlayerEditShip ship, BaseUnitConfig m_unitconfig)
+    {
+        _owner = ship;
+        _baseUnitConfig = m_unitconfig;
+    }
+
+    /// <summary>
+    /// Update Only Player Units
+    /// </summary>
+    public void OnUpdateBattle()
+    {
+        if (state == DamagableState.Normal)
+        {
+            ///UpdateTrigger
+            for (int i = 0; i < _modifyTriggerDatas.Count; i++)
+            {
+                _modifyTriggerDatas[i].OnUpdateBattle();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 处理OnAdd 属性 & 机制
+    /// </summary>
+    public void OnAdded()
+    {
+        var propertyModify = _baseUnitConfig.PropertyModify;
+        if (propertyModify != null && propertyModify.Length > 0)
+        {
+            for (int i = 0; i < propertyModify.Length; i++)
+            {
+                var modify = propertyModify[i];
+                if (!modify.BySpecialValue)
+                {
+                    RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PropertyModifyType.Modify, UID, modify.Value);
+                }
+                else
+                {
+                    PropertyModifySpecialData specialData = new PropertyModifySpecialData(modify, UID);
+                    _modifySpecialDatas.Add(specialData);
+                }
+            }
+        }
+        ///Handle SpecialDatas
+        for (int i = 0; i < _modifySpecialDatas.Count; i++)
+        {
+            _modifySpecialDatas[i].HandlePropetyModifyBySpecialValue();
+        }
+
+        var triggers = _baseUnitConfig.ModifyTriggers;
+        if (triggers != null && triggers.Length > 0)
+        {
+            for (int i = 0; i < triggers.Length; i++)
+            {
+                var triggerData = ModifyTriggerData.CreateTrigger(triggers[i], UID);
+                if (triggerData != null)
+                {
+                    var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
+                    triggerData.UID = uid;
+                    triggerData.OnTriggerAdd();
+                    _modifyTriggerDatas.Add(triggerData);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 处理OnRemove 属性 & 机制
+    /// </summary>
+    public void OnRemove()
+    {
+        _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
+        _modifySpecialDatas.ForEach(x => x.OnRemove());
+    }
+
     public void OutLineHighlight(bool highlight)
     {
         if (_spriteMat == null)
@@ -313,8 +409,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     {
         if (HpComponent == null)
             return false;
-        //已经死亡的不会收到更多伤害
-        if(state == DamagableState.Destroyed)
+        //已经死亡或者瘫痪的不会收到更多伤害
+        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis)
         {
             return false;
         }

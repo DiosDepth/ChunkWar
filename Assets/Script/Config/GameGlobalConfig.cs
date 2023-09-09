@@ -24,6 +24,12 @@ public static class GameGlobalConfig
     /// </summary>
     public const int UnitMapSize = (UnitMaxSize - 1) / 2;
 
+    public const uint PropertyModifyUID_ShipClass = 1;
+    
+    /// <summary>
+    /// 舰船速度最大比例
+    /// </summary>
+    public const float ShipSpeedModify_Protected_MaxSpeed = 10;
 
     public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;

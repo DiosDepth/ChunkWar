@@ -15,6 +15,8 @@ public class DropInfo
 
 public class BaseShipConfig : BaseConfig
 {
+    public ShipClassType ShipClass;
+
     public List<DropInfo> DropList;
 
     /// <summary>

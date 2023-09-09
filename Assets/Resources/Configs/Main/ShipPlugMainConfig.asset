@@ -20,551 +20,902 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  PlugConfigs:
-  - ID: 1
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: 
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 500
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 15
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 4
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 5
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 15
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 9
-      Value: 15
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 2
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: 
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 500
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 4
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 5
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 9
-      Value: 5
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 3
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: 
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 500
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 4
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 5
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 9
-      Value: 15
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 4
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: 
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 500
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 4
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 5
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 9
-      Value: 5
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 5
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: 
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 500
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 4
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 5
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 9
-      Value: 5
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 6
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: 
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 500
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 4
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 5
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 9
-      Value: 5
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 7
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: 
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 500
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 4
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 5
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 0
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 9
-      Value: 5
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1001
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: 895bf709adba5a948aa8b04a6662b2be, type: 3}
-      Name: ShipPlug_Name_1001
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 2
-      Value: -5
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1002
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: bc11bc70e0830cd4e8b4c75d43883093, type: 3}
-      Name: ShipPlug_Name_1002
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 2
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1003
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: d85722290555b15469748e3487107641, type: 3}
-      Name: ShipPlug_Name_1003
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 6
-      Value: 1
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 7
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1004
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
-      Name: ShipPlug_Name_1004
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 7
-      Value: -8
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1005
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: 33cfd0cda32286c4aa31bc2f3525a095, type: 3}
-      Name: ShipPlug_Name_1005
-      Desc: ShipPlug_Desc_1005
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 5
-      Value: 20
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 8
-      Value: 4
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1006
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: d08eb80599c10094ea51f7ffb717fad9, type: 3}
-      Name: ShipPlug_Name_1006
-      Desc: ShipPlug_Desc_1006
-      Rarity: 2
-    PropertyModify:
-    - ModifyKey: 5
-      Value: 50
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 3
-      Value: 2
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 2
-      Value: 3
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1007
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: 14a76ec0b97236147aa0e7afdc58e48b, type: 3}
-      Name: ShipPlug_Name_1007
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 1
-      Value: 50
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1008
-    GeneralConfig:
-      IconSprite: {fileID: 21300000, guid: 71264b5575a033d42ab94ce01a1b3d93, type: 3}
-      Name: ShipPlug_Name_1008
-      Desc: 
-      Rarity: 1
-    PropertyModify:
-    - ModifyKey: 21
-      Value: 75
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1009
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: ShipPlug_Name_1009
-      Desc: 
-      Rarity: 1
-    PropertyModify:
-    - ModifyKey: 32
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    - ModifyKey: 33
-      Value: -10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1010
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: ShipPlug_Name_1010
-      Desc: 
-      Rarity: 0
-    PropertyModify:
-    - ModifyKey: 29
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 0
-    PropertyPercentModify: []
-  - ID: 1011
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: ShipPlug_Name_1011
-      Desc: ShipPlug_Desc_1011
-      Rarity: 3
-    PropertyModify:
-    - ModifyKey: 2
-      Value: 0
-      BySpecialValue: 1
-      SpecialType: 0
-      SpecialKeyParam: LoadPercent
-    PropertyPercentModify: []
-  - ID: 1012
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: ShipPlug_Name_1012
-      Desc: 
-      Rarity: 2
-    PropertyModify:
-    - ModifyKey: 28
-      Value: -30
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    PropertyPercentModify: []
-  - ID: 1013
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: ShipPlug_Name_1013
-      Desc: 
-      Rarity: 1
-    PropertyModify:
-    - ModifyKey: 35
-      Value: 1
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    - ModifyKey: 21
-      Value: 30
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    - ModifyKey: 37
-      Value: 5
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    PropertyPercentModify: []
-  - ID: 1014
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: ShipPlug_Name_1014
-      Desc: 
-      Rarity: 2
-    PropertyModify:
-    - ModifyKey: 35
-      Value: 3
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    - ModifyKey: 37
-      Value: 10
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    PropertyPercentModify: []
-  - ID: 1015
-    GeneralConfig:
-      IconSprite: {fileID: 0}
-      Name: ShipPlug_Name_1015
-      Desc: 
-      Rarity: 1
-    PropertyModify:
-    - ModifyKey: 21
-      Value: 150
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    - ModifyKey: 35
-      Value: -2
-      BySpecialValue: 0
-      SpecialType: 0
-      SpecialKeyParam: 
-    PropertyPercentModify: []
+    SerializationNodes:
+    - Name: PlugConfigs
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[ShipPlugItemConfig, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 8
+    - Name: 
+      Entry: 7
+      Data: 1|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 2|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 6
+      Data: 
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 3|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 4|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 5|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 38
+    - Name: Value
+      Entry: 4
+      Data: 20
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 6|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 7|MTC_PropertyTransfer, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 3
+    - Name: TriggerCount
+      Entry: 3
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 8|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: BaseProperty
+      Entry: 3
+      Data: 39
+    - Name: BaseValuePer
+      Entry: 4
+      Data: 2
+    - Name: TargetProperty
+      Entry: 3
+      Data: 8
+    - Name: TargetValuePer
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|MTC_OnAdd, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 7
+    - Name: TriggerCount
+      Entry: 3
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 10|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 11|MTEC_SetPropertyMaxValue, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 1
+    - Name: ModifyKey
+      Entry: 3
+      Data: 39
+    - Name: Value
+      Entry: 4
+      Data: 90
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 12|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1001
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 13|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1001
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 14|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 15|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 8
+    - Name: Value
+      Entry: 4
+      Data: 20
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: -4
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 17|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 18|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 19|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1002
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 20|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1002
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 21|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 22|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 23|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 24|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 25|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1003
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 26|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1003
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 27|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 28|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 6
+    - Name: Value
+      Entry: 4
+      Data: 1
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 29|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 7
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 30|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 31|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 32|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1004
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 33|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1004
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 34|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 35|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 7
+    - Name: Value
+      Entry: 4
+      Data: -8
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 36|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 27
+    - Name: Value
+      Entry: 4
+      Data: 5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 37|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 38|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 39|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1005
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 40|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1005
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 41|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 42|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 5
+    - Name: Value
+      Entry: 4
+      Data: 20
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 43|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 8
+    - Name: Value
+      Entry: 4
+      Data: 3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 44|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 45|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 46|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1006
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 47|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1006
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 48|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 49|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 5
+    - Name: Value
+      Entry: 4
+      Data: 50
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 50|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 3
+    - Name: Value
+      Entry: 4
+      Data: 2
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 51|PropertyMidifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 52|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 53|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 54|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 0
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 55|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 6
+      Data: 
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 56|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 57|PropertyMidifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 58|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 59|MTC_Timer, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 6
+    - Name: TriggerCount
+      Entry: 3
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 60|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: TimerTriggerType
+      Entry: 3
+      Data: 0
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: TimeParam
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

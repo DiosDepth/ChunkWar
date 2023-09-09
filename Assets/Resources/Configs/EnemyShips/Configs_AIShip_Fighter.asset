@@ -1442,6 +1442,7 @@ MonoBehaviour:
   Prefab: {fileID: 3431155976711396027, guid: 8e0220b0ce47c664b941eda24d8cc5fb, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
+  ShipClass: 0
   DropList:
   - pickuptype: 1
     count: 16
@@ -1449,6 +1450,8 @@ MonoBehaviour:
   - pickuptype: 3
     count: 1
     dropRate: 100
+  ShowHPBillboard: 0
+  BillboardType: 0
   CoreHP: 50
   SpeedBase: 10
   HardLevelCfg:

@@ -38,6 +38,22 @@ public class PropertyModifySpecialData
         }
     }
 
+    public void OnRemove()
+    {
+        var mgr = RogueManager.Instance;
+        if (Config.SpecialType == ModifySpecialType.Less100OneByOne)
+        {
+            ///不足100%的部分等比转换
+            switch (Config.SpecialKeyParam)
+            {
+                case "LoadPercent":
+                    mgr.OnWreckageLoadPercentChange -= OnWreckageLoadPercentChange_Less100;
+                    mgr.MainPropertyData.RemovePropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID);
+                    break;
+            }
+        }
+    }
+
     private void OnWreckageLoadPercentChange_Less100(float percent)
     {
         if(percent >= 100)

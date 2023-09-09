@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
 
 public class ShipController : BaseController, IBoid
 {
@@ -14,44 +15,55 @@ public class ShipController : BaseController, IBoid
     protected Vector3 _movementInput;
     protected Vector2 _lastmovementInput;
     
+    [ShowInInspector]
+    private float maxSpeed = 10;
+    [ShowInInspector]
+    private float acceleration = 10;
+    [ShowInInspector]
+    private float maxRotateSpeed = 15;
+    private float boidRadius = 10f;
 
-    public float maxSpeed = 10;
-    public float acceleration = 10;
-    public float maxRotateSpeed = 15;
-    public float boidRadius = 10f;
+     [ShowInInspector]
+    private float rotationAcceleration = 0.25f;
+    private float rotationSpeedDamping = 0.25f;
 
-
-
+    /// <summary>
+    /// 舰船等级速度修正
+    /// </summary>
+    private float shipClass_SpeedRatio = 1f;
+    /// <summary>
+    /// 是否正在移动
+    /// </summary>
+    private bool _isShipMoving = false;
 
     public Vector3 WorldPointInput { get { return CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_pointInput.x, _pointInput.y, 0)); } }
     public  Vector3 WorldDirection { get { return (WorldPointInput - transform.position).normalized; } }
     public Vector2 PointInput { get { return _pointInput; } }
     protected Vector2 _pointInput;
 
-    public float rotationAcceleration = 0.25f;
-    public float rotationSpeedDamping = 0.25f;
-
-
-
-
     public float _refrotationspeed;
     public float _crossZ;
 
     protected Vector3 velocity;
     protected Vector3 lastpos;
+
+    protected ShipControlConfig _controlConfig;
+    private LevelManager _levelMgr;
+
     protected override void Start()
     {
         //InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
         base.Start();
-
     }
     public override void Initialization()
     {
         base.Initialization();
-
-        if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
+        _levelMgr = LevelManager.Instance;
+        if (!_levelMgr.IsBattleLevel()) { return; }
 
         controlledTarget = GetComponent<PlayerShip>();
+        InitShipControlData();
+        BindPropertyChangeAction();
         InputDispatcher.Instance.Action_GamePlay_Move += HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point += HandlePointInput;
         InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
@@ -62,7 +74,7 @@ public class ShipController : BaseController, IBoid
     protected override void Update()
     {
         base.Update();
-        if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
+        if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
         HandleRotation();
         HandleMainWeaponRotaion();
@@ -71,8 +83,7 @@ public class ShipController : BaseController, IBoid
 
     protected override void FixedUpdate()
     {
-
-        if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
+        if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
         base.FixedUpdate();
         HandleMovement();
@@ -82,6 +93,7 @@ public class ShipController : BaseController, IBoid
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        UnBindPropertyChangeAction();
         InputDispatcher.Instance.Action_GamePlay_Move -= HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point -= HandlePointInput;
         InputDispatcher.Instance.Action_GamePlay_Attack -= HandleAttackInput;
@@ -171,11 +183,20 @@ public class ShipController : BaseController, IBoid
         {
             controlledTarget.movementState.ChangeState(ShipMovementState.Idle);
             _deltaMovement = Vector2.zero;
+            if (_isShipMoving)
+            {
+                ShipStateEvent.Trigger(controlledTarget, ShipMovementState.Idle, ShipConditionState.Normal, true, true);
+                _isShipMoving = false;
+            }
         }
         else
         {
             controlledTarget.movementState.ChangeState(ShipMovementState.Move);
-            
+            if (!_isShipMoving)
+            {
+                ShipStateEvent.Trigger(controlledTarget, ShipMovementState.Move, ShipConditionState.Normal, true, true);
+                _isShipMoving = true;
+            }
         }
 
 
@@ -283,6 +304,42 @@ public class ShipController : BaseController, IBoid
         lastpos = transform.position;
     }
 
+    #region Private
 
+    private void InitShipControlData()
+    {
+        _controlConfig = DataManager.Instance.gameMiscCfg.ShipControlCfg;
+        if(controlledTarget != null)
+        {
+            rotationAcceleration = _controlConfig.RotationAcceleration;
+            var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(controlledTarget.playerShipCfg.ShipClass);
+            if(classCfg != null)
+            {
+                shipClass_SpeedRatio = classCfg.BaseSpeedRatio;
+            }
+            CalculateShipMoveSpeed();
+        }
+    }
+
+    private void BindPropertyChangeAction()
+    {
+        RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShipSpeed, CalculateShipMoveSpeed);
+    }
+
+    private void UnBindPropertyChangeAction()
+    {
+        RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.ShipSpeed, CalculateShipMoveSpeed);
+    }
+
+    private void CalculateShipMoveSpeed()
+    {
+        var speedModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipSpeed);
+        speedModify = Mathf.Clamp(speedModify / 100f + 1, 0, GameGlobalConfig.ShipSpeedModify_Protected_MaxSpeed);
+        maxSpeed = (speedModify) * _controlConfig.MaxSpeed_Base * shipClass_SpeedRatio;
+        maxRotateSpeed = (speedModify) * _controlConfig.MaxRotateSpeed_Base * shipClass_SpeedRatio;
+        acceleration = (speedModify) * _controlConfig.Acceleration_Base * shipClass_SpeedRatio;
+    }
+
+    #endregion
 }
-    
+

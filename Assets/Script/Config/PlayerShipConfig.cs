@@ -7,10 +7,6 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "Configs_PlayerShip_", menuName = "Configs/Unit/PlayerShipConfig")]
 public class PlayerShipConfig : BaseShipConfig
 {
-    [LabelText("½¢´¬ÀàÐÍ")]
-    [LabelWidth(80)]
-    [HorizontalGroup("B", 300)]
-    public ShipType ShipType;
 
     [LabelText("Ö÷ÎäÆ÷ID")]
     [LabelWidth(80)]
@@ -21,6 +17,11 @@ public class PlayerShipConfig : BaseShipConfig
     [LabelWidth(80)]
     [HorizontalGroup("B", 200)]
     public int CorePlugID;
+
+    [LabelText("EditorPrefab")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 300)]
+    public GameObject EditorPrefab;
 
     [System.Obsolete]
     protected override void OnEnable()

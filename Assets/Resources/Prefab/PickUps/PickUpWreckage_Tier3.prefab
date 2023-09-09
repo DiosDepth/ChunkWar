@@ -50,12 +50,14 @@ MonoBehaviour:
   trigger: {fileID: 8822171429785856819}
   itemType: 3
   disableOnPick: 1
+  CanAutoPickUp: 1
   pickedItem:
     RefUID: 0
     iscountless: 0
     count: 0
     itemconfig: {fileID: 0}
   DropRarity: 2
+  EXPAdd: 0
 --- !u!1 &1965891023306217747
 GameObject:
   m_ObjectHideFlags: 0

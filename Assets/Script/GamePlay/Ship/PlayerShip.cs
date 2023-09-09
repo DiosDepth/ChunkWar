@@ -2,31 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-
-
-public enum ShipMainProperty
-{
-    Control,
-    DamagePercnet,
-    Critial,
-    Luck,
-    Range,
-}
-
-public enum ShipType
-{
-    Base,
-    Lancer,
-    Phoenix,
-    Guardian,
-    Ranger,
-    Zealot,
-    Immortal,
-    Archon,
-}
-
-
 public enum InventoryEventType
 {
     Checkin,
@@ -57,17 +32,19 @@ public class PlayerShip : BaseShip
 
     public GameObject container;
     public SpriteRenderer sprite;
-    public Transform shipMapCenter;
+    
     public ShipWeapon mainWeapon;
 
     public CircleCollider2D pickupCollider;
 
-    private ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
-    private List<UnitInfo> UnitInfoList = new List<UnitInfo>();
+    protected ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
+    protected List<UnitInfo> UnitInfoList = new List<UnitInfo>();
+    
 
-    private Dictionary<ShipMainProperty, ChangeValue<float>> _mainPropertyDic;
     public PlayerShipConfig playerShipCfg;
 
+    [HideInInspector]
+    public Transform shipMapCenter;
     /// <summary>
     /// 当前总能源
     /// </summary>
@@ -86,19 +63,10 @@ public class PlayerShip : BaseShip
         protected set;
     }
 
-    /// <summary>
-    /// 是否编辑模式
-    /// </summary>
-    public bool IsEditorShip
-    {
-        get;
-        private set;
-    }
-
     protected override void Awake()
     {
         base.Awake();
-
+        shipMapCenter = transform.Find("ShipMapCenter");
     }
 
     public void LoadRuntimeData(ShipMapData data)
@@ -153,16 +121,16 @@ public class PlayerShip : BaseShip
 
     public override void Initialization()
     {
-        base.Initialization();
         var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
         playerShipCfg = shipCfg;
         baseShipCfg = shipCfg;
+        ///Init ShipClass
+        InitShipClass();
+        base.Initialization();
     }
 
-    public void CreateShip(bool editorShip = false)
+    public override void CreateShip()
     {
-        IsEditorShip = editorShip;
-        //base.CreateShip();
         InitProperty();
 
         //初始化
@@ -257,19 +225,6 @@ public class PlayerShip : BaseShip
         }
     }
 
-    // Start is called before the first frame update
-    protected override void Start()
-    {
-       
-   
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-
-    }
-
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -280,19 +235,9 @@ public class PlayerShip : BaseShip
   
     }
 
-
-
-    public override void InitProperty()
-    {
-        _mainPropertyDic = new Dictionary<ShipMainProperty, ChangeValue<float>>();
-
-    }
-
     public override void Death()
     {
         base.Death();
-
-
 
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
@@ -438,12 +383,6 @@ public class PlayerShip : BaseShip
         tempunit.Initialization(this, m_unitconfig as BaseUnitConfig);
         RogueManager.Instance.AddNewShipUnit(tempunit);
         obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
-        if (isEditorMode && tempunit is Weapon)
-        {
-            ///商店中建造模式，不更新武器
-            var weapon = tempunit as Weapon;
-            weapon.SetUnitProcess(false);
-        }
         //设置对应的 ChunMap信息，比如是否为Piovt， 是否被占用等。
         if (m_unitmap.Length > 0)
         {
@@ -516,7 +455,6 @@ public class PlayerShip : BaseShip
                 obj.transform.localPosition = new Vector3(tempunit.pivot.x + shipMapCenter.localPosition.x, tempunit.pivot.y + shipMapCenter.localPosition.y, 0);
                 obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
 
-                
                 _unitList.Add(tempunit);
             }
         }
@@ -534,7 +472,7 @@ public class PlayerShip : BaseShip
             _chunkMap[temparrycoord.x, temparrycoord.y].unit = null;
             _chunkMap[temparrycoord.x, temparrycoord.y].isBuildingPiovt = false;
         }
-
+        RogueManager.Instance.RemoveShipUnit(m_unit);
         UnitList.Remove(m_unit);
         RefreshShipEnergy();
         GameObject.Destroy(m_unit.gameObject);
@@ -653,6 +591,20 @@ public class PlayerShip : BaseShip
         var rangeAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
         var newSuckerRange = Mathf.Clamp(defaultSuckerRange * (1 + rangeAdd / 100f), minRange, float.MaxValue);
         pickupCollider.radius = newSuckerRange;
+    }
+
+    /// <summary>
+    /// 初始化舰船等级配置
+    /// </summary>
+    private void InitShipClass()
+    {
+        var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(playerShipCfg.ShipClass);
+        if(classCfg != null)
+        {
+            var mainProperty = RogueManager.Instance.MainPropertyData;
+            mainProperty.SetPropertyModifyValue(PropertyModifyKey.ShipParry, PropertyModifyType.Modify, GameGlobalConfig.PropertyModifyUID_ShipClass, classCfg.BaseParry);
+            mainProperty.SetPropertyMaxValue(PropertyModifyKey.ShipParry, classCfg.MaxParry);
+        }
     }
 
 }

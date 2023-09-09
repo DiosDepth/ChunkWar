@@ -399,6 +399,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 1|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 10007
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: db3ef0ed72a438c4abd5f59d91723d66, type: 3}
@@ -413,9 +425,11 @@ MonoBehaviour:
   UpgradeGroupID: 10001
   EditBrushSprite: {fileID: 21300000, guid: 4496b99d0334a184c84911a7e45d5071, type: 3}
   EditorBrushDefaultRotation: 180
+  ItemTags: 4
   BaseHP: 100
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
+  PropertyModify: []
   DamageBase: 50
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
@@ -432,3 +446,4 @@ MonoBehaviour:
   BaseTransfixion: 0
   TransfixionReduce: 0
   DamageModifyFrom: []
+  FireAudioClip: 

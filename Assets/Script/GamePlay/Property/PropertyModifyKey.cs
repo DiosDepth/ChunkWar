@@ -63,9 +63,9 @@ public enum PropertyModifyKey
     /// </summary>
     ShieldDamageAdd,
     /// <summary>
-    /// 单位能量消耗百分比
+    /// 武器能量消耗百分比
     /// </summary>
-    UnitEnergyCostPercent,
+    WeaponEnergyCostPercent,
     UnitEnergyGenerate,
     ShieldHP,
     /// <summary>
@@ -129,4 +129,16 @@ public enum PropertyModifyKey
     /// 护盾能源消耗
     /// </summary>
     ShieldEnergyCostPercent,
+    /// <summary>
+    /// 舰船速度
+    /// </summary>
+    ShipSpeed,
+    /// <summary>
+    /// 舰船闪避
+    /// </summary>
+    ShipParry,
+    /// <summary>
+    /// 船体再生
+    /// </summary>
+    UnitHPRecoverValue,
 }

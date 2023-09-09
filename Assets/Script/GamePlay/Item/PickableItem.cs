@@ -49,13 +49,14 @@ public class PickableItem : MonoBehaviour, IPoolable
     public Collider2D trigger;
     public PickableItemType itemType;
     public bool disableOnPick = true;
+    public bool CanAutoPickUp = false;
 
 
     public InventoryItem pickedItem;
 
     protected virtual void Start()
     {
-        
+
     }
 
     public virtual void Initialization()

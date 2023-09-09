@@ -16,22 +16,25 @@ public struct ShipStateEvent
     public ShipMovementState movementState;
     public ShipConditionState conditionState;
     public bool IsPlayer;
+    public bool MovementChange;
 
-    public ShipStateEvent(BaseShip ship, ShipMovementState m_movmentstate , ShipConditionState m_conditionstate, bool isPlayer)
+    public ShipStateEvent(BaseShip ship, ShipMovementState m_movmentstate , ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
     {
         Ship = ship;
         movementState = m_movmentstate;
         conditionState = m_conditionstate;
         IsPlayer = isPlayer;
+        MovementChange = movementChange;
     }
 
     public static ShipStateEvent e;
-    public static void Trigger(BaseShip ship, ShipMovementState m_movmentstate, ShipConditionState m_conditionstate, bool isPlayer)
+    public static void Trigger(BaseShip ship, ShipMovementState m_movmentstate, ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
     {
         e.Ship = ship;
         e.movementState = m_movmentstate;
         e.conditionState = m_conditionstate;
         e.IsPlayer = isPlayer;
+        e.MovementChange = movementChange;
         EventCenter.Instance.TriggerEvent<ShipStateEvent>(e);
     }
 }
@@ -42,7 +45,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     public Core core;
     public BaseController controller;
-    public GameObject buildingsParent;
+    protected GameObject buildingsParent;
     public string deathVFXName = "ExplodeVFX";
     
 
@@ -50,8 +53,7 @@ public class BaseShip : MonoBehaviour,IDropable
     public StateMachine<ShipConditionState> conditionState;
 
     public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
-    [ShowInInspector]
-    [ListDrawerSettings(DraggableItems = true)]
+
     protected Chunk[,] _chunkMap;
 
 
@@ -62,14 +64,8 @@ public class BaseShip : MonoBehaviour,IDropable
 
     protected BaseShipConfig baseShipCfg;
 
-
     public virtual void Initialization()
     {
-        buildingsParent = this.transform.Find("Buildings").gameObject;
-        if(buildingsParent == null)
-        {
-            Debug.LogError(this.gameObject.name + " can't find building parent");
-        }
         controller = this.GetComponent<BaseController>();
         if(controller == null)
         {
@@ -84,6 +80,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     protected virtual void Awake()
     {
+        buildingsParent = transform.Find("Buildings").gameObject;
         if (movementState == null)
         {
             movementState = new StateMachine<ShipMovementState>(this.gameObject, false, false);
@@ -136,6 +133,21 @@ public class BaseShip : MonoBehaviour,IDropable
     public virtual void InitProperty()
     {
 
+    }
+
+    /// <summary>
+    /// »ñÈ¡ºËÐÄUnit
+    /// </summary>
+    /// <returns></returns>
+    public Unit GetCoreUnit()
+    {
+        for(int i = 0; i < _unitList.Count; i++)
+        {
+            var unit = _unitList[i];
+            if (unit.IsCoreUnit)
+                return unit;
+        }
+        return null;
     }
 
     public virtual List<PickableItem> Drop()

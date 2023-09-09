@@ -50,6 +50,7 @@ MonoBehaviour:
   trigger: {fileID: 8822171429785856819}
   itemType: 3
   disableOnPick: 1
+  CanAutoPickUp: 1
   pickedItem:
     RefUID: 0
     iscountless: 0

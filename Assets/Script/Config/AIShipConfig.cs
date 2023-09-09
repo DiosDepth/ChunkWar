@@ -4,9 +4,27 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+public enum EnemyHPBillBoardType
+{
+    Boss_UI,
+    Elite_Scene,
+}
+
 [CreateAssetMenu(fileName = "Configs_AIShip_", menuName = "Configs/Unit/AIShipConfig")]
 public class AIShipConfig : BaseShipConfig
 {
+
+    [HideLabel]
+    [TitleGroup(" Ù–‘≈‰÷√", Alignment = TitleAlignments.Centered)]
+    [HorizontalGroup(" Ù–‘≈‰÷√/AA", 150)]
+    [BoxGroup(" Ù–‘≈‰÷√/AA/HP—™Ãıœ‘ æ")]
+    public bool ShowHPBillboard = false;
+
+    [HideLabel]
+    [TitleGroup(" Ù–‘≈‰÷√", Alignment = TitleAlignments.Centered)]
+    [HorizontalGroup(" Ù–‘≈‰÷√/AA", 150)]
+    [BoxGroup(" Ù–‘≈‰÷√/AA/—™Ãı¿‡–Õ")]
+    public EnemyHPBillBoardType BillboardType;
 
     [HideLabel]
     [TitleGroup(" Ù–‘≈‰÷√", Alignment =  TitleAlignments.Centered)]

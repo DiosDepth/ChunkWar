@@ -74,4 +74,13 @@ public class MainCollectionEditor : OdinEditorWindow
         var win = GetWindow<MainCollectionEditor>();
         win.Close();
     }
+
+
+    [Button("’Û”™≈‰÷√", ButtonSizes.Large)]
+    public static void ShowCampEditor()
+    {
+        CampEditor.ShowWindow();
+        var win = GetWindow<MainCollectionEditor>();
+        win.Close();
+    }
 }
