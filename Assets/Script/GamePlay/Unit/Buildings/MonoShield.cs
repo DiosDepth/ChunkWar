@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-public class MonoShield : MonoBehaviour
+public class MonoShield : MonoBehaviour, IDamageble
 {
     public Material Mat;
 
@@ -82,5 +82,23 @@ public class MonoShield : MonoBehaviour
         mesh.uv = uvs;
         m_mesh.mesh = mesh;
         m_render.material = Mat;
+    }
+
+    public bool TakeDamage(ref DamageResultInfo info)
+    {
+        if (ownerShip is PlayerShip)
+        {
+            ///CalculatePlayerDamage
+            GameHelper.ResolvePlayerShieldDamage(ref info);
+        }
+
+        var damage = Mathf.RoundToInt(info.Damage * (1 + info.ShieldDamagePercent / 100f));
+
+        return shieldCmpt.TakeDamage(-damage);
+    }
+
+    public void Death()
+    {
+
     }
 }

@@ -45,7 +45,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     public Core core;
     public BaseController controller;
-    public GameObject buildingsParent;
+    protected GameObject buildingsParent;
     public string deathVFXName = "ExplodeVFX";
     
 
@@ -64,14 +64,8 @@ public class BaseShip : MonoBehaviour,IDropable
 
     protected BaseShipConfig baseShipCfg;
 
-
     public virtual void Initialization()
     {
-        buildingsParent = this.transform.Find("Buildings").gameObject;
-        if(buildingsParent == null)
-        {
-            Debug.LogError(this.gameObject.name + " can't find building parent");
-        }
         controller = this.GetComponent<BaseController>();
         if(controller == null)
         {
@@ -86,6 +80,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     protected virtual void Awake()
     {
+        buildingsParent = transform.Find("Buildings").gameObject;
         if (movementState == null)
         {
             movementState = new StateMachine<ShipMovementState>(this.gameObject, false, false);

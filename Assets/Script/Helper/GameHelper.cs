@@ -201,7 +201,7 @@ public static class GameHelper
 
     public static int GetUnitEnergyCost(BaseUnitConfig cfg)
     {
-        var rate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+        var rate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
         rate = Mathf.Clamp(rate, -100, float.MaxValue);
         return Mathf.RoundToInt(cfg.BaseEnergyCost * (100 + rate) / 100f);
     }
@@ -411,10 +411,27 @@ public static class GameHelper
         }
     }
 
+    /// <summary>
+    /// 玩家受到伤害
+    /// </summary>
+    /// <param name="info"></param>
     public static void ResolvePlayerUnitDamage(ref DamageResultInfo info)
     {
         var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
         var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
+        armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
+        float DamageTake = 1 / (float)(1 + armor / armorParam);
+        info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
+    }
+
+    /// <summary>
+    /// 玩家受到护盾伤害
+    /// </summary>
+    /// <param name="info"></param>
+    public static void ResolvePlayerShieldDamage(ref DamageResultInfo info)
+    {
+        var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldArmor);
+        var armorParam = DataManager.Instance.battleCfg.PlayerShip_ShieldDamageReduce_Param;
         armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
         float DamageTake = 1 / (float)(1 + armor / armorParam);
         info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);

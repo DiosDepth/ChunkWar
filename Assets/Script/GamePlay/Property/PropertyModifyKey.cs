@@ -63,9 +63,9 @@ public enum PropertyModifyKey
     /// </summary>
     ShieldDamageAdd,
     /// <summary>
-    /// 单位能量消耗百分比
+    /// 武器能量消耗百分比
     /// </summary>
-    UnitEnergyCostPercent,
+    WeaponEnergyCostPercent,
     UnitEnergyGenerate,
     ShieldHP,
     /// <summary>

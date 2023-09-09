@@ -148,7 +148,8 @@ public class LevelTimerTrigger
 
     private int _secondTimer;
 
-    public Action<int> TriggerAction;
+    public Action<int> TriggerActionInt;
+    public Action TriggerAction;
 
     private int paramInt;
 
@@ -180,6 +181,11 @@ public class LevelTimerTrigger
     public void BindChangeAction(Action<int> action, int param = 0)
     {
         this.paramInt = param;
+        TriggerActionInt = action;
+    }
+
+    public void BindChangeAction(Action action)
+    {
         TriggerAction = action;
     }
 
@@ -199,7 +205,8 @@ public class LevelTimerTrigger
 
         if(_secondTimer >= _secondDelta)
         {
-            TriggerAction?.Invoke(paramInt);
+            TriggerActionInt?.Invoke(paramInt);
+            TriggerAction?.Invoke();
             _currentLoopCount++;
             _secondTimer = 0;
             if (!_isLoop && _currentLoopCount >= _totalloopCount)

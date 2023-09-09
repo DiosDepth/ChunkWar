@@ -48,6 +48,10 @@ public class WaveConfig
     [HorizontalGroup("AA", 200)]
     public ushort DurationTime;
 
+    [LabelText("商船刷新表")]
+    [LabelWidth(80)]
+    [HorizontalGroup("AA", 200)]
+    public ushort[] ShopRefreshTimeMap = new ushort[0];
 
     [LabelText("敌人波次配置")]
     [ListDrawerSettings(CustomAddFunction = "AddNewWaveSpawn")]

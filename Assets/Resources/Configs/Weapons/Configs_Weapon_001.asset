@@ -425,7 +425,7 @@ MonoBehaviour:
   UpgradeGroupID: 10000
   EditBrushSprite: {fileID: 21300000, guid: 70aa6820cf420da44b94fd82e6aab827, type: 3}
   EditorBrushDefaultRotation: 180
-  ItemTags: 0
+  ItemTags: 4
   BaseHP: 30
   BaseEnergyCost: 10
   BaseEnergyGenerate: 0

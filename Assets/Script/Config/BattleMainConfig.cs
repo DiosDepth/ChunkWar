@@ -65,6 +65,7 @@ public class BattleMainConfig : SerializedScriptableObject
     /// 装甲减伤计算参数
     /// </summary>
     public float PlayerShip_ArmorDamageReduce_Param = 25;
+    public float PlayerShip_ShieldDamageReduce_Param = 25;
 
     /// <summary>
     /// 护盾多久恢复一次

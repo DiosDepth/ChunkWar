@@ -19,9 +19,13 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private ShipPropertySliderCmpt _energyCmpt;
     private ShipPropertySliderCmpt _loadCmpt;
 
+    private ShipHUDMessagePanel _messagePanel;
+
     private List<WeaponRuntimeItemCmpt> _weaponItemCmpts = new List<WeaponRuntimeItemCmpt>();
 
     private static string WeaponRuntimeItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/WeaponRuntimeItem";
+    private const string Shop_Teleport_ShowText = "Shop_Teleport_ShowText";
+    private const string Shop_Teleport_WarningText = "Shop_Teleport_WarningText";
 
     protected override void Awake()
     {
@@ -37,6 +41,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         _energyCmpt = transform.Find("OtherInfo/EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _loadCmpt = transform.Find("OtherInfo/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _expCmpt = transform.Find("InfoContent/ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _messagePanel = transform.Find("MessageContent").SafeGetComponent<ShipHUDMessagePanel>();
     }
 
     public override void Initialization()
@@ -102,6 +107,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
             case ShipPropertyEventType.ReloadCDEnd:
                 OnWeaponReloadCDEnd((uint)evt.param[0]);
                 break;
+
         }
     }
 
@@ -115,6 +121,16 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
 
             case RogueEventType.WreckageDropRefresh:
                 RefreshWreckageDrops();
+                break;
+
+            case RogueEventType.ShopTeleportSpawn:
+                var text1 = LocalizationManager.Instance.GetTextValue(Shop_Teleport_ShowText);
+                _messagePanel.ShowTopMessage(text1);
+                break;
+
+            case RogueEventType.ShopTeleportWarning:
+                var text2 = LocalizationManager.Instance.GetTextValue(Shop_Teleport_WarningText);
+                _messagePanel.ShowTopMessage(text2);
                 break;
         }
     }
@@ -222,4 +238,5 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         }
         return null;
     }
+
 }

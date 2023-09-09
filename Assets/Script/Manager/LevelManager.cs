@@ -98,9 +98,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<bool> OnPlayerShipMove;
     #endregion
 
+    private BattleMiscRefreshConfig _refreshMiscConfig;
 
-
-    public int levelWaveIndex = 0;
     public LevelManager()
     {
         Initialization();
@@ -127,6 +126,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public override void Initialization()
     {
         base.Initialization();
+        _refreshMiscConfig = DataManager.Instance.gameMiscCfg.RefreshConfig;
     }
 
     public virtual void LevelUpdate()
@@ -295,7 +295,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         if(currentLevel == null) { return; }
         isLevelUpdate = false;
         currentLevel.Unload();
-        levelWaveIndex = 0;
         AIManager.Instance.Unload();
 
 
@@ -386,6 +385,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     #region Battle Misc
 
     private static string Harbor_Teleport_Path = "Prefab/PickUps/HarborTeleportPickup";
+    private static string Shop_Teleport_Path = "Prefab/PickUps/ShopTeleportPickup";
 
     /// <summary>
     /// 是否战斗场景
@@ -401,14 +401,26 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /// </summary>
     public void CreateHarborPickUp()
     {
-        var miscConfig = DataManager.Instance.gameMiscCfg;
         var playerShipPosition = GameHelper.GetPlayerShipPosition();
-        var targetPos = MathExtensionTools.GetRadomPosFromOutRange(miscConfig.Harbor_Teleport_RandomRangeMin, miscConfig.Harbor_Teleport_RandomRangeMax, playerShipPosition);
+        var targetPos = MathExtensionTools.GetRadomPosFromOutRange(_refreshMiscConfig.Harbor_Teleport_RandomRangeMin, _refreshMiscConfig.Harbor_Teleport_RandomRangeMax, playerShipPosition);
 
         PoolManager.Instance.GetObjectSync(Harbor_Teleport_Path, true, (obj)=> 
         {
             obj.transform.position = targetPos;
         });
+    }
+
+    public void CreateShopPickUp()
+    {
+        var playerShipPosition = GameHelper.GetPlayerShipPosition();
+        var targetPos = MathExtensionTools.GetRadomPosFromOutRange(_refreshMiscConfig.Shop_Teleport_RandomRangeMin, _refreshMiscConfig.Shop_Teleport_RandomRangeMax, playerShipPosition);
+        Debug.Log("Create Shop Teleport");
+        PoolManager.Instance.GetObjectSync(Shop_Teleport_Path, true, (obj) =>
+        {
+            obj.transform.position = targetPos;
+            obj.transform.SafeGetComponent<ShopTeleport>().Initialization();
+        });
+        RogueEvent.Trigger(RogueEventType.ShopTeleportSpawn);
     }
 
     #endregion

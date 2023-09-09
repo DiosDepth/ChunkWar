@@ -6,8 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameMiscConfig", menuName = "Configs/Main")]
 public class GameMiscConfig : SerializedScriptableObject
 {
-    public float Harbor_Teleport_RandomRangeMin;
-    public float Harbor_Teleport_RandomRangeMax;
+
+    [HideReferenceObjectPicker]
+    public BattleMiscRefreshConfig RefreshConfig = new BattleMiscRefreshConfig();
 
     [HideReferenceObjectPicker]
     public ShipClassConfig[] ShipClasses = new ShipClassConfig[0];
@@ -74,6 +75,16 @@ public enum ShipClassType
     /// у╫ап╫╒
     /// </summary>
     Battleship
+}
+
+public class BattleMiscRefreshConfig
+{
+    public float Harbor_Teleport_RandomRangeMin;
+    public float Harbor_Teleport_RandomRangeMax;
+    public float Shop_Teleport_RandomRangeMin;
+    public float Shop_Teleport_RandomRangeMax;
+    public byte Shop_Teleport_StayTime;
+    public byte Shop_Teleport_WarningTime;
 }
 
 public class ShipClassConfig

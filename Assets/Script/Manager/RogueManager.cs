@@ -58,6 +58,8 @@ public enum RogueEventType
     WreckageAddToShip,
     RefreshWreckage,
     WasteCountChange,
+    ShopTeleportSpawn,
+    ShopTeleportWarning,
 }
 
 public enum ShipPropertyEventType
@@ -158,7 +160,7 @@ public class RogueManager : Singleton<RogueManager>
     /// <summary>
     /// 商店进入总次数
     /// </summary>
-    private byte _shopEnterTotalCount = 0;
+    private byte _shopRefreshTotalCount = 0;
 
     /// <summary>
     /// 当前随机商店物品
@@ -329,7 +331,7 @@ public class RogueManager : Singleton<RogueManager>
     {
         _tempWaveTime = Timer.CurrentSecond;
         ///RefreshShop
-        GenerateShopGoods(3, _shopEnterTotalCount);
+        GenerateShopGoods(3, _shopRefreshTotalCount);
     }
 
     /// <summary>
@@ -604,7 +606,7 @@ public class RogueManager : Singleton<RogueManager>
         trigger.BindChangeAction(CalculateHardLevelIndex);
         Timer.AddTrigger(trigger);
         CalculateHardLevelIndex();
-        GenerateEnemyAIFactory();
+        AddWaveTrigger();
     }
 
 
@@ -644,6 +646,7 @@ public class RogueManager : Singleton<RogueManager>
     {
         _waveIndex++;
         _tempWaveTime = GetCurrentWaveTime();
+        AddWaveTrigger();
         OnWaveStateChange?.Invoke(true);
     }
 
@@ -651,6 +654,13 @@ public class RogueManager : Singleton<RogueManager>
     {
         var waveCount = CurrentHardLevel.WaveCount;
         return GetCurrentWaveIndex >= waveCount;
+    }
+
+    private void AddWaveTrigger()
+    {
+        Timer.RemoveAllTrigger();
+        GenerateEnemyAIFactory();
+        GenerateShopCreateTimer();
     }
 
     /// <summary>
@@ -668,6 +678,25 @@ public class RogueManager : Singleton<RogueManager>
             var cfg = enemyCfg[i];
             var trigger = LevelTimerTrigger.CreateTriger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount);
             trigger.BindChangeAction(CreateFactory, cfg.ID);
+            Timer.AddTrigger(trigger);
+        }
+    }
+
+    private void GenerateShopCreateTimer()
+    {
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        var shopCfg = waveCfg.ShopRefreshTimeMap;
+        if (shopCfg == null || shopCfg.Length <= 0)
+            return;
+
+        for (int i = 0; i < shopCfg.Length; i++)
+        {
+            var time = shopCfg[i];
+            var trigger = LevelTimerTrigger.CreateTriger(time, 0, 1);
+            trigger.BindChangeAction(CreateShopTeleport);
             Timer.AddTrigger(trigger);
         }
     }
@@ -698,6 +727,11 @@ public class RogueManager : Singleton<RogueManager>
         });
     }
 
+    private void CreateShopTeleport()
+    {
+        _shopRefreshTotalCount++;
+        LevelManager.Instance.CreateShopPickUp();
+    }
  
     #endregion
 
@@ -854,7 +888,7 @@ public class RogueManager : Singleton<RogueManager>
         AddCurrency(-CurrentRerollCost);
         ///RefreshShop
         var refreshCount = GetCurrentShopRefreshCount();
-        GenerateShopGoods(refreshCount, _shopEnterTotalCount);
+        GenerateShopGoods(refreshCount, _shopRefreshTotalCount);
         RogueEvent.Trigger(RogueEventType.ShopReroll);
         Debug.Log("刷新商店，刷新次数 = " + _currentRereollCount);
         return true;

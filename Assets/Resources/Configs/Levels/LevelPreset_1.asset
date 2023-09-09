@@ -36,9 +36,21 @@ MonoBehaviour:
     - Name: DurationTime
       Entry: 3
       Data: 10
+    - Name: ShopRefreshTimeMap
+      Entry: 7
+      Data: 2|System.UInt16[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SpawnConfig
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 3|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -54,19 +66,18 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|WaveConfig, Assembly-CSharp
+      Data: 4|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 2
     - Name: DurationTime
       Entry: 3
       Data: 45
-    - Name: SpawnConfig
+    - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
+      Data: 5|System.UInt16[], mscorlib
     - Name: 
-      Entry: 12
+      Entry: 14
       Data: 0
     - Name: 
       Entry: 13
@@ -74,18 +85,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 5|WaveConfig, Assembly-CSharp
-    - Name: WaveIndex
-      Entry: 3
-      Data: 3
-    - Name: DurationTime
-      Entry: 3
-      Data: 60
     - Name: SpawnConfig
       Entry: 7
       Data: 6|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
@@ -107,16 +106,52 @@ MonoBehaviour:
       Data: 7|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
+      Data: 3
+    - Name: DurationTime
+      Entry: 3
+      Data: 60
+    - Name: ShopRefreshTimeMap
+      Entry: 7
+      Data: 8|System.UInt16[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpawnConfig
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|WaveConfig, Assembly-CSharp
+    - Name: WaveIndex
+      Entry: 3
       Data: 4
     - Name: DurationTime
       Entry: 3
       Data: 90
-    - Name: SpawnConfig
+    - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
+      Data: 11|System.UInt16[], mscorlib
     - Name: 
-      Entry: 12
+      Entry: 14
       Data: 0
     - Name: 
       Entry: 13
@@ -124,43 +159,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|WaveConfig, Assembly-CSharp
-    - Name: WaveIndex
-      Entry: 3
-      Data: 5
-    - Name: DurationTime
-      Entry: 3
-      Data: 120
-    - Name: SpawnConfig
-      Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 11|WaveConfig, Assembly-CSharp
-    - Name: WaveIndex
-      Entry: 3
-      Data: 6
-    - Name: DurationTime
-      Entry: 3
-      Data: 150
     - Name: SpawnConfig
       Entry: 7
       Data: 12|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
@@ -182,13 +180,25 @@ MonoBehaviour:
       Data: 13|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
-      Data: 7
+      Data: 5
     - Name: DurationTime
       Entry: 3
-      Data: 180
+      Data: 120
+    - Name: ShopRefreshTimeMap
+      Entry: 7
+      Data: 14|System.UInt16[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SpawnConfig
       Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 15|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -204,19 +214,18 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 15|WaveConfig, Assembly-CSharp
+      Data: 16|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
-      Data: 8
+      Data: 6
     - Name: DurationTime
       Entry: 3
-      Data: 210
-    - Name: SpawnConfig
+      Data: 150
+    - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
+      Data: 17|System.UInt16[], mscorlib
     - Name: 
-      Entry: 12
+      Entry: 14
       Data: 0
     - Name: 
       Entry: 13
@@ -224,18 +233,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|WaveConfig, Assembly-CSharp
-    - Name: WaveIndex
-      Entry: 3
-      Data: 9
-    - Name: DurationTime
-      Entry: 3
-      Data: 240
     - Name: SpawnConfig
       Entry: 7
       Data: 18|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
@@ -257,13 +254,136 @@ MonoBehaviour:
       Data: 19|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
+      Data: 7
+    - Name: DurationTime
+      Entry: 3
+      Data: 180
+    - Name: ShopRefreshTimeMap
+      Entry: 7
+      Data: 20|System.UInt16[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpawnConfig
+      Entry: 7
+      Data: 21|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|WaveConfig, Assembly-CSharp
+    - Name: WaveIndex
+      Entry: 3
+      Data: 8
+    - Name: DurationTime
+      Entry: 3
+      Data: 210
+    - Name: ShopRefreshTimeMap
+      Entry: 7
+      Data: 23|System.UInt16[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpawnConfig
+      Entry: 7
+      Data: 24|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 25|WaveConfig, Assembly-CSharp
+    - Name: WaveIndex
+      Entry: 3
+      Data: 9
+    - Name: DurationTime
+      Entry: 3
+      Data: 240
+    - Name: ShopRefreshTimeMap
+      Entry: 7
+      Data: 26|System.UInt16[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpawnConfig
+      Entry: 7
+      Data: 27|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 28|WaveConfig, Assembly-CSharp
+    - Name: WaveIndex
+      Entry: 3
       Data: 10
     - Name: DurationTime
       Entry: 3
       Data: 240
+    - Name: ShopRefreshTimeMap
+      Entry: 7
+      Data: 29|System.UInt16[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SpawnConfig
       Entry: 7
-      Data: 20|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 30|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12

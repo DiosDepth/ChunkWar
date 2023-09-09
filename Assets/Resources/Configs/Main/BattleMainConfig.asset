@@ -120,7 +120,7 @@ MonoBehaviour:
       Data: 1
     - Name: LevelPresetID
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: ModifyDic
       Entry: 7
       Data: 5|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
@@ -664,6 +664,7 @@ MonoBehaviour:
   ShipMaxLevel: 50
   TransfixionReduce_Max: 0
   PlayerShip_ArmorDamageReduce_Param: 25
+  PlayerShip_ShieldDamageReduce_Param: 25
   ShieldRecoverCD: 0.5
   ShieldRatioMin: 1
   ShipBaseSuckerRange: 10

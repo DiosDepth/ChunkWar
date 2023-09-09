@@ -73,7 +73,8 @@ public class UnitBaseAttribute
 
             if(BaseEnergyCost != 0)
             {
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
             }
             
             if(BaseEnergyGenerate != 0)
@@ -97,8 +98,9 @@ public class UnitBaseAttribute
         if (isPlayerShip)
         {
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyCostPercent, CalculateEnergyCost);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
         }
         else
         {
@@ -114,7 +116,15 @@ public class UnitBaseAttribute
 
     private void CalculateEnergyCost()
     {
-        var rate = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+        float rate = 0;
+        if(_parentUnit._baseUnitConfig.HasUnitTag(ItemTag.Weapon))
+        {
+            rate = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
+        }
+        else if (_parentUnit._baseUnitConfig.HasUnitTag(ItemTag.Shield))
+        {
+            rate = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
+        }
         rate = Mathf.Clamp(rate, -100, float.MaxValue);
         EnergyCost = Mathf.RoundToInt(BaseEnergyCost * (100 + rate) / 100f);
 
@@ -295,6 +305,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
             IsRestoreable = false;
         }
         Restore();
+    }
+
+    public virtual void InitializationEditorUnit(PlayerEditShip ship, BaseUnitConfig m_unitconfig)
+    {
+        _owner = ship;
+        _baseUnitConfig = m_unitconfig;
     }
 
     public void OnUpdateTrigger()

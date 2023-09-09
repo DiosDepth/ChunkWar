@@ -17,7 +17,7 @@ public class ShipBuilder : MonoBehaviour
     public GameObject CorePrefab;
     public GameObject BasePrefab;
 
-    public PlayerShip editorShip;
+    public PlayerEditShip editorShip;
     public ShipBuilderBrush editorBrush;
     public Color brushValidColor;
     public Color brushInvalidColor;
@@ -103,16 +103,15 @@ public class ShipBuilder : MonoBehaviour
 
     public void LoadingShip(ShipMapData runtimedata)
     {
-
         if(editorShip == null)
         {
-
             var obj = new GameObject();
             obj.transform.position = Vector3.zero;
             obj.name = "ShipContainer";
 
-            var ship = GameObject.Instantiate(RogueManager.Instance.currentShipSelection.itemconfig.Prefab);
-            editorShip = ship.GetComponentInChildren<PlayerShip>();
+            var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
+            var ship = GameObject.Instantiate(shipCfg.EditorPrefab);
+            editorShip = ship.AddComponent<PlayerEditShip>();
             editorShip.container = obj;
             editorShip.gameObject.SetActive(true);
             editorShip.transform.position = Vector3.zero - editorShip.shipMapCenter.localPosition;
@@ -132,7 +131,8 @@ public class ShipBuilder : MonoBehaviour
         {
             editorShip.LoadRuntimeData(runtimedata);
         }
-        editorShip.CreateShip(true);
+        editorShip.Initialization();
+        editorShip.CreateShip();
         InitShipChunkGrids();
     }
 
@@ -361,7 +361,7 @@ public class ShipBuilder : MonoBehaviour
         if (!_isValidPos || currentInventoryItem == null)
             return;
 
-        var unit = editorShip.AddUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection, true);
+        var unit = editorShip.AddEditUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection, true);
         var chunks = unit.occupiedCoords;
         for (int i = 0; i < chunks.Count; i++) 
         {

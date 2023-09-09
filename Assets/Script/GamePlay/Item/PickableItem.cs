@@ -55,7 +55,7 @@ public class PickableItem : MonoBehaviour, IPoolable
 
     protected virtual void Start()
     {
-        
+
     }
 
     public virtual void Initialization()
