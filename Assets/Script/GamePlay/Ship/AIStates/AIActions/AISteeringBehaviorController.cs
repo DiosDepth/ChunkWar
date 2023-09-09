@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
     public Rigidbody2D rb;
     public float maxAcceleration = 10f;
     public float maxAngularAcceleration = 3f;
+    public float targetSerchingRadius = 15f;
     public float boidRadius = 1f;
 
 
@@ -63,6 +65,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
 
     public float GetRotationZ()
     {
+        return math.degrees(math.atan2(transform.up.y, transform.up.x)) - 90;
         return transform.rotation.eulerAngles.z;
     }
 
@@ -88,6 +91,62 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
     }
 
 
+
+    public struct CalculateTargetsPosByRadiusJob : IJobParallelForBatch
+    {
+        //[ReadOnly] public NativeArray<float3> job_selfPos;
+        public float job_threshold;
+        [ReadOnly] public NativeArray<float> job_SerchingRadius;
+        [ReadOnly] public NativeArray<float3> job_aiShipPos;
+        [ReadOnly] public NativeArray<float3> job_aiShipVel;
+
+        [NativeDisableContainerSafetyRestriction]
+        public NativeArray<float3> rv_findedTargetsPosPreShip;
+        [NativeDisableContainerSafetyRestriction]
+        public NativeArray<float3> rv_findedTargetVelPreShip;
+        public NativeArray<int> rv_findedTargetCountPreShip;
+        int index;
+        float distance;
+
+
+        public void Execute(int startIndex, int count)
+        {
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+                index = 0;
+                for (int n = 0; n < job_aiShipPos.Length; n++)
+                {
+
+                    distance = math.distance(job_aiShipPos[i], job_aiShipPos[n]);
+                    if (distance <= job_SerchingRadius[i] && distance > job_threshold)
+                    {
+                        rv_findedTargetsPosPreShip[i * job_aiShipPos.Length + n] = job_aiShipPos[n];
+                        rv_findedTargetVelPreShip[i * job_aiShipPos.Length + n] = job_aiShipPos[n];
+                        index++;
+                    }
+                }
+                rv_findedTargetCountPreShip[i] = index;
+            }
+        }
+    }
+
+    public struct LinearizeJob : IJob
+    {
+        public NativeQueue<float3> Source;
+        public NativeList<float3> Result;
+        public void Execute()
+        {
+            float3 vect;
+            
+            while (Source.TryDequeue(out vect))
+            {
+                Result.Add(vect);
+            }
+        }
+    }
+
+
+
     [BurstCompatible]
     public struct CalculateDeltaMovePosJob : IJobParallelForBatch
     {
@@ -106,9 +165,15 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
         [ReadOnly] public NativeArray<float> job_faceWeight;
 
         [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_cohesionSteering;
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_separationSteering;
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_alignmentSteering;
+        [ReadOnly] public NativeArray<float> job_cohesionWeight;
 
+        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_separationSteering;
+        [ReadOnly] public NativeArray<float> job_separationWeight;
+      
+
+
+        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_alignmentSteering;
+        [ReadOnly] public NativeArray<float> job_alignmentWeight;
 
 
         public NativeArray<SteeringBehaviorInfo> rv_deltainfo;
@@ -124,7 +189,12 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
             for (int i = startIndex; i < startIndex + count; i++)
             {
                 accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
+                accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
+                accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
+                accelaration += job_separationSteering[i].linear * job_separationWeight[i];
+
                 angle += job_faceSteering[i].angular * job_faceWeight[i];
+
                 //后面需要叠加其他的behavior
 
                 if (math.length(accelaration) > job_aiShipMaxAcceleration[i])

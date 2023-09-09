@@ -9,31 +9,110 @@ using Unity.Burst;
 [System.Serializable]
 public class FaceBehavior : SteeringBehavior
 {
+    //确定什么时候开始面向target
+    public float facetargetRadius;
 
-    [BurstCompile]
-    public struct FaceBehaviorJob : IJob
+    //[BurstCompile(Debug = true)]
+    public struct FaceBehaviorJob :IJobParallelForBatch
     {
-        [ReadOnly] public float3 job_selfPos;
-        [ReadOnly] public float3 job_selfVel;
-        [ReadOnly] public float job_selfRotationZ;
+        [ReadOnly] public NativeArray<float3> job_aiShipPos;
+        [ReadOnly] public NativeArray<float3> job_aiShipVel;
+        [ReadOnly] public NativeArray<float> job_aiShipRotationZ;
+        [ReadOnly] public NativeArray<float> job_facetagetRadius;
         [ReadOnly] public float3 job_targetPos;
-        [ReadOnly] public float job_targetRadius;
-
-        [ReadOnly] public float job_maxAngularAcceleration;
+        [ReadOnly] public NativeArray<float> job_maxAngularAcceleration;
         [ReadOnly] public float job_deltatime;
 
-        public NativeArray<float> JRD_angular;
+        public NativeArray<SteeringBehaviorInfo> rv_Steerings;
 
-        public void Execute()
+
+        private SteeringBehaviorInfo steering;
+
+
+        float fromangle;
+        float targetangle;
+        float resultangle;
+        float diff;
+        public void Execute(int startIndex, int count)
         {
-            float angular;
-            if (math.length(job_selfVel) == 0)
+
+            for (int i = startIndex;  i < startIndex + count; i++)
             {
-                angular = math.degrees(math.atan2(job_targetPos.y - job_selfPos.y, job_targetPos.x - job_selfPos.x)) - 90;
-                JRD_angular[0] = Mathf.LerpAngle(job_selfRotationZ, angular, job_maxAngularAcceleration * job_deltatime);
+
+                //if (math.distance(job_aiShipPos[i], job_targetPos) <= job_facetagetRadius[i])
+                //{
+                //    angle = math.degrees(math.atan2(job_targetPos.y - job_aiShipPos[i].y, job_targetPos.x - job_aiShipPos[i].x)) - 90;
+                //}
+                //else
+                //{
+
+                //    direction = math.normalize(job_aiShipVel[i]);
+                //    angle = math.degrees(math.atan2(job_aiShipVel[i].y, job_aiShipVel[i].x)) - 90;
+                //}
+
+                targetangle = math.degrees(math.atan2(job_targetPos.y - job_aiShipPos[i].y, job_targetPos.x - job_aiShipPos[i].x)) - 90;
+                //steering.angular = targetangle;
+
+                //to 360
+                if (targetangle >= 0)
+                {
+                    targetangle = 360 - targetangle;
+                }
+                else
+                {
+                    targetangle = targetangle * -1;
+                }
+
+
+                fromangle = job_aiShipRotationZ[i];
+
+                //to 360
+                if (fromangle >= 0)
+                {
+                    fromangle = 360 - fromangle;
+                }
+                else
+                {
+                    fromangle = fromangle * -1;
+                }
+
+                diff = math.abs(fromangle - targetangle) % 360;
+                //get diff between tareget and from angle
+
+                if( diff >= 180)
+                {
+                    diff = 360 - diff;
+                    diff = math.lerp(0, diff, math.clamp(job_maxAngularAcceleration[i] * job_deltatime, 0, 1));
+                    resultangle = (fromangle - diff) % 360;
+                }
+                else
+                {
+                    diff = math.lerp(0, diff, math.clamp(job_maxAngularAcceleration[i] * job_deltatime, 0, 1));
+                    resultangle = (fromangle + diff) % 360;
+                }
+
+                //repeat from and to angle
+
+                //if (resultangle != 0)
+                //{
+                //    resultangle = resultangle % 360;
+                //}
+
+
+                //from 360 to [-180, 180]
+                if (resultangle >= 180)
+                {
+                    resultangle = (360 - resultangle);
+                }
+                else
+                {
+                    resultangle = resultangle * -1;
+                }
+
+                steering.angular = resultangle;
+
+                rv_Steerings[i] = steering;
             }
-            angular = math.degrees(math.atan2(job_selfVel.y, job_selfVel.x)) - 90;
-            JRD_angular[0] = Mathf.LerpAngle(job_selfRotationZ, angular, job_maxAngularAcceleration * job_deltatime);
         }
     }
 

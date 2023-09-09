@@ -5,20 +5,65 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using Unity.Burst;
+using Unity.Collections.LowLevel.Unsafe;
 
 [System.Serializable]
 public class CohesionBehavior : SteeringBehavior
 {
     [SerializeField] public float viewAngle = 60f;
-    [SerializeField] public float cohesionRadius = 10f;
-    [SerializeField] public LayerMask mask = 1 << 9;
 
 
-    public struct CohesionBehaviorJob : IJob
+    [BurstCompile(Debug = true)]
+
+    public struct CohesionBehaviorJob : IJobParallelForBatch
     {
-        public void Execute()
+        [ReadOnly] public NativeArray<float> job_viewAngle;
+        [ReadOnly] public int job_shipcount;
+        [ReadOnly] public NativeArray<float3> job_aiShipPos;
+        [ReadOnly] public NativeArray<float3> job_aiShipVel;
+
+       
+        [ReadOnly] public NativeArray<float3> job_aiShipPosInRange;
+
+        [ReadOnly] public NativeArray<int> job_InRangeLength;
+
+        [ReadOnly] public NativeArray<float> job_maxAcceleration;
+
+        public NativeArray<SteeringBehaviorInfo> rv_Steerings;
+
+        private SteeringBehaviorInfo steering;
+ 
+        private float3 targetdir;
+        private float3 centerOfMass;
+        private int countindex;
+        public void Execute(int startIndex, int count)
         {
-            
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+
+                countindex = 0;
+                for (int n = 0; n < job_InRangeLength[i]; n++)
+                {
+
+                    targetdir = job_aiShipPosInRange[i * job_shipcount + n] - job_aiShipPos[i];
+                    if( math.degrees( math.acos( math.dot(math.normalize(targetdir), math.normalize(job_aiShipVel[i])))) < job_viewAngle[i])
+                    {
+                        centerOfMass += job_aiShipPosInRange[i * job_shipcount + n]; ;
+                        countindex++;
+                    }
+                }
+
+                if(countindex > 0)
+                {
+                    centerOfMass = centerOfMass / countindex;
+                    steering.linear = centerOfMass - job_aiShipPos[i];
+                    steering.linear = math.normalize(steering.linear);
+                    steering.linear *= job_maxAcceleration[i];
+                }
+
+                rv_Steerings[i] = steering;
+
+            }
         }
     }
 

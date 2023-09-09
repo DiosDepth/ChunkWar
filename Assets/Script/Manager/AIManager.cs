@@ -7,7 +7,6 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-
 public class AIManager : Singleton<AIManager>
 {
     public const int MaxAICount = 300;
@@ -54,6 +53,8 @@ public class AIManager : Singleton<AIManager>
     public NativeList<float> steeringBehaviorJob_aiShipRotationZ;
     public NativeList<float> steeringBehaviorJob_aiShipRadius;
     public NativeList<float> aiSteeringBehaviorController_aiShipMaxAcceleration;
+    public NativeList<float> aiSteeringBehaviorController_aiShipMaxAngularAcceleration;
+    public NativeList<float> aiSteeringBehaviorController_aiShipTargetSerchingRadius;
     public NativeList<float> aiSteeringBehaviorController_aiShipDrag;
 
     //arrivebehavior return data
@@ -67,22 +68,30 @@ public class AIManager : Singleton<AIManager>
     //facebehavior return data
     public NativeArray<SteeringBehaviorInfo> rv_face_steeringInfo;
     //facebehavior job input data
+    public NativeList<float> face_facetargetRadius;
     public NativeList<float> face_weight;
 
 
 
     public NativeArray<SteeringBehaviorInfo> rv_cohesion_steeringInfo;
+    public NativeList<float> cohesion_viewAngle;
     public NativeList<float> cohesion_weight;
 
     public NativeArray<SteeringBehaviorInfo> rv_separation_steeringInfo;
+    public NativeList<float> separation_threshold;
+    public NativeList<float> separation_decayCoefficient;
     public NativeList<float> separation_weight;
 
     public NativeArray<SteeringBehaviorInfo> rv_alignment_steeringInfo;
     public NativeList<float> alignment_weight;
+    public NativeList<float> alignment_alignDistance;
+
 
     public NativeArray<SteeringBehaviorInfo> rv_deltaMovement;
 
-
+    public NativeArray<float3> rv_serchingTargetsPosPerShip;
+    public NativeArray<float3> rv_serchingTargetsVelPerShip;
+    public NativeArray<int> rv_serchingTargetsCountPerShip;
 
 
 
@@ -132,6 +141,8 @@ public class AIManager : Singleton<AIManager>
         steeringBehaviorJob_aiShipRadius = new NativeList<float>(Allocator.Persistent);
 
         aiSteeringBehaviorController_aiShipMaxAcceleration = new NativeList<float>(Allocator.Persistent);
+        aiSteeringBehaviorController_aiShipMaxAngularAcceleration = new NativeList<float>(Allocator.Persistent);
+        aiSteeringBehaviorController_aiShipTargetSerchingRadius = new NativeList<float>(Allocator.Persistent);
         aiSteeringBehaviorController_aiShipDrag = new NativeList<float>(Allocator.Persistent);
 
 
@@ -146,14 +157,18 @@ public class AIManager : Singleton<AIManager>
     
         //facebehavior job input data
         face_weight = new NativeList<float>(Allocator.Persistent);
-
+        face_facetargetRadius = new NativeList<float>(Allocator.Persistent);
 
 
         cohesion_weight = new NativeList<float>(Allocator.Persistent);
+        cohesion_viewAngle = new NativeList<float>(Allocator.Persistent);
 
         separation_weight = new NativeList<float>(Allocator.Persistent);
+        separation_threshold = new NativeList<float>(Allocator.Persistent);
+        separation_decayCoefficient = new NativeList<float>(Allocator.Persistent);
 
         alignment_weight = new NativeList<float>(Allocator.Persistent);
+        alignment_alignDistance = new NativeList<float>(Allocator.Persistent);
 
 
     }
@@ -204,6 +219,8 @@ public virtual void UpdateJobData()
         if (steeringBehaviorJob_aiShipRotationZ.IsCreated) { steeringBehaviorJob_aiShipRotationZ.Dispose(); }
 
         if (aiSteeringBehaviorController_aiShipMaxAcceleration.IsCreated) { aiSteeringBehaviorController_aiShipMaxAcceleration.Dispose(); }
+        if (aiSteeringBehaviorController_aiShipMaxAngularAcceleration.IsCreated) { aiSteeringBehaviorController_aiShipMaxAngularAcceleration.Dispose(); }
+        if (aiSteeringBehaviorController_aiShipTargetSerchingRadius.IsCreated) { aiSteeringBehaviorController_aiShipTargetSerchingRadius.Dispose(); }
         if (aiSteeringBehaviorController_aiShipDrag.IsCreated) { aiSteeringBehaviorController_aiShipDrag.Dispose(); }
 
 
@@ -218,14 +235,17 @@ public virtual void UpdateJobData()
         //dispose face job data
 
         if (face_weight.IsCreated) { face_weight.Dispose(); }
+        if (face_facetargetRadius.IsCreated) { face_facetargetRadius.Dispose(); }
 
         if (separation_weight.IsCreated) { separation_weight.Dispose(); }
-
+        if (separation_threshold.IsCreated) { separation_threshold.Dispose(); }
+        if (separation_decayCoefficient.IsCreated) { separation_decayCoefficient.Dispose(); }
 
         if (cohesion_weight.IsCreated) { cohesion_weight.Dispose(); }
+        if (cohesion_viewAngle.IsCreated) { cohesion_viewAngle.Dispose(); }
 
         if (alignment_weight.IsCreated) { alignment_weight.Dispose(); }
-
+        if (alignment_alignDistance.IsCreated) { alignment_alignDistance.Dispose(); }
 
         //weapon job data dispose
     }
@@ -322,6 +342,8 @@ public virtual void UpdateJobData()
         steeringBehaviorJob_aiShipRotationZ.Add(boid.GetRotationZ());
 
         aiSteeringBehaviorController_aiShipMaxAcceleration.Add(controller.maxAcceleration);
+        aiSteeringBehaviorController_aiShipMaxAngularAcceleration.Add(controller.maxAngularAcceleration);
+        aiSteeringBehaviorController_aiShipTargetSerchingRadius.Add(controller.targetSerchingRadius);
         aiSteeringBehaviorController_aiShipDrag.Add(controller.drag);
 
         arrive_arriveRadius.Add(controller.arrivelBehaviorInfo.arriveRadius);
@@ -330,13 +352,17 @@ public virtual void UpdateJobData()
 
 
         face_weight.Add(controller.faceBehaviorInfo.GetWeight());
+        face_facetargetRadius.Add(controller.faceBehaviorInfo.facetargetRadius);
 
         cohesion_weight.Add(controller.cohesionBehaviorInfo.GetWeight());
+        cohesion_viewAngle.Add(controller.cohesionBehaviorInfo.viewAngle);
 
         separation_weight.Add(controller.separationBehaviorInfo.GetWeight());
+        separation_threshold.Add(controller.separationBehaviorInfo.threshold);
+        separation_decayCoefficient.Add(controller.separationBehaviorInfo.decayCoefficient);
 
         alignment_weight.Add(controller.alignmentBehaviorInfo.GetWeight());
-
+        alignment_alignDistance.Add(controller.alignmentBehaviorInfo.alignDistance);
 
     }
 
@@ -367,6 +393,8 @@ public virtual void UpdateJobData()
         steeringBehaviorJob_aiShipRotationZ.RemoveAt(index);
 
         aiSteeringBehaviorController_aiShipMaxAcceleration.RemoveAt(index);
+        aiSteeringBehaviorController_aiShipMaxAngularAcceleration.RemoveAt(index);
+        aiSteeringBehaviorController_aiShipTargetSerchingRadius.RemoveAt(index);
         aiSteeringBehaviorController_aiShipDrag.RemoveAt(index);
 
         arrive_arriveRadius.RemoveAt(index);
@@ -375,12 +403,17 @@ public virtual void UpdateJobData()
 
 
         face_weight.RemoveAt(index);
+        face_facetargetRadius.RemoveAt(index);
 
         cohesion_weight.RemoveAt(index);
+        cohesion_viewAngle.RemoveAt(index);
 
         separation_weight.RemoveAt(index);
+        separation_threshold.RemoveAt(index);
+        separation_decayCoefficient.RemoveAt(index);
 
         alignment_weight.RemoveAt(index);
+        alignment_alignDistance.RemoveAt(index);
 
 
     }
@@ -473,6 +506,11 @@ public virtual void UpdateJobData()
         }
 
         JobHandle jobhandle_arrivebehavior;
+        JobHandle jobhandle_facebehavior;
+        JobHandle jobhandle_behaviorTargets;
+        JobHandle jobhandle_cohesionbehavior;
+        JobHandle jobhandle_separationBehavior;
+        JobHandle jobhandle_AlignmentBehavior;
         //jobhandleList_AI = new NativeList<JobHandle>(Allocator.TempJob);
 
         rv_arrive_isVelZero = new NativeArray<bool>(ShipCount, Allocator.TempJob);
@@ -499,35 +537,104 @@ public virtual void UpdateJobData()
 
         };
         jobhandle_arrivebehavior = arriveBehaviorJobs.ScheduleBatch(ShipCount, 2);
-        //需要添加其他behavior的Job ，统一计算；
-
-        //for (int i = 0; i < ShipCount; i++)
-        //{
-
-        //    if (aiSteeringBehaviorControllerList[i].arriveBehavior)
-        //    {
-        //        ArriveBehavior.ArriveBehaviorJob arriveBehaviorJob = new ArriveBehavior.ArriveBehaviorJob
-        //        {
-        //            job_maxAcceleration = aiSteeringBehaviorControllerList[i].maxAcceleration,
-        //            job_selfPos = steeringBehaviorJob_aiShipPos[i],
-        //            job_selfVel = steeringBehaviorJob_aiShipVelocity[i],
-        //            job_slowRadius = aiSteeringBehaviorControllerList[i].arrivelBehaviorInfo.slowRadius,
-        //            job_targetPos = targetBoid.GetPosition(),
-        //            job_targetRadius = targetBoid.GetRadius(),
-        //            //return value
-        //            JRD_isvelzero = rv_arrive_isVelZero[i],
-        //            JRD_linear = rv_arrive_steeringInfo[i],
-        //        };
-
-        //        JobHandle jobhandle = arriveBehaviorJob.Schedule();
-        //        jobhandleList_AI.Add(jobhandle);
-        //    }
-        //}
-
-        //Wait to complate Jobs
-        //JobHandle.CompleteAll(jobhandleList_AI);
-
         jobhandle_arrivebehavior.Complete();
+
+        //FaceBehavior Job
+        FaceBehavior.FaceBehaviorJob faceBehaviorJob = new FaceBehavior.FaceBehaviorJob
+        {
+            job_aiShipPos = steeringBehaviorJob_aiShipPos,
+            job_aiShipRotationZ = steeringBehaviorJob_aiShipRotationZ,
+            job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
+            job_facetagetRadius = face_facetargetRadius,
+            job_maxAngularAcceleration = aiSteeringBehaviorController_aiShipMaxAngularAcceleration,
+            job_targetPos = targetBoid.GetPosition(),
+            job_deltatime = Time.fixedDeltaTime,
+
+            rv_Steerings = rv_face_steeringInfo,
+        };
+        jobhandle_facebehavior = faceBehaviorJob.ScheduleBatch(ShipCount, 2);
+        jobhandle_facebehavior.Complete();
+
+        //NativeList<JobHandle> behaviorTargetsList = new NativeList<JobHandle>();
+
+        rv_serchingTargetsVelPerShip = new NativeArray<float3>(ShipCount * ShipCount, Allocator.TempJob);
+        rv_serchingTargetsPosPerShip = new NativeArray<float3>(ShipCount * ShipCount, Allocator.TempJob);
+        rv_serchingTargetsCountPerShip = new NativeArray<int>(ShipCount, Allocator.TempJob);
+
+
+        AISteeringBehaviorController.CalculateTargetsPosByRadiusJob calculateTargetsPosByRadiusJob = new AISteeringBehaviorController.CalculateTargetsPosByRadiusJob
+        {
+            job_aiShipPos = steeringBehaviorJob_aiShipPos,
+            job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
+            job_SerchingRadius = aiSteeringBehaviorController_aiShipTargetSerchingRadius,
+            job_threshold = 0.01f,
+            
+
+            rv_findedTargetCountPreShip = rv_serchingTargetsCountPerShip,
+            rv_findedTargetVelPreShip = rv_serchingTargetsVelPerShip,
+            rv_findedTargetsPosPreShip = rv_serchingTargetsPosPerShip,
+        };
+
+        jobhandle_behaviorTargets = calculateTargetsPosByRadiusJob.ScheduleBatch(ShipCount, 2);
+
+        jobhandle_behaviorTargets.Complete();
+
+
+        //Cohesion Job
+
+        CohesionBehavior.CohesionBehaviorJob cohesionBehaviorJob = new CohesionBehavior.CohesionBehaviorJob
+        {
+            job_aiShipPos = steeringBehaviorJob_aiShipPos,
+            job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
+            job_viewAngle = cohesion_viewAngle,
+            job_aiShipPosInRange = rv_serchingTargetsPosPerShip,
+            job_InRangeLength = rv_serchingTargetsCountPerShip,
+            job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
+            job_shipcount = ShipCount,
+
+            rv_Steerings = rv_cohesion_steeringInfo,
+        };
+
+        jobhandle_cohesionbehavior = cohesionBehaviorJob.ScheduleBatch(ShipCount, 2);
+        jobhandle_cohesionbehavior.Complete();
+
+        //separation Job
+        SeparationBehavior.SeparationBehaviorJob separationBehaviorJob = new SeparationBehavior.SeparationBehaviorJob
+        {
+            job_aiShipPos = steeringBehaviorJob_aiShipPos,
+            job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
+            job_decayCoefficient = separation_decayCoefficient,
+            job_threshold = separation_threshold,
+            job_aiShipPosInRange = rv_serchingTargetsPosPerShip,
+            job_InRangeLength = rv_serchingTargetsCountPerShip,
+            job_shipcount = ShipCount,
+
+            rv_Steerings = rv_separation_steeringInfo,
+        };
+        jobhandle_separationBehavior = separationBehaviorJob.ScheduleBatch(ShipCount, 2);
+
+        jobhandle_separationBehavior.Complete();
+
+        //Alignment Job
+        AlignmentBehavior.AlignmentBehaviorJob alignmentBehaviorJob = new AlignmentBehavior.AlignmentBehaviorJob
+        {
+            job_aiShipPos = steeringBehaviorJob_aiShipPos,
+            job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
+            job_alignDistance = alignment_alignDistance,
+            job_aiShipPosInRange = rv_serchingTargetsPosPerShip,
+            job_aiShipVelInRange = rv_serchingTargetsVelPerShip,
+            job_lengthInRange = rv_serchingTargetsCountPerShip,
+
+            job_shipcount = ShipCount,
+
+            rv_Steerings = rv_alignment_steeringInfo,
+        };
+
+        jobhandle_AlignmentBehavior = alignmentBehaviorJob.ScheduleBatch(ShipCount, 2);
+        jobhandle_AlignmentBehavior.Complete();
+
+
+
 
 
         rv_deltaMovement = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
@@ -548,10 +655,13 @@ public virtual void UpdateJobData()
             job_faceWeight = face_weight,
 
             job_alignmentSteering = rv_alignment_steeringInfo,
+            job_alignmentWeight = alignment_weight,
 
             job_cohesionSteering = rv_cohesion_steeringInfo,
+            job_cohesionWeight = cohesion_weight,
 
             job_separationSteering = rv_separation_steeringInfo,
+            job_separationWeight = separation_weight,
 
             job_deltatime = Time.fixedDeltaTime,
 
@@ -566,8 +676,14 @@ public virtual void UpdateJobData()
         for (int i = 0; i < ShipCount; i++)
         {
             aiSteeringBehaviorControllerList[i].UpdateIBoid();
+            if(rv_arrive_isVelZero[i])
+            {
+                aiSteeringBehaviorControllerList[i].SetVelocity(Vector3.zero);
+            }
             aiSteeringBehaviorControllerList[i].Move(rv_deltaMovement[i].linear);
-           
+            aiSteeringBehaviorControllerList[i].transform.rotation = Quaternion.Euler(0, 0,rv_deltaMovement[i].angular);
+
+
         }
 
         rv_arrive_isVelZero.Dispose();
@@ -579,6 +695,9 @@ public virtual void UpdateJobData()
         rv_alignment_steeringInfo.Dispose();
 
         rv_deltaMovement.Dispose();
+        rv_serchingTargetsPosPerShip.Dispose();
+        rv_serchingTargetsVelPerShip.Dispose();
+        rv_serchingTargetsCountPerShip.Dispose();
 
     }
 

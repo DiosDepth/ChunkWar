@@ -177,45 +177,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  maxAcceleration: 10
-  maxAngularAcceleration: 45
+  maxAcceleration: 7
+  maxAngularAcceleration: 6
+  targetSerchingRadius: 35
   boidRadius: 1
   arriveBehavior: 1
   arrivelBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
-    targetRadius: 15
+    weight: 2
+    arriveRadius: 15
     slowRadius: 30
-  faceBehavior: 0
+  faceBehavior: 1
   faceBehaviorInfo:
     target: {fileID: 0}
     weight: 1
+    facetargetRadius: 30
   cohesionBehavior: 0
   cohesionBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-    viewAngle: 60
-    cohesionRadius: 10
-    mask:
-      serializedVersion: 2
-      m_Bits: 512
+    viewAngle: 30
   separationBehavior: 0
   separationBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
-    threshold: 2
+    weight: 1.5
+    threshold: 0.5
     decayCoefficient: -25
-    detacteRadius: 3
-    mask:
-      serializedVersion: 2
-      m_Bits: 512
   aligmentBehavior: 0
   alignmentBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-    alignDistance: 8
-    detacteRadius: 5
-  drag: 2
+    alignDistance: 3
+  drag: 3
   velocity: {x: 0, y: 0, z: 0}
   lastpos: {x: 0, y: 0, z: 0}
 --- !u!1 &3431155977748982859

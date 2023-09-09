@@ -619,7 +619,7 @@ public class Weapon : Unit
         }
         else
         {
-            rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, transform.up, roatateSpeed);
+            rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, _owner.transform.up, roatateSpeed);
         }
     }
 
