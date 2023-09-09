@@ -137,4 +137,8 @@ public enum PropertyModifyKey
     /// Ω¢¥¨…¡±‹
     /// </summary>
     ShipParry,
+    /// <summary>
+    /// ¥¨ÃÂ‘Ÿ…˙
+    /// </summary>
+    UnitHPRecoverValue,
 }

@@ -231,3 +231,7 @@ MonoBehaviour:
     ChineseSimplified: "\u6218\u5217\u8230"
     English: 
     Japanese: 
+  - TextID: Enemy_Flyings
+    ChineseSimplified: "\u91CF\u4EA7\u578B\u62A4\u536B\u8230"
+    English: 
+    Japanese: 

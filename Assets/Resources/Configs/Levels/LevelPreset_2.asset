@@ -54,6 +54,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: EndlessEnemy
+      Entry: 5
+      Data: false
     - Name: SpawnConfig
       Entry: 7
       Data: 3|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
@@ -91,6 +94,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: EndlessEnemy
+      Entry: 5
+      Data: false
     - Name: SpawnConfig
       Entry: 7
       Data: 6|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
@@ -128,6 +134,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: EndlessEnemy
+      Entry: 5
+      Data: false
     - Name: SpawnConfig
       Entry: 7
       Data: 9|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],

@@ -35,6 +35,13 @@ public class GeneralHPComponet
         private set;
     }
 
+    /// <summary>
+    /// Param 1 = CurrentHP
+    /// Param 2 = MaxHP
+    /// Param 3 = HP Percent
+    /// </summary>
+    public Action<int, int, float> OnHpChangeAction;
+
     public GeneralHPComponet(int maxHP, int currentHP)
     {
         _currentHP = new ChangeValue<int>(currentHP, 0, maxHP);
@@ -61,6 +68,7 @@ public class GeneralHPComponet
     public void SetMaxHP(int value)
     {
         _currentHP.SetMaxValue(value);
+        OnHpChangeAction?.Invoke(_currentHP.Value, MaxHP, HPPercent);
     }
 
     public void BindHPChangeAction(Action callback, bool trigger)

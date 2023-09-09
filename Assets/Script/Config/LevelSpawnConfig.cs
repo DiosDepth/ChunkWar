@@ -53,6 +53,11 @@ public class WaveConfig
     [HorizontalGroup("AA", 200)]
     public ushort[] ShopRefreshTimeMap = new ushort[0];
 
+    [LabelText("无限敌人")]
+    [LabelWidth(80)]
+    [HorizontalGroup("AA", 150)]
+    public bool EndlessEnemy;
+
     [LabelText("敌人波次配置")]
     [ListDrawerSettings(CustomAddFunction = "AddNewWaveSpawn")]
     [OnCollectionChanged("OnAddedWave")]

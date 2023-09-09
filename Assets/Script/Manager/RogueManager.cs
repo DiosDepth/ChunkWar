@@ -60,6 +60,8 @@ public enum RogueEventType
     WasteCountChange,
     ShopTeleportSpawn,
     ShopTeleportWarning,
+    RegisterBossHPBillBoard,
+    RemoveBossHPBillBoard,
 }
 
 public enum ShipPropertyEventType
@@ -224,7 +226,7 @@ public class RogueManager : Singleton<RogueManager>
 
         for (int i = 0; i < AllShipUnits.Count; i++) 
         {
-            AllShipUnits[i].OnUpdateTrigger();
+            AllShipUnits[i].OnUpdateBattle();
         }
     }
 
@@ -661,6 +663,10 @@ public class RogueManager : Singleton<RogueManager>
         Timer.RemoveAllTrigger();
         GenerateEnemyAIFactory();
         GenerateShopCreateTimer();
+        ///增加船体值自动恢复Trigger
+        var recoverTrigger = LevelTimerTrigger.CreateTriger(0, 1, -1, "UnitHPRecover");
+        recoverTrigger.BindChangeAction(OnUpdateUnitHPRecover);
+        Timer.AddTrigger(recoverTrigger);
     }
 
     /// <summary>
@@ -1144,6 +1150,25 @@ public class RogueManager : Singleton<RogueManager>
     {
         var allTriggers = GetAllUnitModifierTriggerDatas();
         allTriggers.ForEach(x => x.Reset());
+    }
+
+    /// <summary>
+    /// 每秒船体值自动恢复
+    /// </summary>
+    private void OnUpdateUnitHPRecover()
+    {
+        var recoverHP = MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitHPRecoverValue);
+        if (recoverHP <= 0)
+            return;
+
+        for(int i = 0; i < AllShipUnits.Count; i++)
+        {
+            var unit = AllShipUnits[i];
+            if(unit.state == DamagableState.Normal && unit.HpComponent.HPPercent < 100)
+            {
+                unit.HpComponent.ChangeHP(Mathf.RoundToInt(recoverHP));
+            }
+        }
     }
 
     #endregion

@@ -1436,12 +1436,13 @@ MonoBehaviour:
   ID: 1
   GeneralConfig:
     IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: AI_Flyings
+    Name: Enemy_Flyings
     Desc: 
     Rarity: 0
   Prefab: {fileID: 3431155976711396027, guid: 78e0d89966b208549b01263ff6a23337, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
+  ShipClass: 0
   DropList:
   - pickuptype: 1
     count: 16
@@ -1449,6 +1450,8 @@ MonoBehaviour:
   - pickuptype: 3
     count: 1
     dropRate: 100
+  ShowHPBillboard: 0
+  BillboardType: 0
   CoreHP: 50
   SpeedBase: 10
   HardLevelCfg:

@@ -397,6 +397,22 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     }
 
     /// <summary>
+    /// 拾取所有可吸取物件
+    /// </summary>
+    public void CollectAllPickUps()
+    {
+        var picker = RogueManager.Instance.currentShip.gameObject;
+        for (int i = 0; i < pickupList.Count; i++) 
+        {
+            var pick = pickupList[i];
+            if (pick.CanAutoPickUp)
+            {
+                pick.PickUp(picker);
+            }
+        }
+    }
+
+    /// <summary>
     /// 创建太空站
     /// </summary>
     public void CreateHarborPickUp()

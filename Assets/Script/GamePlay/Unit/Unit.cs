@@ -307,17 +307,29 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         Restore();
     }
 
+    /// <summary>
+    /// Player Create Use
+    /// </summary>
+    /// <param name="ship"></param>
+    /// <param name="m_unitconfig"></param>
     public virtual void InitializationEditorUnit(PlayerEditShip ship, BaseUnitConfig m_unitconfig)
     {
         _owner = ship;
         _baseUnitConfig = m_unitconfig;
     }
 
-    public void OnUpdateTrigger()
+    /// <summary>
+    /// Update Only Player Units
+    /// </summary>
+    public void OnUpdateBattle()
     {
-        for (int i = 0; i < _modifyTriggerDatas.Count; i++) 
+        if (state == DamagableState.Normal)
         {
-            _modifyTriggerDatas[i].OnUpdateBattle();
+            ///UpdateTrigger
+            for (int i = 0; i < _modifyTriggerDatas.Count; i++)
+            {
+                _modifyTriggerDatas[i].OnUpdateBattle();
+            }
         }
     }
 
@@ -397,8 +409,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     {
         if (HpComponent == null)
             return false;
-        //已经死亡的不会收到更多伤害
-        if(state == DamagableState.Destroyed)
+        //已经死亡或者瘫痪的不会收到更多伤害
+        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis)
         {
             return false;
         }

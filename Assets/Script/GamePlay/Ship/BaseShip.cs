@@ -135,6 +135,21 @@ public class BaseShip : MonoBehaviour,IDropable
 
     }
 
+    /// <summary>
+    /// »ñÈ¡ºËÐÄUnit
+    /// </summary>
+    /// <returns></returns>
+    public Unit GetCoreUnit()
+    {
+        for(int i = 0; i < _unitList.Count; i++)
+        {
+            var unit = _unitList[i];
+            if (unit.IsCoreUnit)
+                return unit;
+        }
+        return null;
+    }
+
     public virtual List<PickableItem> Drop()
     {
         List<PickableItem> itemlist = new List<PickableItem>() ;

@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameMiscConfig", menuName = "Configs/Main")]
 public class GameMiscConfig : SerializedScriptableObject
 {
-
     [HideReferenceObjectPicker]
     public BattleMiscRefreshConfig RefreshConfig = new BattleMiscRefreshConfig();
 

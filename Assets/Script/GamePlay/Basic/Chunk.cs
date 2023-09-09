@@ -16,6 +16,13 @@ public enum DamagableState
 {
     None,
     Normal,
+    /// <summary>
+    /// Ì±»¾
+    /// </summary>
+    Paralysis,
+    /// <summary>
+    /// ÍêÈ«Ïú»Ù
+    /// </summary>
     Destroyed,
 }
 public class Chunk : IDamageble

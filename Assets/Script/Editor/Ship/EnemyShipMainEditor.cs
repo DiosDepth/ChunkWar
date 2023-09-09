@@ -20,8 +20,17 @@ public class EnemyShipMainEditor : OdinMenuEditorWindow
         var tree = new OdinMenuTree(true);
         tree.Config.DrawSearchToolbar = true;
 
-        tree.AddAllAssetsAtPath("µÐÈË", "Assets/Resources/Configs/EnemyShips", typeof(AIShipConfig), true, true);
-
+        var menu = tree.AddAllAssetsAtPath("µÐÈË", "Assets/Resources/Configs/EnemyShips", typeof(AIShipConfig), true, true);
+        menu.ForEach(x =>
+        {
+            var childs = x.ChildMenuItems;
+            childs.ForEach(child =>
+            {
+                AIShipConfig info = child.Value as AIShipConfig;
+                child.Name = string.Format("[{0}]_{1}", info.ID, child.Name);
+            });
+        });
+        tree.SortMenuItemsByName();
         return tree;
     }
 }
