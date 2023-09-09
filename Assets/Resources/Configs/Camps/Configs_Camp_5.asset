@@ -48,5 +48,5 @@ MonoBehaviour:
   CampID: 5
   CampName: CampName_005
   CampDesc: CampDesc_005
-  Unlock: 1
+  Unlock: 0
   CampIcon: {fileID: 0}
