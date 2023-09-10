@@ -18,6 +18,11 @@ public class PlayerShipConfig : BaseShipConfig
     [HorizontalGroup("B", 200)]
     public int CorePlugID;
 
+    [LabelText("ÕóÓªID")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 200)]
+    public int PlayerShipCampID;
+
     [LabelText("EditorPrefab")]
     [LabelWidth(80)]
     [HorizontalGroup("B", 300)]

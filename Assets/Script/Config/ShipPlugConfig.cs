@@ -50,7 +50,7 @@ public class ShipPlugItemConfig
     [LabelWidth(80)]
     [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]
     [HideReferenceObjectPicker]
-    public PropertyMidifyConfig[] PropertyModify = new PropertyMidifyConfig[0];
+    public PropertyModifyConfig[] PropertyModify = new PropertyModifyConfig[0];
 
     [FoldoutGroup("–ﬁ’˝≈‰÷√")]
     [HorizontalGroup("–ﬁ’˝≈‰÷√/B", 500)]
@@ -58,7 +58,7 @@ public class ShipPlugItemConfig
     [LabelWidth(80)]
     [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]
     [HideReferenceObjectPicker]
-    public PropertyMidifyConfig[] PropertyPercentModify = new PropertyMidifyConfig[0];
+    public PropertyModifyConfig[] PropertyPercentModify = new PropertyModifyConfig[0];
 
     [HorizontalGroup("A", 1000)]
     [LabelText("¥•∑¢≈‰÷√")]
@@ -75,8 +75,8 @@ public class ShipPlugItemConfig
     }
 
 
-    private PropertyMidifyConfig AddPropertyMidifyConfig()
+    private PropertyModifyConfig AddPropertyMidifyConfig()
     {
-        return new PropertyMidifyConfig();
+        return new PropertyModifyConfig();
     }
 }

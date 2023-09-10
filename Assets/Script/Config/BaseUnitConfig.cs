@@ -82,7 +82,7 @@ public class BaseUnitConfig : BaseConfig
     [LabelWidth(80)]
     [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]
     [HideReferenceObjectPicker]
-    public PropertyMidifyConfig[] PropertyModify = new PropertyMidifyConfig[0];
+    public PropertyModifyConfig[] PropertyModify = new PropertyModifyConfig[0];
 
     [FoldoutGroup("ª˘¥° Ù–‘")]
     [LabelText("¥•∑¢≈‰÷√")]
@@ -110,9 +110,9 @@ public class BaseUnitConfig : BaseConfig
         }
     }
 
-    private PropertyMidifyConfig AddPropertyMidifyConfig()
+    private PropertyModifyConfig AddPropertyMidifyConfig()
     {
-        return new PropertyMidifyConfig();
+        return new PropertyModifyConfig();
     }
 
     private ValueDropdownList<ModifyTriggerConfig> GetTriggerLst()

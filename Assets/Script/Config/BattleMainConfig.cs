@@ -14,9 +14,13 @@ public enum HardLevelModifyType
 public enum ModifySpecialType
 {
     /// <summary>
-    /// 低于100%的部分等比转化
+    /// 低于100%的部分
     /// </summary>
-    Less100OneByOne,
+    Less100,
+    /// <summary>
+    /// 超出100%的部分
+    /// </summary>
+    More100
 }
 
 public enum ModifyTriggerType
@@ -141,6 +145,7 @@ public class HardLevelConfig
     public Sprite Icon;
 
     public int LevelPresetID;
+    public float ScoreRatio;
 
     [DictionaryDrawerSettings()]
     public Dictionary<HardLevelModifyType, float> ModifyDic = new Dictionary<HardLevelModifyType, float>();
@@ -159,7 +164,7 @@ public class PropertyDisplayConfig
 }
 
 [System.Serializable]
-public class PropertyMidifyConfig
+public class PropertyModifyConfig
 {
     [HorizontalGroup("B", 250)]
     [LabelText("修正Key")]

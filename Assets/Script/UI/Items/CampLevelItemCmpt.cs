@@ -42,11 +42,11 @@ public class CampLevelItemCmpt : EnhancedScrollerCellView
 
         ///Fill Slider
         var currentLevel = CampData.GetCampLevel;
-        if (levelIndex < currentLevel)
+        if (levelIndex <= currentLevel)
         {
             _fillImage.fillAmount = 1;
         }
-        else if (levelIndex == currentLevel)
+        else if (levelIndex == currentLevel + 1)
         {
             _fillImage.fillAmount = CampData.GetCurrentLevelEXPProgress();
         }

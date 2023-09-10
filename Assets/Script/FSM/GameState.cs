@@ -476,8 +476,6 @@ public class EGameState_GameOver : GameState
         UIManager.Instance.ShowUI<GameOver>("GameOver", E_UI_Layer.Mid, GameManager.Instance, (panel) => 
         {
             panel.Initialization();
-
-
         });
     }
 
@@ -558,18 +556,18 @@ public class EGameState_GameEnd : GameState
     {
         base.OnEnter();
 
-        LevelManager.Instance.UnloadCurrentLevel();
         GameManager.Instance.InitialRuntimeData();
+        RogueManager.Instance.RogueBattleOver();
 
-        if (RogueManager.Instance.currentShip != null)
-        {
-            GameObject.Destroy(RogueManager.Instance.currentShip.container.gameObject);
-            RogueManager.Instance.currentShip = null;
-        }
+        //if (RogueManager.Instance.currentShip != null)
+        //{
+        //    GameObject.Destroy(RogueManager.Instance.currentShip.container.gameObject);
+        //    RogueManager.Instance.currentShip = null;
+        //}
 
-        GameEvent.Trigger(EGameState.EGameState_MainMenu);
+        //GameEvent.Trigger(EGameState.EGameState_MainMenu);
 
-        
+
 
     }
 

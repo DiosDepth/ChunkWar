@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|CampLevelConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 7
       Data: 1|CampLevelConfig, Assembly-CSharp
@@ -82,6 +82,42 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 4|CampLevelConfig, Assembly-CSharp
+    - Name: LevelIndex
+      Entry: 3
+      Data: 4
+    - Name: RequireTotalEXP
+      Entry: 3
+      Data: 1500
+    - Name: UnlockType
+      Entry: 3
+      Data: 2
+    - Name: UnlockItemID
+      Entry: 3
+      Data: 1005
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|CampLevelConfig, Assembly-CSharp
+    - Name: LevelIndex
+      Entry: 3
+      Data: 5
+    - Name: RequireTotalEXP
+      Entry: 3
+      Data: 3000
+    - Name: UnlockType
+      Entry: 3
+      Data: 2
+    - Name: UnlockItemID
+      Entry: 3
+      Data: 1004
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -89,19 +125,19 @@ MonoBehaviour:
       Data: 
     - Name: BuffItems
       Entry: 7
-      Data: 4|CommonBuffItem[], Assembly-CSharp
+      Data: 6|CommonBuffItem[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 5|CommonBuffItem, Assembly-CSharp
+      Data: 7|CommonBuffItem, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
     - Name: LevelMap
       Entry: 7
-      Data: 6|System.Single[], mscorlib
+      Data: 8|System.Single[], mscorlib
     - Name: 
       Entry: 14
       Data: 2
@@ -119,7 +155,7 @@ MonoBehaviour:
       Data: 
     - Name: CostMap
       Entry: 7
-      Data: 7|System.Int32[], mscorlib
+      Data: 9|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 2
@@ -140,13 +176,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 8|CommonBuffItem, Assembly-CSharp
+      Data: 10|CommonBuffItem, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
     - Name: LevelMap
       Entry: 7
-      Data: 9|System.Single[], mscorlib
+      Data: 11|System.Single[], mscorlib
     - Name: 
       Entry: 14
       Data: 2
@@ -164,7 +200,7 @@ MonoBehaviour:
       Data: 
     - Name: CostMap
       Entry: 7
-      Data: 10|System.Int32[], mscorlib
+      Data: 12|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 2
@@ -185,13 +221,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 11|CommonBuffItem, Assembly-CSharp
+      Data: 13|CommonBuffItem, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
     - Name: LevelMap
       Entry: 7
-      Data: 12|System.Single[], mscorlib
+      Data: 14|System.Single[], mscorlib
     - Name: 
       Entry: 14
       Data: 2
@@ -209,7 +245,7 @@ MonoBehaviour:
       Data: 
     - Name: CostMap
       Entry: 7
-      Data: 13|System.Int32[], mscorlib
+      Data: 15|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 2
@@ -230,13 +266,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 14|CommonBuffItem, Assembly-CSharp
+      Data: 16|CommonBuffItem, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
     - Name: LevelMap
       Entry: 7
-      Data: 15|System.Single[], mscorlib
+      Data: 17|System.Single[], mscorlib
     - Name: 
       Entry: 14
       Data: 1
@@ -251,7 +287,7 @@ MonoBehaviour:
       Data: 
     - Name: CostMap
       Entry: 7
-      Data: 16|System.Int32[], mscorlib
+      Data: 18|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 1

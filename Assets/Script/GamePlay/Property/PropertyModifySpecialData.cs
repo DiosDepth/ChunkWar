@@ -7,11 +7,11 @@ using UnityEngine;
 /// </summary>
 public class PropertyModifySpecialData 
 {
-    public PropertyMidifyConfig Config;
+    public PropertyModifyConfig Config;
 
     private uint UID;
 
-    public PropertyModifySpecialData(PropertyMidifyConfig cfg, uint parentUID)
+    public PropertyModifySpecialData(PropertyModifyConfig cfg, uint parentUID)
     {
         this.Config = cfg;
         this.UID = parentUID;
@@ -25,14 +25,37 @@ public class PropertyModifySpecialData
     {
         var mgr = RogueManager.Instance;
 
-        if (Config.SpecialType == ModifySpecialType.Less100OneByOne)
+        if (Config.SpecialType == ModifySpecialType.Less100)
         {
             ///不足100%的部分等比转换
             switch (Config.SpecialKeyParam)
             {
                 case "LoadPercent":
-                    mgr.OnWreckageLoadPercentChange += OnWreckageLoadPercentChange_Less100;
-                    OnWreckageLoadPercentChange_Less100(mgr.WreckageLoadPercent * 100);
+                    mgr.OnWreckageLoadPercentChange += OnPercentChange_Less100;
+                    OnPercentChange_Less100(mgr.WreckageLoadPercent);
+                    break;
+
+                case "EnergyPercent":
+                    mgr.OnEnergyPercentChange += OnPercentChange_Less100;
+                    var currentShipEnergyPercent = RogueManager.Instance.currentShip.EnergyPercent;
+                    OnPercentChange_Less100(currentShipEnergyPercent);
+                    break;
+            }
+        }
+        else if (Config.SpecialType == ModifySpecialType.More100)
+        {
+            ///超过00%的部分等比转换
+            switch (Config.SpecialKeyParam)
+            {
+                case "LoadPercent":
+                    mgr.OnWreckageLoadPercentChange += OnPercentChange_More100;
+                    OnPercentChange_More100(mgr.WreckageLoadPercent);
+                    break;
+
+                case "EnergyPercent":
+                    mgr.OnEnergyPercentChange += OnPercentChange_More100;
+                    var currentShipEnergyPercent = RogueManager.Instance.currentShip.EnergyPercent;
+                    OnPercentChange_More100(currentShipEnergyPercent);
                     break;
             }
         }
@@ -41,20 +64,35 @@ public class PropertyModifySpecialData
     public void OnRemove()
     {
         var mgr = RogueManager.Instance;
-        if (Config.SpecialType == ModifySpecialType.Less100OneByOne)
+        if (Config.SpecialType == ModifySpecialType.Less100)
         {
-            ///不足100%的部分等比转换
+            ///不足100%的部分转换
             switch (Config.SpecialKeyParam)
             {
                 case "LoadPercent":
-                    mgr.OnWreckageLoadPercentChange -= OnWreckageLoadPercentChange_Less100;
-                    mgr.MainPropertyData.RemovePropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID);
+                    mgr.OnWreckageLoadPercentChange -= OnPercentChange_Less100;
+                    break;
+                case "EnergyPercent":
+                    mgr.OnEnergyPercentChange -= OnPercentChange_Less100;
                     break;
             }
         }
+        else if (Config.SpecialType == ModifySpecialType.More100)
+        {
+            switch (Config.SpecialKeyParam)
+            {
+                case "LoadPercent":
+                    mgr.OnWreckageLoadPercentChange -= OnPercentChange_More100;
+                    break;
+                case "EnergyPercent":
+                    mgr.OnEnergyPercentChange -= OnPercentChange_More100;
+                    break;
+            }
+        }
+        mgr.MainPropertyData.RemovePropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID);
     }
 
-    private void OnWreckageLoadPercentChange_Less100(float percent)
+    private void OnPercentChange_Less100(float percent)
     {
         if(percent >= 100)
         {
@@ -64,8 +102,21 @@ public class PropertyModifySpecialData
 
         float delta = 100 - percent;
         delta = Mathf.Clamp(delta, 0, 100f);
-        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta);
+        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * Config.Value);
     }
 
+
+    private void OnPercentChange_More100(float percent)
+    {
+        if (percent <= 100)
+        {
+            ///加成归0
+            RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, 0);
+        }
+
+        float delta = percent - 100;
+        delta = Mathf.Clamp(delta, 0, float.MaxValue);
+        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * Config.Value);
+    }
     
 }

@@ -58,6 +58,11 @@ public class WaveConfig
     [HorizontalGroup("AA", 150)]
     public bool EndlessEnemy;
 
+    [LabelText("波次积分")]
+    [LabelWidth(80)]
+    [HorizontalGroup("AA", 200)]
+    public int waveScore;
+
     [LabelText("敌人波次配置")]
     [ListDrawerSettings(CustomAddFunction = "AddNewWaveSpawn")]
     [OnCollectionChanged("OnAddedWave")]

@@ -69,6 +69,8 @@ public class GMTalkManager : Singleton<GMTalkManager>
             RogueManager.Instance.AddDropWasteCount(value);
             return true;
         });
+
+        AddGMFunctionToDic("campscore", AddCampScore);
     }
 
     
@@ -124,6 +126,20 @@ public class GMTalkManager : Singleton<GMTalkManager>
             return;
 
         GMFunctionDic.Add(key, actions);
+    }
+
+    private bool AddCampScore(string[] content)
+    {
+        if (content.Length != 2)
+            return false;
+        int.TryParse(content[0], out int campID);
+        int.TryParse(content[1], out int value);
+        var campData = GameManager.Instance.GetCampDataByID(campID);
+        if(campData != null)
+        {
+            campData.AddCampScore(value);
+        }
+        return true;
     }
 
     #endregion

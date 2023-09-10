@@ -62,6 +62,9 @@ MonoBehaviour:
     - Name: LevelPresetID
       Entry: 3
       Data: 1
+    - Name: ScoreRatio
+      Entry: 4
+      Data: 0
     - Name: ModifyDic
       Entry: 7
       Data: 2|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
@@ -121,6 +124,9 @@ MonoBehaviour:
     - Name: LevelPresetID
       Entry: 3
       Data: 2
+    - Name: ScoreRatio
+      Entry: 4
+      Data: 0
     - Name: ModifyDic
       Entry: 7
       Data: 5|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,

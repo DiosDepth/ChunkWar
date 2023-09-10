@@ -58,7 +58,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 3|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 3|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -70,13 +70,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 4|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 4|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 5|PropertyMidifyConfig, Assembly-CSharp
+      Data: 5|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -217,13 +217,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 14|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 14|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 15|PropertyMidifyConfig, Assembly-CSharp
+      Data: 15|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -244,7 +244,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|PropertyMidifyConfig, Assembly-CSharp
+      Data: 16|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -271,7 +271,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 17|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 17|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -322,13 +322,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 21|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 21|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 22|PropertyMidifyConfig, Assembly-CSharp
+      Data: 22|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -355,7 +355,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 23|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 23|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -406,13 +406,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 27|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 27|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 28|PropertyMidifyConfig, Assembly-CSharp
+      Data: 28|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 6
@@ -433,7 +433,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 29|PropertyMidifyConfig, Assembly-CSharp
+      Data: 29|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 7
@@ -460,7 +460,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 30|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 30|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -511,13 +511,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 34|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 34|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 35|PropertyMidifyConfig, Assembly-CSharp
+      Data: 35|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 7
@@ -538,7 +538,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 36|PropertyMidifyConfig, Assembly-CSharp
+      Data: 36|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 27
@@ -565,7 +565,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 37|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 37|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -616,13 +616,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 41|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 41|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 42|PropertyMidifyConfig, Assembly-CSharp
+      Data: 42|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -643,7 +643,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 43|PropertyMidifyConfig, Assembly-CSharp
+      Data: 43|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -670,7 +670,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 44|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 44|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -721,13 +721,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 48|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 48|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 49|PropertyMidifyConfig, Assembly-CSharp
+      Data: 49|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -748,7 +748,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 50|PropertyMidifyConfig, Assembly-CSharp
+      Data: 50|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -769,7 +769,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 51|PropertyMidifyConfig, Assembly-CSharp
+      Data: 51|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -796,7 +796,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 52|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 52|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -847,7 +847,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 56|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 56|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -859,7 +859,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 57|PropertyMidifyConfig[], Assembly-CSharp
+      Data: 57|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

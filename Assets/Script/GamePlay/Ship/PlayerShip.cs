@@ -63,6 +63,17 @@ public class PlayerShip : BaseShip
         protected set;
     }
 
+    /// <summary>
+    /// 能源负载百分比
+    /// </summary>
+    public float EnergyPercent
+    {
+        get
+        {
+            return (CurrentUsedEnergy * 100) / (float)TotalEnergy;
+        }
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -213,7 +224,7 @@ public class PlayerShip : BaseShip
         }
         var energyAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnergyTotalAdd);
         TotalEnergy = (int)Mathf.Clamp(TotalEnergy + energyAdd, 0, int.MaxValue);
-
+        RogueManager.Instance.OnEnergyPercentChange?.Invoke(EnergyPercent);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.EnergyChange);
     }
 

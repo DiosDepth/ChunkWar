@@ -21,6 +21,9 @@ public class GameMiscConfig : SerializedScriptableObject
     public List<AchievementGroupItemConfig> AchievementGroupConfig = new List<AchievementGroupItemConfig>();
     public CollectionMenuKey[] CollectionMenu = new CollectionMenuKey[0];
 
+    public PropertyModifyConfig[] EnergyOverloadBuff = new PropertyModifyConfig[0];
+    public PropertyModifyConfig[] WreckageOverloadBuff = new PropertyModifyConfig[0];
+
     public AchievementGroupItemConfig GetAchievementGroupConfig(AchievementGroupType type)
     {
         return AchievementGroupConfig.Find(x => x.Type == type);

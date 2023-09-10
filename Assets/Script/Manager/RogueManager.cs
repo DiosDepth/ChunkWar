@@ -191,6 +191,8 @@ public class RogueManager : Singleton<RogueManager>
 
     /* 负载百分比变化 */
     public UnityAction<float> OnWreckageLoadPercentChange;
+    /* 能源百分比变化 */
+    public UnityAction<float> OnEnergyPercentChange;
     /* 残骸数量变化 */
     public UnityAction<int> OnWasteCountChange;
     /* 残骸物件数量变化  ID : Count*/
@@ -290,6 +292,15 @@ public class RogueManager : Singleton<RogueManager>
 
     }
 
+    /// <summary>
+    /// 关卡胜利
+    /// </summary>
+    public void RogueBattleSuccess()
+    {
+        Timer.Pause();
+        Timer.RemoveAllTrigger();
+    }
+
     public void RogueBattleOver()
     {
         Timer.Pause();
@@ -377,6 +388,22 @@ public class RogueManager : Singleton<RogueManager>
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.EnergyDamage, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
     }
 
+    /// <summary>
+    /// 结算阵营积分
+    /// </summary>
+    private void SettleCampScore()
+    {
+        var totalScore = CalculateCurrentWaveScore(true);
+        var hardLevelRatio = CurrentHardLevel.Cfg.ScoreRatio;
+        totalScore = Mathf.RoundToInt(totalScore * hardLevelRatio);
+        var playerCampID = currentShip.playerShipCfg.PlayerShipCampID;
+        var campData = GameManager.Instance.GetCampDataByID(playerCampID);
+        if(campData != null)
+        {
+            campData.AddCampScore(totalScore);
+        }
+    }
+
     #region Drop
 
     /// <summary>
@@ -402,7 +429,7 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public float WreckageLoadPercent
     {
-        get { return WreckageTotalLoadValue / (float)WreckageTotalLoadCost; }
+        get { return (WreckageTotalLoadValue * 100) / (float)WreckageTotalLoadCost; }
     }
 
     private ChangeValue<int> _dropWasteCount;
@@ -737,6 +764,31 @@ public class RogueManager : Singleton<RogueManager>
     {
         _shopRefreshTotalCount++;
         LevelManager.Instance.CreateShopPickUp();
+    }
+
+    /// <summary>
+    /// 计算关卡最终得分
+    /// </summary>
+    /// <param name="finalWaveWin"></param>
+    /// <returns></returns>
+    private int CalculateCurrentWaveScore(bool finalWaveWin)
+    {
+        int totalScore = 0;
+        for (int i = GetCurrentWaveIndex - 1; i >= 1; i--) 
+        {
+            var waveCfg = CurrentHardLevel.GetWaveConfig(i);
+            totalScore += waveCfg.waveScore;
+        }
+
+        ///检查是否最后一波是否胜利
+        var waveTotalCount = CurrentHardLevel.WaveCount;
+        if (GetCurrentWaveIndex == waveTotalCount && finalWaveWin)
+        {
+            ///FinalWave
+            var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+            totalScore += waveCfg.waveScore;
+        }
+        return totalScore;
     }
  
     #endregion

@@ -6,17 +6,19 @@ using UnityEngine.UI;
 
 public class GMTalkMainPage : GUIBasePanel
 {
-    // Start is called before the first frame update
+    private InputField _filed;
+
     public override void Initialization()
     {
         GetGUIComponent<Button>("SendGMBtn").onClick.AddListener(SendGMBtnPressed);
         GetGUIComponent<Button>("Close").onClick.AddListener(ClosePage);
         GetGUIComponent<Button>("Shop").onClick.AddListener(JumpToShop);
+        _filed = transform.Find("Content/InputContent/GMCommandField").SafeGetComponent<InputField>();
     }
 
     private void SendGMBtnPressed()
     {
-        GMTalkManager.Instance.HandleGMTalkInputContent(GetGUIComponent<InputField>("GMCommandField").text);
+        GMTalkManager.Instance.HandleGMTalkInputContent(_filed.text);
     }
 
     public override void Show()

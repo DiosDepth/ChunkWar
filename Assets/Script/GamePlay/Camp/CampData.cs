@@ -25,7 +25,7 @@ public class CampData
         get { return LocalizationManager.Instance.GetTextValue(Config.CampDesc); }
     }
 
-    private byte _campLevel = 1;
+    private byte _campLevel = 0;
     public byte GetCampLevel
     {
         get { return _campLevel; }
@@ -46,6 +46,9 @@ public class CampData
     {
         get { return CampTotalScore.Value; }
     }
+
+    private int _currentUpgradeRequireEXP;
+    private int _currentEXP;
 
     private CampLevelConfig[] LevelConfigs;
 
@@ -78,21 +81,14 @@ public class CampData
                 BuffLevelMap.Add(buffCfg.ModifyKey, 1);
             }
         }
+        RefreshUpgradeEXP();
     }
 
     public float GetCurrentLevelEXPProgress()
     {
-        var levelCfg = LevelConfigs[GetCampLevel - 1];
-        var delta = TotalScore - levelCfg.RequireTotalEXP;
-
-        int preEXP = 0;
-        byte preLevel = (byte)(GetCampLevel - 1);
-        if(preLevel > 0)
-        {
-            preEXP = LevelConfigs[preLevel - 1].RequireTotalEXP;
-        }
-
-        return delta / (levelCfg.RequireTotalEXP - preEXP);
+        if (IsMaxCampLevel)
+            return 1;
+        return _currentEXP / (float)_currentUpgradeRequireEXP;
     }
 
     public List<uint> GenerateBuffItemUIDs()
@@ -142,12 +138,20 @@ public class CampData
         var newScore = CampTotalScore.Value + value;
         CampTotalScore.Set(newScore);
         CurrentRemainScore += value;
-        var delta = CheckLevelUp();
-        if(delta > 0)
+
+        int safeLoop = 0;
+
+        if (!IsMaxCampLevel)
         {
-            for(int i = 0; i < delta; i++)
+            _currentEXP += value;
+            while (_currentEXP >= _currentUpgradeRequireEXP && safeLoop <= 50)
             {
+                safeLoop++;
+                _currentEXP -= _currentUpgradeRequireEXP;
                 LevelUp();
+
+                if (IsMaxCampLevel)
+                    break;
             }
         }
     }
@@ -223,31 +227,23 @@ public class CampData
         return 0;
     }
 
-    private int CheckLevelUp()
-    {
-        CampLevelConfig outCfg = null;
-        for (int i = LevelConfigs.Length - 1; i >= 0; i--) 
-        {
-            var cfg = LevelConfigs[i];
-            if(CampTotalScore.Value >= cfg.RequireTotalEXP)
-            {
-                outCfg = cfg;
-                break;
-            }
-        }
-
-        if (outCfg == null)
-            return 0;
-
-        return outCfg.LevelIndex - _campLevel;
-    }
-
     private void LevelUp()
     {
         if (IsMaxCampLevel)
             return;
 
         _campLevel++;
-        
+        RefreshUpgradeEXP();
+    }
+
+    private void RefreshUpgradeEXP()
+    {
+        if (IsMaxCampLevel)
+        {
+            _currentUpgradeRequireEXP = 0;
+            return;
+        }
+
+        _currentUpgradeRequireEXP = LevelConfigs[GetCampLevel].RequireTotalEXP;
     }
 }

@@ -122,3 +122,25 @@ MonoBehaviour:
       Name: CollectionMenu_ShipWeapon
       Order: 0
       SubMenus: []
+  EnergyOverloadBuff:
+  - ModifyKey: 2
+    Value: -0.5
+    BySpecialValue: 1
+    SpecialType: 1
+    SpecialKeyParam: EnergyPercent
+  - ModifyKey: 8
+    Value: -0.5
+    BySpecialValue: 1
+    SpecialType: 1
+    SpecialKeyParam: EnergyPercent
+  WreckageOverloadBuff:
+  - ModifyKey: 38
+    Value: -0.5
+    BySpecialValue: 1
+    SpecialType: 1
+    SpecialKeyParam: LoadPercent
+  - ModifyKey: 39
+    Value: -0.5
+    BySpecialValue: 1
+    SpecialType: 1
+    SpecialKeyParam: LoadPercent
