@@ -10,10 +10,12 @@ public class FloatingText : GUIBasePanel,IPoolable
     private static Color _colorNormal = Color.white;
     private static Color _colorCritical = Color.yellow;
 
+    private TextMeshProUGUI _text;
+
     public override void Initialization()
     {
         base.Initialization();
-
+        _text = transform.Find("uiGroup/Textinfo").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public override void Show()
@@ -49,16 +51,14 @@ public class FloatingText : GUIBasePanel,IPoolable
 
     public void SetText(string text, bool isCritical)
     {
-        var txt = GetGUIComponent<TMP_Text>("Textinfo");
-        txt.SetText(text);
-        txt.color = isCritical ? _colorCritical : _colorNormal;
+        _text.SetText(text);
+        _text.color = isCritical ? _colorCritical : _colorNormal;
     }
 
     public void SetText(float value, bool isCritical)
     {
-        var txt = GetGUIComponent<TMP_Text>("Textinfo");
-        txt.SetText(value.ToString());
-        txt.color = isCritical ? _colorCritical : _colorNormal;
+        _text.SetText(value.ToString());
+        _text.color = isCritical ? _colorCritical : _colorNormal;
     }
 
 }

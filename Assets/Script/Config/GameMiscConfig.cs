@@ -2,6 +2,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [CreateAssetMenu(fileName = "GameMiscConfig", menuName = "Configs/Main")]
 public class GameMiscConfig : SerializedScriptableObject
@@ -32,6 +35,18 @@ public class GameMiscConfig : SerializedScriptableObject
         }
         return null;
     }
+
+#if UNITY_EDITOR
+
+    [OnInspectorDispose]
+    private void OnDispose()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+#endif
 }
 
 [System.Serializable]

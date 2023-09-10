@@ -21,6 +21,14 @@ public class CampConfig : SerializedScriptableObject
     [LabelWidth(50)]
     public string CampDesc;
 
+    [HorizontalGroup("B", 200)]
+    [LabelText("默认解锁")]
+    [LabelWidth(50)]
+    public bool Unlock;
+
+    [PreviewField(80, Alignment = ObjectFieldAlignment.Left)]
+    public Sprite CampIcon;
+
     [ListDrawerSettings(CustomAddFunction ="AddLevel")]
     [LabelText("等级配置")]
     public CampLevelConfig[] LevelConfigs = new CampLevelConfig[0];
@@ -38,6 +46,16 @@ public class CampConfig : SerializedScriptableObject
     {
         return new CommonBuffItem();
     }
+
+    public CommonBuffItem GetBuffItem(PropertyModifyKey key)
+    {
+        for(int i = 0; i < BuffItems.Length; i++)
+        {
+            if (BuffItems[i].ModifyKey == key)
+                return BuffItems[i];
+        }
+        return null;
+    }
 }
 
 public enum GeneralUnlockItemType
@@ -51,7 +69,7 @@ public enum GeneralUnlockItemType
 public class CampLevelConfig
 {
     public int LevelIndex;
-    public int RequireEXP;
+    public int RequireTotalEXP;
 
     public GeneralUnlockItemType UnlockType;
     public int UnlockItemID;
@@ -66,10 +84,11 @@ public class CommonBuffItem
     public PropertyModifyKey ModifyKey;
 
     [HorizontalGroup("B", 400)]
-    [LabelText("Key")]
+    [LabelText("加成表")]
     [LabelWidth(50)]
     public float[] LevelMap = new float[0];
 
+    [HorizontalGroup("B", 400)]
     [LabelText("消耗表")]
     [LabelWidth(50)]
     public int[] CostMap = new int[0];

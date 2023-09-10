@@ -15,7 +15,11 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 33cfd0cda32286c4aa31bc2f3525a095, type: 3}
+    - {fileID: 21300000, guid: d08eb80599c10094ea51f7ffb717fad9, type: 3}
+    - {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
+    - {fileID: 21300000, guid: 895bf709adba5a948aa8b04a6662b2be, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -197,8 +201,8 @@ MonoBehaviour:
       Entry: 7
       Data: 13|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1001
@@ -302,8 +306,8 @@ MonoBehaviour:
       Entry: 7
       Data: 20|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1002
@@ -386,8 +390,8 @@ MonoBehaviour:
       Entry: 7
       Data: 26|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 2
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1003
@@ -491,8 +495,8 @@ MonoBehaviour:
       Entry: 7
       Data: 33|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 3
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1004
@@ -596,8 +600,8 @@ MonoBehaviour:
       Entry: 7
       Data: 40|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1005
@@ -701,8 +705,8 @@ MonoBehaviour:
       Entry: 7
       Data: 47|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1006

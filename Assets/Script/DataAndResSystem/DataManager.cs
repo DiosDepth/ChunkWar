@@ -25,6 +25,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, AIShipConfig> _AIShipConfigDic = new Dictionary<int, AIShipConfig>();
     private Dictionary<int, AchievementItemConfig> _achievementDic = new Dictionary<int, AchievementItemConfig>();
     private Dictionary<int, LevelSpawnConfig> _levelPresetDic = new Dictionary<int, LevelSpawnConfig>();
+    private Dictionary<int, CampConfig> _campConfigDic = new Dictionary<int, CampConfig>();
 
     /// <summary>
     /// Unit 升级组
@@ -274,6 +275,19 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
+    public CampConfig GetCampConfigByID(int campID)
+    {
+        CampConfig result = null;
+        _campConfigDic.TryGetValue(campID, out result);
+        Debug.Assert(result != null, "GetCampConfigByID Null! ID= " + campID);
+        return result;
+    }
+
+    public List<CampConfig> GetAllCampConfigs()
+    {
+        return _campConfigDic.Values.ToList();
+    }
+
     public List<AchievementItemConfig> GetAllAchievementConfigs()
     {
         return _achievementDic.Values.ToList();
@@ -386,6 +400,7 @@ public class DataManager : Singleton<DataManager>
         var weapons = Resources.LoadAll<WeaponConfig>(DataConfigPath.WeaponConfigRoot);
         var enemy = Resources.LoadAll<AIShipConfig>(DataConfigPath.EnemyShipConfigRoot);
         var achievement = Resources.LoadAll<AchievementItemConfig>(DataConfigPath.AchievementConfigRoot);
+        var camps = Resources.LoadAll<CampConfig>(DataConfigPath.CampConfigRoot);
 
         if (builds != null && builds.Length > 0)
         {
@@ -439,6 +454,19 @@ public class DataManager : Singleton<DataManager>
                     continue;
                 }
                 _achievementDic.Add(achievement[i].AchievementID, achievement[i]);
+            }
+        }
+
+        if(camps != null && camps.Length > 0)
+        {
+            for (int i = 0; i < camps.Length; i++)
+            {
+                if (_campConfigDic.ContainsKey(camps[i].CampID))
+                {
+                    Debug.LogError("Find Same camps !" + camps[i].CampID);
+                    continue;
+                }
+                _campConfigDic.Add(camps[i].CampID, camps[i]);
             }
         }
     }
