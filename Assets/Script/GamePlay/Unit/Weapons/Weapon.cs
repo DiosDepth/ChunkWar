@@ -749,79 +749,17 @@ public class Weapon : Unit
                 //ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
             }
         }
-
-
-        // 搜索合适的target
-        /*
-        if(aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetBased)
-        {
-            targetList.Clear();
-
-            _targetcandidates = Physics2D.OverlapCircleAll(this.transform.position, weaponAttribute.WeaponRange, mask);
-
-            if(_targetcandidates.Length > 0)
-            {
-                if(targetmode == WeaponTargetMode.Single)
-                {
-                    GameObject temptarget = null;
-                    float tempsqedistance;
-                    float shortestdistance = float.MaxValue;
-                    // 筛选目标候选
-                    for (int i = 0; i < _targetcandidates.Length; i++)
-                    {
-                        if(_targetcandidates[i].tag == this.tag)
-                        {
-                            continue;
-                        }
-                        tempsqedistance = transform.position.SqrDistanceXY(_targetcandidates[i].gameObject.transform.position);
-                        if (tempsqedistance <= shortestdistance)
-                        {
-                            tempsqedistance = shortestdistance;
-                            temptarget = _targetcandidates[i].gameObject;
-                        }
-                    }
-                    if(temptarget != null)
-                    {
-                        targetList.Add(temptarget);
-                    }
-                }
-                if(targetmode == WeaponTargetMode.Mutipule)
-                {
-                    float d1;
-                    float d2;
-                    // 筛选目标候选,按照距离排序
-                    _targetcandidates.Sort((x,y) => 
-                    {
-                        d1 = transform.position.SqrDistanceXY(x.gameObject.transform.position);
-                        d2 = transform.position.SqrDistanceXY(y.gameObject.transform.position);
-                        return d1.CompareTo(d2);
-                    });
-                    int tempcount = 0;
-                    for (int i = 0; i < _targetcandidates.Length; i++)
-                    {
-                        if(_targetcandidates[i].tag == this.tag)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            
-                            targetList.Add(_targetcandidates[i].gameObject);
-                            tempcount++;
-                            if( tempcount >= maxTargetCount)
-                            {
-                                break;
-                            }
-                        }
-              
-                    }
-                }
-            }
-        }
-        */
-
-
-
+        //if(targetmode == WeaponTargetMode.Mutipule)
+        //{
+        //    float d1;
+        //    float d2;
+        //    // 筛选目标候选,按照距离排序
+        //    _targetcandidates.Sort((x,y) => 
+        //    {
+        //        d1 = transform.position.SqrDistanceXY(x.gameObject.transform.position);
+        //        d2 = transform.position.SqrDistanceXY(y.gameObject.transform.position);
+        //        return d1.CompareTo(d2);
+        //    });
         if (_firepointindex >= firePoint.Length)
         {
             _firepointindex = 0;
@@ -1005,7 +943,7 @@ public class Weapon : Unit
                         obj.transform.SetTransform(trs);
                         _lastbullet = obj.GetComponent<Bullet>();
                         _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
-
+                        _lastbullet.SetTarget(null);
                         _lastbullet.SetOwner(this);
                         // _lastbullet.PoolableSetActive();
                         _lastbullet.Initialization();
@@ -1052,7 +990,7 @@ public class Weapon : Unit
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
-
+                    _lastbullet.SetTarget(null);
                     //_lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);
                     _lastbullet.Initialization();

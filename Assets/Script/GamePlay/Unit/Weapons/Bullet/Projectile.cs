@@ -9,11 +9,63 @@ using Unity.Mathematics;
 
 public enum ProjectileMovementType
 {
-    Straight,
-    StraightToPos,
-    FollowTarget,
+    Straight = 1,
+    StraightToPos = 2,
+    FollowTarget = 3,
+}
+public struct BulletJobInitialInfo
+{
+    
+    public float3 update_selfPos;
+    public float lifeTime;
+    public float update_liftTimeRemain;
+    public float maxSpeed;
+    public float initialSpeed;
+    public float update_currentSpeed;
+    public float acceleration;
+    public float rotSpeed;
+    public float3 initialDirection;
+    public float3 update_moveDirection;
+    public int movementType;
+
+    /// <summary>
+    /// 创建Job时需要传的参数， 大部分是静态， 小部分需要更新
+    /// </summary>
+    /// <param name="m_update_selfPos"></param>
+    /// <param name="m_lifttime"></param>
+    /// <param name="m_maxspeed"></param>
+    /// <param name="m_initialspeed"></param>
+    /// <param name="m_acceleration"></param>
+    /// <param name="m_rotspeed"></param>
+    /// <param name="m_initialdirection"></param>
+    public BulletJobInitialInfo(float3 m_update_selfPos,float m_lifttime, float m_maxspeed, float m_initialspeed , float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType)
+    {
+        update_selfPos = m_update_selfPos;
+        lifeTime = m_lifttime;
+        update_liftTimeRemain = lifeTime;
+        maxSpeed = m_maxspeed;
+        initialSpeed = m_initialspeed;
+        update_currentSpeed = initialSpeed;
+        acceleration = m_acceleration;
+        rotSpeed = m_rotspeed;
+        initialDirection = m_initialdirection;
+        update_moveDirection = initialDirection;
+        movementType = m_movementType;
+    }
 }
 
+/// <summary>
+/// 需要每一帧更新的参数， 子弹移动计算有一部分依赖这个数据， 同时也会更新到BulletJobInitialInfo中
+/// </summary>
+public struct BulletJobUpdateInfo
+{
+    public float selfPos;
+    public float lifeTimeRemain;
+    public float3 moveDirection;
+    public float currentSpeed;
+    public float3 deltaMovement;
+    public bool islifeended;
+}
 
 public class Projectile : Bullet, IDamageble
 {
@@ -27,18 +79,16 @@ public class Projectile : Bullet, IDamageble
     public float initialSpeed = 20f;
     public float acceleration = 0.25f;
     public bool IsinterceptTarget = true;
+
     /// <summary>
     /// 血量管理组件
     /// </summary>
     public GeneralHPComponet HpComponent;
 
     //private Coroutine startmovingCoroutine;
-    private float _movetimestamp;
     protected float _beforemovetimestamp;
-    private Vector3 _move;
 
-    private Vector2 _movedirection;
-    protected NativeArray<float3> _tempmovement;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -82,8 +132,7 @@ public class Projectile : Bullet, IDamageble
         base.Shoot();
 
         PoolableSetActive();
-        _movetimestamp = Time.time + lifeTime;
-        _movedirection = InitialmoveDirection;
+
 
     }
 
@@ -96,27 +145,58 @@ public class Projectile : Bullet, IDamageble
     }
 
 
-    public struct StaightJob : IJob
+    public struct StaightCalculateBulletMovementJobJob : IJobParallelForBatch
     {
-        [ReadOnly] public float3 job_selfPos;
-        [ReadOnly] public float3 job_moveDirection;
-        [ReadOnly] public float job_maxSpeed;
+       
+        [ReadOnly] public NativeArray<BulletJobInitialInfo> job_jobInfo;
         [ReadOnly] public float job_deltatime;
 
-        public NativeArray<float3> JRD_movement;
-        public void Execute()
+
+        public NativeArray<BulletJobUpdateInfo> rv_bulletJobUpdateInfos;
+
+        private BulletJobUpdateInfo bulletJobUpdateInfo;
+        private float currentSpeed;
+        private float3 deltaMovement;
+        public void Execute(int startIndex, int count)
         {
-            JRD_movement[0] = job_selfPos + (job_moveDirection * job_maxSpeed * job_deltatime);
+
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+                //直线运动的Job算法
+                if(job_jobInfo[i].movementType == 1)
+                {
+                    currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
+                    currentSpeed = math.clamp(currentSpeed, 0, job_jobInfo[i].maxSpeed);
+
+                    deltaMovement = job_jobInfo[i].update_selfPos + (job_jobInfo[i].update_moveDirection * currentSpeed * job_deltatime);
+
+                    //更新BulletJob的值
+                    bulletJobUpdateInfo.deltaMovement = deltaMovement;
+                    bulletJobUpdateInfo.currentSpeed = currentSpeed;
+                    bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_liftTimeRemain - job_deltatime;
+                    if(bulletJobUpdateInfo.lifeTimeRemain <= 0)
+                    {
+                        bulletJobUpdateInfo.islifeended = true;
+                    }
+                    else
+                    {
+                        bulletJobUpdateInfo.islifeended = false;
+                    }
+                    bulletJobUpdateInfo.moveDirection = job_jobInfo[i].update_moveDirection;
+
+
+                    rv_bulletJobUpdateInfos[i] = bulletJobUpdateInfo;
+                }
+
+            }
         }
-
-
     }
 
 
 
-    public void Move()
+    public void Move(Vector3 movement)
     {
-
+        rb.MovePosition(movement);
     }
 
 
@@ -124,7 +204,7 @@ public class Projectile : Bullet, IDamageble
     //{
     //    _beforemovetimestamp = Time.time + 0.5f;
     //    float currentspeed = initialSpeed;
-        
+
 
     //    while (Time.time < _beforemovetimestamp)
     //    {
@@ -137,10 +217,10 @@ public class Projectile : Bullet, IDamageble
     //    }
     //    _movetimestamp = Time.time + lifeTime;
 
-        
+
     //    while (Time.time < _movetimestamp)
     //    {
-    //        if(target != null)
+    //        if (target != null)
     //        {
     //            _movedirection = transform.position.DirectionToXY(target.transform.position);
     //        }
@@ -163,34 +243,21 @@ public class Projectile : Bullet, IDamageble
     public override void PoolableReset()
     {
         base.PoolableReset();
-
-        _movedirection = Vector3.zero;
     }
 
     public override void PoolableSetActive(bool isactive = true)
     {
         base.PoolableSetActive(isactive);
-
     }
 
     public override void PoolableDestroy()
     {
-        
         base.PoolableDestroy();
-
-
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        //PoolManager.Instance.GetObjectAsync(PoolManager.Instance.VFXPath + "DestroyVFX", true, (obj) => 
-        //{
-        //    obj.transform.position = this.transform.position;
-        //    obj.GetComponent<ParticleController>().SetActive();
-        //    obj.GetComponent<ParticleController>().PlayVFX();
 
-        //});
-        //Destroy();
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

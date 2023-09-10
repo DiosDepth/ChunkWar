@@ -17,9 +17,16 @@ public class AIManager : Singleton<AIManager>
 
     //AI list Info
     public List<AIShip> aiShipList = new List<AIShip>();
-    public List<Bullet> aibulletsList = new List<Bullet>();
+    public List<Projectile> aibulletsList = new List<Projectile>();
+    public NativeList<BulletJobInitialInfo> aiBullet_JobInfo;
+    public NativeArray<BulletJobUpdateInfo> rv_aiBullet_jobUpdateInfo;
 
- 
+
+
+
+
+
+
     public List<AISteeringBehaviorController> aiSteeringBehaviorControllerList = new List<AISteeringBehaviorController>();
     public List<IBoid> aiShipBoidList = new List<IBoid>();
 
@@ -135,6 +142,8 @@ public class AIManager : Singleton<AIManager>
         aiActiveUnitMaxTargetsCount = new NativeList<int>(Allocator.Persistent);
 
 
+        aiBullet_JobInfo = new NativeList<BulletJobInitialInfo>(Allocator.Persistent);
+
         steeringBehaviorJob_aiShipPos = new NativeList<float3>(Allocator.Persistent);
         steeringBehaviorJob_aiShipVelocity = new NativeList<float3>(Allocator.Persistent);
         steeringBehaviorJob_aiShipRotationZ = new NativeList<float>(Allocator.Persistent);
@@ -211,6 +220,7 @@ public virtual void UpdateJobData()
         if (aiActiveUnitPos.IsCreated) { aiActiveUnitPos.Dispose(); }
         if(aiActiveUnitAttackRange.IsCreated) { aiActiveUnitAttackRange.Dispose(); }
         if (aiActiveUnitMaxTargetsCount.IsCreated) { aiActiveUnitMaxTargetsCount.Dispose(); }
+        if (aiBullet_JobInfo.IsCreated) { aiBullet_JobInfo.Dispose(); }
 
         //ai data dispose
         if (steeringBehaviorJob_aiShipPos.IsCreated) { steeringBehaviorJob_aiShipPos.Dispose(); }
@@ -249,11 +259,7 @@ public virtual void UpdateJobData()
 
         //weapon job data dispose
     }
-    public virtual void DisposeAIJobDataFrame()
-    {
 
-
-    }
 
     public void Unload()
     {
@@ -303,6 +309,11 @@ public virtual void UpdateJobData()
         //update weapon
         UpdateAIWeapon();
         UpdateBullet();
+
+   
+
+      
+
     }
 
     private void LaterUpdate()
@@ -313,10 +324,7 @@ public virtual void UpdateJobData()
     private void FixedUpdate()
     {
         UpdateJobData();
-
         UpdateAIMovement();
-
-
     }
 
 
@@ -473,13 +481,43 @@ public virtual void UpdateJobData()
 
     public void AddBullet(Bullet bullet)
     {
+        if(bullet is Projectile)
+        {
+            AddProjectileBullet(bullet as Projectile);
+        }
+    }
+    public void AddProjectileBullet(Projectile bullet)
+    {
         if(!aibulletsList.Contains(bullet))
         aibulletsList.Add(bullet);
+    
+
+        aiBullet_JobInfo.Add(new BulletJobInitialInfo
+            (
+                bullet.transform.position,
+                bullet.lifeTime,
+                bullet.maxSpeed,
+                bullet.initialSpeed,
+                bullet.acceleration,
+                bullet.rotSpeed,
+                bullet.InitialmoveDirection.ToVector3(),
+               (int)bullet.movementType
+            ));;
     }
 
+    public void RemoveProjectileBullet(Projectile bullet)
+    {
+        int index = aibulletsList.IndexOf(bullet);
+        aiBullet_JobInfo.RemoveAt(index);
+        aibulletsList.RemoveAt(index);
+    }
     public void RemoveBullet(Bullet bullet)
     {
-        aibulletsList.Remove(bullet);
+        if(bullet is Projectile)
+        {
+            RemoveProjectileBullet(bullet as Projectile);
+        }
+        //todo 如果不是Projectile类型需要用调用其他容器的Remove
     }
 
     public void AddTargetUnit(Unit unit)
@@ -698,10 +736,6 @@ public virtual void UpdateJobData()
 
     }
 
-
-
-
-
     public void UpdateAIWeapon()
     {
 
@@ -788,14 +822,72 @@ public virtual void UpdateJobData()
         //Dispose all Job tempdata
     }
 
+
+
     public void UpdateBullet()
     {
+        if(aibulletsList == null || aibulletsList.Count == 0)
+        {
+            return;
+        }
+        rv_aiBullet_jobUpdateInfo = new NativeArray<BulletJobUpdateInfo>(aibulletsList.Count, Allocator.TempJob);
+        // 获取子弹分类
+        // 获取子弹的Target，并且更新Target位置， 如果是
+        JobHandle aibulletjobhandle;
+        //根据子弹分类比如是否targetbase来开启对应的JOB
+        Projectile.StaightCalculateBulletMovementJobJob staightCalculateBulletMovementJobJob = new Projectile.StaightCalculateBulletMovementJobJob
+        {
+            job_deltatime = Time.deltaTime,
+            job_jobInfo = aiBullet_JobInfo,
+            rv_bulletJobUpdateInfos = rv_aiBullet_jobUpdateInfo,
+        };
 
+        aibulletjobhandle = staightCalculateBulletMovementJobJob.ScheduleBatch(aibulletsList.Count, 2);
+        aibulletjobhandle.Complete();
+        //更新子弹当前的JobData
+        //移动子弹
+
+
+        for (int i = 0; i < aibulletsList.Count; i++)
+        {
+            if(rv_aiBullet_jobUpdateInfo[i].islifeended)
+            {
+                aibulletsList[i].Death();
+            }
+            aibulletsList[i].Move(rv_aiBullet_jobUpdateInfo[i].deltaMovement);
+        }
+
+
+        UpdateBulletJobData();
+
+        rv_aiBullet_jobUpdateInfo.Dispose();
+        //dispose
     }
 
+    public void UpdateBulletJobData()
+    {
+        BulletJobInitialInfo bulletJobInfo;
+        for (int i = 0; i < aibulletsList.Count; i++)
+        {
+            bulletJobInfo = new BulletJobInitialInfo
+                (
+                    aibulletsList[i].transform.position,
+                    aibulletsList[i].lifeTime,
+                    aibulletsList[i].maxSpeed,
+                    aibulletsList[i].initialSpeed,
+                    aibulletsList[i].acceleration,
+                    aibulletsList[i].rotSpeed,
+                    aibulletsList[i].InitialmoveDirection.ToVector3(),
+                    (int) aibulletsList[i].movementType
+                ); ;
+            bulletJobInfo.update_selfPos = rv_aiBullet_jobUpdateInfo[i].selfPos;
+            bulletJobInfo.update_liftTimeRemain = rv_aiBullet_jobUpdateInfo[i].lifeTimeRemain;
+            bulletJobInfo.update_moveDirection = rv_aiBullet_jobUpdateInfo[i].moveDirection;
+            bulletJobInfo.update_currentSpeed = rv_aiBullet_jobUpdateInfo[i].currentSpeed;
 
-
-
+            aiBullet_JobInfo[i] = bulletJobInfo;
+        }
+    }
 
 
 }

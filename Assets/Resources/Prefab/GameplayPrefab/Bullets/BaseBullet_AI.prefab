@@ -186,7 +186,7 @@ MonoBehaviour:
   target: {fileID: 0}
   rb: {fileID: 5862403524487350706}
   bulletCollider: {fileID: 5171024743468899609}
-  movementType: 0
+  movementType: 1
   lifeTime: 5
   maxSpeed: 70
   rotSpeed: 180

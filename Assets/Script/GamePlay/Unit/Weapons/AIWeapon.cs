@@ -91,7 +91,11 @@ public class AIWeapon : Weapon
         }
         if(aimingtype == WeaponAimingType.TargetDirectional || aimingtype == WeaponAimingType.Directional)
         {
-            
+            if (_firepointindex >= firePoint.Length)
+            {
+                _firepointindex = 0;
+            }
+            weaponstate.ChangeState(WeaponState.Firing);
         }
         if(aimingtype == WeaponAimingType.TargetBased )
         base.FireRequest();

@@ -79,7 +79,7 @@ public class Bullet : MonoBehaviour,IPoolable
         PlayVFX(DeathVFX, this.transform.position);
         if(ownertype == OwnerType.AI && _owner is AIWeapon)
         {
-            AIManager.Instance.aibulletsList.Remove(this);
+            AIManager.Instance.RemoveBullet(this);
         }
 
         PoolableDestroy();
