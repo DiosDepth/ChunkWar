@@ -120,7 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 4254137073360052133}
-  buildingsParent: {fileID: 0}
   deathVFXName: ExplodeVFX
   AIShipCfg: {fileID: 0}
   AIType: 1
@@ -179,7 +178,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   maxAcceleration: 7
   maxAngularAcceleration: 6
-  targetSerchingRadius: 35
+  targetSerchingRadius: 1000
   boidRadius: 1
   arriveBehavior: 1
   arrivelBehaviorInfo:
@@ -200,14 +199,14 @@ MonoBehaviour:
   separationBehavior: 0
   separationBehaviorInfo:
     target: {fileID: 0}
-    weight: 1.5
-    threshold: 0.5
+    weight: 1
+    threshold: 1.5
     decayCoefficient: -25
   aligmentBehavior: 0
   alignmentBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
-    alignDistance: 3
+    weight: 0.8
+    alignDistance: 2
   drag: 3
   velocity: {x: 0, y: 0, z: 0}
   lastpos: {x: 0, y: 0, z: 0}

@@ -36,9 +36,10 @@ public class SeparationBehavior : SteeringBehavior
         float strength;
         public void Execute(int startIndex, int count)
         {
-
+  
             for (int i = startIndex; i < startIndex + count; i++)
             {
+                steering.linear = float3.zero;
                 for (int n = 0; n < job_InRangeLength[i]; n++)
                 {
                     direction = job_aiShipPosInRange[i * job_shipcount + n] - job_aiShipPos[i];

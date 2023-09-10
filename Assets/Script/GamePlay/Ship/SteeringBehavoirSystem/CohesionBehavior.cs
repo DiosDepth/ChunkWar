@@ -42,6 +42,7 @@ public class CohesionBehavior : SteeringBehavior
             {
 
                 countindex = 0;
+                centerOfMass = float3.zero;
                 for (int n = 0; n < job_InRangeLength[i]; n++)
                 {
 
