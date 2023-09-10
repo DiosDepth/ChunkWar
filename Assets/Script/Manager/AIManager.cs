@@ -734,7 +734,7 @@ public virtual void UpdateJobData()
 
         };
 
-        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(targetActiveUnitList.Count, 1);
+        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(aiActiveUnitList.Count, 2);
 
 
         jobHandle.Complete();
@@ -757,10 +757,6 @@ public virtual void UpdateJobData()
             if(aiActiveUnitList[i] is AIWeapon)
             {
                 weapon = aiActiveUnitList[i] as AIWeapon;
-
-
-
-
 
                 for (int n = 0; n < aiActiveUnitMaxTargetsCount[i]; n++)
                 {

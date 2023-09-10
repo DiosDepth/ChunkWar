@@ -524,7 +524,6 @@ public class Weapon : Unit
         }
     }
 
-    [BurstCompile]
     public struct FindWeaponTargetsJob : IJobParallelForBatch
     {
         [Unity.Collections.ReadOnly] public NativeArray<float> job_attackRange;
@@ -558,7 +557,7 @@ public class Weapon : Unit
                 }
 
                 index = 0;
-                for (int c = 0; c < startIndex; c++)
+                for (int c = 0; c < i; c++)
                 {
                     index += job_maxTargetCount[c];
                 }

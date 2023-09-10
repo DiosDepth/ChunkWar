@@ -299,12 +299,13 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         if (_owner is PlayerShip)
         {
             IsRestoreable = true;
+            Restore();
         }
         else
         {
             IsRestoreable = false;
         }
-        Restore();
+  
     }
 
     /// <summary>
