@@ -16,8 +16,7 @@ public class ArriveBehavior : SteeringBehavior
 
 
 
-
-    [BurstCompatible]
+    [BurstCompile]
     public struct ArriveBehaviorJobs : IJobParallelForBatch
     {
         [ReadOnly] public NativeArray<float3> job_aiShipPos;

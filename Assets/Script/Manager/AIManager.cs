@@ -5,11 +5,13 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.U2D;
 
 
 public class AIManager : Singleton<AIManager>
 {
     public const int MaxAICount = 300;
+    public bool ProcessAI = false;
     public int ShipCount { get { return aiShipList.Count; } }
     public int BulletCount { get { return aibulletsList.Count; } }
 
@@ -18,6 +20,7 @@ public class AIManager : Singleton<AIManager>
     //AI list Info
     public List<AIShip> aiShipList = new List<AIShip>();
     public List<Projectile> aibulletsList = new List<Projectile>();
+    private List<Projectile> _aibulletDeathList = new List<Projectile>();
     public NativeList<BulletJobInitialInfo> aiBullet_JobInfo;
     public NativeArray<BulletJobUpdateInfo> rv_aiBullet_jobUpdateInfo;
 
@@ -127,7 +130,7 @@ public class AIManager : Singleton<AIManager>
         base.Initialization();
         targetBoid = RogueManager.Instance.currentShip.GetComponent<IBoid>();
         targetActiveUnitList.AddRange(RogueManager.Instance.currentShip.UnitList);
-
+        ProcessAI = true;
         // allocate all job data 
         AllocateAIJobData();
 
@@ -292,9 +295,14 @@ public virtual void UpdateJobData()
         //Dispose all job data
         DisposeAIJobData();
     }
-
+    public void GameOver()
+    {
+        ProcessAI = false;
+        Stop();
+    }
     public void Stop()
     {
+        ProcessAI = false;
         for (int i = 0; i < aiShipList.Count; i++)
         {
             for (int n = 0; n < aiShipList[i].UnitList.Count; n++)
@@ -306,6 +314,7 @@ public virtual void UpdateJobData()
     }
     private void Update()
     {
+        if (!ProcessAI) { return; }
         //update weapon
         UpdateAIWeapon();
         UpdateBullet();
@@ -318,11 +327,12 @@ public virtual void UpdateJobData()
 
     private void LaterUpdate()
     {
-
+        if (!ProcessAI) { return; }
     }
 
     private void FixedUpdate()
     {
+        if (!ProcessAI) { return; }
         UpdateJobData();
         UpdateAIMovement();
     }
@@ -502,7 +512,7 @@ public virtual void UpdateJobData()
                 bullet.rotSpeed,
                 bullet.InitialmoveDirection.ToVector3(),
                (int)bullet.movementType
-            ));;
+            ));
     }
 
     public void RemoveProjectileBullet(Projectile bullet)
@@ -802,7 +812,13 @@ public virtual void UpdateJobData()
                     }
                     else
                     {
+                        if (targetActiveUnitList == null || targetActiveUnitList.Count == 0)
+                        {
+                            weapon.WeaponOff();
+                            break;
+                        }
                         weapon.targetList.Clear();
+                    
                         weapon.targetList.Add(new WeaponTargetInfo
                             (
                                 targetActiveUnitList[targetindex].gameObject,
@@ -810,8 +826,11 @@ public virtual void UpdateJobData()
                                 rv_weaponTargetsInfo[startindex + n].distanceToTarget,
                                 rv_weaponTargetsInfo[startindex + n].targetDirection
                             ));
-                        weapon.WeaponOn();
                     }
+                }
+                if(weapon.targetList !=null && weapon.targetList.Count != 0)
+                {
+                    weapon.WeaponOn();
                 }
                 weapon.ProcessWeapon();
             }
@@ -848,13 +867,22 @@ public virtual void UpdateJobData()
         //ÒÆ¶¯×Óµ¯
 
 
+
+        _aibulletDeathList.Clear();
         for (int i = 0; i < aibulletsList.Count; i++)
         {
             if(rv_aiBullet_jobUpdateInfo[i].islifeended)
             {
-                aibulletsList[i].Death();
+                _aibulletDeathList.Add(aibulletsList[i]);
+              
             }
             aibulletsList[i].Move(rv_aiBullet_jobUpdateInfo[i].deltaMovement);
+        }
+
+        for (int i = 0; i < _aibulletDeathList.Count; i++)
+        {
+            RemoveBullet(_aibulletDeathList[i]);
+            _aibulletDeathList[i].Death();
         }
 
 
@@ -880,8 +908,7 @@ public virtual void UpdateJobData()
                     aibulletsList[i].InitialmoveDirection.ToVector3(),
                     (int) aibulletsList[i].movementType
                 ); ;
-            bulletJobInfo.update_selfPos = rv_aiBullet_jobUpdateInfo[i].selfPos;
-            bulletJobInfo.update_liftTimeRemain = rv_aiBullet_jobUpdateInfo[i].lifeTimeRemain;
+            bulletJobInfo.update_lifeTimeRemain = rv_aiBullet_jobUpdateInfo[i].lifeTimeRemain;
             bulletJobInfo.update_moveDirection = rv_aiBullet_jobUpdateInfo[i].moveDirection;
             bulletJobInfo.update_currentSpeed = rv_aiBullet_jobUpdateInfo[i].currentSpeed;
 

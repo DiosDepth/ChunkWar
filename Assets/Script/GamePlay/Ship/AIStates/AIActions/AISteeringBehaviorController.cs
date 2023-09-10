@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
@@ -91,7 +92,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
     }
 
 
-
+    [BurstCompile]
     public struct CalculateTargetsPosByRadiusJob : IJobParallelForBatch
     {
         //[ReadOnly] public NativeArray<float3> job_selfPos;
@@ -147,7 +148,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
 
 
 
-    
+    [BurstCompile]
     public struct CalculateDeltaMovePosJob : IJobParallelForBatch
     {
         [ReadOnly] public NativeArray<float> job_aiShipMaxAcceleration;

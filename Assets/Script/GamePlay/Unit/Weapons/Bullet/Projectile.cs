@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Jobs;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.ParticleSystemJobs;
+using Unity.Burst;
 using Unity.Collections;
+using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEngine;
 
 public enum ProjectileMovementType
 {
@@ -15,10 +12,10 @@ public enum ProjectileMovementType
 }
 public struct BulletJobInitialInfo
 {
-    
+
     public float3 update_selfPos;
     public float lifeTime;
-    public float update_liftTimeRemain;
+    public float update_lifeTimeRemain;
     public float maxSpeed;
     public float initialSpeed;
     public float update_currentSpeed;
@@ -38,11 +35,11 @@ public struct BulletJobInitialInfo
     /// <param name="m_acceleration"></param>
     /// <param name="m_rotspeed"></param>
     /// <param name="m_initialdirection"></param>
-    public BulletJobInitialInfo(float3 m_update_selfPos,float m_lifttime, float m_maxspeed, float m_initialspeed , float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType)
+    public BulletJobInitialInfo(float3 m_update_selfPos, float m_lifttime, float m_maxspeed, float m_initialspeed, float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType)
     {
         update_selfPos = m_update_selfPos;
         lifeTime = m_lifttime;
-        update_liftTimeRemain = lifeTime;
+        update_lifeTimeRemain = lifeTime;
         maxSpeed = m_maxspeed;
         initialSpeed = m_initialspeed;
         update_currentSpeed = initialSpeed;
@@ -59,7 +56,7 @@ public struct BulletJobInitialInfo
 /// </summary>
 public struct BulletJobUpdateInfo
 {
-    public float selfPos;
+
     public float lifeTimeRemain;
     public float3 moveDirection;
     public float currentSpeed;
@@ -92,7 +89,7 @@ public class Projectile : Bullet, IDamageble
     // Start is called before the first frame update
     protected override void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -141,13 +138,13 @@ public class Projectile : Bullet, IDamageble
         base.Initialization();
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
         HpComponent = new GeneralHPComponet(100, 100);
-     
+
     }
 
-
+    [BurstCompile]
     public struct StaightCalculateBulletMovementJobJob : IJobParallelForBatch
     {
-       
+
         [ReadOnly] public NativeArray<BulletJobInitialInfo> job_jobInfo;
         [ReadOnly] public float job_deltatime;
 
@@ -163,7 +160,7 @@ public class Projectile : Bullet, IDamageble
             for (int i = startIndex; i < startIndex + count; i++)
             {
                 //直线运动的Job算法
-                if(job_jobInfo[i].movementType == 1)
+                if (job_jobInfo[i].movementType == 1)
                 {
                     currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
                     currentSpeed = math.clamp(currentSpeed, 0, job_jobInfo[i].maxSpeed);
@@ -171,17 +168,22 @@ public class Projectile : Bullet, IDamageble
                     deltaMovement = job_jobInfo[i].update_selfPos + (job_jobInfo[i].update_moveDirection * currentSpeed * job_deltatime);
 
                     //更新BulletJob的值
+
                     bulletJobUpdateInfo.deltaMovement = deltaMovement;
                     bulletJobUpdateInfo.currentSpeed = currentSpeed;
-                    bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_liftTimeRemain - job_deltatime;
-                    if(bulletJobUpdateInfo.lifeTimeRemain <= 0)
+                    bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_lifeTimeRemain - job_deltatime;
+
+
+                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0)
                     {
+                        bulletJobUpdateInfo.lifeTimeRemain = 0;
                         bulletJobUpdateInfo.islifeended = true;
                     }
                     else
                     {
                         bulletJobUpdateInfo.islifeended = false;
                     }
+
                     bulletJobUpdateInfo.moveDirection = job_jobInfo[i].update_moveDirection;
 
 
@@ -262,17 +264,18 @@ public class Projectile : Bullet, IDamageble
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == this.tag)
+        if (collision.tag == this.tag)
         {
             return;
         }
 
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
         {
             if (_owner is Weapon)
             {
                 var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                collision.GetComponent<IDamageble>()?.TakeDamage(ref damage);
+                //暂时注销用来无敌测试
+                //collision.GetComponent<IDamageble>()?.TakeDamage(ref damage);
             }
             Death();
         }
@@ -280,7 +283,7 @@ public class Projectile : Bullet, IDamageble
 
     public override void Death()
     {
-        base.Death(); 
+        base.Death();
     }
 
 

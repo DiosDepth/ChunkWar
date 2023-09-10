@@ -12,7 +12,7 @@ public class FaceBehavior : SteeringBehavior
     //确定什么时候开始面向target
     public float facetargetRadius;
 
-    //[BurstCompile(Debug = true)]
+    [BurstCompile]
     public struct FaceBehaviorJob :IJobParallelForBatch
     {
         [ReadOnly] public NativeArray<float3> job_aiShipPos;

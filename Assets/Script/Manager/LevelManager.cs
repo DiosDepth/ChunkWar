@@ -323,7 +323,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public void LevelStop()
     {
-        AIManager.Instance.Stop();
+  
     }
     public void OnEvent(AISpawnEvent evt)
     {

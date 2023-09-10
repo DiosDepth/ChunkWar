@@ -64,7 +64,7 @@ public class AlignmentBehavior : SteeringBehavior
     //}
 
 
-
+    [BurstCompile]
     public struct AlignmentBehaviorJob : IJobParallelForBatch
     {
         [ReadOnly] public NativeArray<float> job_alignDistance;

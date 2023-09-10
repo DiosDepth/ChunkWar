@@ -524,6 +524,7 @@ public class Weapon : Unit
         }
     }
 
+    [BurstCompile]
     public struct FindWeaponTargetsJob : IJobParallelForBatch
     {
         [Unity.Collections.ReadOnly] public NativeArray<float> job_attackRange;

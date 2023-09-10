@@ -13,7 +13,7 @@ public class CohesionBehavior : SteeringBehavior
     [SerializeField] public float viewAngle = 60f;
 
 
-    [BurstCompile(Debug = true)]
+    [BurstCompile]
 
     public struct CohesionBehaviorJob : IJobParallelForBatch
     {
