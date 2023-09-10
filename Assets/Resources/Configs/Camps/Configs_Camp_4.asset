@@ -49,4 +49,4 @@ MonoBehaviour:
   CampName: CampName_004
   CampDesc: CampDesc_004
   Unlock: 0
-  CampIcon: {fileID: 0}
+  CampIcon: {fileID: 21300000, guid: 33ee9c0366f62944db893aa6da017d84, type: 3}

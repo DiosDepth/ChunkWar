@@ -46,6 +46,16 @@ public class CampConfig : SerializedScriptableObject
     {
         return new CommonBuffItem();
     }
+
+    public CommonBuffItem GetBuffItem(PropertyModifyKey key)
+    {
+        for(int i = 0; i < BuffItems.Length; i++)
+        {
+            if (BuffItems[i].ModifyKey == key)
+                return BuffItems[i];
+        }
+        return null;
+    }
 }
 
 public enum GeneralUnlockItemType
@@ -74,10 +84,11 @@ public class CommonBuffItem
     public PropertyModifyKey ModifyKey;
 
     [HorizontalGroup("B", 400)]
-    [LabelText("Key")]
+    [LabelText("加成表")]
     [LabelWidth(50)]
     public float[] LevelMap = new float[0];
 
+    [HorizontalGroup("B", 400)]
     [LabelText("消耗表")]
     [LabelWidth(50)]
     public int[] CostMap = new int[0];

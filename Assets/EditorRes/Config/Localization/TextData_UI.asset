@@ -307,3 +307,35 @@ MonoBehaviour:
     ChineseSimplified: "\u672A\u89E3\u9501"
     English: 
     Japanese: 
+  - TextID: CampDetail_BuffTitle
+    ChineseSimplified: "\u9635\u8425\u52A0\u6210"
+    English: 
+    Japanese: 
+  - TextID: CampDetail_UnlockTitle
+    ChineseSimplified: "\u9635\u8425\u89E3\u9501\u4E00\u89C8"
+    English: 
+    Japanese: 
+  - TextID: CampDetail_TotalScore_Title
+    ChineseSimplified: "\u9635\u8425\u603B\u79EF\u5206"
+    English: 
+    Japanese: 
+  - TextID: CampBuffItem_Current
+    ChineseSimplified: "\u5F53\u524D\u52A0\u6210"
+    English: 
+    Japanese: 
+  - TextID: CampBuffItem_Next
+    ChineseSimplified: "\u4E0B\u4E00\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: CampBuffItem_Upgrade
+    ChineseSimplified: "\u5347\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: CampBuffItem_MaxLevel
+    ChineseSimplified: "\u6700\u5927\u7B49\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: CampDetailPage_CurrentSocre
+    ChineseSimplified: "\u5F53\u524D\u79EF\u5206"
+    English: 
+    Japanese: 

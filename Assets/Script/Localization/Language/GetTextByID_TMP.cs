@@ -7,7 +7,7 @@ using TMPro;
 public class GetTextByID_TMP : MonoBehaviour
 {
     public string Textid;
-    void Start()
+    void Awake()
     {
         InitText();
     }

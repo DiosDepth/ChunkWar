@@ -38,10 +38,10 @@ MonoBehaviour:
       Data: 100
     - Name: UnlockType
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: UnlockItemID
       Entry: 3
-      Data: 1
+      Data: 1001
     - Name: 
       Entry: 8
       Data: 
@@ -56,10 +56,10 @@ MonoBehaviour:
       Data: 300
     - Name: UnlockType
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: UnlockItemID
       Entry: 3
-      Data: 0
+      Data: 1002
     - Name: 
       Entry: 8
       Data: 
@@ -74,10 +74,10 @@ MonoBehaviour:
       Data: 1000
     - Name: UnlockType
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: UnlockItemID
       Entry: 3
-      Data: 0
+      Data: 1003
     - Name: 
       Entry: 8
       Data: 
@@ -92,19 +92,25 @@ MonoBehaviour:
       Data: 4|CommonBuffItem[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
       Data: 5|CommonBuffItem, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: LevelMap
       Entry: 7
       Data: 6|System.Single[], mscorlib
     - Name: 
       Entry: 14
-      Data: 0
+      Data: 2
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 2
     - Name: 
       Entry: 13
       Data: 
@@ -116,7 +122,142 @@ MonoBehaviour:
       Data: 7|System.Int32[], mscorlib
     - Name: 
       Entry: 14
-      Data: 0
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 120
+    - Name: 
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|CommonBuffItem, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 1
+    - Name: LevelMap
+      Entry: 7
+      Data: 9|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 2
+    - Name: 
+      Entry: 4
+      Data: 30
+    - Name: 
+      Entry: 4
+      Data: 50
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: CostMap
+      Entry: 7
+      Data: 10|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 3
+      Data: 240
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|CommonBuffItem, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: LevelMap
+      Entry: 7
+      Data: 12|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 2
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: CostMap
+      Entry: 7
+      Data: 13|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 120
+    - Name: 
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 14|CommonBuffItem, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 8
+    - Name: LevelMap
+      Entry: 7
+      Data: 15|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: CostMap
+      Entry: 7
+      Data: 16|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 120
     - Name: 
       Entry: 13
       Data: 
@@ -136,4 +277,4 @@ MonoBehaviour:
   CampName: CampName_001
   CampDesc: CampDesc_001
   Unlock: 1
-  CampIcon: {fileID: 21300000, guid: 45bae88e7f232a9498309923f00e96dc, type: 3}
+  CampIcon: {fileID: 21300000, guid: 0ae60dad274e22348803b2576a870e9b, type: 3}

@@ -13,19 +13,7 @@ public class GUIBasePanel : MonoBehaviour
     public object owner;
     protected virtual void Awake()
     {
-        //FindGUIComponent<CanvasGroup>();
         FindGUIComponent<Button>();
-        FindGUIComponent<TMP_Text>();
-        FindGUIComponent<Text>();
-        FindGUIComponent<Image>();
-        FindGUIComponent<Slider>();
-        FindGUIComponent<InputField>();
-
-        /*foreach (KeyValuePair<string, List<UIBehaviour>> pair in GUIDic)
-        {
-            Debug.Log(pair.Key + " : " + pair.Value.Count);
-        }*/
-
     }
 
     public virtual void Initialization()

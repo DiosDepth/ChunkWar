@@ -165,11 +165,11 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: CampName_001
-    ChineseSimplified: "\u6885\u4EC0\u79D1\u96C6\u56E2"
+    ChineseSimplified: "\u8BFA\u66FC\u77FF\u4E1A"
     English: 
     Japanese: 
   - TextID: CampName_002
-    ChineseSimplified: "\u9053\u683C\u62C9\u65AF"
+    ChineseSimplified: "\u5BF0\u5B87\u6280\u5E08"
     English: 
     Japanese: 
   - TextID: CampName_003
@@ -182,5 +182,13 @@ MonoBehaviour:
     Japanese: 
   - TextID: CampName_005
     ChineseSimplified: "\u76D6\u5C14\u5DE5\u4E1A"
+    English: 
+    Japanese: 
+  - TextID: CampDesc_001
+    ChineseSimplified: "\u5728\u9EC4\u91D1\u65F6\u4EE3\u957F\u65F6\u95F4\u63A7\u5236\u4E86\u5730\u8868\u5927\u90E8\u5206\u7684\u77FF\u4E1A\u5F00\u91C7\u4E1A\u52A1"
+    English: 
+    Japanese: 
+  - TextID: CampDesc_002
+    ChineseSimplified: "\u65E9\u5728\u9EC4\u91D1\u65F6\u4EE3\u5C31\u5B58\u5728\u7684\u519B\u6C11\u5DE5\u4E1A\u5236\u9020\u6709\u9650\u516C\u53F8\uFF0C\n\u662F\u9EC4\u91D1\u65F6\u4EE3\u6700\u5927\u7684\u5DE5\u4E1A\u627F\u5305\u5546\u3002"
     English: 
     Japanese: 

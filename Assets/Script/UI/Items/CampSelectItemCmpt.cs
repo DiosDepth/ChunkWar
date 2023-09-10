@@ -40,15 +40,21 @@ public class CampSelectItemCmpt : EnhancedScrollerCellView
         if (info == null)
             return;
 
+        _icon.sprite = info.Config.CampIcon;
         _nameText.text = info.CampName;
         _descText.text = info.CampDesc;
+        _scoreText.text = info.TotalScore.ToString();
         _levelText.text = string.Format("Lv. {0}", info.GetCampLevel);
         SetLockState(info.Unlock);
     }
 
     private void OnCampClick()
     {
-
+        UIManager.Instance.ShowUI<CampDetailPage>("CampDetailPage", E_UI_Layer.Mid, null, (panel) =>
+        {
+            panel.Initialization();
+            panel.Initialization((int)ItemUID);
+        });
     }
 
     protected override void SelectedChanged(bool selected)
