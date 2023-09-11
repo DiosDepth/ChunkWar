@@ -179,22 +179,7 @@ public class CampData
         return 0;
     }
 
-    /// <summary>
-    /// BUFF是否最高等级
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    public bool IsMaxBuffLevel(PropertyModifyKey key)
-    {
-        if (!BuffLevelMap.ContainsKey(key))
-            return true;
 
-        var cfg = Config.GetBuffItem(key);
-        if (cfg == null)
-            return true;
-
-        return BuffLevelMap[key] >= cfg.LevelMap.Length;
-    }
 
     public int GetCurrentCostValue(PropertyModifyKey key)
     {
@@ -246,4 +231,105 @@ public class CampData
 
         _currentUpgradeRequireEXP = LevelConfigs[GetCampLevel].RequireTotalEXP;
     }
+
+    #region CampBuff
+
+    /// <summary>
+    /// BUFF是否最高等级
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public bool IsMaxBuffLevel(PropertyModifyKey key)
+    {
+        if (!BuffLevelMap.ContainsKey(key))
+            return true;
+
+        var cfg = Config.GetBuffItem(key);
+        if (cfg == null)
+            return true;
+
+        return BuffLevelMap[key] >= cfg.LevelMap.Length;
+    }
+
+    /// <summary>
+    /// BUFF升级点数是否足够
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public bool CheckBuffUpgradeCostEnough(PropertyModifyKey key)
+    {
+        if (!BuffLevelMap.ContainsKey(key))
+            return false;
+
+        var buffCfg = Config.GetBuffItem(key);
+        if (buffCfg == null)
+            return false;
+
+        var currentLevel = BuffLevelMap[key];
+        ///CheckMax Level
+        if (BuffLevelMap[key] >= buffCfg.LevelMap.Length)
+            return true;
+
+        int cost = buffCfg.CostMap[currentLevel - 1];
+        return CurrentRemainScore >= cost;
+    }
+
+    public void GetNextBuffUpgradeInfo(PropertyModifyKey key, out int nextLevel, out float nextValue)
+    {
+        nextLevel = -1;
+        nextValue = -1;
+
+        if (!BuffLevelMap.ContainsKey(key) || IsMaxBuffLevel(key))
+            return;
+
+        var buffCfg = Config.GetBuffItem(key);
+        if (buffCfg == null)
+            return;
+
+        var oldLevel = BuffLevelMap[key];
+        nextLevel = oldLevel + 1;
+        nextValue = buffCfg.LevelMap[nextLevel - 1];
+    }
+
+    public bool UpgradeBuff(PropertyModifyKey key, out CampBuffUpgradeDialog.BuffUpgradeInfo info)
+    {
+        if (!BuffLevelMap.ContainsKey(key) || IsMaxBuffLevel(key))
+        {
+            info = default(CampBuffUpgradeDialog.BuffUpgradeInfo);
+            return false;
+        }
+
+        var buffCfg = Config.GetBuffItem(key);
+        if (buffCfg == null) 
+        {
+            info = default(CampBuffUpgradeDialog.BuffUpgradeInfo);
+            return false;
+        }
+
+        var oldLevel = BuffLevelMap[key];
+        float oldValue = buffCfg.LevelMap[oldLevel - 1];
+        int oldCost = buffCfg.CostMap[oldLevel - 1];
+        ///Reduce Score
+        if (CurrentRemainScore < oldCost)
+        {
+            info = default(CampBuffUpgradeDialog.BuffUpgradeInfo);
+            return false;
+        }
+        CurrentRemainScore -= oldCost;
+
+        BuffLevelMap[key]++;
+        float newValue = buffCfg.LevelMap[oldLevel];
+
+        info = new CampBuffUpgradeDialog.BuffUpgradeInfo()
+        {
+            CampName = LocalizationManager.Instance.GetTextValue(Config.CampName),
+            currentValue = oldValue,
+            nextValue = newValue,
+            PropertyKey = key
+        };
+        RogueEvent.Trigger(RogueEventType.CampBuffUpgrade);
+        return true;
+    }
+
+    #endregion
 }

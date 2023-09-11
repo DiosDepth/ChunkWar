@@ -24,6 +24,12 @@ public class CampSelectPage : GUIBasePanel
         RefreshCampContent();
     }
 
+    public override void Hidden()
+    {
+        base.Hidden();
+        _controller.Clear();
+    }
+
     private void InitController()
     {
         _controller = new GeneralScrollerItemController();

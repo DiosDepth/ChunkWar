@@ -727,7 +727,7 @@ public class EnhancedScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     {
         for (var i = 0; i < _activeCellViews.Count; i++)
         {
-            _activeCellViews[i].PoolableDestroy();
+            Destroy(_activeCellViews[i]);
         }
         _activeCellViews.Clear();
     }
@@ -741,7 +741,7 @@ public class EnhancedScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     {
         for (var i = 0; i < _recycledCellViews.Count; i++)
         {
-            _recycledCellViews[i].PoolableDestroy();
+            Destroy(_recycledCellViews[i]);
         }
         _recycledCellViews.Clear();
     }

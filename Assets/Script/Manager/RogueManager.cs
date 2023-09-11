@@ -62,6 +62,7 @@ public enum RogueEventType
     ShopTeleportWarning,
     RegisterBossHPBillBoard,
     RemoveBossHPBillBoard,
+    CampBuffUpgrade,
 }
 
 public enum ShipPropertyEventType

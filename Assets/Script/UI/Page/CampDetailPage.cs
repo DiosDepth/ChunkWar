@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CampDetailPage : GUIBasePanel
+public class CampDetailPage : GUIBasePanel, EventListener<RogueEvent>
 {
     private CampData _campData;
 
@@ -19,6 +19,8 @@ public class CampDetailPage : GUIBasePanel
     private static string BuffItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/CampBuffItem";
     private static string LevelItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/CampLevelItem";
 
+    private RectTransform _scoreRect;
+
     protected override void Awake()
     {
         base.Awake();
@@ -26,11 +28,21 @@ public class CampDetailPage : GUIBasePanel
         _buffScroller = transform.Find("Content/MidPanel/BuffContent/Content/Scroll View").SafeGetComponent<EnhancedScroller>();
         _levelScroller = transform.Find("Content/DownPanel/Content/Scroll View").SafeGetComponent<EnhancedScroller>();
         _currentScoreText = transform.Find("Content/TopPanel/ScoreContent/ScoreValue").SafeGetComponent<TextMeshProUGUI>();
+        _scoreRect = transform.Find("Content/TopPanel/ScoreContent").SafeGetComponent<RectTransform>();
     }
 
     public override void Initialization()
     {
         base.Initialization();
+        this.EventStartListening<RogueEvent>();
+    }
+
+    public override void Hidden()
+    {
+        base.Hidden();
+        this.EventStopListening<RogueEvent>();
+        _buffController.Clear();
+        _levelController.Clear();
     }
 
     public override void Initialization(params object[] param)
@@ -56,8 +68,17 @@ public class CampDetailPage : GUIBasePanel
         _currentScoreText.text = _campData.CurrentRemainScore.ToString();
         transform.Find("Content/TopPanel/ScoreContent/LevelText").SafeGetComponent<TextMeshProUGUI>().text = string.Format("LV.{0}", _campData.GetCampLevel);
 
-        var rect = transform.Find("Content/TopPanel/ScoreContent").SafeGetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_scoreRect);
+    }
+
+    public void OnEvent(RogueEvent evt)
+    {
+        switch (evt.type)
+        {
+            case RogueEventType.CampBuffUpgrade:
+                OnCampBuffUpgrade();
+                break;
+        }
     }
 
     private void InitController()
@@ -97,5 +118,14 @@ public class CampDetailPage : GUIBasePanel
     private void OnLevelItemSelect(uint uid)
     {
 
+    }
+
+    /// <summary>
+    /// BuffÉý¼¶Ë¢ÐÂ
+    /// </summary>
+    private void OnCampBuffUpgrade()
+    {
+        _currentScoreText.text = _campData.CurrentRemainScore.ToString();
+        _buffScroller.ReloadData();
     }
 }

@@ -17,9 +17,14 @@ public class GeneralScrollerItemController : IEnhancedScrollerDelegate
         this._itemData = itemData.FormatToSelectableItem<uint>();
     }
 
+    public void Clear()
+    {
+        GameObject.Destroy(obj);
+    }
+
     public void InitPrefab(string prefabPath, bool vertical)
     {
-        var obj = ResManager.Instance.Load<GameObject>(prefabPath);
+        obj = ResManager.Instance.Load<GameObject>(prefabPath);
         if (obj != null)
         {
             _cmpt = obj.transform.SafeGetComponent<EnhancedScrollerCellView>();

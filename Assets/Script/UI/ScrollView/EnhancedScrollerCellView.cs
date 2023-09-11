@@ -10,7 +10,7 @@ public interface IScrollGirdCmpt
 
 public delegate void SelectedDelegate(IScrollGirdCmpt cellView);
 
-public class EnhancedScrollerCellView :MonoBehaviour, IPoolable, IScrollGirdCmpt
+public class EnhancedScrollerCellView :MonoBehaviour, IScrollGirdCmpt
 {
     /// <summary>
     /// The cellIdentifier is a unique string that allows the scroller
@@ -89,21 +89,5 @@ public class EnhancedScrollerCellView :MonoBehaviour, IPoolable, IScrollGirdCmpt
     protected virtual void SelectedChanged(bool selected)
     {
 
-    }
-
-    public void PoolableReset()
-    {
-      
-    }
-
-    public void PoolableDestroy()
-    {
-        PoolableReset();
-        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
-    }
-
-    public void PoolableSetActive(bool isactive)
-    {
-        this.gameObject.SetActive(isactive);
     }
 }
