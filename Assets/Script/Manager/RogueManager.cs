@@ -118,6 +118,11 @@ public class RogueManager : Singleton<RogueManager>
     public List<ShipPlugInfo> AllCurrentShipPlugs = new List<ShipPlugInfo>();
 
     /// <summary>
+    /// 局内特殊加成
+    /// </summary>
+    private List<PropertyModifySpecialData> globalModifySpecialDatas = new List<PropertyModifySpecialData>();
+
+    /// <summary>
     /// 当前舰船建筑组件
     /// </summary>
     private Dictionary<uint, Unit> _currentShipUnits = new Dictionary<uint, Unit>();
@@ -284,12 +289,14 @@ public class RogueManager : Singleton<RogueManager>
         MainPropertyData.Clear();
         _currentShipPlugs.Clear();
         AllCurrentShipPlugs.Clear();
+        globalModifySpecialDatas.Clear();
+
+        InitEnergyAndWreckageCommonBuff();
         InitWave();
         InitWreckageData();
         InitShopData();
         InitAllGoodsItems();
         AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
-
     }
 
     /// <summary>
@@ -877,6 +884,27 @@ public class RogueManager : Singleton<RogueManager>
     private void OnShipLevelUp(byte old, byte newValue)
     {
         ShipPropertyEvent.Trigger(ShipPropertyEventType.LevelUp);
+    }
+
+    /// <summary>
+    /// 初始化超载和能源负载BUFF
+    /// </summary>
+    private void InitEnergyAndWreckageCommonBuff()
+    {
+        var energyBuff = DataManager.Instance.gameMiscCfg.EnergyOverloadBuff;
+        var wreckageBuff = DataManager.Instance.gameMiscCfg.WreckageOverloadBuff;
+
+        for(int i = 0; i < energyBuff.Length; i++)
+        {
+            PropertyModifySpecialData data = new PropertyModifySpecialData(energyBuff[i], GameGlobalConfig.PropertyModifyUID_EnergyOverload_GlobalBuff);
+            globalModifySpecialDatas.Add(data);
+        }
+
+        for(int i = 0; i < wreckageBuff.Length; i++)
+        {
+            PropertyModifySpecialData data = new PropertyModifySpecialData(wreckageBuff[i], GameGlobalConfig.PropertyModifyUID_WreckageOverload_GlobalBuff);
+            globalModifySpecialDatas.Add(data);
+        }
     }
 
     #endregion

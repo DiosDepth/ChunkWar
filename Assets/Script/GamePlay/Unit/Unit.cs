@@ -293,7 +293,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public virtual void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _owner = m_owner;
-        _baseUnitConfig = m_unitconfig;
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
         if (_owner is PlayerShip)
