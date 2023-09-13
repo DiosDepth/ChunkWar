@@ -12,8 +12,6 @@ public class BuildSelectHoverCmpt : MonoBehaviour
     private TextMeshProUGUI _nameText;
     private Transform _levelMaxDesc;
 
-    private List<UnitUpgradeNodeCmpt> upgradeNodeCmpts;
-
     private static float SizePerUnit = 45;
 
     private BaseConfig _currentPreviewUpgradeItem;
@@ -25,7 +23,6 @@ public class BuildSelectHoverCmpt : MonoBehaviour
         _spriteRect = transform.Find("Image").SafeGetComponent<RectTransform>();
         _nameText = transform.Find("InfoContent/Name").SafeGetComponent<TextMeshProUGUI>();
         _levelMaxDesc = transform.Find("InfoContent/MaxLevelDesc");
-        upgradeNodeCmpts = transform.Find("InfoContent/Upgrade").GetComponentsInChildren<UnitUpgradeNodeCmpt>().ToList();
     }
 
     public void SetUp(Vector2 pos, Vector2 size, Unit info)
@@ -42,26 +39,6 @@ public class BuildSelectHoverCmpt : MonoBehaviour
         SetUpUnitInfo(info);
     }
 
-    public void SetUpUpgradePreivew(BaseConfig basedCfg)
-    {
-        if (_currentPreviewUpgradeItem == basedCfg)
-            return;
-
-        if (!ResetLevelNode())
-        {
-            _currentPreviewUpgradeItem = basedCfg;
-            var addNode = GameHelper.GetEvoluveRarityPoints(basedCfg.GeneralConfig.Rarity);
-            for (int i = upgradeNodeCmpts.Count - 1; i >= 0; i--) 
-            {
-                var nodeCmpt = upgradeNodeCmpts[i];
-                if (addNode > 0 && !nodeCmpt.isActiveAndEnabled) 
-                {
-                    nodeCmpt.SetUpgradeDisplay();
-                }
-            }
-        }
-    }
-
     public void SetActive(bool active)
     {
         transform.SafeSetActive(active);
@@ -73,30 +50,10 @@ public class BuildSelectHoverCmpt : MonoBehaviour
         var generalCfg = info._baseUnitConfig.GeneralConfig;
         _nameText.text = LocalizationManager.Instance.GetTextValue(generalCfg.Name);
         _nameText.color = GameHelper.GetRarityColor(generalCfg.Rarity);
-        ResetLevelNode();
     }
 
     private void OnDisable()
     {
         _currentPreviewUpgradeItem = null;
-    }
-
-    private bool ResetLevelNode()
-    {
-        var generalCfg = currentUnit._baseUnitConfig.GeneralConfig;
-        upgradeNodeCmpts.ForEach(x => x.SetVisiable(false));
-
-        var currentRarityCost = GameHelper.GetUnitUpgradeCost(generalCfg.Rarity);
-        var currentUpgradeCost = currentUnit.currentEvolvePoints;
-        var isMaxLevel = generalCfg.Rarity == GoodsItemRarity.Tier4;
-        _levelMaxDesc.SafeSetActive(isMaxLevel);
-        if (!isMaxLevel)
-        {
-            for (int i = 0; i < currentRarityCost; i++)
-            {
-                upgradeNodeCmpts[i].SetUp(currentUpgradeCost > i);
-            }
-        }
-        return isMaxLevel;
     }
 }

@@ -87,14 +87,14 @@ public class AIShip : BaseShip,IPoolable
                     continue;
                 }
                 pos = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
-                if (aishipconfig.Map[row, colume] == 1)
+                if (aishipconfig.Map[row, colume] == 2)
                 {
 
                     core = new Core();
                     _chunkMap[row, colume] = core;
                 }
 
-                if (aishipconfig.Map[row, colume] == 2)
+                if (aishipconfig.Map[row, colume] == 1)
                 {
 
                     _chunkMap[row, colume] = new Base();

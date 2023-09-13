@@ -351,3 +351,19 @@ MonoBehaviour:
     ChineseSimplified: "\u63D0\u5347\u52A0\u6210"
     English: 
     Japanese: 
+  - TextID: PropertyName_ShipParry
+    ChineseSimplified: "\u8230\u8239\u95EA\u907F"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_ShipParry
+    ChineseSimplified: "\u8230\u8239\u95EA\u907F\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShipSpeed
+    ChineseSimplified: "\u8230\u8239\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_ShipSpeed
+    ChineseSimplified: "\u8230\u8239\u901F\u5EA6\u4FEE\u6B63"
+    English: 
+    Japanese: 

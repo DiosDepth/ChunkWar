@@ -15,7 +15,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 3a674c0a3a32658428f6eb379affa30f, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -50,7 +51,127 @@ MonoBehaviour:
       Data: 1|ShipClassConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 2|ShipClassConfig, Assembly-CSharp
+    - Name: ClassType
+      Entry: 3
       Data: 0
+    - Name: ClassName
+      Entry: 1
+      Data: ShipClassName_Corvette
+    - Name: ClassIcon
+      Entry: 10
+      Data: 0
+    - Name: BaseSpeedRatio
+      Entry: 4
+      Data: 1.5
+    - Name: BaseParry
+      Entry: 4
+      Data: 30
+    - Name: MaxParry
+      Entry: 4
+      Data: 70
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|ShipClassConfig, Assembly-CSharp
+    - Name: ClassType
+      Entry: 3
+      Data: 1
+    - Name: ClassName
+      Entry: 1
+      Data: ShipClassName_Destroyer
+    - Name: ClassIcon
+      Entry: 10
+      Data: 0
+    - Name: BaseSpeedRatio
+      Entry: 4
+      Data: 1.2
+    - Name: BaseParry
+      Entry: 4
+      Data: 15
+    - Name: MaxParry
+      Entry: 4
+      Data: 60
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|ShipClassConfig, Assembly-CSharp
+    - Name: ClassType
+      Entry: 3
+      Data: 2
+    - Name: ClassName
+      Entry: 1
+      Data: ShipClassName_Cruiser
+    - Name: ClassIcon
+      Entry: 10
+      Data: 0
+    - Name: BaseSpeedRatio
+      Entry: 4
+      Data: 1
+    - Name: BaseParry
+      Entry: 4
+      Data: 0
+    - Name: MaxParry
+      Entry: 4
+      Data: 40
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|ShipClassConfig, Assembly-CSharp
+    - Name: ClassType
+      Entry: 3
+      Data: 3
+    - Name: ClassName
+      Entry: 1
+      Data: ShipClassName_BattleCruiser
+    - Name: ClassIcon
+      Entry: 10
+      Data: 0
+    - Name: BaseSpeedRatio
+      Entry: 4
+      Data: 0.9
+    - Name: BaseParry
+      Entry: 4
+      Data: -20
+    - Name: MaxParry
+      Entry: 4
+      Data: 40
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|ShipClassConfig, Assembly-CSharp
+    - Name: ClassType
+      Entry: 3
+      Data: 4
+    - Name: ClassName
+      Entry: 1
+      Data: ShipClassName_BattleShip
+    - Name: ClassIcon
+      Entry: 10
+      Data: 0
+    - Name: BaseSpeedRatio
+      Entry: 4
+      Data: 0.5
+    - Name: BaseParry
+      Entry: 4
+      Data: -50
+    - Name: MaxParry
+      Entry: 4
+      Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -59,7 +180,7 @@ MonoBehaviour:
       Data: 
     - Name: ShipControlCfg
       Entry: 7
-      Data: 2|ShipControlConfig, Assembly-CSharp
+      Data: 7|ShipControlConfig, Assembly-CSharp
     - Name: MaxSpeed_Base
       Entry: 4
       Data: 11

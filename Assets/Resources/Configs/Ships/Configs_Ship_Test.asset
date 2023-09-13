@@ -1442,7 +1442,11 @@ MonoBehaviour:
   Prefab: {fileID: 3997448930768514733, guid: d48c218b5f5b88f4fbfe7aaabd9bc7c6, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
+  ShipClass: 0
   DropList: []
-  ShipType: 2
   MainWeaponID: 3
   CorePlugID: 1
+  PlayerShipCampID: 0
+  EditorPrefab: {fileID: 0}
+  ShipPropertyDesc: 
+  ShipEditorSprite: {fileID: 0}

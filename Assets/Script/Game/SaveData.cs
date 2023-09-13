@@ -137,11 +137,11 @@ public class ShipMapData
                 tempinfo.isOccupied = false;
                 tempinfo.isBuildingPiovt = false;
 
-                if (shipmap[row, colume] == 1)
+                if (shipmap[row, colume] == 2)
                 {
                     tempinfo.type = ChunkType.Core;
                 }
-                if(shipmap[row, colume] == 2)
+                if(shipmap[row, colume] == 1)
                 {
                     tempinfo.type = ChunkType.Base;
                 }

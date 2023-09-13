@@ -141,4 +141,11 @@ public enum PropertyModifyKey
     /// 船体再生
     /// </summary>
     UnitHPRecoverValue,
+    Explode_Damage,
+    Explode_Range,
+    EnemyCount,
+    /// <summary>
+    /// 对精英和首领的伤害
+    /// </summary>
+    EliteBossDamage,
 }

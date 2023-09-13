@@ -312,26 +312,6 @@ public static class GameHelper
     }
 
     /// <summary>
-    /// 单位升级花费
-    /// </summary>
-    /// <param name="rarity"></param>
-    /// <returns></returns>
-    public static byte GetUnitUpgradeCost(GoodsItemRarity rarity)
-    {
-        var requireMap = DataManager.Instance.battleCfg.EvolveRequireMap;
-        if (rarity == GoodsItemRarity.Tier4)
-            return 0;
-
-        return requireMap[(int)rarity];
-    }
-
-    public static byte GetEvoluveRarityPoints(GoodsItemRarity rarity)
-    {
-        var addMap = DataManager.Instance.battleCfg.EvolveAddMap;
-        return addMap[(int)rarity];
-    }
-
-    /// <summary>
     /// 成就组进度
     /// </summary>
     /// <param name="type"></param>
@@ -353,34 +333,6 @@ public static class GameHelper
         }
 
         return unlockCount / (float)items.Count;
-    }
-
-    /// <summary>
-    /// 获取升级后的稀有度
-    /// </summary>
-    /// <param name="baseRarity"></param>
-    /// <param name="addRarity"></param>
-    /// <returns></returns>
-    public static GoodsItemRarity GetTargetEvolveRarity(GoodsItemRarity baseRarity, byte currentRank, GoodsItemRarity addRarity, out byte outRank)
-    {
-        var addMap = DataManager.Instance.battleCfg.EvolveAddMap;
-        var requireMap = DataManager.Instance.battleCfg.EvolveRequireMap;
-        ///增加的稀有度级
-        byte addRank = addMap[(int)addRarity];
-        var totalRank = currentRank + addRank;
-
-        int tempRarity = (int)baseRarity;
-        var nextRequireEvolove = requireMap[tempRarity];
-        while(totalRank >= nextRequireEvolove)
-        {
-            totalRank -= nextRequireEvolove;
-            tempRarity++;
-            if (tempRarity > 3)
-                break;
-            nextRequireEvolove = requireMap[tempRarity];
-        }
-        outRank = (byte)totalRank;
-        return (GoodsItemRarity)tempRarity;
     }
 
     public static string GetTimeStringBySeconds(int time)

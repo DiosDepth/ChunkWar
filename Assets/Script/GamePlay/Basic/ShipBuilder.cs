@@ -58,8 +58,6 @@ public class ShipBuilder : MonoBehaviour
 
     private bool _isPointOverGameObject;
     private bool _isDisplayingHoverUnit = false;
-    private bool _isShowingUnitUpgrade = false;
-    private int _currentUpgradeGroupID;
 
     private List<ShipChunkGrid> _shipGrids;
 
@@ -114,9 +112,10 @@ public class ShipBuilder : MonoBehaviour
             editorShip = ship.AddComponent<PlayerEditShip>();
             editorShip.container = obj;
             editorShip.gameObject.SetActive(true);
-            editorShip.transform.position = Vector3.zero - editorShip.shipMapCenter.localPosition;
-            editorShip.transform.rotation = Quaternion.identity ;
-            editorShip.transform.parent = obj.transform;
+            var shipTrans = editorShip.transform;
+            shipTrans.position = Vector3.zero - editorShip.shipMapCenter.localPosition;
+            shipTrans.rotation = Quaternion.identity ;
+            shipTrans.parent = obj.transform;
 
             
             editorShip.container.transform.name += "_Editor";
@@ -391,7 +390,6 @@ public class ShipBuilder : MonoBehaviour
             return;
 
         _itemDirection = 0;
-        _currentUpgradeGroupID = 0;
         editorBrush.ResetBrush();
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
@@ -438,8 +436,6 @@ public class ShipBuilder : MonoBehaviour
            
         editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);
 
-        bool isSameGroup = true;
-
         _tempmap = _reletiveCoord.AddToAll(_pointedShipCoord);
         var groupID = currentInventoryItem.GetUpgradeGroupID();
         //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
@@ -453,7 +449,6 @@ public class ShipBuilder : MonoBehaviour
             if (chunk == null)
             {
                 _isValidPos = false;
-                isSameGroup = false;
                 break;
             }
 
@@ -466,29 +461,13 @@ public class ShipBuilder : MonoBehaviour
                 else
                 {
                     _isValidPos = false;
-                    isSameGroup = false;
                     return true;
                 }
             }
             else
             {
-                isSameGroup = false;
             }
         }
-
-        if (isSameGroup && _currentUpgradeGroupID != groupID)
-        {
-            _currentUpgradeGroupID = groupID;
-            _isDisplayingHoverUnit = true;
-            _currentHoverUnit = currentChunk.unit;
-            RogueEvent.Trigger(RogueEventType.HoverUnitUpgradeDisplay, currentChunk.unit, currentInventoryItem);
-        }
-        else if (!isSameGroup && _currentUpgradeGroupID != 0)
-        {
-            _currentUpgradeGroupID = 0;
-            RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, currentChunk.unit);
-        }
-       
         return true;
     }
 
@@ -506,13 +485,9 @@ public class ShipBuilder : MonoBehaviour
         RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
         _currentHoverUnit = null;
         _isDisplayingHoverUnit = false;
-        _currentUpgradeGroupID = 0;
     }
 
     #region Grid
-
-   
-
     private void InitShipChunkGrids()
     {
         if (editorShip == null)

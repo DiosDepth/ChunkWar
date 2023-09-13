@@ -45,7 +45,7 @@ public class BaseShipConfig : BaseConfig
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-                if (Map[x, y] == 1)
+                if (Map[x, y] == 2)
                 {
                     return GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.ShipMapSize);
                 }

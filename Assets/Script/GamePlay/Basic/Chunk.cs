@@ -7,9 +7,8 @@ using UnityEngine;
 public enum ChunkType
 {
     None = 0,
-    Core = 1,
-    Base = 2,
-
+    Base = 1,
+    Core = 2,
 }
 
 public enum DamagableState

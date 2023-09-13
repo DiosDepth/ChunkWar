@@ -219,7 +219,7 @@ public class EGameState_GamePrepare : GameState
                 CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
                 CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = 0;
                 CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
-                CameraManager.Instance.vcam.m_Lens.OrthographicSize = 35;
+                CameraManager.Instance.vcam.m_Lens.OrthographicSize = 45;
 
                 ///start Timer
                 
