@@ -52,7 +52,6 @@ public enum RogueEventType
     HideUnitDetailPage,
     HoverUnitDisplay,
     HideHoverUnitDisplay,
-    HoverUnitUpgradeDisplay,
     WreckageDropRefresh,
     CancelWreckageSelect,
     WreckageAddToShip,
@@ -1172,38 +1171,6 @@ public class RogueManager : Singleton<RogueManager>
         unit.OnRemove();
         AllShipUnits.Remove(unit);
         _currentShipUnits.Remove(unit.UID);
-    }
-
-    /// <summary>
-    /// 升级Unit
-    /// </summary>
-    /// <param name="targetUnit"></param>
-    /// <param name="currentUnit"></param>
-    public void TryEvolveUnit(Unit targetUnit, Unit currentUnit)
-    {
-        byte outRank = 0;
-        var baseRarity = targetUnit._baseUnitConfig.GeneralConfig.Rarity;
-        var targetRarity = GameHelper.GetTargetEvolveRarity(baseRarity, targetUnit.currentEvolvePoints, currentUnit._baseUnitConfig.GeneralConfig.Rarity, out outRank);
-
-        ///没有升级
-        if(baseRarity == targetRarity)
-        {
-            targetUnit.currentEvolvePoints = outRank;
-        }
-        else
-        {
-            ///Add New
-            var unitGroupID = targetUnit._baseUnitConfig.UpgradeGroupID;
-            var newUnitCfg = DataManager.Instance.GetUnitConfigByGroupAndRarity(unitGroupID, targetRarity);
-            if(newUnitCfg == null)
-            {
-                Debug.LogError(string.Format("Find EvolveTarget Null!, GroupID = {0}, TargetRarity = {1}", unitGroupID, targetRarity));
-                return;
-            }
-
-            currentShip.RemoveUnit(targetUnit);
-            //currentShip.AddUnit(newUnitCfg,)
-        }
     }
 
     /// <summary>

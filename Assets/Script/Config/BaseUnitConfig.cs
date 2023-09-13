@@ -129,7 +129,7 @@ public class BaseUnitConfig : BaseConfig
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-                if (Map[x, y] == 1)
+                if (Map[x, y] == 2)
                 {
                     return GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.UnitMapSize);
                 }
@@ -187,7 +187,7 @@ public class BaseUnitConfig : BaseConfig
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-                if (Map[x, y] == 2)
+                if (Map[x, y] == 1)
                 {
                     coord = GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.UnitMapSize);
                     coord = coord - MapPivot;
@@ -209,7 +209,7 @@ public class BaseUnitConfig : BaseConfig
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-                if (Map[x, y] == 2)
+                if (Map[x, y] == 1)
                 {
                     coord = GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.UnitMapSize);
                     coord = coord - MapPivot;

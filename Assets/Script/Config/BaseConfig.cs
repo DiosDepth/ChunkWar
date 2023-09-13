@@ -71,7 +71,7 @@ public class BaseConfig : SerializedScriptableObject
     {
         return Vector2.zero;
     }
-    protected static int DrawTable(Rect rect, int value)
+    protected virtual int DrawTable(Rect rect, int value)
     {
         if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
         {
@@ -84,12 +84,12 @@ public class BaseConfig : SerializedScriptableObject
             }
         }
 
-        if (value == 2)
+        if (value == 1)
         {
             UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0.1f, 0.8f, 0.2f));
             UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
         }
-        else if (value == 1)
+        else if (value == 2)
         {
             UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0.5f, 0f, 0f, 1f));
             UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());

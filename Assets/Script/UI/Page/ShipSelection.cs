@@ -54,6 +54,8 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     {
         base.Hidden();
         this.EventStopListening<GeneralUIEvent>();
+        _selectionController.Clear();
+        _hardLevelController.Clear();
     }
 
     private void InitSelectionController()

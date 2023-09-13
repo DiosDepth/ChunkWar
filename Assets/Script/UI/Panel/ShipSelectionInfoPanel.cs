@@ -11,6 +11,7 @@ public class ShipSelectionInfoPanel : MonoBehaviour
     private TextMeshProUGUI _className;
     private Transform _propertyContent;
     private TextMeshProUGUI _descText;
+    private TextMeshProUGUI _propertyDescText;
     private RectTransform _infoRect;
     private UnitDetailInfoPanel _weaponInfoPanel;
 
@@ -24,6 +25,7 @@ public class ShipSelectionInfoPanel : MonoBehaviour
         _classIcon = transform.Find("ShipInfo/ShipClassInfo/ClassIcon").SafeGetComponent<Image>();
         _className = transform.Find("ShipInfo/ShipClassInfo/ClassName").SafeGetComponent<TextMeshProUGUI>();
         _descText = transform.Find("ShipInfo/Desc").SafeGetComponent<TextMeshProUGUI>();
+        _propertyDescText = transform.Find("ShipInfo/ShipPropertyDesc").SafeGetComponent<TextMeshProUGUI>();
         _infoRect = transform.Find("ShipInfo").SafeGetComponent<RectTransform>();
     }
 
@@ -32,6 +34,7 @@ public class ShipSelectionInfoPanel : MonoBehaviour
     {
         _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Name);
         _descText.text = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Desc);
+        _propertyDescText.text = LocalizationManager.Instance.GetTextValue(cfg.ShipPropertyDesc);
         _propertyContent.Pool_BackAllChilds(ShipProperty_ItemPrefabPath);
 
         var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(cfg.ShipClass);

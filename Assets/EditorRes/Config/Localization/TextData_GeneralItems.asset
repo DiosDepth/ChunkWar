@@ -84,10 +84,6 @@ MonoBehaviour:
     ChineseSimplified: "\u901F\u5C04\u683C\u6797\u70AET3"
     English: 
     Japanese: 
-  - TextID: Weapon_Name_10003
-    ChineseSimplified: "\u901F\u5C04\u683C\u6797\u70AET4"
-    English: 
-    Japanese: 
   - TextID: ShipPlug_Name_1005
     ChineseSimplified: "\u96F7\u8FBE\u6A21\u5757"
     English: 
@@ -122,10 +118,6 @@ MonoBehaviour:
     Japanese: 
   - TextID: Weapon_Name_10007
     ChineseSimplified: "\u53CC\u8054\u901F\u5C04\u683C\u6797\u70AET3"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10008
-    ChineseSimplified: "\u53CC\u8054\u901F\u5C04\u683C\u6797\u70AET4"
     English: 
     Japanese: 
   - TextID: Building_Name_1001
@@ -190,5 +182,38 @@ MonoBehaviour:
     Japanese: 
   - TextID: CampDesc_002
     ChineseSimplified: "\u65E9\u5728\u9EC4\u91D1\u65F6\u4EE3\u5C31\u5B58\u5728\u7684\u519B\u6C11\u5DE5\u4E1A\u5236\u9020\u6709\u9650\u516C\u53F8\uFF0C\n\u662F\u9EC4\u91D1\u65F6\u4EE3\u6700\u5927\u7684\u5DE5\u4E1A\u627F\u5305\u5546\u3002"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1
+    ChineseSimplified: "\u6D41\u661F\u7EA7\u62A4\u536B\u8230"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Desc_1
+    ChineseSimplified: "\u95EA\u907F\u4E0A\u9650\u4E3A90%\n\u6BCF2%\u95EA\u907F +1%\u88C5\u586B\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: ShipPropertyDesc_1
+    ChineseSimplified: "\u95EA\u907F\u4E0A\u9650\u4E3A<color=#09B3CB>90%</color>\n\u6BCF<color=#09B3CB>2%</color>\u95EA\u907F
+      <color=#09B3CB>+1%</color>\u88C5\u586B\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10010
+    ChineseSimplified: "\u53CC\u8054\u706B\u795ET2"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10011
+    ChineseSimplified: "\u53CC\u8054\u706B\u795ET3"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10012
+    ChineseSimplified: "\u53CC\u8054\u706B\u795ET4"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10015
+    ChineseSimplified: "\u8F68\u9053\u70AET3"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10016
+    ChineseSimplified: "\u8F68\u9053\u70AET4"
     English: 
     Japanese: 

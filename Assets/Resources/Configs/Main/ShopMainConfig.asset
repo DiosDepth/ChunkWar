@@ -239,10 +239,6 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 23
     LoadCost: 15
-  - UnitID: 10003
-    Weight: 20
-    SellPrice: 123
-    LoadCost: 15
   - UnitID: 10005
     Weight: 20
     SellPrice: 12
@@ -255,11 +251,27 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 23
     LoadCost: 18
-  - UnitID: 10008
-    Weight: 20
-    SellPrice: 54
-    LoadCost: 18
-  - UnitID: 1001
+  - UnitID: 10010
     Weight: 100
     SellPrice: 40
     LoadCost: 10
+  - UnitID: 10011
+    Weight: 20
+    SellPrice: 40
+    LoadCost: 5
+  - UnitID: 10012
+    Weight: 20
+    SellPrice: 40
+    LoadCost: 5
+  - UnitID: 10015
+    Weight: 20
+    SellPrice: 40
+    LoadCost: 5
+  - UnitID: 10016
+    Weight: 20
+    SellPrice: 40
+    LoadCost: 5
+  - UnitID: 10020
+    Weight: 20
+    SellPrice: 40
+    LoadCost: 5

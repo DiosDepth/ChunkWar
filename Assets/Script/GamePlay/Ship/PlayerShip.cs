@@ -381,7 +381,7 @@ public class PlayerShip : BaseShip
         return closelist.ToArray();
     }
 
-    public Unit AddUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction, bool isEditorMode = false)
+    public Unit AddUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction)
     {
         GameObject obj;
         Vector2Int buildarray;

@@ -35,19 +35,16 @@ MonoBehaviour:
       Data: 1
     - Name: DurationTime
       Entry: 3
-      Data: 15
+      Data: 50
     - Name: ShopRefreshTimeMap
       Entry: 7
       Data: 2|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 3
       Data: 5
-    - Name: 
-      Entry: 3
-      Data: 10
     - Name: 
       Entry: 13
       Data: 
@@ -66,7 +63,40 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1
+    - Name: AIType
+      Entry: 3
+      Data: 1
+    - Name: DurationDelta
+      Entry: 3
+      Data: 1
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: StartTime
+      Entry: 3
+      Data: 1
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
       Data: 0
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -78,7 +108,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|WaveConfig, Assembly-CSharp
+      Data: 5|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 2
@@ -87,7 +117,7 @@ MonoBehaviour:
       Data: 25
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 5|System.UInt16[], mscorlib
+      Data: 6|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -105,7 +135,7 @@ MonoBehaviour:
       Data: 120
     - Name: SpawnConfig
       Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 7|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -121,7 +151,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|WaveConfig, Assembly-CSharp
+      Data: 8|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 3
@@ -130,7 +160,7 @@ MonoBehaviour:
       Data: 60
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 8|System.UInt16[], mscorlib
+      Data: 9|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -148,7 +178,7 @@ MonoBehaviour:
       Data: 300
     - Name: SpawnConfig
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 10|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12

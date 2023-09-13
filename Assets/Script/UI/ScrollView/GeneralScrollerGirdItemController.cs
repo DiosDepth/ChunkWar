@@ -13,6 +13,13 @@ public class GeneralScrollerGirdItemController : IEnhancedScrollerDelegate
 
     public Action<uint, int> OnItemSelected;
 
+    private GameObject obj;
+
+    public void Clear()
+    {
+        GameObject.Destroy(obj);
+    }
+
     public void RefreshData(List<uint> itemData)
     {
         this._itemData = itemData.FormatToSelectableItem<uint>();
@@ -20,7 +27,6 @@ public class GeneralScrollerGirdItemController : IEnhancedScrollerDelegate
 
     public void InitPrefab(string prefabPath, bool vertical)
     {
-        GameObject obj = null;
         obj = ResManager.Instance.Load<GameObject>(prefabPath);
         if (obj != null)
         {

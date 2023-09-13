@@ -1444,6 +1444,9 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 21
   ShipClass: 0
   DropList: []
-  ShipType: 4
   MainWeaponID: 1
   CorePlugID: 4
+  PlayerShipCampID: 0
+  EditorPrefab: {fileID: 0}
+  ShipPropertyDesc: 
+  ShipEditorSprite: {fileID: 0}

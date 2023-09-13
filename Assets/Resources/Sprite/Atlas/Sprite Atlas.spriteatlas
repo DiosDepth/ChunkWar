@@ -38,6 +38,7 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: fb0894800bee3a24f8d3c969c2353dfc, type: 3}
   - {fileID: 21300000, guid: ba5e47215639b1748b058387d5aea65a, type: 3}
   - {fileID: 21300000, guid: 5ae778513b13e67479241f3b6ce72c31, type: 3}
   - {fileID: 21300000, guid: 6273dd62b902491419ba50210e01a0f1, type: 3}
@@ -53,6 +54,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f7c7d68bb3b0eb34a832ede2f6cdb955, type: 3}
   - {fileID: 21300000, guid: ec61eadb7162bea48b41c2b9559d51c7, type: 3}
   - {fileID: 21300000, guid: e27f0d0c4b16d7a40a428f97006b6bbc, type: 3}
+  - {fileID: 21300000, guid: a071c91c8b868b74da8cf837f4cfb1e0, type: 3}
   - {fileID: 21300000, guid: 155625dc38cb90842a3d52f10ae91006, type: 3}
   - {fileID: 21300000, guid: 1fa45f0ff1747e849b1cc4c10201bd51, type: 3}
   - {fileID: 21300000, guid: 9bf9634ff2a6cda4096accd22f9011d5, type: 3}
@@ -60,6 +62,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e046afcf981feda46adb2d731711962c, type: 3}
   - {fileID: 21300000, guid: 964648ffe7791304a8712b96b53de3dd, type: 3}
   m_PackedSpriteNamesToIndex:
+  - TKB
   - VP9
   - Nytow3
   - Invincible
@@ -75,6 +78,7 @@ SpriteAtlas:
   - G36Buff
   - Rouge_592101 #5427
   - powBuff #5913
+  - Chasing_Dodge
   - Destroyer3
   - SMAW2
   - sniper
