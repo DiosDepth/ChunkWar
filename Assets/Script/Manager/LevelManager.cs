@@ -295,7 +295,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         if(currentLevel == null) { return; }
         isLevelUpdate = false;
         currentLevel.Unload();
-        AIManager.Instance.Unload();
+
 
 
 

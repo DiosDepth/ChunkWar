@@ -517,7 +517,7 @@ public class EGameState_GameCompleted : GameState
             LevelManager.Instance.needServicing = true;
             RogueManager.Instance.currentShip.SaveRuntimeData();
         }
-
+        AIManager.Instance.GameOver();
         LevelManager.Instance.UnloadCurrentLevel();
 
 

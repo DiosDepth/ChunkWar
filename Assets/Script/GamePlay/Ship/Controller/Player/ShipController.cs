@@ -21,7 +21,7 @@ public class ShipController : BaseController, IBoid
     private float acceleration = 10;
     [ShowInInspector]
     private float maxRotateSpeed = 15;
-    private float boidRadius = 10f;
+    private float boidRadius = 20f;
 
      [ShowInInspector]
     private float rotationAcceleration = 0.25f;
@@ -87,7 +87,7 @@ public class ShipController : BaseController, IBoid
         if (!IsUpdate) { return; }
         base.FixedUpdate();
         HandleMovement();
-        UpdateIBoid();
+
     }
 
     protected override void OnDestroy()
@@ -281,7 +281,7 @@ public class ShipController : BaseController, IBoid
 
     public Vector3 GetVelocity()
     {
-        return velocity;
+        return (transform.position - lastpos) / Time.fixedDeltaTime;
     }
 
     public float GetRadius()

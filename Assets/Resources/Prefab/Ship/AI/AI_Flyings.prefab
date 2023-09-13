@@ -178,7 +178,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   maxAcceleration: 7
   maxAngularAcceleration: 6
-  targetSerchingRadius: 1000
+  targetSerchingRadius: 30
   boidRadius: 1
   arriveBehavior: 1
   arrivelBehaviorInfo:
@@ -195,18 +195,22 @@ MonoBehaviour:
   cohesionBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-    viewAngle: 30
+    viewAngle: 45
   separationBehavior: 0
   separationBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-    threshold: 1.5
+    threshold: 3
     decayCoefficient: -25
   aligmentBehavior: 0
   alignmentBehaviorInfo:
     target: {fileID: 0}
     weight: 0.8
-    alignDistance: 2
+    alignDistance: 6
+  collisionAvoidanceBehavior: 0
+  collisionAvoidanceBehaviorInfo:
+    target: {fileID: 0}
+    weight: 4
   drag: 3
   velocity: {x: 0, y: 0, z: 0}
   lastpos: {x: 0, y: 0, z: 0}

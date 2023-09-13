@@ -6,6 +6,8 @@ public class EvadeBehavior : SteeringBehavior
 {
     [SerializeField] public float maxPrediction = 2f;
 
+
+
     //public override SteeringData GetSteering(AISteeringBehaviorController steeringcontroller)
     //{
     //    SteeringData steering = new SteeringData();

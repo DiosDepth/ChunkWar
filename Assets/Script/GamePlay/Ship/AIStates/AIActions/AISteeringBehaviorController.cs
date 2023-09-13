@@ -42,6 +42,10 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
     [SerializeField]
     public AlignmentBehavior alignmentBehaviorInfo;
 
+    public bool collisionAvoidanceBehavior = false;
+    [SerializeField]
+    public CollisionAvoidanceBehavior collisionAvoidanceBehaviorInfo;
+
 
 
     public float drag = 1f;
@@ -100,6 +104,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
         [ReadOnly] public NativeArray<float> job_SerchingRadius;
         [ReadOnly] public NativeArray<float3> job_aiShipPos;
         [ReadOnly] public NativeArray<float3> job_aiShipVel;
+        
 
         [NativeDisableContainerSafetyRestriction]
         public NativeArray<float3> rv_findedTargetsPosPreShip;
@@ -176,6 +181,8 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
         [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_alignmentSteering;
         [ReadOnly] public NativeArray<float> job_alignmentWeight;
 
+        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_collisionAvoidanceSteering;
+        [ReadOnly] public NativeArray<float> job_collisionAvoidanceWeight;
 
         public NativeArray<SteeringBehaviorInfo> rv_deltainfo;
 
@@ -200,6 +207,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
                 accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
                 accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
                 accelaration += job_separationSteering[i].linear * job_separationWeight[i];
+                accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i];
 
                 angle += job_faceSteering[i].angular * job_faceWeight[i];
 
