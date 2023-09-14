@@ -52,20 +52,16 @@ public class BOSSHPSlider : MonoBehaviour
         _fill_01.fillAmount = 1;
         _fill_02.fillAmount = 1;
 
-        var coreUnit = _targetShip.GetCoreUnit();
-        if(coreUnit != null)
+        var allUnits = _targetShip.CoreUnits;
+        for(int i = 0; i < allUnits.Count; i++)
         {
-            coreUnit.HpComponent.OnHpChangeAction += OnUpdateSlider;
+
         }
     }
 
     public void RemoveSlider()
     {
-        var coreUnit = _targetShip.GetCoreUnit();
-        if (coreUnit != null)
-        {
-            coreUnit.HpComponent.OnHpChangeAction -= OnUpdateSlider;
-        }
+        var allUnits = _targetShip.CoreUnits;
         GameObject.DestroyImmediate(this.gameObject);
     }
 

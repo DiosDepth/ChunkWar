@@ -46,7 +46,7 @@ public class ChunkPartMapInfo : MapInfo
     public Vector2Int shipCoord = Vector2Int.zero;
     public bool isOccupied = false;
     public bool isBuildingPiovt = false;
-    public ChunkType type = ChunkType.None;
+    public bool CorePoint = false;
 
     public ChunkPartMapInfo() { }
 }

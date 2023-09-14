@@ -262,7 +262,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
             if (IsCoreUnit)
             {
-                _owner.Death();
+                _owner.CheckDeath(this);
                 //destroy owner
             }
 

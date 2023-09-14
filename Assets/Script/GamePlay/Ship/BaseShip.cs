@@ -43,7 +43,6 @@ public struct ShipStateEvent
 public class BaseShip : MonoBehaviour,IDropable
 {
 
-    public Core core;
     public BaseController controller;
     protected GameObject buildingsParent;
     public string deathVFXName = "ExplodeVFX";
@@ -56,6 +55,10 @@ public class BaseShip : MonoBehaviour,IDropable
 
     protected Chunk[,] _chunkMap;
 
+    /// <summary>
+    /// 核心Units
+    /// </summary>
+    public List<Unit> CoreUnits;
 
     public List<Unit> UnitList { set { _unitList = value; } get { return _unitList; } }
     [ShowInInspector]
@@ -80,6 +83,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     protected virtual void Awake()
     {
+        CoreUnits = new List<Unit>();
         buildingsParent = transform.Find("Buildings").gameObject;
         if (movementState == null)
         {
@@ -111,7 +115,17 @@ public class BaseShip : MonoBehaviour,IDropable
     {
 
     }
-    public virtual void Death()
+
+    public void CheckDeath(Unit coreUnit)
+    {
+        CoreUnits.Remove(coreUnit);
+        if(CoreUnits.Count <= 0)
+        {
+            Death();
+        }
+    }
+
+    protected virtual void Death()
     {
         conditionState.ChangeState(ShipConditionState.Death);
         ShipStateEvent.Trigger(this, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
@@ -133,21 +147,6 @@ public class BaseShip : MonoBehaviour,IDropable
     public virtual void InitProperty()
     {
 
-    }
-
-    /// <summary>
-    /// 获取核心Unit
-    /// </summary>
-    /// <returns></returns>
-    public Unit GetCoreUnit()
-    {
-        for(int i = 0; i < _unitList.Count; i++)
-        {
-            var unit = _unitList[i];
-            if (unit.IsCoreUnit)
-                return unit;
-        }
-        return null;
     }
 
     public virtual List<PickableItem> Drop()

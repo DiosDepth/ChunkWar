@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-public enum ChunkType
-{
-    None = 0,
-    Base = 1,
-    Core = 2,
-}
-
 public enum DamagableState
 {
     None,

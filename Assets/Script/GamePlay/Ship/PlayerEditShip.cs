@@ -28,19 +28,12 @@ public class PlayerEditShip : PlayerShip
                 {
                     continue;
                 }
-
-                if (ShipMapInfo[row, colume].type == ChunkType.Core)
+                _chunkMap[row, colume] = new Chunk();
+                if (ShipMapInfo[row, colume].CorePoint)
                 {
-
-                    core = new Core();
-                    _chunkMap[row, colume] = core;
+                    _coreChunk = _chunkMap[row, colume];
                 }
 
-                if (ShipMapInfo[row, colume].type == ChunkType.Base)
-                {
-
-                    _chunkMap[row, colume] = new Base();
-                }
 
                 _chunkMap[row, colume].shipCoord = ShipMapInfo[row, colume].shipCoord;
                 _chunkMap[row, colume].state = ShipMapInfo[row, colume].state;
@@ -60,8 +53,8 @@ public class PlayerEditShip : PlayerShip
             var weaponID = playerShipCfg.MainWeaponID;
             BaseUnitConfig weaponconfig;
             DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
-            Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);
-            mainWeapon = AddEditUnit(weaponconfig, _reletivemap, core.shipCoord, 0) as ShipWeapon;
+            Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
+            mainWeapon = AddEditUnit(weaponconfig, _reletivemap, _coreChunk.shipCoord, 0) as ShipWeapon;
         }
     }
 

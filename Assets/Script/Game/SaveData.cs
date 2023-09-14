@@ -97,14 +97,6 @@ public class ShipMapData
                 tempinfo.isOccupied = shipdata.ChunkMap[row, colume].isOccupied;
                 tempinfo.isBuildingPiovt = shipdata.ChunkMap[row, colume].isBuildingPiovt;
 
-                if(shipdata.ChunkMap[row, colume].GetType() == typeof (Core))
-                {
-                    tempinfo.type = ChunkType.Core;
-                }
-                else
-                {
-                    tempinfo.type = ChunkType.Base;
-                }
                 tempinfo.state = shipdata.ChunkMap[row, colume].state;
 
                 ShipMap[row, colume] = tempinfo;
@@ -139,11 +131,7 @@ public class ShipMapData
 
                 if (shipmap[row, colume] == 2)
                 {
-                    tempinfo.type = ChunkType.Core;
-                }
-                if(shipmap[row, colume] == 1)
-                {
-                    tempinfo.type = ChunkType.Base;
+                    tempinfo.CorePoint = true;
                 }
                 tempinfo.state = DamagableState.Normal;
 

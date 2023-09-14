@@ -187,7 +187,7 @@ public static class GameHelper
         if (currentShip == null)
             return null;
 
-        return currentShip.core.unit.baseAttribute;
+        return currentShip.CoreUnits[0].baseAttribute;
     }
 
     public static GeneralHPComponet GetPlayerShipHPComponet()
@@ -196,7 +196,7 @@ public static class GameHelper
         if (currentShip == null)
             return null;
 
-        return currentShip.core.unit.HpComponent;
+        return currentShip.CoreUnits[0].HpComponent;
     }
 
     public static int GetUnitEnergyCost(BaseUnitConfig cfg)

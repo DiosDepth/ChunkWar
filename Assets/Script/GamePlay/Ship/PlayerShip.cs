@@ -39,7 +39,11 @@ public class PlayerShip : BaseShip
 
     protected ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     protected List<UnitInfo> UnitInfoList = new List<UnitInfo>();
-    
+
+    /// <summary>
+    /// 核心所在的chunk
+    /// </summary>
+    protected Chunk _coreChunk;
 
     public PlayerShipConfig playerShipCfg;
 
@@ -98,15 +102,6 @@ public class PlayerShip : BaseShip
                     ShipMapInfo[row, colume] = null;
                     continue;
                 }
-
-                if( ChunkMap[row,colume].GetType() ==  typeof(Core) )
-                {
-                    ShipMapInfo[row, colume].type = ChunkType.Core;
-                }
-                else
-                {
-                    ShipMapInfo[row, colume].type = ChunkType.Base;
-                }
                 ShipMapInfo[row, colume].shipCoord = ChunkMap[row, colume].shipCoord;
                 ShipMapInfo[row, colume].isOccupied = ChunkMap[row, colume].isOccupied;
                 ShipMapInfo[row, colume].isBuildingPiovt = ChunkMap[row, colume].isBuildingPiovt;
@@ -157,18 +152,10 @@ public class PlayerShip : BaseShip
                 {
                     continue;
                 }
-               
-                if (ShipMapInfo[row,colume].type == ChunkType.Core)
+                _chunkMap[row, colume] = new Chunk();
+                if (ShipMapInfo[row,colume].CorePoint)
                 {
-
-                    core = new Core();
-                   _chunkMap[row, colume] = core;
-                }
-
-                if(ShipMapInfo[row, colume].type == ChunkType.Base)
-                {
-
-                    _chunkMap[row, colume] = new Base();
+                    _coreChunk = _chunkMap[row, colume];
                 }
 
                 _chunkMap[row, colume].shipCoord = ShipMapInfo[row, colume].shipCoord;
@@ -189,8 +176,9 @@ public class PlayerShip : BaseShip
             var weaponID = playerShipCfg.MainWeaponID;
             BaseUnitConfig weaponconfig;
             DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
-            Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(core.shipCoord);
-            mainWeapon = AddUnit(weaponconfig, _reletivemap, core.shipCoord, 0) as ShipWeapon;
+            Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
+            mainWeapon = AddUnit(weaponconfig, _reletivemap, _coreChunk.shipCoord, 0) as ShipWeapon;
+            CoreUnits.Add(mainWeapon);
             //mainWeapon.Initialization(this, weaponconfig);
         }
 
@@ -246,7 +234,7 @@ public class PlayerShip : BaseShip
   
     }
 
-    public override void Death()
+    protected override void Death()
     {
         base.Death();
 
@@ -541,7 +529,7 @@ public class PlayerShip : BaseShip
             {
                 if(ShipMapInfo[row, colume] != null)
                 {
-                    if(ShipMapInfo[row,colume].type == ChunkType.Core)
+                    if(ShipMapInfo[row,colume].CorePoint)
                     {
                         Gizmos.color = Color.red;
                         Gizmos.DrawCube(GameHelper.GetWorldPosFromReletiveCoord(shipMapCenter, ShipMapInfo[row, colume].shipCoord), Vector3.one);

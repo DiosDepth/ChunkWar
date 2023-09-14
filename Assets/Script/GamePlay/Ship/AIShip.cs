@@ -42,7 +42,7 @@ public class AIShip : BaseShip,IPoolable
         base.Update();
     }
 
-    public override void Death()
+    protected override void Death()
     {
         base.Death();
         DestroyAIShipBillBoard();
@@ -87,19 +87,7 @@ public class AIShip : BaseShip,IPoolable
                     continue;
                 }
                 pos = GameHelper.CoordinateArrayToMap(new Vector2Int(row, colume), GameGlobalConfig.ShipMapSize);
-                if (aishipconfig.Map[row, colume] == 2)
-                {
-
-                    core = new Core();
-                    _chunkMap[row, colume] = core;
-                }
-
-                if (aishipconfig.Map[row, colume] == 1)
-                {
-
-                    _chunkMap[row, colume] = new Base();
-                }
-
+                _chunkMap[row, colume] = new Chunk();
                 _chunkMap[row, colume].shipCoord = pos;
                 _chunkMap[row, colume].state = DamagableState.Normal;
                 _chunkMap[row, colume].isBuildingPiovt = false;
@@ -111,11 +99,16 @@ public class AIShip : BaseShip,IPoolable
         BaseUnitConfig unitconfig;
         for (int i = 0; i < _unitList.Count; i++)
         {
+            var unit = _unitList[i];
             unitconfig = DataManager.Instance.GetUnitConfig(_unitList[i].UnitID);
-            _unitList[i].gameObject.SetActive(true);
-           
-            _unitList[i].Initialization(this, unitconfig);
-            _unitList[i].SetUnitProcess(true);
+            unit.gameObject.SetActive(true);
+
+            unit.Initialization(this, unitconfig);
+            unit.SetUnitProcess(true);
+            if (unit.IsCoreUnit)
+            {
+                CoreUnits.Add(unit);
+            }
         }
         InitAIShipBillBoard();
     }
