@@ -25,7 +25,9 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
     public float targetSerchingRadius = 15f;
     public float boidRadius = 1f;
 
-
+    public bool evadeBehavior = false;
+    [SerializeField]
+    public EvadeBehavior evadeBehaviorInfo;
     public bool arriveBehavior = false;
     [SerializeField]
     public ArriveBehavior arrivelBehaviorInfo;
@@ -162,6 +164,10 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
         [ReadOnly] public NativeArray<float3> job_aiShipPos;
         [ReadOnly] public float job_deltatime;
 
+
+        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_evadeSteering;
+        [ReadOnly] public NativeArray<float> job_evadeWeight;
+
         [ReadOnly] public NativeArray<bool> job_isVelZero;
         [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_arriveSteering;
         [ReadOnly] public NativeArray<float> job_arriveWeight;
@@ -199,15 +205,24 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
             {
                 angle = 0;
                 accelaration = Vector3.zero;
-                if (!job_isVelZero[i])
+
+                if(math.length(job_evadeSteering[i].linear) == 0)
                 {
-                    accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
+                    if (!job_isVelZero[i])
+                    {
+                        accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
+                    }
+               
+                    accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
+                    accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
+                    accelaration += job_separationSteering[i].linear * job_separationWeight[i];
+                    accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i];
+                }
+                else
+                {
+                    accelaration += job_evadeSteering[i].linear * job_evadeWeight[i];
                 }
 
-                accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
-                accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
-                accelaration += job_separationSteering[i].linear * job_separationWeight[i];
-                accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i];
 
                 angle += job_faceSteering[i].angular * job_faceWeight[i];
 
@@ -219,7 +234,8 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
                     accelaration *= job_aiShipMaxAcceleration[i];
                 }
 
-                if(job_isVelZero[i])
+
+                if (math.length(job_evadeSteering[i].linear) == 0 && job_isVelZero[i])
                 {
                     vel = float3.zero;
                 }
@@ -227,7 +243,21 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
                 {
                     vel = job_aiShipVelocity[i];
                 }
-                deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+
+                if ( math.length(vel) <= 0.01f)
+                {
+                    vel = 0;
+                }
+
+                if(math.length(job_evadeSteering[i].linear) == 0)
+                {
+                    deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+                }
+                else
+                {
+                    deltamovement = vel + accelaration  * job_deltatime * Job_aiShipDrag[i];
+                }
+     
                 deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;
 
                 deltainfo.linear = deltamovement;

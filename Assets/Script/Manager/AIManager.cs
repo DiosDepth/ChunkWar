@@ -71,6 +71,13 @@ public class AIManager : Singleton<AIManager>
     public NativeList<float> aiSteeringBehaviorController_aiShipTargetSerchingRadius;
     public NativeList<float> aiSteeringBehaviorController_aiShipDrag;
 
+
+
+    public NativeArray<SteeringBehaviorInfo> rv_evade_steeringInfo;
+    public NativeList<float> evade_maxPrediction;
+    public NativeList<float> evade_weight;
+
+
     //arrivebehavior return data
     public NativeArray<SteeringBehaviorInfo> rv_arrive_steeringInfo;
     public NativeArray<bool> rv_arrive_isVelZero;
@@ -178,13 +185,13 @@ public class AIManager : Singleton<AIManager>
         aiSteeringBehaviorController_aiShipDrag = new NativeList<float>(Allocator.Persistent);
 
 
+        evade_maxPrediction = new NativeList<float>(Allocator.Persistent);
+        evade_weight = new NativeList<float>(Allocator.Persistent);
         //arrivebehavior return data
         //arrivebehavior job input data
         arrive_arriveRadius = new NativeList<float>(Allocator.Persistent);
         arrive_slowRadius = new NativeList<float>(Allocator.Persistent);
         arrive_weight = new NativeList<float>(Allocator.Persistent);
-
-
         //facebehavior return data
     
         //facebehavior job input data
@@ -268,7 +275,8 @@ public virtual void UpdateJobData()
         if (aiSteeringBehaviorController_aiShipDrag.IsCreated) { aiSteeringBehaviorController_aiShipDrag.Dispose(); }
 
 
-
+        if (evade_maxPrediction.IsCreated) { evade_maxPrediction.Dispose(); }
+        if (evade_weight.IsCreated) { evade_weight.Dispose(); }
         //dispose arrive job data
 
         if (arrive_arriveRadius.IsCreated) { arrive_arriveRadius.Dispose(); }
@@ -413,6 +421,9 @@ public virtual void UpdateJobData()
         aiSteeringBehaviorController_aiShipTargetSerchingRadius.Add(controller.targetSerchingRadius);
         aiSteeringBehaviorController_aiShipDrag.Add(controller.drag);
 
+        evade_maxPrediction.Add(controller.evadeBehaviorInfo.maxPrediction);
+        evade_weight.Add(controller.evadeBehaviorInfo.GetWeight());
+
         arrive_arriveRadius.Add(controller.arrivelBehaviorInfo.arriveRadius);
         arrive_slowRadius.Add(controller.arrivelBehaviorInfo.slowRadius);
         arrive_weight.Add(controller.arrivelBehaviorInfo.GetWeight());
@@ -464,6 +475,9 @@ public virtual void UpdateJobData()
         aiSteeringBehaviorController_aiShipMaxAngularAcceleration.RemoveAt(index);
         aiSteeringBehaviorController_aiShipTargetSerchingRadius.RemoveAt(index);
         aiSteeringBehaviorController_aiShipDrag.RemoveAt(index);
+
+        evade_maxPrediction.RemoveAt(index);
+        evade_weight.RemoveAt(index);
 
         arrive_arriveRadius.RemoveAt(index);
         arrive_slowRadius.RemoveAt(index);
@@ -605,6 +619,7 @@ public virtual void UpdateJobData()
             return;
         }
 
+        JobHandle jobhandle_evadebehavior;
         JobHandle jobhandle_arrivebehavior;
         JobHandle jobhandle_facebehavior;
         JobHandle jobhandle_behaviorTargets;
@@ -614,6 +629,8 @@ public virtual void UpdateJobData()
         JobHandle jobhandle_collisionAvoidanceBehavior;
         //jobhandleList_AI = new NativeList<JobHandle>(Allocator.TempJob);
 
+        rv_evade_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
+
         rv_arrive_isVelZero = new NativeArray<bool>(ShipCount, Allocator.TempJob);
         rv_arrive_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
 
@@ -622,6 +639,26 @@ public virtual void UpdateJobData()
         rv_separation_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
         rv_alignment_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
         rv_collisionavoidance_steeringInfo = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
+
+
+
+        EvadeBehavior.EvadeBehaviorJob evadeBehaviorJob = new EvadeBehavior.EvadeBehaviorJob
+        {
+            job_aiShipPos= steeringBehaviorJob_aiShipPos,
+            job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
+            job_evadeTargetPos = targetBoid.GetPosition(),
+            job_evadeTargetVel = targetBoid.GetVelocity(),
+            job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
+            job_maxPrediction = evade_maxPrediction,
+
+            rv_steering = rv_evade_steeringInfo,
+
+        };
+        jobhandle_evadebehavior = evadeBehaviorJob.ScheduleBatch(ShipCount, 2);
+        jobhandle_evadebehavior.Complete();
+
+
+      
 
         ArriveBehavior.ArriveBehaviorJobs arriveBehaviorJobs = new ArriveBehavior.ArriveBehaviorJobs
         {
@@ -736,7 +773,8 @@ public virtual void UpdateJobData()
         jobhandle_alignmentBehavior.Complete();
 
 
-
+        
+        /*
         CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob collisionAvoidanceBehaviorJob = new CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob
         {
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
@@ -754,7 +792,7 @@ public virtual void UpdateJobData()
 
         jobhandle_collisionAvoidanceBehavior = collisionAvoidanceBehaviorJob.ScheduleBatch(ShipCount, 2);
         jobhandle_collisionAvoidanceBehavior.Complete();
-
+        */
 
 
 
@@ -767,6 +805,9 @@ public virtual void UpdateJobData()
             Job_aiShipDrag = aiSteeringBehaviorController_aiShipDrag,
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
             job_aiShipVelocity = steeringBehaviorJob_aiShipVelocity,
+
+            job_evadeSteering = rv_evade_steeringInfo,
+            job_evadeWeight = evade_weight,
 
             job_arriveSteering = rv_arrive_steeringInfo,
             job_arriveWeight = arrive_weight,
@@ -805,6 +846,8 @@ public virtual void UpdateJobData()
         }
 
         targetBoid.UpdateIBoid();
+
+        rv_evade_steeringInfo.Dispose();
 
         rv_arrive_isVelZero.Dispose();
         rv_arrive_steeringInfo.Dispose();

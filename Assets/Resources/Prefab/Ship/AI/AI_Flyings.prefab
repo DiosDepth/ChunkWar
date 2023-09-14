@@ -179,8 +179,13 @@ MonoBehaviour:
   maxAcceleration: 7
   maxAngularAcceleration: 6
   targetSerchingRadius: 30
-  boidRadius: 1
-  arriveBehavior: 1
+  boidRadius: 3
+  evadeBehavior: 0
+  evadeBehaviorInfo:
+    target: {fileID: 0}
+    weight: 3
+    maxPrediction: 25
+  arriveBehavior: 0
   arrivelBehaviorInfo:
     target: {fileID: 0}
     weight: 2
