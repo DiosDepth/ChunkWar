@@ -27,11 +27,6 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, LevelSpawnConfig> _levelPresetDic = new Dictionary<int, LevelSpawnConfig>();
     private Dictionary<int, CampConfig> _campConfigDic = new Dictionary<int, CampConfig>();
 
-    /// <summary>
-    /// Unit 升级组
-    /// </summary>
-    private Dictionary<int, List<BaseUnitConfig>> _unitConfigGroupDic = new Dictionary<int, List<BaseUnitConfig>>();
-
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
     public ShipPlugConfig shipPlugCfg;
@@ -218,16 +213,6 @@ public class DataManager : Singleton<DataManager>
         UnitConfigDataDic.TryGetValue(unitID, out result);
         Debug.Assert(result != null, "GetUnitConfig Null! ID= " + unitID);
         return result;
-    }
-
-    public BaseUnitConfig GetUnitConfigByGroupAndRarity(int groupID, GoodsItemRarity rarity)
-    {
-        if (_unitConfigGroupDic.ContainsKey(groupID))
-        {
-            var lst = _unitConfigGroupDic[groupID];
-            return lst.Find(x => x.GeneralConfig.Rarity == rarity);
-        }
-        return null;
     }
 
     /// <summary>
@@ -476,17 +461,6 @@ public class DataManager : Singleton<DataManager>
         if (!UnitConfigDataDic.ContainsKey(uintID))
         {
             UnitConfigDataDic.Add(uintID, cfg);
-        }
-
-        ///Add Group
-        var groupID = cfg.UpgradeGroupID;
-        if (_unitConfigGroupDic.ContainsKey(groupID))
-        {
-            _unitConfigGroupDic[groupID].Add(cfg);
-        }
-        else
-        {
-            _unitConfigGroupDic.Add(groupID, new List<BaseUnitConfig>() { cfg });
         }
     }
 

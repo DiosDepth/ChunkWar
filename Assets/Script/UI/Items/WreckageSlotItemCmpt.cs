@@ -204,7 +204,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
         var item = new InventoryItem(cfg);
         item.RefUID = _info.UID;
-        shipBuilder.currentInventoryItem = item;
+        shipBuilder.CurrentInventoryItem = item;
         shipBuilder.SetBrushSprite();
     }
 

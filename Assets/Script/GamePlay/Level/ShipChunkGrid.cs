@@ -8,11 +8,15 @@ public class ShipChunkGrid : MonoBehaviour, IPoolable
     public int PosX;
     public int PosY;
 
+    public Sprite Grid_Empty;
+    public Sprite Grid_Error;
+    public Sprite Grid_Fill;
+
     private SpriteRenderer _fill;
 
     public void Awake()
     {
-        _fill = transform.Find("Fill").SafeGetComponent<SpriteRenderer>();
+        _fill = transform.Find("BG").SafeGetComponent<SpriteRenderer>();
     }
 
     public void SetUp(Vector2Int position, bool occupied)
@@ -20,12 +24,31 @@ public class ShipChunkGrid : MonoBehaviour, IPoolable
         PosX = position.x;
         PosY = position.y;
         transform.position = new Vector3(position.x, position.y);
-        _fill.transform.SafeSetActive(occupied);
+        _fill.transform.SafeSetActive(true);
+        SetOccupied(occupied);
     }
 
     public void SetOccupied(bool occupied)
     {
-        _fill.transform.SafeSetActive(occupied);
+        _fill.transform.SafeSetActive(true);
+        _fill.sprite = occupied ? Grid_Fill : Grid_Empty;
+    }
+
+    public void SetGridNormalEmpty()
+    {
+        _fill.transform.SafeSetActive(true);
+        _fill.sprite = Grid_Empty;
+    }
+
+    public void SetGridError()
+    {
+        _fill.transform.SafeSetActive(true);
+        _fill.sprite = Grid_Error;
+    }
+
+    public void SetNull()
+    {
+        _fill.transform.SafeSetActive(false);
     }
 
     public void PoolableDestroy()

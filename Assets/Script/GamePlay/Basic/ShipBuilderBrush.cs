@@ -26,6 +26,11 @@ public class ShipBuilderBrush : MonoBehaviour
 
     }
 
+    public void SetPosition(Vector2 pos)
+    {
+        transform.position = pos;
+    }
+
     public void Initialization()
     {
         GameObject obj;

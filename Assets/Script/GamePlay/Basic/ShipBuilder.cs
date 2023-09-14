@@ -29,8 +29,17 @@ public class ShipBuilder : MonoBehaviour
     public Building currentBuilding;
    
 
+    public InventoryItem CurrentInventoryItem
+    {
+        get { return currentInventoryItem; }
+        set
+        {
+            SetSelectedInventoryItem(value);
+        }
+    }
+
     //select item from both chunkPartInventory and buildingInventory
-    public InventoryItem currentInventoryItem;
+    private InventoryItem currentInventoryItem;
 
     [Header("CameraSettings")]
     public Vector3 cameraOffset = Vector3.zero;
@@ -40,19 +49,24 @@ public class ShipBuilder : MonoBehaviour
     private bool _isInitial;
     private Vector2 _mousePos;
     private Vector2 _mouseWorldPos;
-    private Ray _mouseRay;
+
     private int _itemDirection = 0;
     private bool _isValidPos = false;
+    /// <summary>
+    /// Unit能否放置
+    /// </summary>
+    private bool _canUnitPlace = false;
 
 
     private Vector2Int _pointedShipCoord;
     private Vector2Int[] _reletiveCoord;
-    private Vector2Int[] _outLineShipCood;
 
-
-    private Vector2Int[] _tempmap;
+    private Vector2Int[] _tempUnitMap;
     private Vector2Int _temparray;
 
+    /// <summary>
+    /// 当前选中的chunk
+    /// </summary>
     private Chunk currentChunk;
     private Unit _currentHoverUnit;
 
@@ -88,7 +102,6 @@ public class ShipBuilder : MonoBehaviour
         _isInitial = true;
         currentInventoryItem = null;
         editorBrush.Initialization();
-        _reletiveCoord = new Vector2Int[2];
     }
 
     private void OnDestroy()
@@ -116,9 +129,6 @@ public class ShipBuilder : MonoBehaviour
             shipTrans.position = Vector3.zero - editorShip.shipMapCenter.localPosition;
             shipTrans.rotation = Quaternion.identity ;
             shipTrans.parent = obj.transform;
-
-            
-            editorShip.container.transform.name += "_Editor";
         }        
 
         if (runtimedata == null)
@@ -182,7 +192,13 @@ public class ShipBuilder : MonoBehaviour
                 }
 
                 //判断鼠标是否在Chunk内
-                currentChunk = editorShip.GetChunkFromShipCoordinate(_pointedShipCoord);
+                var chunk = editorShip.GetChunkFromShipCoordinate(_pointedShipCoord);
+                ///如果与老chunk相同，则不更新
+                if (currentChunk == chunk)
+                    return;
+
+                currentChunk = chunk;
+                RefreshGridOccupied();
                 _isValidPos &= currentChunk != null;
 
                 ///空选中，显示信息
@@ -206,11 +222,10 @@ public class ShipBuilder : MonoBehaviour
 
                     //使用selectedChunk 和 当前选择的currentInventoryBuilding 中map信息 来计算是否有其他位置重合，
                     //需要检测已经有的Building
-
-                    if (!DisplayUpgradeGroupInfo())
+                    if (!HandleUnitBuildProcess())
                         return;
 
-                    if (_isValidPos)
+                    if (_canUnitPlace)
                     {
                         editorBrush.brushSprite.color = editorBrush.validColor;
                         editorBrush.ChangeShadowColor(editorBrush.validColor);
@@ -220,7 +235,7 @@ public class ShipBuilder : MonoBehaviour
                         editorBrush.brushSprite.color = editorBrush.invalidColor;
                         editorBrush.ChangeShadowColor(editorBrush.invalidColor);
                     }
-                    editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);
+                    //editorBrush.SetPosition(GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord));
                 }
 
                 break;
@@ -357,10 +372,10 @@ public class ShipBuilder : MonoBehaviour
     /// </summary>
     private void OnAddUnit()
     {
-        if (!_isValidPos || currentInventoryItem == null)
+        if (!_canUnitPlace || currentInventoryItem == null)
             return;
 
-        var unit = editorShip.AddEditUnit(currentInventoryItem.itemconfig, _tempmap, _pointedShipCoord, _itemDirection, true);
+        var unit = editorShip.AddEditUnit(currentInventoryItem.itemconfig, _tempUnitMap, _pointedShipCoord, _itemDirection, true);
         var chunks = unit.occupiedCoords;
         for (int i = 0; i < chunks.Count; i++) 
         {
@@ -372,6 +387,7 @@ public class ShipBuilder : MonoBehaviour
             }
         }
 
+        _canUnitPlace = false;
         _itemDirection = 0;
         editorBrush.ResetBrush();
         RogueManager.Instance.RemoveWreckageByUID(currentInventoryItem.RefUID);
@@ -389,6 +405,7 @@ public class ShipBuilder : MonoBehaviour
         if (currentInventoryItem == null)
             return;
 
+        currentChunk = null;
         _itemDirection = 0;
         editorBrush.ResetBrush();
         currentInventoryItem = null;
@@ -423,52 +440,41 @@ public class ShipBuilder : MonoBehaviour
     }
 
     /// <summary>
-    /// 显示升级组信息
+    /// 处理建造条件
     /// </summary>
     /// <returns></returns>
-    private bool DisplayUpgradeGroupInfo()
+    private bool HandleUnitBuildProcess()
     {
-        if (currentChunk == null)
-        {
-            _isValidPos = false;
-            return false;
-        }
-           
-        editorBrush.transform.position = GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord);
+        _canUnitPlace = true;
+        editorBrush.SetPosition(GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord));
 
-        _tempmap = _reletiveCoord.AddToAll(_pointedShipCoord);
-        var groupID = currentInventoryItem.GetUpgradeGroupID();
+        _tempUnitMap = _reletiveCoord.AddToAll(_pointedShipCoord);
         //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据
-        for (int i = 0; i < _tempmap.Length; i++)
+        for (int i = 0; i < _tempUnitMap.Length; i++)
         {
-            //Debug.Log("[" + i + "] " + "ReletiveCoord : " + _reletiveCoord[i] + "  Tempmap : " + _tempmap[i]);
-            _temparray = GameHelper.CoordinateMapToArray(_tempmap[i], GameGlobalConfig.ShipMapSize);
+            _temparray = GameHelper.CoordinateMapToArray(_tempUnitMap[i], GameGlobalConfig.ShipMapSize);
             var chunk = editorShip.ChunkMap[_temparray.x, _temparray.y];
-
 
             if (chunk == null)
             {
-                _isValidPos = false;
-                break;
-            }
-
-            if (chunk.unit != null)
-            {
-                if(chunk.unit._baseUnitConfig.UpgradeGroupID == groupID)
-                {
-                    //选中物件ID为同一个升级组
-                }
-                else
-                {
-                    _isValidPos = false;
-                    return true;
-                }
+                _canUnitPlace = false;
             }
             else
             {
+                var chunkGrid = GetChunkGridByChunk(chunk);
+                if (chunk.unit != null)
+                {
+                    _canUnitPlace = false;
+                    chunkGrid.SetGridError();
+                }
+                else
+                {
+                    chunkGrid.SetOccupied(true);
+                }
             }
         }
-        return true;
+
+        return _canUnitPlace;
     }
 
     private void SetHoverUnit(Unit targetUnit)
@@ -487,6 +493,20 @@ public class ShipBuilder : MonoBehaviour
         _isDisplayingHoverUnit = false;
     }
 
+    private void SetSelectedInventoryItem(InventoryItem item)
+    {
+        if (currentInventoryItem != item) 
+        {
+            currentInventoryItem = item;
+        }
+
+        if(currentInventoryItem != null && currentInventoryItem.itemconfig is BaseUnitConfig)
+        {
+            var unitCfg = currentInventoryItem.itemconfig as BaseUnitConfig;
+            _reletiveCoord = unitCfg.GetReletiveCoord();
+        }
+    }
+
     #region Grid
     private void InitShipChunkGrids()
     {
@@ -503,7 +523,17 @@ public class ShipBuilder : MonoBehaviour
             for (int colume = 0; colume < columeCount; colume++)
             {
                 var chunk = allChunks[row, colume];
-                if(chunk != null)
+                if(chunk == null)
+                {
+                    PoolManager.Instance.GetObjectSync(ShipChunkGrid_PrefabPath, true, (obj) =>
+                    {
+                        var cmpt = obj.transform.SafeGetComponent<ShipChunkGrid>();
+                        cmpt.SetUp(new Vector2Int (row, colume), false);
+                        cmpt.SetNull();
+                        _shipGrids.Add(cmpt);
+                    }, root);
+                }
+                else
                 {
                     PoolManager.Instance.GetObjectSync(ShipChunkGrid_PrefabPath, true, (obj) =>
                     {
@@ -513,6 +543,28 @@ public class ShipBuilder : MonoBehaviour
 
                     }, root);
                 }
+                
+            }
+        }
+    }
+
+    /// <summary>
+    /// 刷新格子占位
+    /// </summary>
+    private void RefreshGridOccupied()
+    {
+        for (int i = 0; i < _shipGrids.Count; i++) 
+        {
+            var grid = _shipGrids[i];
+            Vector2Int coordinate = new Vector2Int(grid.PosX, grid.PosY);
+            var chunk = editorShip.GetChunkFromShipCoordinate(coordinate);
+            if(chunk != null)
+            {
+                grid.SetOccupied(chunk.unit != null);
+            }
+            else
+            {
+                grid.SetNull();
             }
         }
     }
@@ -522,6 +574,10 @@ public class ShipBuilder : MonoBehaviour
         return _shipGrids.Find(grid => grid.PosX == x && grid.PosY == y);
     }
 
+    private ShipChunkGrid GetChunkGridByChunk(Chunk chunk)
+    {
+        return GetChunkGridByPos(chunk.shipCoord.x, chunk.shipCoord.y);
+    }
 
     #endregion
 }

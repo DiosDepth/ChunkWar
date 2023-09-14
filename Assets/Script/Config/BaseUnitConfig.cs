@@ -37,11 +37,6 @@ public class BaseUnitConfig : BaseConfig
     [HorizontalGroup("B", 150)]
     public bool redirection = true;
 
-    [LabelText("升级组")]
-    [LabelWidth(70)]
-    [HorizontalGroup("B", 130)]
-    public int UpgradeGroupID;
-
     [LabelText("建造笔刷图片")]
     [LabelWidth(80)]
     [HorizontalGroup("C", 150)]
