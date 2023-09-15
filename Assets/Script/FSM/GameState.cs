@@ -31,7 +31,7 @@ public class EGameState_WelcomScreen : GameState
         InputDispatcher.Instance.ChangeInputMode("UI");
         UIManager.Instance.ShowUI<WellcomScreen>("WellcomScreen", E_UI_Layer.Top, GameManager.Instance, (panel) =>
         {
-            MonoManager.Instance.StartCoroutine(DataManager.Instance.LoadAllData(() =>
+            DataManager.Instance.LoadAllData(() =>
             {
                 MonoManager.Instance.StartDelay(1.75f, () =>
                 {
@@ -45,7 +45,7 @@ public class EGameState_WelcomScreen : GameState
                 GameManager.Instance.InitData();
                 SaveLoadManager.Instance.Initialization();
                 AchievementManager.Instance.Initialization();
-            }));
+            });
         });
 
     }

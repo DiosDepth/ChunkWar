@@ -98,6 +98,23 @@ public class BulletData : DataInfo
     }
 }
 
+public class EnemyHardLevelItem : DataInfo
+{
+    public int GroupID;
+    public int ATKAdd;
+    public int HPAdd;
+    public int ShieldAdd;
+
+    public override void Initialization(string[] row)
+    {
+        int.TryParse(row[0], out ID);
+        int.TryParse(row[1], out GroupID);
+        int.TryParse(row[2], out ATKAdd);
+        int.TryParse(row[3], out HPAdd);
+        int.TryParse(row[4], out ShieldAdd);
+    }
+}
+
 
 public class PickUpData : DataInfo
 {
@@ -121,7 +138,7 @@ public class PickUpData : DataInfo
         PrefabPath = row[2];
         AvaliablePickUp.TryParse(row[3], out Type);
         GoodsItemRarity.TryParse(row[4], out Rarity);
-        CountRef = byte.Parse(row[5]);
+        byte.TryParse(row[5], out CountRef);
         float.TryParse(row[6], out EXPAdd);
     }
 
@@ -132,7 +149,7 @@ public class PickUpData : DataInfo
         PrefabPath = row[2];
         AvaliablePickUp.TryParse(row[3], out Type);
         GoodsItemRarity.TryParse(row[4], out Rarity);
-        CountRef = byte.Parse(row[5]);
+        byte.TryParse(row[5], out CountRef);
         float.TryParse(row[6], out EXPAdd);
     }
 }

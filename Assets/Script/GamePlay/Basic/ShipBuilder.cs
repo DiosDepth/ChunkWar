@@ -74,14 +74,16 @@ public class ShipBuilder : MonoBehaviour
     private bool _isDisplayingHoverUnit = false;
 
     private List<ShipChunkGrid> _shipGrids;
+    private List<ShipChunkErrorGrid> _tempErrorGrid;
 
     private const string ShipChunkGrid_PrefabPath = "Prefab/Chunk/ShipChunkGrid";
-
+    private const string ShipChunkGridError_PrefabPath = "Prefab/Chunk/ShipChunkErrorGrid";
 
     private void Awake()
     {
         instance = this;
         _shipGrids = new List<ShipChunkGrid>();
+        _tempErrorGrid = new List<ShipChunkErrorGrid>();
     }
 
     public void Initialization()
@@ -227,15 +229,12 @@ public class ShipBuilder : MonoBehaviour
 
                     if (_canUnitPlace)
                     {
-                        editorBrush.brushSprite.color = editorBrush.validColor;
-                        editorBrush.ChangeShadowColor(editorBrush.validColor);
+                        editorBrush.SetBrushState(ShipBuilderBrush.BrushState.Vaild);
                     }
                     else
                     {
-                        editorBrush.brushSprite.color = editorBrush.invalidColor;
-                        editorBrush.ChangeShadowColor(editorBrush.invalidColor);
+                        editorBrush.SetBrushState(ShipBuilderBrush.BrushState.Error);
                     }
-                    //editorBrush.SetPosition(GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord));
                 }
 
                 break;
@@ -271,10 +270,8 @@ public class ShipBuilder : MonoBehaviour
                     _itemDirection = 0;
                 }
                 _reletiveCoord = RotateCoordClockWise(_reletiveCoord);
-                editorBrush.UpdateShadows(_reletiveCoord);
-                
 
-                editorBrush.brushSprite.transform.rotation = Quaternion.Euler(0, 0, -90 * _itemDirection);
+                editorBrush.SetDirection(_itemDirection);
                 break;
             case InputActionPhase.Canceled:
                 break;
@@ -408,6 +405,7 @@ public class ShipBuilder : MonoBehaviour
         currentChunk = null;
         _itemDirection = 0;
         editorBrush.ResetBrush();
+        ClearTempErrorGrid();
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
         RogueEvent.Trigger(RogueEventType.CancelWreckageSelect);
@@ -457,7 +455,15 @@ public class ShipBuilder : MonoBehaviour
 
             if (chunk == null)
             {
+                var root = transform.Find("Grids");
                 _canUnitPlace = false;
+                PoolManager.Instance.GetObjectSync(ShipChunkGridError_PrefabPath, true, (obj) =>
+                {
+                    var gridPos = GameHelper.CoordinateArrayToMap(new Vector2Int(_temparray.x, _temparray.y), GameGlobalConfig.ShipMapSize);
+                    var cmpt = obj.transform.SafeGetComponent<ShipChunkErrorGrid>();
+                    cmpt.SetUp(gridPos);
+                    _tempErrorGrid.Add(cmpt);
+                }, root);
             }
             else
             {
@@ -523,17 +529,7 @@ public class ShipBuilder : MonoBehaviour
             for (int colume = 0; colume < columeCount; colume++)
             {
                 var chunk = allChunks[row, colume];
-                if(chunk == null)
-                {
-                    PoolManager.Instance.GetObjectSync(ShipChunkGrid_PrefabPath, true, (obj) =>
-                    {
-                        var cmpt = obj.transform.SafeGetComponent<ShipChunkGrid>();
-                        cmpt.SetUp(new Vector2Int (row, colume), false);
-                        cmpt.SetNull();
-                        _shipGrids.Add(cmpt);
-                    }, root);
-                }
-                else
+                if(chunk != null)
                 {
                     PoolManager.Instance.GetObjectSync(ShipChunkGrid_PrefabPath, true, (obj) =>
                     {
@@ -543,7 +539,6 @@ public class ShipBuilder : MonoBehaviour
 
                     }, root);
                 }
-                
             }
         }
     }
@@ -562,11 +557,17 @@ public class ShipBuilder : MonoBehaviour
             {
                 grid.SetOccupied(chunk.unit != null);
             }
-            else
-            {
-                grid.SetNull();
-            }
         }
+        ClearTempErrorGrid();
+    }
+
+    private void ClearTempErrorGrid()
+    {
+        for (int i = _tempErrorGrid.Count - 1; i >= 0; i--)
+        {
+            _tempErrorGrid[i].PoolableDestroy();
+        }
+        _tempErrorGrid.Clear();
     }
 
     private ShipChunkGrid GetChunkGridByPos(int x, int y)

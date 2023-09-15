@@ -422,7 +422,6 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 21
   unitType: 0
   redirection: 0
-  UpgradeGroupID: 0
   EditBrushSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
   EditorBrushDefaultRotation: 0
   ItemTags: 2

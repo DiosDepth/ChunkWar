@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10012
+  m_Name: Configs_MainWeapon_4
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -176,13 +176,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -411,38 +411,38 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10012
+  ID: 4
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: db3ef0ed72a438c4abd5f59d91723d66, type: 3}
-    Name: Weapon_Name_10012
-    Desc: 
+    IconSprite: {fileID: 21300000, guid: ed410b6015fcbaa4381e119b367300f2, type: 3}
+    Name: Weapon_Name_003
+    Desc: Weapon_Desc_003
     Rarity: 3
-  Prefab: {fileID: 5156482088037079168, guid: 9146ba88215cf12499f6472214d156f2, type: 3}
+  Prefab: {fileID: 579860166384849233, guid: d55b23bc57ac4f84bac74574af0f2617, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  unitType: 1
+  unitType: 2
   redirection: 0
-  EditBrushSprite: {fileID: 21300000, guid: 6e3b92e4f9d5c36489c0ec8655e6cfa2, type: 3}
+  EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   ItemTags: 4
-  BaseHP: 100
+  BaseHP: 500
   BaseEnergyCost: 0
-  BaseEnergyGenerate: 0
+  BaseEnergyGenerate: 100
   PropertyModify: []
-  DamageBase: 50
-  DamageRatioMin: 0.94
-  DamageRatioMax: 1.15
+  DamageBase: 10
+  DamageRatioMin: 0.9
+  DamageRatioMax: 1.1
   DamageType: 0
-  BaseRange: 100
-  BaseCriticalRate: 20
-  CriticalDamage: 130
-  TotalDamageCount: 12
-  ShootPerCount: 2
-  CD: 4
-  FireCD: 0.2
+  BaseRange: 150
+  BaseCriticalRate: 0
+  CriticalDamage: 0
+  TotalDamageCount: 15
+  ShootPerCount: 5
+  CD: 3
+  FireCD: 0.1
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   TransfixionReduce: 0
   DamageModifyFrom: []
-  FireAudioClip: 
+  FireAudioClip: SFX_Missile_Fire_001

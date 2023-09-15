@@ -413,7 +413,7 @@ MonoBehaviour:
       Data: 
   ID: 10020
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: db3ef0ed72a438c4abd5f59d91723d66, type: 3}
+    IconSprite: {fileID: 21300000, guid: 42a4704ee9c26d748a4fd7fe0029f675, type: 3}
     Name: Weapon_Name_10020
     Desc: 
     Rarity: 3
@@ -422,7 +422,6 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 0
-  UpgradeGroupID: 10001
   EditBrushSprite: {fileID: 21300000, guid: 42a4704ee9c26d748a4fd7fe0029f675, type: 3}
   EditorBrushDefaultRotation: 0
   ItemTags: 4

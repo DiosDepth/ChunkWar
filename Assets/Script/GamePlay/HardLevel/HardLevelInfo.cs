@@ -70,3 +70,17 @@ public class HardLevelInfo
 
     }
 }
+
+public class EnemyHardLevelData
+{
+    public int GroupID;
+    private Dictionary<int, EnemyHardLevelItem> _hardLevelItems = new Dictionary<int, EnemyHardLevelItem>();
+
+    public void AddHardLevelItems(int index, EnemyHardLevelItem item)
+    {
+        if (!_hardLevelItems.ContainsKey(index))
+        {
+            _hardLevelItems.Add(index, item);
+        }
+    }
+}
