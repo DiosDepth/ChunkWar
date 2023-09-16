@@ -541,10 +541,10 @@ public class Weapon : Unit
         int index;
         public void Execute(int startIndex, int count)
         {
-            NativeList<RV_WeaponTargetInfo>  tempinfolist = new NativeList<RV_WeaponTargetInfo>(Allocator.Temp);
+            NativeList<RV_WeaponTargetInfo> tempinfolist; 
             for (int i = startIndex; i < startIndex + count; i++)
             {
-    
+                tempinfolist  = new NativeList<RV_WeaponTargetInfo>(Allocator.Temp);
                 //找到所有在范围内的target
                 for (int n = 0; n < job_targetsPos.Length; n++)
                 {
@@ -591,8 +591,9 @@ public class Weapon : Unit
                         rv_targetsInfo[index + s] = tempinfo;
                     }
                 }
+                tempinfolist.Dispose();
             }
-            tempinfolist.Dispose();
+      
         }
     }
 

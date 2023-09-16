@@ -283,6 +283,7 @@ public class Projectile : Bullet, IDamageble
 
     public override void Death()
     {
+        AIManager.Instance.RemoveProjectileBullet(this);
         base.Death();
     }
 

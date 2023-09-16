@@ -21,6 +21,7 @@ public class AIManager : Singleton<AIManager>
     public List<AIShip> aiShipList = new List<AIShip>();
     public List<Projectile> aibulletsList = new List<Projectile>();
     private List<Projectile> _aibulletDeathList = new List<Projectile>();
+    private List<int> _aiBulletDeathIndex = new List<int>();
     public NativeList<BulletJobInitialInfo> aiBullet_JobInfo;
     public NativeArray<BulletJobUpdateInfo> rv_aiBullet_jobUpdateInfo;
 
@@ -583,8 +584,8 @@ public virtual void UpdateJobData()
     public void RemoveProjectileBullet(Projectile bullet)
     {
         int index = aibulletsList.IndexOf(bullet);
-        aiBullet_JobInfo.RemoveAt(index);
-        aibulletsList.RemoveAt(index);
+       aiBullet_JobInfo.RemoveAt(index);
+       aibulletsList.RemoveAt(index);
     }
     public void RemoveBullet(Bullet bullet)
     {
@@ -920,12 +921,13 @@ public virtual void UpdateJobData()
             if(aiActiveUnitList[i] is AIWeapon)
             {
                 weapon = aiActiveUnitList[i] as AIWeapon;
-
+                weapon.targetList.Clear();
                 for (int n = 0; n < aiActiveUnitMaxTargetsCount[i]; n++)
                 {
                     targetindex = rv_weaponTargetsInfo[startindex + n].targetIndex;
                     if (targetindex == -1)
                     {
+                    
                         weapon.WeaponOff();
                         break;
                     }
@@ -933,10 +935,11 @@ public virtual void UpdateJobData()
                     {
                         if (targetActiveUnitList == null || targetActiveUnitList.Count == 0)
                         {
+                         
                             weapon.WeaponOff();
                             break;
                         }
-                        weapon.targetList.Clear();
+                   
                     
                         weapon.targetList.Add(new WeaponTargetInfo
                             (
@@ -985,24 +988,20 @@ public virtual void UpdateJobData()
         //更新子弹当前的JobData
         //移动子弹
 
-        _aibulletDeathList.Clear();
+        _aiBulletDeathIndex.Clear();
+
         for (int i = 0; i < aibulletsList.Count; i++)
         {
-            if(rv_aiBullet_jobUpdateInfo[i].islifeended)
+            if (!rv_aiBullet_jobUpdateInfo[i].islifeended)
             {
-                _aibulletDeathList.Add(aibulletsList[i]);
-              
+                aibulletsList[i].Move(rv_aiBullet_jobUpdateInfo[i].deltaMovement);
             }
-            aibulletsList[i].Move(rv_aiBullet_jobUpdateInfo[i].deltaMovement);
+            else
+            {
+                _aiBulletDeathIndex.Add(i);
+            }
+
         }
-
-        for (int i = 0; i < _aibulletDeathList.Count; i++)
-        {
-            RemoveBullet(_aibulletDeathList[i]);
-            _aibulletDeathList[i].Death();
-        }
-
-
         UpdateBulletJobData();
 
         rv_aiBullet_jobUpdateInfo.Dispose();
@@ -1011,9 +1010,13 @@ public virtual void UpdateJobData()
 
     public void UpdateBulletJobData()
     {
+        //这里需要先更新子弹的信息，然后在吧死亡的子弹移除， 否则rv aibullet的静态数据长度无法操作
+        //虽然会浪费运算量。但是可以保证index不会错位
         BulletJobInitialInfo bulletJobInfo;
         for (int i = 0; i < aibulletsList.Count; i++)
         {
+            if (rv_aiBullet_jobUpdateInfo[i].islifeended)
+                continue;
             bulletJobInfo = new BulletJobInitialInfo
                 (
                     aibulletsList[i].transform.position,
@@ -1030,6 +1033,15 @@ public virtual void UpdateJobData()
             bulletJobInfo.update_currentSpeed = rv_aiBullet_jobUpdateInfo[i].currentSpeed;
 
             aiBullet_JobInfo[i] = bulletJobInfo;
+        }
+
+        //最后一步 执行子弹死亡
+        int deathindex = 0;
+        for (int i = 0; i < _aiBulletDeathIndex.Count; i++)
+        {
+            deathindex = _aiBulletDeathIndex[i];
+            aibulletsList[deathindex].Death();
+
         }
     }
 
