@@ -107,6 +107,7 @@ public class WeaponAttribute : UnitBaseAttribute
     public float AfterDelay;
 
     private List<UnitPropertyModifyFrom> modifyFrom;
+    private bool UseDamageRatio;
     private float BaseCritical;
     private float BaseWeaponRange;
     private float BaseReloadCD;
@@ -143,16 +144,16 @@ public class WeaponAttribute : UnitBaseAttribute
         }
         else
         {
-            var damageRatio = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
-            var enemy = _parentUnit._owner as AIShip;
-            float hardLevelRatio = 0;
-            if (enemy != null)
+            float ratio = 1;
+            if (UseDamageRatio)
             {
-                hardLevelRatio = GameHelper.GetEnemyDamageByHardLevel(enemy.AIShipCfg.HardLevelCfg);
+                ///…À∫¶∏°∂Ø
+                ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             }
-
-            var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
-            var damage = Mathf.Clamp(BaseDamage * (1 + damageRatio + hardLevelRatio / 100f) * ratio, 0, int.MaxValue);
+            var damageRatio = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
+            int hardLevelAdd = 0;
+            hardLevelAdd = _hardLevelItem != null ? _hardLevelItem.ATKAdd : 0;
+            var damage = Mathf.Clamp((BaseDamage + hardLevelAdd) * (1 + damageRatio) * ratio, 0, int.MaxValue);
             Damage =  Mathf.RoundToInt(damage);
         }
 
@@ -173,6 +174,7 @@ public class WeaponAttribute : UnitBaseAttribute
         if (_weaponCfg == null)
             return;
 
+        UseDamageRatio = _weaponCfg.UseDamageRatio;
         DamageType = _weaponCfg.DamageType;
         BaseDamage = _weaponCfg.DamageBase;
         DamageRatioMin = _weaponCfg.DamageRatioMin;

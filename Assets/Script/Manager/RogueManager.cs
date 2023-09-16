@@ -606,13 +606,13 @@ public class RogueManager : Singleton<RogueManager>
 
     #region Wave & HardLevel
 
-    private int _currentHardLevel;
+    private int _currentHardLevelIndex;
     /// <summary>
     /// 当前难度等级
     /// </summary>
-    public int GetHardLevelValue
+    public int GetHardLevelValueIndex
     {
-        get { return _currentHardLevel; }
+        get { return _currentHardLevelIndex; }
     }
 
     /// <summary>
@@ -624,9 +624,9 @@ public class RogueManager : Singleton<RogueManager>
         var currentSecond = Timer.TotalSeconds;
         var secondsLevel = Mathf.RoundToInt(currentSecond / (float)(2 * 60));
 
-        var wave = DataManager.Instance.battleCfg.HardLevelWaveIndexMultiple;
-        _currentHardLevel = wave * (GetCurrentWaveIndex - 1) + secondsLevel;
-        Debug.Log("Update HardLevel , HardLevel = " + _currentHardLevel);
+        var multiple = GameGlobalConfig.HardLevelWaveIndexMultiple;
+        _currentHardLevelIndex = multiple * (GetCurrentWaveIndex - 1) + secondsLevel;
+        Debug.Log("Update HardLevel , HardLevel = " + _currentHardLevelIndex);
     }
 
     private void InitWave()

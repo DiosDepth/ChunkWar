@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.IO;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 
 public class DataManager : Singleton<DataManager>
 {
@@ -26,6 +27,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, AchievementItemConfig> _achievementDic = new Dictionary<int, AchievementItemConfig>();
     private Dictionary<int, LevelSpawnConfig> _levelPresetDic = new Dictionary<int, LevelSpawnConfig>();
     private Dictionary<int, CampConfig> _campConfigDic = new Dictionary<int, CampConfig>();
+    private Dictionary<int, EnemyHardLevelData> _enemyHardLevelDatas = new Dictionary<int, EnemyHardLevelData>();
 
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
@@ -64,7 +66,7 @@ public class DataManager : Singleton<DataManager>
 
     }
 
-    public IEnumerator LoadAllData(UnityAction callback = null)
+    public async void LoadAllData(UnityAction callback = null)
     {
         LoadLevelConfig();
         LoadAllBaseUnitConfig();
@@ -72,34 +74,20 @@ public class DataManager : Singleton<DataManager>
         bool iscompleted = CollectCSV();
         if (iscompleted)
         {
+            List<UniTask> allTasks = new List<UniTask>();
             for (int i = 0; i < fileinfo.Length; i++)
             {
-                GetData(fileinfo[i]);
+                allTasks.Add(GetData(fileinfo[i]));
             }
-            //模拟Loading，至少3秒钟
-            yield return new WaitForSeconds(2);
-
-            while (GetLoadingRate() < 1)
-            {
-                Debug.Log("DataLoading...");
-                yield return null;
-            }
-            //yield return new WaitForSeconds(5);
+            await UniTask.WhenAll(allTasks);
             Debug.Log("All csv has been loaded");
-            if (callback != null)
-            {
-                callback();
-            }
-            yield return new WaitForEndOfFrame();
+            callback?.Invoke();
+            await UniTask.CompletedTask;
         }
         else
         {
-            yield return new WaitForSeconds(2);
-            if (callback != null)
-            {
-                callback();
-            }
-            yield return null;
+            callback?.Invoke();
+            await UniTask.CompletedTask;
         }
     }
 
@@ -155,6 +143,17 @@ public class DataManager : Singleton<DataManager>
                 }
             }
         }
+    }
+
+    public EnemyHardLevelItem GetEnemyHardLevelItem(int groupID, int hardLevelIndex)
+    {
+        if (_enemyHardLevelDatas.ContainsKey(groupID))
+        {
+            var item = _enemyHardLevelDatas[groupID];
+            return item.GetHardLevelItemByIndex(groupID);
+        }
+        Debug.LogError("HardLevel Group Null! ID = " + groupID);
+        return null;
     }
 
     /// <summary>
@@ -278,19 +277,14 @@ public class DataManager : Singleton<DataManager>
         return _achievementDic.Values.ToList();
     }
 
-    private IEnumerator LoadingData<T>(FileInfo file, Dictionary<string, T> dic, UnityAction callback) where T : DataInfo, new()
+    private UniTask LoadingData<T>(FileInfo file, Dictionary<string, T> dic, UnityAction callback = null) where T : DataInfo, new()
     {
-
-        ResManager.Instance.LoadAsync<TextAsset>(GetDataInfoPath(file), (textasset) =>
+        return ResManager.Instance.LoadAsync<TextAsset>(GetDataInfoPath(file), (textasset) =>
         {
             PersistentData<T>(textasset, dic);
             sumDataLength += file.Length;
-            if (callback != null)
-            {
-                callback();
-            }
+            callback?.Invoke();
         });
-        yield return null;
     }
 
     private void PersistentData<T>(TextAsset ast, Dictionary<string, T> dic) where T : DataInfo, new()
@@ -311,45 +305,24 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    private void GetData(FileInfo m_fileinfo)
+    private UniTask GetData(FileInfo m_fileinfo)
     {
         switch (m_fileinfo.Name)
         {
             case "TestData.csv":
-                MonoManager.Instance.StartCoroutine(LoadingData<TestaDataInfo>(m_fileinfo, TestDataDic, () =>
-                {
-                    Debug.Log("TestData has been loaded!");
-
-                }));
-                break;
+                return LoadingData<TestaDataInfo>(m_fileinfo, TestDataDic);
             case "LevelData.csv":
-                MonoManager.Instance.StartCoroutine(LoadingData<LevelData>(m_fileinfo, LevelDataDic, () =>
-                {
-                    Debug.Log("LevelData has been loaded!");
-
-                }));
-                break;
+                return LoadingData<LevelData>(m_fileinfo, LevelDataDic);
             case "SoundData.csv":
-                MonoManager.Instance.StartCoroutine(LoadingData<SoundDataInfo>(m_fileinfo, SoundDataDic, () =>
-                {
-                    Debug.Log("SoundData has been loaded!");
-
-                }));
-                break;
+                return LoadingData<SoundDataInfo>(m_fileinfo, SoundDataDic);
             case "BulletData.csv":
-                MonoManager.Instance.StartCoroutine(LoadingData<BulletData>(m_fileinfo, BulletDataDic, () =>
-                {
-                    Debug.Log("BulletData has been loaded!");
-
-                }));
-                break;
+                return LoadingData<BulletData>(m_fileinfo, BulletDataDic);
             case "PickUpData.csv":
-                MonoManager.Instance.StartCoroutine(LoadingData<PickUpData>(m_fileinfo, PickUpDataDic, () =>
-                {
-                    Debug.Log("PickUpData has been loaded!");
-
-                }));
-                break;
+                return LoadingData<PickUpData>(m_fileinfo, PickUpDataDic);
+            case "EnemyHardLevelItem.csv":
+                return LoadHardLevelData(m_fileinfo);
+            default:
+                return UniTask.CompletedTask;
         }
     }
 
@@ -454,6 +427,33 @@ public class DataManager : Singleton<DataManager>
                 _campConfigDic.Add(camps[i].CampID, camps[i]);
             }
         }
+    }
+
+    private UniTask LoadHardLevelData(FileInfo info)
+    {
+        return ResManager.Instance.LoadAsync<TextAsset>(GetDataInfoPath(info), (textasset) =>
+        {
+            string[] raw = textasset.text.Split(new char[] { '\r' });
+
+            for (int i = 1; i < raw.Length - 1; i++)
+            {
+                string[] row = raw[i].Split(new char[] { ',' });
+                EnemyHardLevelItem temp_data = new EnemyHardLevelItem();
+                temp_data.Initialization(row);
+
+                if (_enemyHardLevelDatas.ContainsKey(temp_data.GroupID))
+                {
+                    _enemyHardLevelDatas[temp_data.GroupID].AddHardLevelItems(temp_data.ID, temp_data);
+                }
+                else
+                {
+                    EnemyHardLevelData newData = new EnemyHardLevelData();
+                    newData.GroupID = temp_data.GroupID;
+                    newData.AddHardLevelItems(temp_data.ID, temp_data);
+                    _enemyHardLevelDatas.Add(newData.GroupID, newData);
+                }
+            }
+        });
     }
 
     private void AddItemToUnitDic(int uintID, BaseUnitConfig cfg)

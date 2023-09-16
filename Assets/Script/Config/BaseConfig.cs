@@ -29,6 +29,12 @@ public class BaseConfig : SerializedScriptableObject
     [HorizontalGroup("网格配置/A", 600)]
     public int[,] Map;
 
+    [LabelText("格子数量统计")]
+    [FoldoutGroup("网格配置")]
+    [ShowInInspector]
+    [ReadOnly]
+    private int SlotCount;
+
     public Vector2Int MapPivot
     {
         get
@@ -82,6 +88,7 @@ public class BaseConfig : SerializedScriptableObject
             {
                 value = 0;
             }
+            CalculateSlotCount();
         }
 
         if (value == 1)
@@ -102,11 +109,27 @@ public class BaseConfig : SerializedScriptableObject
         return value;
     }
 
+    protected void CalculateSlotCount()
+    {
+        int totalCount = 0;
+        for (int x = 0; x < Map.GetLength(0); x++)
+        {
+            for (int y = 0; y < Map.GetLength(1); y++)
+            {
+                if (Map[x, y] != 0)
+                {
+                    totalCount++;
+                }
+            }
+        }
+        SlotCount = totalCount;
+    }
+
 
     [OnInspectorInit]
     protected virtual void InitData()
     {
-
+        CalculateSlotCount();
     }
 
 #if UNITY_EDITOR

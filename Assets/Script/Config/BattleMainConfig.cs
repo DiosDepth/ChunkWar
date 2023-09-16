@@ -61,7 +61,6 @@ public class BattleMainConfig : SerializedScriptableObject
     /// hardLevel√øX√Î‘ˆº”1
     /// </summary>
     public ushort HardLevelDeltaSeconds = 120;
-    public byte HardLevelWaveIndexMultiple = 20;
 
     public byte ShipMaxLevel;
     public float TransfixionReduce_Max = 0;

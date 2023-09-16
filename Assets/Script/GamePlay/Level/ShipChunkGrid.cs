@@ -24,31 +24,22 @@ public class ShipChunkGrid : MonoBehaviour, IPoolable
         PosX = position.x;
         PosY = position.y;
         transform.position = new Vector3(position.x, position.y);
-        _fill.transform.SafeSetActive(true);
         SetOccupied(occupied);
     }
 
     public void SetOccupied(bool occupied)
     {
-        _fill.transform.SafeSetActive(true);
         _fill.sprite = occupied ? Grid_Fill : Grid_Empty;
     }
 
     public void SetGridNormalEmpty()
     {
-        _fill.transform.SafeSetActive(true);
         _fill.sprite = Grid_Empty;
     }
 
     public void SetGridError()
     {
-        _fill.transform.SafeSetActive(true);
         _fill.sprite = Grid_Error;
-    }
-
-    public void SetNull()
-    {
-        _fill.transform.SafeSetActive(false);
     }
 
     public void PoolableDestroy()

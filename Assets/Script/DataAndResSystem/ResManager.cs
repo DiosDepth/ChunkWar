@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,14 +19,14 @@ public class ResManager : Singleton<ResManager>
         }
     }
 
-    public void LoadAsync<T>(string path, UnityAction<T> callback) where T : Object
+    public UniTask LoadAsync<T>(string path, UnityAction<T> callback) where T : Object
     {
-        MonoManager.Instance.StartCoroutine(RealyLoadAsync<T>(path, callback));
+        return RealyLoadAsync<T>(path, callback);
     }
-    private IEnumerator RealyLoadAsync<T>(string path, UnityAction<T> callback) where T : Object
+    private async UniTask RealyLoadAsync<T>(string path, UnityAction<T> callback) where T : Object
     {
         ResourceRequest r = Resources.LoadAsync<T>(path);
-        yield return r;
+        await UniTask.WaitUntil(() => r.isDone);
         if (r.asset is GameObject)
         {
             callback(GameObject.Instantiate(r.asset) as T);

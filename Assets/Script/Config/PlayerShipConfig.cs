@@ -20,18 +20,23 @@ public class PlayerShipConfig : BaseShipConfig
 
     [LabelText("主武器ID")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 200)]
+    [HorizontalGroup("B", 150)]
     public int MainWeaponID;
 
     [LabelText("核心插件ID")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 200)]
+    [HorizontalGroup("B", 150)]
     public int CorePlugID;
 
     [LabelText("阵营ID")]
     [LabelWidth(80)]
-    [HorizontalGroup("B", 200)]
+    [HorizontalGroup("B", 150)]
     public int PlayerShipCampID;
+
+    [LabelText("默认解锁")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 150)]
+    public bool UnlockDefault;
 
     [LabelText("EditorPrefab")]
     [LabelWidth(80)]
@@ -68,6 +73,7 @@ public class PlayerShipConfig : BaseShipConfig
                 Map[x, y] = PreviewItems[x, y].Value;
             }
         }
+        CalculateSlotCount();
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

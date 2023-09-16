@@ -7,18 +7,9 @@ public class SoundTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*StartCoroutine(DataManager.Instance.LoadAllData(() => 
-           {
-               SoundManager.Instance.Play("BGM_Acapella", SoundManager.SoundType.BGM, true);
-           }));*/
-        StartCoroutine(DataManager.Instance.LoadAllData());
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void OnGUI()
     {
        if( GUILayout.Button("PlayReload"))

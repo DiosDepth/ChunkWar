@@ -444,6 +444,7 @@ public class PlayerShip : BaseShip
                 {
                     mainWeapon = tempunit as ShipWeapon;
                     mainWeapon.Initialization(this, unitconfig);
+                    CoreUnits.Add(mainWeapon);
                 }
                 else
                 {

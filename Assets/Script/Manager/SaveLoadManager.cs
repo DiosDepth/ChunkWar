@@ -149,7 +149,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
             globalSaveData = SerializationUtility.DeserializeValue<GlobalSaveData>(bytes, DataFormat.Binary);
             Debug.Assert(globalSaveData != null, "GlobalSaveData Null!");
         }
-        globalSaveData.CombineAchievementSaves();
+        globalSaveData.CombineSaveData();
         InitAchievementInfo();
     }
 

@@ -39,9 +39,8 @@ public class AIShipConfig : BaseShipConfig
     [BoxGroup("属性配置/AA/基础速度")]
     public int SpeedBase;
 
-    [TableList]
     [LabelText("敌人难度等级")]
-    public EnemyHardLevelMap HardLevelCfg;
+    public int HardLevelGroupID;
 
     [System.Obsolete]
     protected override void OnEnable()
@@ -62,12 +61,3 @@ public class AIShipConfig : BaseShipConfig
 
     }
 }
-
-[System.Serializable]
-public class EnemyHardLevelMap
-{
-    public float HPRatio;
-    public float DamageRatio;
-    public float DropValueRatio;
-}
-
