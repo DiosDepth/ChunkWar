@@ -77,7 +77,7 @@ public class ShipController : BaseController, IBoid
         if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
         HandleRotation();
-        HandleMainWeaponRotaion();
+        //HandleMainWeaponRotaion();
         //HandleOtherWeaponRotation();
     }
 
@@ -208,69 +208,33 @@ public class ShipController : BaseController, IBoid
     public virtual void HandleRotation()
     {
 
-        if (MovementInput.sqrMagnitude == 0)
-        {
-            _crossZ = 0;
-        }
-        else
-        {
-            _crossZ = Vector3.Cross(transform.up, _lastmovementInput).z;
-        }
-
-        //Debug.DrawLine(transform.position, WorldDirection * 100f, Color.red);
-        //Debug.DrawLine(transform.position, transform.up * 100f, Color.green);
-        //calculate deacceleration ref rotation speed;
-        //if(Mathf.Approximately(_crossZ,0))
+        //if (MovementInput.sqrMagnitude == 0)
         //{
-        //    if(_refrotationspeed >0)
-        //    {
-        //        _refrotationspeed -= rotationSpeedDamping * Time.deltaTime;
-        //    }
-        //    if(_refrotationspeed < 0)
-        //    {
-        //        _refrotationspeed += rotationSpeedDamping * Time.deltaTime;
-        //    }
-        //    if(Mathf.Approximately(_refrotationspeed, 0))
-        //    {
-        //        _refrotationspeed = 0;
-        //    }
+        //    _crossZ = 0;
         //}
-        ////turn right
-        //if(_crossZ <0)
+        //else
         //{
-        //    _refrotationspeed += -1 * rotationAcceleration * Time.deltaTime;
-        //    if(_refrotationspeed <= (-1 * maxRotateSpeed))
-        //    {
-        //        _refrotationspeed = (-1 * maxRotateSpeed);
-        //    }
+        //    _crossZ = Vector3.Cross(transform.up, _lastmovementInput).z;
         //}
-        ////turn left
-        //if (_crossZ >0)
+
+        //if (Mathf.Approximately(_crossZ, 0))
         //{
-        //    _refrotationspeed +=  rotationAcceleration * Time.deltaTime;
-        //    if (_refrotationspeed >=  maxRotateSpeed)
-        //    {
-        //        _refrotationspeed = maxRotateSpeed;
-        //    }
+        //    _refrotationspeed -= rotationSpeedDamping * Time.deltaTime;
         //}
-        if (Mathf.Approximately(_crossZ, 0))
-        {
-            _refrotationspeed -= rotationSpeedDamping * Time.deltaTime;
-        }
-        else
-        {
-            _refrotationspeed += rotationAcceleration * Time.deltaTime;
-        }
+        //else
+        //{
+        //    _refrotationspeed += rotationAcceleration * Time.deltaTime;
+        //}
 
-        _refrotationspeed =  Mathf.Clamp(_refrotationspeed, 0, maxRotateSpeed);
+        //_refrotationspeed =  Mathf.Clamp(_refrotationspeed, 0, maxRotateSpeed);
 
-        if(!Mathf.Approximately(_refrotationspeed, 0))
-        {
-            transform.rotation = MathExtensionTools.CalculateRotation(transform.up, _lastmovementInput, _refrotationspeed * Time.deltaTime);
-        }
-
+        //if(!Mathf.Approximately(_refrotationspeed, 0))
+        //{
+        //    transform.rotation = MathExtensionTools.CalculateRotation(transform.up, _lastmovementInput, _refrotationspeed * Time.deltaTime);
+        //}
+        transform.rotation = MathExtensionTools.CalculateRotation(transform.up, WorldDirection, maxRotateSpeed * Time.deltaTime);
             //transform.Rotate(new Vector3(0, 0, ));
-          
+
     }
 
 

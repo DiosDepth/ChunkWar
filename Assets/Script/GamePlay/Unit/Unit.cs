@@ -204,7 +204,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public BaseShip _owner
     {
         get;
-        private set;
+        protected set;
     }
 
     public bool IsProcess { get { return _isProcess; } }

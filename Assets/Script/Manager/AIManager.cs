@@ -20,7 +20,6 @@ public class AIManager : Singleton<AIManager>
     //AI list Info
     public List<AIShip> aiShipList = new List<AIShip>();
     public List<Projectile> aibulletsList = new List<Projectile>();
-    private List<Projectile> _aibulletDeathList = new List<Projectile>();
     private List<int> _aiBulletDeathIndex = new List<int>();
     public NativeList<BulletJobInitialInfo> aiBullet_JobInfo;
     public NativeArray<BulletJobUpdateInfo> rv_aiBullet_jobUpdateInfo;
@@ -340,13 +339,6 @@ public virtual void UpdateJobData()
             
         }
         aibulletsList.Clear();
-
-        for (int i = 0; i < _aibulletDeathList.Count; i++)
-        {
-            _aibulletDeathList[i].Death();
-        }
-        _aibulletDeathList.Clear();
-
 
 
         //Dispose all job data

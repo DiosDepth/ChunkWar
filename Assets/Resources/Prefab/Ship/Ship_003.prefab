@@ -83,6 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1492503289696699064}
   deathVFXName: ExplodeVFX
+  CoreUnits: []
   isDebug: 0
   container: {fileID: 0}
   sprite: {fileID: 5088439594901605292}
