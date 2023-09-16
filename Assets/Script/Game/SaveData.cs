@@ -10,6 +10,7 @@ public class GlobalSaveData
     public List<AchievementSaveData> AchievementSaveData = new List<AchievementSaveData>();
     public List<GameStatisticsSaveData> StatisticsSaveData = new List<GameStatisticsSaveData>();
     public List<ShipSaveData> ShipSaveData = new List<ShipSaveData>();
+    public List<CampSaveData> CampSaveData = new List<CampSaveData>();
 
     public static GlobalSaveData GenerateNewSaveData()
     {
@@ -38,6 +39,15 @@ public class GlobalSaveData
             data.ShipSaveData.Add(shipSav);
         }
 
+        var allCamps = DataManager.Instance.GetAllCampConfigs();
+        for(int i = 0; i < allCamps.Count; i++)
+        {
+            var camp = allCamps[i];
+            var campSav = new CampSaveData();
+            campSav.CampID = camp.CampID;
+            campSav.Unlock = camp.Unlock;
+            data.CampSaveData.Add(campSav);
+        }
 
         return data;
     }
@@ -102,6 +112,12 @@ public class GlobalSaveData
     public void Save()
     {
         StatisticsSaveData = AchievementManager.Instance.GenerateGameStatisticsSaveData();
+        CampSaveData = GameManager.Instance.CreateCampSaveDatas();
+    }
+
+    public void Load()
+    {
+
     }
 }
 

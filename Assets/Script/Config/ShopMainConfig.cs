@@ -143,10 +143,15 @@ public class GeneralItemConfig
     [ReadOnly]
     private string DescPreview;
 
-    [VerticalGroup("AA", 100)]
+    [HorizontalGroup("AA/A", 300)]
     [LabelText("œ°”–∂»")]
     [LabelWidth(80)]
     public GoodsItemRarity Rarity;
+
+    [HorizontalGroup("AA/A", 300)]
+    [LabelText("≈≈–Ú")]
+    [LabelWidth(80)]
+    public int SortingOrder;
 
     [OnInspectorInit]
     private void Init()

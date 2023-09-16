@@ -417,6 +417,7 @@ MonoBehaviour:
     Name: AIWeapon_LightAutoCannon
     Desc: 
     Rarity: 0
+    SortingOrder: 0
   Prefab: {fileID: 4947179278027536233, guid: 9109a6e2ad23d4b44b85d96f2cf74329, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0

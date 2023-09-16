@@ -117,6 +117,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         InitWreckageController();
         RefreshEnergySlider();
         RefreshLoadSlider();
+        RefreshCurrency();
         OnShipPropertySwitchClick();
     }
 

@@ -304,6 +304,8 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     }
 
     #endregion
+
+    #region Camp
     /// <summary>
     /// 获取阵营数据
     /// </summary>
@@ -314,6 +316,17 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         if (_campDatas.ContainsKey(campID))
             return _campDatas[campID];
         return null;
+    }
+
+    public List<CampSaveData> CreateCampSaveDatas()
+    {
+        List<CampSaveData> result = new List<CampSaveData>();
+        for (int i = 0; i < _campDatas.Count; i++)
+        {
+            CampSaveData data = _campDatas[i].CreateCampSaveData();
+            result.Add(data);
+        }
+        return result;
     }
 
     /// <summary>
@@ -329,4 +342,6 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
             _campDatas.Add(data.CampID, data);
         }
     }
+
+    #endregion
 }

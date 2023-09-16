@@ -216,6 +216,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         currentSelectShipID = uid;
         var shipCfg = DataManager.Instance.GetShipConfig((int)uid);
         if (shipCfg == null)
+            return;
 
         _shipIcon.sprite = shipCfg.GeneralConfig.IconSprite;
         _nameText.text = LocalizationManager.Instance.GetTextValue(shipCfg.GeneralConfig.Name);

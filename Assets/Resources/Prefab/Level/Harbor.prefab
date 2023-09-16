@@ -193,10 +193,6 @@ MonoBehaviour:
   brushValidColor: {r: 1, g: 0.77835596, b: 0, a: 0.5019608}
   brushInvalidColor: {r: 1, g: 0, b: 0.28504562, a: 0.5019608}
   currentBuilding: {fileID: 0}
-  currentInventoryItem:
-    iscountless: 0
-    count: 0
-    itemconfig: {fileID: 0}
   cameraOffset: {x: 7, y: 0, z: 0}
   cameraSize: 15
 --- !u!1 &3831392702306502978
@@ -459,10 +455,14 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 655347245, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 979493411, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
       propertyPath: ShadowGroup
       value: 
-      objectReference: {fileID: 3831392702251739578}
+      objectReference: {fileID: 0}
     - target: {fileID: 979493411, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
       propertyPath: brushSprite
       value: 
@@ -598,7 +598,7 @@ PrefabInstance:
     - target: {fileID: 6311974100919614500, guid: 5cff4571ad338ec4b9153831fbe5f022,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cff4571ad338ec4b9153831fbe5f022, type: 3}
@@ -617,12 +617,6 @@ MonoBehaviour:
 --- !u!212 &3831392700749495094 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 655347245, guid: 5cff4571ad338ec4b9153831fbe5f022,
-    type: 3}
-  m_PrefabInstance: {fileID: 3831392701303846171}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3831392702251739578 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1216371873, guid: 5cff4571ad338ec4b9153831fbe5f022,
     type: 3}
   m_PrefabInstance: {fileID: 3831392701303846171}
   m_PrefabAsset: {fileID: 0}

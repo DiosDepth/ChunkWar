@@ -3,11 +3,12 @@ using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class BaseConfig : SerializedScriptableObject
+public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
 {
     [LabelText("ID")]
     [LabelWidth(80)]
@@ -131,6 +132,15 @@ public class BaseConfig : SerializedScriptableObject
     {
         CalculateSlotCount();
     }
+
+    public int CompareTo(BaseConfig other)
+    {
+        if (this.GeneralConfig.SortingOrder > other.GeneralConfig.SortingOrder)
+            return 1;
+
+        return -1;
+    }
+
 
 #if UNITY_EDITOR
 

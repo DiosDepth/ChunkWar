@@ -193,9 +193,16 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
-    public List<PlayerShipConfig> GetAllShipConfigs()
+    public List<PlayerShipConfig> GetAllShipConfigs(bool sort = true)
     {
-        return _shipConfigDic.Values.ToList();
+        var valueLst = _shipConfigDic.Values.ToList();
+
+        if (sort)
+        {
+            valueLst.Sort();
+        }
+
+        return valueLst;
     }
 
     public PlayerShipConfig GetShipConfig(int shipID)

@@ -33,6 +33,7 @@ public class ShipBuilderBrush : MonoBehaviour
 
     public void Initialization()
     {
+        ActiveBrush(false);
     }
 
     public void SetBrushState(BrushState state)
@@ -60,10 +61,7 @@ public class ShipBuilderBrush : MonoBehaviour
     public void ChangeBurshSprite(Sprite m_sprite, int defaultRotation = 0)
     {
         brushSprite.transform.SetLocalRotationZ(defaultRotation);
-        if(m_sprite != null)
-        {
-            brushSprite.sprite = m_sprite;
-        }
+        brushSprite.sprite = m_sprite;
     }
 
 }

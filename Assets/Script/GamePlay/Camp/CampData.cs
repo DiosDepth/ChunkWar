@@ -125,6 +125,16 @@ public class CampData
         return null;
     }
 
+    public CampSaveData CreateCampSaveData()
+    {
+        CampSaveData sav = new CampSaveData();
+        sav.CampID = CampID;
+        sav.Unlock = Unlock;
+        sav.Level = _campLevel;
+        sav.CampTotalScore = CampTotalScore.Value;
+        return sav;
+    }
+
     /// <summary>
     /// 是否最大等级
     /// </summary>
@@ -332,4 +342,12 @@ public class CampData
     }
 
     #endregion
+}
+
+public class CampSaveData
+{
+    public int CampID;
+    public bool Unlock;
+    public byte Level;
+    public int CampTotalScore;
 }

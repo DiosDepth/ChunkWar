@@ -417,6 +417,7 @@ MonoBehaviour:
     Name: AI_MissileLauncher
     Desc: 
     Rarity: 0
+    SortingOrder: 0
   Prefab: {fileID: 4947179278027536233, guid: a41a0dded91b99f41b3979a9f16c2ea7, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0

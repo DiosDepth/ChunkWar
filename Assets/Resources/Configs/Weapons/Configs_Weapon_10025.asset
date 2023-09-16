@@ -417,6 +417,7 @@ MonoBehaviour:
     Name: Weapon_Name_10025
     Desc: 
     Rarity: 0
+    SortingOrder: 0
   Prefab: {fileID: 5156482088037079168, guid: 5dd1ca34a1d76e640803eb77a397f0d5, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
