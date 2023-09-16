@@ -16,6 +16,15 @@ public class AIManager : Singleton<AIManager>
     public int BulletCount { get { return aibulletsList.Count; } }
 
 
+    //玩家Ship作为目标存储起来，需要按照Unit是否激活来更新targetActiveUnitList，同时更新targetActiveUnitPos
+    public NativeList<float3> avoidanceCollisionPos;
+    public NativeList<float> avoidanceCollisionRadius;
+    public NativeList<float3> avoidanceCollisionVel;
+
+    public IBoid playerBoid;
+    public List<Unit> playerActiveUnitList = new List<Unit>();
+    public NativeList<float3> playerActiveUnitPos;
+
 
     //AI list Info
     public List<AIShip> aiShipList = new List<AIShip>();
@@ -23,11 +32,6 @@ public class AIManager : Singleton<AIManager>
     private List<int> _aiBulletDeathIndex = new List<int>();
     public NativeList<BulletJobInitialInfo> aiBullet_JobInfo;
     public NativeArray<BulletJobUpdateInfo> rv_aiBullet_jobUpdateInfo;
-
-
-
-
-
 
 
     public List<AISteeringBehaviorController> aiSteeringBehaviorControllerList = new List<AISteeringBehaviorController>();
@@ -40,14 +44,6 @@ public class AIManager : Singleton<AIManager>
     //public List<SeparationBehavior> separationBehavior = new List<SeparationBehavior>();
     //public List<AlignmentBehavior> aligmentBehavior = new List<AlignmentBehavior>();
 
-    //玩家Ship作为目标存储起来，需要按照Unit是否激活来更新targetActiveUnitList，同时更新targetActiveUnitPos
-    public IBoid targetBoid;
-    public NativeList<float3> avoidanceCollisionPos;
-    public NativeList<float> avoidanceCollisionRadius;
-    public NativeList<float3> avoidanceCollisionVel;
-
-    public List<Unit> targetActiveUnitList = new List<Unit>();
-    public NativeList<float3> targetActiveUnitPos;
 
 
 
@@ -144,12 +140,12 @@ public class AIManager : Singleton<AIManager>
         base.Initialization();
         AllocateAIJobData();
 
-        targetBoid = RogueManager.Instance.currentShip.GetComponent<IBoid>();
-        targetActiveUnitList.AddRange(RogueManager.Instance.currentShip.UnitList);
+        playerBoid = RogueManager.Instance.currentShip.GetComponent<IBoid>();
+        playerActiveUnitList.AddRange(RogueManager.Instance.currentShip.UnitList);
 
-        avoidanceCollisionPos.Add(targetBoid.GetPosition());
-        avoidanceCollisionRadius.Add(targetBoid.GetRadius());
-        avoidanceCollisionVel.Add(targetBoid.GetVelocity());
+        avoidanceCollisionPos.Add(playerBoid.GetPosition());
+        avoidanceCollisionRadius.Add(playerBoid.GetRadius());
+        avoidanceCollisionVel.Add(playerBoid.GetVelocity());
 
 
 
@@ -161,7 +157,7 @@ public class AIManager : Singleton<AIManager>
 
     public virtual void AllocateAIJobData()
     {
-        targetActiveUnitPos = new NativeList<float3>(Allocator.Persistent);
+        playerActiveUnitPos = new NativeList<float3>(Allocator.Persistent);
         avoidanceCollisionPos = new NativeList<float3>(Allocator.Persistent);
         avoidanceCollisionRadius = new NativeList<float>(Allocator.Persistent);
         avoidanceCollisionVel = new NativeList<float3>(Allocator.Persistent);
@@ -228,18 +224,18 @@ public virtual void UpdateJobData()
             }
         }
 
-        if(targetBoid != null)
+        if(playerBoid != null)
         {
-            avoidanceCollisionPos[0] = targetBoid.GetPosition();
-            avoidanceCollisionRadius[0] = targetBoid.GetRadius();
-            avoidanceCollisionVel[0] = targetBoid.GetVelocity();
+            avoidanceCollisionPos[0] = playerBoid.GetPosition();
+            avoidanceCollisionRadius[0] = playerBoid.GetRadius();
+            avoidanceCollisionVel[0] = playerBoid.GetVelocity();
         }
         //weapon job data
-        if(targetActiveUnitList.Count >0)
+        if(playerActiveUnitList.Count >0)
         {
-            for (int i = 0; i < targetActiveUnitList.Count; i++)
+            for (int i = 0; i < playerActiveUnitList.Count; i++)
             {
-                targetActiveUnitPos[i] = targetActiveUnitList[i].transform.position;
+                playerActiveUnitPos[i] = playerActiveUnitList[i].transform.position;
             }
         }
 
@@ -253,7 +249,7 @@ public virtual void UpdateJobData()
     }
     public virtual void DisposeAIJobData()
     {
-        if (targetActiveUnitPos.IsCreated) { targetActiveUnitPos.Dispose(); }
+        if (playerActiveUnitPos.IsCreated) { playerActiveUnitPos.Dispose(); }
         if (avoidanceCollisionPos.IsCreated) { avoidanceCollisionPos.Dispose(); }
         if (avoidanceCollisionRadius.IsCreated) { avoidanceCollisionRadius.Dispose(); }
         if (avoidanceCollisionVel.IsCreated) { avoidanceCollisionVel.Dispose(); }
@@ -318,15 +314,15 @@ public virtual void UpdateJobData()
                ClearAI();
             }
         }
-        if(targetActiveUnitList != null)
+        if(playerActiveUnitList != null)
         {
-            if(targetActiveUnitList.Count >0)
+            if(playerActiveUnitList.Count >0)
             {
                 ClearTarget();
             }
         }
 
-        targetBoid = null;
+        playerBoid = null;
 
         //clear all player
         //todo clear all ai weapon
@@ -504,7 +500,7 @@ public virtual void UpdateJobData()
     public void ClearTarget()
     {
 
-        targetActiveUnitList.Clear();
+        playerActiveUnitList.Clear();
 
     }
     public void  AddUnit(AIShip ship)
@@ -590,10 +586,10 @@ public virtual void UpdateJobData()
 
     public void AddTargetUnit(Unit unit)
     {
-        if (!targetActiveUnitList.Contains(unit))
+        if (!playerActiveUnitList.Contains(unit))
         {
-            targetActiveUnitList.Add(unit);
-            targetActiveUnitPos.Add(unit.transform.position);
+            playerActiveUnitList.Add(unit);
+            playerActiveUnitPos.Add(unit.transform.position);
             
         }
          
@@ -602,7 +598,7 @@ public virtual void UpdateJobData()
 
     public void RemoveTargetUnit(Unit unit)
     {
-        targetActiveUnitList.Remove(unit);
+        playerActiveUnitList.Remove(unit);
     }
     public void UpdateAIMovement()
     {
@@ -639,8 +635,8 @@ public virtual void UpdateJobData()
         {
             job_aiShipPos= steeringBehaviorJob_aiShipPos,
             job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
-            job_evadeTargetPos = targetBoid.GetPosition(),
-            job_evadeTargetVel = targetBoid.GetVelocity(),
+            job_evadeTargetPos = playerBoid.GetPosition(),
+            job_evadeTargetVel = playerBoid.GetVelocity(),
             job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
             job_maxPrediction = evade_maxPrediction,
 
@@ -661,8 +657,8 @@ public virtual void UpdateJobData()
             job_arriveRadius = arrive_arriveRadius,
             job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
             job_slowRadius = arrive_slowRadius,
-            job_targetPos = targetBoid.GetPosition(),
-            job_targetRadius = targetBoid.GetRadius(),
+            job_targetPos = playerBoid.GetPosition(),
+            job_targetRadius = playerBoid.GetRadius(),
 
             rv_isVelZero = rv_arrive_isVelZero,
             rv_Steerings = rv_arrive_steeringInfo,
@@ -679,7 +675,7 @@ public virtual void UpdateJobData()
             job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
             job_facetagetRadius = face_facetargetRadius,
             job_maxAngularAcceleration = aiSteeringBehaviorController_aiShipMaxAngularAcceleration,
-            job_targetPos = targetBoid.GetPosition(),
+            job_targetPos = playerBoid.GetPosition(),
             job_deltatime = Time.fixedDeltaTime,
 
             rv_Steerings = rv_face_steeringInfo,
@@ -838,7 +834,7 @@ public virtual void UpdateJobData()
             aiSteeringBehaviorControllerList[i].transform.rotation = Quaternion.Euler(0, 0,rv_deltaMovement[i].angular);
         }
 
-        targetBoid.UpdateIBoid();
+        playerBoid.UpdateIBoid();
 
         rv_evade_steeringInfo.Dispose();
 
@@ -883,7 +879,7 @@ public virtual void UpdateJobData()
         {
             job_attackRange = aiActiveUnitAttackRange,
             job_selfPos = aiActiveUnitPos,
-            job_targetsPos =targetActiveUnitPos,
+            job_targetsPos =playerActiveUnitPos,
             job_maxTargetCount = aiActiveUnitMaxTargetsCount,
 
             rv_targetsInfo = rv_weaponTargetsInfo,
@@ -925,7 +921,7 @@ public virtual void UpdateJobData()
                     }
                     else
                     {
-                        if (targetActiveUnitList == null || targetActiveUnitList.Count == 0)
+                        if (playerActiveUnitList == null || playerActiveUnitList.Count == 0)
                         {
                          
                             weapon.WeaponOff();
@@ -935,7 +931,7 @@ public virtual void UpdateJobData()
                     
                         weapon.targetList.Add(new WeaponTargetInfo
                             (
-                                targetActiveUnitList[targetindex].gameObject,
+                                playerActiveUnitList[targetindex].gameObject,
                                 rv_weaponTargetsInfo[startindex + n].targetIndex,
                                 rv_weaponTargetsInfo[startindex + n].distanceToTarget,
                                 rv_weaponTargetsInfo[startindex + n].targetDirection

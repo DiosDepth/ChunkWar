@@ -430,6 +430,7 @@ MonoBehaviour:
   BaseEnergyGenerate: 0
   PropertyModify: []
   DamageBase: 4
+  UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0

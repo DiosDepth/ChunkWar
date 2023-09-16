@@ -41,9 +41,6 @@ public class ShipController : BaseController, IBoid
     public Vector2 PointInput { get { return _pointInput; } }
     protected Vector2 _pointInput;
 
-    public float _refrotationspeed;
-    public float _crossZ;
-
     protected Vector3 velocity;
     protected Vector3 lastpos;
 
@@ -77,8 +74,7 @@ public class ShipController : BaseController, IBoid
         if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
         HandleRotation();
-        //HandleMainWeaponRotaion();
-        //HandleOtherWeaponRotation();
+
     }
 
     protected override void FixedUpdate()
@@ -233,8 +229,6 @@ public class ShipController : BaseController, IBoid
         //    transform.rotation = MathExtensionTools.CalculateRotation(transform.up, _lastmovementInput, _refrotationspeed * Time.deltaTime);
         //}
         transform.rotation = MathExtensionTools.CalculateRotation(transform.up, WorldDirection, maxRotateSpeed * Time.deltaTime);
-            //transform.Rotate(new Vector3(0, 0, ));
-
     }
 
 

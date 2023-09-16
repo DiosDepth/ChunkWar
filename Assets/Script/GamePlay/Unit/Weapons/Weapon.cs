@@ -823,7 +823,7 @@ public class Weapon : Unit
                         
                         FireSimultaneous(firecount);
                     }
-
+                    _isChargeFire = false;
                 }
                 else
                 {
@@ -1044,6 +1044,10 @@ public class Weapon : Unit
             _chargeCounter = weaponAttribute.ChargeTime;
             weaponstate.ChangeState(WeaponState.Charged);
         }
+        if(_isWeaponOn)
+        {
+            weaponstate.ChangeState(WeaponState.Start);
+        }
     }
 
 
@@ -1052,6 +1056,10 @@ public class Weapon : Unit
     {
         //Debug.Log(this.gameObject + " : WeaponCharged");
         _isChargeFire = true;
+        if(_isWeaponOn)
+        {
+            weaponstate.ChangeState(WeaponState.Start);
+        }
     }
 
 

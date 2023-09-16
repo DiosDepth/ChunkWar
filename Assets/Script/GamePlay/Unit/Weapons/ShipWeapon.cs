@@ -55,7 +55,9 @@ public class ShipWeapon : Weapon
     public override void Update()
     {
         base.Update();
-
+        if (weaponmode == WeaponControlType.Autonomy)
+            return;
+        ProcessWeapon();
     }
 
     protected override void OnDestroy()

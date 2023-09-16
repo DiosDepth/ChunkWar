@@ -28,6 +28,7 @@ public class Beamemit : Bullet
 
     public override void Shoot()
     {
+        PoolableSetActive();
         tempFalloff = (_owner as Weapon).weaponAttribute.TransfixionReduce / 100f;
         switch ((_owner as Weapon).aimingtype)
         {
