@@ -20,14 +20,22 @@ public class WeaponConfig : BaseUnitConfig
 
     [FoldoutGroup("»ù´¡ÊôÐÔ")]
     [HorizontalGroup("»ù´¡ÊôÐÔ/A", 200)]
+    [LabelText("ÉËº¦±ÈÀý¸¡¶¯")]
+    [LabelWidth(80)]
+    public bool UseDamageRatio = false;
+
+    [FoldoutGroup("»ù´¡ÊôÐÔ")]
+    [HorizontalGroup("»ù´¡ÊôÐÔ/A", 200)]
     [LabelText("ÉËº¦±ÈÀýMin")]
     [LabelWidth(80)]
+    [ShowIf("UseDamageRatio")]
     public float DamageRatioMin;
 
     [FoldoutGroup("»ù´¡ÊôÐÔ")]
     [HorizontalGroup("»ù´¡ÊôÐÔ/A", 200)]
     [LabelText("ÉËº¦±ÈÀýMax")]
     [LabelWidth(80)]
+    [ShowIf("UseDamageRatio")]
     public float DamageRatioMax;
 
     [FoldoutGroup("»ù´¡ÊôÐÔ")]

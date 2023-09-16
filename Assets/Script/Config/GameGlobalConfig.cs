@@ -20,6 +20,8 @@ public static class GameGlobalConfig
     /// </summary>
     public const int UnitMaxSize = 11;
 
+    public const int HardLevelWaveIndexMultiple = 1000;
+
     /// <summary>
     ///  map size base on center of building max size
     /// </summary>

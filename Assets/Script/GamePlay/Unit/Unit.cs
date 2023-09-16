@@ -57,6 +57,9 @@ public class UnitBaseAttribute
 
     protected UnitPropertyData mainProperty;
     protected Unit _parentUnit;
+
+    protected EnemyHardLevelItem _hardLevelItem;
+
     public virtual void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
     {
         this.isPlayerShip = isPlayerShip;
@@ -88,6 +91,8 @@ public class UnitBaseAttribute
         }
         else
         {
+            var enemyShip = _parentUnit._owner as AIShip;
+            _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
             CalculateEnemyHP();
         }
@@ -142,13 +147,8 @@ public class UnitBaseAttribute
     private void CalculateEnemyHP()
     {
         var hpPercent = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
-        var enemyShip = _parentUnit._owner as AIShip;
-        float hardLevelPercent = 0;
-        if (enemyShip != null)
-        {
-            hardLevelPercent = GameHelper.GetEnemyHPByHardLevel(enemyShip.AIShipCfg.HardLevelCfg);
-        }
-        HPMax = Mathf.RoundToInt(BaseHP * (1 + hpPercent + hardLevelPercent / 100f));
+        int hardLevelHPAdd = _hardLevelItem != null ? _hardLevelItem.HPAdd : 0;
+        HPMax = Mathf.RoundToInt((BaseHP + hardLevelHPAdd) * (1 + hpPercent));
     }
 
     protected void RefreshShipEnergy()

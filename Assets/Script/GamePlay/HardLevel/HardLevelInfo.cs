@@ -83,4 +83,12 @@ public class EnemyHardLevelData
             _hardLevelItems.Add(index, item);
         }
     }
+
+    public EnemyHardLevelItem GetHardLevelItemByIndex(int index)
+    {
+        EnemyHardLevelItem result = null;
+        _hardLevelItems.TryGetValue(index, out result);
+        Debug.Assert(result != null, "GetHardLevelItemByIndex Null! ID= " + index);
+        return result;
+    }
 }

@@ -1446,7 +1446,8 @@ MonoBehaviour:
   DropList: []
   MainWeaponID: 1
   CorePlugID: 4
-  PlayerShipCampID: 0
+  PlayerShipCampID: 2
+  UnlockDefault: 0
   EditorPrefab: {fileID: 0}
   ShipPropertyDesc: 
   ShipEditorSprite: {fileID: 0}

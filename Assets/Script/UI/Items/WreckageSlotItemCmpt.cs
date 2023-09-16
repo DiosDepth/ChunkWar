@@ -172,6 +172,9 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
                 if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
                     continue;
 
+                if (!weaponCfg.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)
+                    continue;
+
                 PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
                 {
                     string content = GameHelper.GetWeaponPropertyDescContent(type, weaponCfg);

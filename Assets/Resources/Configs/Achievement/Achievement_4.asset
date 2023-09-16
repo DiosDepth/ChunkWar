@@ -30,6 +30,7 @@ MonoBehaviour:
   ListType: 0
   Conditions:
   - AchievementKey: ENEMY_TOTAL_KILL
+    DisplayProgress: 1
     Compare: 1
     Value: 50000
     CheckBoolValue: 0

@@ -145,6 +145,17 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
+    public EnemyHardLevelItem GetEnemyHardLevelItem(int groupID, int hardLevelIndex)
+    {
+        if (_enemyHardLevelDatas.ContainsKey(groupID))
+        {
+            var item = _enemyHardLevelDatas[groupID];
+            return item.GetHardLevelItemByIndex(groupID);
+        }
+        Debug.LogError("HardLevel Group Null! ID = " + groupID);
+        return null;
+    }
+
     /// <summary>
     /// 根据稀有度获取掉落物
     /// </summary>

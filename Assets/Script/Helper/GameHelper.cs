@@ -76,16 +76,15 @@ public static class GameHelper
 
     #region Battle
 
-    public static float GetEnemyDamageByHardLevel(EnemyHardLevelMap cfg)
+    /// <summary>
+    /// 获取敌人当前hardLevel信息
+    /// </summary>
+    /// <param name="groupID"></param>
+    /// <returns></returns>
+    public static EnemyHardLevelItem GetEnemyHardLevelItem(int groupID)
     {
-        var currentHardLevel = RogueManager.Instance.GetHardLevelValue;
-        return currentHardLevel * cfg.DamageRatio;
-    }
-
-    public static float GetEnemyHPByHardLevel(EnemyHardLevelMap cfg)
-    {
-        var currentHardLevel = RogueManager.Instance.GetHardLevelValue;
-        return currentHardLevel * cfg.HPRatio;
+        var currentHardLevel = RogueManager.Instance.GetHardLevelValueIndex;
+        return DataManager.Instance.GetEnemyHardLevelItem(groupID, currentHardLevel);
     }
 
     /// <summary>
@@ -243,6 +242,25 @@ public static class GameHelper
             return new List<uint>();
 
         return allsav.Select(x => (uint)x.SaveIndex).ToList();
+    }
+    
+    /// <summary>
+    /// 根据阵营ID获取所有舰船
+    /// </summary>
+    /// <param name="campID"></param>
+    /// <returns></returns>
+    public static List<uint> GetAllShipsByCampID(int campID)
+    {
+        List<uint> result = new List<uint>();
+        var allShip = DataManager.Instance.GetAllShipConfigs();
+        for (int i = 0; i < allShip.Count; i++) 
+        {
+            if(allShip[i].PlayerShipCampID == campID)
+            {
+                result.Add((uint)allShip[i].ID);
+            }
+        }
+        return result;
     }
 
     /// <summary>

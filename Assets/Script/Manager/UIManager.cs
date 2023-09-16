@@ -38,6 +38,7 @@ public enum UIEventType
 {
     ShipSelectionChange,
     ShipSelectionConfirm,
+    ShipSelection_CampSelect,
 }
 
 public class UIManager : Singleton<UIManager>

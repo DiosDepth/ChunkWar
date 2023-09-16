@@ -7,14 +7,14 @@ using UnityEngine;
 [System.Serializable]
 public class GlobalSaveData
 {
-    public List<AchievementSaveData> AchievementSaveData;
-    public List<GameStatisticsSaveData> StatisticsSaveData;
+    public List<AchievementSaveData> AchievementSaveData = new List<AchievementSaveData>();
+    public List<GameStatisticsSaveData> StatisticsSaveData = new List<GameStatisticsSaveData>();
+    public List<ShipSaveData> ShipSaveData = new List<ShipSaveData>();
 
     public static GlobalSaveData GenerateNewSaveData()
     {
         GlobalSaveData data = new GlobalSaveData();
         ///Create Achievement
-        data.AchievementSaveData = new List<AchievementSaveData>();
         var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
 
         for (int i = 0; i < allAchievement.Count; i++) 
@@ -28,10 +28,41 @@ public class GlobalSaveData
             data.AchievementSaveData.Add(aSav);
         }
 
+        var allShips = DataManager.Instance.GetAllShipConfigs();
+        for(int i = 0; i < allShips.Count; i++)
+        {
+            var shipCfg = allShips[i];
+            var shipSav = new ShipSaveData();
+            shipSav.ShipID = shipCfg.ID;
+            shipSav.Unlock = shipCfg.UnlockDefault;
+            data.ShipSaveData.Add(shipSav);
+        }
+
+
         return data;
     }
 
-    public void CombineAchievementSaves()
+    public void CombineSaveData()
+    {
+        CombineAchievementSaves();
+        CombineShipSaveData();
+    }
+
+    #region SetData
+
+    public void SetShipUnlock(int shipID)
+    {
+        var shipSav = ShipSaveData.Find(x => x.ShipID == shipID);
+        if(shipSav != null && !shipSav.Unlock )
+        {
+            shipSav.Unlock = true;
+            Debug.Log("Unlock Ship , ID = " + shipID);
+        }
+    }
+
+    #endregion
+
+    private void CombineAchievementSaves()
     {
         var allAchievement = DataManager.Instance.GetAllAchievementConfigs();
         for (int i = 0; i < allAchievement.Count; i++)
@@ -48,6 +79,23 @@ public class GlobalSaveData
             aSav.FinishTime = string.Empty;
 
             AchievementSaveData.Add(aSav);
+        }
+    }
+
+    private void CombineShipSaveData()
+    {
+        var allShips = DataManager.Instance.GetAllShipConfigs();
+        for(int i = 0; i < allShips.Count; i++)
+        {
+            var shipItem = allShips[i];
+
+            if (ShipSaveData.Find(x => x.ShipID == shipItem.ID) != null)
+                continue;
+
+            ShipSaveData newSav = new ShipSaveData();
+            newSav.ShipID = shipItem.ID;
+            newSav.Unlock = shipItem.UnlockDefault;
+            ShipSaveData.Add(newSav);
         }
     }
 
@@ -77,6 +125,12 @@ public class SaveData
         this.SaveIndex = saveIndex;
         date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
     }
+}
+
+public class ShipSaveData
+{
+    public int ShipID;
+    public bool Unlock;
 }
 
 public class ShipMapData

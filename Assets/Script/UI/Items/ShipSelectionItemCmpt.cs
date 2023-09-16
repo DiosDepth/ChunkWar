@@ -3,46 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIItem
+public class ShipSelectionItemCmpt : EnhancedScrollerCellView, IHoverUIItem
 {
-    public SelectedDelegate selected;
-
-    public int DataIndex { get; set; }
-    public uint ItemUID { get; set; }
 
     private Image _icon;
+    private Image _classIcon;
+    private Transform _lockTrans;
+    private Transform _selectedTrans;
 
-    private SelectableItemBase _item;
-
-    public void Awake()
+    protected override void Awake()
     {
         _icon = transform.Find("Content/Icon").SafeGetComponent<Image>();
+        _classIcon = transform.Find("Content/ShipClassIcon").SafeGetComponent<Image>();
+        _lockTrans = transform.Find("Lock");
+        _selectedTrans = transform.Find("Selected");
         transform.SafeGetComponent<GeneralHoverItemControl>().item = this;
         transform.SafeGetComponent<Button>().onClick.AddListener(OnButtonClick);
     }
 
-    public void SetDataGrid(int dataIndex, SelectableItemBase item, SelectedDelegate selected)
+    public override void SetData(int index, SelectableItemBase item)
     {
-        this.selected = selected;
-        transform.SafeGetComponent<CanvasGroup>().ActiveCanvasGroup(item != null);
-        if (item != null)
-        {
-            uint itemUID = (uint)item.content;
-            SetUp(itemUID);
-        }
+        base.SetData(index, item);
+    }
 
-        if (_item != null)
-        {
-            _item.selectedChanged -= SelectedChanged;
-        }
-        DataIndex = dataIndex;
-        _item = item;
-        if (item != null)
-        {
-            _item.selectedChanged -= SelectedChanged;
-            _item.selectedChanged += SelectedChanged;
-            SelectedChanged(_item.Selected);
-        }
+    public override void RefreshCellView()
+    {
+        base.RefreshCellView();
+        SetUp(ItemUID);
     }
 
     private void SetUp(uint uid)
@@ -53,6 +40,23 @@ public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIIte
             return;
 
         _icon.sprite = ship.GeneralConfig.IconSprite;
+        var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(ship.ShipClass);
+        if(classCfg != null)
+        {
+            _classIcon.sprite = classCfg.ClassIcon;
+        }
+
+        var savData = SaveLoadManager.Instance.globalSaveData.ShipSaveData.Find(x => x.ShipID == (int)ItemUID);
+        if(savData != null)
+        {
+            _lockTrans.SafeSetActive(!savData.Unlock);
+        }
+    }
+
+    protected override void SelectedChanged(bool selected)
+    {
+        base.SelectedChanged(selected);
+        _selectedTrans.SafeSetActive(selected);
     }
 
     private void OnButtonClick()
@@ -63,15 +67,10 @@ public class ShipSelectionItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIIte
         GeneralUIEvent.Trigger(UIEventType.ShipSelectionConfirm);
     }
 
-    private void SelectedChanged(bool select)
-    {
-        transform.Find("Selected").SafeSetActive(select);
-    }
-
     public void OnHoverEnter()
     {
         RogueManager.Instance.SetTempShipSelectionPreview((int)ItemUID);
-        GeneralUIEvent.Trigger(UIEventType.ShipSelectionChange, ItemUID, DataIndex);
+        GeneralUIEvent.Trigger(UIEventType.ShipSelectionChange, ItemUID);
         selected?.Invoke(this);
     }
 
