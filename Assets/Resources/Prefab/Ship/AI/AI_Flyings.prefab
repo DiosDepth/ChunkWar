@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4254137073360052133}
   deathVFXName: ExplodeVFX
+  CoreUnits: []
   AIShipCfg: {fileID: 0}
   AIType: 1
 --- !u!114 &4254137073360052133
@@ -342,6 +343,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3431155977828216134}
     m_Modifications:
+    - target: {fileID: 2713715349414749016, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713715349414749016, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: 9109a6e2ad23d4b44b85d96f2cf74329,
         type: 3}
       propertyPath: m_RootOrder

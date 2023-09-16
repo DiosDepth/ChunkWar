@@ -275,7 +275,7 @@ public class Projectile : Bullet, IDamageble
             {
                 var damage = (_owner as Weapon).weaponAttribute.GetDamage();
                 //暂时注销用来无敌测试
-                //collision.GetComponent<IDamageble>()?.TakeDamage(ref damage);
+                collision.GetComponent<IDamageble>()?.TakeDamage(ref damage);
             }
             Death();
         }
