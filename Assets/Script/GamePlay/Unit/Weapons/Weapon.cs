@@ -449,6 +449,7 @@ public class Weapon : Unit
     protected BulletData _bulletdata;
     public Bullet _lastbullet;
 
+    public WeaponConfig WeaponCfg { get { return _weaponCfg; } }
     protected WeaponConfig _weaponCfg;
 
     /* Call Back */
@@ -535,6 +536,7 @@ public class Weapon : Unit
         [Unity.Collections.ReadOnly] public NativeArray<int> job_maxTargetCount;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
+
         public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
 
 

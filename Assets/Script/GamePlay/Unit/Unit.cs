@@ -248,6 +248,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         if(_owner is PlayerShip)
         {
             AIManager.Instance.RemoveTargetUnit(this);
+            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
         }
         this.gameObject.SetActive(false);
         SetUnitProcess(false);
@@ -272,15 +273,16 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
     public virtual void Restore()
     {
-        if( _owner is AIShip)
+        if (_owner is AIShip)
         {
             AIManager.Instance.AddSingleUnit(this);
         }
-        if(_owner is PlayerShip)
+        if (_owner is PlayerShip)
         {
             AIManager.Instance.AddTargetUnit(this);
+            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
+    
         }
-       
         SetUnitProcess(true);
         unitSprite.color = Color.white;
     }
@@ -295,16 +297,25 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         _owner = m_owner;
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
-        if (_owner is PlayerShip)
+
+        if (_owner is AIShip)
         {
-            IsRestoreable = true;
-            Restore();
-        }
-        else
-        {
+            AIManager.Instance.AddSingleUnit(this);
+
             IsRestoreable = false;
         }
-  
+        if (_owner is PlayerShip)
+        {
+            AIManager.Instance.AddTargetUnit(this);
+            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
+            IsRestoreable = true;
+
+            SetUnitProcess(true);
+            unitSprite.color = Color.white;
+     
+        }
+
+
     }
 
     /// <summary>

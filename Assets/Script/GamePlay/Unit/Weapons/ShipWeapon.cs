@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class ShipWeapon : Weapon
 {
-    public virtual void HandleWeapon(InputAction.CallbackContext context)
+    public virtual void HandleShipManualWeapon(InputAction.CallbackContext context)
     {
         if(weaponmode  == WeaponControlType.Autonomy)
         {
@@ -44,7 +44,10 @@ public class ShipWeapon : Weapon
         }
     }
 
+    public void HandleShipAutonomyMainWeapon()
+    {
 
+    }
 
     public override void Start()
     {
@@ -55,9 +58,7 @@ public class ShipWeapon : Weapon
     public override void Update()
     {
         base.Update();
-        if (weaponmode == WeaponControlType.Autonomy)
-            return;
-        ProcessWeapon();
+
     }
 
     protected override void OnDestroy()

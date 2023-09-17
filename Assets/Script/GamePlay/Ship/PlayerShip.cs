@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.XInput;
 
 public enum InventoryEventType
 {
@@ -40,6 +41,7 @@ public class PlayerShip : BaseShip
     protected ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     protected List<UnitInfo> UnitInfoList = new List<UnitInfo>();
 
+    
     /// <summary>
     /// 核心所在的chunk
     /// </summary>
@@ -127,13 +129,21 @@ public class PlayerShip : BaseShip
 
     public override void Initialization()
     {
+
         var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
         playerShipCfg = shipCfg;
         baseShipCfg = shipCfg;
-        ///Init ShipClass
-        InitShipClass();
         base.Initialization();
+        ///Init ShipClass
+        CreateShip();
+        InitShipClass();
+
+        ActiveShipUnit();
+        //
+     
     }
+
+
 
     public override void CreateShip()
     {
@@ -182,20 +192,14 @@ public class PlayerShip : BaseShip
             //mainWeapon.Initialization(this, weaponconfig);
         }
 
+    
         InitPickUpRange();
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
         RefreshShipEnergy();
     }
 
-    /// <summary>
-    /// 获取所有武器
-    /// </summary>
-    /// <returns></returns>
-    public List<Weapon> GetAllShipWeapons()
-    {
-        return _unitList.FindAll(x => x is Weapon).ConvertAll(x => x as Weapon);
-    }
+
 
     /// <summary>
     /// 刷新能源

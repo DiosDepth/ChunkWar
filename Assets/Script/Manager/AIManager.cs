@@ -507,15 +507,12 @@ public virtual void UpdateJobData()
     {
         for (int i = 0; i < ship.UnitList.Count; i++)
         {
-            if( ship.UnitList[i].isActiveAndEnabled &&  !aiActiveUnitList.Contains(ship.UnitList[i]))
-            {
                 AddSingleUnit(ship.UnitList[i]);
-            }
         }
     }
     public void AddSingleUnit(Unit unit)
     {
-        if(!aiActiveUnitList.Contains(unit))
+        if(!aiActiveUnitList.Contains(unit) && unit.isActiveAndEnabled)
         {
             aiActiveUnitList.Add(unit);
             aiActiveUnitPos.Add(unit.transform.position);
@@ -598,7 +595,9 @@ public virtual void UpdateJobData()
 
     public void RemoveTargetUnit(Unit unit)
     {
-        playerActiveUnitList.Remove(unit);
+        int index  = playerActiveUnitList.IndexOf(unit);
+        playerActiveUnitList.RemoveAt(index);
+        playerActiveUnitPos.RemoveAt(index);
     }
     public void UpdateAIMovement()
     {

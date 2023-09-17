@@ -210,8 +210,8 @@ public class EGameState_GamePrepare : GameState
                 //在初始化Ship之前先准备好Aimanager，会把对应的信息放入
                 AIManager.Instance.Initialization();
                 RogueManager.Instance.currentShip.Initialization();
-                RogueManager.Instance.currentShip.CreateShip();
-                RogueManager.Instance.currentShip.ActiveShipUnit();
+       
+       
 
                 //初始化摄影机
                 //CameraManager.Instance.ChangeVCameraLookAtTarget(GameManager.Instance.gameEntity.currentShip.transform);

@@ -7,7 +7,8 @@ using Sirenix.OdinInspector;
 public class ShipController : BaseController, IBoid
 {
 
-    public PlayerShip controlledTarget;
+    public PlayerShip targetShip;
+    public ShipUnitManager shipUnitManager;
 
 
     // Start is called before the first frame update
@@ -56,15 +57,27 @@ public class ShipController : BaseController, IBoid
     {
         base.Initialization();
         _levelMgr = LevelManager.Instance;
+   
         if (!_levelMgr.IsBattleLevel()) { return; }
 
-        controlledTarget = GetComponent<PlayerShip>();
+        targetShip = GetComponent<PlayerShip>();
         InitShipControlData();
         BindPropertyChangeAction();
+        InitUnitManagerData();
         InputDispatcher.Instance.Action_GamePlay_Move += HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point += HandlePointInput;
         InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
 
+    }
+
+    public virtual void InitUnitManagerData()
+    {
+        if(shipUnitManager == null)
+        {
+            shipUnitManager = new ShipUnitManager();
+            shipUnitManager.Initialization(targetShip);
+        }
+     
     }
 
     // Update is called once per frame
@@ -74,6 +87,15 @@ public class ShipController : BaseController, IBoid
         if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
         HandleRotation();
+        if(targetShip.mainWeapon.weaponmode == WeaponControlType.Autonomy)
+        {
+            targetShip.mainWeapon.HandleShipAutonomyMainWeapon();
+          
+        }
+
+        targetShip.mainWeapon.ProcessWeapon();
+
+        shipUnitManager?.Update();
 
     }
 
@@ -143,22 +165,22 @@ public class ShipController : BaseController, IBoid
 
     public void HandleAttackInput(InputAction.CallbackContext context)
     {
-        if(controlledTarget.conditionState.CurrentState == ShipConditionState.Freeze || 
-            controlledTarget.conditionState.CurrentState == ShipConditionState.Death)
+        if(targetShip.conditionState.CurrentState == ShipConditionState.Freeze || 
+            targetShip.conditionState.CurrentState == ShipConditionState.Death)
         {
             return;
         }
         Debug.Log("HandleAttackInput : " + context.phase);
-        controlledTarget.mainWeapon.HandleWeapon(context);
+        targetShip.mainWeapon.HandleShipManualWeapon(context);
     }
 
     public virtual void HandleMainWeaponRotaion()
     {
-        if(controlledTarget.mainWeapon.rotationRoot == null)
+        if(targetShip.mainWeapon.rotationRoot == null)
         {
             return;
         }
-        controlledTarget.mainWeapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(controlledTarget.mainWeapon.transform.up, WorldDirection, controlledTarget.mainWeapon.roatateSpeed);
+        targetShip.mainWeapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(targetShip.mainWeapon.transform.up, WorldDirection, targetShip.mainWeapon.roatateSpeed);
 
     }
 
@@ -166,9 +188,9 @@ public class ShipController : BaseController, IBoid
 
     public virtual void HandleMovement()
     {
-        if(controlledTarget.conditionState.CurrentState == ShipConditionState.Immovable ||
-            controlledTarget.conditionState.CurrentState == ShipConditionState.Freeze ||
-            controlledTarget.conditionState.CurrentState == ShipConditionState.Death)
+        if(targetShip.conditionState.CurrentState == ShipConditionState.Immovable ||
+            targetShip.conditionState.CurrentState == ShipConditionState.Freeze ||
+            targetShip.conditionState.CurrentState == ShipConditionState.Death)
         {
             return;
         }
@@ -177,20 +199,20 @@ public class ShipController : BaseController, IBoid
 
         if (Mathf.Approximately( _deltaMovement.sqrMagnitude , 0))
         {
-            controlledTarget.movementState.ChangeState(ShipMovementState.Idle);
+            targetShip.movementState.ChangeState(ShipMovementState.Idle);
             _deltaMovement = Vector2.zero;
             if (_isShipMoving)
             {
-                ShipStateEvent.Trigger(controlledTarget, ShipMovementState.Idle, ShipConditionState.Normal, true, true);
+                ShipStateEvent.Trigger(targetShip, ShipMovementState.Idle, ShipConditionState.Normal, true, true);
                 _isShipMoving = false;
             }
         }
         else
         {
-            controlledTarget.movementState.ChangeState(ShipMovementState.Move);
+            targetShip.movementState.ChangeState(ShipMovementState.Move);
             if (!_isShipMoving)
             {
-                ShipStateEvent.Trigger(controlledTarget, ShipMovementState.Move, ShipConditionState.Normal, true, true);
+                ShipStateEvent.Trigger(targetShip, ShipMovementState.Move, ShipConditionState.Normal, true, true);
                 _isShipMoving = true;
             }
         }
@@ -267,10 +289,10 @@ public class ShipController : BaseController, IBoid
     private void InitShipControlData()
     {
         _controlConfig = DataManager.Instance.gameMiscCfg.ShipControlCfg;
-        if(controlledTarget != null)
+        if(targetShip != null)
         {
             rotationAcceleration = _controlConfig.RotationAcceleration;
-            var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(controlledTarget.playerShipCfg.ShipClass);
+            var classCfg = DataManager.Instance.gameMiscCfg.GetShipClassConfig(targetShip.playerShipCfg.ShipClass);
             if(classCfg != null)
             {
                 shipClass_SpeedRatio = classCfg.BaseSpeedRatio;

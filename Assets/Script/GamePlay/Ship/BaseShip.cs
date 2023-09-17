@@ -80,6 +80,17 @@ public class BaseShip : MonoBehaviour,IDropable
         }
 
     }
+    /// <summary>
+    /// 获取所有武器
+    /// </summary>
+    /// <returns></returns>
+    /// 
+
+    public List<T> GetAllShipUnitByType<T>() where T : Unit
+    {
+        return _unitList.FindAll(x => x is T).ConvertAll(x => x as T);
+    }
+
 
     protected virtual void Awake()
     {

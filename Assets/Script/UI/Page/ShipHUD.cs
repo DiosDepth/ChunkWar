@@ -157,7 +157,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
             return;
 
         var parnetTrans = transform.Find("InfoContent/WeaponContent");
-        var allWeapons = currentShip.GetAllShipWeapons();
+        var allWeapons = currentShip.GetAllShipUnitByType<Weapon>();
         for(int i = 0; i < allWeapons.Count; i++)
         {
             PoolManager.Instance.GetObjectSync(WeaponRuntimeItem_PrefabPath, true, (obj) =>

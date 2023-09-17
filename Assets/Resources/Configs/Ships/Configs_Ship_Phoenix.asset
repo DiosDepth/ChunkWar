@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 21
   ShipClass: 0
   DropList: []
-  MainWeaponID: 1
+  MainWeaponID: 4
   CorePlugID: 2
   PlayerShipCampID: 1
   UnlockDefault: 1
