@@ -87,14 +87,16 @@ public class ShipController : BaseController, IBoid
         if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
         HandleRotation();
+        // if weapon mode is Autonomy than using HandleShipAutonomyMainWeapon to process weapon 
+        //other wise using Ship Controller Update to process weapon (cus ship controller need to listen player input in every frame)
         if(targetShip.mainWeapon.weaponmode == WeaponControlType.Autonomy)
         {
             targetShip.mainWeapon.HandleShipAutonomyMainWeapon();
-          
         }
-
-        targetShip.mainWeapon.ProcessWeapon();
-
+        else
+        {
+            targetShip.mainWeapon.ProcessWeapon();
+        }
         shipUnitManager?.Update();
 
     }
