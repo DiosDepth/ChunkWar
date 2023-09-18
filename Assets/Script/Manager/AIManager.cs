@@ -30,8 +30,8 @@ public class AIManager : Singleton<AIManager>
     public List<AIShip> aiShipList = new List<AIShip>();
     public List<Projectile> aibulletsList = new List<Projectile>();
     private List<int> _aiBulletDeathIndex = new List<int>();
-    public NativeList<BulletJobInitialInfo> aiBullet_JobInfo;
-    public NativeArray<BulletJobUpdateInfo> rv_aiBullet_jobUpdateInfo;
+    public NativeList<ProjectileJobInitialInfo> aiBullet_JobInfo;
+    public NativeArray<ProjectileJobRetrunInfo> rv_aiBullet_jobUpdateInfo;
 
 
     public List<AISteeringBehaviorController> aiSteeringBehaviorControllerList = new List<AISteeringBehaviorController>();
@@ -168,7 +168,7 @@ public class AIManager : Singleton<AIManager>
         aiActiveUnitMaxTargetsCount = new NativeList<int>(Allocator.Persistent);
 
 
-        aiBullet_JobInfo = new NativeList<BulletJobInitialInfo>(Allocator.Persistent);
+        aiBullet_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
 
         steeringBehaviorJob_aiShipPos = new NativeList<float3>(Allocator.Persistent);
         steeringBehaviorJob_aiShipVelocity = new NativeList<float3>(Allocator.Persistent);
@@ -208,8 +208,7 @@ public class AIManager : Singleton<AIManager>
         collisionavoidance_weight = new NativeList<float>(Allocator.Persistent);
 
     }
-
-public virtual void UpdateJobData()
+    public virtual void UpdateMoveJobData()
     {
 
         // ship Job data
@@ -246,6 +245,9 @@ public virtual void UpdateJobData()
                 aiActiveUnitPos[i] = aiActiveUnitList[i].transform.position;
             }
         }
+
+
+
     }
     public virtual void DisposeAIJobData()
     {
@@ -379,7 +381,7 @@ public virtual void UpdateJobData()
     private void FixedUpdate()
     {
         if (!ProcessAI) { return; }
-        UpdateJobData();
+        UpdateMoveJobData();
         UpdateAIMovement();
     }
 
@@ -540,7 +542,7 @@ public virtual void UpdateJobData()
         aiActiveUnitMaxTargetsCount.RemoveAt(index);
     }
 
-    public void AddBullet(Bullet bullet)
+    public void AddBullet(Bullet bullet )
     {
         if(bullet is Projectile)
         {
@@ -550,20 +552,22 @@ public virtual void UpdateJobData()
     public void AddProjectileBullet(Projectile bullet)
     {
         if(!aibulletsList.Contains(bullet))
-        aibulletsList.Add(bullet);
-    
+        {
+            aibulletsList.Add(bullet);
+            aiBullet_JobInfo.Add(new ProjectileJobInitialInfo
+                (
+                    bullet.target? bullet.target.transform.position : bullet.transform.up,
+                    bullet.transform.position,
+                    bullet.lifeTime,
+                    bullet.maxSpeed,
+                    bullet.initialSpeed,
+                    bullet.acceleration,
+                    bullet.rotSpeed,
+                    bullet.InitialmoveDirection.ToVector3(),
+                   (int)bullet.movementType
+                ));
+        }
 
-        aiBullet_JobInfo.Add(new BulletJobInitialInfo
-            (
-                bullet.transform.position,
-                bullet.lifeTime,
-                bullet.maxSpeed,
-                bullet.initialSpeed,
-                bullet.acceleration,
-                bullet.rotSpeed,
-                bullet.InitialmoveDirection.ToVector3(),
-               (int)bullet.movementType
-            ));
     }
 
     public void RemoveProjectileBullet(Projectile bullet)
@@ -958,12 +962,12 @@ public virtual void UpdateJobData()
         {
             return;
         }
-        rv_aiBullet_jobUpdateInfo = new NativeArray<BulletJobUpdateInfo>(aibulletsList.Count, Allocator.TempJob);
+        rv_aiBullet_jobUpdateInfo = new NativeArray<ProjectileJobRetrunInfo>(aibulletsList.Count, Allocator.TempJob);
         // 获取子弹分类
         // 获取子弹的Target，并且更新Target位置， 如果是
         JobHandle aibulletjobhandle;
         //根据子弹分类比如是否targetbase来开启对应的JOB
-        Projectile.StaightCalculateBulletMovementJobJob staightCalculateBulletMovementJobJob = new Projectile.StaightCalculateBulletMovementJobJob
+        Projectile.CalculateBulletMovementJobJob staightCalculateBulletMovementJobJob = new Projectile.CalculateBulletMovementJobJob
         {
             job_deltatime = Time.deltaTime,
             job_jobInfo = aiBullet_JobInfo,
@@ -973,8 +977,9 @@ public virtual void UpdateJobData()
         aibulletjobhandle = staightCalculateBulletMovementJobJob.ScheduleBatch(aibulletsList.Count, 2);
         aibulletjobhandle.Complete();
         //更新子弹当前的JobData
-        //移动子弹
 
+        //移动子弹
+        //处理子弹旋转方向
         _aiBulletDeathIndex.Clear();
 
         for (int i = 0; i < aibulletsList.Count; i++)
@@ -982,6 +987,7 @@ public virtual void UpdateJobData()
             if (!rv_aiBullet_jobUpdateInfo[i].islifeended)
             {
                 aibulletsList[i].Move(rv_aiBullet_jobUpdateInfo[i].deltaMovement);
+                aibulletsList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiBullet_jobUpdateInfo[i].rotation);
             }
             else
             {
@@ -989,6 +995,10 @@ public virtual void UpdateJobData()
             }
 
         }
+
+    
+
+
         UpdateBulletJobData();
 
         rv_aiBullet_jobUpdateInfo.Dispose();
@@ -999,22 +1009,27 @@ public virtual void UpdateJobData()
     {
         //这里需要先更新子弹的信息，然后在吧死亡的子弹移除， 否则rv aibullet的静态数据长度无法操作
         //虽然会浪费运算量。但是可以保证index不会错位
-        BulletJobInitialInfo bulletJobInfo;
+        ProjectileJobInitialInfo bulletJobInfo;
         for (int i = 0; i < aibulletsList.Count; i++)
         {
             if (rv_aiBullet_jobUpdateInfo[i].islifeended)
                 continue;
-            bulletJobInfo = new BulletJobInitialInfo
-                (
-                    aibulletsList[i].transform.position,
-                    aibulletsList[i].lifeTime,
-                    aibulletsList[i].maxSpeed,
-                    aibulletsList[i].initialSpeed,
-                    aibulletsList[i].acceleration,
-                    aibulletsList[i].rotSpeed,
-                    aibulletsList[i].InitialmoveDirection.ToVector3(),
-                    (int) aibulletsList[i].movementType
-                ); ;
+
+            bulletJobInfo = aiBullet_JobInfo[i];
+            //bulletJobInfo = new BulletJobInitialInfo
+            //    (
+
+            //        aibulletsList[i].transform.position,
+            //        aibulletsList[i].lifeTime,
+            //        aibulletsList[i].maxSpeed,
+            //        aibulletsList[i].initialSpeed,
+            //        aibulletsList[i].acceleration,
+            //        aibulletsList[i].rotSpeed,
+            //        aibulletsList[i].InitialmoveDirection.ToVector3(),
+            //        (int) aibulletsList[i].movementType
+            //    ); 
+            bulletJobInfo.update_targetPos = aibulletsList[i].target? aibulletsList[i].target.transform.position : aibulletsList[i].transform.up;
+            bulletJobInfo.update_selfPos = aibulletsList[i].transform.position;
             bulletJobInfo.update_lifeTimeRemain = rv_aiBullet_jobUpdateInfo[i].lifeTimeRemain;
             bulletJobInfo.update_moveDirection = rv_aiBullet_jobUpdateInfo[i].moveDirection;
             bulletJobInfo.update_currentSpeed = rv_aiBullet_jobUpdateInfo[i].currentSpeed;

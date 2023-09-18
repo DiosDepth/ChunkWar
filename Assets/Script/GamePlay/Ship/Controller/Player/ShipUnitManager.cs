@@ -13,11 +13,13 @@ using static Weapon;
 public class ShipUnitManager 
 {
     public BaseShip targetShip;
-
     public List<ShipWeapon> activeWeaponList;
-
     public List<Building> activeBuildingList;
+    public List<Projectile> projectileList = new List<Projectile>();
+    private List<int> projiectileDeathIndexList = new List<int>();
 
+    public NativeList<ProjectileJobInitialInfo> projectile_JobInfo;
+    public NativeArray<ProjectileJobRetrunInfo> rv_projectile_jobUpdateInfo;
 
     public NativeList<float> activeWeaponAttackRangeList;
     public NativeList<float3> activeWeaponPosList;
@@ -28,6 +30,8 @@ public class ShipUnitManager
     {
         activeWeaponList = new List<ShipWeapon>();
         activeBuildingList = new List<Building>();
+        projectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
+
         activeWeaponPosList = new NativeList<float3>(Allocator.Persistent);
         activeWeaponAttackRangeList = new NativeList<float>(Allocator.Persistent);
         activeWeaponTargetCountList = new NativeList<int>(Allocator.Persistent);
@@ -36,6 +40,7 @@ public class ShipUnitManager
     ~ ShipUnitManager()
     {
         if (activeWeaponPosList.IsCreated) { activeWeaponPosList.Dispose(); }
+        if (projectile_JobInfo.IsCreated) { projectile_JobInfo.Dispose(); }
         if (activeWeaponAttackRangeList.IsCreated) { activeWeaponAttackRangeList.Dispose(); }
         if (activeWeaponTargetCountList.IsCreated) { activeWeaponTargetCountList.Dispose(); }
     }
@@ -50,6 +55,7 @@ public class ShipUnitManager
         UpdateActiveUnit();
         UpdateWeapon();
         UpdateBuilding();
+        UpdateBullet();
     }
 
 
@@ -143,6 +149,83 @@ public class ShipUnitManager
 
     }
 
+    protected virtual void UpdateBullet()
+    {
+        if (projectileList == null || projectileList.Count == 0)
+        {
+            return;
+        }
+        rv_projectile_jobUpdateInfo = new NativeArray<ProjectileJobRetrunInfo>(projectileList.Count, Allocator.TempJob);
+        // 获取子弹分类
+        // 获取子弹的Target，并且更新Target位置， 如果是
+        JobHandle aibulletjobhandle;
+        //根据子弹分类比如是否targetbase来开启对应的JOB
+        Projectile.CalculateBulletMovementJobJob staightCalculateBulletMovementJobJob = new Projectile.CalculateBulletMovementJobJob
+        {
+            job_deltatime = Time.deltaTime,
+            job_jobInfo = projectile_JobInfo,
+            rv_bulletJobUpdateInfos = rv_projectile_jobUpdateInfo,
+        };
+
+        aibulletjobhandle = staightCalculateBulletMovementJobJob.ScheduleBatch(projectileList.Count, 2);
+        aibulletjobhandle.Complete();
+        //更新子弹当前的JobData
+
+        //移动子弹
+        //处理子弹旋转方向
+        projiectileDeathIndexList.Clear();
+
+        for (int i = 0; i < projectileList.Count; i++)
+        {
+            if (!rv_projectile_jobUpdateInfo[i].islifeended)
+            {
+                projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
+                projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
+            }
+            else
+            {
+                projiectileDeathIndexList.Add(i);
+            }
+
+        }
+
+        UpdateBulletJobData();
+
+        rv_projectile_jobUpdateInfo.Dispose();
+
+
+    }
+
+    public void UpdateBulletJobData()
+    {
+        //这里需要先更新子弹的信息，然后在吧死亡的子弹移除， 否则rv aibullet的静态数据长度无法操作
+        //虽然会浪费运算量。但是可以保证index不会错位
+        ProjectileJobInitialInfo bulletJobInfo;
+        for (int i = 0; i < projectileList.Count; i++)
+        {
+            if (rv_projectile_jobUpdateInfo[i].islifeended)
+                continue;
+
+            bulletJobInfo = projectile_JobInfo[i];
+
+            bulletJobInfo.update_targetPos = projectileList[i].target ? projectileList[i].target.transform.position : projectileList[i].transform.up;
+            bulletJobInfo.update_selfPos = projectileList[i].transform.position;
+            bulletJobInfo.update_lifeTimeRemain = rv_projectile_jobUpdateInfo[i].lifeTimeRemain;
+            bulletJobInfo.update_moveDirection = rv_projectile_jobUpdateInfo[i].moveDirection;
+            bulletJobInfo.update_currentSpeed = rv_projectile_jobUpdateInfo[i].currentSpeed;
+
+            projectile_JobInfo[i] = bulletJobInfo;
+        }
+
+        //最后一步 执行子弹死亡
+        int deathindex = 0;
+        for (int i = 0; i < projiectileDeathIndexList.Count; i++)
+        {
+            deathindex = projiectileDeathIndexList[i];
+            projectileList[deathindex].Death();
+        }
+    }
+
     public virtual void AddActiveUnit(Unit unit)
     {
         if(unit is ShipWeapon)
@@ -206,4 +289,48 @@ public class ShipUnitManager
         return list.FindAll(x => x != null && x.isActiveAndEnabled).ConvertAll(x => x as T);
     }
 
+
+
+    public void AddBullet(Bullet bullet)
+    {
+        if (bullet is Projectile)
+        {
+            AddProjectileBullet(bullet as Projectile);
+        }
+    }
+    public void AddProjectileBullet(Projectile bullet)
+    {
+        if (!projectileList.Contains(bullet))
+        {
+            projectileList.Add(bullet);
+            projectile_JobInfo.Add(new ProjectileJobInitialInfo
+                (
+                    bullet.target ? bullet.target.transform.position : bullet.transform.up,
+                    bullet.transform.position,
+                    bullet.lifeTime,
+                    bullet.maxSpeed,
+                    bullet.initialSpeed,
+                    bullet.acceleration,
+                    bullet.rotSpeed,
+                    bullet.InitialmoveDirection.ToVector3(),
+                   (int)bullet.movementType
+                ));
+        }
+
+    }
+
+    public void RemoveProjectileBullet(Projectile bullet)
+    {
+        int index = projectileList.IndexOf(bullet);
+        projectile_JobInfo.RemoveAt(index);
+        projectileList.RemoveAt(index);
+    }
+    public void RemoveBullet(Bullet bullet)
+    {
+        if (bullet is Projectile)
+        {
+            RemoveProjectileBullet(bullet as Projectile);
+        }
+        //todo 如果不是Projectile类型需要用调用其他容器的Remove
+    }
 }

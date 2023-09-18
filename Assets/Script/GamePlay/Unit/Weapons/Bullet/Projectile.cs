@@ -1,8 +1,10 @@
+
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum ProjectileMovementType
 {
@@ -10,9 +12,9 @@ public enum ProjectileMovementType
     StraightToPos = 2,
     FollowTarget = 3,
 }
-public struct BulletJobInitialInfo
+public struct ProjectileJobInitialInfo
 {
-
+    public float3 update_targetPos;
     public float3 update_selfPos;
     public float lifeTime;
     public float update_lifeTimeRemain;
@@ -35,8 +37,9 @@ public struct BulletJobInitialInfo
     /// <param name="m_acceleration"></param>
     /// <param name="m_rotspeed"></param>
     /// <param name="m_initialdirection"></param>
-    public BulletJobInitialInfo(float3 m_update_selfPos, float m_lifttime, float m_maxspeed, float m_initialspeed, float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType)
+    public ProjectileJobInitialInfo(float3 m_update_targetPos, float3 m_update_selfPos, float m_lifttime, float m_maxspeed, float m_initialspeed, float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType)
     {
+        update_targetPos = m_update_targetPos;
         update_selfPos = m_update_selfPos;
         lifeTime = m_lifttime;
         update_lifeTimeRemain = lifeTime;
@@ -54,14 +57,14 @@ public struct BulletJobInitialInfo
 /// <summary>
 /// 需要每一帧更新的参数， 子弹移动计算有一部分依赖这个数据， 同时也会更新到BulletJobInitialInfo中
 /// </summary>
-public struct BulletJobUpdateInfo
+public struct ProjectileJobRetrunInfo
 {
-
     public float lifeTimeRemain;
     public float3 moveDirection;
     public float currentSpeed;
     public float3 deltaMovement;
     public bool islifeended;
+    public float rotation;
 }
 
 public class Projectile : Bullet, IDamageble
@@ -138,22 +141,25 @@ public class Projectile : Bullet, IDamageble
         base.Initialization();
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
         HpComponent = new GeneralHPComponet(100, 100);
-
     }
 
     [BurstCompile]
-    public struct StaightCalculateBulletMovementJobJob : IJobParallelForBatch
+    public struct CalculateBulletMovementJobJob : IJobParallelForBatch
     {
 
-        [ReadOnly] public NativeArray<BulletJobInitialInfo> job_jobInfo;
+        [ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_jobInfo;
         [ReadOnly] public float job_deltatime;
 
 
-        public NativeArray<BulletJobUpdateInfo> rv_bulletJobUpdateInfos;
+        public NativeArray<ProjectileJobRetrunInfo> rv_bulletJobUpdateInfos;
 
-        private BulletJobUpdateInfo bulletJobUpdateInfo;
+        private ProjectileJobRetrunInfo bulletJobUpdateInfo;
         private float currentSpeed;
         private float3 deltaMovement;
+        private float3 rotateDirection;
+        private float3 targetDirection;
+        private float3 moveDirection;
+        private float targetangle;
         public void Execute(int startIndex, int count)
         {
 
@@ -164,8 +170,9 @@ public class Projectile : Bullet, IDamageble
                 {
                     currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
                     currentSpeed = math.clamp(currentSpeed, 0, job_jobInfo[i].maxSpeed);
+                    moveDirection = job_jobInfo[i].update_moveDirection;
 
-                    deltaMovement = job_jobInfo[i].update_selfPos + (job_jobInfo[i].update_moveDirection * currentSpeed * job_deltatime);
+                    deltaMovement = job_jobInfo[i].update_selfPos + (moveDirection * currentSpeed * job_deltatime);
 
                     //更新BulletJob的值
 
@@ -183,13 +190,47 @@ public class Projectile : Bullet, IDamageble
                     {
                         bulletJobUpdateInfo.islifeended = false;
                     }
-
-                    bulletJobUpdateInfo.moveDirection = job_jobInfo[i].update_moveDirection;
-
-
-                    rv_bulletJobUpdateInfos[i] = bulletJobUpdateInfo;
+                    bulletJobUpdateInfo.moveDirection = moveDirection;
+              
                 }
 
+
+                if (job_jobInfo[i].movementType == 2)
+                {
+
+                    targetDirection = math.normalize(job_jobInfo[i].update_targetPos - job_jobInfo[i].update_selfPos);
+                    currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
+
+                    //算出偏转力方向
+                    rotateDirection = math.normalize(targetDirection - job_jobInfo[i].update_moveDirection);
+                    //算出当前移动方向
+                    moveDirection = math.normalize( job_jobInfo[i].update_moveDirection + job_jobInfo[i].rotSpeed * rotateDirection * job_deltatime);
+                    //更具当前移动方向计算deltamovement
+                    deltaMovement = job_jobInfo[i].update_selfPos + (moveDirection * currentSpeed * job_deltatime);
+                    
+
+                    bulletJobUpdateInfo.deltaMovement = deltaMovement;
+                    bulletJobUpdateInfo.currentSpeed = currentSpeed;
+                    bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_lifeTimeRemain - job_deltatime;
+
+
+                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0)
+                    {
+                        bulletJobUpdateInfo.lifeTimeRemain = 0;
+                        bulletJobUpdateInfo.islifeended = true;
+                    }
+                    else
+                    {
+                        bulletJobUpdateInfo.islifeended = false;
+                    }
+                    bulletJobUpdateInfo.moveDirection = moveDirection;
+                    
+                }
+
+                targetangle = math.degrees(math.atan2(moveDirection.y, moveDirection.x)) - 90;
+                //根据moveDirection计算rotation
+                bulletJobUpdateInfo.rotation = targetangle;
+                rv_bulletJobUpdateInfos[i] = bulletJobUpdateInfo;
             }
         }
     }
@@ -283,7 +324,7 @@ public class Projectile : Bullet, IDamageble
 
     public override void Death()
     {
-        AIManager.Instance.RemoveProjectileBullet(this);
+      
         base.Death();
     }
 

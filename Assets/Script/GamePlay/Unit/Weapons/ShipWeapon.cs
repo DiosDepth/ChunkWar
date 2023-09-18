@@ -88,30 +88,35 @@ public class ShipWeapon : Weapon
 
         //Allocate targetinfo to targetList
         int iterateIndex = Mathf.Min(slice.Length, maxTargetCount);
-        int index = 0;
-        for (int i = 0; i < maxTargetCount; i++)
+        if (iterateIndex != 0)
         {
-            index = i % iterateIndex;
-            targetList.Add(new WeaponTargetInfo
-            (
-                AIManager.Instance.aiActiveUnitList[slice[index].targetIndex].gameObject,
-                slice[index].targetIndex,
-                slice[index].distanceToTarget,
-                slice[index].targetDirection
-            ));
-        }
+            int index = 0;
+            for (int i = 0; i < maxTargetCount; i++)
+            {
 
-        //Check if targetList is valid 
-        if(targetList != null && targetList.Count != 0)
-        {
-            WeaponOn();
-           
+                index = i % iterateIndex;
+                targetList.Add(new WeaponTargetInfo
+                (
+                    AIManager.Instance.aiActiveUnitList[slice[index].targetIndex].gameObject,
+                    slice[index].targetIndex,
+                    slice[index].distanceToTarget,
+                    slice[index].targetDirection
+                ));
+            }
+
+            //Check if targetList is valid 
+            if (targetList != null && targetList.Count != 0)
+            {
+                WeaponOn();
+
+            }
+            else
+            {
+                WeaponOff();
+            }
+            ProcessWeapon();
         }
-        else
-        {
-            WeaponOff();
-        }
-        ProcessWeapon();
+       
 
         rv_validTargetCount.Dispose();
         rv_weaponTargetsInfo.Dispose();

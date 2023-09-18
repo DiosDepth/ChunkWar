@@ -43,6 +43,10 @@ public class Bullet : MonoBehaviour,IPoolable
         {
             AIManager.Instance.AddBullet(this);
         }
+        if(ownertype == OwnerType.Player && _owner is ShipWeapon)
+        {
+            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
+        }
 
     }
     public virtual void SetOwner(Unit owner)
@@ -75,14 +79,17 @@ public class Bullet : MonoBehaviour,IPoolable
     }
 
     public virtual void Death()
-    { 
+    {
+        if (ownertype == OwnerType.AI && _owner is AIWeapon)
+        {
+            AIManager.Instance.RemoveBullet(this);
+        }
+        if (ownertype == OwnerType.Player && _owner is ShipWeapon)
+        {
+            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveBullet(this);
+        }
+
         PlayVFX(DeathVFX, this.transform.position);
-        //if (ownertype == OwnerType.AI && _owner is AIWeapon)
-        //{
-        //    AIManager.Instance.RemoveBullet(this);
-        //}
-
-
         PoolableDestroy();
     }
 
