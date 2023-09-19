@@ -70,11 +70,13 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
     public void OnHoverEnter()
     {
         SelectedChanged(true);
+        LeanTween.moveLocalY(gameObject, 20, 0.1f);
     }
 
     public void OnHoverExit()
     {
         SelectedChanged(false);
+        LeanTween.moveLocalY(gameObject, 0, 0.1f);
     }
 
     private void SetUpProperty(Dictionary<HardLevelModifyType, float> dic)
