@@ -139,6 +139,7 @@ public class HardLevelConfig
     public string Name;
     public string Desc;
     public string PropertyDesc;
+    public string UnlockDesc;
     public int PreviewScore;
     public Sprite Icon;
 

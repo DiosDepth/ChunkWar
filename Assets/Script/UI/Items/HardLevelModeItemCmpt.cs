@@ -12,11 +12,10 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
     private TextMeshProUGUI _propertyDescText;
     private TextMeshProUGUI _previewScoreText;
     private RectTransform _propertyRoot;
+    private TextMeshProUGUI _unlockDescText;
 
     private List<HardLevelPropertyItemCmpt> propertyCmpts = new List<HardLevelPropertyItemCmpt>();
     private static string PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/HardLevelPropertyItem";
-
-    private int count;
     protected override void Awake()
     {
         _propertyRoot = transform.Find("Content/Property/Viewport/Content").SafeGetComponent<RectTransform>();
@@ -25,6 +24,7 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
         _descText = transform.Find("Content/Desc").SafeGetComponent<TextMeshProUGUI>();
         _previewScoreText = transform.Find("Content/Info/HardScore/Value").SafeGetComponent<TextMeshProUGUI>();
         _propertyDescText = transform.Find("Content/Property/Viewport/Content/Desc").SafeGetComponent<TextMeshProUGUI>();
+        _unlockDescText = transform.Find("Content/Unlock/LockDesc").SafeGetComponent<TextMeshProUGUI>();
         transform.SafeGetComponent<GeneralHoverItemControl>().item = this;
         transform.SafeGetComponent<Button>().onClick.AddListener(OnButtonClick);
     }
@@ -40,16 +40,35 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
         if (hardLevelInfo == null)
             return;
 
-        SetUpProperty(hardLevelInfo.Cfg.ModifyDic);
+
+        bool unlock = false;
+        var currentSelectShip = RogueManager.Instance.currentShipSelection;
+        if (currentSelectShip != null)
+        {
+            var hardLevelSav = SaveLoadManager.Instance.globalSaveData.GetShipHardLevelSaveData(currentSelectShip.itemconfig.ID, (int)ItemUID);
+            if (hardLevelSav != null)
+            {
+                transform.Find("Finish").SafeSetActive(hardLevelSav.Finish);
+                unlock = hardLevelSav.Unlock;
+
+                transform.Find("Content/Property").transform.SafeSetActive(unlock);
+                transform.Find("Content/Unlock").transform.SafeSetActive(!unlock);
+            }
+        }
+
+        if (unlock)
+        {
+            SetUpProperty(hardLevelInfo.Cfg.ModifyDic);
+            _propertyDescText.text = hardLevelInfo.PropertyDesc;
+            _propertyDescText.transform.SetAsLastSibling();
+        }
+
+        _unlockDescText.text = hardLevelInfo.UnlockDesc;
         _nameText.text = hardLevelInfo.HardLevelName;
         _descText.text = hardLevelInfo.HardLevelDesc;
         _icon.sprite = hardLevelInfo.Cfg.Icon;
-        _propertyDescText.text = hardLevelInfo.PropertyDesc;
         _previewScoreText.text = hardLevelInfo.Cfg.PreviewScore.ToString();
-        _propertyDescText.transform.SetAsLastSibling();
-
         LayoutRebuilder.ForceRebuildLayoutImmediate(_propertyRoot);
-        InitFinishMark();
     }
 
     private void OnButtonClick()
@@ -99,21 +118,5 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
                 propertyCmpts.Add(cmpt);
             }, _propertyRoot);
         }
-    }
-
-    private void InitFinishMark()
-    {
-        var currentSelectShip = RogueManager.Instance.currentShipSelection;
-        if (currentSelectShip != null)
-        {
-            var hardLevelSav = SaveLoadManager.Instance.globalSaveData.GetShipHardLevelSaveData(currentSelectShip.itemconfig.ID, (int)ItemUID);
-            if(hardLevelSav != null)
-            {
-                transform.Find("Finish").SafeSetActive(hardLevelSav.Finish);
-                return;
-            }
-        }
-
-        transform.Find("Finish").SafeSetActive(false);
     }
 }

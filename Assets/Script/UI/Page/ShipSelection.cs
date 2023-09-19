@@ -63,13 +63,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     {
         base.Awake();
         _campTabCmpts = new List<CampSelectionTabCmpt>();
-    }
 
-    public override void Initialization()
-    {
-        base.Initialization();
-        this.EventStartListening<GeneralUIEvent>();
-        currentPhase = ShipSelectionPhase.NONE;
         _weaponGroup = transform.Find("uiGroup/Content/Top/ShipInfo/WeaponGroup").SafeGetComponent<CanvasGroup>();
         _shipSelectionGroup = transform.Find("uiGroup/Content/Top/ShipInfo/Group").SafeGetComponent<CanvasGroup>();
         _campTabGroup = transform.Find("uiGroup/Content/CampTab").SafeGetComponent<CanvasGroup>();
@@ -99,8 +93,32 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         GetGUIComponent<Button>("NextBtn").onClick.AddListener(NextPhaseBtnPressed);
         InitSelectionController();
         InitWeaponSelectionController();
+    }
+
+    public override void Initialization()
+    {
+        base.Initialization();
+        this.EventStartListening<GeneralUIEvent>();
+        currentPhase = ShipSelectionPhase.NONE;
         SwitchToNextProgress();
-        InitCampTab();
+    }
+
+    public override void Initialization(params object[] param)
+    {
+        base.Initialization(param);
+        this.EventStartListening<GeneralUIEvent>();
+        ShipSelectionPhase phase = (ShipSelectionPhase)param[0];
+        currentPhase = phase;
+        SwitchToNextProgress();
+
+        ///Refresh Ship Choose
+        var currentSelectShip = RogueManager.Instance.currentShipSelection;
+        if(currentSelectShip != null)
+        {
+            var id = (uint)currentSelectShip.itemconfig.ID;
+            OnShipSelect(id);
+            currentSelectShipID = id;
+        }
     }
 
     private void BackBtnPressed()
@@ -111,13 +129,21 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         }
         else if( currentPhase == ShipSelectionPhase.WeaponSelection)
         {
-            
+            currentPhase = ShipSelectionPhase.NONE;
+            SwitchToNextProgress();
         }
     }
 
     private void NextPhaseBtnPressed()
     {
+        if(currentPhase == ShipSelectionPhase.NONE || currentPhase == ShipSelectionPhase.ShipSelection)
+        {
 
+        }
+        else if (currentPhase == ShipSelectionPhase.WeaponSelection)
+        {
+
+        }
     }
 
     public override void Hidden( )
@@ -141,6 +167,8 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
             _shipSelectionScroCanvas.ActiveCanvasGroup(true);
             _weaponSelectionScroCanvas.ActiveCanvasGroup(false);
             currentPhase = ShipSelectionPhase.ShipSelection;
+            InitCampTab();
+
         }
         else if(currentPhase == ShipSelectionPhase.ShipSelection)
         {
@@ -150,11 +178,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
             _shipSelectionScroCanvas.ActiveCanvasGroup(false);
             _weaponSelectionScroCanvas.ActiveCanvasGroup(true);
             RefreshWeaponSelectionContent();
-            currentPhase = ShipSelectionPhase.ShipSelection;
-        }
-        else if (currentPhase == ShipSelectionPhase.WeaponSelection)
-        {
-
+            currentPhase = ShipSelectionPhase.WeaponSelection;
         }
         RefreshButtonText();
     }
@@ -222,6 +246,9 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         var allMainWeapons = GameHelper.GetAllMainWeaponItems();
         _weaponSelectionController.RefreshData(allMainWeapons);
         _weaponSelectionScroller.ReloadData();
+
+        ///SelectFirst
+        SetFirstWeapon();
     }
 
     public void OnEvent(GeneralUIEvent evt)
@@ -311,6 +338,16 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         if (item != null && item is ShipSelectionItemCmpt)
         {
             var group = item as ShipSelectionItemCmpt;
+            group.OnHoverEnter();
+        }
+    }
+
+    private void SetFirstWeapon()
+    {
+        var item = _weaponSelectionScroller.GetCellViewAtDataIndex(0);
+        if (item != null && item is WeaponSelectionItem)
+        {
+            var group = item as WeaponSelectionItem;
             group.OnHoverEnter();
         }
     }

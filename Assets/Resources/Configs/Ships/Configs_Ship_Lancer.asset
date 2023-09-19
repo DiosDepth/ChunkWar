@@ -1451,5 +1451,5 @@ MonoBehaviour:
   EditorPrefab: {fileID: 7848178515196352761, guid: 3d71031a1815aff47994f021f8e6689f,
     type: 3}
   ShipPropertyDesc: ShipPropertyDesc_1
-  ShipHardLevels: 0100000002000000
+  ShipHardLevels: 010000000200000003000000
   ShipEditorSprite: {fileID: 21300000, guid: e9db5fe636017584b8dc54e906789dda, type: 3}

@@ -25,6 +25,17 @@ public class HardLevelInfo
         get { return LocalizationManager.Instance.GetTextValue(Cfg.Desc); }
     }
 
+    public string UnlockDesc
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(Cfg.UnlockDesc))
+                return string.Empty;
+
+            return LocalizationManager.Instance.GetTextValue(Cfg.UnlockDesc);
+        }
+    }
+
     /// <summary>
     /// »úÖÆÃèÊö
     /// </summary>

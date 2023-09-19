@@ -367,3 +367,7 @@ MonoBehaviour:
     ChineseSimplified: "\u96BE\u5EA6\u8BC4\u4F30"
     English: 
     Japanese: 
+  - TextID: HardLevel_LockTitle
+    ChineseSimplified: "\u672A\u89E3\u9501"
+    English: 
+    Japanese: 

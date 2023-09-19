@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HardLevelSelectPage : GUIBasePanel
 {
@@ -16,6 +17,7 @@ public class HardLevelSelectPage : GUIBasePanel
         base.Awake();
         _hardLevelScroller = transform.Find("Content/Scroll View").SafeGetComponent<EnhancedScroller>();
         HardLevelGroup = transform.Find("Content").SafeGetComponent<CanvasGroup>();
+        GetGUIComponent<Button>("GeneralBackBtn").onClick.AddListener(OnBackBtnClick);
     }
 
     public override void Initialization()
@@ -29,6 +31,15 @@ public class HardLevelSelectPage : GUIBasePanel
     {
         base.Hidden();
         _hardLevelController.Clear();
+    }
+
+    private void OnBackBtnClick()
+    {
+        UIManager.Instance.ShowUI<ShipSelection>("ShipSelection", E_UI_Layer.Mid, null, (panel) =>
+        {
+            panel.Initialization(ShipSelection.ShipSelectionPhase.ShipSelection);
+        });
+        UIManager.Instance.HiddenUI("HardLevelSelectPage");
     }
 
     /// <summary>
