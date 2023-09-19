@@ -183,13 +183,18 @@ public class PlayerShip : BaseShip
         //³õÊ¼»¯Ö÷ÎäÆ÷
         if( mainWeapon == null)
         {
-            var weaponID = playerShipCfg.MainWeaponID;
-            BaseUnitConfig weaponconfig;
-            DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
-            Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
-            mainWeapon = AddUnit(weaponconfig, _reletivemap, _coreChunk.shipCoord, 0) as ShipWeapon;
-            CoreUnits.Add(mainWeapon);
-            //mainWeapon.Initialization(this, weaponconfig);
+            if(RogueManager.Instance.currentWeaponSelection != null)
+            {
+                var weaponCfg = RogueManager.Instance.currentWeaponSelection.itemconfig as WeaponConfig;
+                Vector2Int[] _reletivemap = weaponCfg.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
+                mainWeapon = AddUnit(weaponCfg, _reletivemap, _coreChunk.shipCoord, 0) as ShipWeapon;
+                mainWeapon.InitCoreData();
+                CoreUnits.Add(mainWeapon);
+            }
+            else
+            {
+                Debug.LogError("Weapon Null!");
+            }
         }
 
     
@@ -214,8 +219,10 @@ public class PlayerShip : BaseShip
             TotalEnergy += unit.baseAttribute.EnergyGenerate;
             CurrentUsedEnergy += unit.baseAttribute.EnergyCost;
         }
-        var energyAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnergyTotalAdd);
-        TotalEnergy = (int)Mathf.Clamp(TotalEnergy + energyAdd, 0, int.MaxValue);
+        var energyCostAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnergyCostAdd);
+        CurrentUsedEnergy += Mathf.RoundToInt(energyCostAdd);
+
+        TotalEnergy = (int)Mathf.Clamp(TotalEnergy, 0, int.MaxValue);
         RogueManager.Instance.OnEnergyPercentChange?.Invoke(EnergyPercent);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.EnergyChange);
     }
@@ -448,6 +455,7 @@ public class PlayerShip : BaseShip
                 {
                     mainWeapon = tempunit as ShipWeapon;
                     mainWeapon.Initialization(this, unitconfig);
+                    mainWeapon.InitCoreData();
                     CoreUnits.Add(mainWeapon);
                 }
                 else

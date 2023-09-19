@@ -214,12 +214,9 @@ public class EGameState_GamePrepare : GameState
        
 
                 //初始化摄影机
-                //CameraManager.Instance.ChangeVCameraLookAtTarget(GameManager.Instance.gameEntity.currentShip.transform);
-                CameraManager.Instance.ChangeVCameraFollowTarget(RogueManager.Instance.currentShip.transform);
-                CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
-                CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = 0;
+                CameraManager.Instance.SetFollowPlayerShip();
                 CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
-                CameraManager.Instance.vcam.m_Lens.OrthographicSize = 40;
+                CameraManager.Instance.SetOrthographicSize(40);
 
                 ///start Timer
                 
@@ -302,11 +299,7 @@ public class EGameState_GameStart : GameState
                         RogueManager.Instance.currentShip.controller.IsUpdate = true;
                         RogueManager.Instance.Timer.StartTimer();
                         LevelManager.Instance.LevelActive();
-                     
-                        //LeanTween.delayedCall(10, () =>
-                        //{
-                        //    GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
-                        //});
+                    
                     });
                 });
             }

@@ -279,6 +279,11 @@ public class DataManager : Singleton<DataManager>
         return _campConfigDic.Values.ToList();
     }
 
+    public List<BaseUnitConfig> GetAllUnitConfigs()
+    {
+        return UnitConfigDataDic.Values.ToList();
+    }
+
     public List<AchievementItemConfig> GetAllAchievementConfigs()
     {
         return _achievementDic.Values.ToList();

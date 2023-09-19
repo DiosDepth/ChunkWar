@@ -12,6 +12,7 @@ public class CampSelectionTabCmpt : MonoBehaviour
     public void Awake()
     {
         transform.SafeGetComponent<Button>().onClick.AddListener(OnButtonClick);
+        OnSelected(false);
     }
 
     public void SetUp(int campID)
@@ -26,7 +27,7 @@ public class CampSelectionTabCmpt : MonoBehaviour
 
     public void OnSelected(bool select)
     {
-
+        transform.Find("Selected").SafeSetActive(select);
     }
 
     private void OnButtonClick()

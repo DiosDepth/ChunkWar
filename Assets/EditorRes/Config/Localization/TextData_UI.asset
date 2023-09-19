@@ -23,14 +23,6 @@ MonoBehaviour:
     SerializationNodes: []
   TextSetName: TextData_
   Texts:
-  - TextID: PropertyName_DamagePercent
-    ChineseSimplified: "\u4F24\u5BB3"
-    English: 
-    Japanese: 
-  - TextID: PropertyName_Critical
-    ChineseSimplified: "\u66B4\u51FB"
-    English: 
-    Japanese: 
   - TextID: PropertyName_ShopCostPercent
     ChineseSimplified: "\u8865\u7ED9\u7AD9\u4EF7\u683C"
     English: 
@@ -41,14 +33,6 @@ MonoBehaviour:
     Japanese: 
   - TextID: PropertyName_ShipHP
     ChineseSimplified: "\u8239\u4F53\u503C"
-    English: 
-    Japanese: 
-  - TextID: PropertyName_Luck
-    ChineseSimplified: "\u5E78\u8FD0"
-    English: 
-    Japanese: 
-  - TextID: PropertyName_WeaponRange
-    ChineseSimplified: "\u6B66\u5668\u8303\u56F4"
     English: 
     Japanese: 
   - TextID: PropertyName_AttackSpeed
@@ -77,10 +61,6 @@ MonoBehaviour:
     Japanese: 
   - TextID: ShipSelection_UnitInfoTitle
     ChineseSimplified: "\u4E3B\u6B66\u5668"
-    English: 
-    Japanese: 
-  - TextID: ShipBuilder_UnitInfoTitle
-    ChineseSimplified: "\u7EC4\u4EF6\u4FE1\u606F"
     English: 
     Japanese: 
   - TextID: PropertyName_DamageDeltaPercent
@@ -239,10 +219,6 @@ MonoBehaviour:
     ChineseSimplified: "\u5237\u65B0"
     English: 
     Japanese: 
-  - TextID: PropertyName_ShipArmor
-    ChineseSimplified: "\u88C5\u7532"
-    English: 
-    Japanese: 
   - TextID: ShipHUD_DropTitle
     ChineseSimplified: "\u6389\u843D"
     English: 
@@ -369,5 +345,25 @@ MonoBehaviour:
     Japanese: 
   - TextID: ShipSelection_PropertyInfoTitle
     ChineseSimplified: "\u8230\u8239\u7279\u6027"
+    English: 
+    Japanese: 
+  - TextID: ShipSelectionProeprty_Unknow
+    ChineseSimplified: ???
+    English: 
+    Japanese: 
+  - TextID: ShipSelection_WeaponInfoTitle
+    ChineseSimplified: "\u6B66\u5668\u4FE1\u606F"
+    English: 
+    Japanese: 
+  - TextID: ShipSelection_Button_WeaponSelect
+    ChineseSimplified: "\u9009\u62E9\u6B66\u5668"
+    English: 
+    Japanese: 
+  - TextID: ShipSelection_Button_HardLevelSelect
+    ChineseSimplified: "\u6A21\u5F0F\u9009\u62E9"
+    English: 
+    Japanese: 
+  - TextID: HardLevel_ScoreTitle
+    ChineseSimplified: "\u96BE\u5EA6\u8BC4\u4F30"
     English: 
     Japanese: 

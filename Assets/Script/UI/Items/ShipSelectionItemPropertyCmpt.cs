@@ -15,13 +15,15 @@ public class ShipSelectionItemPropertyCmpt : MonoBehaviour, IPoolable
     private static Color blue_color = new Color(0, 0.9f, 1f);
     private static Color red_color = new Color(1, 0, 0);
 
+    private const string ShipSelectionProeprty_Unknow = "ShipSelectionProeprty_Unknow";
+
     public void Awake()
     {
         _icon = transform.Find("Icon").SafeGetComponent<Image>();
         _nameText = transform.Find("PropertyName").SafeGetComponent<TextMeshProUGUI>();
         _valueText = transform.Find("ValueContent/PropertyValue").SafeGetComponent<TextMeshProUGUI>();
     }
-    public void SetUp(PropertyModifyKey key, float value, bool modifyPercent)
+    public void SetUp(PropertyModifyKey key, float value, bool modifyPercent, bool unlock = true)
     {
         var targetValue = Mathf.RoundToInt(value);
         var cfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(key);
@@ -36,9 +38,18 @@ public class ShipSelectionItemPropertyCmpt : MonoBehaviour, IPoolable
                 _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.NameText);
             }
             _icon.sprite = cfg.Icon;
-            string figure = targetValue > 0 ? "+" : "";
-            _valueText.text = cfg.IsPercent ? string.Format("{0}{1}%", figure, targetValue) :
-                string.Format("{0}{1}", figure, targetValue);
+
+            if (!unlock)
+            {
+                ///Î´½âËøµÄÉèÖÃ£¿£¿
+                _valueText.text = LocalizationManager.Instance.GetTextValue(ShipSelectionProeprty_Unknow);
+            }
+            else
+            {
+                string figure = targetValue > 0 ? "+" : "";
+                _valueText.text = cfg.IsPercent ? string.Format("{0}{1}%", figure, targetValue) :
+                    string.Format("{0}{1}", figure, targetValue);
+            }
 
             Color targetColor;
             if (targetValue > 0)

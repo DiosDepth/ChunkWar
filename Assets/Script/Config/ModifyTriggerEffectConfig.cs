@@ -53,6 +53,11 @@ public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
     [LabelWidth(40)]
     public float Value;
 
+    [HorizontalGroup("AA", 150)]
+    [LabelText("¿‡–Õ")]
+    [LabelWidth(40)]
+    public PropertyModifyType ModifyType;
+
     public MTEC_AddPropertyValue(ModifyTriggerEffectType type) : base(type)
     {
 
@@ -60,7 +65,7 @@ public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
 
     public override void Excute(ModifyTriggerData data)
     {
-
+        RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 
 }

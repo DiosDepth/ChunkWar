@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class ShipPlugConfig : SerializedScriptableObject
 {
-    [ListDrawerSettings( NumberOfItemsPerPage = 15, CustomAddFunction = "AddItem")]
+    [ListDrawerSettings( NumberOfItemsPerPage = 10, CustomAddFunction = "AddItem")]
     [HideReferenceObjectPicker]
     [LabelText("插件列表")]
     public List<ShipPlugItemConfig> PlugConfigs = new List<ShipPlugItemConfig>();
@@ -51,6 +51,11 @@ public class ShipPlugItemConfig
     [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]
     [HideReferenceObjectPicker]
     public PropertyModifyConfig[] PropertyModify = new PropertyModifyConfig[0];
+
+    [FoldoutGroup("修正配置")]
+    [LabelText("效果描述")]
+    [LabelWidth(80)]
+    public string EffectDesc;
 
     [FoldoutGroup("修正配置")]
     [HorizontalGroup("修正配置/B", 500)]

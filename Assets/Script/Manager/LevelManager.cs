@@ -296,14 +296,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         isLevelUpdate = false;
         currentLevel.Unload();
 
-
-
-
-
         PoolManager.Instance.Recycle();
         GameObject.Destroy(currentLevel.gameObject);
         currentLevel = null;
-
     }
 
 

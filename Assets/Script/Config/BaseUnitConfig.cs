@@ -37,6 +37,15 @@ public class BaseUnitConfig : BaseConfig
     [HorizontalGroup("B", 150)]
     public bool redirection = true;
 
+    [LabelText("默认解锁")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 150)]
+    public bool UnlockDefault = true;
+
+    [LabelText("机制描述")]
+    [LabelWidth(80)]
+    public string ProertyDescText;
+
     [LabelText("建造笔刷图片")]
     [LabelWidth(80)]
     [HorizontalGroup("C", 150)]
@@ -52,7 +61,6 @@ public class BaseUnitConfig : BaseConfig
     [HorizontalGroup("D")]
     [EnumToggleButtons]
     public ItemTag ItemTags;
-
 
     [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/A", 200)]

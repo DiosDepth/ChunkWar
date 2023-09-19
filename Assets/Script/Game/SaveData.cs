@@ -11,6 +11,7 @@ public class GlobalSaveData
     public List<GameStatisticsSaveData> StatisticsSaveData = new List<GameStatisticsSaveData>();
     public List<ShipSaveData> ShipSaveData = new List<ShipSaveData>();
     public List<CampSaveData> CampSaveData = new List<CampSaveData>();
+    public List<UnitSaveData> UnitSaveDatas = new List<UnitSaveData>();
 
     public static GlobalSaveData GenerateNewSaveData()
     {
@@ -36,6 +37,7 @@ public class GlobalSaveData
             var shipSav = new ShipSaveData();
             shipSav.ShipID = shipCfg.ID;
             shipSav.Unlock = shipCfg.UnlockDefault;
+            shipSav.InitHardLevelSave();
             data.ShipSaveData.Add(shipSav);
         }
 
@@ -47,6 +49,16 @@ public class GlobalSaveData
             campSav.CampID = camp.CampID;
             campSav.Unlock = camp.Unlock;
             data.CampSaveData.Add(campSav);
+        }
+
+        var allUnits = DataManager.Instance.GetAllUnitConfigs();
+        for(int i = 0; i < allUnits.Count; i++)
+        {
+            var unit = allUnits[i];
+            var unitSav = new UnitSaveData();
+            unitSav.UnitID = unit.ID;
+            unitSav.Unlock = unit.UnlockDefault;
+            data.UnitSaveDatas.Add(unitSav);
         }
 
         return data;
@@ -68,6 +80,50 @@ public class GlobalSaveData
             shipSav.Unlock = true;
             Debug.Log("Unlock Ship , ID = " + shipID);
         }
+    }
+
+    public void SetUnitUnlock(int unitID)
+    {
+        var unitSav = UnitSaveDatas.Find(x => x.UnitID == unitID);
+        if(unitSav != null && !unitSav.Unlock)
+        {
+            unitSav.Unlock = true;
+        }
+    }
+
+    public bool GetShipUnlockState(int shipID)
+    {
+        var shipSav = ShipSaveData.Find(x => x.ShipID == shipID);
+        if (shipSav != null )
+        {
+            return shipSav.Unlock;
+        }
+        return false;
+    }
+
+    public bool GetUnitUnlockState(int unitID)
+    {
+        var unitSav = UnitSaveDatas.Find(x => x.UnitID == unitID);
+        if (unitSav != null)
+        {
+            return unitSav.Unlock;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 获取难度存档
+    /// </summary>
+    /// <param name="shipID"></param>
+    /// <param name="hardLevelID"></param>
+    /// <returns></returns>
+    public ShipHardLevelSave GetShipHardLevelSaveData(int shipID, int hardLevelID)
+    {
+        var shipSav = ShipSaveData.Find(x => x.ShipID == shipID);
+        if (shipSav != null)
+            return shipSav.HardLevelSaves.Find(x => x.HardLevelID == hardLevelID);
+
+        return null;
     }
 
     #endregion
@@ -99,13 +155,47 @@ public class GlobalSaveData
         {
             var shipItem = allShips[i];
 
-            if (ShipSaveData.Find(x => x.ShipID == shipItem.ID) != null)
+            ///Try CombineShipHardLevelCfg
+            var shipSav = ShipSaveData.Find(x => x.ShipID == shipItem.ID);
+            if (shipSav != null)
+            {
+                CombineShipHardLevelSave(ref shipSav);
                 continue;
+            }
 
             ShipSaveData newSav = new ShipSaveData();
             newSav.ShipID = shipItem.ID;
             newSav.Unlock = shipItem.UnlockDefault;
+            newSav.InitHardLevelSave();
             ShipSaveData.Add(newSav);
+        }
+    }
+
+    /// <summary>
+    /// 合并难度存档
+    /// </summary>
+    /// <param name="sav"></param>
+    private void CombineShipHardLevelSave(ref ShipSaveData sav)
+    {
+        var shipCfg = DataManager.Instance.GetShipConfig(sav.ShipID);
+        if (shipCfg == null)
+            return;
+
+        for (int i = 0; i < shipCfg.ShipHardLevels.Count; i++)
+        {
+            var level = shipCfg.ShipHardLevels[i];
+            var hardLevelSav = sav.HardLevelSaves.Find(x => x.HardLevelID == level);
+            if (hardLevelSav != null)
+                continue;
+
+            var hardLevelCfg = DataManager.Instance.battleCfg.GetHardLevelConfig(level);
+            if (hardLevelCfg != null)
+            {
+                ShipHardLevelSave newSav = new ShipHardLevelSave();
+                newSav.HardLevelID = level;
+                newSav.Unlock = hardLevelCfg.DefaultUnlock;
+                sav.HardLevelSaves.Add(newSav);
+            }
         }
     }
 
@@ -147,7 +237,43 @@ public class ShipSaveData
 {
     public int ShipID;
     public bool Unlock;
+    public List<ShipHardLevelSave> HardLevelSaves;
+
+    public void InitHardLevelSave()
+    {
+        HardLevelSaves = new List<ShipHardLevelSave>();
+        var shipCfg = DataManager.Instance.GetShipConfig(ShipID);
+        if (shipCfg == null)
+            return;
+
+        for (int i = 0; i < shipCfg.ShipHardLevels.Count; i++) 
+        {
+            var level = shipCfg.ShipHardLevels[i];
+            var hardLevelCfg = DataManager.Instance.battleCfg.GetHardLevelConfig(level);
+            if(hardLevelCfg != null)
+            {
+                ShipHardLevelSave sav = new ShipHardLevelSave();
+                sav.HardLevelID = level;
+                sav.Unlock = hardLevelCfg.DefaultUnlock;
+                HardLevelSaves.Add(sav);
+            }
+        }
+    }
 }
+
+public class ShipHardLevelSave
+{
+    public int HardLevelID;
+    public bool Unlock;
+    public bool Finish;
+}
+
+public class UnitSaveData
+{
+    public int UnitID;
+    public bool Unlock;
+}
+
 
 public class ShipMapData
 {

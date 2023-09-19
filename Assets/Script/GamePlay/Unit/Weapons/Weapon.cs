@@ -474,16 +474,6 @@ public class Weapon : Unit
             Debug.LogError(this.gameObject.name + " has no fire point!");
         }
 
-        if (_owner is PlayerShip)
-        {
-            var playerShip = _owner as PlayerShip;
-            if(playerShip.playerShipCfg.MainWeaponID == _weaponCfg.ID)
-            {
-                ///MainCore
-                InitCoreData();
-            }
-        }
-
         _firepointindex = 0;
         _targetindex = 0;
 
@@ -1218,7 +1208,7 @@ public class Weapon : Unit
     /// <summary>
     /// 初始化核心信息
     /// </summary>
-    private void InitCoreData()
+    public void InitCoreData()
     {
         HpComponent.BindHPChangeAction(OnPlayerCoreHPChange, false);
     }

@@ -26,6 +26,20 @@ public class HardLevelInfo
     }
 
     /// <summary>
+    /// 机制描述
+    /// </summary>
+    public string PropertyDesc
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(Cfg.PropertyDesc))
+                return string.Empty;
+
+            return LocalizationManager.Instance.GetTextValue(Cfg.PropertyDesc);
+        }
+    }
+
+    /// <summary>
     /// 波次数量
     /// </summary>
     public int WaveCount

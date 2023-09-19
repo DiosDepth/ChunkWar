@@ -24,27 +24,19 @@ MonoBehaviour:
   TextSetName: TextData_GeneralItems
   Texts:
   - TextID: ShipPlug_Name_1001
-    ChineseSimplified: "\u901F\u5C04\u88C5\u7F6E"
+    ChineseSimplified: "\u901F\u5C04\u5904\u7406\u82AF\u7247"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1002
-    ChineseSimplified: "\u706B\u63A7\u589E\u5E45\u5668"
+    ChineseSimplified: "\u4F5C\u6218\u5904\u7406\u5668\u2160\u578B"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1003
-    ChineseSimplified: "\u8D38\u6613\u534F\u5B9A"
+    ChineseSimplified: "\u51B7\u5374\u6DB2\u52A0\u901F"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1004
-    ChineseSimplified: "\u4F1A\u5458\u5361"
-    English: 
-    Japanese: 
-  - TextID: ShopGoods_Name_5
-    ChineseSimplified: "\u5546\u54C15"
-    English: 
-    Japanese: 
-  - TextID: ShopGoods_Name_6
-    ChineseSimplified: "\u5546\u54C16"
+    ChineseSimplified: "\u6B66\u5668\u8FC7\u8F7D\u82AF\u7247"
     English: 
     Japanese: 
   - TextID: Weapon_Name_10000
@@ -85,7 +77,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1005
-    ChineseSimplified: "\u96F7\u8FBE\u6A21\u5757"
+    ChineseSimplified: "\u4F5C\u6218\u5904\u7406\u5668\u2161\u578B"
     English: 
     Japanese: 
   - TextID: ShipPlug_Desc_1005
@@ -93,7 +85,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1006
-    ChineseSimplified: "\u9AD8\u6027\u80FD\u96F7\u8FBE"
+    ChineseSimplified: "\u8230\u4F53\u5FAA\u73AF"
     English: 
     Japanese: 
   - TextID: ShipPlug_Desc_1006
@@ -101,11 +93,11 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1007
-    ChineseSimplified: "\u5F3A\u5316\u8239\u4F53"
+    ChineseSimplified: "\u540C\u8C10\u4F5C\u6218\u7535\u8111"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1008
-    ChineseSimplified: "\u62A4\u76FE\u7535\u5BB9"
+    ChineseSimplified: "\u8D85\u9AD8\u901F\u4F5C\u6218\u5904\u7406\u5668"
     English: 
     Japanese: 
   - TextID: Weapon_Name_10005
@@ -125,7 +117,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1009
-    ChineseSimplified: "\u6B8B\u9AB8\u7CBE\u9009"
+    ChineseSimplified: "\u03B1-4\u51B7\u5374\u6DB2"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1010

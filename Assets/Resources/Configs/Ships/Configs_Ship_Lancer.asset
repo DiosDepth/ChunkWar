@@ -1445,11 +1445,11 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 21
   ShipClass: 0
   DropList: []
-  MainWeaponID: 1
   CorePlugID: 1
   PlayerShipCampID: 1
   UnlockDefault: 1
   EditorPrefab: {fileID: 7848178515196352761, guid: 3d71031a1815aff47994f021f8e6689f,
     type: 3}
   ShipPropertyDesc: ShipPropertyDesc_1
+  ShipHardLevels: 0100000002000000
   ShipEditorSprite: {fileID: 21300000, guid: e9db5fe636017584b8dc54e906789dda, type: 3}

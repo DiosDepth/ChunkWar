@@ -423,6 +423,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 2
   redirection: 0
+  UnlockDefault: 1
   EditBrushSprite: {fileID: 21300000, guid: ed410b6015fcbaa4381e119b367300f2, type: 3}
   EditorBrushDefaultRotation: 0
   ItemTags: 4

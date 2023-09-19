@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 7009226501520244410}
-  collider: {fileID: 0}
+  collider: {fileID: 6865249363655528701}
   controlledTarget: {fileID: 0}
   _refrotationspeed: 0
   _crossZ: 0

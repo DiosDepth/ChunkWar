@@ -19,6 +19,7 @@ public class ShopTeleport : PickableItem
         base.PickUp(picker);
         _hasEnterShop = true;
         Debug.Log("Enter Shop");
+        RogueManager.Instance.EnterShop();
         AfterPickUp(picker);  
     }
 

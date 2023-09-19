@@ -9,6 +9,8 @@ public static class GameHelper
     public static string ShopItemType_ShipPlug_Text = "ShopItemType_ShipPlug_Text";
     public static string ShopItemType_ShipBuilding_Text = "ShopItemType_ShipBuilding_Text";
     public static string ShopItemType_ShipWeapon_Text = "ShopItemType_ShipWeapon_Text";
+    public static string GeneralButton_Back_Text = "UI_General_Back";
+
     public static string Bool_True_Text = "Bool_True_Text";
     public static string Bool_False_Text = "Bool_False_Text";
 
@@ -294,10 +296,13 @@ public static class GameHelper
         return allShips.Select(x => (uint)x.ID).ToList();
     }
 
-    public static List<uint> GetAllHardLevels()
+    public static List<uint> GetAllHardLevelsByShipID(int shipID)
     {
-        var allHardLevel = GameManager.Instance.GetAllHardLevelInfos;
-        return allHardLevel.Select(x => (uint)x.HardLevelID).ToList();
+        var shipCfg = DataManager.Instance.GetShipConfig(shipID);
+        if (shipCfg == null)
+            return new List<uint>();
+
+        return shipCfg.ShipHardLevels.Select(x => (uint)x).ToList();
     }
 
     public static List<uint> GetRogueShipPlugItems()
@@ -326,6 +331,21 @@ public static class GameHelper
         
         var allItems = RogueManager.Instance.CurrentWreckageItems;
         result.AddRange( allItems.Values.Select(x => x.UID).ToList());
+        return result;
+    }
+
+    public static List<uint> GetAllMainWeaponItems()
+    {
+        List<uint> result = new List<uint>();
+        var allUnits = DataManager.Instance.GetAllUnitConfigs();
+        for(int i = 0; i < allUnits.Count; i++)
+        {
+            if(allUnits[i].unitType == UnitType.MainWeapons)
+            {
+                result.Add((uint)allUnits[i].ID);
+            }
+        }
+        result.Sort();
         return result;
     }
 

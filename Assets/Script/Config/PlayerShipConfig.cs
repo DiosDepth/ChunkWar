@@ -18,11 +18,6 @@ public class ShipUnitEditorPreivewItem
 public class PlayerShipConfig : BaseShipConfig
 {
 
-    [LabelText("主武器ID")]
-    [LabelWidth(80)]
-    [HorizontalGroup("B", 150)]
-    public int MainWeaponID;
-
     [LabelText("核心插件ID")]
     [LabelWidth(80)]
     [HorizontalGroup("B", 150)]
@@ -46,6 +41,10 @@ public class PlayerShipConfig : BaseShipConfig
     [LabelText("属性额外描述")]
     [LabelWidth(100)]
     public string ShipPropertyDesc;
+
+    [LabelText("舰船可用难度")]
+    [LabelWidth(100)]
+    public List<int> ShipHardLevels = new List<int>();
 
     [OnValueChanged("OnShipEditorSpriteChange")]
     public Sprite ShipEditorSprite;

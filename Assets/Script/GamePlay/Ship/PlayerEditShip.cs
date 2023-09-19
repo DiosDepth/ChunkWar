@@ -14,8 +14,6 @@ public class PlayerEditShip : PlayerShip
 
     public override void CreateShip()
     {
-
-        //初始化
         _chunkMap = new Chunk[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
         _unitList = new List<Unit>();
 
@@ -46,15 +44,6 @@ public class PlayerEditShip : PlayerShip
         for (int i = 0; i < UnitInfoList.Count; i++)
         {
             RestoreEditorUnitFromUnitInfo(UnitInfoList[i]);
-        }
-        //初始化主武器
-        if (mainWeapon == null)
-        {
-            var weaponID = playerShipCfg.MainWeaponID;
-            BaseUnitConfig weaponconfig;
-            DataManager.Instance.UnitConfigDataDic.TryGetValue(weaponID, out weaponconfig);
-            Vector2Int[] _reletivemap = weaponconfig.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
-            mainWeapon = AddEditUnit(weaponconfig, _reletivemap, _coreChunk.shipCoord, 0) as ShipWeapon;
         }
     }
 

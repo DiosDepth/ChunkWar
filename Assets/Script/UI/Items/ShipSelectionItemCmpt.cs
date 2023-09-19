@@ -46,11 +46,8 @@ public class ShipSelectionItemCmpt : EnhancedScrollerCellView, IHoverUIItem
             _classIcon.sprite = classCfg.ClassIcon;
         }
 
-        var savData = SaveLoadManager.Instance.globalSaveData.ShipSaveData.Find(x => x.ShipID == (int)ItemUID);
-        if(savData != null)
-        {
-            _lockTrans.SafeSetActive(!savData.Unlock);
-        }
+        var shipUnlock = SaveLoadManager.Instance.globalSaveData.GetShipUnlockState(ship.ID);
+        _lockTrans.SafeSetActive(!shipUnlock);
     }
 
     protected override void SelectedChanged(bool selected)
@@ -62,6 +59,10 @@ public class ShipSelectionItemCmpt : EnhancedScrollerCellView, IHoverUIItem
     private void OnButtonClick()
     {
         var shipCfg = DataManager.Instance.GetShipConfig((int)ItemUID);
+        var unlock = SaveLoadManager.Instance.globalSaveData.GetShipUnlockState(shipCfg.ID);
+        if (!unlock)
+            return;
+
         InventoryItem item = new InventoryItem(shipCfg);
         RogueManager.Instance.currentShipSelection = item;
         GeneralUIEvent.Trigger(UIEventType.ShipSelectionConfirm);

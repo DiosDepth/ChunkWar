@@ -6,7 +6,7 @@ using TMPro;
 
 public class HardLevelPropertyItemCmpt : MonoBehaviour,IPoolable
 {
-    private Text _nameText;
+    private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _valueText;
 
     private Color _color_green = new Color(0, 1, 0, 1);
@@ -14,8 +14,8 @@ public class HardLevelPropertyItemCmpt : MonoBehaviour,IPoolable
 
     public void Awake()
     {
-        _nameText = transform.Find("Name").SafeGetComponent<Text>();
-        _valueText = transform.Find("Value").SafeGetComponent<TextMeshProUGUI>();
+        _nameText = transform.Find("Name").SafeGetComponent<TextMeshProUGUI>();
+        _valueText = transform.Find("ValueBG/Value").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public void PoolableDestroy()

@@ -34,6 +34,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: ec61eadb7162bea48b41c2b9559d51c7, type: 3}
     - {fileID: 21300000, guid: a071c91c8b868b74da8cf837f4cfb1e0, type: 3}
     - {fileID: 21300000, guid: fb0894800bee3a24f8d3c969c2353dfc, type: 3}
+    - {fileID: 21300000, guid: fda083d8e658ad848b3b6cd85450dde5, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -58,9 +59,18 @@ MonoBehaviour:
     - Name: Desc
       Entry: 1
       Data: HardLevel_Desc_1
+    - Name: PropertyDesc
+      Entry: 6
+      Data: 
+    - Name: PreviewScore
+      Entry: 3
+      Data: 1000
     - Name: Icon
       Entry: 10
       Data: 0
+    - Name: DefaultUnlock
+      Entry: 5
+      Data: false
     - Name: LevelPresetID
       Entry: 3
       Data: 1
@@ -120,15 +130,24 @@ MonoBehaviour:
     - Name: Desc
       Entry: 1
       Data: HardLevel_Desc_2
+    - Name: PropertyDesc
+      Entry: 6
+      Data: 
+    - Name: PreviewScore
+      Entry: 3
+      Data: 1200
     - Name: Icon
       Entry: 10
       Data: 1
+    - Name: DefaultUnlock
+      Entry: 5
+      Data: false
     - Name: LevelPresetID
       Entry: 3
       Data: 2
     - Name: ScoreRatio
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: ModifyDic
       Entry: 7
       Data: 5|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
@@ -207,7 +226,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 17
+      Data: 20
     - Name: 
       Entry: 7
       Data: 
@@ -641,8 +660,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_ShipArmor
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_ShipArmor
     - Name: Icon
       Entry: 10
       Data: 15
@@ -719,6 +738,96 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 41
+    - Name: $v
+      Entry: 7
+      Data: 26|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ExplodeDamage
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_ExplodeDamage
+    - Name: Icon
+      Entry: 10
+      Data: 18
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 43
+    - Name: $v
+      Entry: 7
+      Data: 27|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EnemyCount
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 10
+      Data: 16
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 44
+    - Name: $v
+      Entry: 7
+      Data: 28|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EliteBossDamage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 10
+      Data: 10
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -728,7 +837,6 @@ MonoBehaviour:
   HarborMapTempUnitSlotCount: 6
   ShipLevelUp_GrowthItem_Count: 4
   HardLevelDeltaSeconds: 120
-  HardLevelWaveIndexMultiple: 20
   ShipMaxLevel: 50
   TransfixionReduce_Max: 0
   PlayerShip_ArmorDamageReduce_Param: 25
@@ -739,8 +847,6 @@ MonoBehaviour:
   ShipMinSuckerRange: 5
   ShipLoadBase: 50
   Drop_Waste_LoadCostBase: 0.1
-  EvolveRequireMap: 010408
-  EvolveAddMap: 01020408
   EXPMap: 0f00000019000000230000002d00000037000000640000006e000000
   ShipLevelUpGrowthItems:
   - Icon: {fileID: 21300000, guid: 4fc20a58e9f0eaf40876d8b8d7b90e67, type: 3}

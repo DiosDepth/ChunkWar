@@ -138,8 +138,11 @@ public class HardLevelConfig
     public int HardLevelID;
     public string Name;
     public string Desc;
+    public string PropertyDesc;
+    public int PreviewScore;
     public Sprite Icon;
 
+    public bool DefaultUnlock;
     public int LevelPresetID;
     public float ScoreRatio;
 

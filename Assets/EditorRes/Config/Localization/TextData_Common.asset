@@ -59,10 +59,6 @@ MonoBehaviour:
     ChineseSimplified: "\u6B66\u5668"
     English: 
     Japanese: 
-  - TextID: UI_WeaponProperty_Damage_Name
-    ChineseSimplified: "\u4F24\u5BB3"
-    English: 
-    Japanese: 
   - TextID: UI_WeaponProperty_Critical_Name
     ChineseSimplified: "\u66B4\u51FB | \u66B4\u51FB\u4F24\u5BB3"
     English: 

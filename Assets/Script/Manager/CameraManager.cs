@@ -72,7 +72,21 @@ public class CameraManager : Singleton<CameraManager>
         return vcam;
     }
 
+    public void SetFollowPlayerShip(float offsetX = 0)
+    {
+        var shipTrans = RogueManager.Instance.currentShip;
+        if (shipTrans == null)
+            return;
 
+        ChangeVCameraFollowTarget(shipTrans.transform);
+        vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = offsetX;
+        vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = 0;
+    }
+
+    public void SetOrthographicSize(int size)
+    {
+        vcam.m_Lens.OrthographicSize = size;
+    }
 
     public void ResetMainCamera()
     {
@@ -103,8 +117,6 @@ public class CameraManager : Singleton<CameraManager>
         }
         vcam.LookAt = target;
     }
-
-
 
     public void ChangeVCameraFollowTarget(Transform target, string vcamname = "InGameCMvcam")
     {

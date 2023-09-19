@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.Text;
 using UnityEngine.Events;
+using Cysharp.Threading.Tasks;
 
 public struct RogueEvent
 {
@@ -84,7 +85,9 @@ public class RogueManager : Singleton<RogueManager>
     public UnitPropertyData MainPropertyData;
     public ShipMapData ShipMapData;
     public SaveData saveData;
+
     public InventoryItem currentShipSelection;
+    public InventoryItem currentWeaponSelection;
     public PlayerShip currentShip;
     public LevelTimer Timer;
 
@@ -671,6 +674,10 @@ public class RogueManager : Singleton<RogueManager>
         LevelManager.Instance.CreateHarborPickUp();
         
         Timer.PauseAndSetZero();
+
+        LevelManager.Instance.CollectAllPickUps();
+        await UniTask.Delay(2000);
+
         ///无限波次等处理
         OnWaveStateChange?.Invoke(false);
     }
@@ -910,6 +917,22 @@ public class RogueManager : Singleton<RogueManager>
     #endregion
 
     #region Shop
+
+    /// <summary>
+    /// 进入商店
+    /// </summary>
+    public void EnterShop()
+    {
+        RefreshShop();
+        InputDispatcher.Instance.ChangeInputMode("UI");
+        CameraManager.Instance.SetFollowPlayerShip(-10);
+        CameraManager.Instance.SetOrthographicSize(20);
+        UIManager.Instance.HiddenUI("ShipHUD");
+        UIManager.Instance.ShowUI<ShopHUD>("ShopHUD", E_UI_Layer.Mid, this, (panel) => 
+        {
+            panel.Initialization();
+        });
+    }
 
     public ShopGoodsInfo GetShopGoodsInfo(int goodsID)
     {

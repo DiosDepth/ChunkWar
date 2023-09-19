@@ -5,44 +5,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
+public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 {
     private Transform _shopContentRoot;
     private TextMeshProUGUI _currencyText;
     private RectTransform _currencyContent;
-    private Text _rerollCostText;
+    private TextMeshProUGUI _rerollCostText;
     private EnhancedScroller _plugGridScroller;
-    private UnitDetailInfoPanel _detailPanel;
     private BuildSelectHoverCmpt _hoverCmpt;
 
 
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
-    /// <summary>
-    /// PropertyCmpt
-    /// </summary>
-    private List<ShipPropertyItemCmpt> propertyCmpts = new List<ShipPropertyItemCmpt>();
-    private List<ShipPropertyItemCmpt> propertySubCmpts = new List<ShipPropertyItemCmpt>();
-    private CanvasGroup _mainPropertyCanvas;
-    private CanvasGroup _subPropertyCanvas;
 
     private GeneralScrollerGirdItemController _plugGridController;
 
     protected override void Awake()
     {
         base.Awake();
-        _shopContentRoot = transform.Find("ShopPanel/ShopContent");
+        _shopContentRoot = transform.Find("ShopPanel/Content/Shop");
         _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
-        _mainPropertyCanvas = transform.Find("ShopPanel/PropertyGroup/PropertyPanel").SafeGetComponent<CanvasGroup>();
-        _subPropertyCanvas = transform.Find("ShopPanel/PropertyGroup/PropertySubPanel").SafeGetComponent<CanvasGroup>();
-        propertyCmpts = _mainPropertyCanvas.GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
-        propertySubCmpts = _subPropertyCanvas.GetComponentsInChildren<ShipPropertyItemCmpt>().ToList();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
-        _rerollCostText = GetGUIComponent<Text>("RerollCost");
+        _rerollCostText = transform.Find("ShopPanel/Top/Reroll/Reroll/RerollCost").SafeGetComponent<TextMeshProUGUI>();
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
-        _detailPanel = transform.Find("UnitDetailPanel/Content").SafeGetComponent<UnitDetailInfoPanel>();
     }
 
     public override void Initialization()
@@ -51,13 +38,9 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         this.EventStartListening<RogueEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
-        GetGUIComponent<Button>("MainPropertyBtn").onClick.AddListener(OnMainPropertyBtnClick);
-        GetGUIComponent<Button>("SubPropertyBtn").onClick.AddListener(OnSubPropertyBtnClick);
-        _detailPanel.Hide();
         _hoverCmpt.SetActive(false);
         InitShopContent();
         RefreshGeneral();
-        OnMainPropertyBtnClick();
     }
 
     public override void Hidden( )
@@ -100,15 +83,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
             case RogueEventType.RefreshShopWeaponInfo:
                 UI_WeaponUnitPropertyType type = (UI_WeaponUnitPropertyType)evt.param[0];
                 RefreshShopWeaponItemProperty(type);
-                break;
-
-            case RogueEventType.ShowUnitDetailPage:
-                BaseUnitConfig cfg = (BaseUnitConfig)evt.param[0];
-                ShowUnitDetailPanel(cfg);
-                break;
-
-            case RogueEventType.HideUnitDetailPage:
-                HideUnitDetailPage();
                 break;
 
             case RogueEventType.HoverUnitDisplay:
@@ -211,20 +185,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
         RogueManager.Instance.RefreshShop();
     }
 
-    private void OnMainPropertyBtnClick()
-    {
-        _mainPropertyCanvas.ActiveCanvasGroup(true);
-        _subPropertyCanvas.ActiveCanvasGroup(false);
-        propertyCmpts.ForEach(x => x.SetUp());
-    }
-
-    private void OnSubPropertyBtnClick()
-    {
-        _mainPropertyCanvas.ActiveCanvasGroup(false);
-        _subPropertyCanvas.ActiveCanvasGroup(true);
-        propertySubCmpts.ForEach(x => x.SetUp());
-    }
-
     /// <summary>
     /// 刷新插件物品栏
     /// </summary>
@@ -255,17 +215,6 @@ public class ShipBuilderHUD : GUIBasePanel, EventListener<RogueEvent>
                 item.RefreshWeaponProperty(type);
             }
         }
-    }
-
-    private void ShowUnitDetailPanel(BaseUnitConfig cfg)
-    {
-        _detailPanel.Show();
-        _detailPanel.SetUpInfo(cfg, 2);
-    }
-
-    private void HideUnitDetailPage()
-    {
-        _detailPanel.Hide();
     }
 
     /// <summary>

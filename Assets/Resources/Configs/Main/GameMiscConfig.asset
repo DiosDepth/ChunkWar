@@ -27,22 +27,22 @@ MonoBehaviour:
       Data: 0|BattleMiscRefreshConfig, Assembly-CSharp
     - Name: Harbor_Teleport_RandomRangeMin
       Entry: 4
-      Data: 0
+      Data: 20
     - Name: Harbor_Teleport_RandomRangeMax
       Entry: 4
-      Data: 0
+      Data: 40
     - Name: Shop_Teleport_RandomRangeMin
       Entry: 4
-      Data: 0
+      Data: 20
     - Name: Shop_Teleport_RandomRangeMax
       Entry: 4
-      Data: 0
+      Data: 40
     - Name: Shop_Teleport_StayTime
       Entry: 3
-      Data: 0
+      Data: 30
     - Name: Shop_Teleport_WarningTime
       Entry: 3
-      Data: 0
+      Data: 20
     - Name: 
       Entry: 8
       Data: 

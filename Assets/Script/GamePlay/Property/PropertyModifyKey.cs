@@ -122,9 +122,9 @@ public enum PropertyModifyKey
     /// </summary>
     ShieldArmor,
     /// <summary>
-    /// 总能量值
+    /// 总能量值消耗
     /// </summary>
-    EnergyTotalAdd,
+    EnergyCostAdd,
     /// <summary>
     /// 护盾能源消耗
     /// </summary>
@@ -148,4 +148,8 @@ public enum PropertyModifyKey
     /// 对精英和首领的伤害
     /// </summary>
     EliteBossDamage,
+    /// <summary>
+    /// 敌人速度
+    /// </summary>
+    EnemySpeed,
 }
