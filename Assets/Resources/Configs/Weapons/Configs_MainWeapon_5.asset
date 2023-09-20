@@ -417,11 +417,14 @@ MonoBehaviour:
     Name: Weapon_Name_005
     Desc: Weapon_Desc_005
     Rarity: 3
+    SortingOrder: 0
   Prefab: {fileID: 579860166384849233, guid: 09b292e606da8a94ebe39152c80461c8, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 2
   redirection: 0
+  UnlockDefault: 1
+  ProertyDescText: 
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   ItemTags: 4

@@ -19,6 +19,7 @@ public enum AvaliableBulletType
     BaseBullet_Player,
     BaseBullet02_Player,
     BaseBeam_Player,
+    BaseInstanceHit_Player,
     BaseHommingBullet_Player,
 }
 public class Bullet : MonoBehaviour,IPoolable

@@ -966,7 +966,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
-                    _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.SetTarget(target);
                     // _lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);
@@ -986,7 +986,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
-                    _lastbullet.InitialmoveDirection = _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.SetTarget(null);
                     //_lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);

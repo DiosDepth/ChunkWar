@@ -190,7 +190,7 @@ MonoBehaviour:
   movementType: 2
   lifeTime: 5
   maxSpeed: 45
-  rotSpeed: 1.5
+  rotSpeed: 15
   initialSpeed: 5
   acceleration: 0.25
   IsinterceptTarget: 1
