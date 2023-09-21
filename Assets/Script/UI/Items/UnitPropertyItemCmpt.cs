@@ -26,7 +26,7 @@ public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
 
     public void Awake()
     {
-        _nameText = transform.Find("Name").SafeGetComponent<TextMeshProUGUI>();
+        _nameText = transform.Find("NameBG/Name").SafeGetComponent<TextMeshProUGUI>();
         _valueText = transform.Find("Value").SafeGetComponent<TextMeshProUGUI>();
     }
 

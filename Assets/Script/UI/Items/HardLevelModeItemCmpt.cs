@@ -73,6 +73,14 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
 
     private void OnButtonClick()
     {
+        var currentSelectShip = RogueManager.Instance.currentShipSelection;
+        if (currentSelectShip == null)
+            return;
+
+        var hardLevelSav = SaveLoadManager.Instance.globalSaveData.GetShipHardLevelSaveData(currentSelectShip.itemconfig.ID, (int)ItemUID);
+        if (hardLevelSav == null || !hardLevelSav.Unlock)
+            return;
+
         (UIManager.Instance.GetGUIFromDic("HardLevelSelectPage") as HardLevelSelectPage).HardLevelGroup.interactable = false;
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
         var hardLevelInfo = GameManager.Instance.GetHardLevelInfoByID((int)ItemUID);

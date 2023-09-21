@@ -152,4 +152,8 @@ public enum PropertyModifyKey
     /// 敌人速度
     /// </summary>
     EnemySpeed,
+    /// <summary>
+    /// 指挥
+    /// </summary>
+    Command
 }

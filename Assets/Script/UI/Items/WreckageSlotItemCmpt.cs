@@ -28,26 +28,32 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _wasteValueText;
     private TextMeshProUGUI _wasteLoadValueText;
 
-    private RectTransform _mainContentRect;
+    private RectTransform _detailContentRect;
+    private Image _detailContentImage;
 
     private WreckageItemInfo _info;
+    private float ScrollHeight;
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
 
     public void Awake()
     {
-        _mainContentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
-        var _energyContent = transform.Find("Content/Info/Icon/Content");
-        _energyCostText = _energyContent.Find("Energy/EnergyValue").SafeGetComponent<TextMeshProUGUI>();
-        _loadCostText = _energyContent.Find("Load/LoadValue").SafeGetComponent<TextMeshProUGUI>();
+        ScrollHeight = transform.Find("Content/DetailInfo").SafeGetComponent<RectTransform>().rect.height;
+        _detailContentRect = transform.Find("Content/DetailInfo/Viewport/Content").SafeGetComponent<RectTransform>();
+        _detailContentImage = _detailContentRect.transform.SafeGetComponent<Image>();
+
+        _energyCostText = transform.Find("Content/Content/Energy/EnergyValue").SafeGetComponent<TextMeshProUGUI>();
+        _loadCostText = transform.Find("Content/Content/Load/LoadValue").SafeGetComponent<TextMeshProUGUI>();
 
         _wasteCanvas = transform.Find("WasteContent").SafeGetComponent<CanvasGroup>();
         _contentCanvas = transform.Find("Content").SafeGetComponent<CanvasGroup>();
         _icon = transform.Find("Content/Info/Icon/Image").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
-        _descText = transform.Find("Content/Desc").GetComponent<TextMeshProUGUI>();
+
+
+        _descText = _detailContentRect.Find("Desc").GetComponent<TextMeshProUGUI>();
         _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
         _sellText = transform.Find("Content/Sell/Value").SafeGetComponent<TextMeshProUGUI>();
-        _unitInfoRoot = transform.Find("Content/UnitInfo");
+        _unitInfoRoot = _detailContentRect.Find("UnitInfo");
 
         _wasteValueText = _wasteCanvas.transform.Find("Count/Value").SafeGetComponent<TextMeshProUGUI>();
         _wasteLoadValueText = _wasteCanvas.transform.Find("Load/Value").SafeGetComponent<TextMeshProUGUI>();
@@ -126,7 +132,10 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
         SetUpUintInfo(info.UnitConfig);
         await UniTask.WaitForFixedUpdate();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_mainContentRect);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_detailContentRect);
+
+        ///设置是否可以滑动
+        _detailContentImage.raycastTarget = _detailContentRect.rect.height > ScrollHeight;
     }
 
     /// <summary>

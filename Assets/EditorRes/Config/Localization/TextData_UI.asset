@@ -371,3 +371,11 @@ MonoBehaviour:
     ChineseSimplified: "\u672A\u89E3\u9501"
     English: 
     Japanese: 
+  - TextID: Wreckage_EnergyCost_Title
+    ChineseSimplified: "\u80FD\u8017"
+    English: 
+    Japanese: 
+  - TextID: Wreckage_LoadCost_Title
+    ChineseSimplified: "\u8D1F\u8F7D"
+    English: 
+    Japanese: 

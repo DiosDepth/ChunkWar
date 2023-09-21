@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShipPropertyItemCmpt : MonoBehaviour
+public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable
 {
     public PropertyModifyKey PropertyKey;
 
     private Image _icon;
-    private Text _nameText;
+    private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _valueText;
 
     private static Color _normalColor = Color.white;
@@ -19,11 +19,11 @@ public class ShipPropertyItemCmpt : MonoBehaviour
     public void Awake()
     {
         _icon = transform.Find("Icon").SafeGetComponent<Image>();
-        _nameText = transform.Find("Name").SafeGetComponent<Text>();
-        _valueText = transform.Find("Value").SafeGetComponent<TextMeshProUGUI>();
+        _nameText = transform.Find("Name").SafeGetComponent<TextMeshProUGUI>();
+        _valueText = transform.Find("ValueBG/Value").SafeGetComponent<TextMeshProUGUI>();
     }
 
-    public void SetUp()
+    public void Refresh()
     {
         var propertyData = RogueManager.Instance.MainPropertyData;
         var value = propertyData.GetPropertyFinal(PropertyKey);
@@ -37,7 +37,7 @@ public class ShipPropertyItemCmpt : MonoBehaviour
             _icon.sprite = cfg.Icon;
             _valueText.text = cfg.IsPercent ? string.Format("{0}%", targetValue) : targetValue.ToString();
 
-            if(targetValue > 0)
+            if (targetValue > 0)
             {
                 _valueText.color = cfg.ReverseColor ? _negativeColor : _positiveColor;
             }
@@ -50,6 +50,12 @@ public class ShipPropertyItemCmpt : MonoBehaviour
                 _valueText.color = cfg.ReverseColor ? _positiveColor : _negativeColor;
             }
         }
+    }
+
+    public void SetUp(PropertyModifyKey key)
+    {
+        this.PropertyKey = key;
+        Refresh();
     }
 
     public void OnDisable()
@@ -69,5 +75,20 @@ public class ShipPropertyItemCmpt : MonoBehaviour
         {
             _valueText.text = cfg.IsPercent ? string.Format("{0}%", targetValue) : targetValue.ToString();
         }
+    }
+
+    public void PoolableReset()
+    {
+
+    }
+
+    public void PoolableDestroy()
+    {
+        PoolManager.Instance.BackObject(gameObject.name, gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+
     }
 }
