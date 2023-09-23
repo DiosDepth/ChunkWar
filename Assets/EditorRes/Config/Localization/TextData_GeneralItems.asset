@@ -121,11 +121,11 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1010
-    ChineseSimplified: "\u4F18\u5316\u5B58\u50A8"
+    ChineseSimplified: "\u9AD8\u901F\u8235\u673A"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1011
-    ChineseSimplified: "\u8D1F\u8F7D\u8F6C\u5316"
+    ChineseSimplified: "\u4F18\u8D28\u71C3\u6599"
     English: 
     Japanese: 
   - TextID: ShipPlug_Desc_1011
@@ -133,19 +133,19 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1012
-    ChineseSimplified: "\u88C5\u5907\u4EA7\u751F\u7684\u8D1F\u8F7D-30%"
+    ChineseSimplified: "\u5F15\u64CE\u6539\u826F"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1013
-    ChineseSimplified: "\u62A4\u76FE\u786C\u5316"
+    ChineseSimplified: "\u96C6\u4E2D\u9632\u5FA1"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1014
-    ChineseSimplified: "\u7D27\u51D1\u578B\u62A4\u76FE\u5F3A\u5316\u5668"
+    ChineseSimplified: "\u8D85\u8F7D\u8865\u507F\u5668"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1015
-    ChineseSimplified: "\u62A4\u76FE\u9635\u5217"
+    ChineseSimplified: "\u7ED3\u6784\u91CD\u7EC4"
     English: 
     Japanese: 
   - TextID: CampName_001
@@ -223,5 +223,37 @@ MonoBehaviour:
     Japanese: 
   - TextID: Weapon_Name_10027
     ChineseSimplified: "\u5C0F\u578B\u6FC0\u5149T3"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1016
+    ChineseSimplified: "\u706B\u63A7\u589E\u5E45\u5668"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1017
+    ChineseSimplified: "\u88C5\u7532\u5BFC\u80FD"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1018
+    ChineseSimplified: "\u8F7B\u578B\u7ED3\u6784"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1019
+    ChineseSimplified: "\u8FDB\u653B\u7B97\u6CD5\u4F18\u5316"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1020
+    ChineseSimplified: "\u03A9\u5BFC\u80FD\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1021
+    ChineseSimplified: "\u4F5C\u6218\u5206\u6790\u7535\u8111"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1022
+    ChineseSimplified: "\u4F0A\u7538\u706B\u63A7\u6838\u5FC3"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1023
+    ChineseSimplified: "\u9AD8\u9636\u540C\u6B65\u5904\u7406\u5668"
     English: 
     Japanese: 

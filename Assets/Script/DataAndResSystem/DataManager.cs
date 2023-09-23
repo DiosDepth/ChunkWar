@@ -96,6 +96,25 @@ public class DataManager : Singleton<DataManager>
         return sumDataLength / totalDataLength;
     }
 
+#if UNITY_EDITOR
+
+    public void LoadShipPlugConfig_Editor()
+    {
+        shipPlugCfg = ResManager.Instance.Load<ShipPlugConfig>(DataConfigPath.ShipPlugMainConfigPath);
+        if (shipPlugCfg != null)
+        {
+            var plug = shipPlugCfg.PlugConfigs;
+            for (int i = 0; i < plug.Count; i++)
+            {
+                if (!_shipPlugDic.ContainsKey(plug[i].ID))
+                {
+                    _shipPlugDic.Add(plug[i].ID, plug[i]);
+                }
+            }
+        }
+    }
+#endif
+
     private void LoadMiscData()
     {
         battleCfg = ResManager.Instance.Load<BattleMainConfig>(DataConfigPath.BattleMainConfigPath);

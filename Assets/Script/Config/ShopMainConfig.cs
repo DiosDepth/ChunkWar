@@ -1,10 +1,29 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 public class ShopMainConfig : SerializedScriptableObject
 {
+#if UNITY_EDITOR
+    private const string ShopPropertyItemConfigPath = "Assets/EditorRes/Misc/ShopPropertyEditorItem.asset";
+
+    private static ShopPropertyEditorItem _propertyItem;
+    public static ShopPropertyEditorItem PropertyItem
+    {
+        get
+        {
+            if (_propertyItem == null)
+                _propertyItem = AssetDatabase.LoadAssetAtPath<ShopPropertyEditorItem>(ShopPropertyItemConfigPath);
+
+            return _propertyItem;
+        }
+    }
+#endif 
+
     [LabelText("每次刷新增加 波次乘参数")]
     public float RollCostIncreaceWaveParam = 0.5f;
 
@@ -80,6 +99,40 @@ public class ShopGoodsItemConfig
     [TableColumnWidth(100, false)]
     [HideIf("Unique")]
     public int MaxBuyCount = -1;
+
+#if UNITY_EDITOR
+
+    [TableColumnWidth(150,false)]
+    [ReadOnly]
+    [ShowInInspector]
+    private float CostValue;
+
+    [OnInspectorInit]
+    private void OnInit()
+    {
+        CostValue = 0;
+        if(GoodID != 0 && ItemType == GoodsItemType.ShipPlug)
+        {
+            var items = DataManager.Instance.GetShipPlugItemConfig(TypeID);
+            if(items != null)
+            {
+                var propertyCfg = items.PropertyModify;
+                if(propertyCfg != null && propertyCfg.Length > 0)
+                {
+                    for(int i = 0; i < propertyCfg.Length; i++)
+                    {
+                        var value = ShopMainConfig.PropertyItem.GetPropertyValue(propertyCfg[i].ModifyKey);
+                        if (!propertyCfg[i].BySpecialValue)
+                        {
+                            CostValue += propertyCfg[i].Value * value;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+#endif
 
 }
 

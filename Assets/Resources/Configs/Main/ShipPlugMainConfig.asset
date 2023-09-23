@@ -31,7 +31,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 26
     - Name: 
       Entry: 7
       Data: 1|ShipPlugItemConfig, Assembly-CSharp
@@ -937,49 +937,7 @@ MonoBehaviour:
       Data: 58|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 59|PropertyModifyConfig, Assembly-CSharp
-    - Name: ModifyKey
-      Entry: 3
-      Data: 7
-    - Name: Value
-      Entry: 4
-      Data: -8
-    - Name: BySpecialValue
-      Entry: 5
-      Data: false
-    - Name: SpecialType
-      Entry: 3
       Data: 0
-    - Name: SpecialKeyParam
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 60|PropertyModifyConfig, Assembly-CSharp
-    - Name: ModifyKey
-      Entry: 3
-      Data: 27
-    - Name: Value
-      Entry: 4
-      Data: 5
-    - Name: BySpecialValue
-      Entry: 5
-      Data: false
-    - Name: SpecialType
-      Entry: 3
-      Data: 0
-    - Name: SpecialKeyParam
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -991,7 +949,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 61|PropertyModifyConfig[], Assembly-CSharp
+      Data: 59|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1003,145 +961,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 62|ModifyTriggerConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 63|ShipPlugItemConfig, Assembly-CSharp
-    - Name: ID
-      Entry: 3
-      Data: 1005
-    - Name: GeneralConfig
-      Entry: 7
-      Data: 64|GeneralItemConfig, Assembly-CSharp
-    - Name: IconSprite
-      Entry: 10
-      Data: 0
-    - Name: Name
-      Entry: 1
-      Data: ShipPlug_Name_1005
-    - Name: Desc
-      Entry: 6
-      Data: 
-    - Name: Rarity
-      Entry: 3
-      Data: 0
-    - Name: SortingOrder
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PropertyModify
-      Entry: 7
-      Data: 65|PropertyModifyConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 66|PropertyModifyConfig, Assembly-CSharp
-    - Name: ModifyKey
-      Entry: 3
-      Data: 8
-    - Name: Value
-      Entry: 4
-      Data: 10
-    - Name: BySpecialValue
-      Entry: 5
-      Data: false
-    - Name: SpecialType
-      Entry: 3
-      Data: 0
-    - Name: SpecialKeyParam
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 67|PropertyModifyConfig, Assembly-CSharp
-    - Name: ModifyKey
-      Entry: 3
-      Data: 5
-    - Name: Value
-      Entry: 4
-      Data: 10
-    - Name: BySpecialValue
-      Entry: 5
-      Data: false
-    - Name: SpecialType
-      Entry: 3
-      Data: 0
-    - Name: SpecialKeyParam
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 68|PropertyModifyConfig, Assembly-CSharp
-    - Name: ModifyKey
-      Entry: 3
-      Data: 3
-    - Name: Value
-      Entry: 4
-      Data: -5
-    - Name: BySpecialValue
-      Entry: 5
-      Data: false
-    - Name: SpecialType
-      Entry: 3
-      Data: 0
-    - Name: SpecialKeyParam
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: EffectDesc
-      Entry: 6
-      Data: 
-    - Name: PropertyPercentModify
-      Entry: 7
-      Data: 69|PropertyModifyConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ModifyTriggers
-      Entry: 7
-      Data: 70|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 60|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 71|MTC_Timer, Assembly-CSharp
+      Data: 61|MTC_Timer, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 6
@@ -1150,13 +976,13 @@ MonoBehaviour:
       Data: -1
     - Name: Effects
       Entry: 7
-      Data: 72|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 62|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 73|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 63|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -1174,7 +1000,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 74|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 64|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -1219,13 +1045,145 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 75|ShipPlugItemConfig, Assembly-CSharp
+      Data: 65|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1005
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 66|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 10
+      Data: 0
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1005
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 67|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 68|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 8
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 69|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 5
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 70|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 3
+    - Name: Value
+      Entry: 4
+      Data: -5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 71|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 72|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 73|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1006
     - Name: GeneralConfig
       Entry: 7
-      Data: 76|GeneralItemConfig, Assembly-CSharp
+      Data: 74|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 0
@@ -1246,13 +1204,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 77|PropertyModifyConfig[], Assembly-CSharp
+      Data: 75|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 78|PropertyModifyConfig, Assembly-CSharp
+      Data: 76|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -1273,7 +1231,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 79|PropertyModifyConfig, Assembly-CSharp
+      Data: 77|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -1294,7 +1252,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 80|PropertyModifyConfig, Assembly-CSharp
+      Data: 78|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 39
@@ -1315,7 +1273,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 81|PropertyModifyConfig, Assembly-CSharp
+      Data: 79|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -1336,7 +1294,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 82|PropertyModifyConfig, Assembly-CSharp
+      Data: 80|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -1366,7 +1324,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 83|PropertyModifyConfig[], Assembly-CSharp
+      Data: 81|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1378,7 +1336,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 84|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 82|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1393,13 +1351,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 85|ShipPlugItemConfig, Assembly-CSharp
+      Data: 83|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1007
     - Name: GeneralConfig
       Entry: 7
-      Data: 86|GeneralItemConfig, Assembly-CSharp
+      Data: 84|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 6
       Data: 
@@ -1420,13 +1378,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 87|PropertyModifyConfig[], Assembly-CSharp
+      Data: 85|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 88|PropertyModifyConfig, Assembly-CSharp
+      Data: 86|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -1447,7 +1405,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 89|PropertyModifyConfig, Assembly-CSharp
+      Data: 87|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 45
@@ -1477,7 +1435,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 90|PropertyModifyConfig[], Assembly-CSharp
+      Data: 88|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1489,7 +1447,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 91|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 89|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1504,13 +1462,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 92|ShipPlugItemConfig, Assembly-CSharp
+      Data: 90|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1008
     - Name: GeneralConfig
       Entry: 7
-      Data: 93|GeneralItemConfig, Assembly-CSharp
+      Data: 91|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 6
       Data: 
@@ -1531,7 +1489,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 94|PropertyModifyConfig[], Assembly-CSharp
+      Data: 92|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1546,7 +1504,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 95|PropertyModifyConfig[], Assembly-CSharp
+      Data: 93|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1558,13 +1516,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 96|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 94|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 97|MTC_PropertyTransfer, Assembly-CSharp
+      Data: 95|MTC_PropertyTransfer, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 3
@@ -1573,7 +1531,7 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 98|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 96|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1609,13 +1567,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 99|ShipPlugItemConfig, Assembly-CSharp
+      Data: 97|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1009
     - Name: GeneralConfig
       Entry: 7
-      Data: 100|GeneralItemConfig, Assembly-CSharp
+      Data: 98|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 6
       Data: 
@@ -1636,13 +1594,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 101|PropertyModifyConfig[], Assembly-CSharp
+      Data: 99|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 102|PropertyModifyConfig, Assembly-CSharp
+      Data: 100|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -1663,7 +1621,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 103|PropertyModifyConfig, Assembly-CSharp
+      Data: 101|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -1693,7 +1651,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 104|PropertyModifyConfig[], Assembly-CSharp
+      Data: 102|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1705,7 +1663,1633 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 105|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 103|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 104|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1010
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 105|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1010
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 106|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 107|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 38
+    - Name: Value
+      Entry: 4
+      Data: 3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 108|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 39
+    - Name: Value
+      Entry: 4
+      Data: 2
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 109|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 31
+    - Name: Value
+      Entry: 4
+      Data: -1
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 110|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 111|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 112|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1011
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 113|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1011
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 114|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 115|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 38
+    - Name: Value
+      Entry: 4
+      Data: 2
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 116|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 20
+    - Name: Value
+      Entry: 4
+      Data: 0
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 117|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 118|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 119|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1012
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 120|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1012
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 1
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 121|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 122|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 38
+    - Name: Value
+      Entry: 4
+      Data: 5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 123|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 36
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 124|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 125|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 126|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1013
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 127|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1013
+    - Name: Desc
+      Entry: 1
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 2
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 128|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 1
+      Data: ShipPlug_EffectDesc_1013
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 129|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 130|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 131|MTC_PropertyTransfer, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 3
+    - Name: TriggerCount
+      Entry: 3
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 132|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: BaseProperty
+      Entry: 3
+      Data: 38
+    - Name: BaseValuePer
+      Entry: 4
+      Data: -5
+    - Name: TargetProperty
+      Entry: 3
+      Data: 31
+    - Name: TargetValuePer
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 133|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1014
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 134|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1014
+    - Name: Desc
+      Entry: 1
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 2
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 135|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 1
+      Data: ShipPlug_EffectDesc_1014
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 136|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 137|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 138|MTC_PropertyTransfer, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 3
+    - Name: TriggerCount
+      Entry: 3
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 139|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: BaseProperty
+      Entry: 3
+      Data: 38
+    - Name: BaseValuePer
+      Entry: 4
+      Data: 2
+    - Name: TargetProperty
+      Entry: 3
+      Data: 8
+    - Name: TargetValuePer
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 140|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1015
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 141|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1015
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 3
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 142|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 143|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 31
+    - Name: Value
+      Entry: 4
+      Data: 3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 144|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 38
+    - Name: Value
+      Entry: 4
+      Data: 3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 145|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 3
+    - Name: Value
+      Entry: 4
+      Data: 5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 146|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 147|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 148|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 149|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1016
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 150|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1016
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 151|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 152|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 153|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 19
+    - Name: Value
+      Entry: 4
+      Data: 5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 154|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 155|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 156|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1017
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 157|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1017
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 0
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 158|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 159|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 8
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 160|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 3
+    - Name: Value
+      Entry: 4
+      Data: 2
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 161|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 31
+    - Name: Value
+      Entry: 4
+      Data: -1
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 162|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 163|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 164|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1018
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 165|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1018
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 1
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 166|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 167|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 15
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 168|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 38
+    - Name: Value
+      Entry: 4
+      Data: 3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 169|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 1
+    - Name: Value
+      Entry: 4
+      Data: -100
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 170|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 171|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 172|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1019
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 173|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1019
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 1
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 174|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 175|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 176|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 3
+    - Name: Value
+      Entry: 4
+      Data: 3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 177|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 178|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 179|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1020
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 180|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1020
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 2
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 181|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 182|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 6
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 183|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 19
+    - Name: Value
+      Entry: 4
+      Data: -10
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 184|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 3
+    - Name: Value
+      Entry: 4
+      Data: -3
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 185|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 186|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 187|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1021
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 188|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1021
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 2
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 189|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 190|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 191|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 192|MTC_OnKillEnemy, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 0
+    - Name: TriggerCount
+      Entry: 3
+      Data: -1
+    - Name: Effects
+      Entry: 7
+      Data: 193|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 194|MTEC_AddPropertyValue, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 0
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 1
+    - Name: ModifyType
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: IsLoop
+      Entry: 5
+      Data: true
+    - Name: TriggerRequireCount
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 195|ShipPlugItemConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1022
+    - Name: GeneralConfig
+      Entry: 7
+      Data: 196|GeneralItemConfig, Assembly-CSharp
+    - Name: IconSprite
+      Entry: 6
+      Data: 
+    - Name: Name
+      Entry: 1
+      Data: ShipPlug_Name_1022
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: Rarity
+      Entry: 3
+      Data: 3
+    - Name: SortingOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyModify
+      Entry: 7
+      Data: 197|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 198|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 2
+    - Name: Value
+      Entry: 4
+      Data: 15
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 199|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 16
+    - Name: Value
+      Entry: 4
+      Data: 2
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 200|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 15
+    - Name: Value
+      Entry: 4
+      Data: 2
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 201|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 8
+    - Name: Value
+      Entry: 4
+      Data: 5
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 202|PropertyModifyConfig, Assembly-CSharp
+    - Name: ModifyKey
+      Entry: 3
+      Data: 19
+    - Name: Value
+      Entry: 4
+      Data: 30
+    - Name: BySpecialValue
+      Entry: 5
+      Data: false
+    - Name: SpecialType
+      Entry: 3
+      Data: 0
+    - Name: SpecialKeyParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: EffectDesc
+      Entry: 6
+      Data: 
+    - Name: PropertyPercentModify
+      Entry: 7
+      Data: 203|PropertyModifyConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 204|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

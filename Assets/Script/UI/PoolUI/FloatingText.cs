@@ -15,13 +15,13 @@ public class FloatingText : GUIBasePanel,IPoolable
     protected override void Awake()
     {
         base.Awake();
-        _text = transform.Find("uiGroup/Textinfo").SafeGetComponent<TextMeshProUGUI>();
+        
     }
 
     public override void Initialization()
     {
         base.Initialization();
-        
+        _text = transform.Find("uiGroup/Textinfo").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public override void Show()

@@ -434,7 +434,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
             {
                 panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
-
+                panel.Initialization();
                 panel.SetText(Mathf.Abs(Damage), critical);
                 panel.Show();
 

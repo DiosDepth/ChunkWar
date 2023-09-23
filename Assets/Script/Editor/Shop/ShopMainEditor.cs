@@ -29,6 +29,7 @@ public class ShopMainEditor : OdinEditorWindow
     {
         base.Initialize();
         ShopCfg = AssetDatabase.LoadAssetAtPath<ShopMainConfig>(ShopConfigPath);
+        DataManager.Instance.LoadShipPlugConfig_Editor();
     }
 
     [OnInspectorDispose]
