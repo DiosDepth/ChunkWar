@@ -21,6 +21,7 @@ public enum AvaliableBulletType
     BaseBeam_Player,
     BaseInstanceHit_Player,
     BaseHommingBullet_Player,
+    BaseChainBeam_Player,
 }
 public class Bullet : MonoBehaviour,IPoolable
 {
@@ -31,13 +32,14 @@ public class Bullet : MonoBehaviour,IPoolable
     public string HitVFX = "HitVFX";
     public string DeathVFX = "HitVFX";
     protected Unit _owner;
+    protected GameObject firepoint;
 
     public GameObject target;
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     protected Vector2 _initialmoveDirection = Vector2.up;
 
 
-
+    protected bool _isUpdate;
     public virtual void Initialization()
     {
         if(ownertype == OwnerType.AI && _owner is AIWeapon)
@@ -58,6 +60,10 @@ public class Bullet : MonoBehaviour,IPoolable
     public virtual void SetTarget(GameObject m_target)
     {
         target = m_target;
+    }
+    public virtual void SetFirePoint(GameObject m_firepoint)
+    {
+        firepoint = m_firepoint;
     }
     public virtual void Shoot()
     {

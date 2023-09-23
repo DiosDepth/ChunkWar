@@ -145,16 +145,16 @@ MonoBehaviour:
   occupiedCoords: []
   currentEvolvePoints: 0
   weaponmode: 1
-  firemode: 1
+  firemode: 0
   aimingtype: 2
-  bulletType: 6
-  targetmode: 1
+  bulletType: 8
+  targetmode: 0
   mask:
     serializedVersion: 2
     m_Bits: 128
   firePoint:
   - {fileID: 5020116889135989133}
-  scatter: 5
+  scatter: 0
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0

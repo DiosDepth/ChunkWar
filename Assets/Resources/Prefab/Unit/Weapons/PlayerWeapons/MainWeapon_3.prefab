@@ -193,7 +193,7 @@ MonoBehaviour:
   - {fileID: 8026445630799378438}
   - {fileID: 8093382484892464697}
   - {fileID: 8282748450876661928}
-  scatter: 30
+  scatter: 0
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0

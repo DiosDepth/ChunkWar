@@ -743,6 +743,7 @@ public class Weapon : Unit
             if(magazine <=0 )
             {
                 weaponstate.ChangeState(WeaponState.End);
+                return;
                 //ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
             }
         }
@@ -917,6 +918,8 @@ public class Weapon : Unit
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    _lastbullet.SetFirePoint(trs.gameObject);
                     _lastbullet.SetTarget(target);
                     //_lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);
@@ -940,6 +943,8 @@ public class Weapon : Unit
                         obj.transform.SetTransform(trs);
                         _lastbullet = obj.GetComponent<Bullet>();
                         _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                        _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                        _lastbullet.SetFirePoint(trs.gameObject);
                         _lastbullet.SetTarget(null);
                         _lastbullet.SetOwner(this);
                         // _lastbullet.PoolableSetActive();
@@ -967,6 +972,8 @@ public class Weapon : Unit
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    _lastbullet.SetFirePoint(trs.gameObject);
                     _lastbullet.SetTarget(target);
                     // _lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);
@@ -987,6 +994,8 @@ public class Weapon : Unit
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    _lastbullet.SetFirePoint(trs.gameObject);
                     _lastbullet.SetTarget(null);
                     //_lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);
@@ -1104,6 +1113,7 @@ public class Weapon : Unit
         //Debug.Log(this.gameObject + " : WeaponEnd");
         _firepointindex = 0;
         _targetindex = 0;
+       
         if(_betweenDelayCounter >0)
         {
             _betweenDelayCounter -= Time.deltaTime;
