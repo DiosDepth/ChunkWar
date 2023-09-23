@@ -63,19 +63,19 @@ MonoBehaviour:
       Data: 1
     - Name: DurationDelta
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: LoopCount
       Entry: 3
-      Data: 7
+      Data: 1
     - Name: StartTime
       Entry: 3
       Data: 1
     - Name: TotalCount
       Entry: 3
-      Data: 15
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
-      Data: 5
+      Data: 1
     - Name: SpawnShpe
       Entry: 3
       Data: 0

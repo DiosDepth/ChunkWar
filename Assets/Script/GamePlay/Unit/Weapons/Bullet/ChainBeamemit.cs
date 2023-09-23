@@ -25,7 +25,7 @@ public class ChainBeamemit : Bullet
 
   
     private float _targetDistance;
-    private float _tempRaytFrequenceStamp;
+    private float _tempRaytFrequenceStamp = float.MinValue;
     private Vector2 _direction;
 
     public override void Shoot()
@@ -48,15 +48,10 @@ public class ChainBeamemit : Bullet
 
     }
 
-
-
     public void TargetBaseBeam()
     {
         beamline.startWidth = width;
         beamline.endWidth = width;
-        _targetDistance = MathExtensionTools.DistanceXY(target.transform.position, transform.position);
-
-        _tempRaytFrequenceStamp = Time.time;
 
         float beamPointPos = 0;
         LeanTween.value(0, maxDistance, emittime).setOnUpdate((value) =>
@@ -66,7 +61,8 @@ public class ChainBeamemit : Bullet
             {
                 _tempRaytFrequenceStamp = Time.time;
 
-                hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
+                _direction = MathExtensionTools.DirectionToXY(transform.position, target.transform.position);
+                hitlist = Physics2D.RaycastAll(transform.position, _direction, maxDistance, mask);
 
                 //Find First hit Target;
                 if (hitlist != null && hitlist?.Length > 0)
@@ -84,37 +80,46 @@ public class ChainBeamemit : Bullet
                         }
                     }
                 }
-                if( hit.transform.gameObject != null)
+            }
+
+            if( hit)
+            {
+                //≈–∂œæ‡¿Î
+                _targetDistance = MathExtensionTools.DistanceXY(hit.transform.position, transform.position);
+
+                if ( value > _targetDistance)
                 {
-                    //≈–∂œæ‡¿Î
-                    _targetDistance = MathExtensionTools.DistanceXY(hit.transform.position, transform.position);
-
-                    if ( value > _targetDistance)
-                    {
-                        beamPointPos = _targetDistance;
-                        maxDistance = beamPointPos;
-                    }
-
-                    PlayVFX(HitVFX, hitlist[i].point);
-
-                    //≤˙…˙…À∫¶
-                    if (_owner is Weapon)
-                    {
-                        var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                        hit.collider.GetComponent<IDamageble>()?.TakeDamage(ref damage);
-                    }
-                    _isUpdate = true;
+                    beamPointPos = _targetDistance;
+                    maxDistance = beamPointPos;
                 }
                 else
                 {
                     beamPointPos = value;
                 }
             }
+            else
+            {
+                beamPointPos = value;
+            }
+            
 
             beamline.SetPosition(1, new Vector3(0, beamPointPos, 0));
 
         }).setOnComplete(() =>
         {
+            if(hit)
+            {
+                PlayVFX(HitVFX, hit.transform.position);
+
+                //≤˙…˙…À∫¶
+                if (_owner is Weapon)
+                {
+                    var damage = (_owner as Weapon).weaponAttribute.GetDamage();
+                    hit.collider.GetComponent<IDamageble>()?.TakeDamage(ref damage);
+                }
+                _isUpdate = true;
+            }
+
             LeanTween.delayedCall(duration, () =>
             {
                 //¥¥Ω®…‰œﬂ
@@ -139,7 +144,7 @@ public class ChainBeamemit : Bullet
     }
     public override void Death()
     {
-
+ 
         PoolableDestroy();
     }
 
@@ -157,16 +162,20 @@ public class ChainBeamemit : Bullet
     // Update is called once per frame
     protected override void Update()
     {
-        if(!_isUpdate)
+        transform.position = firepoint.transform.position;
+        if (!_isUpdate)
         {
             return;
         }
         base.Update();
-        transform.position = firepoint.transform.position;
+
         //_targetDistance = MathExtensionTools.DistanceXY(target.transform.position, transform.position);
         _direction = MathExtensionTools.DirectionToXY(transform.position, target.transform.position);
 
         transform.rotation = MathExtensionTools.GetRotationFromDirection(_direction);
+
+        _targetDistance = MathExtensionTools.DistanceXY(hit.transform.position, transform.position);
+        beamline.SetPosition(1, new Vector3(0, _targetDistance, 0));
         //update start Position
         //update End Position
         //update rotation
@@ -180,6 +189,11 @@ public class ChainBeamemit : Bullet
         beamline.startWidth = 1;
         beamline.endWidth = 1;
         beamline.SetPosition(1, Vector3.zero);
+        beamline.SetPosition(0, Vector3.zero);
+        hit = new RaycastHit2D();
+        maxDistance = (_owner as Weapon).weaponAttribute.WeaponRange;
+        _tempRaytFrequenceStamp = float.MinValue;
+        _isUpdate = false;
         base.PoolableReset();
     }
 
