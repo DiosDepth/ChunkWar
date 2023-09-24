@@ -1,4 +1,5 @@
 using Sirenix.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,8 @@ public class ShipWeapon : Weapon
     public NativeList<float> activeWeaponAttackRangeList;
     public NativeList<float3> activeWeaponPosList;
     public NativeList<int> activeWeaponTargetCountList;
-    public NativeArray<Weapon.RV_WeaponTargetInfo> rv_weaponTargetsInfo;
-    public NativeArray<int> rv_validTargetCount;
+    public NativeQueue<Weapon.RV_WeaponTargetInfo> rv_weaponTargetsInfoQue;
+
 
 
     private List<Weapon.RV_WeaponTargetInfo> targetListcandidator = new List<RV_WeaponTargetInfo>();
@@ -62,64 +63,78 @@ public class ShipWeapon : Weapon
     {
         // searching for targets
 
-        rv_weaponTargetsInfo = new NativeArray<Weapon.RV_WeaponTargetInfo>(AIManager.Instance.aiActiveUnitPos.Length , Allocator.TempJob);
-        rv_validTargetCount = new NativeArray<int>(1, Allocator.TempJob);
+        rv_weaponTargetsInfoQue = new NativeQueue<RV_WeaponTargetInfo>(Allocator.TempJob);
+  
 
         FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
         {
             job_attackRange = weaponAttribute.WeaponRange,
             job_selfPos = transform.position,
             job_targetsPos = AIManager.Instance.aiActiveUnitPos,
-            rv_validIndex = rv_validTargetCount,
-            rv_targetsInfo = rv_weaponTargetsInfo,
+            rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),
 
         };
 
         JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(AIManager.Instance.aiActiveUnitPos.Length, 2);
         jobHandle.Complete();
 
-        targetList.Clear();
-        targetListcandidator.Clear();
 
+
+        if(rv_weaponTargetsInfoQue.Count == 0)
+        {
+            return;
+        }
+
+        Weapon.RV_WeaponTargetInfo[] slice = new RV_WeaponTargetInfo[rv_weaponTargetsInfoQue.Count];
         //slice the searching targets result
-        Weapon.RV_WeaponTargetInfo[] slice = rv_weaponTargetsInfo.Slice(0, rv_validTargetCount[0]).ToArray();
+        int c = rv_weaponTargetsInfoQue.Count;
+        for (int i = 0; i < c; i++)
+        {
+            slice[i] = rv_weaponTargetsInfoQue.Dequeue();
+        }
+
         slice.Sort();
 
 
+
         //Allocate targetinfo to targetList
-        int iterateIndex = Mathf.Min(slice.Length, maxTargetCount);
-        if (iterateIndex != 0)
+        //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
+        if (weaponstate.CurrentState  != WeaponState.Firing &&
+            weaponstate.CurrentState != WeaponState.BetweenDelay)
         {
-            int index = 0;
-            for (int i = 0; i < maxTargetCount; i++)
+            int iterateIndex = Mathf.Min(slice.Length, maxTargetCount);
+            if (iterateIndex != 0)
             {
+                targetList.Clear();
+                targetListcandidator.Clear();
+                int index = 0;
+                for (int i = 0; i < maxTargetCount; i++)
+                {
 
-                index = i % iterateIndex;
-                targetList.Add(new WeaponTargetInfo
-                (
-                    AIManager.Instance.aiActiveUnitList[slice[index].targetIndex].gameObject,
-                    slice[index].targetIndex,
-                    slice[index].distanceToTarget,
-                    slice[index].targetDirection
-                ));
+                    index = i % iterateIndex;
+                    targetList.Add(new WeaponTargetInfo
+                    (
+                        AIManager.Instance.aiActiveUnitList[slice[index].targetIndex].gameObject,
+                        slice[index].targetIndex,
+                        slice[index].distanceToTarget,
+                        slice[index].targetDirection
+                    ));
+                }
             }
-
-            //Check if targetList is valid 
-            if (targetList != null && targetList.Count != 0)
-            {
-                WeaponOn();
-
-            }
-            else
-            {
-                WeaponOff();
-            }
-            ProcessWeapon();
         }
-       
+        //Check if targetList is valid 
+        if (targetList != null && targetList.Count != 0)
+        {
+            WeaponOn();
+        }
+        else
+        {
+            WeaponOff();
+        }
+        
+        ProcessWeapon();
+        rv_weaponTargetsInfoQue.Dispose();
 
-        rv_validTargetCount.Dispose();
-        rv_weaponTargetsInfo.Dispose();
     }
 
 
@@ -130,13 +145,16 @@ public class ShipWeapon : Weapon
         [ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
 
-        public NativeArray<int> rv_validIndex;
-        public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
+
+        public NativeQueue<RV_WeaponTargetInfo>.ParallelWriter rv_targetsInfo;
+        //public NativeArray<int> rv_validIndex;
+       // [NativeDisableParallelForRestriction]
+       // public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
         RV_WeaponTargetInfo tempinfo;
         int index;
         public void Execute(int startIndex, int count)
         {
-            index = 0;
+           
             for (int i = startIndex; i < startIndex + count; i++)
             {
                 if(math.distance(job_selfPos, job_targetsPos[i]) <= job_attackRange)
@@ -145,16 +163,9 @@ public class ShipWeapon : Weapon
                     tempinfo.distanceToTarget = math.distance(job_selfPos, job_targetsPos[i]);
                     tempinfo.targetDirection = math.normalize(job_targetsPos[i] - job_selfPos);
                     tempinfo.targetIndex = i;
-                    rv_targetsInfo[index] = tempinfo;
-                    index++;
-                    rv_validIndex[0] = index;
+                    rv_targetsInfo.Enqueue(tempinfo);
                 }
             }
-        }
-
-        public void Execute(int index)
-        {
-            throw new System.NotImplementedException();
         }
     }
 

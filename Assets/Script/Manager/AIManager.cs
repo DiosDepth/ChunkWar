@@ -910,51 +910,53 @@ public class AIManager : Singleton<AIManager>
         {
             //获取Flat Array中的startindex 为后续的拆分做准备
             //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
-            startindex = 0;
-            for (int c = 0; c < i; c++)
-            {
-                startindex += aiActiveUnitMaxTargetsCount[i];
-            }
 
-            if(aiActiveUnitList[i] is AIWeapon)
+            if (aiActiveUnitList[i] is AIWeapon)
             {
-                weapon = aiActiveUnitList[i] as AIWeapon;
-                weapon.targetList.Clear();
-                for (int n = 0; n < aiActiveUnitMaxTargetsCount[i]; n++)
+
+                startindex = 0;
+                for (int c = 0; c < i; c++)
                 {
-                    targetindex = rv_weaponTargetsInfo[startindex + n].targetIndex;
-                    if (targetindex == -1)
+                    startindex += aiActiveUnitMaxTargetsCount[i];
+                }
+
+
+                weapon = aiActiveUnitList[i] as AIWeapon;
+
+                //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
+                if (weapon.weaponstate.CurrentState != WeaponState.Firing && weapon.weaponstate.CurrentState != WeaponState.BetweenDelay)
+                {
+                    weapon.targetList.Clear();
+                    for (int n = 0; n < aiActiveUnitMaxTargetsCount[i]; n++)
                     {
-                    
-                        weapon.WeaponOff();
-                        break;
-                    }
-                    else
-                    {
-                        if (playerActiveUnitList == null || playerActiveUnitList.Count == 0)
+                        targetindex = rv_weaponTargetsInfo[startindex + n].targetIndex;
+                        if (targetindex == -1 || playerActiveUnitList == null || playerActiveUnitList.Count == 0)
                         {
-                         
-                            weapon.WeaponOff();
                             break;
                         }
-                   
-                    
-                        weapon.targetList.Add(new WeaponTargetInfo
-                            (
-                                playerActiveUnitList[targetindex].gameObject,
-                                rv_weaponTargetsInfo[startindex + n].targetIndex,
-                                rv_weaponTargetsInfo[startindex + n].distanceToTarget,
-                                rv_weaponTargetsInfo[startindex + n].targetDirection
-                            ));
+                        else
+                        {
+                            weapon.targetList.Add(new WeaponTargetInfo
+                                (
+                                    playerActiveUnitList[targetindex].gameObject,
+                                    rv_weaponTargetsInfo[startindex + n].targetIndex,
+                                    rv_weaponTargetsInfo[startindex + n].distanceToTarget,
+                                    rv_weaponTargetsInfo[startindex + n].targetDirection
+                                ));
+                        }
                     }
                 }
-                if(weapon.targetList !=null && weapon.targetList.Count != 0)
+                if (weapon.targetList != null && weapon.targetList.Count != 0)
                 {
                     weapon.WeaponOn();
                 }
+                else
+                {
+                    weapon.WeaponOff();
+                }
+
                 weapon.ProcessWeapon();
             }
-            
         }
 
         rv_weaponTargetsInfo.Dispose();
@@ -1019,20 +1021,34 @@ public class AIManager : Singleton<AIManager>
     {
         //处理所有子弹的伤害逻辑
         aiProjectileDamageList.Clear();
-        aiProjectileDamageList = aiProjectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
+
+
+        NativeList<ProjectileJobInitialInfo> aiDamageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.TempJob);
+
+        for (int i = 0; i < aiProjectileList.Count; i++)
+        {
+            if (aiProjectileList[i].IsApplyDamageAtThisFrame == true)
+            {
+                aiProjectileDamageList.Add(aiProjectileList[i]);
+                aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+            }
+        }
+
+        //aiProjectileDamageList = aiProjectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
 
         if(aiProjectileDamageList.Count == 0)
         {
             return;
         }
 
-
         rv_aiProjectileDamageTargetIndex = new NativeArray<int>(aiProjectileDamageList.Count * playerActiveUnitList.Count, Allocator.TempJob);
         rv_aiProjectileDamageTargetCountPre = new NativeArray<int>(aiProjectileDamageList.Count, Allocator.TempJob);
+
+
         JobHandle jobHandle;
         Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
         {
-            job_JobInfo = aiProjectile_JobInfo,
+            job_JobInfo = aiDamageProjectile_JobInfo,
             job_targesTotalCount = playerActiveUnitList.Count,
             job_targetsPos = playerActiveUnitPos,
 
@@ -1057,7 +1073,7 @@ public class AIManager : Singleton<AIManager>
             }
         }
 
-
+        aiDamageProjectile_JobInfo.Dispose();
         rv_aiProjectileDamageTargetCountPre.Dispose();
         rv_aiProjectileDamageTargetIndex.Dispose();
     }

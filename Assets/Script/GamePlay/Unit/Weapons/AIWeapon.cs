@@ -86,19 +86,19 @@ public class AIWeapon : Weapon
     public override void FireRequest()
     {
 
-        if(targetList == null || targetList.Count == 0)
-        {
-            weaponstate.ChangeState(WeaponState.End);
-        }
-        if(aimingtype == WeaponAimingType.TargetDirectional || aimingtype == WeaponAimingType.Directional)
-        {
-            if (_firepointindex >= firePoint.Length)
-            {
-                _firepointindex = 0;
-            }
-            weaponstate.ChangeState(WeaponState.Firing);
-        }
-        if(aimingtype == WeaponAimingType.TargetBased )
+        //if(targetList == null || targetList.Count == 0)
+        //{
+        //    weaponstate.ChangeState(WeaponState.End);
+        //}
+        //if(aimingtype == WeaponAimingType.TargetDirectional || aimingtype == WeaponAimingType.Directional)
+        //{
+        //    if (_firepointindex >= firePoint.Length)
+        //    {
+        //        _firepointindex = 0;
+        //    }
+        //    weaponstate.ChangeState(WeaponState.Firing);
+        //}
+        //if(aimingtype == WeaponAimingType.TargetBased )
         base.FireRequest();
 
     }

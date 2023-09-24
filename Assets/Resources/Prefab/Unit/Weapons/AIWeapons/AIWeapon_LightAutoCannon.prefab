@@ -79,12 +79,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 101
-  UID: 0
   state: 0
   IsRestoreable: 0
   IsCoreUnit: 1
   deathVFXName: ExplodeVFX
-  _isTarget: 1
+  maxTargetCount: 1
   unitSprite: {fileID: 4947179279536623990}
   rotationRoot: {fileID: 4947179278027536151}
   redirection: 1
@@ -92,7 +91,7 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   currentEvolvePoints: 0
-  weaponmode: 1
+  weaponmode: 0
   firemode: 0
   aimingtype: 0
   bulletType: 1
@@ -100,7 +99,6 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
-  maxTargetCount: 1
   firePoint:
   - {fileID: 3324133008493171840}
   scatter: 0
@@ -109,7 +107,7 @@ MonoBehaviour:
     Rate: 0
     ChargeTime: 0
     ChargeCost: 0
-    MagazineBased: 0
+    MagazineBased: 1
     BeforeDelay: 0
     AfterDelay: 0
   magazine: 0

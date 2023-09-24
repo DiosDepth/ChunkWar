@@ -424,25 +424,27 @@ MonoBehaviour:
   unitType: 1
   redirection: 1
   UnlockDefault: 1
+  ProertyDescText: 
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   ItemTags: 4
   BaseHP: 30
   BaseEnergyCost: 10
   BaseEnergyGenerate: 0
+  LoadAdd: 0
   PropertyModify: []
   DamageBase: 3
   UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0
-  BaseRange: 30
+  BaseRange: 35
   BaseCriticalRate: 0
   CriticalDamage: 0
-  TotalDamageCount: 5
+  TotalDamageCount: 1
   ShootPerCount: 1
-  CD: 3
-  FireCD: 5
+  CD: 5
+  FireCD: 0
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0

@@ -234,9 +234,21 @@ public class ShipUnitManager
     {
         //处理所有子弹的伤害逻辑
         projectileDamageList.Clear();
-        projectileDamageList = projectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
 
-        if(projectileDamageList.Count == 0)
+
+        NativeList<ProjectileJobInitialInfo> damageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.TempJob);
+
+        for (int i = 0; i < projectileList.Count; i++)
+        {
+            if (projectileList[i].IsApplyDamageAtThisFrame == true)
+            {
+                projectileDamageList.Add(projectileList[i]);
+                damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
+            }
+        }
+        //projectileDamageList = projectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
+
+        if (projectileDamageList.Count == 0)
         {
             return;
         }
@@ -245,9 +257,10 @@ public class ShipUnitManager
         rv_projectileDamageTargetIndex = new NativeArray<int>(projectileDamageList.Count * AIManager.Instance.aiActiveUnitList.Count, Allocator.TempJob);
         rv_projectileDamageTargetCountPre = new NativeArray<int>(projectileDamageList.Count, Allocator.TempJob);
         JobHandle jobHandle;
+
         Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
         {
-            job_JobInfo = projectile_JobInfo,
+            job_JobInfo = damageProjectile_JobInfo,
             job_targesTotalCount = AIManager.Instance.aiActiveUnitList.Count,
             job_targetsPos = AIManager.Instance.aiActiveUnitPos,
 
@@ -255,6 +268,7 @@ public class ShipUnitManager
             rv_findedTargetIndex = rv_projectileDamageTargetIndex,
 
         };
+
         jobHandle = findBulletDamageTargetJob.ScheduleBatch(projectileDamageList.Count, 2);
         jobHandle.Complete();
 
@@ -272,7 +286,7 @@ public class ShipUnitManager
             }
         }
 
-
+        damageProjectile_JobInfo.Dispose();
         rv_projectileDamageTargetCountPre.Dispose();
         rv_projectileDamageTargetIndex.Dispose();
     }

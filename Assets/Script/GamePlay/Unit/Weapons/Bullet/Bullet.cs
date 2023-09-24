@@ -69,11 +69,11 @@ public class Bullet : MonoBehaviour,IPoolable
         private int length;
         public void Execute(int startIndex, int count)
         {
-            int index;
+    
             NativeList<int> targetindexlist;
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                index = 0;
+                int index = 0;
                 targetindexlist = new NativeList<int>(Allocator.Temp);
 
                 if (job_JobInfo[i].damageType == 1)
