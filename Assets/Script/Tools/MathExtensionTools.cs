@@ -66,7 +66,7 @@ public static class MathExtensionTools
     public static Vector2 GetRandomDirection(Vector2 m_refdir, float m_rangeangle)
     {
 
-        UnityEngine.Random.InitState(Mathf.RoundToInt(System.DateTime.Now.Ticks));
+        //UnityEngine.Random.InitState(Mathf.RoundToInt(System.DateTime.Now.Ticks));
         float randomangle = UnityEngine.Random.Range(-m_rangeangle, m_rangeangle);
 
          Vector3 dir = Quaternion.Euler(0, 0, randomangle) * m_refdir;
@@ -86,6 +86,12 @@ public static class MathExtensionTools
         Quaternion fromrot = Quaternion.LookRotation(new Vector3(0, 0, 1), from);
         Quaternion torot = Quaternion.LookRotation(new Vector3(0, 0, 1), to);
         return Quaternion.RotateTowards(fromrot, torot, rotspeed);
+    }
+
+
+    public static Quaternion GetRotationFromDirection(Vector2 direction)
+    {
+        return Quaternion.LookRotation(new Vector3(0, 0, 1), direction);
     }
     /// <summary>
     /// 获取当前ship位置的圆形区间范围随机点，

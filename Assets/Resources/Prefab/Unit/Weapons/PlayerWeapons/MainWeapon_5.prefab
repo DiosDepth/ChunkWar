@@ -136,7 +136,7 @@ MonoBehaviour:
   IsRestoreable: 0
   IsCoreUnit: 1
   deathVFXName: ExplodeVFX
-  maxTargetCount: 5
+  maxTargetCount: 1
   unitSprite: {fileID: 579860166224230222}
   rotationRoot: {fileID: 579860166384849199}
   redirection: 1
@@ -144,17 +144,17 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   currentEvolvePoints: 0
-  weaponmode: 1
-  firemode: 1
+  weaponmode: 0
+  firemode: 0
   aimingtype: 2
-  bulletType: 6
-  targetmode: 1
+  bulletType: 8
+  targetmode: 0
   mask:
     serializedVersion: 2
     m_Bits: 128
   firePoint:
   - {fileID: 5020116889135989133}
-  scatter: 5
+  scatter: 0
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0
@@ -178,7 +178,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.018352628, y: -0.083898306}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -189,7 +189,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 1.2433794, y: 2.1924787}
   m_EdgeRadius: 0
 --- !u!1 &4327842685702392280
 GameObject:
