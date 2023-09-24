@@ -13,7 +13,7 @@ public class AIManager : Singleton<AIManager>
     public const int MaxAICount = 300;
     public bool ProcessAI = false;
     public int ShipCount { get { return aiShipList.Count; } }
-    public int BulletCount { get { return aibulletsList.Count; } }
+    public int BulletCount { get { return aiProjectileList.Count; } }
 
 
     //玩家Ship作为目标存储起来，需要按照Unit是否激活来更新targetActiveUnitList，同时更新targetActiveUnitPos
@@ -28,10 +28,13 @@ public class AIManager : Singleton<AIManager>
 
     //AI list Info
     public List<AIShip> aiShipList = new List<AIShip>();
-    public List<Projectile> aibulletsList = new List<Projectile>();
-    private List<int> _aiBulletDeathIndex = new List<int>();
-    public NativeList<ProjectileJobInitialInfo> aiBullet_JobInfo;
-    public NativeArray<ProjectileJobRetrunInfo> rv_aiBullet_jobUpdateInfo;
+    public List<Projectile> aiProjectileList = new List<Projectile>();
+    private List<Projectile> aiProjectileDamageList = new List<Projectile>();
+    private List<int> _aiProjectileDeathIndex = new List<int>();
+    public NativeList<ProjectileJobInitialInfo> aiProjectile_JobInfo;
+    public NativeArray<ProjectileJobRetrunInfo> rv_aiProjectile_jobUpdateInfo;
+    public NativeArray<int> rv_aiProjectileDamageTargetIndex;
+    public NativeArray<int> rv_aiProjectileDamageTargetCountPre;
 
 
     public List<AISteeringBehaviorController> aiSteeringBehaviorControllerList = new List<AISteeringBehaviorController>();
@@ -168,7 +171,7 @@ public class AIManager : Singleton<AIManager>
         aiActiveUnitMaxTargetsCount = new NativeList<int>(Allocator.Persistent);
 
 
-        aiBullet_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
+        aiProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
 
         steeringBehaviorJob_aiShipPos = new NativeList<float3>(Allocator.Persistent);
         steeringBehaviorJob_aiShipVelocity = new NativeList<float3>(Allocator.Persistent);
@@ -259,7 +262,7 @@ public class AIManager : Singleton<AIManager>
         if (aiActiveUnitPos.IsCreated) { aiActiveUnitPos.Dispose(); }
         if(aiActiveUnitAttackRange.IsCreated) { aiActiveUnitAttackRange.Dispose(); }
         if (aiActiveUnitMaxTargetsCount.IsCreated) { aiActiveUnitMaxTargetsCount.Dispose(); }
-        if (aiBullet_JobInfo.IsCreated) { aiBullet_JobInfo.Dispose(); }
+        if (aiProjectile_JobInfo.IsCreated) { aiProjectile_JobInfo.Dispose(); }
 
         //ai data dispose
         if (steeringBehaviorJob_aiShipPos.IsCreated) { steeringBehaviorJob_aiShipPos.Dispose(); }
@@ -331,12 +334,12 @@ public class AIManager : Singleton<AIManager>
         aiActiveUnitList.Clear();
        
         //todo clear all bullet
-        for (int i = 0; i < aibulletsList.Count; i++)
+        for (int i = 0; i < aiProjectileList.Count; i++)
         {
-            aibulletsList[i].Death();
+            aiProjectileList[i].Death();
             
         }
-        aibulletsList.Clear();
+        aiProjectileList.Clear();
 
 
         //Dispose all job data
@@ -365,11 +368,13 @@ public class AIManager : Singleton<AIManager>
         if (!ProcessAI) { return; }
         //update weapon
         UpdateAIWeapon();
-        UpdateBullet();
+        UpdateProjectile();
+        ProcessProjectileDamage();
 
-   
 
-      
+
+
+
 
     }
 
@@ -551,10 +556,10 @@ public class AIManager : Singleton<AIManager>
     }
     public void AddProjectileBullet(Projectile bullet)
     {
-        if(!aibulletsList.Contains(bullet))
+        if(!aiProjectileList.Contains(bullet))
         {
-            aibulletsList.Add(bullet);
-            aiBullet_JobInfo.Add(new ProjectileJobInitialInfo
+            aiProjectileList.Add(bullet);
+            aiProjectile_JobInfo.Add(new ProjectileJobInitialInfo
                 (
                     bullet.target? bullet.target.transform.position : bullet.transform.up,
                     bullet.transform.position,
@@ -564,7 +569,9 @@ public class AIManager : Singleton<AIManager>
                     bullet.acceleration,
                     bullet.rotSpeed,
                     bullet.InitialmoveDirection.ToVector3(),
-                   (int)bullet.movementType
+                   (int)bullet.movementType,
+                   (int)bullet.damageType,
+                   bullet.damageRadius
                 ));
         }
 
@@ -572,9 +579,9 @@ public class AIManager : Singleton<AIManager>
 
     public void RemoveProjectileBullet(Projectile bullet)
     {
-        int index = aibulletsList.IndexOf(bullet);
-       aiBullet_JobInfo.RemoveAt(index);
-       aibulletsList.RemoveAt(index);
+        int index = aiProjectileList.IndexOf(bullet);
+       aiProjectile_JobInfo.RemoveAt(index);
+       aiProjectileList.RemoveAt(index);
     }
     public void RemoveBullet(Bullet bullet)
     {
@@ -956,93 +963,132 @@ public class AIManager : Singleton<AIManager>
 
 
 
-    public void UpdateBullet()
+    public void UpdateProjectile()
     {
-        if(aibulletsList == null || aibulletsList.Count == 0)
+        if(aiProjectileList == null || aiProjectileList.Count == 0)
         {
             return;
         }
-        rv_aiBullet_jobUpdateInfo = new NativeArray<ProjectileJobRetrunInfo>(aibulletsList.Count, Allocator.TempJob);
+        rv_aiProjectile_jobUpdateInfo = new NativeArray<ProjectileJobRetrunInfo>(aiProjectileList.Count, Allocator.TempJob);
         // 获取子弹分类
         // 获取子弹的Target，并且更新Target位置， 如果是
-        JobHandle aibulletjobhandle;
+        JobHandle aiprojectilejobhandle;
         //根据子弹分类比如是否targetbase来开启对应的JOB
-        Projectile.CalculateBulletMovementJobJob staightCalculateBulletMovementJobJob = new Projectile.CalculateBulletMovementJobJob
+        Projectile.CalculateProjectileMovementJobJob staightCalculateProjectileMovementJobJob = new Projectile.CalculateProjectileMovementJobJob
         {
             job_deltatime = Time.deltaTime,
-            job_jobInfo = aiBullet_JobInfo,
-            rv_bulletJobUpdateInfos = rv_aiBullet_jobUpdateInfo,
+            job_jobInfo = aiProjectile_JobInfo,
+            rv_bulletJobUpdateInfos = rv_aiProjectile_jobUpdateInfo,
         };
 
-        aibulletjobhandle = staightCalculateBulletMovementJobJob.ScheduleBatch(aibulletsList.Count, 2);
-        aibulletjobhandle.Complete();
+        aiprojectilejobhandle = staightCalculateProjectileMovementJobJob.ScheduleBatch(aiProjectileList.Count, 2);
+        aiprojectilejobhandle.Complete();
         //更新子弹当前的JobData
 
         //移动子弹
         //处理子弹旋转方向
-        _aiBulletDeathIndex.Clear();
+        _aiProjectileDeathIndex.Clear();
 
-        for (int i = 0; i < aibulletsList.Count; i++)
+        for (int i = 0; i < aiProjectileList.Count; i++)
         {
-            if (!rv_aiBullet_jobUpdateInfo[i].islifeended)
+            if (!rv_aiProjectile_jobUpdateInfo[i].islifeended)
             {
-                aibulletsList[i].Move(rv_aiBullet_jobUpdateInfo[i].deltaMovement);
-                aibulletsList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiBullet_jobUpdateInfo[i].rotation);
+                aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
+                aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
             }
             else
             {
-                _aiBulletDeathIndex.Add(i);
+                _aiProjectileDeathIndex.Add(i);
             }
-
         }
+
+
+
+
 
     
 
 
-        UpdateBulletJobData();
+        UpdateProjectileJobData();
 
-        rv_aiBullet_jobUpdateInfo.Dispose();
+        rv_aiProjectile_jobUpdateInfo.Dispose();
         //dispose
     }
 
-    public void UpdateBulletJobData()
+    public void ProcessProjectileDamage()
+    {
+        //处理所有子弹的伤害逻辑
+        aiProjectileDamageList.Clear();
+        aiProjectileDamageList = aiProjectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
+
+        if(aiProjectileDamageList.Count == 0)
+        {
+            return;
+        }
+
+
+        rv_aiProjectileDamageTargetIndex = new NativeArray<int>(aiProjectileDamageList.Count * playerActiveUnitList.Count, Allocator.TempJob);
+        rv_aiProjectileDamageTargetCountPre = new NativeArray<int>(aiProjectileDamageList.Count, Allocator.TempJob);
+        JobHandle jobHandle;
+        Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
+        {
+            job_JobInfo = aiProjectile_JobInfo,
+            job_targesTotalCount = playerActiveUnitList.Count,
+            job_targetsPos = playerActiveUnitPos,
+
+            rv_findedTargetsCount = rv_aiProjectileDamageTargetCountPre,
+            rv_findedTargetIndex = rv_aiProjectileDamageTargetIndex,
+
+        };
+        jobHandle = findBulletDamageTargetJob.ScheduleBatch(aiProjectileDamageList.Count, 2);
+        jobHandle.Complete();
+
+
+        int damagetargetindex;
+        IDamageble damageble;
+
+        for (int i = 0; i < aiProjectileDamageList.Count; i++)
+        {
+            for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
+            {
+                damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
+                damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                aiProjectileDamageList[i].ApplyDamage(damageble);
+            }
+        }
+
+
+        rv_aiProjectileDamageTargetCountPre.Dispose();
+        rv_aiProjectileDamageTargetIndex.Dispose();
+    }
+
+    public void UpdateProjectileJobData()
     {
         //这里需要先更新子弹的信息，然后在吧死亡的子弹移除， 否则rv aibullet的静态数据长度无法操作
         //虽然会浪费运算量。但是可以保证index不会错位
         ProjectileJobInitialInfo bulletJobInfo;
-        for (int i = 0; i < aibulletsList.Count; i++)
+        for (int i = 0; i < aiProjectileList.Count; i++)
         {
-            if (rv_aiBullet_jobUpdateInfo[i].islifeended)
+            if (rv_aiProjectile_jobUpdateInfo[i].islifeended)
                 continue;
+            //bulletJobInfo 是一个值类型。 只能使用这种方式更新。
+            bulletJobInfo = aiProjectile_JobInfo[i];
 
-            bulletJobInfo = aiBullet_JobInfo[i];
-            //bulletJobInfo = new BulletJobInitialInfo
-            //    (
+            bulletJobInfo.update_targetPos = aiProjectileList[i].target? aiProjectileList[i].target.transform.position : aiProjectileList[i].transform.up;
+            bulletJobInfo.update_selfPos = aiProjectileList[i].transform.position;
+            bulletJobInfo.update_lifeTimeRemain = rv_aiProjectile_jobUpdateInfo[i].lifeTimeRemain;
+            bulletJobInfo.update_moveDirection = rv_aiProjectile_jobUpdateInfo[i].moveDirection;
+            bulletJobInfo.update_currentSpeed = rv_aiProjectile_jobUpdateInfo[i].currentSpeed;
 
-            //        aibulletsList[i].transform.position,
-            //        aibulletsList[i].lifeTime,
-            //        aibulletsList[i].maxSpeed,
-            //        aibulletsList[i].initialSpeed,
-            //        aibulletsList[i].acceleration,
-            //        aibulletsList[i].rotSpeed,
-            //        aibulletsList[i].InitialmoveDirection.ToVector3(),
-            //        (int) aibulletsList[i].movementType
-            //    ); 
-            bulletJobInfo.update_targetPos = aibulletsList[i].target? aibulletsList[i].target.transform.position : aibulletsList[i].transform.up;
-            bulletJobInfo.update_selfPos = aibulletsList[i].transform.position;
-            bulletJobInfo.update_lifeTimeRemain = rv_aiBullet_jobUpdateInfo[i].lifeTimeRemain;
-            bulletJobInfo.update_moveDirection = rv_aiBullet_jobUpdateInfo[i].moveDirection;
-            bulletJobInfo.update_currentSpeed = rv_aiBullet_jobUpdateInfo[i].currentSpeed;
-
-            aiBullet_JobInfo[i] = bulletJobInfo;
+            aiProjectile_JobInfo[i] = bulletJobInfo;
         }
 
         //最后一步 执行子弹死亡
         int deathindex = 0;
-        for (int i = 0; i < _aiBulletDeathIndex.Count; i++)
+        for (int i = 0; i < _aiProjectileDeathIndex.Count; i++)
         {
-            deathindex = _aiBulletDeathIndex[i];
-            aibulletsList[deathindex].Death();
+            deathindex = _aiProjectileDeathIndex[i];
+            aiProjectileList[deathindex].Death();
 
         }
     }

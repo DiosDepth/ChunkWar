@@ -17,6 +17,9 @@ public class ShipUnitManager
     public List<Building> activeBuildingList;
     public List<Projectile> projectileList = new List<Projectile>();
     private List<int> projiectileDeathIndexList = new List<int>();
+    private List<Projectile> projectileDamageList = new List<Projectile>();
+    public NativeArray<int> rv_projectileDamageTargetIndex;
+    public NativeArray<int> rv_projectileDamageTargetCountPre;
 
     public NativeList<ProjectileJobInitialInfo> projectile_JobInfo;
     public NativeArray<ProjectileJobRetrunInfo> rv_projectile_jobUpdateInfo;
@@ -56,6 +59,7 @@ public class ShipUnitManager
         UpdateWeapon();
         UpdateBuilding();
         UpdateBullet();
+        UpdateProjectileDamage();
     }
 
 
@@ -160,7 +164,7 @@ public class ShipUnitManager
         // 获取子弹的Target，并且更新Target位置， 如果是
         JobHandle aibulletjobhandle;
         //根据子弹分类比如是否targetbase来开启对应的JOB
-        Projectile.CalculateBulletMovementJobJob staightCalculateBulletMovementJobJob = new Projectile.CalculateBulletMovementJobJob
+        Projectile.CalculateProjectileMovementJobJob staightCalculateBulletMovementJobJob = new Projectile.CalculateProjectileMovementJobJob
         {
             job_deltatime = Time.deltaTime,
             job_jobInfo = projectile_JobInfo,
@@ -225,6 +229,54 @@ public class ShipUnitManager
             projectileList[deathindex].Death();
         }
     }
+
+    public void UpdateProjectileDamage()
+    {
+        //处理所有子弹的伤害逻辑
+        projectileDamageList.Clear();
+        projectileDamageList = projectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
+
+        if(projectileDamageList.Count == 0)
+        {
+            return;
+        }
+
+
+        rv_projectileDamageTargetIndex = new NativeArray<int>(projectileDamageList.Count * AIManager.Instance.aiActiveUnitList.Count, Allocator.TempJob);
+        rv_projectileDamageTargetCountPre = new NativeArray<int>(projectileDamageList.Count, Allocator.TempJob);
+        JobHandle jobHandle;
+        Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
+        {
+            job_JobInfo = projectile_JobInfo,
+            job_targesTotalCount = AIManager.Instance.aiActiveUnitList.Count,
+            job_targetsPos = AIManager.Instance.aiActiveUnitPos,
+
+            rv_findedTargetsCount = rv_projectileDamageTargetCountPre,
+            rv_findedTargetIndex = rv_projectileDamageTargetIndex,
+
+        };
+        jobHandle = findBulletDamageTargetJob.ScheduleBatch(projectileDamageList.Count, 2);
+        jobHandle.Complete();
+
+
+        int damagetargetindex;
+        IDamageble damageble;
+
+        for (int i = 0; i < projectileDamageList.Count; i++)
+        {
+            for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
+            {
+                damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.aiActiveUnitList.Count + n];
+                damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                projectileDamageList[i].ApplyDamage(damageble);
+            }
+        }
+
+
+        rv_projectileDamageTargetCountPre.Dispose();
+        rv_projectileDamageTargetIndex.Dispose();
+    }
+
 
     public virtual void AddActiveUnit(Unit unit)
     {
@@ -298,6 +350,7 @@ public class ShipUnitManager
             AddProjectileBullet(bullet as Projectile);
         }
     }
+
     public void AddProjectileBullet(Projectile bullet)
     {
         if (!projectileList.Contains(bullet))
@@ -313,7 +366,9 @@ public class ShipUnitManager
                     bullet.acceleration,
                     bullet.rotSpeed,
                     bullet.InitialmoveDirection.ToVector3(),
-                   (int)bullet.movementType
+                   (int)bullet.movementType,
+                   (int)bullet.damageType,
+                   bullet.damageRadius
                 ));
         }
 
