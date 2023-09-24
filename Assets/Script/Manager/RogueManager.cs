@@ -211,6 +211,8 @@ public class RogueManager : Singleton<RogueManager>
     public UnityAction<int> OnShopRefresh;
     /* 物品数量变更 */
     public UnityAction OnItemCountChange;
+    /* 进入太空港 */
+    public UnityAction OnEnterHarbor;
     #endregion
 
     public RogueManager()
@@ -248,6 +250,8 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void OnEnterHarborInit()
     {
+        OnEnterHarbor?.Invoke();
+
         var newWreckage = GenerateWreckageItems();
         for(int i = 0; i < newWreckage.Count; i++)
         {
@@ -525,6 +529,20 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
+    /// 获取局内所有残骸包总数
+    /// </summary>
+    /// <returns></returns>
+    public int GetInLevelTotalWreckageDropCount()
+    {
+        int result = 0;
+        foreach(var item in GetInLevelWreckageDrops.Values)
+        {
+            result += item;
+        }
+        return result;
+    }
+
+    /// <summary>
     /// 生成局内掉落物品
     /// </summary>
     /// <returns></returns>
@@ -574,7 +592,7 @@ public class RogueManager : Singleton<RogueManager>
         }
 
         CalculateTotalLoadValue();
-        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShipWreckageLoadTotal, CalculateTotalLoadValue);
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.UnitWreckageLoadAdd, CalculateTotalLoadValue);
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.UnitLoadCost, CalculateTotalLoadCost);
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.WasteLoadPercent, CalculateTotalLoadCost);
     }
@@ -603,8 +621,23 @@ public class RogueManager : Singleton<RogueManager>
     private void CalculateTotalLoadValue()
     {
         var loadRow = DataManager.Instance.battleCfg.ShipLoadBase;
-        var loadAdd = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipWreckageLoadTotal);
-        WreckageTotalLoadValue = (int)Mathf.Clamp(loadAdd + loadRow, 0, int.MaxValue);
+        float totalLoad = 0;
+
+        var UnitloadAdd = MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitWreckageLoadAdd);
+        UnitloadAdd = (1 + UnitloadAdd / 100f);
+        for (int i = 0; i < AllShipUnits.Count; i++) 
+        {
+            var unit = AllShipUnits[i];
+            float unitLoad = unit._baseUnitConfig.LoadAdd;
+            if(unit._baseUnitConfig.HasUnitTag(ItemTag.WareHouse))
+            {
+                unitLoad *= UnitloadAdd;
+            }
+
+            totalLoad += unitLoad;
+        }
+
+        WreckageTotalLoadValue = (int)Mathf.Clamp(totalLoad + loadRow, 0, int.MaxValue);
         OnWreckageLoadPercentChange?.Invoke(WreckageLoadPercent * 100);
     }
 

@@ -63,6 +63,9 @@ MonoBehaviour:
     - Name: PropertyDesc
       Entry: 6
       Data: 
+    - Name: UnlockDesc
+      Entry: 6
+      Data: 
     - Name: PreviewScore
       Entry: 3
       Data: 1000
@@ -132,6 +135,9 @@ MonoBehaviour:
       Entry: 1
       Data: HardLevel_Desc_2
     - Name: PropertyDesc
+      Entry: 6
+      Data: 
+    - Name: UnlockDesc
       Entry: 6
       Data: 
     - Name: PreviewScore
@@ -215,6 +221,9 @@ MonoBehaviour:
       Entry: 1
       Data: HardLevel_Desc_3
     - Name: PropertyDesc
+      Entry: 6
+      Data: 
+    - Name: UnlockDesc
       Entry: 6
       Data: 
     - Name: PreviewScore

@@ -51,6 +51,8 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return new MT_OnShopRefresh(cfg, uid);
             case ModifyTriggerType.ItemRarityCount:
                 return new MT_ItemRarityCount(cfg, uid);
+            case ModifyTriggerType.OnEnterHarbor:
+                return new MT_OnEnterHarbor(cfg, uid);
 
         }
 
@@ -91,9 +93,25 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
     }
 
-    private void ClearTrigger()
+    /// <summary>
+    /// 生效触发，仅用于来回触发的情景
+    /// </summary>
+    protected void EffectTrigger()
     {
+        var effects = Config.Effects;
+        for (int i = 0; i < effects.Length; i++)
+        {
+            effects[i].Excute(this);
+        }
+    }
 
+    protected void UnEffectTrigger()
+    {
+        var effects = Config.Effects;
+        for (int i = 0; i < effects.Length; i++)
+        {
+            effects[i].UnExcute(this);
+        }
     }
 
 }
@@ -135,6 +153,31 @@ public class MT_OnShopRefresh : ModifyTriggerData
     }
 
     private void OnShopRefresh(int refreshCount)
+    {
+        Trigger();
+    }
+}
+
+public class MT_OnEnterHarbor : ModifyTriggerData
+{
+    public MT_OnEnterHarbor(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        RogueManager.Instance.OnEnterHarbor += OnEnterHarbor;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        RogueManager.Instance.OnEnterHarbor -= OnEnterHarbor;
+    }
+
+    private void OnEnterHarbor()
     {
         Trigger();
     }

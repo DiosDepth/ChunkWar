@@ -96,6 +96,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<BaseShip> Action_OnShipDie;
     /* 玩家飞船运动 */
     public UnityAction<bool> OnPlayerShipMove;
+    /* 玩家血量变化 */
+    public UnityAction<float> OnCoreHPPercentChange;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -375,6 +377,11 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         {
             OnPlayerShipMove?.Invoke(state.movementState == ShipMovementState.Move);
         }
+    }
+
+    public void OnPlayerShipCoreHPPercentChange(float percent)
+    {
+        OnCoreHPPercentChange?.Invoke(percent);
     }
 
     #region Battle Misc

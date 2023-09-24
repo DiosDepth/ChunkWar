@@ -324,6 +324,104 @@ MonoBehaviour:
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
+  - GoodID: 23
+    Weight: 20
+    ItemType: 0
+    TypeID: 1023
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 24
+    Weight: 20
+    ItemType: 0
+    TypeID: 1024
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: 2
+  - GoodID: 25
+    Weight: 20
+    ItemType: 0
+    TypeID: 1025
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: 4
+  - GoodID: 26
+    Weight: 20
+    ItemType: 0
+    TypeID: 1026
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: 2
+  - GoodID: 27
+    Weight: 20
+    ItemType: 0
+    TypeID: 1027
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 28
+    Weight: 20
+    ItemType: 0
+    TypeID: 1028
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 29
+    Weight: 20
+    ItemType: 0
+    TypeID: 1029
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 30
+    Weight: 20
+    ItemType: 0
+    TypeID: 1030
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 31
+    Weight: 20
+    ItemType: 0
+    TypeID: 1031
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 32
+    Weight: 20
+    ItemType: 0
+    TypeID: 1032
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 33
+    Weight: 20
+    ItemType: 0
+    TypeID: 1033
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 34
+    Weight: 20
+    ItemType: 0
+    TypeID: 1034
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 35
+    Weight: 20
+    ItemType: 0
+    TypeID: 1035
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 36
+    Weight: 20
+    ItemType: 0
+    TypeID: 1036
+    CostBase: 0
+    Unique: 1
+    MaxBuyCount: -1
   WreckageDrops:
   - UnitID: 10000
     Weight: 20

@@ -70,6 +70,14 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_ByItemRarityCount(type));
             }
+            else if (type == ModifyTriggerType.OnEnterHarbor)
+            {
+                result.Add(type.ToString(), new MTC_OnEnterHarbor(type));
+            }
+            else if (type == ModifyTriggerType.ByCoreHPPercent)
+            {
+                result.Add(type.ToString(), new MTC_CoreHPPercent(type));
+            }
         }
 
         return result;
@@ -264,6 +272,32 @@ public class MTC_ByItemRarityCount : ModifyTriggerConfig
 public class MTC_OnRefreshShop : ModifyTriggerConfig
 {
     public MTC_OnRefreshShop(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnEnterHarbor : ModifyTriggerConfig
+{
+    public MTC_OnEnterHarbor(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_CoreHPPercent : ModifyTriggerConfig
+{
+    [HorizontalGroup("AB", 200)]
+    [LabelText("±ÈÀý")]
+    [LabelWidth(50)]
+    public byte HPPercent;
+
+    [HorizontalGroup("AB", 200)]
+    [LabelText("±È½Ï")]
+    [LabelWidth(50)]
+    public CompareType Compare;
+
+    public MTC_CoreHPPercent(ModifyTriggerType type) : base(type)
     {
 
     }

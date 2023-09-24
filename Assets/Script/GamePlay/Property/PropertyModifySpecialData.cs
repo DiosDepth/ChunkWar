@@ -92,6 +92,23 @@ public class PropertyModifySpecialData
         mgr.MainPropertyData.RemovePropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID);
     }
 
+    /// <summary>
+    /// 获取最终值
+    /// </summary>
+    /// <returns></returns>
+    private float GetFinialConfigValue()
+    {
+        if(UID == GameGlobalConfig.PropertyModifyUID_WreckageOverload_GlobalBuff)
+        {
+            var modifyRate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.LoadPunishRate);
+            modifyRate = Mathf.Clamp(modifyRate, -100f, float.MaxValue);
+
+            return Config.Value * (1 + modifyRate / 100f);
+        }
+
+        return Config.Value;
+    }
+
     private void OnPercentChange_Less100(float percent)
     {
         if(percent >= 100)
@@ -102,7 +119,7 @@ public class PropertyModifySpecialData
 
         float delta = 100 - percent;
         delta = Mathf.Clamp(delta, 0, 100f);
-        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * Config.Value);
+        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * GetFinialConfigValue());
     }
 
 
@@ -116,7 +133,7 @@ public class PropertyModifySpecialData
 
         float delta = percent - 100;
         delta = Mathf.Clamp(delta, 0, float.MaxValue);
-        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * Config.Value);
+        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * GetFinialConfigValue());
     }
     
 }

@@ -370,9 +370,14 @@ public class UnitPropertyPool
     private bool AddPropertyModifyValue(uint key, float value)
     {
         if (_propertyTable_Modify.ContainsKey(key))
-            return false;
-
-        _propertyTable_Modify.Add(key, value);
+        {
+            var newValue = (float)_propertyTable_Modify[key] + value;
+            _propertyTable_Modify[key] = newValue;
+        }
+        else
+        {
+            _propertyTable_Modify.Add(key, value);
+        }
         return true;
     }
 

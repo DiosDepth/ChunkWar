@@ -21,6 +21,7 @@ public abstract class ModifyTriggerEffectConfig
     }
 
     public abstract void Excute(ModifyTriggerData data);
+    public abstract void UnExcute(ModifyTriggerData data);
 
     public static ValueDropdownList<ModifyTriggerEffectConfig> GetModifyEffectTriggerList()
     {
@@ -42,6 +43,10 @@ public abstract class ModifyTriggerEffectConfig
             else if (type == ModifyTriggerEffectType.TempReduceShopPrice)
             {
                 result.Add(type.ToString(), new MTEC_TempReduceShopPrice(type));
+            }
+            else if (type == ModifyTriggerEffectType.AddPropertyValueBySpecialCount)
+            {
+                result.Add(type.ToString(), new MTEC_AddPropertyValueBySpecialCount(type));
             }
         }
 
@@ -86,6 +91,10 @@ public  class MTEC_SetPropertyValue : ModifyTriggerEffectConfig
         RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 
+    public override void UnExcute(ModifyTriggerData data)
+    {
+        RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
+    }
 }
 
 public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
@@ -125,6 +134,10 @@ public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
         RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 
+    public override void UnExcute(ModifyTriggerData data)
+    {
+        RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
+    }
 }
 
 public class MTEC_SetPropertyMaxValue : ModifyTriggerEffectConfig
@@ -147,6 +160,11 @@ public class MTEC_SetPropertyMaxValue : ModifyTriggerEffectConfig
     public override void Excute(ModifyTriggerData data)
     {
         RogueManager.Instance.MainPropertyData.SetPropertyMaxValue(ModifyKey, Value);
+    }
+
+    public override void UnExcute(ModifyTriggerData data)
+    {
+
     }
 }
 
@@ -191,5 +209,57 @@ public class MTEC_TempReduceShopPrice : ModifyTriggerEffectConfig
                 }
             }
         }
+    }
+
+    public override void UnExcute(ModifyTriggerData data)
+    {
+
+    }
+}
+
+public class MTEC_AddPropertyValueBySpecialCount : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public PropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public float Value;
+
+    [HorizontalGroup("AA", 150)]
+    [LabelText("类型")]
+    [LabelWidth(40)]
+    public PropertyModifyType ModifyType;
+
+    [HorizontalGroup("AA", 150)]
+    [LabelText("特殊Key")]
+    [LabelWidth(40)]
+    public string SpecialKey;
+
+    public MTEC_AddPropertyValueBySpecialCount(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data)
+    {
+        int targetCount = 0;
+        switch (SpecialKey)
+        {
+            case "WreckageCount":
+                targetCount = RogueManager.Instance.GetInLevelTotalWreckageDropCount();
+                break;
+        }
+
+        float tagetValue = Value * targetCount;
+        RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(ModifyKey, ModifyType, data.UID, tagetValue);
+    }
+
+    public override void UnExcute(ModifyTriggerData data)
+    {
+
     }
 }

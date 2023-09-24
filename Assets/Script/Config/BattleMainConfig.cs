@@ -20,7 +20,7 @@ public enum ModifySpecialType
     /// <summary>
     /// 超出100%的部分
     /// </summary>
-    More100
+    More100,
 }
 
 public enum ModifyTriggerType
@@ -45,6 +45,11 @@ public enum ModifyTriggerType
     OnPlayerShipMove,
     OnRefreshShop,
     ItemRarityCount,
+    OnEnterHarbor,
+    /// <summary>
+    /// 核心百分比
+    /// </summary>
+    ByCoreHPPercent,
 }
 
 public enum ModifyTriggerEffectType
@@ -53,6 +58,7 @@ public enum ModifyTriggerEffectType
     SetPropertyMaxValue,
     SetPropertyValue,
     TempReduceShopPrice,
+    AddPropertyValueBySpecialCount,
 }
 
 public class BattleMainConfig : SerializedScriptableObject

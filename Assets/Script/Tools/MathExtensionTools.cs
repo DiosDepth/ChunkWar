@@ -16,6 +16,35 @@ public static class MathExtensionTools
         return (self % 2 == 0);
     }
 
+    public static bool CalculateCompareType(float value, float target, CompareType type)
+    {
+        if (type == CompareType.Equla)
+        {
+            return value == target;
+        }
+        else if (type == CompareType.Greater)
+        {
+            return value > target;
+        }
+        else if (type == CompareType.GreaterEqula)
+        {
+            return value >= target;
+        }
+        else if (type == CompareType.Less)
+        {
+            return value < target;
+        }
+        else if (type == CompareType.LessEqula)
+        {
+            return value <= target;
+        }
+        else if (type == CompareType.NonEqula)
+        {
+            return value != target;
+        }
+        return false;
+    }
+
     public static bool CalculateCompareType(int value, int target, CompareType type)
     {
         if(type == CompareType.Equla)

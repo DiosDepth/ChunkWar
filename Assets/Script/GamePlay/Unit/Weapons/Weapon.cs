@@ -1226,5 +1226,7 @@ public class Weapon : Unit
     private void OnPlayerCoreHPChange()
     {
         ShipPropertyEvent.Trigger(ShipPropertyEventType.CoreHPChange);
+        var percent = HpComponent.HPPercent;
+        LevelManager.Instance.OnPlayerShipCoreHPPercentChange(percent);
     }
 }

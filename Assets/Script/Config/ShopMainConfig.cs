@@ -30,7 +30,7 @@ public class ShopMainConfig : SerializedScriptableObject
     [LabelText("Ë¢ÐÂ»ù´¡")]
     public int[] RollCostWaveBase = new int[20];
 
-    [TableList(ShowIndexLabels = true)]
+    [TableList(ShowIndexLabels = true, NumberOfItemsPerPage = 25)]
     [HideReferenceObjectPicker]
     public List<ShopGoodsItemConfig> Goods = new List<ShopGoodsItemConfig>();
 

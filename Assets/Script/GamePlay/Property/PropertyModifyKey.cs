@@ -94,9 +94,9 @@ public enum PropertyModifyKey
     /// </summary>
     UnitLoadCost,
     /// <summary>
-    /// 总负载能力，固定值
+    /// 仓库负载能力，百分比
     /// </summary>
-    ShipWreckageLoadTotal,
+    UnitWreckageLoadAdd,
     /// <summary>
     /// 护盾半径增加
     /// </summary>
@@ -155,5 +155,9 @@ public enum PropertyModifyKey
     /// <summary>
     /// 指挥
     /// </summary>
-    Command
+    Command,
+    /// <summary>
+    /// 负载惩罚效果
+    /// </summary>
+    LoadPunishRate,
 }

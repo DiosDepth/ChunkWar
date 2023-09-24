@@ -379,3 +379,31 @@ MonoBehaviour:
     ChineseSimplified: "\u8D1F\u8F7D"
     English: 
     Japanese: 
+  - TextID: MainMenu_Play
+    ChineseSimplified: "\u65B0\u6E38\u620F"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Option
+    ChineseSimplified: "\u8BBE\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Quit
+    ChineseSimplified: "\u9000\u51FA\u6E38\u620F"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Load
+    ChineseSimplified: "\u8F7D\u5165\u5B58\u6863"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Collection
+    ChineseSimplified: "\u6536\u85CF"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Achievement
+    ChineseSimplified: "\u6210\u5C31"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Camp
+    ChineseSimplified: "\u9635\u8425"
+    English: 
+    Japanese: 

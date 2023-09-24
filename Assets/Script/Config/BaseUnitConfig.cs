@@ -8,6 +8,7 @@ public enum ItemTag
 {
     Shield = 1<<1,
     Weapon = 1<<2,
+    WareHouse = 1<<3,
 }
 
 [System.Serializable]
@@ -79,6 +80,12 @@ public class BaseUnitConfig : BaseConfig
     [LabelText("能源产生")]
     [LabelWidth(80)]
     public int BaseEnergyGenerate;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/Z", 200)]
+    [LabelText("负载加成")]
+    [LabelWidth(80)]
+    public int LoadAdd;
 
     [FoldoutGroup("基础属性")]
     [LabelText("属性修正")]

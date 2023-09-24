@@ -51,6 +51,7 @@ public class CampSelectPage : GUIBasePanel
     private void OnBackBtnClick()
     {
         UIManager.Instance.HiddenUI("CampSelectPage");
+        UIManager.Instance.ShowUI<MainMenu>("MainMenu", E_UI_Layer.Mid, null);
     }
 
     private void OnCampItemSelect(uint uid)

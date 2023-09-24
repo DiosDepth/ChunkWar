@@ -94,6 +94,7 @@ public class GameSavePage : GUIBasePanel
     private void OnBackBtnClick()
     {
         UIManager.Instance.HiddenUI("GameSavePage");
+        UIManager.Instance.ShowUI<MainMenu>("MainMenu", E_UI_Layer.Mid, null);
     }
 
 
