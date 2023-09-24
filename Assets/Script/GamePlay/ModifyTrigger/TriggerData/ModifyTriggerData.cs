@@ -47,6 +47,10 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return new MT_OnAdd(cfg, uid);
             case ModifyTriggerType.OnPlayerShipMove:
                 return new MT_PlayerShipMove(cfg, uid);
+            case ModifyTriggerType.OnRefreshShop:
+                return new MT_OnShopRefresh(cfg, uid);
+            case ModifyTriggerType.ItemRarityCount:
+                return new MT_ItemRarityCount(cfg, uid);
 
         }
 
@@ -76,6 +80,9 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     protected virtual void Trigger()
     {
+        if (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount)
+            return;
+
         currentTriggerCount++;
         var effects = Config.Effects;
         for(int i = 0; i < effects.Length; i++)
@@ -101,6 +108,34 @@ public class MT_OnAdd : ModifyTriggerData
     public override void OnTriggerAdd()
     {
         base.OnTriggerAdd();
+        Trigger();
+    }
+}
+
+/// <summary>
+/// ÉÌµêË¢ÐÂ
+/// </summary>
+public class MT_OnShopRefresh : ModifyTriggerData
+{
+    public MT_OnShopRefresh(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        RogueManager.Instance.OnShopRefresh += OnShopRefresh;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        RogueManager.Instance.OnShopRefresh -= OnShopRefresh;   
+    }
+
+    private void OnShopRefresh(int refreshCount)
+    {
         Trigger();
     }
 }

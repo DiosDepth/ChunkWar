@@ -43,12 +43,16 @@ public enum ModifyTriggerType
     /// </summary>
     OnAdd,
     OnPlayerShipMove,
+    OnRefreshShop,
+    ItemRarityCount,
 }
 
 public enum ModifyTriggerEffectType
 {
     AddPropertyValue,
     SetPropertyMaxValue,
+    SetPropertyValue,
+    TempReduceShopPrice,
 }
 
 public class BattleMainConfig : SerializedScriptableObject

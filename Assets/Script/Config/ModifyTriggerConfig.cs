@@ -62,6 +62,14 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnPlayerShipMove(type));
             }
+            else if (type == ModifyTriggerType.OnRefreshShop)
+            {
+                result.Add(type.ToString(), new MTC_OnRefreshShop(type));
+            }
+            else if(type == ModifyTriggerType.ItemRarityCount)
+            {
+                result.Add(type.ToString(), new MTC_ByItemRarityCount(type));
+            }
         }
 
         return result;
@@ -224,6 +232,38 @@ public class MTC_OnPlayerShipMove : ModifyTriggerConfig
     public bool IsMoving;
 
     public MTC_OnPlayerShipMove(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+/// <summary>
+/// 根据所持物件稀有度类型数量
+/// </summary>
+public class MTC_ByItemRarityCount : ModifyTriggerConfig
+{
+    public enum ItemType
+    {
+        Unit,
+        Plug,
+        All
+    }
+
+    [HorizontalGroup("AB", 200)]
+    [LabelText("类型")]
+    [LabelWidth(50)]
+    public ItemType Type;
+    public List<GoodsItemRarity> VaildRarity = new List<GoodsItemRarity>();
+
+    public MTC_ByItemRarityCount(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnRefreshShop : ModifyTriggerConfig
+{
+    public MTC_OnRefreshShop(ModifyTriggerType type) : base(type)
     {
 
     }

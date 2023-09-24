@@ -30,7 +30,14 @@ public class ShopGoodsInfo : RandomObject
         set;
     }
 
-
+    /// <summary>
+    /// ¥Ú’€±»¿˝
+    /// </summary>
+    public byte DiscountValue
+    {
+        get;
+        protected set;
+    }
 
     public GoodsItemRarity Rarity
     {
@@ -87,6 +94,7 @@ public class ShopGoodsInfo : RandomObject
         info.GoodsID = goodsID;
         info._cfg = cfg;
         info.Weight = cfg.Weight;
+        info.DiscountValue = 0;
 
         if (cfg.ItemType == GoodsItemType.ShipPlug)
         {
@@ -123,6 +131,19 @@ public class ShopGoodsInfo : RandomObject
         _sold = true;
     }
 
+    public void SetDiscountValue(byte value)
+    {
+        DiscountValue = value;
+    }
+
+    /// <summary>
+    /// ÷ÿ÷√
+    /// </summary>
+    public void Reset()
+    {
+        DiscountValue = 0;
+    }
+
     private bool CheckIsVaild()
     {
         if (_cfg.MaxBuyCount == -1)
@@ -147,6 +168,8 @@ public class ShopGoodsInfo : RandomObject
         var basePrice = _cfg.CostBase;
         var currentWave = RogueManager.Instance.GetCurrentWaveIndex;
         var price = (basePrice + (currentWave * basePrice * 0.1f)) * (1 + shopPriceFinal / 100f);
+        var disCountPercent = (100 - DiscountValue) / 100f;
+        price *= disCountPercent;
         price = Mathf.Clamp(price, 1f, price);
         return Mathf.RoundToInt(price);
     }

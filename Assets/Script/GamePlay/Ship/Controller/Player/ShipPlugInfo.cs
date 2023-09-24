@@ -19,6 +19,13 @@ public class ShipPlugInfo : IPropertyModify
     public int GoodsID;
 
     private ShipPlugItemConfig _cfg;
+    public GoodsItemRarity Rarity
+    {
+        get
+        {
+            return _cfg.GeneralConfig.Rarity;
+        }
+    }
 
     private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
     private List<ModifyTriggerData> _triggerDatas = new List<ModifyTriggerData>();

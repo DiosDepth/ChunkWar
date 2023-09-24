@@ -182,7 +182,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
     private void OnRerollBtnClick()
     {
-        RogueManager.Instance.RefreshShop();
+        RogueManager.Instance.RefreshShop(true);
     }
 
     /// <summary>

@@ -190,7 +190,7 @@ MonoBehaviour:
     TypeID: 1003
     CostBase: 45
     Unique: 0
-    MaxBuyCount: 3
+    MaxBuyCount: -1
   - GoodID: 4
     Weight: 20
     ItemType: 1

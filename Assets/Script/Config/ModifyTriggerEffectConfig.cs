@@ -35,10 +35,57 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_SetPropertyMaxValue(type));
             }
+            else if (type == ModifyTriggerEffectType.SetPropertyValue)
+            {
+                result.Add(type.ToString(), new MTEC_SetPropertyValue(type));
+            }
+            else if (type == ModifyTriggerEffectType.TempReduceShopPrice)
+            {
+                result.Add(type.ToString(), new MTEC_TempReduceShopPrice(type));
+            }
         }
 
         return result;
     }
+}
+
+public  class MTEC_SetPropertyValue : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public PropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public float Value;
+
+    [HorizontalGroup("AA", 150)]
+    [LabelText("类型")]
+    [LabelWidth(40)]
+    public PropertyModifyType ModifyType;
+
+    public MTEC_SetPropertyValue(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data)
+    {
+        ///使用特殊数量修正
+        if (data is MT_ItemRarityCount)
+        {
+            var itemData = data as MT_ItemRarityCount;
+            int count = itemData.ItemCount;
+            RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value * count);
+
+            return;
+        }
+
+        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
+    }
+
 }
 
 public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
@@ -65,6 +112,16 @@ public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
 
     public override void Excute(ModifyTriggerData data)
     {
+        ///使用特殊数量修正
+        if(data is MT_ItemRarityCount)
+        {
+            var itemData = data as MT_ItemRarityCount;
+            int count = itemData.ItemCount;
+            RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value * count);
+
+            return;
+        }
+
         RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 
@@ -90,5 +147,49 @@ public class MTEC_SetPropertyMaxValue : ModifyTriggerEffectConfig
     public override void Excute(ModifyTriggerData data)
     {
         RogueManager.Instance.MainPropertyData.SetPropertyMaxValue(ModifyKey, Value);
+    }
+}
+
+public class MTEC_TempReduceShopPrice : ModifyTriggerEffectConfig
+{
+    /// <summary>
+    /// 如果为0，则所有的都生效
+    /// </summary>
+    [HorizontalGroup("AA", 120)]
+    [LabelText("生效数量")]
+    [LabelWidth(40)]
+    public byte ReduceCount;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("打折比例")]
+    [LabelWidth(40)]
+    public byte DiscountValue;
+
+    public MTEC_TempReduceShopPrice(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data)
+    {
+        if(ReduceCount == 0)
+        {
+            var allcurrentItems = RogueManager.Instance.CurrentRogueShopItems;
+            for(int i = 0; i < allcurrentItems.Count; i++)
+            {
+                allcurrentItems[i].SetDiscountValue(DiscountValue);
+            }
+        }
+        else
+        {
+            var randomItems = RogueManager.Instance.GetRandomCurrentRogueShopItems(ReduceCount);
+            if(randomItems != null && randomItems.Count > 0)
+            {
+                for(int i = 0; i < randomItems.Count; i++)
+                {
+                    randomItems[i].SetDiscountValue(DiscountValue);
+                }
+            }
+        }
     }
 }

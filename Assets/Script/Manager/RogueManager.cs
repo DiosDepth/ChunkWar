@@ -207,7 +207,10 @@ public class RogueManager : Singleton<RogueManager>
     public UnityAction<int, int> OnShipPlugCountChange;
     /* 波次变化  bool : 波次开始或结束*/
     public UnityAction<bool> OnWaveStateChange;
-
+    /* 商店刷新  刷新次数 */
+    public UnityAction<int> OnShopRefresh;
+    /* 物品数量变更 */
+    public UnityAction OnItemCountChange;
     #endregion
 
     public RogueManager()
@@ -923,7 +926,7 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void EnterShop()
     {
-        RefreshShop();
+        RefreshShop(false);
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
         CameraManager.Instance.SetOrthographicSize(20);
@@ -986,19 +989,28 @@ public class RogueManager : Singleton<RogueManager>
     /// 刷新商店
     /// </summary>
     /// <returns></returns>
-    public bool RefreshShop()
+    public bool RefreshShop(bool useCurrency)
     {
-        if (CurrentRerollCost > CurrentCurrency)
-            return false;
+        if (useCurrency)
+        {
+            if (CurrentRerollCost > CurrentCurrency)
+                return false;
+
+            ///Cost
+            CurrentRerollCost = GetCurrentRefreshCost();
+            AddCurrency(-CurrentRerollCost);
+        }
+        ///Reset
+        CurrentRogueShopItems.ForEach(x => x.Reset());
 
         _currentRereollCount++;
-        ///Cost
-        CurrentRerollCost = GetCurrentRefreshCost();
-        AddCurrency(-CurrentRerollCost);
         ///RefreshShop
         var refreshCount = GetCurrentShopRefreshCount();
         GenerateShopGoods(refreshCount, _shopRefreshTotalCount);
         RogueEvent.Trigger(RogueEventType.ShopReroll);
+
+        OnShopRefresh?.Invoke(_currentRereollCount);
+
         Debug.Log("刷新商店，刷新次数 = " + _currentRereollCount);
         return true;
     }
@@ -1083,6 +1095,19 @@ public class RogueManager : Singleton<RogueManager>
 #endif
         CurrentRogueShopItems = result;
         return result;
+    }
+
+    /// <summary>
+    /// 获取随机X个当前商店的商品
+    /// </summary>
+    /// <param name="count"></param>
+    /// <returns></returns>
+    public List<ShopGoodsInfo> GetRandomCurrentRogueShopItems(int count)
+    {
+        if (CurrentRogueShopItems.Count >= count)
+            return CurrentRogueShopItems;
+
+        return Utility.GetRandomList<ShopGoodsInfo>(CurrentRogueShopItems, count);
     }
 
     private void InitShopData()
@@ -1185,13 +1210,20 @@ public class RogueManager : Singleton<RogueManager>
         var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipUnit, unit);
         unit.UID = uid;
         unit.OnAdded();
+        OnItemCountChange?.Invoke();
         _currentShipUnits.Add(uid, unit);
         AllShipUnits.Add(unit);
+    }
+
+    public int GetShipUnitCountByItemRarity(GoodsItemRarity rarity)
+    {
+        return AllShipUnits.FindAll(x => x._baseUnitConfig.GeneralConfig.Rarity == rarity).Count;
     }
 
     public void RemoveShipUnit(Unit unit)
     {
         unit.OnRemove();
+        OnItemCountChange?.Invoke();
         AllShipUnits.Remove(unit);
         _currentShipUnits.Remove(unit.UID);
     }
@@ -1255,6 +1287,11 @@ public class RogueManager : Singleton<RogueManager>
         return null;
     }
 
+    public int GetPlugCountByItemRarity(GoodsItemRarity rarity)
+    {
+        return AllCurrentShipPlugs.FindAll(x => x.Rarity == rarity).Count;
+    }
+
     /// <summary>
     /// 根据插件UID获取商品数据
     /// </summary>
@@ -1307,6 +1344,7 @@ public class RogueManager : Singleton<RogueManager>
         _currentShipPlugs.Add(uid, plugInfo);
         AllCurrentShipPlugs.Add(plugInfo);
         OnShipPlugCountChange?.Invoke(plugID, GetSameShipPlugTotalCount(plugID));
+        OnItemCountChange?.Invoke();
         RogueEvent.Trigger(RogueEventType.ShipPlugChange);
     }
 
