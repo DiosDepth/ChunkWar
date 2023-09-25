@@ -181,6 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   ownertype: 1
+  damageType: 2
+  damageRadius: 5
   ShootVFX: HitVFX
   HitVFX: HitVFX
   DeathVFX: HitVFX

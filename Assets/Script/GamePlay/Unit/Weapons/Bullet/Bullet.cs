@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public enum BulletType
@@ -27,6 +30,8 @@ public class Bullet : MonoBehaviour,IPoolable
 {
     public BulletType type;
     public OwnerType ownertype;
+    public DamageType damageType = DamageType.Point;
+    public float damageRadius = 5;
 
     public string ShootVFX = "HitVFX";
     public string HitVFX = "HitVFX";
@@ -38,7 +43,8 @@ public class Bullet : MonoBehaviour,IPoolable
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     protected Vector2 _initialmoveDirection = Vector2.up;
 
-
+    public bool IsApplyDamageAtThisFrame { get { return _isApplyDamageAtThisFrame; } }
+    protected bool _isApplyDamageAtThisFrame;
     protected bool _isUpdate;
     public virtual void Initialization()
     {
@@ -50,8 +56,60 @@ public class Bullet : MonoBehaviour,IPoolable
         {
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
         }
-
     }
+
+    public struct FindBulletDamageTargetJob : IJobParallelForBatch
+    {
+        [ReadOnly] public NativeArray<float3> job_targetsPos;
+        [ReadOnly] public int job_targesTotalCount;
+        [ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_JobInfo;
+
+        public NativeArray<int> rv_findedTargetsCount;
+        public NativeArray<int> rv_findedTargetIndex;
+        private int length;
+        public void Execute(int startIndex, int count)
+        {
+    
+            NativeList<int> targetindexlist;
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+                int index = 0;
+                targetindexlist = new NativeList<int>(Allocator.Temp);
+
+                if (job_JobInfo[i].damageType == 1)
+                {
+                    for (int n = 0; n < job_targetsPos.Length; n++)
+                    {
+                        if (math.distance(job_JobInfo[i].update_targetPos, job_targetsPos[n]) <= 0.01f)
+                        {
+                            rv_findedTargetIndex[i * job_targesTotalCount + index] = n;
+                            index++;
+                            rv_findedTargetsCount[i] = index;
+                            break;
+                        }
+                    }
+
+                }
+
+                if (job_JobInfo[i].damageType == 2)
+                {
+                    for (int n = 0; n < job_targetsPos.Length; n++)
+                    {
+                        if (math.distance(job_JobInfo[i].update_selfPos, job_targetsPos[n]) <= job_JobInfo[i].damageRadius)
+                        {
+                            rv_findedTargetIndex[i * job_targesTotalCount + index] = n;
+                            index++;
+                            rv_findedTargetsCount[i] = index;
+                        }
+                    }
+                }
+                
+
+            }
+        }
+    }
+
+
     public virtual void SetOwner(Unit owner)
     {
         _owner = owner;
@@ -113,6 +171,7 @@ public class Bullet : MonoBehaviour,IPoolable
 
     public virtual void PoolableReset()
     {
+        _isApplyDamageAtThisFrame = false;
         target = null;
     }
 
@@ -127,5 +186,13 @@ public class Bullet : MonoBehaviour,IPoolable
 
         this.gameObject.SetActive(isactive);
     }
+
+    public virtual void ApplyDamage(IDamageble damageble)
+    {
+
+    }
+
+
+
 
 }

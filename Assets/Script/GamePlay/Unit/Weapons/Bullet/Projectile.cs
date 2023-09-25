@@ -1,4 +1,5 @@
 
+using JetBrains.Annotations;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -11,6 +12,11 @@ public enum ProjectileMovementType
     Straight = 1,
     StraightToPos = 2,
     FollowTarget = 3,
+}
+public enum DamageType
+{
+    Point = 1,
+    PointRadius = 2,
 }
 public struct ProjectileJobInitialInfo
 {
@@ -26,6 +32,8 @@ public struct ProjectileJobInitialInfo
     public float3 initialDirection;
     public float3 update_moveDirection;
     public int movementType;
+    public int damageType;
+    public float damageRadius;
 
     /// <summary>
     /// 创建Job时需要传的参数， 大部分是静态， 小部分需要更新
@@ -37,7 +45,7 @@ public struct ProjectileJobInitialInfo
     /// <param name="m_acceleration"></param>
     /// <param name="m_rotspeed"></param>
     /// <param name="m_initialdirection"></param>
-    public ProjectileJobInitialInfo(float3 m_update_targetPos, float3 m_update_selfPos, float m_lifttime, float m_maxspeed, float m_initialspeed, float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType)
+    public ProjectileJobInitialInfo(float3 m_update_targetPos, float3 m_update_selfPos, float m_lifttime, float m_maxspeed, float m_initialspeed, float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType , int m_damageType, float m_damageRadius)
     {
         update_targetPos = m_update_targetPos;
         update_selfPos = m_update_selfPos;
@@ -51,6 +59,8 @@ public struct ProjectileJobInitialInfo
         initialDirection = m_initialdirection;
         update_moveDirection = initialDirection;
         movementType = m_movementType;
+        damageType = m_damageType;
+        damageRadius = m_damageRadius;
     }
 }
 
@@ -73,6 +83,7 @@ public class Projectile : Bullet, IDamageble
     public Rigidbody2D rb;
     public Collider2D bulletCollider;
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
+
     public float lifeTime = 10;
     public float maxSpeed = 2.5f;
     public float rotSpeed = 180f;
@@ -144,7 +155,7 @@ public class Projectile : Bullet, IDamageble
     }
 
     [BurstCompile]
-    public struct CalculateBulletMovementJobJob : IJobParallelForBatch
+    public struct CalculateProjectileMovementJobJob : IJobParallelForBatch
     {
 
         [ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_jobInfo;
@@ -305,20 +316,16 @@ public class Projectile : Bullet, IDamageble
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == this.tag)
+        if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
         {
             return;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
         {
-            if (_owner is Weapon)
-            {
-                var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                //暂时注销用来无敌测试
-                collision.GetComponent<IDamageble>()?.TakeDamage(ref damage);
-            }
-            Death();
+
+            _isApplyDamageAtThisFrame = true;
+         
         }
     }
 
@@ -328,7 +335,13 @@ public class Projectile : Bullet, IDamageble
         base.Death();
     }
 
-
+    public override void ApplyDamage(IDamageble damageble)
+    {
+        base.ApplyDamage(damageble);
+        var damage = (_owner as Weapon).weaponAttribute.GetDamage();
+        damageble.TakeDamage(ref damage);
+        Death();
+    }
     public bool TakeDamage(ref DamageResultInfo info)
     {
         if (HpComponent == null)
