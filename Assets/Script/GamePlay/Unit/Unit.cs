@@ -130,7 +130,11 @@ public class UnitBaseAttribute
         {
             rate = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
         }
+        ///Calculate Local Property
+        var localEnergyCostPercent = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitEnergyCostPercent);
+        rate += localEnergyCostPercent;
         rate = Mathf.Clamp(rate, -100, float.MaxValue);
+
         EnergyCost = Mathf.RoundToInt(BaseEnergyCost * (100 + rate) / 100f);
 
         RefreshShipEnergy();
@@ -187,6 +191,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
+
+    public UnitLocalPropertyData LocalPropetyData;
 
     private List<ModifyTriggerData> _modifyTriggerDatas = new List<ModifyTriggerData>();
     public List<ModifyTriggerData> AllTriggerDatas
@@ -295,6 +301,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public virtual void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _owner = m_owner;
+        LocalPropetyData = new UnitLocalPropertyData();
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
 
@@ -425,10 +432,24 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         {
             return false;
         }
-        if(_owner is AIShip)
+
+        ///Hit Events
+        HitInfo hitInfo = new HitInfo
+        {
+            DamageType = info.DamageType,
+            isPlayerAttack = info.IsPlayerAttack
+        };
+        LevelManager.Instance.OnUnitHit(hitInfo);
+
+        if (_owner is AIShip)
         {
             int Damage = info.Damage;
             bool critical = info.IsCritical;
+
+            ///Check Damage
+            if (Damage == 0)
+                return false;
+
             ///只有敌人才显示伤害数字
             //这里需要显示对应的漂浮文字
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
@@ -451,6 +472,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         {
             Death();
         }
+
         return isDie;
     }
     

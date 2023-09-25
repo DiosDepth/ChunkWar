@@ -175,6 +175,12 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         _currentShieldHP.Set(newValue);
         ///Reset Timer
         _shieldRecoverTimer = 0;
+
+        if (IsShieldBroken)
+        {
+            LevelManager.Instance.OnShieldBroken(ParentUnit.UID);
+        }
+
         return newValue <= 0;
     }
 

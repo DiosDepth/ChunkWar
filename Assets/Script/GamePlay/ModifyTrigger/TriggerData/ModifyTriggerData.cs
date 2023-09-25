@@ -55,6 +55,8 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return new MT_OnEnterHarbor(cfg, uid);
             case ModifyTriggerType.OnShieldRecover:
                 return new MT_OnShieldRecover(cfg, uid);
+            case ModifyTriggerType.OnWeaponHitTarget:
+                return new MT_OnWeaponHitTarget(cfg, uid);
 
         }
 
@@ -82,7 +84,7 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     }
 
-    protected virtual void Trigger()
+    protected virtual void Trigger(uint parentUnitID = 0)
     {
         if (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount)
             return;
@@ -91,28 +93,28 @@ public abstract class ModifyTriggerData : IPropertyModify
         var effects = Config.Effects;
         for(int i = 0; i < effects.Length; i++)
         {
-            effects[i].Excute(this);
+            effects[i].Excute(this, parentUnitID);
         }
     }
 
     /// <summary>
     /// 生效触发，仅用于来回触发的情景
     /// </summary>
-    protected void EffectTrigger()
+    protected void EffectTrigger(uint parentUnitID = 0)
     {
         var effects = Config.Effects;
         for (int i = 0; i < effects.Length; i++)
         {
-            effects[i].Excute(this);
+            effects[i].Excute(this, parentUnitID);
         }
     }
 
-    protected void UnEffectTrigger()
+    protected void UnEffectTrigger(uint parentUnitID = 0)
     {
         var effects = Config.Effects;
         for (int i = 0; i < effects.Length; i++)
         {
-            effects[i].UnExcute(this);
+            effects[i].UnExcute(this, parentUnitID);
         }
     }
 

@@ -453,6 +453,13 @@ public static class GameHelper
         armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
         float DamageTake = 1 / (float)(1 + armor / armorParam);
         info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
+        ///护盾最低无视伤害
+        var ignoreDamage = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldIgnoreMinDamage);
+        if (ignoreDamage <= 0)
+            return;
+
+        info.Damage = info.Damage > ignoreDamage ? info.Damage : 0;
+
     }
 
     /// <summary>

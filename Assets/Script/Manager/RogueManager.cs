@@ -1248,6 +1248,13 @@ public class RogueManager : Singleton<RogueManager>
         AllShipUnits.Add(unit);
     }
 
+    public Unit GetPlayerShipUnit(uint UID)
+    {
+        if (_currentShipUnits.ContainsKey(UID))
+            return _currentShipUnits[UID];
+        return null;
+    }
+
     public int GetShipUnitCountByItemRarity(GoodsItemRarity rarity)
     {
         return AllShipUnits.FindAll(x => x._baseUnitConfig.GeneralConfig.Rarity == rarity).Count;

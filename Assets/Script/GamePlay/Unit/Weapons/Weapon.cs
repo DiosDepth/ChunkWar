@@ -15,6 +15,7 @@ public struct DamageResultInfo
 {
     public int Damage;
     public bool IsCritical;
+    public bool IsPlayerAttack;
     public WeaponDamageType DamageType;
     public float ShieldDamagePercent;
 
@@ -161,6 +162,7 @@ public class WeaponAttribute : UnitBaseAttribute
         {
             Damage = Damage,
             IsCritical = isCritical,
+            IsPlayerAttack = _parentUnit._owner is PlayerShip,
             DamageType = DamageType,
             ShieldDamagePercent = ShieldDamagePercent
         };

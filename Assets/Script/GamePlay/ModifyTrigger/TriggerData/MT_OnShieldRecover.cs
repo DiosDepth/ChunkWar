@@ -28,14 +28,14 @@ public class MT_OnShieldRecover : ModifyTriggerData
     private void OnShieldRecoverStart(uint targetUID)
     {
         _storageUnitIDs.Add(targetUID);
-        EffectTrigger();
+        EffectTrigger(targetUID);
     }
 
     private void OnShieldRecoverEnd(uint targetUID)
     {
         if (_storageUnitIDs.Remove(targetUID)) 
         {
-            UnEffectTrigger();
+            UnEffectTrigger(targetUID);
         }
     }
 }
