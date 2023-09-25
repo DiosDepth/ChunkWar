@@ -100,9 +100,9 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         mainProperty = RogueManager.Instance.MainPropertyData;
     }
 
-    public override void OnInit(BaseShip owner)
+    public override void OnInit(BaseShip owner, Unit parentUnit)
     {
-        base.OnInit(owner);
+        base.OnInit(owner, parentUnit);
         _currentShieldHP = new ChangeValue<int>(MaxShieldHP, 0, MaxShieldHP);
         if (owner is PlayerShip)
         {
@@ -138,6 +138,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
             if (_shieldRecoverTimer >= ShieldRecoverTime)
             {
                 _shieldRecovering = true;
+                LevelManager.Instance.ShieldRecoverStart(ParentUnit.UID);
             }
         }
 
@@ -202,6 +203,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         {
             ///RecoverFinish
             _shieldRecovering = false;
+            LevelManager.Instance.OnShieldRecoverEnd(ParentUnit.UID);
             _recoverDeltaTimer = 0;
             _shieldRecoverTimer = 0;
         }
@@ -228,7 +230,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
     private void CalculateShieldRecoverValue()
     {
         var recoverAdd = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldRecoverValue);
-        var newValue = Mathf.Clamp(recoverAdd + _shieldRecoverValueBase, 0, int.MaxValue);
+        var newValue = Mathf.Clamp((1 + recoverAdd / 100f) * _shieldRecoverValueBase, 0, int.MaxValue);
         ShieldRecoverValue = Mathf.CeilToInt(newValue);
     }
 

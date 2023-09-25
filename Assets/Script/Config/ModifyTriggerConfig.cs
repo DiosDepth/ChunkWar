@@ -78,6 +78,10 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_CoreHPPercent(type));
             }
+            else if (type == ModifyTriggerType.OnShieldRecover)
+            {
+                result.Add(type.ToString(), new MTC_OnShieldRecover(type));
+            }
         }
 
         return result;
@@ -298,6 +302,15 @@ public class MTC_CoreHPPercent : ModifyTriggerConfig
     public CompareType Compare;
 
     public MTC_CoreHPPercent(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnShieldRecover : ModifyTriggerConfig
+{
+
+    public MTC_OnShieldRecover(ModifyTriggerType type) : base(type)
     {
 
     }

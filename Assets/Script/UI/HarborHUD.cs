@@ -49,8 +49,6 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
         _hoverCmpt.SetActive(false);
         RefreshGeneral();
-
-        
     }
 
     public override void Hidden()

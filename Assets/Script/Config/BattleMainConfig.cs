@@ -50,6 +50,7 @@ public enum ModifyTriggerType
     /// 核心百分比
     /// </summary>
     ByCoreHPPercent,
+    OnShieldRecover,
 }
 
 public enum ModifyTriggerEffectType

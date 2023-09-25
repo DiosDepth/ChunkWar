@@ -52,7 +52,7 @@ public class Building : Unit
         if (_buildingComponents.Contains(cmpt))
             return;
 
-        cmpt.OnInit(_owner);
+        cmpt.OnInit(_owner, this);
         _buildingComponents.Add(cmpt);
     }
 

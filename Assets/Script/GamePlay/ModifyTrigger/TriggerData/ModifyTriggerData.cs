@@ -53,6 +53,8 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return new MT_ItemRarityCount(cfg, uid);
             case ModifyTriggerType.OnEnterHarbor:
                 return new MT_OnEnterHarbor(cfg, uid);
+            case ModifyTriggerType.OnShieldRecover:
+                return new MT_OnShieldRecover(cfg, uid);
 
         }
 
