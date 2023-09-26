@@ -192,7 +192,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
 
-    public UnitLocalPropertyData LocalPropetyData;
+    public UnitLocalPropertyData LocalPropetyData = new UnitLocalPropertyData();
 
     private List<ModifyTriggerData> _modifyTriggerDatas = new List<ModifyTriggerData>();
     public List<ModifyTriggerData> AllTriggerDatas
@@ -301,7 +301,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     public virtual void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _owner = m_owner;
-        LocalPropetyData = new UnitLocalPropertyData();
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
 
@@ -439,7 +438,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
             DamageType = info.DamageType,
             isPlayerAttack = info.IsPlayerAttack
         };
-        LevelManager.Instance.OnUnitHit(hitInfo);
+        LevelManager.Instance.UnitHit(hitInfo);
 
         if (_owner is AIShip)
         {

@@ -27,6 +27,10 @@ public static class GameHelper
     private static string RarityColor_SBG_T2 = "Sprite/General/ItemRarity_SBG_Tier2";
     private static string RarityColor_SBG_T3 = "Sprite/General/ItemRarity_SBG_Tier3";
     private static string RarityColor_SBG_T4 = "Sprite/General/ItemRarity_SBG_Tier4";
+    private static string ShipLevelUpRarity_Frame_T1 = "Sprite/General/ShipLevelUpItem_Frame_Tier1";
+    private static string ShipLevelUpRarity_Frame_T2 = "Sprite/General/ShipLevelUpItem_Frame_Tier2";
+    private static string ShipLevelUpRarity_Frame_T3 = "Sprite/General/ShipLevelUpItem_Frame_Tier3";
+    private static string ShipLevelUpRarity_Frame_T4 = "Sprite/General/ShipLevelUpItem_Frame_Tier4";
 
     private struct TempDropRandomItem : RandomObject
     {
@@ -69,6 +73,23 @@ public static class GameHelper
                 return ResManager.Instance.Load<Sprite>(RarityColor_SBG_T3);
             case GoodsItemRarity.Tier4:
                 return ResManager.Instance.Load<Sprite>(RarityColor_SBG_T4);
+            default:
+                return null;
+        }
+    }
+
+    public static Sprite GetShipLevelUpRarityFrameSprite(GoodsItemRarity rarity)
+    {
+        switch (rarity)
+        {
+            case GoodsItemRarity.Tier1:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T1);
+            case GoodsItemRarity.Tier2:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T2);
+            case GoodsItemRarity.Tier3:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T3);
+            case GoodsItemRarity.Tier4:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T4);
             default:
                 return null;
         }
