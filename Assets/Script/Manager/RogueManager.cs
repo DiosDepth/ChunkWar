@@ -305,7 +305,8 @@ public class RogueManager : Singleton<RogueManager>
         InitWreckageData();
         InitShopData();
         InitAllGoodsItems();
-        AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
+        ///InitPlugs
+        InitShipPlugs();
     }
 
     /// <summary>
@@ -1456,6 +1457,22 @@ public class RogueManager : Singleton<RogueManager>
             }
         }
         return result;
+    }
+
+    /// <summary>
+    /// ³õÊ¼»¯½¢´¬²å¼þ
+    /// </summary>
+    private void InitShipPlugs()
+    {
+        var shipCfg = currentShipSelection.itemconfig as PlayerShipConfig;
+        AddNewShipPlug(shipCfg.CorePlugID);
+        if (shipCfg.ShipOriginPlugs != null && shipCfg.ShipOriginPlugs.Count > 0) 
+        {
+            for (int i = 0; i < shipCfg.ShipOriginPlugs.Count; i++) 
+            {
+                AddNewShipPlug(shipCfg.ShipOriginPlugs[i]);
+            }
+        }
     }
 
     #endregion

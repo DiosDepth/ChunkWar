@@ -328,3 +328,35 @@ public class MTEC_SetUnitPropertyValue : ModifyTriggerEffectConfig
         targetUnit.LocalPropetyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
     }
 }
+
+public class MTEC_EnterUnitState : ModifyTriggerEffectConfig
+{
+
+
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public UnitPropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("ֵ")]
+    [LabelWidth(40)]
+    public float Value;
+
+    public float DurationTime;
+
+    public MTEC_EnterUnitState(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}

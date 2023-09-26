@@ -1447,7 +1447,10 @@ MonoBehaviour:
   DropList: []
   CorePlugID: 5
   PlayerShipCampID: 2
-  UnlockDefault: 0
-  EditorPrefab: {fileID: 0}
+  UnlockDefault: 1
+  EditorPrefab: {fileID: 7848178515196352761, guid: 56d53cb3fc385944cb717a0877e90000,
+    type: 3}
   ShipPropertyDesc: 
+  ShipHardLevels: 
+  ShipOriginPlugs: 
   ShipEditorSprite: {fileID: 21300000, guid: a7759052660f9684d8fba0f79882ccb8, type: 3}

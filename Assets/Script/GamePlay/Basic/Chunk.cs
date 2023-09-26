@@ -30,7 +30,7 @@ public class Chunk : IDamageble
 
     public void Death()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public bool TakeDamage(ref DamageResultInfo info)

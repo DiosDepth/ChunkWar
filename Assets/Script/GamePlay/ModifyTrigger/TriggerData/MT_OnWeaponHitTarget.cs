@@ -6,6 +6,7 @@ public class HitInfo
 {
     public bool isPlayerAttack;
     public WeaponDamageType DamageType;
+    public bool isCritical;
 
 }
 
@@ -35,7 +36,12 @@ public class MT_OnWeaponHitTarget : ModifyTriggerData
         if (!info.isPlayerAttack)
             return;
 
-        if (info.DamageType != _hitCfg.DamageType)
+        if ((_hitCfg.DamageTypeBool == BoolType.True && info.DamageType != _hitCfg.DamageType) ||
+            (_hitCfg.DamageTypeBool == BoolType.False && info.DamageType == _hitCfg.DamageType))
+            return;
+
+        if ((_hitCfg.CriticalBool == BoolType.True && !info.isCritical) ||
+            (_hitCfg.CriticalBool == BoolType.False && info.isCritical))
             return;
 
         Trigger();

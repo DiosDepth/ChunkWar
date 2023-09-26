@@ -42,9 +42,15 @@ public class PlayerShipConfig : BaseShipConfig
     [LabelWidth(100)]
     public string ShipPropertyDesc;
 
+    [FoldoutGroup("配置")]
     [LabelText("舰船可用难度")]
     [LabelWidth(100)]
     public List<int> ShipHardLevels = new List<int>();
+
+    [FoldoutGroup("配置")]
+    [LabelText("初始插件")]
+    [LabelWidth(100)]
+    public List<int> ShipOriginPlugs = new List<int>();
 
     [OnValueChanged("OnShipEditorSpriteChange")]
     public Sprite ShipEditorSprite;

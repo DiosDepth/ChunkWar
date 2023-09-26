@@ -62,6 +62,7 @@ public enum ModifyTriggerEffectType
     TempReduceShopPrice,
     AddPropertyValueBySpecialCount,
     SetUnitPropertyModifyKey,
+    EnterUnitState
 }
 
 public class BattleMainConfig : SerializedScriptableObject

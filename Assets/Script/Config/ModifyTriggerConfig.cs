@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BoolType
+{
+    True,
+    False,
+    All
+}
+
 [System.Serializable]
 public abstract class ModifyTriggerConfig 
 {
@@ -322,10 +329,20 @@ public class MTC_OnShieldRecover : ModifyTriggerConfig
 
 public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
 {
+    [HorizontalGroup("AB", 120)]
+    [LabelText("≈–∂œ…À∫¶¿‡–Õ")]
+    [LabelWidth(50)]
+    public BoolType DamageTypeBool = BoolType.All;
+
     [HorizontalGroup("AB", 200)]
     [LabelText("…À∫¶¿‡–Õ")]
     [LabelWidth(50)]
     public WeaponDamageType DamageType;
+
+    [HorizontalGroup("AB", 120)]
+    [LabelText("≈–∂œ±©ª˜")]
+    [LabelWidth(50)]
+    public BoolType CriticalBool = BoolType.All;
 
     public MTC_OnWeaponHitTarget(ModifyTriggerType type) : base(type)
     {

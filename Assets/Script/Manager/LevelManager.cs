@@ -106,6 +106,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<uint> OnShieldBroken;
     /* Unit受击 */
     public UnityAction<HitInfo> OnUnitHit;
+    /* 敌人数量变化 */
+    public UnityAction<int> OnEnemyCountChange;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -467,6 +469,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void UnitHit(HitInfo info)
     {
         OnUnitHit?.Invoke(info);
+    }
+
+    /// <summary>
+    /// 敌人数量变更
+    /// </summary>
+    /// <param name="count"></param>
+    public void EnemyShipCountChange(int count)
+    {
+        OnEnemyCountChange?.Invoke(count);
     }
 
     #endregion

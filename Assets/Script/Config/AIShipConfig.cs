@@ -10,6 +10,13 @@ public enum EnemyHPBillBoardType
     Elite_Scene,
 }
 
+public enum EnemyClassType
+{
+    Normal,
+    Elite,
+    Boss
+}
+
 [CreateAssetMenu(fileName = "Configs_AIShip_", menuName = "Configs/Unit/AIShipConfig")]
 public class AIShipConfig : BaseShipConfig
 {
@@ -19,6 +26,12 @@ public class AIShipConfig : BaseShipConfig
     [HorizontalGroup(" Ù–‘≈‰÷√/AA", 150)]
     [BoxGroup(" Ù–‘≈‰÷√/AA/HP—™Ãıœ‘ æ")]
     public bool ShowHPBillboard = false;
+
+    [HideLabel]
+    [TitleGroup(" Ù–‘≈‰÷√", Alignment = TitleAlignments.Centered)]
+    [HorizontalGroup(" Ù–‘≈‰÷√/AA", 150)]
+    [BoxGroup(" Ù–‘≈‰÷√/AA/µ»º∂")]
+    public EnemyClassType ClassLevel;
 
     [HideLabel]
     [TitleGroup(" Ù–‘≈‰÷√", Alignment = TitleAlignments.Centered)]

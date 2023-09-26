@@ -1452,6 +1452,7 @@ MonoBehaviour:
     count: 1
     dropRate: 100
   ShowHPBillboard: 0
+  ClassLevel: 0
   BillboardType: 0
   CoreHP: 50
   SpeedBase: 10
