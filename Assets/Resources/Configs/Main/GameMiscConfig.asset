@@ -25,6 +25,15 @@ MonoBehaviour:
     - Name: RefreshConfig
       Entry: 7
       Data: 0|BattleMiscRefreshConfig, Assembly-CSharp
+    - Name: LevelUpRefreshCostBase
+      Entry: 3
+      Data: 5
+    - Name: LevelUpCostWaveMultiple
+      Entry: 3
+      Data: 3
+    - Name: LevelUpRefreshCountMultiple
+      Entry: 3
+      Data: 10
     - Name: Harbor_Teleport_RandomRangeMin
       Entry: 4
       Data: 20

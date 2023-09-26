@@ -114,7 +114,9 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
 
     private void OnRerollButtonClick()
     {
-
+        RogueManager.Instance.RefreshShipLevelUpItems(true);
+        ShowShipLevelUpItem();
+        RefreshRerollCost();
     }
 
     private void SwitchPropertyGroup()
@@ -122,8 +124,11 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
         _propertyPanel.SwitchGroupType();
     }
 
+    /// <summary>
+    /// Ë¢ÐÂ
+    /// </summary>
     private void RefreshRerollCost()
     {
-        _rerollText.text = RogueManager.Instance.CurrentLevelUpitemRerollCost.ToString();
+        _rerollText.text = string.Format("-{0}", RogueManager.Instance.CurrentLevelUpitemRerollCost);
     }
 }

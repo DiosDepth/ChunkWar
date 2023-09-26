@@ -96,6 +96,10 @@ public enum ShipClassType
 
 public class BattleMiscRefreshConfig
 {
+    public int LevelUpRefreshCostBase;
+    public int LevelUpCostWaveMultiple;
+    public int LevelUpRefreshCountMultiple;
+
     public float Harbor_Teleport_RandomRangeMin;
     public float Harbor_Teleport_RandomRangeMax;
     public float Shop_Teleport_RandomRangeMin;
