@@ -248,7 +248,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         if(_owner is PlayerShip)
         {
             AIManager.Instance.RemoveTargetUnit(this);
-            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
+
+            if(_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
+            {
+                (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
+            }
+   
         }
         this.gameObject.SetActive(false);
         SetUnitProcess(false);

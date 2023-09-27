@@ -32,9 +32,12 @@ public class AIManager : Singleton<AIManager>
     private List<Projectile> aiProjectileDamageList = new List<Projectile>();
     private List<int> _aiProjectileDeathIndex = new List<int>();
     public NativeList<ProjectileJobInitialInfo> aiProjectile_JobInfo;
+
     public NativeArray<ProjectileJobRetrunInfo> rv_aiProjectile_jobUpdateInfo;
+    public NativeList<ProjectileJobInitialInfo> aiDamageProjectile_JobInfo;
     public NativeArray<int> rv_aiProjectileDamageTargetIndex;
     public NativeArray<int> rv_aiProjectileDamageTargetCountPre;
+
 
 
     public List<AISteeringBehaviorController> aiSteeringBehaviorControllerList = new List<AISteeringBehaviorController>();
@@ -172,6 +175,7 @@ public class AIManager : Singleton<AIManager>
 
 
         aiProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
+        aiDamageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
 
         steeringBehaviorJob_aiShipPos = new NativeList<float3>(Allocator.Persistent);
         steeringBehaviorJob_aiShipVelocity = new NativeList<float3>(Allocator.Persistent);
@@ -263,6 +267,7 @@ public class AIManager : Singleton<AIManager>
         if(aiActiveUnitAttackRange.IsCreated) { aiActiveUnitAttackRange.Dispose(); }
         if (aiActiveUnitMaxTargetsCount.IsCreated) { aiActiveUnitMaxTargetsCount.Dispose(); }
         if (aiProjectile_JobInfo.IsCreated) { aiProjectile_JobInfo.Dispose(); }
+        if (aiDamageProjectile_JobInfo.IsCreated) { aiDamageProjectile_JobInfo.Dispose(); }
 
         //ai data dispose
         if (steeringBehaviorJob_aiShipPos.IsCreated) { steeringBehaviorJob_aiShipPos.Dispose(); }
@@ -370,11 +375,6 @@ public class AIManager : Singleton<AIManager>
         UpdateAIWeapon();
         UpdateProjectile();
         ProcessProjectileDamage();
-
-
-
-
-
 
     }
 
@@ -1023,8 +1023,8 @@ public class AIManager : Singleton<AIManager>
         aiProjectileDamageList.Clear();
 
 
-        NativeList<ProjectileJobInitialInfo> aiDamageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.TempJob);
-
+        //aiDamageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.TempJob);
+        aiDamageProjectile_JobInfo.Clear();
         for (int i = 0; i < aiProjectileList.Count; i++)
         {
             if (aiProjectileList[i].IsApplyDamageAtThisFrame == true)
@@ -1073,7 +1073,7 @@ public class AIManager : Singleton<AIManager>
             }
         }
 
-        aiDamageProjectile_JobInfo.Dispose();
+     
         rv_aiProjectileDamageTargetCountPre.Dispose();
         rv_aiProjectileDamageTargetIndex.Dispose();
     }

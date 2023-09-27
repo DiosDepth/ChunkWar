@@ -59,11 +59,11 @@ public class ShipWeapon : Weapon
         }
     }
 
-    public void HandleShipAutonomyMainWeapon()
+    public virtual void HandleShipAutonomyMainWeapon()
     {
         // searching for targets
-
-        rv_weaponTargetsInfoQue = new NativeQueue<RV_WeaponTargetInfo>(Allocator.TempJob);
+        rv_weaponTargetsInfoQue.Clear();
+        
   
 
         FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
@@ -133,7 +133,7 @@ public class ShipWeapon : Weapon
         }
         
         ProcessWeapon();
-        rv_weaponTargetsInfoQue.Dispose();
+        //rv_weaponTargetsInfoQue.Dispose();
 
     }
 
@@ -189,6 +189,7 @@ public class ShipWeapon : Weapon
         if (activeWeaponPosList.IsCreated) { activeWeaponPosList.Dispose(); }
         if (activeWeaponAttackRangeList.IsCreated) { activeWeaponAttackRangeList.Dispose(); }
         if (activeWeaponTargetCountList.IsCreated) { activeWeaponTargetCountList.Dispose(); }
+        if (rv_weaponTargetsInfoQue.IsCreated) { rv_weaponTargetsInfoQue.Dispose(); }
         base.OnDestroy();
     }
 
@@ -197,6 +198,7 @@ public class ShipWeapon : Weapon
         if (activeWeaponPosList.IsCreated) { activeWeaponPosList.Dispose(); }
         if (activeWeaponAttackRangeList.IsCreated) { activeWeaponAttackRangeList.Dispose(); }
         if (activeWeaponTargetCountList.IsCreated) { activeWeaponTargetCountList.Dispose(); }
+        if (rv_weaponTargetsInfoQue.IsCreated) { rv_weaponTargetsInfoQue.Dispose(); }
         base.Death();
     }
 
@@ -207,6 +209,8 @@ public class ShipWeapon : Weapon
         activeWeaponPosList = new NativeList<float3>(Allocator.Persistent);
         activeWeaponAttackRangeList = new NativeList<float>(Allocator.Persistent);
         activeWeaponTargetCountList = new NativeList<int>(Allocator.Persistent);
+        rv_weaponTargetsInfoQue = new NativeQueue<RV_WeaponTargetInfo>(Allocator.Persistent);
+
 
     }
 

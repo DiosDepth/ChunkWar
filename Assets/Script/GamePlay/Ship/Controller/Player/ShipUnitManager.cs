@@ -18,6 +18,7 @@ public class ShipUnitManager
     public List<Projectile> projectileList = new List<Projectile>();
     private List<int> projiectileDeathIndexList = new List<int>();
     private List<Projectile> projectileDamageList = new List<Projectile>();
+    NativeList<ProjectileJobInitialInfo> damageProjectile_JobInfo;
     public NativeArray<int> rv_projectileDamageTargetIndex;
     public NativeArray<int> rv_projectileDamageTargetCountPre;
 
@@ -34,10 +35,12 @@ public class ShipUnitManager
         activeWeaponList = new List<ShipWeapon>();
         activeBuildingList = new List<Building>();
         projectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
+        damageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
 
         activeWeaponPosList = new NativeList<float3>(Allocator.Persistent);
         activeWeaponAttackRangeList = new NativeList<float>(Allocator.Persistent);
         activeWeaponTargetCountList = new NativeList<int>(Allocator.Persistent);
+   
     }
 
     ~ ShipUnitManager()
@@ -46,6 +49,7 @@ public class ShipUnitManager
         if (projectile_JobInfo.IsCreated) { projectile_JobInfo.Dispose(); }
         if (activeWeaponAttackRangeList.IsCreated) { activeWeaponAttackRangeList.Dispose(); }
         if (activeWeaponTargetCountList.IsCreated) { activeWeaponTargetCountList.Dispose(); }
+        if (damageProjectile_JobInfo.IsCreated) { damageProjectile_JobInfo.Dispose(); }
     }
 
     public virtual void Initialization(BaseShip target)
@@ -235,8 +239,8 @@ public class ShipUnitManager
         //处理所有子弹的伤害逻辑
         projectileDamageList.Clear();
 
-
-        NativeList<ProjectileJobInitialInfo> damageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.TempJob);
+        damageProjectile_JobInfo.Clear();
+ 
 
         for (int i = 0; i < projectileList.Count; i++)
         {
@@ -286,7 +290,7 @@ public class ShipUnitManager
             }
         }
 
-        damageProjectile_JobInfo.Dispose();
+        //damageProjectile_JobInfo.Dispose();
         rv_projectileDamageTargetCountPre.Dispose();
         rv_projectileDamageTargetIndex.Dispose();
     }

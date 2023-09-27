@@ -163,6 +163,9 @@ public class ChainBeamemit : Bullet
     protected override void Update()
     {
         transform.position = firepoint.transform.position;
+        _direction = MathExtensionTools.DirectionToXY(transform.position, target.transform.position);
+
+        transform.rotation = MathExtensionTools.GetRotationFromDirection(_direction);
         if (!_isUpdate)
         {
             return;
@@ -170,12 +173,14 @@ public class ChainBeamemit : Bullet
         base.Update();
 
         //_targetDistance = MathExtensionTools.DistanceXY(target.transform.position, transform.position);
-        _direction = MathExtensionTools.DirectionToXY(transform.position, target.transform.position);
 
-        transform.rotation = MathExtensionTools.GetRotationFromDirection(_direction);
 
-        _targetDistance = MathExtensionTools.DistanceXY(hit.transform.position, transform.position);
-        beamline.SetPosition(1, new Vector3(0, _targetDistance, 0));
+        if(hit)
+        {
+            _targetDistance = MathExtensionTools.DistanceXY(hit.transform.position, transform.position);
+            beamline.SetPosition(1, new Vector3(0, _targetDistance, 0));
+        }
+
         //update start Position
         //update End Position
         //update rotation
