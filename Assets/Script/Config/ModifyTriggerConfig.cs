@@ -78,6 +78,14 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_CoreHPPercent(type));
             }
+            else if (type == ModifyTriggerType.OnShieldRecover)
+            {
+                result.Add(type.ToString(), new MTC_OnShieldRecover(type));
+            }
+            else if (type == ModifyTriggerType.OnWeaponHitTarget)
+            {
+                result.Add(type.ToString(), new MTC_OnWeaponHitTarget(type));
+            }
         }
 
         return result;
@@ -298,6 +306,28 @@ public class MTC_CoreHPPercent : ModifyTriggerConfig
     public CompareType Compare;
 
     public MTC_CoreHPPercent(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnShieldRecover : ModifyTriggerConfig
+{
+
+    public MTC_OnShieldRecover(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
+{
+    [HorizontalGroup("AB", 200)]
+    [LabelText("…À∫¶¿‡–Õ")]
+    [LabelWidth(50)]
+    public WeaponDamageType DamageType;
+
+    public MTC_OnWeaponHitTarget(ModifyTriggerType type) : base(type)
     {
 
     }

@@ -160,4 +160,21 @@ public enum PropertyModifyKey
     /// 负载惩罚效果
     /// </summary>
     LoadPunishRate,
+    /// <summary>
+    /// 护盾无视最低伤害
+    /// </summary>
+    ShieldIgnoreMinDamage,
+    /// <summary>
+    /// 导弹HP
+    /// </summary>
+    MissileHPPercent
+}
+
+/// <summary>
+/// Unit单独修正Key
+/// </summary>
+public enum UnitPropertyModifyKey
+{
+    NONE,
+    UnitEnergyCostPercent,
 }

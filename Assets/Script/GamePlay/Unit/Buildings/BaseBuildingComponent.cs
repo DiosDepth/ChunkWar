@@ -6,10 +6,12 @@ using UnityEngine;
 public class BaseBuildingComponent 
 {
     public BaseShip OwnerShip;
+    public Unit ParentUnit;
 
-    public virtual void OnInit(BaseShip owner)
+    public virtual void OnInit(BaseShip owner, Unit parentUnit)
     {
         this.OwnerShip = owner;
+        this.ParentUnit = parentUnit;
     }
     
     public virtual void OnUpdate()

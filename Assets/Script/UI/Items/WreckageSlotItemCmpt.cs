@@ -15,6 +15,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
     private SelectableItemBase _item;
     private Image _icon;
+    private Image _rarityBG;
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
     private TextMeshProUGUI _sellText;
@@ -29,7 +30,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _wasteLoadValueText;
 
     private RectTransform _detailContentRect;
-    private Image _detailContentImage;
+    private ScrollRect _detailScroll;
 
     private WreckageItemInfo _info;
     private float ScrollHeight;
@@ -37,9 +38,9 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
     public void Awake()
     {
-        ScrollHeight = transform.Find("Content/DetailInfo").SafeGetComponent<RectTransform>().rect.height;
+        _detailScroll = transform.Find("Content/DetailInfo").SafeGetComponent<ScrollRect>();
+        ScrollHeight = _detailScroll.transform.SafeGetComponent<RectTransform>().rect.height;
         _detailContentRect = transform.Find("Content/DetailInfo/Viewport/Content").SafeGetComponent<RectTransform>();
-        _detailContentImage = _detailContentRect.transform.SafeGetComponent<Image>();
 
         _energyCostText = transform.Find("Content/Content/Energy/EnergyValue").SafeGetComponent<TextMeshProUGUI>();
         _loadCostText = transform.Find("Content/Content/Load/LoadValue").SafeGetComponent<TextMeshProUGUI>();
@@ -47,6 +48,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _wasteCanvas = transform.Find("WasteContent").SafeGetComponent<CanvasGroup>();
         _contentCanvas = transform.Find("Content").SafeGetComponent<CanvasGroup>();
         _icon = transform.Find("Content/Info/Icon/Image").SafeGetComponent<Image>();
+        _rarityBG = transform.Find("Content/Info/Icon/BG").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
 
 
@@ -124,6 +126,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _descText.text = info.Desc;
         _icon.sprite = info.UnitConfig.GeneralConfig.IconSprite;
         _nameText.color = info.RarityColor;
+        _rarityBG.sprite = GameHelper.GetRarityBGSprite(info.Rarity);
         _typeText.text = info.TypeName;
         _sellText.text = info.SellPrice.ToString();
 
@@ -135,7 +138,9 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         LayoutRebuilder.ForceRebuildLayoutImmediate(_detailContentRect);
 
         ///设置是否可以滑动
-        _detailContentImage.raycastTarget = _detailContentRect.rect.height > ScrollHeight;
+        bool enableScroll = _detailContentRect.rect.height > ScrollHeight;
+        _detailScroll.transform.SafeGetComponent<Image>().raycastTarget = enableScroll;
+        _detailScroll.vertical = enableScroll;
     }
 
     /// <summary>

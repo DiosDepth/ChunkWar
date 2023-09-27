@@ -98,6 +98,14 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<bool> OnPlayerShipMove;
     /* 玩家血量变化 */
     public UnityAction<float> OnCoreHPPercentChange;
+    /* 护盾回复开始 */
+    public UnityAction<uint> OnShieldRecoverStart;
+    /* 护盾回复结束 */
+    public UnityAction<uint> OnShieldRecoverEnd;
+    /* 护盾损坏 */
+    public UnityAction<uint> OnShieldBroken;
+    /* Unit受击 */
+    public UnityAction<HitInfo> OnUnitHit;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -439,6 +447,26 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             obj.transform.SafeGetComponent<ShopTeleport>().Initialization();
         });
         RogueEvent.Trigger(RogueEventType.ShopTeleportSpawn);
+    }
+
+    public void ShieldRecoverStart(uint targetUnitID)
+    {
+        OnShieldRecoverStart?.Invoke(targetUnitID);
+    }
+
+    public void ShieldRecoverEnd(uint targetUnitID)
+    {
+        OnShieldRecoverEnd?.Invoke(targetUnitID);
+    }
+
+    public void ShieldBroken(uint targetUnitID)
+    {
+        OnShieldBroken?.Invoke(targetUnitID);
+    }
+
+    public void UnitHit(HitInfo info)
+    {
+        OnUnitHit?.Invoke(info);
     }
 
     #endregion

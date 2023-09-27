@@ -431,6 +431,7 @@ MonoBehaviour:
   BaseHP: 100
   BaseEnergyCost: 30
   BaseEnergyGenerate: 0
+  LoadAdd: 0
   PropertyModify: []
   ShieldConfig:
     GenerateShield: 1

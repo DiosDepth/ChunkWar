@@ -22,8 +22,10 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
         _items = new List<ShipLevelUpSelectItem>();
         _propertyPanel = transform.Find("Content/Property/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
         transform.Find("Content/Property/PropertyTitle/PropertyBtn").SafeGetComponent<Button>().onClick.AddListener(SwitchPropertyGroup);
-        transform.Find("Reroll/Button").SafeGetComponent<Button>().onClick.AddListener(OnRerollButtonClick);
-        _rerollText = transform.Find("Reroll/Button/Content/Value").SafeGetComponent<TextMeshProUGUI>();
+
+        var rerollBtn = transform.Find("Content/SelectContent/Reroll/Button").SafeGetComponent<Button>();
+        rerollBtn.onClick.AddListener(OnRerollButtonClick);
+        _rerollText = rerollBtn.transform.Find("Content/Value").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public override void Initialization()
@@ -62,7 +64,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
     {
         if(_items.Count == 0)
         {
-            var root = transform.Find("Content/SelectContent");
+            var root = transform.Find("Content/SelectContent/Content");
             ///InitItems
             var count = DataManager.Instance.battleCfg.ShipLevelUp_GrowthItem_Count;
             for(int i = 0; i < count; i++)

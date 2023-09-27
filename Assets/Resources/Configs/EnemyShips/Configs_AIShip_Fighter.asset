@@ -1439,6 +1439,7 @@ MonoBehaviour:
     Name: AI_Fighter
     Desc: 
     Rarity: 0
+    SortingOrder: 0
   Prefab: {fileID: 3431155976711396027, guid: 8e0220b0ce47c664b941eda24d8cc5fb, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
@@ -1454,7 +1455,4 @@ MonoBehaviour:
   BillboardType: 0
   CoreHP: 50
   SpeedBase: 10
-  HardLevelCfg:
-    HPRatio: 0
-    DamageRatio: 0
-    DropValueRatio: 0
+  HardLevelGroupID: 0

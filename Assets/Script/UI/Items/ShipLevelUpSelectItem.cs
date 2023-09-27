@@ -20,7 +20,7 @@ public class ShipLevelUpSelectItem : MonoBehaviour, IPoolable, IHoverUIItem
         _hoverObj = transform.Find("Hover");
         _icon = transform.Find("Content/Icon/Image").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Name").SafeGetComponent<TextMeshProUGUI>();
-        _propertyCmpt = transform.Find("Content/ShopItemProperty").SafeGetComponent<ItemPropertyModifyCmpt>();
+        _propertyCmpt = transform.Find("Content/ShipLevelUpProperty").SafeGetComponent<ItemPropertyModifyCmpt>();
         transform.SafeGetComponent<GeneralHoverItemControl>().item = this;
         _hoverObj.SafeSetActive(false);
         transform.Find("BG").SafeGetComponent<Button>().onClick.AddListener(OnClick);
@@ -33,7 +33,8 @@ public class ShipLevelUpSelectItem : MonoBehaviour, IPoolable, IHoverUIItem
         _icon.sprite = item.Config.Icon;
         _nameText.text = LocalizationManager.Instance.GetTextValue(item.Config.Name);
         _propertyCmpt.SetUp(item.Config.ModifyKey, item.GetModifyValue(), false);
-        transform.Find("Frame").SafeGetComponent<Image>().color = GameHelper.GetRarityColor(item.Rarity);
+        transform.Find("Frame").SafeGetComponent<Image>().sprite = GameHelper.GetShipLevelUpRarityFrameSprite(item.Rarity);
+        transform.Find("Content/Icon/Rarity").SafeGetComponent<Image>().sprite = GameHelper.GetRarityBGSprite(item.Rarity);
     }
 
     private void OnClick()
@@ -61,10 +62,12 @@ public class ShipLevelUpSelectItem : MonoBehaviour, IPoolable, IHoverUIItem
     public void OnHoverEnter()
     {
         _hoverObj.SafeSetActive(true);
+        LeanTween.moveLocalY(gameObject, 30, 0.1f);
     }
 
     public void OnHoverExit()
     {
         _hoverObj.SafeSetActive(false);
+        LeanTween.moveLocalY(gameObject, 0, 0.1f);
     }
 }

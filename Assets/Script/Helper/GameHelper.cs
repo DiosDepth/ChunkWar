@@ -23,6 +23,15 @@ public static class GameHelper
     private static Color RarityColor_T3 = new Color(0.73f, 0f, 1f);
     private static Color RarityColor_T4 = new Color(1f, 0.57f, 0.23f);
 
+    private static string RarityColor_SBG_T1 = "Sprite/General/ItemRarity_SBG_Tier1";
+    private static string RarityColor_SBG_T2 = "Sprite/General/ItemRarity_SBG_Tier2";
+    private static string RarityColor_SBG_T3 = "Sprite/General/ItemRarity_SBG_Tier3";
+    private static string RarityColor_SBG_T4 = "Sprite/General/ItemRarity_SBG_Tier4";
+    private static string ShipLevelUpRarity_Frame_T1 = "Sprite/General/ShipLevelUpItem_Frame_Tier1";
+    private static string ShipLevelUpRarity_Frame_T2 = "Sprite/General/ShipLevelUpItem_Frame_Tier2";
+    private static string ShipLevelUpRarity_Frame_T3 = "Sprite/General/ShipLevelUpItem_Frame_Tier3";
+    private static string ShipLevelUpRarity_Frame_T4 = "Sprite/General/ShipLevelUpItem_Frame_Tier4";
+
     private struct TempDropRandomItem : RandomObject
     {
         public int Weight { get; set; }
@@ -49,6 +58,40 @@ public static class GameHelper
                 return RarityColor_T4;
             default:
                 return Color.white;
+        }
+    }
+
+    public static Sprite GetRarityBGSprite(GoodsItemRarity rarity)
+    {
+        switch (rarity)
+        {
+            case GoodsItemRarity.Tier1:
+                return ResManager.Instance.Load<Sprite>(RarityColor_SBG_T1);
+            case GoodsItemRarity.Tier2:
+                return ResManager.Instance.Load<Sprite>(RarityColor_SBG_T2);
+            case GoodsItemRarity.Tier3:
+                return ResManager.Instance.Load<Sprite>(RarityColor_SBG_T3);
+            case GoodsItemRarity.Tier4:
+                return ResManager.Instance.Load<Sprite>(RarityColor_SBG_T4);
+            default:
+                return null;
+        }
+    }
+
+    public static Sprite GetShipLevelUpRarityFrameSprite(GoodsItemRarity rarity)
+    {
+        switch (rarity)
+        {
+            case GoodsItemRarity.Tier1:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T1);
+            case GoodsItemRarity.Tier2:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T2);
+            case GoodsItemRarity.Tier3:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T3);
+            case GoodsItemRarity.Tier4:
+                return ResManager.Instance.Load<Sprite>(ShipLevelUpRarity_Frame_T4);
+            default:
+                return null;
         }
     }
 
@@ -431,6 +474,13 @@ public static class GameHelper
         armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
         float DamageTake = 1 / (float)(1 + armor / armorParam);
         info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
+        ///护盾最低无视伤害
+        var ignoreDamage = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldIgnoreMinDamage);
+        if (ignoreDamage <= 0)
+            return;
+
+        info.Damage = info.Damage > ignoreDamage ? info.Damage : 0;
+
     }
 
     /// <summary>

@@ -50,6 +50,8 @@ public enum ModifyTriggerType
     /// 核心百分比
     /// </summary>
     ByCoreHPPercent,
+    OnShieldRecover,
+    OnWeaponHitTarget,
 }
 
 public enum ModifyTriggerEffectType
@@ -59,6 +61,7 @@ public enum ModifyTriggerEffectType
     SetPropertyValue,
     TempReduceShopPrice,
     AddPropertyValueBySpecialCount,
+    SetUnitPropertyModifyKey,
 }
 
 public class BattleMainConfig : SerializedScriptableObject

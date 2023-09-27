@@ -20,8 +20,8 @@ public abstract class ModifyTriggerEffectConfig
         this.EffectType = type;
     }
 
-    public abstract void Excute(ModifyTriggerData data);
-    public abstract void UnExcute(ModifyTriggerData data);
+    public abstract void Excute(ModifyTriggerData data, uint parentUnitUID);
+    public abstract void UnExcute(ModifyTriggerData data, uint parentUnitUID);
 
     public static ValueDropdownList<ModifyTriggerEffectConfig> GetModifyEffectTriggerList()
     {
@@ -47,6 +47,10 @@ public abstract class ModifyTriggerEffectConfig
             else if (type == ModifyTriggerEffectType.AddPropertyValueBySpecialCount)
             {
                 result.Add(type.ToString(), new MTEC_AddPropertyValueBySpecialCount(type));
+            }
+            else if (type == ModifyTriggerEffectType.SetUnitPropertyModifyKey)
+            {
+                result.Add(type.ToString(), new MTEC_SetUnitPropertyValue(type));
             }
         }
 
@@ -76,7 +80,7 @@ public  class MTEC_SetPropertyValue : ModifyTriggerEffectConfig
 
     }
 
-    public override void Excute(ModifyTriggerData data)
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
         ///使用特殊数量修正
         if (data is MT_ItemRarityCount)
@@ -91,7 +95,7 @@ public  class MTEC_SetPropertyValue : ModifyTriggerEffectConfig
         RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 
-    public override void UnExcute(ModifyTriggerData data)
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
         RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
     }
@@ -119,7 +123,7 @@ public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
 
     }
 
-    public override void Excute(ModifyTriggerData data)
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
         ///使用特殊数量修正
         if(data is MT_ItemRarityCount)
@@ -134,7 +138,7 @@ public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
         RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 
-    public override void UnExcute(ModifyTriggerData data)
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
         RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
     }
@@ -157,12 +161,12 @@ public class MTEC_SetPropertyMaxValue : ModifyTriggerEffectConfig
 
     }
 
-    public override void Excute(ModifyTriggerData data)
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
         RogueManager.Instance.MainPropertyData.SetPropertyMaxValue(ModifyKey, Value);
     }
 
-    public override void UnExcute(ModifyTriggerData data)
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
 
     }
@@ -188,7 +192,7 @@ public class MTEC_TempReduceShopPrice : ModifyTriggerEffectConfig
 
     }
 
-    public override void Excute(ModifyTriggerData data)
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
         if(ReduceCount == 0)
         {
@@ -211,7 +215,7 @@ public class MTEC_TempReduceShopPrice : ModifyTriggerEffectConfig
         }
     }
 
-    public override void UnExcute(ModifyTriggerData data)
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
 
     }
@@ -244,7 +248,7 @@ public class MTEC_AddPropertyValueBySpecialCount : ModifyTriggerEffectConfig
 
     }
 
-    public override void Excute(ModifyTriggerData data)
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
         int targetCount = 0;
         switch (SpecialKey)
@@ -258,8 +262,69 @@ public class MTEC_AddPropertyValueBySpecialCount : ModifyTriggerEffectConfig
         RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(ModifyKey, ModifyType, data.UID, tagetValue);
     }
 
-    public override void UnExcute(ModifyTriggerData data)
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
 
+    }
+}
+
+/// <summary>
+/// 设置Unit本地属性
+/// </summary>
+public class MTEC_SetUnitPropertyValue : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public UnitPropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public float Value;
+
+    [HorizontalGroup("AA", 150)]
+    [LabelText("类型")]
+    [LabelWidth(40)]
+    public LocalPropertyModifyType ModifyType;
+
+    public MTEC_SetUnitPropertyValue(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        Unit targetUnit = null;
+        if(parentUnitUID != 0)
+        {
+            targetUnit = RogueManager.Instance.GetPlayerShipUnit(parentUnitUID);
+        }
+
+        if(targetUnit == null)
+        {
+            Debug.LogError("SetUnitPropertyValue Null! Unit Null!");
+            return;
+        }
+
+        targetUnit.LocalPropetyData.SetPropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
+
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        Unit targetUnit = null;
+        if (parentUnitUID != 0)
+        {
+            targetUnit = RogueManager.Instance.GetPlayerShipUnit(parentUnitUID);
+        }
+
+        if (targetUnit == null)
+        {
+            Debug.LogError("UnSetUnitPropertyValue Null! Unit Null!");
+            return;
+        }
+
+        targetUnit.LocalPropetyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
     }
 }

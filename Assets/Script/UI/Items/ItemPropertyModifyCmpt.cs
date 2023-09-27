@@ -7,7 +7,7 @@ using TMPro;
 public class ItemPropertyModifyCmpt : MonoBehaviour,IPoolable
 {
     private Image _icon;
-    private Text _nameText;
+    private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _valueText;
 
     private static Color blue_color = new Color(0, 0.9f, 1f);
@@ -16,8 +16,8 @@ public class ItemPropertyModifyCmpt : MonoBehaviour,IPoolable
     public void Awake()
     {
         _icon = transform.Find("Icon").SafeGetComponent<Image>();
-        _nameText = transform.Find("PropertyName").SafeGetComponent<Text>();
-        _valueText = transform.Find("PropertyValue").SafeGetComponent<TextMeshProUGUI>();
+        _nameText = transform.Find("PropertyName").SafeGetComponent<TextMeshProUGUI>();
+        _valueText = transform.Find("Value/PropertyValue").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public void SetUp(PropertyModifyKey key, float value, bool modifyPercent)
