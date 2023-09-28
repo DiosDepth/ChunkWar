@@ -10,6 +10,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     private List<ShipLevelUpSelectItem> _items;
     private TextMeshProUGUI _rerollText;
     private TextMeshProUGUI _currencyText;
+    private TextMeshProUGUI _levelText; 
     private RectTransform _currencyRect;
     private RectTransform _rerollRect;
 
@@ -18,6 +19,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     /// Éý¼¶´ÎÊý
     /// </summary>
     private int levelUpCount;
+    private byte oldLevel;
 
     protected override void Awake()
     {
@@ -27,6 +29,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
         transform.Find("Content/Property/PropertyTitle/PropertyBtn").SafeGetComponent<Button>().onClick.AddListener(SwitchPropertyGroup);
         _currencyRect = transform.Find("Content/SelectContent/Title/Currency").SafeGetComponent<RectTransform>();
         _currencyText = _currencyRect.Find("Value").SafeGetComponent<TextMeshProUGUI>();
+        _levelText = transform.Find("Content/SelectContent/Title/Level/Level").SafeGetComponent<TextMeshProUGUI>();
         var rerollBtn = transform.Find("Content/SelectContent/Reroll/Button").SafeGetComponent<Button>();
         _rerollRect = rerollBtn.transform.Find("Content").SafeGetComponent<RectTransform>();
         rerollBtn.onClick.AddListener(OnRerollButtonClick);
@@ -45,7 +48,8 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     public override void Initialization(params object[] param)
     {
         base.Initialization(param);
-        levelUpCount = (int)param[0];
+        levelUpCount = (int)param[1];
+        oldLevel = (byte)param[0];
         ShowShipLevelUpItem();
     }
 
@@ -105,6 +109,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
             var cmpt = _items[i];
             cmpt.SetUp(items[i], OnItemSelect);
         }
+        _levelText.text = string.Format("LV.{0}", oldLevel);
     }
 
     /// <summary>
@@ -122,6 +127,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
         }
         else
         {
+            oldLevel++;
             ///Refresh New
             RogueManager.Instance.RefreshShipLevelUpItems(false);
             ShowShipLevelUpItem();

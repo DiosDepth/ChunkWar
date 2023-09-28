@@ -921,6 +921,7 @@ public class RogueManager : Singleton<RogueManager>
     {
         var expAddtion = MainPropertyData.GetPropertyFinal(PropertyModifyKey.EXPAddPercent);
 
+        var oldLevel = GetCurrentShipLevel;
         var targetValue = GetCurrentExp + value * (1 + expAddtion / 100f);
         int levelUpCount = 0;
         while (targetValue >= CurrentRequireEXP)
@@ -934,7 +935,7 @@ public class RogueManager : Singleton<RogueManager>
         ///Show UI
         if(levelUpCount > 0)
         {
-            ShipLevelUp(levelUpCount);
+            ShipLevelUp(oldLevel,levelUpCount);
         }
     }
 
@@ -1067,7 +1068,10 @@ public class RogueManager : Singleton<RogueManager>
             AddCurrency(-CurrentRerollCost);
         }
         ///Reset
-        CurrentRogueShopItems.ForEach(x => x.Reset());
+        if (CurrentShipLevelUpItems != null && CurrentShipLevelUpItems.Count > 0) 
+        {
+            CurrentRogueShopItems.ForEach(x => x.Reset());
+        }
 
         _currentRereollCount++;
         ///RefreshShop
@@ -1503,14 +1507,14 @@ public class RogueManager : Singleton<RogueManager>
         private set;
     }
 
-    public void ShipLevelUp(int levelUpCount = 1)
+    public void ShipLevelUp(byte oldLevel, int levelUpCount = 1)
     {
         RefreshShipLevelUpItems(false);
         Pause();
         ///DisplayUI
         UIManager.Instance.ShowUI<ShipLevelUpPage>("ShipLevelUpPage", E_UI_Layer.Top, RogueManager.Instance, (panel) =>
         {
-            panel.Initialization(levelUpCount);
+            panel.Initialization(oldLevel, levelUpCount);
             panel.Initialization();
             InputDispatcher.Instance.ChangeInputMode("UI");
         });
