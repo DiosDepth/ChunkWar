@@ -60,7 +60,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
 
     public void OnLaunchBtnPressed()
     {
-        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
     }
 
     public void OnEvent(RogueEvent evt)

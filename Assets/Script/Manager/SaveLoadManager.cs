@@ -29,16 +29,24 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     /// </summary>
     private Dictionary<int, AchievementSaveData> _achievementSaveDatas;
 
+    private bool hasInit = false;
+
     public SaveLoadManager()
     {
         _achievementSaveDatas = new Dictionary<int, AchievementSaveData>();
     }
+
+
     public override void Initialization()
     {
         base.Initialization();
+        if (hasInit)
+            return;
+
         LoadGlobalSaveData();
         var allSaves = LoadAllSaveData();
         _allSaves = allSaves;
+        hasInit = true;
     }
 
     public void AddSaveData(SaveData sav)

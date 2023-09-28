@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TextData_UI
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -405,5 +405,17 @@ MonoBehaviour:
     Japanese: 
   - TextID: MainMenu_Camp
     ChineseSimplified: "\u9635\u8425"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_MainMenu
+    ChineseSimplified: "\u4E3B\u83DC\u5355"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Restart
+    ChineseSimplified: "\u91CD\u65B0\u5F00\u59CB"
+    English: 
+    Japanese: 
+  - TextID: MainMenu_Continue
+    ChineseSimplified: "\u7EE7\u7EED\u6218\u6597"
     English: 
     Japanese: 

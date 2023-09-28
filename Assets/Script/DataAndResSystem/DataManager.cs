@@ -32,6 +32,8 @@ public class DataManager : Singleton<DataManager>
     public ShipPlugConfig shipPlugCfg;
     public GameMiscConfig gameMiscCfg;
 
+    private bool loadFinish = false;
+
     public DataManager()
     {
         Initialization();
@@ -64,22 +66,22 @@ public class DataManager : Singleton<DataManager>
 
     public void LoadAllData(UnityAction callback = null)
     {
-        LoadLevelConfig();
-        LoadAllBaseUnitConfig();
-        LoadMiscData();
-        bool iscompleted = CollectCSV(out TextAsset[] datas);
-        if (iscompleted)
+        if (!loadFinish)
         {
-            for (int i = 0; i < datas.Length; i++)
+            LoadLevelConfig();
+            LoadAllBaseUnitConfig();
+            LoadMiscData();
+            bool iscompleted = CollectCSV(out TextAsset[] datas);
+            if (iscompleted)
             {
-                GetData(datas[i]);
+                for (int i = 0; i < datas.Length; i++)
+                {
+                    GetData(datas[i]);
+                }
             }
-            callback?.Invoke();
         }
-        else
-        {
-            callback?.Invoke();
-        }
+        callback?.Invoke();
+        loadFinish = true;
     }
 
     public float GetLoadingRate()
@@ -160,7 +162,7 @@ public class DataManager : Singleton<DataManager>
         if (_enemyHardLevelDatas.ContainsKey(groupID))
         {
             var item = _enemyHardLevelDatas[groupID];
-            return item.GetHardLevelItemByIndex(groupID);
+            return item.GetHardLevelItemByIndex(hardLevelIndex);
         }
         Debug.LogError("HardLevel Group Null! ID = " + groupID);
         return null;

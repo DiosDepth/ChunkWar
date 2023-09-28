@@ -92,6 +92,13 @@ public class ShipPropertySliderCmpt : MonoBehaviour
             return;
 
         var mgr = RogueManager.Instance;
+        if(mgr.GetCurrentShipLevel >= GameGlobalConfig.Ship_MaxLevel)
+        {
+            _fillImage.fillAmount = 1;
+            _valueText.text = string.Format("MAX");
+            return;
+        }
+
         var maxValue = mgr.CurrentRequireEXP;
         var currentValue = mgr.GetCurrentExp;
         _fillImage.fillAmount = mgr.EXPPercent;

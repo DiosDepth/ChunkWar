@@ -22,7 +22,7 @@ public class ShipWeapon : Weapon
 
 
 
-    private List<Weapon.RV_WeaponTargetInfo> targetListcandidator = new List<RV_WeaponTargetInfo>();
+    protected List<Weapon.RV_WeaponTargetInfo> targetListcandidator = new List<RV_WeaponTargetInfo>();
     public virtual void HandleShipManualWeapon(InputAction.CallbackContext context)
     {
         if(weaponmode  == WeaponControlType.Autonomy)

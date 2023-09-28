@@ -378,7 +378,7 @@ MonoBehaviour:
       Data: true
     - Name: LevelPresetID
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: ScoreRatio
       Entry: 4
       Data: 0
@@ -1110,7 +1110,7 @@ MonoBehaviour:
   ShipMinSuckerRange: 5
   ShipLoadBase: 50
   Drop_Waste_LoadCostBase: 0.1
-  EXPMap: 0f00000019000000230000002d00000037000000640000006e000000
+  EXPMap: 0f0000001900000024000000310000004000000051000000640000007900000090000000a9000000c4000000e10000000001000021010000440100006901000090010000b9010000e40100001102000040020000
   ShipLevelUpGrowthItems:
   - Icon: {fileID: 21300000, guid: 4fc20a58e9f0eaf40876d8b8d7b90e67, type: 3}
     Name: ShipLevelUp_Damage

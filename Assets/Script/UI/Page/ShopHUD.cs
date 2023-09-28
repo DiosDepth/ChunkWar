@@ -51,7 +51,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
     public void OnLaunchBtnPressed()
     {
-        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
     }
 
     public void RemoveSlot(int m_index)

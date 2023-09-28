@@ -15,6 +15,9 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
         Collection,
         Achievement,
         Camp,
+        Continue,
+        Restart,
+        MainMenu
     }
 
     public MainMenuButtonType Type = MainMenuButtonType.Play;
@@ -29,6 +32,10 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
     private static string MainMenu_Collection = "MainMenu_Collection";
     private static string MainMenu_Achievement = "MainMenu_Achievement";
     private static string MainMenu_Camp = "MainMenu_Camp";
+    private static string MainMenu_MainMenu = "MainMenu_MainMenu";
+    private static string MainMenu_Restart = "MainMenu_Restart";
+    private static string MainMenu_Continue = "MainMenu_Continue";
+
 
     private static Color SelectedColor = new Color32(88, 151, 250, 255);
     private static Color QuitColor = new Color32(194, 136, 136, 255);
@@ -93,6 +100,12 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
                 return LocalizationManager.Instance.GetTextValue(MainMenu_Play);
             case MainMenuButtonType.Quit:
                 return LocalizationManager.Instance.GetTextValue(MainMenu_Quit);
+            case MainMenuButtonType.Continue:
+                return LocalizationManager.Instance.GetTextValue(MainMenu_Continue);
+            case MainMenuButtonType.Restart:
+                return LocalizationManager.Instance.GetTextValue(MainMenu_Restart);
+            case MainMenuButtonType.MainMenu:
+                return LocalizationManager.Instance.GetTextValue(MainMenu_MainMenu);
             default:
                 return string.Empty;
         }
@@ -103,6 +116,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
         if(Type == MainMenuButtonType.Play)
         {
             GameStateTransitionEvent.Trigger(EGameState.EGameState_ShipSelection);
+            UIManager.Instance.HiddenUI("MainMenu");
         }
         else if (Type == MainMenuButtonType.Achievement)
         {
@@ -110,6 +124,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
             {
                 panel.Initialization();
             });
+            UIManager.Instance.HiddenUI("MainMenu");
         }
         else if (Type == MainMenuButtonType.Camp)
         {
@@ -117,6 +132,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
             {
                 panel.Initialization();
             });
+            UIManager.Instance.HiddenUI("MainMenu");
         }
         else if (Type == MainMenuButtonType.Collection)
         {
@@ -124,6 +140,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
             {
                 panel.Initialization();
             });
+            UIManager.Instance.HiddenUI("MainMenu");
         }
         else if (Type == MainMenuButtonType.Load)
         {
@@ -131,6 +148,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
             {
                 panel.Initialization();
             });
+            UIManager.Instance.HiddenUI("MainMenu");
         }
         else if (Type == MainMenuButtonType.Option)
         {
@@ -143,7 +161,22 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
         {
             Application.Quit();
         }
+        else if (Type == MainMenuButtonType.MainMenu)
+        {
+            UIManager.Instance.HiddenUI("Pause");
+            GameStateTransitionEvent.Trigger(EGameState.EGameState_MainMenu);
+        }
+        else if (Type == MainMenuButtonType.Restart)
+        {
 
-        UIManager.Instance.HiddenUI("MainMenu");
+        }
+        else if (Type == MainMenuButtonType.Continue)
+        {
+            UIManager.Instance.HiddenUI("Pause");
+            InputDispatcher.Instance.ChangeInputMode("Player");
+            UIManager.Instance.HiddenUI("Pause");
+        }
+
+        
     }
 }

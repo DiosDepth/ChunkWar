@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
@@ -141,6 +142,11 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         _refreshMiscConfig = DataManager.Instance.gameMiscCfg.RefreshConfig;
     }
 
+    public void Clear()
+    {
+        pickupList.Clear();
+    }
+
     public virtual void LevelUpdate()
     {
         if (!isLevelUpdate)
@@ -270,21 +276,22 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         return currentLevel as T;
     }
 
-    public IEnumerator LoadLevel(string levelname,UnityAction<LevelEntity> callback = null)
+    public async void LoadLevel(string levelname, UnityAction<LevelEntity> callback = null)
     {
-
         LevelData data = null;
         //加载关卡
         if (currentLevel == null)
         {
             DataManager.Instance.LevelDataDic.TryGetValue(levelname, out data);
-            if( data != null)
+            if (data != null)
             {
                 LevelInfo = LevelDataInfo.CreateInfo(data);
-                GameObject obj = ResManager.Instance.Load<GameObject>(data.LevelPrefabPath);
-                currentLevel = obj.GetComponent<LevelEntity>();
-                currentLevel.Initialization();
-                callback?.Invoke(currentLevel);
+                await ResManager.Instance.LoadAsync<GameObject>(data.LevelPrefabPath, (obj) =>
+                {
+                    currentLevel = obj.GetComponent<LevelEntity>();
+                    currentLevel.Initialization();
+                    callback?.Invoke(currentLevel);
+                });
             }
         }
         else
@@ -292,8 +299,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             currentLevel.Initialization();
             callback?.Invoke(currentLevel);
         }
-
-        yield return null;
     }
 
     public void LevelActive()

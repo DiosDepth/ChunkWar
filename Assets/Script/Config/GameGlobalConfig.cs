@@ -37,6 +37,8 @@ public static class GameGlobalConfig
     /// </summary>
     public const float ShipSpeedModify_Protected_MaxSpeed = 10;
 
+    public const byte Ship_MaxLevel = 99;
+
     public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;
     public const string VFXPath = "Prefab/VFX/";

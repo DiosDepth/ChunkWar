@@ -80,6 +80,11 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
         }
     }
 
+    public void AddUpgradeLevelCount(int count)
+    {
+        levelUpCount += count;
+    }
+
     private void ShowShipLevelUpItem()
     {
         if(_items.Count == 0)

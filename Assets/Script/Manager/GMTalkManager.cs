@@ -35,11 +35,11 @@ public class GMTalkManager : Singleton<GMTalkManager>
     {
 
         /// Cmd : jump to shop
-        AddGMFunctionToDic("jumptoshop", (starry) => 
+        AddGMFunctionToDic("harbor", (starry) => 
         {
             if(LevelManager.Instance.currentLevel.levelName == AvaliableLevel.BattleLevel_001.ToString())
             {
-                GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
+                GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
                 return true;
             }
             else

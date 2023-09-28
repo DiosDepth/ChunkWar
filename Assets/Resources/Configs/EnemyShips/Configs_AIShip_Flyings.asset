@@ -1456,4 +1456,4 @@ MonoBehaviour:
   BillboardType: 0
   CoreHP: 50
   SpeedBase: 10
-  HardLevelGroupID: 0
+  HardLevelGroupID: 1
