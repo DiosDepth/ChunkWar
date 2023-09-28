@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.IO;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 
 public class DataManager : Singleton<DataManager>
 {
-    public FileInfo[] fileinfo;
     public long sumDataLength;
     public long totalDataLength;
     public Dictionary<string, TestaDataInfo> TestDataDic = new Dictionary<string, TestaDataInfo>();
@@ -44,21 +42,19 @@ public class DataManager : Singleton<DataManager>
 
 
     }
-    public bool CollectCSV()
+    public bool CollectCSV(out TextAsset[] datas)
     {
-        string path = Directory.GetCurrentDirectory() + "\\Assets\\Resources\\DataRes";
-        //Debug.Log(path);
-        DirectoryInfo dirinfo = new DirectoryInfo(path);
-        fileinfo = dirinfo.GetFiles("*.csv");
-        if(fileinfo.Length == 0)
+        string path = "DataRes";
+        datas = Resources.LoadAll<TextAsset>(path);
+        if(datas.Length == 0)
         {
             return false;
         }
         else
         {
-            for (int i = 0; i < fileinfo.Length; i++)
+            for (int i = 0; i < datas.Length; i++)
             {
-                totalDataLength += fileinfo[i].Length;
+                totalDataLength += datas[i].bytes.Length;
             }
             Debug.Log("All csv has been collected");
             return true;
@@ -66,28 +62,23 @@ public class DataManager : Singleton<DataManager>
 
     }
 
-    public async void LoadAllData(UnityAction callback = null)
+    public void LoadAllData(UnityAction callback = null)
     {
         LoadLevelConfig();
         LoadAllBaseUnitConfig();
         LoadMiscData();
-        bool iscompleted = CollectCSV();
+        bool iscompleted = CollectCSV(out TextAsset[] datas);
         if (iscompleted)
         {
-            List<UniTask> allTasks = new List<UniTask>();
-            for (int i = 0; i < fileinfo.Length; i++)
+            for (int i = 0; i < datas.Length; i++)
             {
-                allTasks.Add(GetData(fileinfo[i]));
+                GetData(datas[i]);
             }
-            await UniTask.WhenAll(allTasks);
-            Debug.Log("All csv has been loaded");
             callback?.Invoke();
-            await UniTask.CompletedTask;
         }
         else
         {
             callback?.Invoke();
-            await UniTask.CompletedTask;
         }
     }
 
@@ -308,14 +299,11 @@ public class DataManager : Singleton<DataManager>
         return _achievementDic.Values.ToList();
     }
 
-    private UniTask LoadingData<T>(FileInfo file, Dictionary<string, T> dic, UnityAction callback = null) where T : DataInfo, new()
+    private void LoadingData<T>(TextAsset file, Dictionary<string, T> dic, UnityAction callback = null) where T : DataInfo, new()
     {
-        return ResManager.Instance.LoadAsync<TextAsset>(GetDataInfoPath(file), (textasset) =>
-        {
-            PersistentData<T>(textasset, dic);
-            sumDataLength += file.Length;
-            callback?.Invoke();
-        });
+        PersistentData<T>(file, dic);
+        sumDataLength += file.bytes.Length;
+        callback?.Invoke();
     }
 
     private void PersistentData<T>(TextAsset ast, Dictionary<string, T> dic) where T : DataInfo, new()
@@ -336,33 +324,31 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    private UniTask GetData(FileInfo m_fileinfo)
+    private void GetData(TextAsset m_fileinfo)
     {
-        switch (m_fileinfo.Name)
+        switch (m_fileinfo.name)
         {
-            case "TestData.csv":
-                return LoadingData<TestaDataInfo>(m_fileinfo, TestDataDic);
-            case "LevelData.csv":
-                return LoadingData<LevelData>(m_fileinfo, LevelDataDic);
-            case "SoundData.csv":
-                return LoadingData<SoundDataInfo>(m_fileinfo, SoundDataDic);
-            case "BulletData.csv":
-                return LoadingData<BulletData>(m_fileinfo, BulletDataDic);
-            case "PickUpData.csv":
-                return LoadingData<PickUpData>(m_fileinfo, PickUpDataDic);
-            case "EnemyHardLevelItem.csv":
-                return LoadHardLevelData(m_fileinfo);
+            case "TestData":
+                LoadingData<TestaDataInfo>(m_fileinfo, TestDataDic);
+                break;
+            case "LevelData":
+                LoadingData<LevelData>(m_fileinfo, LevelDataDic);
+                break;
+            case "SoundData":
+                LoadingData<SoundDataInfo>(m_fileinfo, SoundDataDic);
+                break;
+            case "BulletData":
+                LoadingData<BulletData>(m_fileinfo, BulletDataDic);
+                break;
+            case "PickUpData":
+                LoadingData<PickUpData>(m_fileinfo, PickUpDataDic);
+                break;
+            case "EnemyHardLevelItem":
+                LoadHardLevelData(m_fileinfo);
+                break;
             default:
-                return UniTask.CompletedTask;
+                break;
         }
-    }
-
-    private string GetDataInfoPath(FileInfo m_fileinfo)
-    {
-        string path = m_fileinfo.Name;
-        path = path.Substring(0, path.Length - 4);
-        path = "DataRes/" + path;
-        return path;
     }
 
     private void LoadLevelConfig()
@@ -460,31 +446,28 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    private UniTask LoadHardLevelData(FileInfo info)
+    private void LoadHardLevelData(TextAsset info)
     {
-        return ResManager.Instance.LoadAsync<TextAsset>(GetDataInfoPath(info), (textasset) =>
+        string[] raw = info.text.Split(new char[] { '\r' });
+
+        for (int i = 1; i < raw.Length - 1; i++)
         {
-            string[] raw = textasset.text.Split(new char[] { '\r' });
+            string[] row = raw[i].Split(new char[] { ',' });
+            EnemyHardLevelItem temp_data = new EnemyHardLevelItem();
+            temp_data.Initialization(row);
 
-            for (int i = 1; i < raw.Length - 1; i++)
+            if (_enemyHardLevelDatas.ContainsKey(temp_data.GroupID))
             {
-                string[] row = raw[i].Split(new char[] { ',' });
-                EnemyHardLevelItem temp_data = new EnemyHardLevelItem();
-                temp_data.Initialization(row);
-
-                if (_enemyHardLevelDatas.ContainsKey(temp_data.GroupID))
-                {
-                    _enemyHardLevelDatas[temp_data.GroupID].AddHardLevelItems(temp_data.ID, temp_data);
-                }
-                else
-                {
-                    EnemyHardLevelData newData = new EnemyHardLevelData();
-                    newData.GroupID = temp_data.GroupID;
-                    newData.AddHardLevelItems(temp_data.ID, temp_data);
-                    _enemyHardLevelDatas.Add(newData.GroupID, newData);
-                }
+                _enemyHardLevelDatas[temp_data.GroupID].AddHardLevelItems(temp_data.ID, temp_data);
             }
-        });
+            else
+            {
+                EnemyHardLevelData newData = new EnemyHardLevelData();
+                newData.GroupID = temp_data.GroupID;
+                newData.AddHardLevelItems(temp_data.ID, temp_data);
+                _enemyHardLevelDatas.Add(newData.GroupID, newData);
+            }
+        }
     }
 
     private void AddItemToUnitDic(int uintID, BaseUnitConfig cfg)

@@ -111,6 +111,8 @@ public class BaseUnitConfig : BaseConfig
         _mapSize = GetMapSize();
     }
 
+#if UNITY_EDITOR
+
     [OnInspectorInit]
     protected override void InitData()
     {
@@ -129,6 +131,10 @@ public class BaseUnitConfig : BaseConfig
     {
         return ModifyTriggerConfig.GetModifyTriggerList();
     }
+
+
+#endif
+
 
     protected override Vector2Int GetMapPivot()
     {

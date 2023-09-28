@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public enum EnemyHPBillBoardType
@@ -66,11 +65,12 @@ public class AIShipConfig : BaseShipConfig
         return base.GetMapPivot();
     }
 
-
+#if UNITY_EDITOR
     [OnInspectorInit]
     protected override void InitData()
     {
         base.InitData();
 
     }
+#endif
 }

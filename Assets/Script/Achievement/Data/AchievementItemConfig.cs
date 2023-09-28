@@ -2,7 +2,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System;
 
 public enum AchievementConLstType
@@ -67,6 +69,7 @@ public class AchievementItemConfig : SerializedScriptableObject, IComparable<Ach
 
     public List<AchievementConditionConfig> Conditions = new List<AchievementConditionConfig>();
 
+#if UNITY_EDITOR
     [OnInspectorInit]
     private void OnInit()
     {
@@ -93,6 +96,7 @@ public class AchievementItemConfig : SerializedScriptableObject, IComparable<Ach
         AssetDatabase.Refresh();
     }
 
+#endif
     public int CompareTo(AchievementItemConfig other)
     {
         var unlockSelf = SaveLoadManager.Instance.GetAchievementUnlockState(this.AchievementID);

@@ -2,7 +2,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using Sirenix.Utilities;
 
 public class ShipUnitEditorPreivewItem
@@ -63,6 +65,8 @@ public class PlayerShipConfig : BaseShipConfig
     [ShowInInspector]
     private ShipUnitEditorPreivewItem[,] PreviewItems;
 
+#if UNITY_EDITOR
+
     [FoldoutGroup("网格配置")]
     [HorizontalGroup("网格配置/A", 200)]
     [Button("同步数据")]
@@ -84,22 +88,6 @@ public class PlayerShipConfig : BaseShipConfig
         AssetDatabase.Refresh();
     }
 
-    [System.Obsolete]
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-    }
-
-    protected override Vector2Int GetMapPivot()
-    {
-        return base.GetMapPivot();
-    }
-
-    private void OnShipEditorSpriteChange()
-    {
-
-    }
-
     [OnInspectorInit]
     protected override void InitData()
     {
@@ -117,10 +105,10 @@ public class PlayerShipConfig : BaseShipConfig
 
     protected ShipUnitEditorPreivewItem DrawPreviewTable(Rect rect, ShipUnitEditorPreivewItem item)
     {
-        if(item.tex != null)
+        if (item.tex != null)
         {
             EditorGUI.DrawTextureTransparent(rect.Padding(0.5f), item.tex);
-            EditorGUI.DrawRect(rect.Padding(0.5f), new Color32(0,0,0,100));
+            EditorGUI.DrawRect(rect.Padding(0.5f), new Color32(0, 0, 0, 100));
         }
 
 
@@ -244,9 +232,9 @@ public class PlayerShipConfig : BaseShipConfig
         int yOffsetStart = (maxSize - 1) / 2 - (shipYSize - 1) / 2;
         int yOffsetEnd = (maxSize - 1) / 2 + (shipYSize - 1) / 2;
 
-        for (int i = 0; i < maxSize; i++) 
+        for (int i = 0; i < maxSize; i++)
         {
-            for (int j = 0; j < maxSize; j++) 
+            for (int j = 0; j < maxSize; j++)
             {
                 ShipUnitEditorPreivewItem item = new ShipUnitEditorPreivewItem()
                 {
@@ -254,19 +242,37 @@ public class PlayerShipConfig : BaseShipConfig
                     Y = j,
                 };
 
-                if(i >= xOffsetStart && i <= xOffsetEnd && j >= yOffsetStart && j <= yOffsetEnd)
+                if (i >= xOffsetStart && i <= xOffsetEnd && j >= yOffsetStart && j <= yOffsetEnd)
                 {
                     var index = new Vector2Int(i - xOffsetStart, j - yOffsetStart);
                     if (_textureMap.ContainsKey(index))
                     {
                         item.tex = _textureMap[index];
-                        item.Value = Map[i,j];
+                        item.Value = Map[i, j];
                     }
                 }
 
                 PreviewItems[i, j] = item;
             }
         }
+    }
+
+#endif
+
+    [System.Obsolete]
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
+    protected override Vector2Int GetMapPivot()
+    {
+        return base.GetMapPivot();
+    }
+
+    private void OnShipEditorSpriteChange()
+    {
+
     }
 
 }
