@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
+public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, EventListener<RogueEvent>
 {
     private ShipPropertyGroupPanel _propertyPanel;
     private List<ShipLevelUpSelectItem> _items;
     private TextMeshProUGUI _rerollText;
+    private TextMeshProUGUI _currencyText;
+    private RectTransform _currencyRect;
+    private RectTransform _rerollRect;
 
     private static string ShipLevelUpSelectItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipLevelUpSelectItem";
     /// <summary>
@@ -22,8 +25,10 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
         _items = new List<ShipLevelUpSelectItem>();
         _propertyPanel = transform.Find("Content/Property/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
         transform.Find("Content/Property/PropertyTitle/PropertyBtn").SafeGetComponent<Button>().onClick.AddListener(SwitchPropertyGroup);
-
+        _currencyRect = transform.Find("Content/SelectContent/Title/Currency").SafeGetComponent<RectTransform>();
+        _currencyText = _currencyRect.Find("Value").SafeGetComponent<TextMeshProUGUI>();
         var rerollBtn = transform.Find("Content/SelectContent/Reroll/Button").SafeGetComponent<Button>();
+        _rerollRect = rerollBtn.transform.Find("Content").SafeGetComponent<RectTransform>();
         rerollBtn.onClick.AddListener(OnRerollButtonClick);
         _rerollText = rerollBtn.transform.Find("Content/Value").SafeGetComponent<TextMeshProUGUI>();
     }
@@ -34,6 +39,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
         this.EventStartListening<ShipPropertyEvent>();
         SwitchPropertyGroup();
         RefreshRerollCost();
+        RefreshCurrencyText();
     }
 
     public override void Initialization(params object[] param)
@@ -56,6 +62,16 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
             case ShipPropertyEventType.MainPropertyValueChange:
                 var modifyKey = (PropertyModifyKey)evt.param[0];
                 _propertyPanel.RefreshPropertyByKey(modifyKey);
+                break;
+        }
+    }
+
+    public void OnEvent(RogueEvent evt)
+    {
+        switch (evt.type)
+        {
+            case RogueEventType.CurrencyChange:
+                RefreshCurrencyText();
                 break;
         }
     }
@@ -130,5 +146,12 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>
     private void RefreshRerollCost()
     {
         _rerollText.text = string.Format("-{0}", RogueManager.Instance.CurrentLevelUpitemRerollCost);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_rerollRect);
+    }
+
+    private void RefreshCurrencyText()
+    {
+        _currencyText.text = RogueManager.Instance.CurrentCurrency.ToString();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_currencyRect);
     }
 }
