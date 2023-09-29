@@ -1180,9 +1180,9 @@ public class Weapon : Unit
         weaponstate.ChangeState(WeaponState.Ready);
     }
 
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
-        base.Death();
+        base.Death(info);
     }
 
     public override void Restore()

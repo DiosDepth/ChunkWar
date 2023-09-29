@@ -24,6 +24,17 @@ public abstract class ModifyTriggerConfig
     [LabelWidth(80)]
     public int TriggerCount;
 
+    [HorizontalGroup("AA", 120)]
+    [LabelText("概率触发")]
+    [LabelWidth(80)]
+    public bool UsePercent;
+
+    [ShowIf("UsePercent")]
+    [HorizontalGroup("AA", 140)]
+    [LabelText("概率")]
+    [LabelWidth(50)]
+    public float Percent;
+
     [LabelText("触发效果")]
     [HorizontalGroup("AC", Order = 1000)]
     [HideReferenceObjectPicker]
@@ -123,6 +134,11 @@ public class MTC_OnKillEnemy : ModifyTriggerConfig
     [LabelText("触发击杀数")]
     [LabelWidth(100)]
     public int TriggerRequireCount;
+
+    [HorizontalGroup("AB", 150)]
+    [LabelText("暴击击杀")]
+    [LabelWidth(100)]
+    public BoolType CheckCriticalKill = BoolType.All;
 
     public MTC_OnKillEnemy(ModifyTriggerType type) : base(type)
     {

@@ -329,10 +329,9 @@ public class Projectile : Bullet, IDamageble
         }
     }
 
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
-      
-        base.Death();
+        base.Death(info);
     }
 
     public override void ApplyDamage(IDamageble damageble)
@@ -340,7 +339,7 @@ public class Projectile : Bullet, IDamageble
         base.ApplyDamage(damageble);
         var damage = (_owner as Weapon).weaponAttribute.GetDamage();
         damageble.TakeDamage(ref damage);
-        Death();
+        Death(null);
     }
     public bool TakeDamage(ref DamageResultInfo info)
     {
@@ -350,7 +349,7 @@ public class Projectile : Bullet, IDamageble
         bool isDie = HpComponent.ChangeHP(-info.Damage);
         if (isDie)
         {
-            Death();
+            Death(null);
         }
         return isDie;
     }

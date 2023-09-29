@@ -242,7 +242,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
     public virtual void Update() { }
 
-    public virtual void Death()
+    public virtual void Death(UnitDeathInfo info)
     {
         state = DamagableState.Destroyed;
 
@@ -274,7 +274,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
             if (IsCoreUnit)
             {
-                _owner.CheckDeath(this);
+                _owner.CheckDeath(this, info);
                 //destroy owner
             }
 
@@ -488,7 +488,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         bool isDie = HpComponent.ChangeHP(-info.Damage);
         if(isDie)
         {
-            Death();
+            UnitDeathInfo deathInfo = new UnitDeathInfo
+            {
+                isCriticalKill = info.IsCritical
+            };
+            Death(deathInfo);
         }
 
         return isDie;

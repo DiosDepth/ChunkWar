@@ -206,7 +206,7 @@ public class ShipController : BaseController, IBoid
             _deltaMovement = Vector2.zero;
             if (_isShipMoving)
             {
-                ShipStateEvent.Trigger(targetShip, ShipMovementState.Idle, ShipConditionState.Normal, true, true);
+                ShipStateEvent.Trigger(targetShip, null, ShipMovementState.Idle, ShipConditionState.Normal, true, true);
                 _isShipMoving = false;
             }
         }
@@ -215,7 +215,7 @@ public class ShipController : BaseController, IBoid
             targetShip.movementState.ChangeState(ShipMovementState.Move);
             if (!_isShipMoving)
             {
-                ShipStateEvent.Trigger(targetShip, ShipMovementState.Move, ShipConditionState.Normal, true, true);
+                ShipStateEvent.Trigger(targetShip, null, ShipMovementState.Move, ShipConditionState.Normal, true, true);
                 _isShipMoving = true;
             }
         }

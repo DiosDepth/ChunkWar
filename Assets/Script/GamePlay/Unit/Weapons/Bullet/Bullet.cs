@@ -143,7 +143,7 @@ public class Bullet : MonoBehaviour,IPoolable
 
     }
 
-    public virtual void Death()
+    public virtual void Death(UnitDeathInfo info)
     {
         if (ownertype == OwnerType.AI && _owner is AIWeapon)
         {

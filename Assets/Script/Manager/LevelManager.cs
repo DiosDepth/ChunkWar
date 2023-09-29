@@ -94,7 +94,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     #region Actions
 
     /* 飞船死亡 */
-    public UnityAction<BaseShip> Action_OnShipDie;
+    public UnityAction<BaseShip, UnitDeathInfo> Action_OnShipDie;
     /* 玩家飞船运动 */
     public UnityAction<bool> OnPlayerShipMove;
     /* 玩家血量变化 */
@@ -365,7 +365,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
                 }
                 else
                 {
-                    OnEnemyShipDie(evt.Ship);
+                    OnEnemyShipDie(evt.Ship, evt.KillInfo);
                 }
                 break;
         }
@@ -380,9 +380,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /// 敌人死亡
     /// </summary>
     /// <param name="ship"></param>
-    private void OnEnemyShipDie(BaseShip ship)
+    private void OnEnemyShipDie(BaseShip ship, UnitDeathInfo info)
     {
-        Action_OnShipDie?.Invoke(ship);
+        Action_OnShipDie?.Invoke(ship, info);
         AchievementManager.Instance.Trigger<BaseShip>(AchievementWatcherType.EnemyKill, ship);
     }
 

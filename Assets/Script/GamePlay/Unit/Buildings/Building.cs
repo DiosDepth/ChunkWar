@@ -34,9 +34,9 @@ public class Building : Unit
         return base.TakeDamage(ref info);
     }
 
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
-        base.Death();
+        base.Death(info);
         RemoveAllBuildingComponents();
     }
 

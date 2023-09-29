@@ -18,23 +18,27 @@ public struct ShipStateEvent
     public bool IsPlayer;
     public bool MovementChange;
 
-    public ShipStateEvent(BaseShip ship, ShipMovementState m_movmentstate , ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
+    public UnitDeathInfo KillInfo;
+
+    public ShipStateEvent(BaseShip ship, UnitDeathInfo info, ShipMovementState m_movmentstate , ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
     {
         Ship = ship;
         movementState = m_movmentstate;
         conditionState = m_conditionstate;
         IsPlayer = isPlayer;
         MovementChange = movementChange;
+        KillInfo = info;
     }
 
     public static ShipStateEvent e;
-    public static void Trigger(BaseShip ship, ShipMovementState m_movmentstate, ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
+    public static void Trigger(BaseShip ship, UnitDeathInfo info, ShipMovementState m_movmentstate, ShipConditionState m_conditionstate, bool isPlayer, bool movementChange = false)
     {
         e.Ship = ship;
         e.movementState = m_movmentstate;
         e.conditionState = m_conditionstate;
         e.IsPlayer = isPlayer;
         e.MovementChange = movementChange;
+        e.KillInfo = info;
         EventCenter.Instance.TriggerEvent<ShipStateEvent>(e);
     }
 }
@@ -127,19 +131,19 @@ public class BaseShip : MonoBehaviour,IDropable
 
     }
 
-    public void CheckDeath(Unit coreUnit)
+    public void CheckDeath(Unit coreUnit, UnitDeathInfo info)
     {
         CoreUnits.Remove(coreUnit);
         if(CoreUnits.Count <= 0)
         {
-            Death();
+            Death(info);
         }
     }
 
-    protected virtual void Death()
+    protected virtual void Death(UnitDeathInfo info)
     {
         conditionState.ChangeState(ShipConditionState.Death);
-        ShipStateEvent.Trigger(this, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
+        ShipStateEvent.Trigger(this, info, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
     }
 
     public virtual void Ability()

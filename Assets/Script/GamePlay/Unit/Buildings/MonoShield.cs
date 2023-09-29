@@ -97,7 +97,7 @@ public class MonoShield : MonoBehaviour, IDamageble
         return shieldCmpt.TakeDamage(-damage);
     }
 
-    public void Death()
+    public void Death(UnitDeathInfo info)
     {
 
     }

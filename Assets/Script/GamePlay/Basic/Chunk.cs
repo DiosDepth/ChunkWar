@@ -28,7 +28,7 @@ public class Chunk : IDamageble
 
     public Unit unit;
 
-    public void Death()
+    public void Death(UnitDeathInfo info)
     {
 
     }

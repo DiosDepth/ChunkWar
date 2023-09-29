@@ -341,7 +341,7 @@ public class AIManager : Singleton<AIManager>
         //todo clear all bullet
         for (int i = 0; i < aiProjectileList.Count; i++)
         {
-            aiProjectileList[i].Death();
+            aiProjectileList[i].Death(null);
             
         }
         aiProjectileList.Clear();
@@ -1104,7 +1104,7 @@ public class AIManager : Singleton<AIManager>
         for (int i = 0; i < _aiProjectileDeathIndex.Count; i++)
         {
             deathindex = _aiProjectileDeathIndex[i];
-            aiProjectileList[deathindex].Death();
+            aiProjectileList[deathindex].Death(null);
 
         }
     }

@@ -129,7 +129,7 @@ public class ChainBeamemit : Bullet
                     beamline.endWidth = value;
                 }).setOnComplete(() =>
                 {
-                    Death();
+                    Death(null);
                 });
             });
 
@@ -142,7 +142,7 @@ public class ChainBeamemit : Bullet
     {
         base.PlayVFX(m_vfxname, pos);
     }
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
  
         PoolableDestroy();
