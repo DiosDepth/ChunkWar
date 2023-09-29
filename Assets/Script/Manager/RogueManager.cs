@@ -390,6 +390,7 @@ public class RogueManager : Singleton<RogueManager>
         base.Initialization();
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         _playerCurrentGoods = new Dictionary<int, byte>();
+        CurrentRogueShopItems = new List<ShopGoodsInfo>();
         InitShipLevelUpItems();
     }
 

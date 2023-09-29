@@ -173,6 +173,10 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
         else if (Type == MainMenuButtonType.Continue)
         {
             UIManager.Instance.HiddenUI("Pause");
+            UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, null, (panel) =>
+            {
+                panel.Initialization();
+            });
             InputDispatcher.Instance.ChangeInputMode("Player");
             UIManager.Instance.HiddenUI("Pause");
         }

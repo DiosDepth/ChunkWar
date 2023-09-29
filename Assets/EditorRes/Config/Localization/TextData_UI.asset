@@ -419,3 +419,11 @@ MonoBehaviour:
     ChineseSimplified: "\u7EE7\u7EED\u6218\u6597"
     English: 
     Japanese: 
+  - TextID: PauseMenu_UnitTitle
+    ChineseSimplified: "\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 
+  - TextID: PauseMenu_PlugTitle
+    ChineseSimplified: "\u8230\u8239\u63D2\u4EF6"
+    English: 
+    Japanese: 

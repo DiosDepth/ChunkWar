@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem
+public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 {
     private GoodsItemType itemType;
     private int itemID;
@@ -49,6 +49,21 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem
     }
 
     public void OnHoverExit()
+    {
+
+    }
+
+    public void PoolableReset()
+    {
+
+    }
+
+    public void PoolableDestroy()
+    {
+        PoolManager.Instance.BackObject(transform.name, gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
     {
 
     }

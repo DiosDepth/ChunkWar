@@ -393,3 +393,59 @@ MonoBehaviour:
     ChineseSimplified: "\u7206\u7834\u5F3A\u5316"
     English: 
     Japanese: 
+  - TextID: ShipPlug_Name_1058
+    ChineseSimplified: "\u4E0D\u7A33\u5B9A\u5F39\u5934"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1059
+    ChineseSimplified: "\u5BFC\u5F39\u5F3A\u5316\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1060
+    ChineseSimplified: "\u7206\u88C2\u5F39\u5934"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1061
+    ChineseSimplified: "\u91CD\u578B\u7206\u88C2\u5F39"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1062
+    ChineseSimplified: "\u96C6\u675F\u5F39\u5934"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1063
+    ChineseSimplified: "\u7CBE\u51C6\u6A21\u5757"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1064
+    ChineseSimplified: "\u80FD\u91CF\u805A\u7126\u5668"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1065
+    ChineseSimplified: "\u8F7B\u578B\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1066
+    ChineseSimplified: "\u88C5\u7532\u91CD\u6784"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1067
+    ChineseSimplified: "\u6A21\u5757\u5316\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1068
+    ChineseSimplified: "\u88C5\u7532\u786C\u5316"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1069
+    ChineseSimplified: "\u8D85\u91CD\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1070
+    ChineseSimplified: "\u7535\u538B\u9540\u5C42\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_1071
+    ChineseSimplified: "\u9759\u6001\u88C5\u7532"
+    English: 
+    Japanese: 
