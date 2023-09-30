@@ -35,40 +35,42 @@ public class WeaponLongRangeIonBlasters : ShipWeapon
 
     public override void HandleShipAutonomyMainWeapon()
     {
-        //base.HandleShipAutonomyMainWeapon();
-        // searching for targets
-        rv_weaponTargetsInfoQue.Clear();
-
-
-
-        FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
+        if(restordeTargetList.Count == 0)
         {
-            job_attackRange = weaponAttribute.WeaponRange,
-            job_selfPos = transform.position,
-            job_targetsPos = AIManager.Instance.aiActiveUnitPos,
-            rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),
+            //serching for targets
+            rv_weaponTargetsInfoQue.Clear();
+            FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
+            {
+                job_attackRange = weaponAttribute.WeaponRange,
+                job_selfPos = transform.position,
+                job_targetsPos = AIManager.Instance.aiActiveUnitPos,
+                rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),
 
-        };
+            };
 
-        JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(AIManager.Instance.aiActiveUnitPos.Length, 2);
-        jobHandle.Complete();
+            JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(AIManager.Instance.aiActiveUnitPos.Length, 2);
+            jobHandle.Complete();
+
+            if (rv_weaponTargetsInfoQue.Count == 0)
+            {
+                return;
+            }
+
+            Weapon.RV_WeaponTargetInfo[] slice = new RV_WeaponTargetInfo[rv_weaponTargetsInfoQue.Count];
+            //slice the searching targets result
+            int c = rv_weaponTargetsInfoQue.Count;
+            for (int i = 0; i < c; i++)
+            {
+                slice[i] = rv_weaponTargetsInfoQue.Dequeue();
+            }
+
+            slice.Sort();
 
 
-
-        if (rv_weaponTargetsInfoQue.Count == 0)
-        {
-            return;
         }
 
-        Weapon.RV_WeaponTargetInfo[] slice = new RV_WeaponTargetInfo[rv_weaponTargetsInfoQue.Count];
-        //slice the searching targets result
-        int c = rv_weaponTargetsInfoQue.Count;
-        for (int i = 0; i < c; i++)
-        {
-            slice[i] = rv_weaponTargetsInfoQue.Dequeue();
-        }
 
-        slice.Sort();
+
 
 
 

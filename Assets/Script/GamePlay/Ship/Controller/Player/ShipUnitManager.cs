@@ -87,7 +87,7 @@ public class ShipUnitManager
         //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
 
 
-        Weapon.FindWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindWeaponTargetsJob
+        Weapon.FindMutipleWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleWeaponTargetsJob
         {
             job_attackRange = activeWeaponAttackRangeList,
             job_selfPos = activeWeaponPosList,

@@ -360,6 +360,7 @@ public enum WeaponFireMode
 {
     Simultaneous,
     Sequent,
+    Linked,
 }
 
 public enum WeaponAimingType
@@ -521,7 +522,7 @@ public class Weapon : Unit
     }
 
     [BurstCompile]
-    public struct FindWeaponTargetsJob : IJobParallelForBatch
+    public struct FindMutipleWeaponTargetsJob : IJobParallelForBatch
     {
         [Unity.Collections.ReadOnly] public NativeArray<float> job_attackRange;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_selfPos;
@@ -705,6 +706,7 @@ public class Weapon : Unit
 
     public virtual void WeaponReady()
     {
+
         //Debug.Log(this.gameObject + " : WeaponReady");
         if(_isWeaponOn)
         {

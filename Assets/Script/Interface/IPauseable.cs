@@ -4,6 +4,9 @@ using UnityEngine;
 
 public interface IPauseable
 {
-     void HandlePause();
-     void HandleUnpause();
+    bool IsPaused();
+     void PauseGame();
+     void UnPauseGame();
+
+
 }

@@ -22,7 +22,7 @@ public class ShipWeapon : Weapon
 
 
 
-    private List<Weapon.RV_WeaponTargetInfo> targetListcandidator = new List<RV_WeaponTargetInfo>();
+    protected List<Weapon.RV_WeaponTargetInfo> targetListcandidator = new List<RV_WeaponTargetInfo>();
     public virtual void HandleShipManualWeapon(InputAction.CallbackContext context)
     {
         if(weaponmode  == WeaponControlType.Autonomy)
@@ -61,47 +61,42 @@ public class ShipWeapon : Weapon
 
     public virtual void HandleShipAutonomyMainWeapon()
     {
-        // searching for targets
-        rv_weaponTargetsInfoQue.Clear();
-        
-  
-
-        FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
-        {
-            job_attackRange = weaponAttribute.WeaponRange,
-            job_selfPos = transform.position,
-            job_targetsPos = AIManager.Instance.aiActiveUnitPos,
-            rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),
-
-        };
-
-        JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(AIManager.Instance.aiActiveUnitPos.Length, 2);
-        jobHandle.Complete();
-
-
-
-        if(rv_weaponTargetsInfoQue.Count == 0)
-        {
-            return;
-        }
-
-        Weapon.RV_WeaponTargetInfo[] slice = new RV_WeaponTargetInfo[rv_weaponTargetsInfoQue.Count];
-        //slice the searching targets result
-        int c = rv_weaponTargetsInfoQue.Count;
-        for (int i = 0; i < c; i++)
-        {
-            slice[i] = rv_weaponTargetsInfoQue.Dequeue();
-        }
-
-        slice.Sort();
-
-
-
-        //Allocate targetinfo to targetList
-        //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
-        if (weaponstate.CurrentState  != WeaponState.Firing &&
+        //如果没有在开火或者在开火间歇中，则搜索target 并且刷新weapon的targetlist
+        if (weaponstate.CurrentState != WeaponState.Firing &&
             weaponstate.CurrentState != WeaponState.BetweenDelay)
         {
+            // searching for targets
+            rv_weaponTargetsInfoQue.Clear();
+            FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
+            {
+                job_attackRange = weaponAttribute.WeaponRange,
+                job_selfPos = transform.position,
+                job_targetsPos = AIManager.Instance.aiActiveUnitPos,
+                rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),
+
+            };
+
+            JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(AIManager.Instance.aiActiveUnitPos.Length, 2);
+            jobHandle.Complete();
+
+
+
+            if (rv_weaponTargetsInfoQue.Count == 0)
+            {
+                return;
+            }
+
+            Weapon.RV_WeaponTargetInfo[] slice = new RV_WeaponTargetInfo[rv_weaponTargetsInfoQue.Count];
+            //slice the searching targets result
+            int c = rv_weaponTargetsInfoQue.Count;
+            for (int i = 0; i < c; i++)
+            {
+                slice[i] = rv_weaponTargetsInfoQue.Dequeue();
+            }
+
+            slice.Sort();
+
+            //Allocate targetinfo to targetList
             int iterateIndex = Mathf.Min(slice.Length, maxTargetCount);
             if (iterateIndex != 0)
             {
@@ -121,6 +116,17 @@ public class ShipWeapon : Weapon
                     ));
                 }
             }
+        }
+
+        
+        
+
+
+ 
+        if (weaponstate.CurrentState  != WeaponState.Firing &&
+            weaponstate.CurrentState != WeaponState.BetweenDelay)
+        {
+
         }
         //Check if targetList is valid 
         if (targetList != null && targetList.Count != 0)
@@ -168,7 +174,6 @@ public class ShipWeapon : Weapon
             }
         }
     }
-
 
 
 
