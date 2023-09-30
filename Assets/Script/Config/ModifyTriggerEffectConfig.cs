@@ -52,6 +52,18 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_SetUnitPropertyValue(type));
             }
+            else if (type == ModifyTriggerEffectType.AddGlobalTimerModifier)
+            {
+                result.Add(type.ToString(), new MTEC_AddGlobalTimerModifier(type));
+            }
+            else if (type == ModifyTriggerEffectType.EnterUnitState)
+            {
+                result.Add(type.ToString(), new MTEC_EnterUnitState(type));
+            }
+            else if(type == ModifyTriggerEffectType.GainDropWaste)
+            {
+                result.Add(type.ToString(), new MTEC_GainDropWaste(type));
+            }
         }
 
         return result;
@@ -326,5 +338,95 @@ public class MTEC_SetUnitPropertyValue : ModifyTriggerEffectConfig
         }
 
         targetUnit.LocalPropetyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
+    }
+}
+
+public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public PropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public float Value;
+
+    [HorizontalGroup("AA", 200)]
+    [LabelText("持续时间")]
+    [LabelWidth(40)]
+    public float DurationTime;
+
+    public MTEC_AddGlobalTimerModifier(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.AddTimerModifier_Global(this);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
+
+public class MTEC_EnterUnitState : ModifyTriggerEffectConfig
+{
+
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Key")]
+    [LabelWidth(40)]
+    public UnitPropertyModifyKey ModifyKey;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public float Value;
+
+    [HorizontalGroup("AA", 200)]
+    [LabelText("持续时间")]
+    [LabelWidth(40)]
+    public float DurationTime;
+
+    public MTEC_EnterUnitState(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
+
+public class MTEC_GainDropWaste : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public int Value;
+
+    public MTEC_GainDropWaste(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        RogueManager.Instance.AddDropWasteCount(Value);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
     }
 }

@@ -6,5 +6,5 @@ public interface IDamageble
 {
 
     bool TakeDamage(ref DamageResultInfo info);
-    void Death();
+    void Death(UnitDeathInfo info);
 }

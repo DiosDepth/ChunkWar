@@ -81,10 +81,11 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
         if (hardLevelSav == null || !hardLevelSav.Unlock)
             return;
 
-        (UIManager.Instance.GetGUIFromDic("HardLevelSelectPage") as HardLevelSelectPage).HardLevelGroup.interactable = false;
-        GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
         var hardLevelInfo = GameManager.Instance.GetHardLevelInfoByID((int)ItemUID);
         RogueManager.Instance.SetCurrentHardLevel(hardLevelInfo);
+
+        (UIManager.Instance.GetGUIFromDic("HardLevelSelectPage") as HardLevelSelectPage).HardLevelGroup.interactable = false;
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
     }
 
 

@@ -77,9 +77,9 @@ public enum PropertyModifyKey
     /// </summary>
     Transfixion,
     /// <summary>
-    /// 贯通衰减
+    /// 贯通伤害
     /// </summary>
-    TransfixionReducePercent,
+    TransfixionDamagePercent,
     ShieldRecoverValue,
     /// <summary>
     /// 护盾多久不受击恢复CD百分比
@@ -167,7 +167,11 @@ public enum PropertyModifyKey
     /// <summary>
     /// 导弹HP
     /// </summary>
-    MissileHPPercent
+    MissileHPPercent,
+    /// <summary>
+    /// 导弹数量
+    /// </summary>
+    MissileCount,
 }
 
 /// <summary>

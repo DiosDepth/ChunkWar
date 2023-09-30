@@ -84,14 +84,19 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public UnitPropertyData MainPropertyData;
     public ShipMapData ShipMapData;
-    public SaveData saveData;
 
     public InventoryItem currentShipSelection;
     public InventoryItem currentWeaponSelection;
     public PlayerShip currentShip;
     public LevelTimer Timer;
 
-    private Dictionary<GoodsItemRarity, int> _inLevelDropItems;
+    private Dictionary<GoodsItemRarity, int> _inLevelDropItems = new Dictionary<GoodsItemRarity, int>
+    {
+        { GoodsItemRarity.Tier1, 0 },
+        { GoodsItemRarity.Tier2, 0 },
+        { GoodsItemRarity.Tier3, 0 },
+        { GoodsItemRarity.Tier4, 0 },
+    };
     /// <summary>
     /// 获取局内残骸掉落
     /// </summary>
@@ -182,7 +187,7 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
-    /// 当前进入站点时Unit
+    /// 当前进入站点时Unit0
     /// </summary>
     public Dictionary<uint, WreckageItemInfo> CurrentWreckageItems
     {
@@ -213,11 +218,60 @@ public class RogueManager : Singleton<RogueManager>
     public UnityAction OnItemCountChange;
     /* 进入太空港 */
     public UnityAction OnEnterHarbor;
+
+    private void ClearAction()
+    {
+        OnWreckageLoadPercentChange = null;
+        OnEnergyPercentChange = null;
+        OnWasteCountChange = null;
+        OnShipPlugCountChange = null;
+        OnWaveStateChange = null;
+        OnShopRefresh = null;
+        OnItemCountChange = null;
+        OnEnterHarbor = null;
+    }
+
     #endregion
 
     public RogueManager()
     {
         Initialization();
+    }
+
+    /// <summary>
+    /// Reset Game
+    /// </summary>
+    public void Clear()
+    {
+        currentShip = null;
+        CurrentHardLevel = null;
+        currentShipSelection = null;
+        currentWeaponSelection = null;
+        ShipMapData = null;
+        Timer = null;
+        ///Reset
+        _inLevelDropItems[GoodsItemRarity.Tier1] = 0;
+        _inLevelDropItems[GoodsItemRarity.Tier2] = 0;
+        _inLevelDropItems[GoodsItemRarity.Tier3] = 0;
+        _inLevelDropItems[GoodsItemRarity.Tier4] = 0;
+
+        MainPropertyData.Clear();
+        goodsItems.Clear();
+        wreckageItems.Clear();
+        _playerCurrentGoods.Clear();
+        _currentShipPlugs.Clear();
+        AllCurrentShipPlugs.Clear();
+        globalModifySpecialDatas.Clear();
+        _currentShipUnits.Clear();
+        AllShipUnits.Clear();
+        CurrentRogueShopItems.Clear();
+        CurrentWreckageItems.Clear();
+        _allShipLevelUpItems.Clear();
+        CurrentShipLevelUpItems.Clear();
+
+        _currentRereollCount = 0;
+        _shopRefreshTotalCount = 0;
+        ClearAction();
     }
 
     /// <summary>
@@ -289,13 +343,6 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void InitRogueBattle()
     {
-        _inLevelDropItems = new Dictionary<GoodsItemRarity, int>
-        {
-            { GoodsItemRarity.Tier1, 2 },
-            { GoodsItemRarity.Tier2, 1 },
-            { GoodsItemRarity.Tier3, 4 },
-            { GoodsItemRarity.Tier4, 1 },
-        };
         MainPropertyData.Clear();
         _currentShipPlugs.Clear();
         AllCurrentShipPlugs.Clear();
@@ -306,7 +353,8 @@ public class RogueManager : Singleton<RogueManager>
         InitWreckageData();
         InitShopData();
         InitAllGoodsItems();
-        AddNewShipPlug((currentShipSelection.itemconfig as PlayerShipConfig).CorePlugID);
+        ///InitPlugs
+        InitShipPlugs();
     }
 
     /// <summary>
@@ -342,6 +390,7 @@ public class RogueManager : Singleton<RogueManager>
         base.Initialization();
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         _playerCurrentGoods = new Dictionary<int, byte>();
+        CurrentRogueShopItems = new List<ShopGoodsInfo>();
         InitShipLevelUpItems();
     }
 
@@ -352,6 +401,39 @@ public class RogueManager : Singleton<RogueManager>
     public void SetCurrentHardLevel(HardLevelInfo info)
     {
         CurrentHardLevel = info;
+        ///Init PropertyDic
+        var propertyDic = info.Cfg.ModifyDic;
+        if(propertyDic != null && propertyDic.Count > 0)
+        {
+            foreach(var item in propertyDic)
+            {
+                switch (item.Key)
+                {
+                    case HardLevelModifyType.EnemyDamage:
+                        MainPropertyData.AddPropertyModifyValue(PropertyModifyKey.EnemyDamagePercent, PropertyModifyType.Modify, GameGlobalConfig.PropertyModifyUID_HardLevel, item.Value);
+                        break;
+                    case HardLevelModifyType.EnemyHP:
+                        MainPropertyData.AddPropertyModifyValue(PropertyModifyKey.EnemyHPPercent, PropertyModifyType.Modify, GameGlobalConfig.PropertyModifyUID_HardLevel, item.Value);
+                        break;
+                }
+            }
+        }
+
+        ///WreckageStart
+        var startWreckageDic = info.Cfg.StartWreckageDic;
+        if(startWreckageDic != null && startWreckageDic.Count > 0)
+        {
+            foreach(var item in startWreckageDic)
+            {
+                if(item.Value > 0)
+                {
+                    if (_inLevelDropItems.ContainsKey(item.Key))
+                    {
+                        _inLevelDropItems[item.Key] = item.Value;
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -664,7 +746,7 @@ public class RogueManager : Singleton<RogueManager>
         var secondsLevel = Mathf.RoundToInt(currentSecond / (float)(2 * 60));
 
         var multiple = GameGlobalConfig.HardLevelWaveIndexMultiple;
-        _currentHardLevelIndex = multiple * (GetCurrentWaveIndex - 1) + secondsLevel;
+        _currentHardLevelIndex = multiple * (GetCurrentWaveIndex) + secondsLevel;
         Debug.Log("Update HardLevel , HardLevel = " + _currentHardLevelIndex);
     }
 
@@ -886,8 +968,12 @@ public class RogueManager : Singleton<RogueManager>
     /// <param name="value"></param>
     public void AddEXP(float value)
     {
+        if (GetCurrentShipLevel >= GameGlobalConfig.Ship_MaxLevel)
+            return;
+
         var expAddtion = MainPropertyData.GetPropertyFinal(PropertyModifyKey.EXPAddPercent);
 
+        var oldLevel = GetCurrentShipLevel;
         var targetValue = GetCurrentExp + value * (1 + expAddtion / 100f);
         int levelUpCount = 0;
         while (targetValue >= CurrentRequireEXP)
@@ -901,12 +987,15 @@ public class RogueManager : Singleton<RogueManager>
         ///Show UI
         if(levelUpCount > 0)
         {
-            ShipLevelUp(levelUpCount);
+            ShipLevelUp(oldLevel,levelUpCount);
         }
     }
 
     private void LevelUp()
     {
+        if (GetCurrentShipLevel >= GameGlobalConfig.Ship_MaxLevel)
+            return;
+
         var newLevel = GetCurrentShipLevel + 1;
         if(newLevel > DataManager.Instance.battleCfg.ShipMaxLevel)
         {
@@ -1034,7 +1123,10 @@ public class RogueManager : Singleton<RogueManager>
             AddCurrency(-CurrentRerollCost);
         }
         ///Reset
-        CurrentRogueShopItems.ForEach(x => x.Reset());
+        if (CurrentShipLevelUpItems != null && CurrentShipLevelUpItems.Count > 0) 
+        {
+            CurrentRogueShopItems.ForEach(x => x.Reset());
+        }
 
         _currentRereollCount++;
         ///RefreshShop
@@ -1146,10 +1238,10 @@ public class RogueManager : Singleton<RogueManager>
     private void InitShopData()
     {
         MainPropertyData.AddPropertyModifyValue(PropertyModifyKey.ShopRefreshCount, PropertyModifyType.Row, 0,DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum);
-        _playerCurrency = new ChangeValue<float>(1000, int.MinValue, int.MaxValue);
+        _playerCurrency = new ChangeValue<float>(0, int.MinValue, int.MaxValue);
         _playerCurrency.BindChangeAction(OnCurrencyChange);
         CurrentRerollCost = GetCurrentRefreshCost();
-
+        _playerCurrency.Set(CurrentHardLevel.Cfg.StartCurrency);
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShopCostPercent, OnShopCostChange);
     }
 
@@ -1426,6 +1518,22 @@ public class RogueManager : Singleton<RogueManager>
         return result;
     }
 
+    /// <summary>
+    /// 初始化舰船插件
+    /// </summary>
+    private void InitShipPlugs()
+    {
+        var shipCfg = currentShipSelection.itemconfig as PlayerShipConfig;
+        AddNewShipPlug(shipCfg.CorePlugID);
+        if (shipCfg.ShipOriginPlugs != null && shipCfg.ShipOriginPlugs.Count > 0) 
+        {
+            for (int i = 0; i < shipCfg.ShipOriginPlugs.Count; i++) 
+            {
+                AddNewShipPlug(shipCfg.ShipOriginPlugs[i]);
+            }
+        }
+    }
+
     #endregion
 
     #region Ship LevelUp
@@ -1436,20 +1544,41 @@ public class RogueManager : Singleton<RogueManager>
         private set;
     }
 
+    /// <summary>
+    /// 当前升级刷新花费
+    /// </summary>
     public int CurrentLevelUpitemRerollCost
     {
         get;
         private set;
     }
 
-    public void ShipLevelUp(int levelUpCount = 1)
+    /// <summary>
+    /// 当前升级刷新次数
+    /// </summary>
+    public int CurrentLevelUpItemRerollCount
+    {
+        get;
+        private set;
+    }
+
+    public void ShipLevelUp(byte oldLevel, int levelUpCount = 1)
     {
         RefreshShipLevelUpItems(false);
         Pause();
+
+        ///重复升级保护
+        var levelUpPanel = UIManager.Instance.GetGUIFromDic<ShipLevelUpPage>("ShipLevelUpPage");
+        if(levelUpPanel != null)
+        {
+            levelUpPanel.AddUpgradeLevelCount(levelUpCount);
+            return;
+        }
+
         ///DisplayUI
         UIManager.Instance.ShowUI<ShipLevelUpPage>("ShipLevelUpPage", E_UI_Layer.Top, RogueManager.Instance, (panel) =>
         {
-            panel.Initialization(levelUpCount);
+            panel.Initialization(oldLevel, levelUpCount);
             panel.Initialization();
             InputDispatcher.Instance.ChangeInputMode("UI");
         });
@@ -1460,8 +1589,24 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void RefreshShipLevelUpItems(bool isReroll)
     {
+        if (isReroll)
+        {
+            ///Check Cost
+            if (CurrentCurrency < CurrentLevelUpitemRerollCost)
+                return;
+
+            AddCurrency(-CurrentLevelUpitemRerollCost);
+        }
+        else
+        {
+            ///Reset RerollCount
+            CurrentLevelUpItemRerollCount = 0;
+        }
+
+        CurrentLevelUpItemRerollCount++;
         var randomCount = DataManager.Instance.battleCfg.ShipLevelUp_GrowthItem_Count;
         CurrentShipLevelUpItems = GenerateUpgradeItem(randomCount);
+        RefreshCurrentLevelUpRerollCost();
     }
 
     /// <summary>
@@ -1578,6 +1723,16 @@ public class RogueManager : Singleton<RogueManager>
         return result;
     }
 
+    /// <summary>
+    /// 刷新当前升级刷新花费
+    /// </summary>
+    private void RefreshCurrentLevelUpRerollCost()
+    {
+        var refreshCfg = DataManager.Instance.gameMiscCfg.RefreshConfig;
+        int waveCost = (GetCurrentWaveIndex - 1) * refreshCfg.LevelUpCostWaveMultiple;
+        float refreshCountCst = (CurrentLevelUpItemRerollCount * refreshCfg.LevelUpCostWaveMultiple) / 100f;
+        CurrentLevelUpitemRerollCost = Mathf.RoundToInt((refreshCfg.LevelUpRefreshCostBase + waveCost) * (1 + refreshCountCst));
+    }
 
     #endregion
 

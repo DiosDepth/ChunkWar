@@ -42,9 +42,9 @@ public class AIShip : BaseShip,IPoolable
         base.Update();
     }
 
-    protected override void Death()
+    protected override void Death(UnitDeathInfo info)
     {
-        base.Death();
+        base.Death(info);
         DestroyAIShipBillBoard();
         LevelManager.Instance.pickupList.AddRange(Drop());
         AIManager.Instance.RemoveAI(this);

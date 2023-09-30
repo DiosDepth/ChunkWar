@@ -11,12 +11,8 @@ public enum EGameState
     EGameState_ShipSelection,
     EGameState_GamePrepare,
     EGameState_GameStart,
-    EGameState_GamePause,
-    EGameState_GameUnPause,
-    EGameState_GameCompleted,
+    EGameState_GameHarbor,
     EGameState_GameOver,
-    EGameState_GameEnd,
-    EGameState_GameReset,
 }
 
 
@@ -59,7 +55,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
 
 
-    public bool isInitialCompleted = false;
+    private bool isInitialCompleted = false;
 
     /// <summary>
     /// 难度等级信息
@@ -83,129 +79,16 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     {
         Application.targetFrameRate = 120;
 
-        //Initialization();
         this.EventStartListening<GameEvent>();
-
         this.EventStartListening<GameStateTransitionEvent>();
 
-        Initialization();
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         GMTalkManager.Instance.Initialization();
     }
 
-    public override void Initialization()
-    {
-        base.Initialization();
-        isInitialCompleted = true;
-        Debug.Log("GameManager Initialization");
-
-    }
     public void OnEvent(GameEvent evt)
     {
         gamestate.ChangeState(evt.gamesate);
-        //switch (evt.gamesate)
-        //{
-        //    case EGameState.EGameState_WelcomScreen:
-
-        //        break;
-        //    case EGameState.EGameState_MainMenu:
-
-        //        break;
-
-        //    case EGameState.EGameState_ShipSelection:
-
-        //        break;
-        //    case EGameState.EGameState_GamePrepare:
-        //        Debug.Log("GameState = GamePrepare");
-                
-        //        //MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(1, (ac) =>
-        //        //{
-
-        //        //}));
-        //        //MonoManager.Instance.StartCoroutine(LevelManager.Instance.LevelPreparing(() =>
-        //        //{
-        //        //    GameEvent.Trigger(GameState.GameStart);
-        //        //}));
-
-        //        // 创建玩家,并且关闭玩家 
-        //        //创建一些关键组件, 比如对象池,声音组件,
-
-        //        break;
-        //    case EGameState.EGameState_GameStart:
-        //        Debug.Log("GameState = GameStart");
-
-        //        MonoManager.Instance.StartDelay(3, () =>
-        //        {
-        //            UIManager.Instance.HiddenUI("LoadingText");
-
-        //            GUIBasePanel gui = UIManager.Instance.GetGUIFromDic("BackGround");
-        //            if(gui != null)
-        //            {
-        //                MonoManager.Instance.StartCoroutine(UIManager.Instance.FadeUI(gui.uiGroup, 0, 1, 0, 1, () =>
-        //                {
-        //                    UIManager.Instance.HiddenUI("BackGround");
-
-        //                    UIManager.Instance.ShowUI<PlayerHUD>("PlayerHUD", E_UI_Layer.Mid, this, (panel) =>
-        //                    {
-        //                        //UIManager.Instance.playerHUD = panel;
-        //                        panel.Initialization();
-        //                        LevelManager.Instance.StartSpawn();
-                       
-        //                        //LevelManager.Instance.player.gameObject.SetActive(true);
-        //                    });
-
-        //                }));
-        //            }
-        //            else
-        //            {
-        //                UIManager.Instance.HiddenUI("BackGround");
-
-        //                UIManager.Instance.ShowUI<PlayerHUD>("PlayerHUD", E_UI_Layer.Mid, this, (panel) =>
-        //                {
-        //                    //UIManager.Instance.playerHUD = panel;
-        //                    panel.Initialization();
-        //                    LevelManager.Instance.StartSpawn();
-                
-        //                    //LevelManager.Instance.player.gameObject.SetActive(true);
-        //                });
-
-        //            }
-
-        //        });
-
-
-        //        break;
-
-        //    case EGameState.EGameState_GameOver:
-        //        Debug.Log("GameState = GameOver");
-        //        LevelManager.Instance.GameOver();
-                
-        //        UIManager.Instance.HiddenUI("PlayerHUD");
-        //        UIManager.Instance.ShowUI<BackGroundPanel>("BackGround", E_UI_Layer.Bot, null);
-        //        UIManager.Instance.ShowUI<Record>("Record", E_UI_Layer.Top, this, (panel) =>
-        //        {
-        //            panel.Initialization();
-
-        //        });
-        //        break;
-        //    case EGameState.EGameState_GameEnd:
-        //        Debug.Log("GameState = GameEnd");
-        //        UIManager.Instance.HiddenUI("Record");
-        //        ScoreEvent.Trigger(ScoreEventType.Reset, 0);
-        //        MonoManager.Instance.StartCoroutine(LevelManager.Instance.LoadScene(0, (ac) => 
-        //        {
-        //            GameEvent.Trigger(EGameState.EGameState_MainMenu);
-        //        }));
-
-        //        break;
-        //    case EGameState.EGameState_GameReset:
-        //        Debug.Log("GameState = GameReset");
-        //        ScoreEvent.Trigger(ScoreEventType.Reset, 0);
-        //        UIManager.Instance.HiddenUI("Record");
-        //        GameEvent.Trigger(EGameState.EGameState_GamePrepare);
-        //        break;
-
-        //}
     }
 
     public void InitialRuntimeData()
@@ -213,64 +96,44 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         RogueManager.Instance.ShipMapData = new ShipMapData((RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig).Map);
     }
 
-
-
     public void OnEvent(GameStateTransitionEvent evt)
     {
-
-        UIManager.Instance.ShowUI<LoadingScreen>("LoadingScreen", E_UI_Layer.Top, this, (panel) =>
+        switch (evt.targetState)
         {
-            panel.Initialization();
-            panel.SetDoorState(true);
-            panel.CloseLoadingDoor(()=> 
-            {
-                switch (evt.targetState)
-                {
-                    case EGameState.EGameState_None:
-                        
-                        break;
-                    case EGameState.EGameState_WelcomScreen:
-                        break;
-                    case EGameState.EGameState_MainMenu:
-                        GameEvent.Trigger(EGameState.EGameState_MainMenu);
-                        break;
-                    case EGameState.EGameState_ShipSelection:
-                        GameEvent.Trigger(EGameState.EGameState_ShipSelection);
-                        break;
-                    case EGameState.EGameState_GamePrepare:
-                        GameEvent.Trigger(EGameState.EGameState_GamePrepare);
-                        break;
-                    case EGameState.EGameState_GameStart:
-                        GameEvent.Trigger(EGameState.EGameState_GameStart);
-                        break;
-                    case EGameState.EGameState_GamePause:
-                        GameEvent.Trigger(EGameState.EGameState_GamePause);
-                        break;
-                    case EGameState.EGameState_GameUnPause:
-                        GameEvent.Trigger(EGameState.EGameState_GameUnPause);
-                        break;
-                    case EGameState.EGameState_GameOver:
-                        GameEvent.Trigger(EGameState.EGameState_GameOver);
-                        break;
-                    case EGameState.EGameState_GameCompleted:
-                        GameEvent.Trigger(EGameState.EGameState_GameCompleted);
-                        break;
-                    case EGameState.EGameState_GameEnd:
-                        GameEvent.Trigger(EGameState.EGameState_GameEnd);
-                        break;
-                    case EGameState.EGameState_GameReset:
-                        GameEvent.Trigger(EGameState.EGameState_GameReset);
-                        break;
-                }
-            });
-        });
+            case EGameState.EGameState_None:
 
+                break;
+            case EGameState.EGameState_WelcomScreen:
+                break;
+            case EGameState.EGameState_MainMenu:
+                GameEvent.Trigger(EGameState.EGameState_MainMenu);
+                break;
+            case EGameState.EGameState_ShipSelection:
+                GameEvent.Trigger(EGameState.EGameState_ShipSelection);
+                break;
+            case EGameState.EGameState_GamePrepare:
+                GameEvent.Trigger(EGameState.EGameState_GamePrepare);
+                break;
+            case EGameState.EGameState_GameStart:
+                GameEvent.Trigger(EGameState.EGameState_GameStart);
+                break;
+            case EGameState.EGameState_GameOver:
+                GameEvent.Trigger(EGameState.EGameState_GameOver);
+                break;
+            case EGameState.EGameState_GameHarbor:
+                GameEvent.Trigger(EGameState.EGameState_GameHarbor);
+                break;
+        }
     }
 
     public void InitData()
     {
+        if (isInitialCompleted)
+            return;
+
         InitHardLevelData();
         InitCampData();
+        isInitialCompleted = true;
     }
 
     #region HardLevel

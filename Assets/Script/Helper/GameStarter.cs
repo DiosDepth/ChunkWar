@@ -8,11 +8,8 @@ public class GameStarter : MonoBehaviour
 
     private void Awake()
     {
-        if (GameManager.Instance.isInitialCompleted)
-        {
-            GameEvent.Trigger(EGameState.EGameState_WelcomScreen);
-
-        }
+        var mgr = GameManager.Instance;
+        GameEvent.Trigger(EGameState.EGameState_WelcomScreen);
     }
 
 }

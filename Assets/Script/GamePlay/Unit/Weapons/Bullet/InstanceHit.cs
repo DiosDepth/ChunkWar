@@ -91,7 +91,7 @@ public class InstanceHit : Bullet
                     InstanceHitLine.endWidth = value;
                 }).setOnComplete(() =>
                 {
-                    Death();
+                    Death(null);
                 });
             });
         });
@@ -153,7 +153,7 @@ public class InstanceHit : Bullet
                                 InstanceHitLine.endWidth = value;
                             }).setOnComplete(() =>
                             {
-                                Death();
+                                Death(null);
                             });
                         });
                     });
@@ -190,7 +190,7 @@ public class InstanceHit : Bullet
                     InstanceHitLine.endWidth = value;
                 }).setOnComplete(() =>
                 {
-                    Death();
+                    Death(null);
                 });
             });
 
@@ -212,7 +212,7 @@ public class InstanceHit : Bullet
     {
         base.PlayVFX(m_vfxname, pos);
     }
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
 
         PoolableDestroy();

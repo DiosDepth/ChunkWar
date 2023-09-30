@@ -30,11 +30,14 @@ public static class GameGlobalConfig
     public const uint PropertyModifyUID_ShipClass = 1;
     public const uint PropertyModifyUID_EnergyOverload_GlobalBuff = 2;
     public const uint PropertyModifyUID_WreckageOverload_GlobalBuff = 3;
+    public const uint PropertyModifyUID_HardLevel = 4;
 
     /// <summary>
     /// 舰船速度最大比例
     /// </summary>
     public const float ShipSpeedModify_Protected_MaxSpeed = 10;
+
+    public const byte Ship_MaxLevel = 99;
 
     public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;

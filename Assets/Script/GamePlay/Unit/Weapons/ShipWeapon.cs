@@ -198,13 +198,13 @@ public class ShipWeapon : Weapon
         base.OnDestroy();
     }
 
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
         if (activeWeaponPosList.IsCreated) { activeWeaponPosList.Dispose(); }
         if (activeWeaponAttackRangeList.IsCreated) { activeWeaponAttackRangeList.Dispose(); }
         if (activeWeaponTargetCountList.IsCreated) { activeWeaponTargetCountList.Dispose(); }
         if (rv_weaponTargetsInfoQue.IsCreated) { rv_weaponTargetsInfoQue.Dispose(); }
-        base.Death();
+        base.Death(info);
     }
 
 

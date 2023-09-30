@@ -1450,4 +1450,6 @@ MonoBehaviour:
   UnlockDefault: 0
   EditorPrefab: {fileID: 0}
   ShipPropertyDesc: 
+  ShipHardLevels: 
+  ShipOriginPlugs: 
   ShipEditorSprite: {fileID: 0}

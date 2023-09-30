@@ -47,7 +47,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 1|HardLevelConfig, Assembly-CSharp
@@ -81,13 +81,42 @@ MonoBehaviour:
     - Name: ScoreRatio
       Entry: 4
       Data: 0
-    - Name: ModifyDic
+    - Name: StartCurrency
+      Entry: 3
+      Data: 80
+    - Name: StartWreckageDic
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
+      Data: 2|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyDic
+      Entry: 7
+      Data: 4|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 5|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -124,7 +153,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|HardLevelConfig, Assembly-CSharp
+      Data: 6|HardLevelConfig, Assembly-CSharp
     - Name: HardLevelID
       Entry: 3
       Data: 2
@@ -155,13 +184,32 @@ MonoBehaviour:
     - Name: ScoreRatio
       Entry: 4
       Data: 1
+    - Name: StartCurrency
+      Entry: 3
+      Data: 80
+    - Name: StartWreckageDic
+      Entry: 7
+      Data: 7|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 3
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: ModifyDic
       Entry: 7
-      Data: 5|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
+      Data: 8|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 6|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
+      Data: 9|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -210,7 +258,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|HardLevelConfig, Assembly-CSharp
+      Data: 10|HardLevelConfig, Assembly-CSharp
     - Name: HardLevelID
       Entry: 3
       Data: 3
@@ -241,13 +289,32 @@ MonoBehaviour:
     - Name: ScoreRatio
       Entry: 4
       Data: 1
+    - Name: StartCurrency
+      Entry: 3
+      Data: 80
+    - Name: StartWreckageDic
+      Entry: 7
+      Data: 11|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 3
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: ModifyDic
       Entry: 7
-      Data: 8|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
+      Data: 12|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 9|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
+      Data: 13|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -283,6 +350,121 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 14|HardLevelConfig, Assembly-CSharp
+    - Name: HardLevelID
+      Entry: 3
+      Data: 4
+    - Name: Name
+      Entry: 1
+      Data: HardLevel_Name_4
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: PropertyDesc
+      Entry: 6
+      Data: 
+    - Name: UnlockDesc
+      Entry: 6
+      Data: 
+    - Name: PreviewScore
+      Entry: 3
+      Data: 500
+    - Name: Icon
+      Entry: 10
+      Data: 2
+    - Name: DefaultUnlock
+      Entry: 5
+      Data: true
+    - Name: LevelPresetID
+      Entry: 3
+      Data: 3
+    - Name: ScoreRatio
+      Entry: 4
+      Data: 0
+    - Name: StartCurrency
+      Entry: 3
+      Data: 80
+    - Name: StartWreckageDic
+      Entry: 7
+      Data: 15|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 16|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyDic
+      Entry: 7
+      Data: 17|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 18|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -290,11 +472,11 @@ MonoBehaviour:
       Data: 
     - Name: PropertyDisplay
       Entry: 7
-      Data: 10|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[PropertyDisplayConfig,
+      Data: 19|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[PropertyDisplayConfig,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 11|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
+      Data: 20|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -316,7 +498,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 12|PropertyDisplayConfig, Assembly-CSharp
+      Data: 21|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_DamagePercent
@@ -346,7 +528,7 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 7
-      Data: 13|PropertyDisplayConfig, Assembly-CSharp
+      Data: 22|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_AttackSpeed
@@ -376,7 +558,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 14|PropertyDisplayConfig, Assembly-CSharp
+      Data: 23|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Critical
@@ -406,7 +588,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 15|PropertyDisplayConfig, Assembly-CSharp
+      Data: 24|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopRefreshCount
@@ -436,7 +618,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: 16|PropertyDisplayConfig, Assembly-CSharp
+      Data: 25|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopCostPercent
@@ -466,7 +648,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 17|PropertyDisplayConfig, Assembly-CSharp
+      Data: 26|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipHP
@@ -496,7 +678,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 18|PropertyDisplayConfig, Assembly-CSharp
+      Data: 27|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_WeaponRange
@@ -526,7 +708,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 19|PropertyDisplayConfig, Assembly-CSharp
+      Data: 28|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Luck
@@ -556,7 +738,7 @@ MonoBehaviour:
       Data: 9
     - Name: $v
       Entry: 7
-      Data: 20|PropertyDisplayConfig, Assembly-CSharp
+      Data: 29|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_SuckerRange
@@ -586,7 +768,7 @@ MonoBehaviour:
       Data: 15
     - Name: $v
       Entry: 7
-      Data: 21|PropertyDisplayConfig, Assembly-CSharp
+      Data: 30|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_PhysicsDamage
@@ -616,7 +798,7 @@ MonoBehaviour:
       Data: 16
     - Name: $v
       Entry: 7
-      Data: 22|PropertyDisplayConfig, Assembly-CSharp
+      Data: 31|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnergyDamage
@@ -646,7 +828,7 @@ MonoBehaviour:
       Data: 17
     - Name: $v
       Entry: 7
-      Data: 23|PropertyDisplayConfig, Assembly-CSharp
+      Data: 32|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_DamageDeltaPercent
@@ -676,7 +858,7 @@ MonoBehaviour:
       Data: 14
     - Name: $v
       Entry: 7
-      Data: 24|PropertyDisplayConfig, Assembly-CSharp
+      Data: 33|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: CriticalDamagePercentAdd
@@ -706,7 +888,7 @@ MonoBehaviour:
       Data: 21
     - Name: $v
       Entry: 7
-      Data: 25|PropertyDisplayConfig, Assembly-CSharp
+      Data: 34|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShieldHP
@@ -736,7 +918,7 @@ MonoBehaviour:
       Data: 31
     - Name: $v
       Entry: 7
-      Data: 26|PropertyDisplayConfig, Assembly-CSharp
+      Data: 35|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipArmor
@@ -766,7 +948,7 @@ MonoBehaviour:
       Data: 39
     - Name: $v
       Entry: 7
-      Data: 27|PropertyDisplayConfig, Assembly-CSharp
+      Data: 36|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipParry
@@ -796,7 +978,7 @@ MonoBehaviour:
       Data: 38
     - Name: $v
       Entry: 7
-      Data: 28|PropertyDisplayConfig, Assembly-CSharp
+      Data: 37|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipSpeed
@@ -826,7 +1008,7 @@ MonoBehaviour:
       Data: 41
     - Name: $v
       Entry: 7
-      Data: 29|PropertyDisplayConfig, Assembly-CSharp
+      Data: 38|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ExplodeDamage
@@ -856,7 +1038,7 @@ MonoBehaviour:
       Data: 43
     - Name: $v
       Entry: 7
-      Data: 30|PropertyDisplayConfig, Assembly-CSharp
+      Data: 39|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnemyCount
@@ -886,7 +1068,7 @@ MonoBehaviour:
       Data: 44
     - Name: $v
       Entry: 7
-      Data: 31|PropertyDisplayConfig, Assembly-CSharp
+      Data: 40|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EliteBossDamage
@@ -928,7 +1110,7 @@ MonoBehaviour:
   ShipMinSuckerRange: 5
   ShipLoadBase: 50
   Drop_Waste_LoadCostBase: 0.1
-  EXPMap: 0f00000019000000230000002d00000037000000640000006e000000
+  EXPMap: 0f0000001900000024000000310000004000000051000000640000007900000090000000a9000000c4000000e10000000001000021010000440100006901000090010000b9010000e40100001102000040020000
   ShipLevelUpGrowthItems:
   - Icon: {fileID: 21300000, guid: 4fc20a58e9f0eaf40876d8b8d7b90e67, type: 3}
     Name: ShipLevelUp_Damage

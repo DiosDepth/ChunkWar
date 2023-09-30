@@ -1,7 +1,10 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using UnityEngine;
 
 [System.Serializable]
@@ -91,6 +94,8 @@ public class BaseShipConfig : BaseConfig
         return max - min + Vector2.one;
     }
 
+#if UNITY_EDITOR
+
     [OnInspectorInit]
     protected override void InitData()
     {
@@ -102,4 +107,5 @@ public class BaseShipConfig : BaseConfig
             AssetDatabase.SaveAssets();
         }
     }
+#endif
 }

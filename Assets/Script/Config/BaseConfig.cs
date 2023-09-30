@@ -78,6 +78,9 @@ public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
     {
         return Vector2.zero;
     }
+
+#if UNITY_EDITOR
+
     protected virtual int DrawTable(Rect rect, int value)
     {
         if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
@@ -110,6 +113,22 @@ public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
         return value;
     }
 
+    [OnInspectorInit]
+    protected virtual void InitData()
+    {
+        CalculateSlotCount();
+    }
+
+    [OnInspectorDispose]
+    private void Save()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+#endif
+
     protected void CalculateSlotCount()
     {
         int totalCount = 0;
@@ -126,13 +145,6 @@ public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
         SlotCount = totalCount;
     }
 
-
-    [OnInspectorInit]
-    protected virtual void InitData()
-    {
-        CalculateSlotCount();
-    }
-
     public int CompareTo(BaseConfig other)
     {
         if (this.GeneralConfig.SortingOrder > other.GeneralConfig.SortingOrder)
@@ -140,18 +152,6 @@ public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
 
         return -1;
     }
-
-
-#if UNITY_EDITOR
-
-    [OnInspectorDispose]
-    private void Save()
-    {
-        EditorUtility.SetDirty(this);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-    }
-#endif
 
 }
 

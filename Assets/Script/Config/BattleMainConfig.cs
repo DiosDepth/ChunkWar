@@ -62,6 +62,9 @@ public enum ModifyTriggerEffectType
     TempReduceShopPrice,
     AddPropertyValueBySpecialCount,
     SetUnitPropertyModifyKey,
+    EnterUnitState,
+    GainDropWaste,
+    AddGlobalTimerModifier,
 }
 
 public class BattleMainConfig : SerializedScriptableObject
@@ -149,17 +152,33 @@ public class BattleMainConfig : SerializedScriptableObject
 public class HardLevelConfig
 {
     public int HardLevelID;
+    [FoldoutGroup("基础信息")]
     public string Name;
+    [FoldoutGroup("基础信息")]
     public string Desc;
+    [FoldoutGroup("基础信息")]
     public string PropertyDesc;
+    [FoldoutGroup("基础信息")]
     public string UnlockDesc;
+    [FoldoutGroup("基础信息")]
     public int PreviewScore;
+    [FoldoutGroup("基础信息")]
     public Sprite Icon;
-
+    [FoldoutGroup("基础信息")]
     public bool DefaultUnlock;
+    [FoldoutGroup("基础信息")]
     public int LevelPresetID;
+    [FoldoutGroup("基础信息")]
     public float ScoreRatio;
 
+    [FoldoutGroup("初始设置")]
+    public int StartCurrency;
+
+    [FoldoutGroup("初始设置")]
+    [DictionaryDrawerSettings()]
+    public Dictionary<GoodsItemRarity, byte> StartWreckageDic = new Dictionary<GoodsItemRarity, byte>();
+
+    [FoldoutGroup("初始设置")]
     [DictionaryDrawerSettings()]
     public Dictionary<HardLevelModifyType, float> ModifyDic = new Dictionary<HardLevelModifyType, float>();
 

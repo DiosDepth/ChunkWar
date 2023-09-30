@@ -28,9 +28,9 @@ public class Chunk : IDamageble
 
     public Unit unit;
 
-    public void Death()
+    public void Death(UnitDeathInfo info)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public bool TakeDamage(ref DamageResultInfo info)

@@ -84,10 +84,30 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     }
 
+    #region Function
+
+    public void AddTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
+    {
+
+    }
+
+    public void RemoveTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
+    {
+
+    }
+
+    #endregion
+
     protected virtual void Trigger(uint parentUnitID = 0)
     {
         if (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount)
             return;
+
+        if (Config.UsePercent && !Utility.RandomResult(0, Config.Percent)) 
+        {
+            ///Percent not vaild
+            return;
+        }
 
         currentTriggerCount++;
         var effects = Config.Effects;

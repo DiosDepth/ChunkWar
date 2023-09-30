@@ -20,7 +20,7 @@ public class HarborTeleport : PickableItem
 
     protected override void AfterPickUp(GameObject picker)
     {
-        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameCompleted);
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
         base.AfterPickUp(picker);
 
     }

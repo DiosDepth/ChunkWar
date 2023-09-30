@@ -1,13 +1,19 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public enum EnemyHPBillBoardType
 {
     Boss_UI,
     Elite_Scene,
+}
+
+public enum EnemyClassType
+{
+    Normal,
+    Elite,
+    Boss
 }
 
 [CreateAssetMenu(fileName = "Configs_AIShip_", menuName = "Configs/Unit/AIShipConfig")]
@@ -19,6 +25,12 @@ public class AIShipConfig : BaseShipConfig
     [HorizontalGroup(" Ù–‘≈‰÷√/AA", 150)]
     [BoxGroup(" Ù–‘≈‰÷√/AA/HP—™Ãıœ‘ æ")]
     public bool ShowHPBillboard = false;
+
+    [HideLabel]
+    [TitleGroup(" Ù–‘≈‰÷√", Alignment = TitleAlignments.Centered)]
+    [HorizontalGroup(" Ù–‘≈‰÷√/AA", 150)]
+    [BoxGroup(" Ù–‘≈‰÷√/AA/µ»º∂")]
+    public EnemyClassType ClassLevel;
 
     [HideLabel]
     [TitleGroup(" Ù–‘≈‰÷√", Alignment = TitleAlignments.Centered)]
@@ -53,11 +65,12 @@ public class AIShipConfig : BaseShipConfig
         return base.GetMapPivot();
     }
 
-
+#if UNITY_EDITOR
     [OnInspectorInit]
     protected override void InitData()
     {
         base.InitData();
 
     }
+#endif
 }

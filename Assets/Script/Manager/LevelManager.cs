@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
@@ -93,7 +94,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     #region Actions
 
     /* 飞船死亡 */
-    public UnityAction<BaseShip> Action_OnShipDie;
+    public UnityAction<BaseShip, UnitDeathInfo> Action_OnShipDie;
     /* 玩家飞船运动 */
     public UnityAction<bool> OnPlayerShipMove;
     /* 玩家血量变化 */
@@ -106,6 +107,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<uint> OnShieldBroken;
     /* Unit受击 */
     public UnityAction<HitInfo> OnUnitHit;
+    /* 敌人数量变化 */
+    public UnityAction<int> OnEnemyCountChange;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -137,6 +140,11 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         base.Initialization();
         _refreshMiscConfig = DataManager.Instance.gameMiscCfg.RefreshConfig;
+    }
+
+    public void Clear()
+    {
+        pickupList.Clear();
     }
 
     public virtual void LevelUpdate()
@@ -268,21 +276,22 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         return currentLevel as T;
     }
 
-    public IEnumerator LoadLevel(string levelname,UnityAction<LevelEntity> callback = null)
+    public async void LoadLevel(string levelname, UnityAction<LevelEntity> callback = null)
     {
-
         LevelData data = null;
         //加载关卡
         if (currentLevel == null)
         {
             DataManager.Instance.LevelDataDic.TryGetValue(levelname, out data);
-            if( data != null)
+            if (data != null)
             {
                 LevelInfo = LevelDataInfo.CreateInfo(data);
-                GameObject obj = ResManager.Instance.Load<GameObject>(data.LevelPrefabPath);
-                currentLevel = obj.GetComponent<LevelEntity>();
-                currentLevel.Initialization();
-                callback?.Invoke(currentLevel);
+                await ResManager.Instance.LoadAsync<GameObject>(data.LevelPrefabPath, (obj) =>
+                {
+                    currentLevel = obj.GetComponent<LevelEntity>();
+                    currentLevel.Initialization();
+                    callback?.Invoke(currentLevel);
+                });
             }
         }
         else
@@ -290,8 +299,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             currentLevel.Initialization();
             callback?.Invoke(currentLevel);
         }
-
-        yield return null;
     }
 
     public void LevelActive()
@@ -358,7 +365,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
                 }
                 else
                 {
-                    OnEnemyShipDie(evt.Ship);
+                    OnEnemyShipDie(evt.Ship, evt.KillInfo);
                 }
                 break;
         }
@@ -373,9 +380,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /// 敌人死亡
     /// </summary>
     /// <param name="ship"></param>
-    private void OnEnemyShipDie(BaseShip ship)
+    private void OnEnemyShipDie(BaseShip ship, UnitDeathInfo info)
     {
-        Action_OnShipDie?.Invoke(ship);
+        Action_OnShipDie?.Invoke(ship, info);
         AchievementManager.Instance.Trigger<BaseShip>(AchievementWatcherType.EnemyKill, ship);
     }
 
@@ -467,6 +474,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void UnitHit(HitInfo info)
     {
         OnUnitHit?.Invoke(info);
+    }
+
+    /// <summary>
+    /// 敌人数量变更
+    /// </summary>
+    /// <param name="count"></param>
+    public void EnemyShipCountChange(int count)
+    {
+        OnEnemyCountChange?.Invoke(count);
     }
 
     #endregion

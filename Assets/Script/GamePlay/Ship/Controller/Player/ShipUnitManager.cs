@@ -230,7 +230,7 @@ public class ShipUnitManager
         for (int i = 0; i < projiectileDeathIndexList.Count; i++)
         {
             deathindex = projiectileDeathIndexList[i];
-            projectileList[deathindex].Death();
+            projectileList[deathindex].Death(null);
         }
     }
 

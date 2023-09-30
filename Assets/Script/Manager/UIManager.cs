@@ -87,6 +87,16 @@ public class UIManager : Singleton<UIManager>
         return null;
     }
 
+    public T GetGUIFromDic<T>(string name) where T : GUIBasePanel
+    {
+        if (panelDic.ContainsKey(name))
+        {
+            return panelDic[name] as T;
+        }
+        return null;
+    }
+
+
     public IEnumerator FadeUI(CanvasGroup uigroup, float delaytime, float from, float to, float time, UnityAction callback)
     {
         float timestamp = Time.time;
@@ -201,47 +211,14 @@ public class UIManager : Singleton<UIManager>
             {
                 callback(panel);
             }
-            panelDic.Add(m_uiname, panel);
+
+            if (!panelDic.ContainsKey(m_uiname))
+            {
+                panelDic.Add(m_uiname, panel);
+            }
+           
             panel.Show();
         });
-    }
-
-    public void ShowUIWithFade<T> (string m_uiname, E_UI_Layer m_uilayer,  float fadetime, object m_owner = null,  UnityAction<T> callback = null) where T : GUIBasePanel
-    {
-        
-        ShowUI<T>(m_uiname, m_uilayer, m_owner,(panel) => 
-        {
-            panel.Initialization();
-            panel.uiGroup.alpha = 0;
-            panel.uiGroup.interactable = false;
-
-            MonoManager.Instance.StartCoroutine(FadeUI(panel.uiGroup, 0, 0, 1, fadetime, () => 
-            {
-                panel.uiGroup.interactable = true;
-                panel.uiGroup.alpha = 1;
-                callback?.Invoke(panel);
-            }));
-        });
-    }
-
-    public void HiddenUIWithFade(string m_uiname,float fadetime, UnityAction callback = null)
-    {
-        
-        if (panelDic.ContainsKey(m_uiname))
-        {
-            FadeUI(panelDic[m_uiname].uiGroup, 0, 1, 0, fadetime, () =>
-            {
-
-                panelDic[m_uiname].Hidden();
-
-                if (panelDic[m_uiname].gameObject != null)
-                {
-                    GameObject.Destroy(panelDic[m_uiname].gameObject);
-                }
-
-                panelDic.Remove(m_uiname);
-            });
-        }
     }
 
     public void SetUITRSParent(GameObject obj, E_UI_Layer layer = E_UI_Layer.Mid)
@@ -278,6 +255,19 @@ public class UIManager : Singleton<UIManager>
     }
 
 
+    public void HiddenAllUI()
+    {
+        List<string> removelist = new List<string>();
+        foreach (KeyValuePair<string, GUIBasePanel> kv in panelDic)
+        {
+            removelist.Add(kv.Key);
+        }
+        for (int i = 0; i < removelist.Count; i++)
+        {
+            HiddenUI(removelist[i]);
+        }
+    }
+
     public void HiddenUIALLBut(List<string> exceptionlist = null, bool iskeepBG = true )
     {
         
@@ -302,7 +292,6 @@ public class UIManager : Singleton<UIManager>
         {
             HiddenUI(removelist[i]);
         }
-        
     }
 
     private void GetUILayer(ref RectTransform trs, string name, Transform parent)

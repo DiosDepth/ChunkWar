@@ -131,6 +131,7 @@ public class AchievementManager : Singleton<AchievementManager>
 
     private Queue<AchievementItemConfig> _achievementUIQueue;
     private bool _isShowingAchievement = false;
+    private bool _hasInit = false;
 
     public AchievementManager()
     {
@@ -163,8 +164,12 @@ public class AchievementManager : Singleton<AchievementManager>
     public override void Initialization()
     {
         base.Initialization();
+        if (_hasInit)
+            return;
+
         LoadSaveData();
         BindWatcherListener();
+        _hasInit = true;
     }
 
     /// <summary>

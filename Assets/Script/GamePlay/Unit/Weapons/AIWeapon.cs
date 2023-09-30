@@ -40,11 +40,9 @@ public class AIWeapon : Weapon
         base.Initialization(m_owner, m_unitconfig);
     }
 
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
-  
-
-        base.Death();
+        base.Death(info);
     }
     public override void SetUnitProcess(bool isprocess)
     {

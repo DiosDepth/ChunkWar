@@ -11,7 +11,7 @@ using Sirenix.Serialization;
 /// </summary>
 public class SaveLoadManager : Singleton<SaveLoadManager>
 {
-    private const string _baseFolderName = "/Data/";
+    private const string _baseFolderName = "/SaveData/";
     private const string _defaultFolderName = "PlayerSaveInfo";
 
     private const string globalSaveName = "GlobalSaveData";
@@ -29,16 +29,24 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     /// </summary>
     private Dictionary<int, AchievementSaveData> _achievementSaveDatas;
 
+    private bool hasInit = false;
+
     public SaveLoadManager()
     {
         _achievementSaveDatas = new Dictionary<int, AchievementSaveData>();
     }
+
+
     public override void Initialization()
     {
         base.Initialization();
+        if (hasInit)
+            return;
+
         LoadGlobalSaveData();
         var allSaves = LoadAllSaveData();
         _allSaves = allSaves;
+        hasInit = true;
     }
 
     public void AddSaveData(SaveData sav)
@@ -102,6 +110,11 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     public void SaveGlobalSaveData()
     {
         string savePath = DetermineSavePath(string.Empty);
+        if (!Directory.Exists(savePath))
+        {
+            Directory.CreateDirectory(savePath);
+        }
+
         var fullPath = savePath + DetermineSaveFileName(globalSaveName);
         if (File.Exists(fullPath) && globalSaveData != null)
         {

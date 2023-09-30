@@ -2,7 +2,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using Sirenix.Utilities;
 
 public class ShipUnitEditorPreivewItem
@@ -42,9 +44,15 @@ public class PlayerShipConfig : BaseShipConfig
     [LabelWidth(100)]
     public string ShipPropertyDesc;
 
+    [FoldoutGroup("≈‰÷√")]
     [LabelText("Ω¢¥¨ø…”√ƒ—∂»")]
     [LabelWidth(100)]
     public List<int> ShipHardLevels = new List<int>();
+
+    [FoldoutGroup("≈‰÷√")]
+    [LabelText("≥ı º≤Âº˛")]
+    [LabelWidth(100)]
+    public List<int> ShipOriginPlugs = new List<int>();
 
     [OnValueChanged("OnShipEditorSpriteChange")]
     public Sprite ShipEditorSprite;
@@ -56,6 +64,8 @@ public class PlayerShipConfig : BaseShipConfig
     [HorizontalGroup("Õ¯∏Ò≈‰÷√/B", 800)]
     [ShowInInspector]
     private ShipUnitEditorPreivewItem[,] PreviewItems;
+
+#if UNITY_EDITOR
 
     [FoldoutGroup("Õ¯∏Ò≈‰÷√")]
     [HorizontalGroup("Õ¯∏Ò≈‰÷√/A", 200)]
@@ -78,22 +88,6 @@ public class PlayerShipConfig : BaseShipConfig
         AssetDatabase.Refresh();
     }
 
-    [System.Obsolete]
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-    }
-
-    protected override Vector2Int GetMapPivot()
-    {
-        return base.GetMapPivot();
-    }
-
-    private void OnShipEditorSpriteChange()
-    {
-
-    }
-
     [OnInspectorInit]
     protected override void InitData()
     {
@@ -111,10 +105,10 @@ public class PlayerShipConfig : BaseShipConfig
 
     protected ShipUnitEditorPreivewItem DrawPreviewTable(Rect rect, ShipUnitEditorPreivewItem item)
     {
-        if(item.tex != null)
+        if (item.tex != null)
         {
             EditorGUI.DrawTextureTransparent(rect.Padding(0.5f), item.tex);
-            EditorGUI.DrawRect(rect.Padding(0.5f), new Color32(0,0,0,100));
+            EditorGUI.DrawRect(rect.Padding(0.5f), new Color32(0, 0, 0, 100));
         }
 
 
@@ -238,9 +232,9 @@ public class PlayerShipConfig : BaseShipConfig
         int yOffsetStart = (maxSize - 1) / 2 - (shipYSize - 1) / 2;
         int yOffsetEnd = (maxSize - 1) / 2 + (shipYSize - 1) / 2;
 
-        for (int i = 0; i < maxSize; i++) 
+        for (int i = 0; i < maxSize; i++)
         {
-            for (int j = 0; j < maxSize; j++) 
+            for (int j = 0; j < maxSize; j++)
             {
                 ShipUnitEditorPreivewItem item = new ShipUnitEditorPreivewItem()
                 {
@@ -248,19 +242,37 @@ public class PlayerShipConfig : BaseShipConfig
                     Y = j,
                 };
 
-                if(i >= xOffsetStart && i <= xOffsetEnd && j >= yOffsetStart && j <= yOffsetEnd)
+                if (i >= xOffsetStart && i <= xOffsetEnd && j >= yOffsetStart && j <= yOffsetEnd)
                 {
                     var index = new Vector2Int(i - xOffsetStart, j - yOffsetStart);
                     if (_textureMap.ContainsKey(index))
                     {
                         item.tex = _textureMap[index];
-                        item.Value = Map[i,j];
+                        item.Value = Map[i, j];
                     }
                 }
 
                 PreviewItems[i, j] = item;
             }
         }
+    }
+
+#endif
+
+    [System.Obsolete]
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
+    protected override Vector2Int GetMapPivot()
+    {
+        return base.GetMapPivot();
+    }
+
+    private void OnShipEditorSpriteChange()
+    {
+
     }
 
 }

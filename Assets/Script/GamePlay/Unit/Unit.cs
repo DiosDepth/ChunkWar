@@ -242,7 +242,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
     public virtual void Update() { }
 
-    public virtual void Death()
+    public virtual void Death(UnitDeathInfo info)
     {
         state = DamagableState.Destroyed;
 
@@ -274,7 +274,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
             if (IsCoreUnit)
             {
-                _owner.CheckDeath(this);
+                _owner.CheckDeath(this, info);
                 //destroy owner
             }
 
@@ -441,7 +441,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         HitInfo hitInfo = new HitInfo
         {
             DamageType = info.DamageType,
-            isPlayerAttack = info.IsPlayerAttack
+            isPlayerAttack = info.IsPlayerAttack,
+            isCritical = info.IsCritical
         };
         LevelManager.Instance.UnitHit(hitInfo);
 
@@ -454,8 +455,21 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
             if (Damage == 0)
                 return false;
 
+            if (info.IsPlayerAttack)
+            {
+                var enemyShip = _owner as AIShip;
+                var enemyClass = enemyShip.AIShipCfg.ClassLevel;
+                if(enemyClass == EnemyClassType.Elite || enemyClass == EnemyClassType.Boss)
+                {
+                    var damageAddition = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EliteBossDamage);
+                    var newDamage = info.Damage * (1 + damageAddition / 100f);
+                    newDamage = Mathf.Clamp(newDamage, 0, float.MaxValue);
+                    info.Damage = Mathf.RoundToInt(newDamage);
+                }
+            }
+
             ///只有敌人才显示伤害数字
-            //这里需要显示对应的漂浮文字
+            ///这里需要显示对应的漂浮文字
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
             {
                 panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
@@ -474,7 +488,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         bool isDie = HpComponent.ChangeHP(-info.Damage);
         if(isDie)
         {
-            Death();
+            UnitDeathInfo deathInfo = new UnitDeathInfo
+            {
+                isCriticalKill = info.IsCritical
+            };
+            Death(deathInfo);
         }
 
         return isDie;

@@ -245,9 +245,9 @@ public class PlayerShip : BaseShip
   
     }
 
-    protected override void Death()
+    protected override void Death(UnitDeathInfo info)
     {
-        base.Death();
+        base.Death(info);
 
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {

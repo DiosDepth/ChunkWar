@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BoolType
+{
+    True,
+    False,
+    All
+}
+
 [System.Serializable]
 public abstract class ModifyTriggerConfig 
 {
@@ -16,6 +23,17 @@ public abstract class ModifyTriggerConfig
     [LabelText("触发次数")]
     [LabelWidth(80)]
     public int TriggerCount;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("概率触发")]
+    [LabelWidth(80)]
+    public bool UsePercent;
+
+    [ShowIf("UsePercent")]
+    [HorizontalGroup("AA", 140)]
+    [LabelText("概率")]
+    [LabelWidth(50)]
+    public float Percent;
 
     [LabelText("触发效果")]
     [HorizontalGroup("AC", Order = 1000)]
@@ -116,6 +134,11 @@ public class MTC_OnKillEnemy : ModifyTriggerConfig
     [LabelText("触发击杀数")]
     [LabelWidth(100)]
     public int TriggerRequireCount;
+
+    [HorizontalGroup("AB", 150)]
+    [LabelText("暴击击杀")]
+    [LabelWidth(100)]
+    public BoolType CheckCriticalKill = BoolType.All;
 
     public MTC_OnKillEnemy(ModifyTriggerType type) : base(type)
     {
@@ -322,10 +345,20 @@ public class MTC_OnShieldRecover : ModifyTriggerConfig
 
 public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
 {
+    [HorizontalGroup("AB", 120)]
+    [LabelText("判断伤害类型")]
+    [LabelWidth(50)]
+    public BoolType DamageTypeBool = BoolType.All;
+
     [HorizontalGroup("AB", 200)]
     [LabelText("伤害类型")]
     [LabelWidth(50)]
     public WeaponDamageType DamageType;
+
+    [HorizontalGroup("AB", 120)]
+    [LabelText("判断暴击")]
+    [LabelWidth(50)]
+    public BoolType CriticalBool = BoolType.All;
 
     public MTC_OnWeaponHitTarget(ModifyTriggerType type) : base(type)
     {

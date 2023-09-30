@@ -207,7 +207,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
 
@@ -247,7 +247,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionReducePercent, CalculateTransfixionPercent);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
         }
@@ -314,7 +314,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private void CalculateTransfixionPercent()
     {
         var reducemin = DataManager.Instance.battleCfg.TransfixionReduce_Max;
-        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.TransfixionReducePercent);
+        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.TransfixionDamagePercent);
         var newValue = delta + BaseTransfixionReduce;
         TransfixionReduce = Mathf.Clamp(newValue, reducemin, newValue);
     }
@@ -1182,9 +1182,9 @@ public class Weapon : Unit
         weaponstate.ChangeState(WeaponState.Ready);
     }
 
-    public override void Death()
+    public override void Death(UnitDeathInfo info)
     {
-        base.Death();
+        base.Death(info);
     }
 
     public override void Restore()
