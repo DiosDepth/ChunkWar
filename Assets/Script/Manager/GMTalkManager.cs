@@ -71,6 +71,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         });
 
         AddGMFunctionToDic("campscore", AddCampScore);
+        AddGMFunctionToDic("win", Win);
     }
 
     
@@ -142,5 +143,10 @@ public class GMTalkManager : Singleton<GMTalkManager>
         return true;
     }
 
+    private bool Win(string[] content)
+    {
+        GameEvent.Trigger(EGameState.EGameState_GameOver);
+        return true;
+    }
     #endregion
 }

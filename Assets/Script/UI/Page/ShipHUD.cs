@@ -144,6 +144,11 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
                 var aiShip2 = (AIShip)evt.param[0];
                 RemoveBossHPBillBoard(aiShip2);
                 break;
+
+            case RogueEventType.RefreshTimerDisplay:
+                var timer = RogueManager.Instance.Timer;
+                UpdateWaveTimer(timer.CurrentSecond);
+                break;
         }
     }
 

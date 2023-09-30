@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 1
     - Name: DurationTime
       Entry: 3
-      Data: 300
+      Data: 5
     - Name: ShopRefreshTimeMap
       Entry: 7
       Data: 2|System.UInt16[], mscorlib
@@ -78,7 +78,7 @@ MonoBehaviour:
       Data: 2
     - Name: DurationTime
       Entry: 3
-      Data: 0
+      Data: 5
     - Name: ShopRefreshTimeMap
       Entry: 7
       Data: 5|System.UInt16[], mscorlib
@@ -96,7 +96,7 @@ MonoBehaviour:
       Data: false
     - Name: waveScore
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: SpawnConfig
       Entry: 7
       Data: 6|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
@@ -121,7 +121,7 @@ MonoBehaviour:
       Data: 3
     - Name: DurationTime
       Entry: 3
-      Data: 0
+      Data: 5
     - Name: ShopRefreshTimeMap
       Entry: 7
       Data: 8|System.UInt16[], mscorlib
@@ -139,7 +139,7 @@ MonoBehaviour:
       Data: false
     - Name: waveScore
       Entry: 3
-      Data: 0
+      Data: 200
     - Name: SpawnConfig
       Entry: 7
       Data: 9|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],

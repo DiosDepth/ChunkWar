@@ -126,9 +126,6 @@ public class EGameState_ShipSelection : GameState
                 });
             });
         }));
-
-        ///Test
-        
     }
 
     public override void OnUpdate()
@@ -161,8 +158,11 @@ public class EGameState_GamePrepare : GameState
         base.OnEnter();
         Debug.Log("GameState = EGameState_GamePrepare");
 
-        GameManager.Instance.InitialRuntimeData();
-        RogueManager.Instance.InitRogueBattle();
+        if (!RogueManager.Instance.InBattle)
+        {
+            RogueManager.Instance.InitRogueBattle();
+        }
+        
         if (LevelManager.Instance.needServicing)
         {
             LevelManager.Instance.LoadLevel("Harbor", (level) =>
@@ -226,14 +226,18 @@ public class EGameState_GameStart : GameState
             InputDispatcher.Instance.ChangeInputMode("Player");
             InputDispatcher.Instance.Action_GamePlay_Pause += HandlePause;
             InputDispatcher.Instance.Action_UI_UnPause += HandleUnPause;
+
+            UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
+            {
+                panel.Initialization();
+                RogueManager.Instance.OnNewWaveStart();
+                RogueManager.Instance.currentShip.controller.IsUpdate = true;
+                LevelManager.Instance.LevelActive();
+            });
         }
         else
         {
             InputDispatcher.Instance.ChangeInputMode("UI");
-        }
-
-        if (LevelManager.Instance.needServicing)
-        {
             RogueManager.Instance.OnEnterHarborInit();
 
             UIManager.Instance.ShowUI<HarborHUD>("HarborHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
@@ -241,16 +245,7 @@ public class EGameState_GameStart : GameState
                 panel.Initialization();
 
             });
-        }
-        else
-        {
-            UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
-            {
-                panel.Initialization();
-                RogueManager.Instance.currentShip.controller.IsUpdate = true;
-                RogueManager.Instance.Timer.StartTimer();
-                LevelManager.Instance.LevelActive();
-            });
+           
         }
     }
 
@@ -273,7 +268,6 @@ public class EGameState_GameStart : GameState
     public override void OnExit()
     {
         base.OnExit();
-        RogueManager.Instance.Clear();
         InputDispatcher.Instance.Action_GamePlay_Pause -= HandlePause;
         InputDispatcher.Instance.Action_UI_UnPause -= HandleUnPause;
     }
@@ -323,6 +317,9 @@ public class EGameState_GameOver : GameState
     {
         base.OnEnter();
         Debug.Log("GameState = EGameState_GameOver");
+
+        UIManager.Instance.HiddenAllUI();
+
         InputDispatcher.Instance.ChangeInputMode("UI");
         LevelManager.Instance.GameOver();
         AIManager.Instance.GameOver();
@@ -330,7 +327,9 @@ public class EGameState_GameOver : GameState
         UIManager.Instance.ShowUI<GameOver>("GameOver", E_UI_Layer.Mid, GameManager.Instance, (panel) => 
         {
             panel.Initialization();
+            LevelManager.Instance.UnloadCurrentLevel();
         });
+
     }
 
     public override void OnUpdate()
@@ -372,13 +371,6 @@ public class EGameState_GameHarbor : GameState
         }
         AIManager.Instance.GameOver();
         LevelManager.Instance.UnloadCurrentLevel();
-
-
-        if (RogueManager.Instance.currentShip != null)
-        {
-            GameObject.Destroy(RogueManager.Instance.currentShip.container.gameObject);
-            RogueManager.Instance.currentShip = null;
-        }
         
         GameEvent.Trigger(EGameState.EGameState_GamePrepare);
     }

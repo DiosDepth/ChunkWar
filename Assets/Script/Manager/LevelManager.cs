@@ -82,7 +82,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     private AsyncOperation asy;
  
     public LevelEntity currentLevel;
-    public LevelDataInfo LevelInfo;
 
     public bool needServicing = false;
     
@@ -145,6 +144,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void Clear()
     {
         pickupList.Clear();
+        needServicing = false;
+        isLevelUpdate = false;
     }
 
     public virtual void LevelUpdate()
@@ -285,7 +286,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             DataManager.Instance.LevelDataDic.TryGetValue(levelname, out data);
             if (data != null)
             {
-                LevelInfo = LevelDataInfo.CreateInfo(data);
                 await ResManager.Instance.LoadAsync<GameObject>(data.LevelPrefabPath, (obj) =>
                 {
                     currentLevel = obj.GetComponent<LevelEntity>();
@@ -312,8 +312,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         if(currentLevel == null) { return; }
         isLevelUpdate = false;
         currentLevel.Unload();
-
-        PoolManager.Instance.Recycle();
         GameObject.Destroy(currentLevel.gameObject);
         currentLevel = null;
     }
@@ -323,8 +321,6 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void GameOver()
     {
         isLevelUpdate = false;
-
-        PoolManager.Instance.Recycle();
         CameraManager.Instance.SetCameraUpdate(false);
     }
 

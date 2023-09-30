@@ -61,7 +61,7 @@ public class Pause : GUIBasePanel
         var allPlugs = RogueManager.Instance.AllCurrentShipPlugs;
         for (int i = 0; i < allPlugs.Count; i++) 
         {
-            PoolManager.Instance.GetObjectAsync(SlotPrefabPath, true, (obj) =>
+            PoolManager.Instance.GetObjectSync(SlotPrefabPath, true, (obj) =>
             {
                 var cmpt = obj.transform.SafeGetComponent<GeneralPreviewItemSlot>();
                 cmpt.SetUp(GoodsItemType.ShipPlug, allPlugs[i].PlugID);

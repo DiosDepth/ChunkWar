@@ -1,7 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class ShipPropertyGroupPanel : MonoBehaviour
 {
     public enum GroupType
@@ -80,6 +81,35 @@ public class ShipPropertyGroupPanel : MonoBehaviour
         }
         _mainPropertyCanvas.ActiveCanvasGroup(CurrentGroupType == GroupType.Main);
         _subPropertyCanvas.ActiveCanvasGroup(CurrentGroupType == GroupType.Sub);
+    }
+
+    public void SwitchGroupTypeAndForceRebuild()
+    {
+        if (CurrentGroupType == GroupType.Main)
+        {
+            CurrentGroupType = GroupType.Sub;
+        }
+        else
+        {
+            CurrentGroupType = GroupType.Main;
+        }
+        _mainPropertyCanvas.transform.SafeSetActive(CurrentGroupType == GroupType.Main);
+        _subPropertyCanvas.transform.SafeSetActive(CurrentGroupType == GroupType.Sub);
+
+        float height = 0f;
+        if(CurrentGroupType == GroupType.Main)
+        {
+            var rect = _mainPropertyCanvas.transform.SafeGetComponent<RectTransform>(); 
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+            height = rect.rect.height;
+        }
+        else
+        {
+            var rect = _subPropertyCanvas.transform.SafeGetComponent<RectTransform>();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+            height = rect.rect.height;
+        }
+        transform.SafeGetComponent<RectTransform>().SetRectHeight(height);
     }
 
     private void InitPropertyCmpts()

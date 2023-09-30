@@ -63,6 +63,7 @@ public enum RogueEventType
     RegisterBossHPBillBoard,
     RemoveBossHPBillBoard,
     CampBuffUpgrade,
+    RefreshTimerDisplay,
 }
 
 public enum ShipPropertyEventType
@@ -106,6 +107,24 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     public HardLevelInfo CurrentHardLevel
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// 战斗结果
+    /// </summary>
+    public BattleResultInfo BattleResult
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// 是否在局内
+    /// </summary>
+    public bool InBattle
     {
         get;
         private set;
@@ -200,6 +219,11 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     private List<ShipLevelUpItem> _allShipLevelUpItems;
 
+    /// <summary>
+    /// 波次结束后自动进入港口
+    /// </summary>
+    private bool autoEnterHarbor = true;
+
     #region Action 
 
     /* 负载百分比变化 */
@@ -243,12 +267,14 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void Clear()
     {
+        InBattle = false;
         currentShip = null;
         CurrentHardLevel = null;
         currentShipSelection = null;
         currentWeaponSelection = null;
         ShipMapData = null;
         Timer = null;
+        BattleResult = null;
         ///Reset
         _inLevelDropItems[GoodsItemRarity.Tier1] = 0;
         _inLevelDropItems[GoodsItemRarity.Tier2] = 0;
@@ -343,10 +369,13 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void InitRogueBattle()
     {
+        InBattle = true;
         MainPropertyData.Clear();
         _currentShipPlugs.Clear();
         AllCurrentShipPlugs.Clear();
         globalModifySpecialDatas.Clear();
+
+        ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
 
         InitEnergyAndWreckageCommonBuff();
         InitWave();
@@ -358,18 +387,21 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     /// <summary>
-    /// 关卡胜利
+    /// 设置关卡胜利
     /// </summary>
-    public void RogueBattleSuccess()
+    public void SetBattleSuccess()
     {
-        Timer.Pause();
-        Timer.RemoveAllTrigger();
+        BattleResult.Success = true;
     }
 
+    /// <summary>
+    /// 关卡结束
+    /// </summary>
     public void RogueBattleOver()
     {
         Timer.Pause();
         Timer.RemoveAllTrigger();
+        SettleCampScore();
     }
 
     /// <summary>
@@ -388,9 +420,11 @@ public class RogueManager : Singleton<RogueManager>
     public override void Initialization()
     {
         base.Initialization();
+        BattleResult = new BattleResultInfo();
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         _playerCurrentGoods = new Dictionary<int, byte>();
         CurrentRogueShopItems = new List<ShopGoodsInfo>();
+        CurrentShipLevelUpItems = new List<ShipLevelUpItem>();
         InitShipLevelUpItems();
     }
 
@@ -441,9 +475,17 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void OnMainLevelUnload()
     {
+        ClearShip();
         _tempWaveTime = Timer.CurrentSecond;
-        ///RefreshShop
-        GenerateShopGoods(3, _shopRefreshTotalCount);
+    }
+
+    public void ClearShip()
+    {
+        if(currentShip != null)
+        {
+            GameObject.Destroy(currentShip.container.gameObject);
+            currentShip = null;
+        }
     }
 
     /// <summary>
@@ -495,6 +537,7 @@ public class RogueManager : Singleton<RogueManager>
         var totalScore = CalculateCurrentWaveScore(true);
         var hardLevelRatio = CurrentHardLevel.Cfg.ScoreRatio;
         totalScore = Mathf.RoundToInt(totalScore * hardLevelRatio);
+        BattleResult.Score = totalScore;
         var playerCampID = currentShip.playerShipCfg.PlayerShipCampID;
         var campData = GameManager.Instance.GetCampDataByID(playerCampID);
         if(campData != null)
@@ -787,14 +830,25 @@ public class RogueManager : Singleton<RogueManager>
         if (IsFinalWave())
         {
             ///Level Success
+            SetBattleSuccess();
+            GameEvent.Trigger(EGameState.EGameState_GameOver);
             return;
         }
-        LevelManager.Instance.CreateHarborPickUp();
-        
-        Timer.PauseAndSetZero();
 
+        if (!autoEnterHarbor)
+        {
+            LevelManager.Instance.CreateHarborPickUp();
+        }
+
+        Timer.PauseAndSetZero();
+        _waveIndex++;
         LevelManager.Instance.CollectAllPickUps();
         await UniTask.Delay(2000);
+
+        if (autoEnterHarbor)
+        {
+            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
+        }
 
         ///无限波次等处理
         OnWaveStateChange?.Invoke(false);
@@ -805,9 +859,12 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public async void OnNewWaveStart()
     {
-        _waveIndex++;
         _tempWaveTime = GetCurrentWaveTime();
         AddWaveTrigger();
+        CalculateHardLevelIndex();
+        Timer.InitTimer(_tempWaveTime);
+        Timer.StartTimer();
+       
         OnWaveStateChange?.Invoke(true);
     }
 
@@ -1159,7 +1216,7 @@ public class RogueManager : Singleton<RogueManager>
     /// <param name="count"></param>
     /// <param name="enterCount"></param>
     /// <returns></returns>
-    public List<ShopGoodsInfo> GenerateShopGoods(byte count, int enterCount)
+    private List<ShopGoodsInfo> GenerateShopGoods(byte count, int enterCount)
     {
         List<ShopGoodsInfo> result = new List<ShopGoodsInfo>();
         var allVaild = goodsItems.Values.ToList().FindAll(x => x.IsVaild);
@@ -1751,4 +1808,10 @@ public class RogueManager : Singleton<RogueManager>
     }
 
     #endregion
+}
+
+public class BattleResultInfo
+{
+    public int Score;
+    public bool Success = false;
 }

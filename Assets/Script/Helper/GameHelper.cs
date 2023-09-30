@@ -308,6 +308,15 @@ public static class GameHelper
         return result;
     }
 
+    public static CampConfig GetCampCfgByShipID(int shipID)
+    {
+        var shipCfg = DataManager.Instance.GetShipConfig(shipID);
+        if (shipCfg == null)
+            return null;
+
+        return DataManager.Instance.GetCampConfigByID(shipCfg.PlayerShipCampID);
+    }
+
     /// <summary>
     /// 获取成就分类
     /// 排序 => ID， 解锁状态

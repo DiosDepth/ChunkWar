@@ -427,3 +427,27 @@ MonoBehaviour:
     ChineseSimplified: "\u8230\u8239\u63D2\u4EF6"
     English: 
     Japanese: 
+  - TextID: GameOver_ScoreGet_Title
+    ChineseSimplified: "\u83B7\u5F97\u79EF\u5206"
+    English: 
+    Japanese: 
+  - TextID: GameOver_SuccessText
+    ChineseSimplified: "\u80DC\u5229"
+    English: 
+    Japanese: 
+  - TextID: GameOver_FailText
+    ChineseSimplified: "\u5931\u8D25"
+    English: 
+    Japanese: 
+  - TextID: GameOverPage_NewGame
+    ChineseSimplified: "\u65B0\u6E38\u620F"
+    English: 
+    Japanese: 
+  - TextID: GameOverPage_ReStart
+    ChineseSimplified: "\u91CD\u65B0\u5F00\u59CB"
+    English: 
+    Japanese: 
+  - TextID: GameOverPage_MainMenu
+    ChineseSimplified: "\u4E3B\u83DC\u5355"
+    English: 
+    Japanese: 
