@@ -427,8 +427,8 @@ MonoBehaviour:
     ChineseSimplified: "\u8230\u8239\u63D2\u4EF6"
     English: 
     Japanese: 
-  - TextID: GameOver_ScoreGet_Title
-    ChineseSimplified: "\u83B7\u5F97\u79EF\u5206"
+  - TextID: GameOver_Wave_Title
+    ChineseSimplified: "\u6CE2\u6B21"
     English: 
     Japanese: 
   - TextID: GameOver_SuccessText
@@ -449,5 +449,9 @@ MonoBehaviour:
     Japanese: 
   - TextID: GameOverPage_MainMenu
     ChineseSimplified: "\u4E3B\u83DC\u5355"
+    English: 
+    Japanese: 
+  - TextID: GameOver_TotalScore_Title
+    ChineseSimplified: "\u83B7\u5F97\u9635\u8425\u79EF\u5206"
     English: 
     Japanese: 

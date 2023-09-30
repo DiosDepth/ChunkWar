@@ -542,7 +542,7 @@ public class RogueManager : Singleton<RogueManager>
         var campData = GameManager.Instance.GetCampDataByID(playerCampID);
         if(campData != null)
         {
-            campData.AddCampScore(totalScore);
+            campData.AddCampScore(totalScore, out BattleResult.campLevelInfo);
         }
     }
 
@@ -829,6 +829,7 @@ public class RogueManager : Singleton<RogueManager>
         ResetAllUnitModifierTriggerDatas();
         if (IsFinalWave())
         {
+            await UniTask.Delay(1000);
             ///Level Success
             SetBattleSuccess();
             GameEvent.Trigger(EGameState.EGameState_GameOver);
@@ -843,7 +844,7 @@ public class RogueManager : Singleton<RogueManager>
         Timer.PauseAndSetZero();
         _waveIndex++;
         LevelManager.Instance.CollectAllPickUps();
-        await UniTask.Delay(2000);
+        await UniTask.Delay(1000);
 
         if (autoEnterHarbor)
         {
@@ -1814,4 +1815,6 @@ public class BattleResultInfo
 {
     public int Score;
     public bool Success = false;
+
+    public CampLevelUpInfo campLevelInfo;
 }

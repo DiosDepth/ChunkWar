@@ -17,6 +17,10 @@ public class GameOver : GUIBasePanel
     private TextMeshProUGUI _battleResultText;
     private TextMeshProUGUI _hardLevelText;
     private TextMeshProUGUI _scoreText;
+    private TextMeshProUGUI _waveText;
+    private TextMeshProUGUI _campLevelText;
+    private Image _campSlider;
+    private TextMeshProUGUI _campEXPValue;
 
     private List<GeneralPreviewItemSlot> _items = new List<GeneralPreviewItemSlot>();
     private ShipPropertyGroupPanel _propertyGroup;
@@ -29,6 +33,8 @@ public class GameOver : GUIBasePanel
     private const string GameOver_FailText = "GameOver_FailText";
     private static Color32 successColor = new Color32(255, 186, 0, 255);
     private static Color32 failColor = new Color32(255, 54, 54, 255);
+
+    private bool canClick = false;
 
     protected override void Awake()
     {
@@ -47,7 +53,13 @@ public class GameOver : GUIBasePanel
         _campIcon = contentRect.Find("RightPanel/CampInfo/Icon").SafeGetComponent<Image>();
         _battleResultText = contentRect.Find("RightPanel/CampInfo/Info/Result/Text").SafeGetComponent<TextMeshProUGUI>();
         _hardLevelText = contentRect.Find("RightPanel/CampInfo/Info/Hard/Text").SafeGetComponent<TextMeshProUGUI>();
-        _scoreText = contentRect.Find("RightPanel/CampInfo/Info/Score/Value").SafeGetComponent<TextMeshProUGUI>();
+        _scoreText = contentRect.Find("RightPanel/CampInfo/Unlock/Top/Value").SafeGetComponent<TextMeshProUGUI>();
+        _waveText = contentRect.Find("RightPanel/CampInfo/Info/Wave/Value").SafeGetComponent<TextMeshProUGUI>();
+
+        var campContent = contentRect.Find("RightPanel/CampInfo/Unlock/EXP");
+        _campLevelText = campContent.Find("Title").SafeGetComponent<TextMeshProUGUI>();
+        _campSlider = campContent.Find("Slider/Fill").SafeGetComponent<Image>();
+        _campEXPValue = campContent.Find("Slider/Value").SafeGetComponent<TextMeshProUGUI>();
 
         GetGUIComponent<Button>("MainMenu").onClick.AddListener(OnMainMenuClick);
         GetGUIComponent<Button>("ReStart").onClick.AddListener(OnReStartClick);
@@ -111,7 +123,9 @@ public class GameOver : GUIBasePanel
 
         _battleResultText.text = battleResult.Success ? LocalizationManager.Instance.GetTextValue(GameOver_SuccessText) : LocalizationManager.Instance.GetTextValue(GameOver_FailText);
         _battleResultText.color = battleResult.Success ? successColor : failColor;
-        _scoreText.text = battleResult.Score.ToString();
+        _scoreText.text = string.Format("+{0}", battleResult.Score);
+        _waveText.text = RogueManager.Instance.GetCurrentWaveIndex.ToString();
+        HandleCampEXPDisplay(shipCamp);
     }
 
     private void OnShipPropertySwitchClick()
@@ -129,8 +143,94 @@ public class GameOver : GUIBasePanel
         LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
     }
 
+    private async void HandleCampEXPDisplay(CampConfig cfg)
+    {
+        var levelInfo = RogueManager.Instance.BattleResult.campLevelInfo;
+        if (levelInfo == null)
+            return;
+
+        for (int i = levelInfo.currentLevel; i <= levelInfo.targetLevel; i++) 
+        {
+            int startEXP = 0;
+            int targetEXP = 0;
+            bool needDisplayUnlock = false;
+            if (i == levelInfo.currentLevel)
+            {
+                startEXP = levelInfo.startEXP;
+            }
+
+            if (i < levelInfo.targetLevel) 
+            {
+                var levelCfg = cfg.GetLevelConfig(i + 1);
+                if(levelCfg != null)
+                {
+                    targetEXP = levelCfg.RequireTotalEXP;
+                    needDisplayUnlock = true;
+                }
+            }
+            else
+            {
+                targetEXP = levelInfo.targetEXP;
+            }
+            await StartCampLevelDataLerp(cfg, i, startEXP, targetEXP, needDisplayUnlock);
+        }
+        canClick = true;
+    }
+
+    private async UniTask StartCampLevelDataLerp(CampConfig cfg, int levelIndex, int startExp, int targetExp, bool needDisplayUnlock)
+    {
+        var campLevelCfg = cfg.GetLevelConfig(levelIndex + 1);
+        if (campLevelCfg == null)
+            return;
+
+        var op = LeanTween.value(startExp, targetExp, 1f).setOnStart(
+            () =>
+            {
+                _campSlider.fillAmount = startExp / (float)campLevelCfg.RequireTotalEXP;
+                _campEXPValue.text = string.Format("{0} / {1}", startExp, campLevelCfg.RequireTotalEXP);
+            }).setOnUpdate(
+            (float x) =>
+            {
+                _campSlider.fillAmount = x / (float)campLevelCfg.RequireTotalEXP;
+                _campEXPValue.text = string.Format("{0} / {1}", (int)x, campLevelCfg.RequireTotalEXP);
+            }).setOnComplete(
+            () =>
+            {
+                _campSlider.fillAmount = targetExp / (float)campLevelCfg.RequireTotalEXP;
+                _campEXPValue.text = string.Format("{0} / {1}", targetExp, campLevelCfg.RequireTotalEXP);
+            });
+        _campLevelText.text = string.Format("Lv.{0}", levelIndex);
+        await UniTask.Delay(1000);
+
+        if (needDisplayUnlock)
+        {
+            DisplayUnlockItem(campLevelCfg);
+            await UniTask.Delay(1000);
+        }
+    }
+
+    private void DisplayUnlockItem(CampLevelConfig cfg)
+    {
+        if (cfg == null)
+            return;
+
+        var root = contentRect.Find("RightPanel/CampInfo/Unlock/Content");
+        if (cfg.UnlockItemID != 0)
+        {
+            PoolManager.Instance.GetObjectSync(SlotPrefabPath, true, (obj) =>
+            {
+                var cmpt = obj.transform.SafeGetComponent<GeneralPreviewItemSlot>();
+                cmpt.SetUpUnlockItemPreview(cfg.UnlockType, cfg.UnlockItemID);
+
+            }, root);
+        }
+    }
+
     private void OnMainMenuClick()
     {
+        if (!canClick)
+            return;
+
         UIManager.Instance.HiddenUI("GameOver");
         GameManager.Instance.ClearBattle();
         GameEvent.Trigger(EGameState.EGameState_MainMenu);
@@ -138,11 +238,13 @@ public class GameOver : GUIBasePanel
 
     private void OnReStartClick()
     {
-
+        if (!canClick)
+            return;
     }
 
     private void OnNewGameClick()
     {
-
+        if (!canClick)
+            return;
     }
 }

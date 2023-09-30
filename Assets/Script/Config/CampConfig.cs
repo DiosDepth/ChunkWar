@@ -56,6 +56,16 @@ public class CampConfig : SerializedScriptableObject
         }
         return null;
     }
+
+    public CampLevelConfig GetLevelConfig(int levelIndex)
+    {
+        for (int i = 0; i < LevelConfigs.Length; i++)
+        {
+            if (LevelConfigs[i].LevelIndex == levelIndex)
+                return LevelConfigs[i];
+        }
+        return null;
+    }
 }
 
 public enum GeneralUnlockItemType

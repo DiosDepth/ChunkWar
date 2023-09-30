@@ -31,6 +31,8 @@ public class BattleLevel : LevelEntity
     public override void Unload()
     {
         _timer.Pause();
+        GameObject.Destroy(AIPool);
+        GameObject.Destroy(BulletPool);
         RogueManager.Instance.OnMainLevelUnload();
     }
 
