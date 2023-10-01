@@ -33,9 +33,9 @@ public class Chunk : IDamageble
 
     }
 
-    public bool TakeDamage(ref DamageResultInfo info)
+    public bool TakeDamage(DamageResultInfo info)
     {
-        return unit.TakeDamage(ref info);
+        return unit.TakeDamage(info);
     }
 
 }

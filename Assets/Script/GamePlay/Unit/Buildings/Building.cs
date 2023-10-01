@@ -29,9 +29,9 @@ public class Building : Unit
         InitBuildingComponent();
     }
 
-    public override bool TakeDamage(ref DamageResultInfo info)
+    public override bool TakeDamage(DamageResultInfo info)
     {
-        return base.TakeDamage(ref info);
+        return base.TakeDamage(info);
     }
 
     public override void Death(UnitDeathInfo info)

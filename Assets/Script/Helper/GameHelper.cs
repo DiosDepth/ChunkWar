@@ -476,7 +476,7 @@ public static class GameHelper
     /// 玩家受到护盾伤害
     /// </summary>
     /// <param name="info"></param>
-    public static void ResolvePlayerShieldDamage(ref DamageResultInfo info)
+    public static void ResolvePlayerShieldDamage(DamageResultInfo info)
     {
         var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldArmor);
         var armorParam = DataManager.Instance.battleCfg.PlayerShip_ShieldDamageReduce_Param;

@@ -115,7 +115,7 @@ public class ChainBeamemit : Bullet
                 if (_owner is Weapon)
                 {
                     var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                    hit.collider.GetComponent<IDamageble>()?.TakeDamage(ref damage);
+                    hit.collider.GetComponent<IDamageble>()?.TakeDamage(damage);
                 }
                 _isUpdate = true;
             }

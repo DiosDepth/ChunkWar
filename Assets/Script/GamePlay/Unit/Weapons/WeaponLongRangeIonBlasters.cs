@@ -169,9 +169,9 @@ public class WeaponLongRangeIonBlasters : ShipWeapon
         base.WeaponRecover();
     }
 
-    public override bool TakeDamage(ref DamageResultInfo info)
+    public override bool TakeDamage(DamageResultInfo info)
     {
-        return base.TakeDamage(ref info);
+        return base.TakeDamage(info);
     }
 
 

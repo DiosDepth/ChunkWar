@@ -105,7 +105,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /* 护盾损坏 */
     public UnityAction<uint> OnShieldBroken;
     /* Unit受击 */
-    public UnityAction<HitInfo> OnUnitHit;
+    public UnityAction<HitInfo, DamageResultInfo> OnUnitHit;
     /* 敌人数量变化 */
     public UnityAction<int> OnEnemyCountChange;
     #endregion
@@ -467,9 +467,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         OnShieldBroken?.Invoke(targetUnitID);
     }
 
-    public void UnitHit(HitInfo info)
+    public void UnitHit(HitInfo info, DamageResultInfo damageInfo)
     {
-        OnUnitHit?.Invoke(info);
+        OnUnitHit?.Invoke(info, damageInfo);
     }
 
     /// <summary>

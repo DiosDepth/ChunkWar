@@ -98,9 +98,17 @@ public class PropertyModifySpecialData
     /// <returns></returns>
     private float GetFinialConfigValue()
     {
+        ///³Í·£Ð§¹û±ÈÀý
         if(UID == GameGlobalConfig.PropertyModifyUID_WreckageOverload_GlobalBuff)
         {
             var modifyRate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.LoadPunishRate);
+            modifyRate = Mathf.Clamp(modifyRate, -100f, float.MaxValue);
+
+            return Config.Value * (1 + modifyRate / 100f);
+        }
+        else if (UID == GameGlobalConfig.PropertyModifyUID_EnergyOverload_GlobalBuff)
+        {
+            var modifyRate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnergyPunishRate);
             modifyRate = Mathf.Clamp(modifyRate, -100f, float.MaxValue);
 
             return Config.Value * (1 + modifyRate / 100f);

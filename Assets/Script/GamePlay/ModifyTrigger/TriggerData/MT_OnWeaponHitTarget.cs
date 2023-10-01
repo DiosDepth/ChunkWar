@@ -31,7 +31,7 @@ public class MT_OnWeaponHitTarget : ModifyTriggerData
         LevelManager.Instance.OnUnitHit -= OnWeaponHit;
     }
 
-    private void OnWeaponHit(HitInfo info)
+    private void OnWeaponHit(HitInfo info, DamageResultInfo damageInfo)
     {
         if (!info.isPlayerAttack)
             return;

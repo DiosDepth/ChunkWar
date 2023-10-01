@@ -172,6 +172,18 @@ public enum PropertyModifyKey
     /// 导弹数量
     /// </summary>
     MissileCount,
+    /// <summary>
+    /// 装备能源消耗
+    /// </summary>
+    UnitEnergyCostPercent,
+    /// <summary>
+    /// 能源超载惩罚效果
+    /// </summary>
+    EnergyPunishRate,
+    /// <summary>
+    /// 实弹数量
+    /// </summary>
+    PhysicalCount,
 }
 
 /// <summary>
