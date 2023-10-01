@@ -371,7 +371,19 @@ public class ShipBuilder : MonoBehaviour
     /// </summary>
     public void StorageCurrentHoverUnit()
     {
+        if (_currentHoverUnit == null)
+            return;
 
+        if (_isShowUnitSelectOptionPanel)
+        {
+            ClearCurrentUnitOptionPanel();
+        }
+
+        editorShip.RemoveEdtiorUnit(_currentHoverUnit);
+        ///Create New Wreckage
+        RogueManager.Instance.CreateAndAddNewWreckageInfo(_currentHoverUnit.UnitID);
+
+        _currentHoverUnit = null;
     }
 
     #endregion

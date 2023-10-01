@@ -635,6 +635,20 @@ public class RogueManager : Singleton<RogueManager>
         return null;
     }
 
+    public WreckageItemInfo CreateAndAddNewWreckageInfo(int unitID)
+    {
+        if (wreckageItems.ContainsKey(unitID))
+        {
+            var info = wreckageItems[unitID].Clone();
+            var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.Wreckage, info);
+            info.UID = uid;
+            CurrentWreckageItems.Add(uid, info);
+            CalculateTotalLoadCost();
+            RogueEvent.Trigger(RogueEventType.RefreshWreckage);
+        }
+        return null;
+    }
+
     public void RemoveWreckageByUID(uint uid)
     {
         var info = GetCurrentWreckageByUID(uid);
