@@ -13,7 +13,7 @@ using static Weapon;
 public class ShipUnitManager 
 {
     public BaseShip targetShip;
-    public List<ShipWeapon> activeWeaponList;
+    public List<ShipAdditionalWeapon> activeWeaponList;
     public List<Building> activeBuildingList;
     public List<Projectile> projectileList = new List<Projectile>();
     private List<int> projiectileDeathIndexList = new List<int>();
@@ -32,7 +32,7 @@ public class ShipUnitManager
 
     public ShipUnitManager()
     {
-        activeWeaponList = new List<ShipWeapon>();
+        activeWeaponList = new List<ShipAdditionalWeapon>();
         activeBuildingList = new List<Building>();
         projectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
         damageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
@@ -115,7 +115,7 @@ public class ShipUnitManager
             }
 
 
-            ShipWeapon weapon = activeWeaponList[i];
+            ShipAdditionalWeapon weapon = activeWeaponList[i];
             weapon.targetList.Clear();
             for (int n = 0; n < activeWeaponTargetCountList[i]; n++)
             {
@@ -298,9 +298,9 @@ public class ShipUnitManager
 
     public virtual void AddActiveUnit(Unit unit)
     {
-        if(unit is ShipWeapon)
+        if(unit is ShipAdditionalWeapon)
         {
-            ShipWeapon weapon = unit as ShipWeapon;
+            ShipAdditionalWeapon weapon = unit as ShipAdditionalWeapon;
             if(weapon.WeaponCfg.unitType == UnitType.MainWeapons)
             {
                 return;
@@ -328,9 +328,9 @@ public class ShipUnitManager
 
     public virtual void RemoveActiveUnit(Unit unit)
     {
-        if( unit is ShipWeapon)
+        if( unit is ShipAdditionalWeapon)
         {
-            ShipWeapon weapon = unit as ShipWeapon;
+            ShipAdditionalWeapon weapon = unit as ShipAdditionalWeapon;
             int index = activeWeaponList.IndexOf(weapon);
             activeWeaponList.RemoveAt(index);
             activeWeaponPosList.RemoveAt(index);

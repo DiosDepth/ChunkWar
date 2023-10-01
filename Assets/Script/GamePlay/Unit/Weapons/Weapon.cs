@@ -595,21 +595,6 @@ public class Weapon : Unit
     }
 
 
-
-    public struct CalculateWeaponRotateJob : IJobParallelForBatch
-    {
-        [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetPos;
-
-
-        public NativeArray<float> rv_rotation;
-        public void Execute(int startIndex, int count)
-        {
-            
-
-        }
-    }
-
-
     public virtual void HandleOtherWeaponRotation()
     {
 
@@ -642,6 +627,23 @@ public class Weapon : Unit
     }
 
     
+
+    public virtual bool RefreshValidTarget()
+    {
+        targetList.RemoveAll(x => x == null 
+        || x.target.activeInHierarchy == false 
+        || x.distance > weaponAttribute.WeaponRange);
+
+        if(targetList.Count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
     public virtual void ProcessWeapon()
     {
@@ -708,25 +710,25 @@ public class Weapon : Unit
     {
 
         //Debug.Log(this.gameObject + " : WeaponReady");
-        if(_isWeaponOn)
-        {
-            weaponstate.ChangeState(WeaponState.Start);
-        }
+
+        weaponstate.ChangeState(WeaponState.Start);
+        
     }
 
     public virtual void WeaponStart()
     {
+        if (!_isWeaponOn) { return; }
+    
+        if (magazine <= 0 && weaponAttribute.MagazineBased)
+        {
+            weaponstate.ChangeState(WeaponState.End);
+        }
         //Debug.Log(this.gameObject + " : WeaponStart");
         _beforeDelayCounter = weaponAttribute.BeforeDelay;
         _betweenDelayCounter = weaponAttribute.FireCD;
         _afterDelayCounter = weaponAttribute.AfterDelay;
         _chargeCounter = weaponAttribute.ChargeTime;
         _reloadCounter = weaponAttribute.ReloadTime;
-
-        if (magazine <= 0 && weaponAttribute.MagazineBased)
-        {
-            weaponstate.ChangeState(WeaponState.End);
-        }
 
         weaponstate.ChangeState(WeaponState.BeforeDelay);
     }
@@ -751,17 +753,17 @@ public class Weapon : Unit
                 //ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
             }
         }
-        //if(targetmode == WeaponTargetMode.Mutipule)
-        //{
-        //    float d1;
-        //    float d2;
-        //    // 筛选目标候选,按照距离排序
-        //    _targetcandidates.Sort((x,y) => 
-        //    {
-        //        d1 = transform.position.SqrDistanceXY(x.gameObject.transform.position);
-        //        d2 = transform.position.SqrDistanceXY(y.gameObject.transform.position);
-        //        return d1.CompareTo(d2);
-        //    });
+
+        if(aimingtype != WeaponAimingType.Directional)
+        {
+            RefreshValidTarget();
+            if (targetList == null || targetList.Count == 0)
+            {
+                weaponstate.ChangeState(WeaponState.End);
+                return;
+            }
+        }
+
         if (_firepointindex >= firePoint.Length)
         {
             _firepointindex = 0;
@@ -800,6 +802,11 @@ public class Weapon : Unit
                 {
                     FireSimultaneous(firecount);
                 }
+
+                if(firemode == WeaponFireMode.Linked)
+                {
+                    FireLinked(firecount);
+                }
                 break;
             case WeaponControlType.Manual:
                 if (_isChargeFire)
@@ -820,6 +827,11 @@ public class Weapon : Unit
                         
                         FireSimultaneous(firecount);
                     }
+
+                    if (firemode == WeaponFireMode.Linked)
+                    {
+                        FireLinked(firecount);
+                    }
                     _isChargeFire = false;
                 }
                 else
@@ -837,8 +849,11 @@ public class Weapon : Unit
                     }
                     if (firemode == WeaponFireMode.Simultaneous)
                     {
-
                         FireSimultaneous(firecount);
+                    }
+                    if (firemode == WeaponFireMode.Linked)
+                    {
+                        FireLinked(firecount);
                     }
 
                 }
@@ -858,6 +873,10 @@ public class Weapon : Unit
                 if (firemode == WeaponFireMode.Simultaneous)
                 {
                     FireSimultaneous(firecount);
+                }
+                if (firemode == WeaponFireMode.Linked)
+                {
+                    FireLinked(firecount);
                 }
 
                 break;
@@ -961,9 +980,6 @@ public class Weapon : Unit
             aimingtype = temptype;
 
         }
-
-        
-
     }
 
     public virtual void FireSequent(int firepointindex, int targetindex)
@@ -1011,19 +1027,41 @@ public class Weapon : Unit
             aimingtype = temptype;
 
         }
+    }
 
+    public virtual void FireLinked(int firecount, UnityAction<Bullet> callback = null)
+    {
+        if ((aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional) && targetList?.Count > 0)
+        {
+            _targetindex = 0;
+            for (int i = 0; i < firecount; i++)
+            {
+                if (_targetindex >= targetList.Count)
+                {
+                    _targetindex = 0;
+                }
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[i], targetList[_targetindex].target, (obj, trs, target) =>
+                {
+                    obj.transform.SetTransform(trs);
+                    _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    _lastbullet.SetFirePoint(trs.gameObject);
+                    _lastbullet.SetTarget(target);
+                    //_lastbullet.PoolableSetActive();
+                    _lastbullet.SetOwner(this);
+                    _lastbullet.Initialization();
 
-
+                    _lastbullet.Shoot();
+                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                _targetindex++;
+            }
+        }
     }
 
 
     public virtual void WeaponBetweenDelay()
     {
-        //Debug.Log(this.gameObject + " : WeaponBetweenDelay");
-        if(!_isWeaponOn)
-        {
-            weaponstate.ChangeState(WeaponState.AfterDelay);
-        }
         _betweenDelayCounter -= Time.deltaTime;
         if (_betweenDelayCounter < 0)
         {
@@ -1034,7 +1072,7 @@ public class Weapon : Unit
             }
             else
             {
-                weaponstate.ChangeState(WeaponState.End);
+                weaponstate.ChangeState(WeaponState.AfterDelay);
             }
  
         }

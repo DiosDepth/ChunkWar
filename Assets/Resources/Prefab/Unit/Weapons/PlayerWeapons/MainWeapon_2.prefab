@@ -136,7 +136,7 @@ MonoBehaviour:
   IsRestoreable: 0
   IsCoreUnit: 1
   deathVFXName: ExplodeVFX
-  maxTargetCount: 3
+  maxTargetCount: 1
   unitSprite: {fileID: 579860166224230222}
   rotationRoot: {fileID: 579860166384849199}
   redirection: 1

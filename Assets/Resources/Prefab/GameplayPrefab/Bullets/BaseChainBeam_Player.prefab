@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   ownertype: 0
+  damageType: 1
+  damageRadius: 5
   ShootVFX: HitVFX
   HitVFX: HitVFX
   DeathVFX: 
@@ -59,7 +61,7 @@ MonoBehaviour:
   emittime: 0.25
   duration: 0.25
   deathtime: 0.25
-  RayCastFrequence: 0.25
+  RayCastFrequence: 0.1
   beamline: {fileID: -2528772686484429439}
 --- !u!120 &-2528772686484429439
 LineRenderer:

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -12,7 +13,7 @@ using UnityEngine.InputSystem;
 
 
 
-public class ShipWeapon : Weapon
+public class ShipMainWeapon : Weapon
 {
 
     public NativeList<float> activeWeaponAttackRangeList;
@@ -23,10 +24,11 @@ public class ShipWeapon : Weapon
 
 
     protected List<Weapon.RV_WeaponTargetInfo> targetListcandidator = new List<RV_WeaponTargetInfo>();
-    public virtual void HandleShipManualWeapon(InputAction.CallbackContext context)
+    public virtual void HandleShipMainWeapon(InputAction.CallbackContext context)
     {
         if(weaponmode  == WeaponControlType.Autonomy)
         {
+            //return here and controlled by HandleShipAutonomyMainWeapon()
             return;
         }
         if(weaponmode == WeaponControlType.Manual)
@@ -59,46 +61,72 @@ public class ShipWeapon : Weapon
         }
     }
 
-    public virtual void HandleShipAutonomyMainWeapon()
+    public virtual void UpdateMainWeaponTargetList()
     {
-        //如果没有在开火或者在开火间歇中，则搜索target 并且刷新weapon的targetlist
-        if (weaponstate.CurrentState != WeaponState.Firing &&
-            weaponstate.CurrentState != WeaponState.BetweenDelay)
+
+
+        // searching for targets
+        rv_weaponTargetsInfoQue.Clear();
+        FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
         {
-            // searching for targets
-            rv_weaponTargetsInfoQue.Clear();
-            FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
+            job_attackRange = weaponAttribute.WeaponRange,
+            job_selfPos = transform.position,
+            job_targetsPos = AIManager.Instance.aiActiveUnitPos,
+            rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),
+
+        };
+
+        JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(AIManager.Instance.aiActiveUnitPos.Length, 2);
+        jobHandle.Complete();
+
+
+
+        if (rv_weaponTargetsInfoQue.Count == 0)
+        {
+            return;
+        }
+
+        Weapon.RV_WeaponTargetInfo[] slice = new RV_WeaponTargetInfo[rv_weaponTargetsInfoQue.Count];
+
+        //slice the searching targets result
+        int c = rv_weaponTargetsInfoQue.Count;
+        for (int i = 0; i < c; i++)
+        {
+            slice[i] = rv_weaponTargetsInfoQue.Dequeue();
+        }
+
+        slice.Sort();
+
+        //Allocate targetinfo to targetList
+        int iterateIndex = Mathf.Min(slice.Length, maxTargetCount);
+
+        if (iterateIndex != 0)
+        {
+            if (firemode == WeaponFireMode.Linked)
             {
-                job_attackRange = weaponAttribute.WeaponRange,
-                job_selfPos = transform.position,
-                job_targetsPos = AIManager.Instance.aiActiveUnitPos,
-                rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),
+     
+                WeaponTargetInfo info;
+                while(targetList.Count < maxTargetCount)
+                {
+                    for (int i = 0; i < slice.Length; i++)
+                    {
+                        info = new WeaponTargetInfo
+                            (
+                                AIManager.Instance.aiActiveUnitList[slice[i].targetIndex].gameObject,
+                                slice[i].targetIndex,
+                                slice[i].distanceToTarget,
+                                slice[i].targetDirection
+                            );
+                        if (!targetList.Contains(info))
+                        {
+                            targetList.Add(info);
+                            break;
+                        }
+                    }
 
-            };
-
-            JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(AIManager.Instance.aiActiveUnitPos.Length, 2);
-            jobHandle.Complete();
-
-
-
-            if (rv_weaponTargetsInfoQue.Count == 0)
-            {
-                return;
+                }
             }
-
-            Weapon.RV_WeaponTargetInfo[] slice = new RV_WeaponTargetInfo[rv_weaponTargetsInfoQue.Count];
-            //slice the searching targets result
-            int c = rv_weaponTargetsInfoQue.Count;
-            for (int i = 0; i < c; i++)
-            {
-                slice[i] = rv_weaponTargetsInfoQue.Dequeue();
-            }
-
-            slice.Sort();
-
-            //Allocate targetinfo to targetList
-            int iterateIndex = Mathf.Min(slice.Length, maxTargetCount);
-            if (iterateIndex != 0)
+            else
             {
                 targetList.Clear();
                 targetListcandidator.Clear();
@@ -117,29 +145,27 @@ public class ShipWeapon : Weapon
                 }
             }
         }
+    }
 
-        
-        
-
-
- 
-        if (weaponstate.CurrentState  != WeaponState.Firing &&
-            weaponstate.CurrentState != WeaponState.BetweenDelay)
-        {
-
-        }
+    public virtual void HandleShipAutonomyMainWeapon()
+    {
         //Check if targetList is valid 
-        if (targetList != null && targetList.Count != 0)
+        if(aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional)
         {
-            WeaponOn();
+            if (targetList != null && targetList.Count != 0)
+            {
+                WeaponOn();
+            }
+            else
+            {
+                WeaponOff();
+            }
+
         }
         else
         {
-            WeaponOff();
+            WeaponOn();
         }
-        
-        ProcessWeapon();
-        //rv_weaponTargetsInfoQue.Dispose();
 
     }
 
@@ -222,6 +248,7 @@ public class ShipWeapon : Weapon
     public override void ProcessWeapon()
     {
         base.ProcessWeapon();
+
     }
 
     public override void WeaponOn()
@@ -236,11 +263,23 @@ public class ShipWeapon : Weapon
 
     public override void WeaponReady()
     {
+
         base.WeaponReady();
     }
 
     public override void WeaponStart()
     {
+
+        if (aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional)
+        {
+            UpdateMainWeaponTargetList();
+        }
+
+        if(weaponmode == WeaponControlType.Autonomy)
+        {
+            HandleShipAutonomyMainWeapon();
+        }
+
         base.WeaponStart();
     }
 

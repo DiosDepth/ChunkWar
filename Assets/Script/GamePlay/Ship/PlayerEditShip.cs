@@ -126,7 +126,7 @@ public class PlayerEditShip : PlayerShip
 
                 if (unitconfig.unitType == UnitType.MainWeapons)
                 {
-                    mainWeapon = tempunit as ShipWeapon;
+                    mainWeapon = tempunit as ShipMainWeapon;
                     mainWeapon.InitializationEditorUnit(this, unitconfig);
                 }
                 else

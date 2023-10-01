@@ -34,7 +34,7 @@ public class PlayerShip : BaseShip
     public GameObject container;
     public SpriteRenderer sprite;
     
-    public ShipWeapon mainWeapon;
+    public ShipMainWeapon mainWeapon;
 
     public CircleCollider2D pickupCollider;
 
@@ -187,7 +187,7 @@ public class PlayerShip : BaseShip
             {
                 var weaponCfg = RogueManager.Instance.currentWeaponSelection.itemconfig as WeaponConfig;
                 Vector2Int[] _reletivemap = weaponCfg.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
-                mainWeapon = AddUnit(weaponCfg, _reletivemap, _coreChunk.shipCoord, 0) as ShipWeapon;
+                mainWeapon = AddUnit(weaponCfg, _reletivemap, _coreChunk.shipCoord, 0) as ShipMainWeapon;
                 mainWeapon.InitCoreData();
                 CoreUnits.Add(mainWeapon);
             }
@@ -414,8 +414,11 @@ public class PlayerShip : BaseShip
                 tempunit.occupiedCoords.Add(m_unitmap[i]);
             }
         }
+        if(tempunit is ShipAdditionalWeapon)
+        {
+            _unitList.Add(tempunit);
+        }
 
-        _unitList.Add(tempunit);
         RefreshShipEnergy();
         return tempunit;
     }
@@ -453,7 +456,7 @@ public class PlayerShip : BaseShip
 
                 if(unitconfig.unitType == UnitType.MainWeapons)
                 {
-                    mainWeapon = tempunit as ShipWeapon;
+                    mainWeapon = tempunit as ShipMainWeapon;
                     mainWeapon.Initialization(this, unitconfig);
                     mainWeapon.InitCoreData();
                     CoreUnits.Add(mainWeapon);

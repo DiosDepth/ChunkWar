@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1000722331128833097}
-  - component: {fileID: 765962645083886639}
+  - component: {fileID: -524535146761660921}
   - component: {fileID: 3570088764188553282}
   m_Layer: 7
   m_Name: ShipWeapon_005
@@ -67,7 +67,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &765962645083886639
+--- !u!114 &-524535146761660921
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5156482088037079168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9825ba9b981c6f419d442425e37e47e, type: 3}
+  m_Script: {fileID: 11500000, guid: 09f8161de3fdd1548a87f0c1c67ef5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 0
@@ -84,8 +84,8 @@ MonoBehaviour:
   IsRestoreable: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
-  maxTargetCount: 3
-  unitSprite: {fileID: 8113757006542053505}
+  maxTargetCount: 1
+  unitSprite: {fileID: 0}
   rotationRoot: {fileID: 0}
   redirection: 1
   direction: 0
@@ -93,9 +93,9 @@ MonoBehaviour:
   occupiedCoords: []
   currentEvolvePoints: 0
   weaponmode: 0
-  firemode: 1
-  aimingtype: 0
-  bulletType: 2
+  firemode: 0
+  aimingtype: 1
+  bulletType: 1
   targetmode: 0
   mask:
     serializedVersion: 2

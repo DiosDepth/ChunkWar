@@ -255,7 +255,7 @@ public class AISteeringBehaviorController : MonoBehaviour, IBoid
                 }
                 else
                 {
-                    deltamovement = vel + accelaration  * job_deltatime * Job_aiShipDrag[i];
+                    deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
                 }
      
                 deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;

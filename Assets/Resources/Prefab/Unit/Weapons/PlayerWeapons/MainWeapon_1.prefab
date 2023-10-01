@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4947179278027536151}
-  - component: {fileID: -8248749420923011854}
+  - component: {fileID: 1218903089531947999}
   - component: {fileID: 2943816815374687937}
   m_Layer: 7
   m_Name: MainWeapon_1
@@ -98,7 +98,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8248749420923011854
+--- !u!114 &1218903089531947999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,17 +107,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4947179278027536233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f508e28b07c3439499976f248409d4d9, type: 3}
+  m_Script: {fileID: 11500000, guid: e9825ba9b981c6f419d442425e37e47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 0
-  state: 1
+  state: 0
   IsRestoreable: 0
   IsCoreUnit: 1
   deathVFXName: ExplodeVFX
-  maxTargetCount: 3
+  maxTargetCount: 1
   unitSprite: {fileID: 4947179279536623990}
-  rotationRoot: {fileID: 0}
+  rotationRoot: {fileID: 4947179278027536151}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}

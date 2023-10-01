@@ -372,7 +372,7 @@ public class AIManager : Singleton<AIManager>
     {
         if (!ProcessAI) { return; }
         //update weapon
-        UpdateAIWeapon();
+        UpdateAIAdditionalWeapon();
         UpdateProjectile();
         ProcessProjectileDamage();
 
@@ -864,14 +864,14 @@ public class AIManager : Singleton<AIManager>
 
     }
 
-    public void UpdateAIWeapon()
+    public void UpdateAIAdditionalWeapon()
     {
 
         if( aiActiveUnitList == null || aiActiveUnitList.Count == 0)
         {
             return;
         }
-        AIWeapon weapon;
+        AIAdditionalWeapon weapon;
 
         int targetstotalcount = 0;
         for (int i = 0; i < aiActiveUnitList.Count; i++)
@@ -911,7 +911,7 @@ public class AIManager : Singleton<AIManager>
             //获取Flat Array中的startindex 为后续的拆分做准备
             //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
 
-            if (aiActiveUnitList[i] is AIWeapon)
+            if (aiActiveUnitList[i] is AIAdditionalWeapon)
             {
 
                 startindex = 0;
@@ -921,7 +921,7 @@ public class AIManager : Singleton<AIManager>
                 }
 
 
-                weapon = aiActiveUnitList[i] as AIWeapon;
+                weapon = aiActiveUnitList[i] as AIAdditionalWeapon;
 
                 //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
                 if (weapon.weaponstate.CurrentState != WeaponState.Firing && weapon.weaponstate.CurrentState != WeaponState.BetweenDelay)

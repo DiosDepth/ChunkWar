@@ -48,11 +48,11 @@ public class Bullet : MonoBehaviour,IPoolable
     protected bool _isUpdate;
     public virtual void Initialization()
     {
-        if(ownertype == OwnerType.AI && _owner is AIWeapon)
+        if(ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
         {
             AIManager.Instance.AddBullet(this);
         }
-        if(ownertype == OwnerType.Player && _owner is ShipWeapon)
+        if(ownertype == OwnerType.Player && (_owner is ShipMainWeapon || _owner is ShipAdditionalWeapon))
         {
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
         }
@@ -145,11 +145,11 @@ public class Bullet : MonoBehaviour,IPoolable
 
     public virtual void Death(UnitDeathInfo info)
     {
-        if (ownertype == OwnerType.AI && _owner is AIWeapon)
+        if (ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
         {
             AIManager.Instance.RemoveBullet(this);
         }
-        if (ownertype == OwnerType.Player && _owner is ShipWeapon)
+        if (ownertype == OwnerType.Player && (_owner is ShipMainWeapon || _owner is ShipAdditionalWeapon))
         {
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveBullet(this);
         }

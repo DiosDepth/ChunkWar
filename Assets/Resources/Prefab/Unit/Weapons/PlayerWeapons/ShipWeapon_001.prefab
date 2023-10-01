@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002946465909562056}
-  - component: {fileID: 2056346697078172334}
+  - component: {fileID: 5259539033414074130}
   - component: {fileID: 1149708689560572444}
   m_Layer: 7
   m_Name: ShipWeapon_001
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2056346697078172334
+--- !u!114 &5259539033414074130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5883710716347196929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9825ba9b981c6f419d442425e37e47e, type: 3}
+  m_Script: {fileID: 11500000, guid: 09f8161de3fdd1548a87f0c1c67ef5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 10000

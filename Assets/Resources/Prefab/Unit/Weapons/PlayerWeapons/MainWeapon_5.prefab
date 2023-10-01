@@ -145,7 +145,7 @@ MonoBehaviour:
   occupiedCoords: []
   currentEvolvePoints: 0
   weaponmode: 0
-  firemode: 0
+  firemode: 2
   aimingtype: 2
   bulletType: 8
   targetmode: 0
