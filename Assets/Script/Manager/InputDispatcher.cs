@@ -22,7 +22,7 @@ public class InputDispatcher : MonoBehaviour
     public UnityAction<InputAction.CallbackContext> Action_GamePlay_Pause;
 
     public UnityAction<InputAction.CallbackContext> Action_UI_UnPause;
-
+    public UnityAction<InputAction.CallbackContext> Action_UI_Click;
 
     public void Awake()
     {
@@ -94,4 +94,8 @@ public class InputDispatcher : MonoBehaviour
         Action_UI_UnPause?.Invoke(context);
     }
 
+    public void UI_Click(InputAction.CallbackContext context)
+    {
+        Action_UI_Click?.Invoke(context);
+    }
 }

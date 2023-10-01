@@ -548,6 +548,22 @@ public static class GameHelper
         }
     }
 
+    /// <summary>
+    /// 获取Unit出售价格
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <returns></returns>
+    public static int GetUnitSellPrice(Unit unit)
+    {
+        var wreckageCfg = DataManager.Instance.GetWreckageDropItemConfig(unit.UnitID);
+        if (wreckageCfg == null)
+            return 0;
+
+        var sellPriceAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SellPrice);
+        var price = Mathf.Clamp(wreckageCfg.SellPrice * (1 + sellPriceAdd / 100f), 0, float.MaxValue);
+        return Mathf.CeilToInt(price);
+    }
+
     public static string GetWeaponPropertyDescContent(UI_WeaponUnitPropertyType type, WeaponConfig cfg)
     {
         var propertyData = RogueManager.Instance.MainPropertyData;

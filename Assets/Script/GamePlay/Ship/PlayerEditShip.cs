@@ -58,7 +58,7 @@ public class PlayerEditShip : PlayerShip
         tempunit.direction = m_direction;
         tempunit.UnitID = m_unitconfig.ID;
         tempunit.InitializationEditorUnit(this, m_unitconfig as BaseUnitConfig);
-
+        RogueManager.Instance.AddNewShipUnit(tempunit);
         obj.transform.rotation = Quaternion.Euler(0, 0, -90 * tempunit.direction);
         if (tempunit is Weapon)
         {
@@ -91,6 +91,24 @@ public class PlayerEditShip : PlayerShip
         _unitList.Add(tempunit);
         RefreshShipEnergy();
         return tempunit;
+    }
+
+    public void RemoveEdtiorUnit(Unit m_unit)
+    {
+        if (!UnitList.Contains(m_unit)) { return; }
+
+        Vector2Int temparrycoord;
+        for (int i = 0; i < m_unit.occupiedCoords.Count; i++)
+        {
+            temparrycoord = GameHelper.CoordinateMapToArray(m_unit.occupiedCoords[i], GameGlobalConfig.ShipMapSize);
+            _chunkMap[temparrycoord.x, temparrycoord.y].isOccupied = false;
+            _chunkMap[temparrycoord.x, temparrycoord.y].unit = null;
+            _chunkMap[temparrycoord.x, temparrycoord.y].isBuildingPiovt = false;
+        }
+        RogueManager.Instance.RemoveShipUnit(m_unit);
+        UnitList.Remove(m_unit);
+        RefreshShipEnergy();
+        GameObject.Destroy(m_unit.gameObject);
     }
 
     private void RestoreEditorUnitFromUnitInfo(UnitInfo m_unitInfo)

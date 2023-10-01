@@ -18,8 +18,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     private ShipPropertySliderCmpt _loadSlider;
     private BuildSelectHoverCmpt _hoverCmpt;
     private ShipPropertyGroupPanel _propertyGroup;
-
-
+    private UnitSelectOption _unitSelectOption;
 
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private const string WreckageGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/WreckageSlotGroup";
@@ -38,6 +37,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _propertyGroup = transform.Find("PropertyPanel/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
         _propertyBtnText = transform.Find("PropertyPanel/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
+        _unitSelectOption = transform.Find("UnitSelectOption").SafeGetComponent<UnitSelectOption>();
     }
 
     public override void Initialization()
@@ -45,9 +45,13 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         base.Initialization();
         this.EventStartListening<RogueEvent>();
         this.EventStartListening<ShipPropertyEvent>();
+
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
+        GetGUIComponent<Button>("Storage").onClick.AddListener(OnUnitSelect_StorageClick);
+        GetGUIComponent<Button>("ChangePos").onClick.AddListener(OnUnitSelect_ChangePostionClick);
         _hoverCmpt.SetActive(false);
+        _unitSelectOption.Active(null, false);
         RefreshGeneral();
     }
 
@@ -87,6 +91,15 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
             case RogueEventType.WreckageAddToShip:
             case RogueEventType.WasteCountChange:
                 RefreshWreckageContent();
+                break;
+
+            case RogueEventType.ShowUnitSelectOptionPanel:
+                var unit = (Unit)evt.param[0];
+                _unitSelectOption.Active(unit, true);
+                break;
+
+            case RogueEventType.HideUnitSelectOptionPanel:
+                _unitSelectOption.Active(null, false);
                 break;
         }
     }
@@ -234,5 +247,20 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     private void CancelWreckageSelect()
     {
         _wreckageGridController.CalcelSelectAll();
+    }
+
+    private void OnUnitSelect_StorageClick()
+    {
+
+    }
+
+    private void OnUnitSelect_ChangePostionClick()
+    {
+
+    }
+
+    private void OnUnitSelect_SellClick()
+    {
+
     }
 }

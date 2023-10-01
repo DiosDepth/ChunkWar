@@ -17,6 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 21300000, guid: 3a674c0a3a32658428f6eb379affa30f, type: 3}
+    - {fileID: 21300000, guid: 41ecac73cfe37d4458b19988a9a3cae3, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -202,6 +203,15 @@ MonoBehaviour:
     - Name: RotationAcceleration
       Entry: 4
       Data: 0.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: IconCfg
+      Entry: 7
+      Data: 8|GeneralIconConfig, Assembly-CSharp
+    - Name: CurrencyIcon
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

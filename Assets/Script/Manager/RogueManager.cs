@@ -49,8 +49,6 @@ public enum RogueEventType
     ShopCostChange,
     ShipPlugChange,
     RefreshShopWeaponInfo,
-    ShowUnitDetailPage,
-    HideUnitDetailPage,
     HoverUnitDisplay,
     HideHoverUnitDisplay,
     WreckageDropRefresh,
@@ -64,6 +62,8 @@ public enum RogueEventType
     RemoveBossHPBillBoard,
     CampBuffUpgrade,
     RefreshTimerDisplay,
+    ShowUnitSelectOptionPanel,
+    HideUnitSelectOptionPanel
 }
 
 public enum ShipPropertyEventType
@@ -1397,6 +1397,24 @@ public class RogueManager : Singleton<RogueManager>
         _currentShipUnits.Add(uid, unit);
         AllShipUnits.Add(unit);
     }
+
+    public bool SellUnit(Unit unit)
+    {
+        if (unit == null)
+            return false;
+
+        ///主武器无法出售
+        if (unit._baseUnitConfig.unitType == UnitType.MainWeapons)
+            return false;
+
+        if (!_currentShipUnits.ContainsKey(unit.UID))
+            return false;
+
+        var sellPrice = GameHelper.GetUnitSellPrice(unit);
+        AddCurrency(sellPrice);
+        return true;
+    }
+
 
     public Unit GetPlayerShipUnit(uint UID)
     {

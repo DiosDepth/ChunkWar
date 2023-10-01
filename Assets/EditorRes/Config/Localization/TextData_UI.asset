@@ -455,3 +455,23 @@ MonoBehaviour:
     ChineseSimplified: "\u83B7\u5F97\u9635\u8425\u79EF\u5206"
     English: 
     Japanese: 
+  - TextID: Harbor_Launch
+    ChineseSimplified: "\u51FA\u53D1"
+    English: 
+    Japanese: 
+  - TextID: WreckageSlot_Sell
+    ChineseSimplified: "\u51FA\u552E"
+    English: 
+    Japanese: 
+  - TextID: UnitSelectOption_Storage
+    ChineseSimplified: "\u653E\u5165\u8D27\u4ED3"
+    English: 
+    Japanese: 
+  - TextID: UnitSelectOption_ChangePos
+    ChineseSimplified: "\u66F4\u6362\u4F4D\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: UnitOption_SellButton_Text
+    ChineseSimplified: "\u51FA\u552E"
+    English: 
+    Japanese: 

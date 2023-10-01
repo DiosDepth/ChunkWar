@@ -18,6 +18,9 @@ public class GameMiscConfig : SerializedScriptableObject
     [HideReferenceObjectPicker]
     public ShipControlConfig ShipControlCfg = new ShipControlConfig();
 
+    [HideReferenceObjectPicker]
+    public GeneralIconConfig IconCfg = new GeneralIconConfig();
+
     public List<AchievementGroupItemConfig> AchievementGroupConfig = new List<AchievementGroupItemConfig>();
     public CollectionMenuKey[] CollectionMenu = new CollectionMenuKey[0];
 
@@ -58,6 +61,11 @@ public class AchievementGroupItemConfig
     public AchievementGroupType Type;
     public string GroupName;
     public Sprite GroupIcon;
+}
+
+public class GeneralIconConfig
+{
+    public Sprite CurrencyIcon;
 }
 
 [System.Serializable]
