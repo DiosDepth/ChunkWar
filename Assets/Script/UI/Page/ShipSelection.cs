@@ -185,6 +185,11 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
 
     private void InitCampTab()
     {
+        for (int i = _campTabCmpts.Count - 1; i >= 0; i--) 
+        {
+            _campTabCmpts[i].PoolableDestroy();
+        }
+
         var allCamp = DataManager.Instance.GetAllCampConfigs();
         for(int i = 0; i < allCamp.Count; i++)
         {

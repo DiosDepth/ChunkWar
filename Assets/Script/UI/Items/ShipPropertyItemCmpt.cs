@@ -27,7 +27,6 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable
     {
         var propertyData = RogueManager.Instance.MainPropertyData;
         var value = propertyData.GetPropertyFinal(PropertyKey);
-        propertyData.BindPropertyChangeAction(PropertyKey, OnPropertyChangeAction);
 
         var targetValue = Mathf.RoundToInt(value);
         var cfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(PropertyKey);
@@ -56,13 +55,15 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable
     {
         this.PropertyKey = key;
         Refresh();
+
+        var propertyData = RogueManager.Instance.MainPropertyData;
+        propertyData.BindPropertyChangeAction(PropertyKey, OnPropertyChangeAction);
     }
 
-    public void OnDisable()
+    public void OnDestroy()
     {
         var propertyData = RogueManager.Instance.MainPropertyData;
-        var value = propertyData.GetPropertyFinal(PropertyKey);
-        propertyData.BindPropertyChangeAction(PropertyKey, OnPropertyChangeAction);
+        propertyData.UnBindPropertyChangeAction(PropertyKey, OnPropertyChangeAction);
     }
 
     private void OnPropertyChangeAction()

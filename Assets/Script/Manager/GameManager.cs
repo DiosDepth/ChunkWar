@@ -91,11 +91,6 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         gamestate.ChangeState(evt.gamesate);
     }
 
-    public void InitialRuntimeData()
-    {
-        RogueManager.Instance.ShipMapData = new ShipMapData((RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig).Map);
-    }
-
     public void OnEvent(GameStateTransitionEvent evt)
     {
         switch (evt.targetState)
@@ -134,6 +129,12 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         InitHardLevelData();
         InitCampData();
         isInitialCompleted = true;
+    }
+
+    public void ClearBattle()
+    {
+        RogueManager.Instance.Clear();
+        LevelManager.Instance.Clear();
     }
 
     #region HardLevel

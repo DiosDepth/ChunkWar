@@ -11,7 +11,7 @@ using Unity.Collections;
 using Unity.Burst;
 
 
-public struct DamageResultInfo
+public class DamageResultInfo
 {
     public int Damage;
     public bool IsCritical;
@@ -1230,9 +1230,9 @@ public class Weapon : Unit
         base.Restore();
     }
 
-    public override bool TakeDamage(ref DamageResultInfo info)
+    public override bool TakeDamage(DamageResultInfo info)
     {
-        return base.TakeDamage(ref info);
+        return base.TakeDamage(info);
     }
 
     public virtual void InitWeaponAttribute(bool isPlayerShip)

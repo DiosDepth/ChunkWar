@@ -16,10 +16,13 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     protected int currentTriggerCount;
 
+    private List<TimerModiferData> _timerModifiers;
+
     public ModifyTriggerData(ModifyTriggerConfig cfg, uint uid)
     {
         this.Config = cfg;
         this.UID = uid;
+        _timerModifiers = new List<TimerModiferData>();
     }
 
     /// <summary>
@@ -76,7 +79,16 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     public virtual void OnUpdateBattle()
     {
-
+        for (int i = _timerModifiers.Count - 1; i >= 0; i--) 
+        {
+            var modifier = _timerModifiers[i];
+            modifier.OnUpdate();
+            if (modifier.IsNeedToRemove)
+            {
+                modifier.OnRemove();
+                _timerModifiers.RemoveAt(i);
+            }
+        }
     }
 
     public virtual void Reset()
@@ -88,12 +100,22 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     public void AddTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
     {
-
+        TimerModiferData_Global modifer = new TimerModiferData_Global(config, UID);
+        modifer.OnAdded();
+        _timerModifiers.Add(modifer);
     }
 
     public void RemoveTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
     {
-
+        ///ÒÆ³ýÒ»¸ö
+        for(int i = _timerModifiers.Count - 1; i >=0; i--)
+        {
+            if(_timerModifiers[i] is TimerModiferData_Global)
+            {
+                _timerModifiers.RemoveAt(i);
+                break;
+            }
+        }
     }
 
     #endregion

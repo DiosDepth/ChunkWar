@@ -40,6 +40,7 @@ public class LevelTimer
         _currentSecond = totalSecond;
         _pause = true;
         TotalSeconds = 0;
+        RogueEvent.Trigger(RogueEventType.RefreshTimerDisplay);
     }
 
     public void OnUpdate()

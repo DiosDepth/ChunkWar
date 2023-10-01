@@ -84,12 +84,12 @@ public class MonoShield : MonoBehaviour, IDamageble
         m_render.material = Mat;
     }
 
-    public bool TakeDamage(ref DamageResultInfo info)
+    public bool TakeDamage(DamageResultInfo info)
     {
         if (ownerShip is PlayerShip)
         {
             ///CalculatePlayerDamage
-            GameHelper.ResolvePlayerShieldDamage(ref info);
+            GameHelper.ResolvePlayerShieldDamage(info);
         }
 
         var damage = Mathf.RoundToInt(info.Damage * (1 + info.ShieldDamagePercent / 100f));

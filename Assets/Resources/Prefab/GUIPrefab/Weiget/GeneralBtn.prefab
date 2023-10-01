@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 8735774706525598548}
   - component: {fileID: 6629900883974248084}
   m_Layer: 5
-  m_Name: GeneralBackBtn
+  m_Name: GeneralBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

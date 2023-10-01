@@ -381,7 +381,7 @@ MonoBehaviour:
       Data: 3
     - Name: ScoreRatio
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: StartCurrency
       Entry: 3
       Data: 80

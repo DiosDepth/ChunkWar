@@ -71,6 +71,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         });
 
         AddGMFunctionToDic("campscore", AddCampScore);
+        AddGMFunctionToDic("win", Win);
     }
 
     
@@ -132,15 +133,23 @@ public class GMTalkManager : Singleton<GMTalkManager>
     {
         if (content.Length != 2)
             return false;
+
+        CampLevelUpInfo info = null;
+
         int.TryParse(content[0], out int campID);
         int.TryParse(content[1], out int value);
         var campData = GameManager.Instance.GetCampDataByID(campID);
         if(campData != null)
         {
-            campData.AddCampScore(value);
+            campData.AddCampScore(value, out info);
         }
         return true;
     }
 
+    private bool Win(string[] content)
+    {
+        GameEvent.Trigger(EGameState.EGameState_GameOver);
+        return true;
+    }
     #endregion
 }

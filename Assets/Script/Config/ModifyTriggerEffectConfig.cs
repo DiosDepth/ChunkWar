@@ -109,7 +109,7 @@ public  class MTEC_SetPropertyValue : ModifyTriggerEffectConfig
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
-        RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
+        RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 }
 
@@ -152,7 +152,7 @@ public class MTEC_AddPropertyValue : ModifyTriggerEffectConfig
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
-        RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID);
+        RogueManager.Instance.MainPropertyData.RemovePropertyModifyValue(ModifyKey, ModifyType, data.UID, Value);
     }
 }
 
@@ -341,21 +341,17 @@ public class MTEC_SetUnitPropertyValue : ModifyTriggerEffectConfig
     }
 }
 
+/// <summary>
+/// 全局计时属性
+/// </summary>
 public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
 {
-    [HorizontalGroup("AA", 200)]
-    [LabelText("Key")]
-    [LabelWidth(40)]
-    public PropertyModifyKey ModifyKey;
-
-    [HorizontalGroup("AA", 120)]
-    [LabelText("值")]
-    [LabelWidth(40)]
-    public float Value;
+    [DictionaryDrawerSettings()]
+    public Dictionary<PropertyModifyKey, float> ModifyMap = new Dictionary<PropertyModifyKey, float>();
 
     [HorizontalGroup("AA", 200)]
     [LabelText("持续时间")]
-    [LabelWidth(40)]
+    [LabelWidth(80)]
     public float DurationTime;
 
     public MTEC_AddGlobalTimerModifier(ModifyTriggerEffectType type) : base(type)
@@ -370,7 +366,7 @@ public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
-
+        data.RemoveTimerModifier_Global(this);
     }
 }
 

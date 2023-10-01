@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public class CampLevelUpInfo
+{
+    public int currentLevel;
+    public int targetLevel;
+
+    public int startEXP;
+    public int targetEXP;
+
+    public bool isLevelUp
+    {
+        get { return targetLevel > currentLevel; }
+    }
+}
+
 public class CampData 
 {
     public int CampID;
@@ -143,8 +157,12 @@ public class CampData
         get { return _campLevel >= Config.LevelConfigs.Length; }
     }
 
-    public void AddCampScore(int value)
+    public void AddCampScore(int value, out CampLevelUpInfo info)
     {
+        info = new CampLevelUpInfo();
+        info.currentLevel = _campLevel;
+        info.startEXP = _currentEXP;
+
         var newScore = CampTotalScore.Value + value;
         CampTotalScore.Set(newScore);
         CurrentRemainScore += value;
@@ -164,6 +182,8 @@ public class CampData
                     break;
             }
         }
+        info.targetLevel = _campLevel;
+        info.targetEXP = _currentEXP;
     }
 
     /// <summary>

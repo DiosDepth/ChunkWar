@@ -81,7 +81,7 @@ public class Beamemit : Bullet
                             var damage = (_owner as Weapon).weaponAttribute.GetDamage();
                             ///TODO Value
                             damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
-                            hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(ref damage);
+                            hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(damage);
                         }
                     }
                 }

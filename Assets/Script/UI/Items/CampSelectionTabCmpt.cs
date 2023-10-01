@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CampSelectionTabCmpt : MonoBehaviour
+public class CampSelectionTabCmpt : MonoBehaviour, IPoolable
 {
 
     public int CampID;
@@ -34,5 +34,21 @@ public class CampSelectionTabCmpt : MonoBehaviour
     {
         GeneralUIEvent.Trigger(UIEventType.ShipSelection_CampSelect, CampID);
         OnSelected(true);
+    }
+
+    public void PoolableReset()
+    {
+        OnSelected(false);
+    }
+
+    public void PoolableDestroy()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(transform.name, gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+
     }
 }

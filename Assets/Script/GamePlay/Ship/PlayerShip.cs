@@ -253,7 +253,7 @@ public class PlayerShip : BaseShip
         {
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive();
-            vfx.GetComponent<ParticleController>().PlayVFX();
+            vfx.GetComponent<ParticleController>().PlayVFX(); 
             GameEvent.Trigger(EGameState.EGameState_GameOver);
         });
 

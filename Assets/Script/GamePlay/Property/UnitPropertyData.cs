@@ -91,13 +91,13 @@ public class UnitPropertyData
     /// </summary>
     /// <param name="propertyKey"></param>
     /// <param name="fromUID"></param>
-    public void RemovePropertyModifyValue(PropertyModifyKey propertyKey, PropertyModifyType type, uint fromUID)
+    public void RemovePropertyModifyValue(PropertyModifyKey propertyKey, PropertyModifyType type, uint fromUID, float tempValue = 0)
     {
         var pool = GetOrCreatePropertyPool(propertyKey);
         if (pool == null)
             return;
 
-        pool.RemoveFromPool_Modify(type, fromUID);
+        pool.RemoveFromPool_Modify(type, fromUID, tempValue);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, propertyKey);
     }
 
@@ -273,7 +273,7 @@ public class UnitPropertyPool
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
     }
 
-    public void RemoveFromPool_Modify(PropertyModifyType type, uint key)
+    public void RemoveFromPool_Modify(PropertyModifyType type, uint key, float value = 0)
     {
         switch (type)
         {
@@ -283,6 +283,11 @@ public class UnitPropertyPool
             case PropertyModifyType.ModifyPercent:
                 _propertyTable_ModifyPercent.Remove(key);
                 break;
+            case PropertyModifyType.TempModify:
+                var tempValue = _propertyTemp.Value - value;
+                _propertyTemp.Set(tempValue);
+                break;
+
             case PropertyModifyType.PropertyTransfer:
                 _propertyTable_Transfer.Remove(key);
                 break;

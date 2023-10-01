@@ -130,6 +130,9 @@ public class UnitBaseAttribute
         {
             rate = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
         }
+
+        var totalUnitCostPercent = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+        rate += totalUnitCostPercent;
         ///Calculate Local Property
         var localEnergyCostPercent = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitEnergyCostPercent);
         rate += localEnergyCostPercent;
@@ -427,7 +430,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
         
     }
 
-    public virtual bool TakeDamage(ref DamageResultInfo info)
+    public virtual bool TakeDamage(DamageResultInfo info)
     {
         if (HpComponent == null)
             return false;
@@ -444,7 +447,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
             isPlayerAttack = info.IsPlayerAttack,
             isCritical = info.IsCritical
         };
-        LevelManager.Instance.UnitHit(hitInfo);
+        LevelManager.Instance.UnitHit(hitInfo, info);
 
         if (_owner is AIShip)
         {

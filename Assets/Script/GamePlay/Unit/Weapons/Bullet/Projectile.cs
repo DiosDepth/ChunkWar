@@ -338,10 +338,10 @@ public class Projectile : Bullet, IDamageble
     {
         base.ApplyDamage(damageble);
         var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-        damageble.TakeDamage(ref damage);
+        damageble.TakeDamage(damage);
         Death(null);
     }
-    public bool TakeDamage(ref DamageResultInfo info)
+    public bool TakeDamage(DamageResultInfo info)
     {
         if (HpComponent == null)
             return false;
