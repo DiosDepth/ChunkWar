@@ -1,13 +1,12 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Diagnostics;
+
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.U2D;
+
 using static Weapon;
 
 public class ShipUnitManager 
@@ -40,6 +39,8 @@ public class ShipUnitManager
         activeWeaponPosList = new NativeList<float3>(Allocator.Persistent);
         activeWeaponAttackRangeList = new NativeList<float>(Allocator.Persistent);
         activeWeaponTargetCountList = new NativeList<int>(Allocator.Persistent);
+
+
    
     }
 
