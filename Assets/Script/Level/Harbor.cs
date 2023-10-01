@@ -9,11 +9,7 @@ public class Harbor : LevelEntity
     {
         base.Initialization();
         //Ïú»Ù¾ÉµÄShip
-        if (RogueManager.Instance.currentShip != null)
-        {
-            GameObject.Destroy(RogueManager.Instance.currentShip.container.gameObject);
-            RogueManager.Instance.currentShip = null;
-        }
+        RogueManager.Instance.ClearShip();
         shipbuilder.Initialization();
     }
 

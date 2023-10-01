@@ -408,6 +408,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     /// </summary>
     public void OnRemove()
     {
+        baseAttribute.Destroy();
         _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
         _modifySpecialDatas.ForEach(x => x.OnRemove());
     }

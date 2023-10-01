@@ -11,24 +11,9 @@ public class ShipBuilder : MonoBehaviour
 {
     public static ShipBuilder instance;
 
-    public int brickCount = 100;
-    public int brickConsumePerChunk = 5;
-
-    public GameObject CorePrefab;
-    public GameObject BasePrefab;
-
     public PlayerEditShip editorShip;
     public ShipBuilderBrush editorBrush;
-    public Color brushValidColor;
-    public Color brushInvalidColor;
-
-
-    [Header("Inventory")]
-
-
-    public Building currentBuilding;
    
-
     public InventoryItem CurrentInventoryItem
     {
         get { return currentInventoryItem; }
@@ -72,6 +57,7 @@ public class ShipBuilder : MonoBehaviour
 
     private bool _isPointOverGameObject;
     private bool _isDisplayingHoverUnit = false;
+    private bool _isShowUnitSelectOptionPanel = false;
 
     private List<ShipChunkGrid> _shipGrids;
     private List<ShipChunkErrorGrid> _tempErrorGrid;
@@ -169,7 +155,9 @@ public class ShipBuilder : MonoBehaviour
         editorShip.SaveRuntimeData();
     }
 
-    public void HandleBuildMouseMove(InputAction.CallbackContext context)
+    #region Perform Action
+
+    private void HandleBuildMouseMove(InputAction.CallbackContext context)
     {
         if(!_isInitial)
         {
@@ -189,7 +177,10 @@ public class ShipBuilder : MonoBehaviour
                 _isValidPos = IsCorsorInBuildRange(context);
                 if (!_isValidPos)
                 {
-                    editorBrush.ActiveBrush(false);
+                    if (editorBrush.IsBrushActive)
+                    {
+                        editorBrush.ActiveBrush(false);
+                    }
                     return;
                 }
 
@@ -207,7 +198,7 @@ public class ShipBuilder : MonoBehaviour
                 if (currentInventoryItem == null)
                 {
                     ///Hover 
-                    if(_isValidPos && currentChunk.unit != null)
+                    if(_isValidPos && currentChunk.unit != null && !_isShowUnitSelectOptionPanel)
                     {
                         OnHoverUnitDisplay(currentChunk.unit);
                     }
@@ -244,7 +235,7 @@ public class ShipBuilder : MonoBehaviour
     }
 
 
-    public void HandleBuildRotation(InputAction.CallbackContext context)
+    private void HandleBuildRotation(InputAction.CallbackContext context)
     {
         if(!_isInitial)
         {
@@ -278,7 +269,7 @@ public class ShipBuilder : MonoBehaviour
         }
     }
 
-    public void HandleBuildOperation(InputAction.CallbackContext context)
+    private void HandleBuildOperation(InputAction.CallbackContext context)
     {
         if (!_isInitial)
         {
@@ -287,16 +278,27 @@ public class ShipBuilder : MonoBehaviour
 
         switch (context.phase)
         {
-            case InputActionPhase.Disabled:
-                break;
-            case InputActionPhase.Waiting:
-                break;
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                OnAddUnit();
-                break;
-            case InputActionPhase.Canceled:
+
+                if(CurrentInventoryItem != null)
+                {
+                    OnAddUnit();
+                    return;
+                }
+
+                ///RefreshHover
+                RefreshCurrnetHoverUnit();
+                if (_currentHoverUnit != null)
+                {
+                    HandleSelectCurrentUnitClick();
+                }
+                else
+                {
+                    ClearCurrentUnitOptionPanel();
+                }
+                
                 break;
         }
     }
@@ -305,7 +307,7 @@ public class ShipBuilder : MonoBehaviour
     /// 右键点击
     /// </summary>
     /// <param name="context"></param>
-    public void HandleRemoveOperation(InputAction.CallbackContext context)
+    private void HandleRemoveOperation(InputAction.CallbackContext context)
     {
         if (!_isInitial)
         {
@@ -320,49 +322,61 @@ public class ShipBuilder : MonoBehaviour
             case InputActionPhase.Started:
                 break;
             case InputActionPhase.Performed:
-                CancelBuildingSelect();
+
+                if (currentInventoryItem != null)
+                {
+                    CancelBuildingSelect();
+                    return;
+                }
+
+                if (_isShowUnitSelectOptionPanel)
+                {
+                    ClearCurrentUnitOptionPanel();
+                }
+
                 break;
             case InputActionPhase.Canceled:
                 break;
         }
     }
 
-    public Vector2Int[] RotateCoordClockWise(Vector2Int[] oricoord)
+    #endregion
+
+    #region Public Function
+
+    /// <summary>
+    /// 出售Unit
+    /// </summary>
+    public void SellCurrentHoverUnit()
     {
-        Vector2Int[] newcoord = new Vector2Int[oricoord.Length];
+        if (_currentHoverUnit == null)
+            return;
 
-        for (int i = 0; i < oricoord.Length; i++)
+        if (_isShowUnitSelectOptionPanel)
         {
-            newcoord[i] = new Vector2Int(oricoord[i].y, -1 * oricoord[i].x);
-        }
-        return newcoord;
-    }
-
-
-    public Vector2Int[] RotateCoordByDirection(Vector2Int[] oricoord, int direction)
-    {
-        Vector2Int[] newcoord = new Vector2Int[oricoord.Length];
-        for (int i = 0; i < oricoord.Length; i++)
-        {
-            // 90 degree
-            if (direction == 1)
-            {
-                newcoord[i] = new Vector2Int(oricoord[i].y, -1 * oricoord[i].x);
-            }
-            // 180 degree
-            if (direction == 2)
-            {
-                newcoord[i] = new Vector2Int( -1 *oricoord[i].x, -1 * oricoord[i].y);
-            }
-            // 270 degree
-            if (direction == 3)
-            {
-                newcoord[i] = new Vector2Int(-1 * oricoord[i].y, oricoord[i].x);
-            }
+            ClearCurrentUnitOptionPanel();
         }
 
-        return newcoord;
+        ///Sell
+        
+        if(RogueManager.Instance.SellUnit(_currentHoverUnit))
+        {
+            editorShip.RemoveEdtiorUnit(_currentHoverUnit);
+            _currentHoverUnit = null;
+        }
     }
+
+    /// <summary>
+    /// Unit放入仓库
+    /// </summary>
+    public void StorageCurrentHoverUnit()
+    {
+
+    }
+
+    #endregion
+
+    #region Function
 
     /// <summary>
     /// 建造
@@ -399,13 +413,10 @@ public class ShipBuilder : MonoBehaviour
     /// </summary>
     private void CancelBuildingSelect()
     {
-        if (currentInventoryItem == null)
-            return;
-
         currentChunk = null;
         _itemDirection = 0;
         editorBrush.ResetBrush();
-        ClearTempErrorGrid();
+        RefreshGridOccupied();
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
         RogueEvent.Trigger(RogueEventType.CancelWreckageSelect);
@@ -431,7 +442,12 @@ public class ShipBuilder : MonoBehaviour
     private bool IsCorsorInBuildRange(InputAction.CallbackContext context)
     {
         _mousePos = context.ReadValue<Vector2>();
-        _mouseWorldPos = CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(_mousePos.x, _mousePos.y, 0));
+        return IsCorsorInBuildRange(_mousePos);
+    }
+
+    private bool IsCorsorInBuildRange(Vector2 pos)
+    {
+        _mouseWorldPos = CameraManager.Instance.mainCamera.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 0));
         _pointedShipCoord = GameHelper.GetReletiveCoordFromWorldPos(editorShip.shipMapCenter, _mouseWorldPos);
 
         return Mathf.Abs(_pointedShipCoord.x) <= GameGlobalConfig.ShipMapSize && Mathf.Abs(_pointedShipCoord.y) <= GameGlobalConfig.ShipMapSize;
@@ -488,13 +504,11 @@ public class ShipBuilder : MonoBehaviour
         _isDisplayingHoverUnit = true;
         _currentHoverUnit = targetUnit;
         RogueEvent.Trigger(RogueEventType.HoverUnitDisplay, targetUnit);
-        RogueEvent.Trigger(RogueEventType.ShowUnitDetailPage, targetUnit._baseUnitConfig);
     }
 
     private void ResetHoverUnit()
     {
         RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, _currentHoverUnit);
-        RogueEvent.Trigger(RogueEventType.HideUnitDetailPage);
         _currentHoverUnit = null;
         _isDisplayingHoverUnit = false;
     }
@@ -512,6 +526,56 @@ public class ShipBuilder : MonoBehaviour
             _reletiveCoord = unitCfg.GetReletiveCoord();
         }
     }
+
+    /// <summary>
+    /// 选中当前悬停的Unit
+    /// </summary>
+    private void HandleSelectCurrentUnitClick()
+    {
+        ///主武器没有选项
+        if (_currentHoverUnit._baseUnitConfig.unitType == UnitType.MainWeapons)
+            return;
+
+        if (_isDisplayingHoverUnit)
+        {
+            RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, _currentHoverUnit);
+            _isDisplayingHoverUnit = false;
+        }
+
+        RogueEvent.Trigger(RogueEventType.ShowUnitSelectOptionPanel, _currentHoverUnit);
+        _isShowUnitSelectOptionPanel = true;
+    }
+
+    private void ClearCurrentUnitOptionPanel()
+    {
+        RogueEvent.Trigger(RogueEventType.HideUnitSelectOptionPanel);
+        _isShowUnitSelectOptionPanel = false;
+    }
+
+    /// <summary>
+    /// 刷新当前选择的Unit单位
+    /// </summary>
+    private void RefreshCurrnetHoverUnit()
+    {
+        _isValidPos = IsCorsorInBuildRange(_mousePos);
+        if (!_isValidPos)
+        {
+            _currentHoverUnit = null;
+            return;
+        }
+
+        var chunk = editorShip.GetChunkFromShipCoordinate(_pointedShipCoord);
+        if(chunk != null && currentChunk.unit != null)
+        {
+            _currentHoverUnit = currentChunk.unit;
+            return;
+        }
+        else
+        {
+            _currentHoverUnit = null;
+        }
+    }
+    #endregion
 
     #region Grid
     private void InitShipChunkGrids()
@@ -578,6 +642,46 @@ public class ShipBuilder : MonoBehaviour
     private ShipChunkGrid GetChunkGridByChunk(Chunk chunk)
     {
         return GetChunkGridByPos(chunk.shipCoord.x, chunk.shipCoord.y);
+    }
+
+    #endregion
+
+
+    #region Tools
+    private Vector2Int[] RotateCoordClockWise(Vector2Int[] oricoord)
+    {
+        Vector2Int[] newcoord = new Vector2Int[oricoord.Length];
+
+        for (int i = 0; i < oricoord.Length; i++)
+        {
+            newcoord[i] = new Vector2Int(oricoord[i].y, -1 * oricoord[i].x);
+        }
+        return newcoord;
+    }
+
+    private Vector2Int[] RotateCoordByDirection(Vector2Int[] oricoord, int direction)
+    {
+        Vector2Int[] newcoord = new Vector2Int[oricoord.Length];
+        for (int i = 0; i < oricoord.Length; i++)
+        {
+            // 90 degree
+            if (direction == 1)
+            {
+                newcoord[i] = new Vector2Int(oricoord[i].y, -1 * oricoord[i].x);
+            }
+            // 180 degree
+            if (direction == 2)
+            {
+                newcoord[i] = new Vector2Int(-1 * oricoord[i].x, -1 * oricoord[i].y);
+            }
+            // 270 degree
+            if (direction == 3)
+            {
+                newcoord[i] = new Vector2Int(-1 * oricoord[i].y, oricoord[i].x);
+            }
+        }
+
+        return newcoord;
     }
 
     #endregion

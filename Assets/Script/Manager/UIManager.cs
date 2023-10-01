@@ -56,7 +56,7 @@ public class UIManager : Singleton<UIManager>
 
     private object tempowner;
 
-
+    private Vector2 _mousePosition;
 
     private PointerEventData pointerEventData;
 
@@ -75,6 +75,8 @@ public class UIManager : Singleton<UIManager>
         GetUILayer(ref bot, "Bot", canvas);
         GetUILayer(ref mid, "Mid", canvas);
         GetUILayer(ref top, "Top", canvas);
+
+        InputDispatcher.Instance.Action_GamePlay_Point += HandleBuildMouseMove;
     }
 
     public GUIBasePanel GetGUIFromDic(string name)
@@ -321,6 +323,11 @@ public class UIManager : Singleton<UIManager>
         return screenPos;
     }
 
+    public Vector2 GetUIPosByMousePos()
+    {
+        return new Vector2(_mousePosition.x - Screen.width / 2f, _mousePosition.y - Screen.height / 2f);
+    }
+
     public bool IsMouseOverUI()
     {
         bool mouseOverUI = false;
@@ -338,5 +345,13 @@ public class UIManager : Singleton<UIManager>
         return mouseOverUI;
     }
 
-
+    private void HandleBuildMouseMove(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                _mousePosition = context.ReadValue<Vector2>();
+                break;
+        }
+    }
 }

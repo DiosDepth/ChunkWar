@@ -482,7 +482,7 @@ public class PlayerShip : BaseShip
         Vector2Int temparrycoord;
         for (int i = 0; i < m_unit.occupiedCoords.Count; i++)
         {
-            temparrycoord = GameHelper.CoordinateMapToArray(m_unit.occupiedCoords[i], GameGlobalConfig.UnitMapSize);
+            temparrycoord = GameHelper.CoordinateMapToArray(m_unit.occupiedCoords[i], GameGlobalConfig.ShipMapSize);
             _chunkMap[temparrycoord.x, temparrycoord.y].isOccupied = false;
             _chunkMap[temparrycoord.x, temparrycoord.y].unit = null;
             _chunkMap[temparrycoord.x, temparrycoord.y].isBuildingPiovt = false;

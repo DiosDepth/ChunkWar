@@ -16,10 +16,105 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 21300000, guid: 33cfd0cda32286c4aa31bc2f3525a095, type: 3}
-    - {fileID: 21300000, guid: d08eb80599c10094ea51f7ffb717fad9, type: 3}
-    - {fileID: 21300000, guid: f6e617f47d3caf446be98fe45828b9f2, type: 3}
-    - {fileID: 21300000, guid: 895bf709adba5a948aa8b04a6662b2be, type: 3}
+    - {fileID: 21300000, guid: cc0bfa3f77852e8488875be5509b98bb, type: 3}
+    - {fileID: 21300000, guid: 148ceb6d3eb33424fb59c9fefa71d5e9, type: 3}
+    - {fileID: 21300000, guid: b3247a76036d0a040a36fa9f6fbcddce, type: 3}
+    - {fileID: 21300000, guid: bcd216de6caa75c47b5db9b9d98135e6, type: 3}
+    - {fileID: 21300000, guid: 4fcbfbb75987d8f43af55cf023663d25, type: 3}
+    - {fileID: 21300000, guid: 45d95fb9e5aed13468a1afe54adc90f7, type: 3}
+    - {fileID: 21300000, guid: 2031b2d0fc3f2a945a6a7f350c28b82f, type: 3}
+    - {fileID: 21300000, guid: 584e352b4c874f148b69cecde8c09358, type: 3}
+    - {fileID: 21300000, guid: 61b7f2f28415cd54095ce1eb666a56f3, type: 3}
+    - {fileID: 21300000, guid: 6bd8fef45660b79408c3347fdcaa74fc, type: 3}
+    - {fileID: 21300000, guid: 44cf741c9525f63439526e1b24c56757, type: 3}
+    - {fileID: 21300000, guid: bd4421299593cbf48b9947f0de471a5e, type: 3}
+    - {fileID: 21300000, guid: e88770e3a49beef4fb7daabf9c815b3d, type: 3}
+    - {fileID: 21300000, guid: e6046bfefcfaf0f45b7ad3a68b269189, type: 3}
+    - {fileID: 21300000, guid: e51fe843dbf9936408262bd7078a6224, type: 3}
+    - {fileID: 21300000, guid: b774ccbea3a95104da91ca7e7fee9102, type: 3}
+    - {fileID: 21300000, guid: 666817fe7b44004418de3e1a18a839a3, type: 3}
+    - {fileID: 21300000, guid: 178460e460d7375409bfe76926d8e85b, type: 3}
+    - {fileID: 21300000, guid: f7e5f66ec769a544da1300f1802d9829, type: 3}
+    - {fileID: 21300000, guid: d56e46acb0815e547b5c4d5a20281221, type: 3}
+    - {fileID: 21300000, guid: f445ca2d081370746a3e1f295a37be2e, type: 3}
+    - {fileID: 21300000, guid: 81308b57496d3464da95311af14d93b0, type: 3}
+    - {fileID: 21300000, guid: 6d0c1d250054ac247ad42758adc38091, type: 3}
+    - {fileID: 21300000, guid: 7afc8a359a03c8b479daf2b1e67f1e52, type: 3}
+    - {fileID: 21300000, guid: d8cac03c317aaf1479cafe6069ada4ec, type: 3}
+    - {fileID: 21300000, guid: fe82dac0f1343ed4d9952cfd1d8ffc50, type: 3}
+    - {fileID: 21300000, guid: ab457e104ec129f42a619405aa88203a, type: 3}
+    - {fileID: 21300000, guid: ceb9bb4e4fadf70408c5cbd1d560ccdc, type: 3}
+    - {fileID: 21300000, guid: de836a62be46186468eb23f131f991dd, type: 3}
+    - {fileID: 21300000, guid: 3632fd7e6d5b8d548b9757ebb57e571c, type: 3}
+    - {fileID: 21300000, guid: f7191a13db16ee4498d6f035a314a0e4, type: 3}
+    - {fileID: 21300000, guid: 3a43864b218961743adc1dbf932192e2, type: 3}
+    - {fileID: 21300000, guid: 8ef4526c32eee8f4c94f3e2d23aa74c4, type: 3}
+    - {fileID: 21300000, guid: 4749bb849c6112b4e89b7c0a63a5900c, type: 3}
+    - {fileID: 21300000, guid: a994a118902e9b844ac0cd610ae5aebd, type: 3}
+    - {fileID: 21300000, guid: 2a3740c89a2ca3741bd4dfcbdfa0c1d0, type: 3}
+    - {fileID: 21300000, guid: 15306482f7564dc4ea9b79bf4227a6e7, type: 3}
+    - {fileID: 21300000, guid: 655c62c1630576749984af08a6e5f7db, type: 3}
+    - {fileID: 21300000, guid: 23f9f514dc020b7448bc315134f051b6, type: 3}
+    - {fileID: 21300000, guid: 750c5bb6b06bcbb4387402cd1f6b844e, type: 3}
+    - {fileID: 21300000, guid: 9580908c6b95d2f4fb53d46a7ee95c50, type: 3}
+    - {fileID: 21300000, guid: 2954176d2d1bb4e47a7a9d1689701fb6, type: 3}
+    - {fileID: 21300000, guid: 7e78bdf01496d87468fb04ee22595b20, type: 3}
+    - {fileID: 21300000, guid: 75bef952e12799c469a7c34ab3819a42, type: 3}
+    - {fileID: 21300000, guid: 4f96f92e1c16f5745860f4d04d3ab338, type: 3}
+    - {fileID: 21300000, guid: 761614105afbe034392abff6c83dd177, type: 3}
+    - {fileID: 21300000, guid: 3e96d5445b5d4494c86585ab0cb19597, type: 3}
+    - {fileID: 21300000, guid: 493827e8253925546852b2902dcaa7a1, type: 3}
+    - {fileID: 21300000, guid: 94604bb421527b44b9f42de9b260875d, type: 3}
+    - {fileID: 21300000, guid: 4dfa031bf5fa9d04c8f915f9274c77cd, type: 3}
+    - {fileID: 21300000, guid: 37fe841bb9635cc419c7e4a78bf9fb10, type: 3}
+    - {fileID: 21300000, guid: b967e6b63eeb81f469f6b4abd8ae5f43, type: 3}
+    - {fileID: 21300000, guid: 8a02aedcf680c9440873eca071add4d2, type: 3}
+    - {fileID: 21300000, guid: 3eafafcb57ff984409e61a49a7adf261, type: 3}
+    - {fileID: 21300000, guid: 04a9f2539ff85f64bb5c5fdeb333938d, type: 3}
+    - {fileID: 21300000, guid: 3e7b8c42c2e7c144ab3548a04f7b80b9, type: 3}
+    - {fileID: 21300000, guid: 6d142b478e777f14681b70198f823645, type: 3}
+    - {fileID: 21300000, guid: fa4fa8f75ce2a76488ff0a84c5be6a92, type: 3}
+    - {fileID: 21300000, guid: 90329eecd2c7c384fb37add8fce74637, type: 3}
+    - {fileID: 21300000, guid: f27ed2bc5def08546a36a1fa616e456a, type: 3}
+    - {fileID: 21300000, guid: e2f4adc0c8867314f96a7d73f17d97b3, type: 3}
+    - {fileID: 21300000, guid: b36598ecda6fb0a4f925c5fdd425867b, type: 3}
+    - {fileID: 21300000, guid: fe45680872217ea479019da2ce989176, type: 3}
+    - {fileID: 21300000, guid: e74a4731a664ab34695a723fabe60b66, type: 3}
+    - {fileID: 21300000, guid: b2cd1c5ad0e1e1b4fb62cc2610fd6a4a, type: 3}
+    - {fileID: 21300000, guid: 0c856b473273e1d48b5e7110e8589da7, type: 3}
+    - {fileID: 21300000, guid: f9c1a58b69edb674faba0b7a58d09a49, type: 3}
+    - {fileID: 21300000, guid: f4bcbf9f36a83e647bd09408db487039, type: 3}
+    - {fileID: 21300000, guid: 4cbbc2b7fe4083247a185c9d6eb8105e, type: 3}
+    - {fileID: 21300000, guid: 1a1c69b8d2e0c604eac2f3b8ced88016, type: 3}
+    - {fileID: 21300000, guid: b9f68c4f5e5fc43429b065a4742b459f, type: 3}
+    - {fileID: 21300000, guid: 1569958eb489a6b45b451cf9935e5522, type: 3}
+    - {fileID: 21300000, guid: 65b360583ba35974f86bcbf1e803e965, type: 3}
+    - {fileID: 21300000, guid: 7b520d0b7f0cf8641b96adf47afe2a84, type: 3}
+    - {fileID: 21300000, guid: de4882063dcc052469289bdf42f1688b, type: 3}
+    - {fileID: 21300000, guid: ed065775d5514054babb7ebfb5369ea0, type: 3}
+    - {fileID: 21300000, guid: 2413d36e7f640b346b1935e687d65044, type: 3}
+    - {fileID: 21300000, guid: 330e7bbe1eef84f4f851a92d2110db0d, type: 3}
+    - {fileID: 21300000, guid: fad8b85d4d2384a45890b8200cc80065, type: 3}
+    - {fileID: 21300000, guid: afaeba2759921214ea1e26304aa88cfd, type: 3}
+    - {fileID: 21300000, guid: 1aa5b3cb941cdce45a1da102d57d84c5, type: 3}
+    - {fileID: 21300000, guid: 9b3a68972bc6f30498817d577c801f73, type: 3}
+    - {fileID: 21300000, guid: a2b9b55faabc1714280373cef6569b35, type: 3}
+    - {fileID: 21300000, guid: fc7622d8ef97dd14791b94f01301881d, type: 3}
+    - {fileID: 21300000, guid: d0b6e6c77db283440a854f54c13713f2, type: 3}
+    - {fileID: 21300000, guid: fa17dda70362ce1489a826b303e1440d, type: 3}
+    - {fileID: 21300000, guid: 5987d1da55d7ea74aa55409bdb339293, type: 3}
+    - {fileID: 21300000, guid: 97f8c7201271d6b4894fa65536199a00, type: 3}
+    - {fileID: 21300000, guid: 8a86abb14c7343f4f8705ac93aa50438, type: 3}
+    - {fileID: 21300000, guid: 0c1f25331de537d4b9b654547e1c5953, type: 3}
+    - {fileID: 21300000, guid: b8a2ed70a15312449989a1ee892a46c1, type: 3}
+    - {fileID: 21300000, guid: e447eadc4c67c3e46ba2f4e593b67fa8, type: 3}
+    - {fileID: 21300000, guid: 794a8faacdd79cc4ca0b17703bf19430, type: 3}
+    - {fileID: 21300000, guid: 3532547d404aa4e4bb31cd7ee7699e26, type: 3}
+    - {fileID: 21300000, guid: 0f04a8ea843d7f842b0cb931427ff02c, type: 3}
+    - {fileID: 21300000, guid: caf05affd6c9744459714169cf9f0e44, type: 3}
+    - {fileID: 21300000, guid: 10b4073047006f14eb94c704079f64b3, type: 3}
+    - {fileID: 21300000, guid: 1ecdc2d4f2857cd418addf18168e1696, type: 3}
+    - {fileID: 21300000, guid: 49beffb16c5b2084087e6a5ffa0940cf, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -42,8 +137,8 @@ MonoBehaviour:
       Entry: 7
       Data: 2|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1
@@ -219,8 +314,8 @@ MonoBehaviour:
       Entry: 7
       Data: 13|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_2
@@ -330,8 +425,8 @@ MonoBehaviour:
       Entry: 7
       Data: 20|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 2
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_3
@@ -462,8 +557,8 @@ MonoBehaviour:
       Entry: 7
       Data: 28|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 3
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_4
@@ -1072,7 +1167,7 @@ MonoBehaviour:
       Data: 66|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
-      Data: 0
+      Data: 4
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1005
@@ -1204,7 +1299,7 @@ MonoBehaviour:
       Data: 74|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
-      Data: 0
+      Data: 5
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1006
@@ -1377,8 +1472,8 @@ MonoBehaviour:
       Entry: 7
       Data: 84|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 6
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1007
@@ -1488,8 +1583,8 @@ MonoBehaviour:
       Entry: 7
       Data: 91|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 7
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1008
@@ -1599,8 +1694,8 @@ MonoBehaviour:
       Entry: 7
       Data: 98|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 8
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1009
@@ -1710,8 +1805,8 @@ MonoBehaviour:
       Entry: 7
       Data: 105|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 9
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1010
@@ -1842,8 +1937,8 @@ MonoBehaviour:
       Entry: 7
       Data: 113|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 10
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1011
@@ -1953,8 +2048,8 @@ MonoBehaviour:
       Entry: 7
       Data: 120|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 11
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1012
@@ -2064,8 +2159,8 @@ MonoBehaviour:
       Entry: 7
       Data: 127|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 12
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1013
@@ -2175,8 +2270,8 @@ MonoBehaviour:
       Entry: 7
       Data: 134|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 13
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1014
@@ -2286,8 +2381,8 @@ MonoBehaviour:
       Entry: 7
       Data: 141|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 14
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1015
@@ -2439,8 +2534,8 @@ MonoBehaviour:
       Entry: 7
       Data: 150|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 15
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1016
@@ -2550,8 +2645,8 @@ MonoBehaviour:
       Entry: 7
       Data: 157|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 16
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1017
@@ -2682,8 +2777,8 @@ MonoBehaviour:
       Entry: 7
       Data: 165|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 17
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1018
@@ -2814,8 +2909,8 @@ MonoBehaviour:
       Entry: 7
       Data: 173|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 18
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1019
@@ -2925,8 +3020,8 @@ MonoBehaviour:
       Entry: 7
       Data: 180|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 19
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1020
@@ -3057,8 +3152,8 @@ MonoBehaviour:
       Entry: 7
       Data: 188|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 20
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1021
@@ -3183,8 +3278,8 @@ MonoBehaviour:
       Entry: 7
       Data: 196|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 21
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1022
@@ -3357,8 +3452,8 @@ MonoBehaviour:
       Entry: 7
       Data: 206|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 22
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1023
@@ -3514,8 +3609,8 @@ MonoBehaviour:
       Entry: 7
       Data: 216|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 23
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1024
@@ -3625,8 +3720,8 @@ MonoBehaviour:
       Entry: 7
       Data: 223|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 24
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1025
@@ -3715,8 +3810,8 @@ MonoBehaviour:
       Entry: 7
       Data: 229|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 25
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1026
@@ -3826,8 +3921,8 @@ MonoBehaviour:
       Entry: 7
       Data: 236|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 26
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1027
@@ -3940,8 +4035,8 @@ MonoBehaviour:
       Entry: 7
       Data: 244|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 27
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1028
@@ -4030,8 +4125,8 @@ MonoBehaviour:
       Entry: 7
       Data: 250|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 28
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1029
@@ -4120,8 +4215,8 @@ MonoBehaviour:
       Entry: 7
       Data: 256|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 29
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1030
@@ -4210,8 +4305,8 @@ MonoBehaviour:
       Entry: 7
       Data: 262|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 30
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1031
@@ -4300,8 +4395,8 @@ MonoBehaviour:
       Entry: 7
       Data: 268|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 31
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1032
@@ -4390,8 +4485,8 @@ MonoBehaviour:
       Entry: 7
       Data: 274|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 32
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1033
@@ -4501,8 +4596,8 @@ MonoBehaviour:
       Entry: 7
       Data: 281|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 33
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1034
@@ -4612,8 +4707,8 @@ MonoBehaviour:
       Entry: 7
       Data: 288|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 34
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1035
@@ -4744,8 +4839,8 @@ MonoBehaviour:
       Entry: 7
       Data: 296|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 35
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1036
@@ -4897,8 +4992,8 @@ MonoBehaviour:
       Entry: 7
       Data: 305|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 36
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1037
@@ -5050,8 +5145,8 @@ MonoBehaviour:
       Entry: 7
       Data: 314|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 37
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1038
@@ -5161,8 +5256,8 @@ MonoBehaviour:
       Entry: 7
       Data: 321|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 38
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1039
@@ -5272,8 +5367,8 @@ MonoBehaviour:
       Entry: 7
       Data: 328|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 39
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1040
@@ -5404,8 +5499,8 @@ MonoBehaviour:
       Entry: 7
       Data: 336|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 40
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1041
@@ -5494,8 +5589,8 @@ MonoBehaviour:
       Entry: 7
       Data: 342|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 41
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1042
@@ -5626,8 +5721,8 @@ MonoBehaviour:
       Entry: 7
       Data: 350|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 42
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1043
@@ -5758,8 +5853,8 @@ MonoBehaviour:
       Entry: 7
       Data: 358|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 43
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1044
@@ -5869,8 +5964,8 @@ MonoBehaviour:
       Entry: 7
       Data: 365|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 44
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1045
@@ -5989,8 +6084,8 @@ MonoBehaviour:
       Entry: 7
       Data: 373|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 45
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1046
@@ -6130,8 +6225,8 @@ MonoBehaviour:
       Entry: 7
       Data: 382|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 46
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1047
@@ -6283,8 +6378,8 @@ MonoBehaviour:
       Entry: 7
       Data: 391|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 47
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1048
@@ -6373,8 +6468,8 @@ MonoBehaviour:
       Entry: 7
       Data: 397|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 48
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1049
@@ -6505,8 +6600,8 @@ MonoBehaviour:
       Entry: 7
       Data: 405|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 49
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1050
@@ -6616,8 +6711,8 @@ MonoBehaviour:
       Entry: 7
       Data: 412|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 50
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1051
@@ -6727,8 +6822,8 @@ MonoBehaviour:
       Entry: 7
       Data: 419|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 51
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1052
@@ -6838,8 +6933,8 @@ MonoBehaviour:
       Entry: 7
       Data: 426|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 52
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1053
@@ -6997,8 +7092,8 @@ MonoBehaviour:
       Entry: 7
       Data: 436|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 53
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1054
@@ -7066,8 +7161,8 @@ MonoBehaviour:
       Entry: 7
       Data: 441|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 54
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1055
@@ -7156,8 +7251,8 @@ MonoBehaviour:
       Entry: 7
       Data: 447|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 55
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1056
@@ -7288,8 +7383,8 @@ MonoBehaviour:
       Entry: 7
       Data: 455|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 56
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1057
@@ -7378,8 +7473,8 @@ MonoBehaviour:
       Entry: 7
       Data: 461|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 57
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1058
@@ -7531,8 +7626,8 @@ MonoBehaviour:
       Entry: 7
       Data: 470|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 58
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1059
@@ -7621,8 +7716,8 @@ MonoBehaviour:
       Entry: 7
       Data: 476|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 59
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1060
@@ -7729,8 +7824,8 @@ MonoBehaviour:
       Entry: 7
       Data: 483|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 60
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1061
@@ -7861,8 +7956,8 @@ MonoBehaviour:
       Entry: 7
       Data: 491|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 61
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1062
@@ -8014,8 +8109,8 @@ MonoBehaviour:
       Entry: 7
       Data: 500|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 62
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1063
@@ -8125,8 +8220,8 @@ MonoBehaviour:
       Entry: 7
       Data: 507|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 63
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1064
@@ -8215,8 +8310,8 @@ MonoBehaviour:
       Entry: 7
       Data: 513|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 64
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1065
@@ -8326,8 +8421,8 @@ MonoBehaviour:
       Entry: 7
       Data: 520|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 65
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1066
@@ -8437,8 +8532,8 @@ MonoBehaviour:
       Entry: 7
       Data: 527|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 66
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1067
@@ -8569,8 +8664,8 @@ MonoBehaviour:
       Entry: 7
       Data: 535|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 67
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1068
@@ -8680,8 +8775,8 @@ MonoBehaviour:
       Entry: 7
       Data: 542|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 68
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1069
@@ -8812,8 +8907,8 @@ MonoBehaviour:
       Entry: 7
       Data: 550|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 69
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1070
@@ -8923,8 +9018,8 @@ MonoBehaviour:
       Entry: 7
       Data: 557|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 70
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1071
@@ -9115,8 +9210,8 @@ MonoBehaviour:
       Entry: 7
       Data: 569|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 71
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1072
@@ -9184,8 +9279,8 @@ MonoBehaviour:
       Entry: 7
       Data: 574|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 72
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1073
@@ -9316,8 +9411,8 @@ MonoBehaviour:
       Entry: 7
       Data: 582|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 73
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1074
@@ -9427,8 +9522,8 @@ MonoBehaviour:
       Entry: 7
       Data: 589|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 74
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1075
@@ -9538,8 +9633,8 @@ MonoBehaviour:
       Entry: 7
       Data: 596|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 75
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1076
@@ -9670,8 +9765,8 @@ MonoBehaviour:
       Entry: 7
       Data: 604|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 76
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1077
@@ -9781,8 +9876,8 @@ MonoBehaviour:
       Entry: 7
       Data: 611|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 77
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1078
@@ -9892,8 +9987,8 @@ MonoBehaviour:
       Entry: 7
       Data: 618|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 78
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1079
@@ -10012,8 +10107,8 @@ MonoBehaviour:
       Entry: 7
       Data: 626|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 79
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1080
@@ -10102,8 +10197,8 @@ MonoBehaviour:
       Entry: 7
       Data: 632|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 80
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1081
@@ -10284,8 +10379,8 @@ MonoBehaviour:
       Entry: 7
       Data: 642|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 81
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1082
@@ -10458,8 +10553,8 @@ MonoBehaviour:
       Entry: 7
       Data: 652|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 82
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1083
@@ -10548,8 +10643,8 @@ MonoBehaviour:
       Entry: 7
       Data: 658|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 83
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1084
@@ -10638,8 +10733,8 @@ MonoBehaviour:
       Entry: 7
       Data: 664|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 84
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1085
@@ -10749,8 +10844,8 @@ MonoBehaviour:
       Entry: 7
       Data: 671|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 85
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1086
@@ -10860,8 +10955,8 @@ MonoBehaviour:
       Entry: 7
       Data: 678|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 86
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1087
@@ -10950,8 +11045,8 @@ MonoBehaviour:
       Entry: 7
       Data: 684|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 87
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1088
@@ -11061,8 +11156,8 @@ MonoBehaviour:
       Entry: 7
       Data: 691|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 88
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1089
@@ -11151,8 +11246,8 @@ MonoBehaviour:
       Entry: 7
       Data: 697|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 89
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1090
@@ -11241,8 +11336,8 @@ MonoBehaviour:
       Entry: 7
       Data: 703|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 90
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1091
@@ -11394,8 +11489,8 @@ MonoBehaviour:
       Entry: 7
       Data: 712|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 91
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1092
@@ -11526,8 +11621,8 @@ MonoBehaviour:
       Entry: 7
       Data: 720|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 92
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1093
@@ -11664,8 +11759,8 @@ MonoBehaviour:
       Entry: 7
       Data: 729|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 93
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1094
@@ -11775,8 +11870,8 @@ MonoBehaviour:
       Entry: 7
       Data: 736|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 94
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1095
@@ -11886,8 +11981,8 @@ MonoBehaviour:
       Entry: 7
       Data: 743|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 95
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1096
@@ -11997,8 +12092,8 @@ MonoBehaviour:
       Entry: 7
       Data: 750|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 96
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1097
@@ -12108,8 +12203,8 @@ MonoBehaviour:
       Entry: 7
       Data: 757|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 97
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1098
@@ -12240,8 +12335,8 @@ MonoBehaviour:
       Entry: 7
       Data: 765|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 98
     - Name: Name
       Entry: 1
       Data: ShipPlug_Name_1099

@@ -15,6 +15,8 @@ public class ShipBuilderBrush : MonoBehaviour
     private Color validColor = Color.white;
     private Color invalidColor = new Color (186,0,0,116);
 
+    public bool IsBrushActive = false;
+
     private void Awake()
     {
         brushSprite = transform.Find("Sprite").SafeGetComponent<SpriteRenderer>();
@@ -50,6 +52,7 @@ public class ShipBuilderBrush : MonoBehaviour
 
     public void ActiveBrush(bool active)
     {
+        IsBrushActive = active;
         transform.SafeSetActive(active);
     }
 
