@@ -437,11 +437,11 @@ public static class GameHelper
     {
         var allItems = RogueManager.Instance.AllCurrentShipPlugs;
         List<uint> goods = new List<uint>();
-        for(int i = 0; i < allItems.Count; i++)
+        for (int i = 0; i < allItems.Count; i++) 
         {
-            if (!goods.Contains((uint)allItems[i].GoodsID))
+            if (!goods.Contains((uint)allItems[i].PlugID))
             {
-                goods.Add((uint)allItems[i].GoodsID);
+                goods.Add((uint)allItems[i].PlugID);
             }
         }
 

@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GoodsItemType
+{
+    ShipPlug,
+    ShipUnit
+}
+
 public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 {
     private GoodsItemType itemType;

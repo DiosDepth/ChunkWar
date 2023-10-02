@@ -52,11 +52,6 @@ public enum GoodsItemRarity
     Tier5,
 }
 
-public enum GoodsItemType
-{
-    ShipUnit,
-    ShipPlug,
-}
 
 [System.Serializable]
 public class WreckageDropItemConfig
@@ -85,9 +80,6 @@ public class ShopGoodsItemConfig
     public byte Weight = 20;
 
     [TableColumnWidth(80, false)]
-    public GoodsItemType ItemType;
-
-    [TableColumnWidth(80, false)]
     public int TypeID;
 
     [TableColumnWidth(80, false)]
@@ -111,21 +103,18 @@ public class ShopGoodsItemConfig
     private void OnInit()
     {
         CostValue = 0;
-        if(GoodID != 0 && ItemType == GoodsItemType.ShipPlug)
+        var items = DataManager.Instance.GetShipPlugItemConfig(TypeID);
+        if (items != null)
         {
-            var items = DataManager.Instance.GetShipPlugItemConfig(TypeID);
-            if(items != null)
+            var propertyCfg = items.PropertyModify;
+            if (propertyCfg != null && propertyCfg.Length > 0)
             {
-                var propertyCfg = items.PropertyModify;
-                if(propertyCfg != null && propertyCfg.Length > 0)
+                for (int i = 0; i < propertyCfg.Length; i++)
                 {
-                    for(int i = 0; i < propertyCfg.Length; i++)
+                    var value = ShopMainConfig.PropertyItem.GetPropertyValue(propertyCfg[i].ModifyKey);
+                    if (!propertyCfg[i].BySpecialValue)
                     {
-                        var value = ShopMainConfig.PropertyItem.GetPropertyValue(propertyCfg[i].ModifyKey);
-                        if (!propertyCfg[i].BySpecialValue)
-                        {
-                            CostValue += propertyCfg[i].Value * value;
-                        }
+                        CostValue += propertyCfg[i].Value * value;
                     }
                 }
             }

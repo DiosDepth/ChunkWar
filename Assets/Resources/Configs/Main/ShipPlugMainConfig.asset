@@ -438,7 +438,7 @@ MonoBehaviour:
       Data: 
     - Name: Rarity
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: SortingOrder
       Entry: 3
       Data: 0
@@ -570,7 +570,7 @@ MonoBehaviour:
       Data: 
     - Name: Rarity
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: SortingOrder
       Entry: 3
       Data: 0
