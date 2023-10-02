@@ -442,7 +442,7 @@ MonoBehaviour:
   BaseCriticalRate: 10
   CriticalDamage: 120
   TotalDamageCount: 2
-  ShootPerCount: 1
+  ShootPerCount: 2
   CD: 1
   FireCD: 0.1
   ShieldTransfixion: 0
