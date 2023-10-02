@@ -431,6 +431,7 @@ MonoBehaviour:
   BaseHP: 400
   BaseEnergyCost: 0
   BaseEnergyGenerate: 100
+  LoadAdd: 0
   PropertyModify: []
   DamageBase: 15
   UseDamageRatio: 0

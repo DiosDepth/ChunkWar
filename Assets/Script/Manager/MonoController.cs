@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MonoController : MonoBehaviour
+public class MonoController : MonoBehaviour, IPauseable
 {
     private event UnityAction updateEvent;
     private event UnityAction fixedUpdateEvent;
@@ -32,6 +32,7 @@ public class MonoController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         AchievementManager.Instance.OnUpdate();
         if (updateEvent != null)
         {
@@ -41,7 +42,8 @@ public class MonoController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(laterUpdateEvent != null)
+        if (GameManager.Instance.IsPauseGame()) { return; }
+        if (laterUpdateEvent != null)
         {
             laterUpdateEvent();
         }
@@ -49,7 +51,8 @@ public class MonoController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(fixedUpdateEvent != null)
+        if (GameManager.Instance.IsPauseGame()) { return; }
+        if (fixedUpdateEvent != null)
         {
             fixedUpdateEvent();
         }
@@ -116,4 +119,13 @@ public void AddUpdateListener(UnityAction fun)
         SaveLoadManager.Instance.SaveGlobalSaveData();
     }
 
+    public void PauseGame()
+    {
+      
+    }
+
+    public void UnPauseGame()
+    {
+       
+    }
 }

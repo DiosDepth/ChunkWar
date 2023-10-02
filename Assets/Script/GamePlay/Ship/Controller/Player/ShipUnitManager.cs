@@ -9,7 +9,7 @@ using UnityEngine;
 
 using static Weapon;
 
-public class ShipUnitManager 
+public class ShipUnitManager:IPauseable
 {
     public BaseShip targetShip;
     public List<ShipAdditionalWeapon> activeWeaponList;
@@ -31,6 +31,7 @@ public class ShipUnitManager
 
     public ShipUnitManager()
     {
+        GameManager.Instance.RegisterPauseable(this);
         activeWeaponList = new List<ShipAdditionalWeapon>();
         activeBuildingList = new List<Building>();
         projectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
@@ -39,12 +40,16 @@ public class ShipUnitManager
         activeWeaponPosList = new NativeList<float3>(Allocator.Persistent);
         activeWeaponAttackRangeList = new NativeList<float>(Allocator.Persistent);
         activeWeaponTargetCountList = new NativeList<int>(Allocator.Persistent);
-
-
-   
+        
     }
 
     ~ ShipUnitManager()
+    {
+        GameManager.Instance.UnRegisterPauseable(this);
+        DisposeAllJobData();
+    }
+
+    public virtual void DisposeAllJobData()
     {
         if (activeWeaponPosList.IsCreated) { activeWeaponPosList.Dispose(); }
         if (projectile_JobInfo.IsCreated) { projectile_JobInfo.Dispose(); }
@@ -55,11 +60,13 @@ public class ShipUnitManager
 
     public virtual void Initialization(BaseShip target)
     {
+        GameManager.Instance.RegisterPauseable(this);
         targetShip = target;
     }
 
     public virtual void Update()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         UpdateActiveUnit();
         UpdateWeapon();
         UpdateBuilding();
@@ -406,5 +413,39 @@ public class ShipUnitManager
             RemoveProjectileBullet(bullet as Projectile);
         }
         //todo 如果不是Projectile类型需要用调用其他容器的Remove
+    }
+
+    public void Unload()
+    {
+        GameManager.Instance.UnRegisterPauseable(this);
+        targetShip = null;
+        //clear all ai
+        activeWeaponList.Clear();
+        activeBuildingList.Clear();
+
+        //todo clear all bullet
+        if (projectileList != null && projectileList.Count != 0)
+        {
+            for (int i = 0; i < projectileList.Count; i++)
+            {
+                projectileList[i].PoolableDestroy();
+            }
+        }
+        projectileList.Clear();
+        projiectileDeathIndexList.Clear();
+        projectileDamageList.Clear();
+
+        //Dispose all job data
+        DisposeAllJobData();
+    }
+
+    public void PauseGame()
+    {
+        
+    }
+
+    public void UnPauseGame()
+    {
+        
     }
 }

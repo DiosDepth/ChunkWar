@@ -597,7 +597,7 @@ public class Weapon : Unit
 
     public virtual void HandleOtherWeaponRotation()
     {
-
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (rotationRoot == null)
         {
             return;
@@ -647,8 +647,9 @@ public class Weapon : Unit
 
     public virtual void ProcessWeapon()
     {
-        if (!_isProcess)
-            return;
+        if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!_isProcess) { return; }
+         
         HandleOtherWeaponRotation();
         switch (weaponstate.CurrentState)
         {
@@ -1270,5 +1271,15 @@ public class Weapon : Unit
         ShipPropertyEvent.Trigger(ShipPropertyEventType.CoreHPChange);
         var percent = HpComponent.HPPercent;
         LevelManager.Instance.OnPlayerShipCoreHPPercentChange(percent);
+    }
+
+    public override void PauseGame()
+    {
+        base.PauseGame();
+
+    }
+    public override void UnPauseGame()
+    {
+        base.UnPauseGame();
     }
 }

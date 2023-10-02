@@ -44,7 +44,7 @@ public struct ShipStateEvent
 }
 
 [ShowOdinSerializedPropertiesInInspector]
-public class BaseShip : MonoBehaviour,IDropable
+public class BaseShip : MonoBehaviour, IDropable, IPauseable
 {
 
     public BaseController controller;
@@ -73,6 +73,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     public virtual void Initialization()
     {
+        GameManager.Instance.RegisterPauseable(this);
         controller = this.GetComponent<BaseController>();
         if(controller == null)
         {
@@ -121,6 +122,15 @@ public class BaseShip : MonoBehaviour,IDropable
         
     }
 
+    protected virtual void OnDestroy()
+    {
+        GameManager.Instance.UnRegisterPauseable(this);
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            Destroy(_unitList[i].gameObject);
+        }
+    }
+
     public virtual void CreateShip()
     {
 
@@ -142,6 +152,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     protected virtual void Death(UnitDeathInfo info)
     {
+        GameManager.Instance.UnRegisterPauseable(this);
         conditionState.ChangeState(ShipConditionState.Death);
         ShipStateEvent.Trigger(this, info, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
     }
@@ -151,13 +162,7 @@ public class BaseShip : MonoBehaviour,IDropable
 
     }
 
-    protected virtual void OnDestroy()
-    {
-        for (int i = 0; i < _unitList.Count; i++)
-        {
-            Destroy(_unitList[i].gameObject);
-        }
-    }
+
 
     public virtual void InitProperty()
     {
@@ -277,5 +282,15 @@ public class BaseShip : MonoBehaviour,IDropable
         float MaxSize = Mathf.Max(baseShipCfg.MapSize.Lager(), 2);
         Vector2 shipPos = transform.position.ToVector2();
         return MathExtensionTools.GetRadomPosFromOutRange(0.5f, MaxSize, shipPos);
+    }
+
+    public virtual void PauseGame()
+    {
+      
+    }
+
+    public virtual void UnPauseGame()
+    {
+
     }
 }

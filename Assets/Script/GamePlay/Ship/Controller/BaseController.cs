@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseController : MonoBehaviour
+public class BaseController : MonoBehaviour, IPauseable
 {
     public bool IsUpdate = false;
 
@@ -17,7 +17,7 @@ public class BaseController : MonoBehaviour
 
     public virtual void Initialization()
     {
-
+        GameManager.Instance.RegisterPauseable(this);
     }
     protected virtual void Start()
     {
@@ -37,7 +37,7 @@ public class BaseController : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-
+        GameManager.Instance.UnRegisterPauseable(this);
     }
 
     public virtual void SetControllerUpdate(bool isupdate)
@@ -90,5 +90,12 @@ public class BaseController : MonoBehaviour
 
     }
 
+    public void PauseGame()
+    {
 
+    }
+    public void UnPauseGame()
+    {
+      
+    }
 }

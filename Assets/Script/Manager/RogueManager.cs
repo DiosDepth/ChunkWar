@@ -477,16 +477,20 @@ public class RogueManager : Singleton<RogueManager>
     {
         ClearShip();
         _tempWaveTime = Timer.CurrentSecond;
+
     }
 
     public void ClearShip()
     {
         if(currentShip != null)
         {
+            (currentShip.controller as ShipController).shipUnitManager.Unload();
             GameObject.Destroy(currentShip.container.gameObject);
             currentShip = null;
         }
+
     }
+
 
     /// <summary>
     /// Ôö¼Ó»õ±Ò

@@ -26,7 +26,7 @@ public enum AvaliableBulletType
     BaseHommingBullet_Player,
     BaseChainBeam_Player,
 }
-public class Bullet : MonoBehaviour,IPoolable
+public class Bullet : MonoBehaviour,IPoolable,IPauseable
 {
     public BulletType type;
     public OwnerType ownertype;
@@ -46,8 +46,11 @@ public class Bullet : MonoBehaviour,IPoolable
     public bool IsApplyDamageAtThisFrame { get { return _isApplyDamageAtThisFrame; } }
     protected bool _isApplyDamageAtThisFrame;
     protected bool _isUpdate;
+   
     public virtual void Initialization()
     {
+        GameManager.Instance.RegisterPauseable(this);
+        SetUpdate(true);
         if(ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
         {
             AIManager.Instance.AddBullet(this);
@@ -109,7 +112,10 @@ public class Bullet : MonoBehaviour,IPoolable
         }
     }
 
-
+    public virtual void SetUpdate(bool isupdate)
+    {
+        _isUpdate = isupdate;
+    }
     public virtual void SetOwner(Unit owner)
     {
         _owner = owner;
@@ -142,9 +148,14 @@ public class Bullet : MonoBehaviour,IPoolable
     {
 
     }
+    protected virtual void OnDestroy()
+    {
+        GameManager.Instance.UnRegisterPauseable(this);
+    }
 
     public virtual void Death(UnitDeathInfo info)
     {
+
         if (ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
         {
             AIManager.Instance.RemoveBullet(this);
@@ -171,12 +182,14 @@ public class Bullet : MonoBehaviour,IPoolable
 
     public virtual void PoolableReset()
     {
+        SetUpdate(false);
         _isApplyDamageAtThisFrame = false;
         target = null;
     }
 
     public virtual void PoolableDestroy()
     {
+        GameManager.Instance.UnRegisterPauseable(this);
         PoolableReset();
         PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
@@ -193,6 +206,14 @@ public class Bullet : MonoBehaviour,IPoolable
     }
 
 
+    public virtual void PauseGame()
+    {
+       
+        
+    }
 
-
+    public virtual void UnPauseGame()
+    {
+       
+    }
 }

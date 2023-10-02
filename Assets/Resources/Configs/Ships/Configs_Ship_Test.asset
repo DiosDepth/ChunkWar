@@ -1439,15 +1439,17 @@ MonoBehaviour:
     Name: 
     Desc: 
     Rarity: 3
+    SortingOrder: 0
   Prefab: {fileID: 3997448930768514733, guid: d48c218b5f5b88f4fbfe7aaabd9bc7c6, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
   DropList: []
-  MainWeaponID: 3
   CorePlugID: 1
   PlayerShipCampID: 3
   UnlockDefault: 0
   EditorPrefab: {fileID: 0}
   ShipPropertyDesc: 
+  ShipHardLevels: 
+  ShipOriginPlugs: 
   ShipEditorSprite: {fileID: 0}

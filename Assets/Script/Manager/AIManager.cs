@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.U2D;
 
 
-public class AIManager : Singleton<AIManager>
+public class AIManager : Singleton<AIManager>, IPauseable
 {
     public const int MaxAICount = 300;
     public bool ProcessAI = false;
@@ -128,14 +128,14 @@ public class AIManager : Singleton<AIManager>
     // Start is called before the first frame update
     public AIManager()
     {
-
+        GameManager.Instance.RegisterPauseable(this);
         MonoManager.Instance.AddUpdateListener(Update);
         MonoManager.Instance.AddLaterUpdateListener(LaterUpdate);
         MonoManager.Instance.AddFixedUpdateListener(FixedUpdate);
     }
     ~AIManager()
     {
-
+        GameManager.Instance.UnRegisterPauseable(this);
         MonoManager.Instance.RemoveUpdateListener(Update);
         MonoManager.Instance.RemoveUpdateListener(LaterUpdate);
         MonoManager.Instance.RemoveFixedUpdateListener(FixedUpdate);
@@ -144,6 +144,7 @@ public class AIManager : Singleton<AIManager>
     public override void Initialization()
     {
         base.Initialization();
+        GameManager.Instance.RegisterPauseable(this);
         AllocateAIJobData();
 
         playerBoid = RogueManager.Instance.currentShip.GetComponent<IBoid>();
@@ -312,6 +313,7 @@ public class AIManager : Singleton<AIManager>
 
     public void Unload()
     {
+        GameManager.Instance.UnRegisterPauseable(this);
         //clear all ai
         if ( aiShipList != null)
         {
@@ -345,7 +347,8 @@ public class AIManager : Singleton<AIManager>
             
         }
         aiProjectileList.Clear();
-
+        aiProjectileDamageList.Clear();
+        _aiProjectileDeathIndex.Clear();
 
         //Dispose all job data
         DisposeAIJobData();
@@ -370,6 +373,7 @@ public class AIManager : Singleton<AIManager>
     }
     private void Update()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessAI) { return; }
         //update weapon
         UpdateAIAdditionalWeapon();
@@ -380,11 +384,13 @@ public class AIManager : Singleton<AIManager>
 
     private void LaterUpdate()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessAI) { return; }
     }
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessAI) { return; }
         UpdateMoveJobData();
         UpdateAIMovement();
@@ -503,6 +509,7 @@ public class AIManager : Singleton<AIManager>
         aiShipBoidList.Clear();
         aiActiveUnitList.Clear();
         aiSteeringBehaviorControllerList.Clear();
+       
     }
     public void ClearTarget()
     {
@@ -1109,5 +1116,13 @@ public class AIManager : Singleton<AIManager>
         }
     }
 
+    public void PauseGame()
+    {
+        
+    }
 
+    public void UnPauseGame()
+    {
+        
+    }
 }

@@ -423,12 +423,15 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 0
+  UnlockDefault: 1
+  ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: f45fcf4bd128dba478120d521ae2b089, type: 3}
   EditorBrushDefaultRotation: 0
   ItemTags: 4
   BaseHP: 100
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
+  LoadAdd: 0
   PropertyModify: []
   DamageBase: 50
   UseDamageRatio: 0

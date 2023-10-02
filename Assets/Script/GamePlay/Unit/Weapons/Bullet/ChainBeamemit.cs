@@ -27,7 +27,7 @@ public class ChainBeamemit : Bullet
     private float _targetDistance;
     private float _tempRaytFrequenceStamp = float.MinValue;
     private Vector2 _direction;
-
+    private bool _isChained;
     public override void Shoot()
     {
         PoolableSetActive();
@@ -117,7 +117,7 @@ public class ChainBeamemit : Bullet
                     var damage = (_owner as Weapon).weaponAttribute.GetDamage();
                     hit.collider.GetComponent<IDamageble>()?.TakeDamage(damage);
                 }
-                _isUpdate = true;
+                _isChained = true;
             }
 
             LeanTween.delayedCall(duration, () =>
@@ -162,14 +162,15 @@ public class ChainBeamemit : Bullet
     // Update is called once per frame
     protected override void Update()
     {
+        if (!_isUpdate) { return; }
+        if (firepoint == null) { return; }
+
         transform.position = firepoint.transform.position;
         _direction = MathExtensionTools.DirectionToXY(transform.position, target.transform.position);
 
         transform.rotation = MathExtensionTools.GetRotationFromDirection(_direction);
-        if (!_isUpdate)
-        {
-            return;
-        }
+        if (!_isChained) { return; }
+
         base.Update();
 
         //_targetDistance = MathExtensionTools.DistanceXY(target.transform.position, transform.position);
@@ -198,7 +199,8 @@ public class ChainBeamemit : Bullet
         hit = new RaycastHit2D();
         maxDistance = (_owner as Weapon).weaponAttribute.WeaponRange;
         _tempRaytFrequenceStamp = float.MinValue;
-        _isUpdate = false;
+        _isChained = false;
+
         base.PoolableReset();
     }
 

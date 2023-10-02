@@ -279,6 +279,7 @@ public class EGameState_GameStart : GameState
         {
             InputDispatcher.Instance.ChangeInputMode("UI");
             UIManager.Instance.HiddenUI("ShipHUD");
+            GameManager.Instance.PauseGame();
             UIManager.Instance.ShowUI<Pause>("Pause", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
             {
                 panel.Initialization();
@@ -291,7 +292,8 @@ public class EGameState_GameStart : GameState
         if(context.phase == InputActionPhase.Performed)
         {
             InputDispatcher.Instance.ChangeInputMode("Player");
-            UIManager.Instance.HiddenUI("Pause"); 
+            UIManager.Instance.HiddenUI("Pause");
+            GameManager.Instance.UnPauseGame();
             UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
             {
                 panel.Initialization();

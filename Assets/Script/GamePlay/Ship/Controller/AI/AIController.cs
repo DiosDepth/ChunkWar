@@ -152,12 +152,14 @@ public class AIController : BaseController
     // Update is called once per frame
     protected override void Update()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         base.Update();
         UpdateState();
     }
 
     protected override void FixedUpdate()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         base.FixedUpdate();
         FixedUpdateState();
     }

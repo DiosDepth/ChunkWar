@@ -129,7 +129,7 @@ public class PlayerShip : BaseShip
 
     public override void Initialization()
     {
-
+        
         var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
         playerShipCfg = shipCfg;
         baseShipCfg = shipCfg;
@@ -137,11 +137,21 @@ public class PlayerShip : BaseShip
         ///Init ShipClass
         CreateShip();
         InitShipClass();
-
         ActiveShipUnit();
-        //
-     
+
     }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        if (mainWeapon != null)
+        {
+            Destroy(mainWeapon.gameObject);
+        }
+
+    }
+
 
 
 
@@ -235,15 +245,7 @@ public class PlayerShip : BaseShip
         }
     }
 
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-        if(mainWeapon != null)
-        {
-            Destroy(mainWeapon.gameObject);
-        }
-  
-    }
+
 
     protected override void Death(UnitDeathInfo info)
     {
@@ -622,4 +624,13 @@ public class PlayerShip : BaseShip
         }
     }
 
+    public override void PauseGame()
+    {
+        
+    }
+
+    public override void UnPauseGame()
+    {
+        
+    }
 }

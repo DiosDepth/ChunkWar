@@ -19,6 +19,7 @@ public class AIShip : BaseShip,IPoolable
     public override void Initialization()
     {
         base.Initialization();
+
         CreateShip();
     }
 
@@ -42,6 +43,10 @@ public class AIShip : BaseShip,IPoolable
         base.Update();
     }
 
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+    }
     protected override void Death(UnitDeathInfo info)
     {
         base.Death(info);
@@ -150,5 +155,15 @@ public class AIShip : BaseShip,IPoolable
         {
             RogueEvent.Trigger(RogueEventType.RemoveBossHPBillBoard, this);
         }
+    }
+
+    public override void PauseGame()
+    {
+        base.PauseGame();
+    }
+
+    public override void UnPauseGame()
+    {
+        base.UnPauseGame();
     }
 }

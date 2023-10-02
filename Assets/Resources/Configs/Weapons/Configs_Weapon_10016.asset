@@ -417,17 +417,21 @@ MonoBehaviour:
     Name: Weapon_Name_10016
     Desc: 
     Rarity: 3
+    SortingOrder: 0
   Prefab: {fileID: 5156482088037079168, guid: 66aeca63430b46b48beb8679eb004f5e, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
   redirection: 0
+  UnlockDefault: 1
+  ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: 15d669631ae23bb438fa7ef67b6d3fcf, type: 3}
   EditorBrushDefaultRotation: 0
   ItemTags: 4
   BaseHP: 100
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
+  LoadAdd: 0
   PropertyModify: []
   DamageBase: 50
   UseDamageRatio: 0

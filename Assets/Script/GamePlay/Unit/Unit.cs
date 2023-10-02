@@ -168,7 +168,7 @@ public class UnitBaseAttribute
     }
 }
 
-public class Unit : MonoBehaviour, IDamageble, IPropertyModify
+public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 {
     public int UnitID;
     /// <summary>
@@ -210,6 +210,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     /// </summary>
     public byte currentEvolvePoints;
 
+
+
     public BaseShip _owner
     {
         get;
@@ -247,6 +249,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
     public virtual void Death(UnitDeathInfo info)
     {
+        GameManager.Instance.UnRegisterPauseable(this);
         state = DamagableState.Destroyed;
 
         if(_owner is AIShip)
@@ -304,10 +307,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     protected virtual void OnDestroy()
     {
         RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
+        GameManager.Instance.UnRegisterPauseable(this);
     }
 
     public virtual void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
+
         _owner = m_owner;
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
@@ -326,8 +331,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
 
             SetUnitProcess(true);
             unitSprite.color = Color.white;
-     
         }
+        GameManager.Instance.RegisterPauseable(this);
 
 
     }
@@ -513,6 +518,17 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify
     private void OnMaxHPChangeAction()
     {
         HpComponent.SetMaxHP(baseAttribute.HPMax);
+    }
+
+
+    public virtual void PauseGame()
+    {
+       
+    }
+
+    public virtual void  UnPauseGame()
+    {
+       
     }
 }
 

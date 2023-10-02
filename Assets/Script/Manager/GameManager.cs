@@ -52,7 +52,7 @@ public struct GameEvent
 public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,EventListener<GameStateTransitionEvent>
 {
     public StateMachine<EGameState> gamestate = new StateMachine<EGameState>(null, true, true);
-
+    public List<IPauseable> pauseableList = new List<IPauseable>();
 
 
     private bool isInitialCompleted = false;
@@ -75,6 +75,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         get { return _campDatas.Values.ToList(); }
     }
 
+    protected bool _isGamePaused;
     public GameManager()
     {
         Application.targetFrameRate = 120;
@@ -135,6 +136,49 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     {
         RogueManager.Instance.Clear();
         LevelManager.Instance.Clear();
+    }
+
+    public bool IsPauseGame()
+    {
+        return _isGamePaused;
+    }
+
+    public void PauseGame()
+    {
+        _isGamePaused = true;
+        if (pauseableList == null) { return; }
+        if(pauseableList.Count == 0) { return; }
+    
+        for (int i = 0; i < pauseableList.Count; i++)
+        {
+            pauseableList[i].PauseGame();
+        }
+        Time.timeScale = 0;
+    }
+
+    public void UnPauseGame()
+    {
+        _isGamePaused = false;
+        if (pauseableList == null) { return; }
+        if (pauseableList.Count == 0) { return; }
+        for (int i = 0; i < pauseableList.Count; i++)
+        {
+            pauseableList[i].UnPauseGame();
+        }
+        Time.timeScale = 1;
+    }
+
+
+    public void RegisterPauseable(IPauseable pauseable)
+    {
+        if (pauseableList.Contains(pauseable)) { return; }
+        pauseableList.Add(pauseable);
+    }
+
+    public void UnRegisterPauseable(IPauseable pauseable)
+    {
+        if (!pauseableList.Contains(pauseable)) { return; }
+        pauseableList.Remove(pauseable);
     }
 
     #region HardLevel

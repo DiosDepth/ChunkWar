@@ -83,6 +83,7 @@ public class ShipController : BaseController, IBoid
     // Update is called once per frame
     protected override void Update()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         base.Update();
         if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
@@ -98,6 +99,7 @@ public class ShipController : BaseController, IBoid
 
     protected override void FixedUpdate()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (!_levelMgr.IsBattleLevel()) { return; }
         if (!IsUpdate) { return; }
         base.FixedUpdate();
@@ -115,6 +117,7 @@ public class ShipController : BaseController, IBoid
     }
     public void HandleMovementInput(InputAction.CallbackContext context)
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
         switch (context.phase)
         {
@@ -140,6 +143,7 @@ public class ShipController : BaseController, IBoid
     }
     public void HandlePointInput(InputAction.CallbackContext context)
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
         switch (context.phase)
         {
@@ -162,7 +166,8 @@ public class ShipController : BaseController, IBoid
 
     public void HandleAttackInput(InputAction.CallbackContext context)
     {
-        if(targetShip.conditionState.CurrentState == ShipConditionState.Freeze || 
+        if (GameManager.Instance.IsPauseGame()) { return; }
+        if (targetShip.conditionState.CurrentState == ShipConditionState.Freeze || 
             targetShip.conditionState.CurrentState == ShipConditionState.Death)
         {
             return;
@@ -222,7 +227,7 @@ public class ShipController : BaseController, IBoid
 
     public virtual void HandleRotation()
     {
-
+        if (GameManager.Instance.IsPauseGame()) { return; }
         //if (MovementInput.sqrMagnitude == 0)
         //{
         //    _crossZ = 0;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IPauseable
 {
-    bool IsPaused();
+
      void PauseGame();
      void UnPauseGame();
 
