@@ -17,6 +17,11 @@ public class ShipPropertySliderCmpt : MonoBehaviour
     public SliderPropertyType PropertyType;
     public bool PercentMode = true;
 
+    /// <summary>
+    /// ГЌди
+    /// </summary>
+    public float overlordPercent;
+
     private TextMeshProUGUI _valueText;
     private TextMeshProUGUI _levelText;
     private TextMeshProUGUI _value2Text;
@@ -113,6 +118,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
         var currentValue = RogueManager.Instance.WreckageTotalLoadCost;
         var maxValue = RogueManager.Instance.WreckageTotalLoadValue;
         var percent = currentValue / (float)maxValue;
+        overlordPercent = percent;
         _fillImage.fillAmount = percent;
         if (PercentMode)
         {
@@ -145,6 +151,7 @@ public class ShipPropertySliderCmpt : MonoBehaviour
             var currentValue = ship.CurrentUsedEnergy;
             var maxValue = ship.TotalEnergy;
             var percent = currentValue / (float)maxValue;
+            overlordPercent = percent;
             _fillImage.fillAmount = percent;
             if (PercentMode)
             {

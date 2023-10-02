@@ -78,7 +78,7 @@ public enum ShipPropertyEventType
     WreckageLoadChange,
 }
 
-public class RogueManager : Singleton<RogueManager>
+public class RogueManager : Singleton<RogueManager>, IPauseable
 {
     /// <summary>
     /// 主要属性
@@ -223,6 +223,7 @@ public class RogueManager : Singleton<RogueManager>
     /// 波次结束后自动进入港口
     /// </summary>
     private bool autoEnterHarbor = true;
+    private bool _isPause = false;
 
     #region Action 
 
@@ -300,6 +301,18 @@ public class RogueManager : Singleton<RogueManager>
         ClearAction();
     }
 
+    public void PauseGame()
+    {
+        Timer.Pause();
+        _isPause = true;
+    }
+
+    public void UnPauseGame()
+    {
+        Timer.StartTimer();
+        _isPause = false;
+    }
+
     /// <summary>
     /// 舰船选择界面初始化
     /// </summary>
@@ -314,6 +327,9 @@ public class RogueManager : Singleton<RogueManager>
     /// </summary>
     public void OnUpdateBattle()
     {
+        if (_isPause)
+            return;
+
         for (int i = 0; i < AllCurrentShipPlugs.Count; i++) 
         {
             AllCurrentShipPlugs[i].OnBattleUpdate();
@@ -404,19 +420,6 @@ public class RogueManager : Singleton<RogueManager>
         SettleCampScore();
     }
 
-    /// <summary>
-    /// 暂停
-    /// </summary>
-    public void Pause()
-    {
-        Timer.Pause();
-    }
-
-    public void Resume()
-    {
-        Timer.StartTimer();
-    }
-
     public override void Initialization()
     {
         base.Initialization();
@@ -425,6 +428,8 @@ public class RogueManager : Singleton<RogueManager>
         _playerCurrentGoods = new Dictionary<int, byte>();
         CurrentRogueShopItems = new List<ShopGoodsInfo>();
         CurrentShipLevelUpItems = new List<ShipLevelUpItem>();
+
+        GameManager.Instance.RegisterPauseable(this);
         InitShipLevelUpItems();
     }
 
@@ -632,6 +637,20 @@ public class RogueManager : Singleton<RogueManager>
     {
         if (CurrentWreckageItems.ContainsKey(uid))
             return CurrentWreckageItems[uid];
+        return null;
+    }
+
+    public WreckageItemInfo CreateAndAddNewWreckageInfo(int unitID)
+    {
+        if (wreckageItems.ContainsKey(unitID))
+        {
+            var info = wreckageItems[unitID].Clone();
+            var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.Wreckage, info);
+            info.UID = uid;
+            CurrentWreckageItems.Add(uid, info);
+            CalculateTotalLoadCost();
+            RogueEvent.Trigger(RogueEventType.RefreshWreckage);
+        }
         return null;
     }
 
@@ -1644,8 +1663,8 @@ public class RogueManager : Singleton<RogueManager>
 
     public void ShipLevelUp(byte oldLevel, int levelUpCount = 1)
     {
+        GameManager.Instance.PauseGame();
         RefreshShipLevelUpItems(false);
-        Pause();
 
         ///重复升级保护
         var levelUpPanel = UIManager.Instance.GetGUIFromDic<ShipLevelUpPage>("ShipLevelUpPage");
@@ -1829,7 +1848,6 @@ public class RogueManager : Singleton<RogueManager>
         SaveLoadManager.Save<SaveData>(sav, sav.SaveName);
         SaveLoadManager.Instance.AddSaveData(sav);
     }
-
     #endregion
 }
 

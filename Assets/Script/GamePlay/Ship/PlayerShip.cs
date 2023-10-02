@@ -434,11 +434,7 @@ public class PlayerShip : BaseShip
                 tempunit.occupiedCoords.Add(m_unitmap[i]);
             }
         }
-        if(tempunit is ShipAdditionalWeapon)
-        {
-            _unitList.Add(tempunit);
-        }
-
+        _unitList.Add(tempunit);
         RefreshShipEnergy();
         return tempunit;
     }

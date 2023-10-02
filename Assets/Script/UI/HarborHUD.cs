@@ -20,6 +20,9 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     private ShipPropertyGroupPanel _propertyGroup;
     private UnitSelectOption _unitSelectOption;
 
+    private CanvasGroup loadWarningCanvas;
+    private CanvasGroup energyWarningCanvas;
+
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private const string WreckageGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/WreckageSlotGroup";
     private const string PropertyBtnSwitch_Main = "ShipMainProperty_Btn_Text";
@@ -38,6 +41,9 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         _propertyGroup = transform.Find("PropertyPanel/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
         _propertyBtnText = transform.Find("PropertyPanel/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
         _unitSelectOption = transform.Find("UnitSelectOption").SafeGetComponent<UnitSelectOption>();
+
+        loadWarningCanvas = transform.Find("ItemPanel/Top/LoadSlider/Content/Info/Warning").SafeGetComponent<CanvasGroup>();
+        energyWarningCanvas = transform.Find("EnergySlider/Content/Info/Warning").SafeGetComponent<CanvasGroup>();
     }
 
     public override void Initialization()
@@ -131,11 +137,14 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     private void RefreshEnergySlider()
     {
         _energySlider.RefreshEnergy();
+        energyWarningCanvas.ActiveCanvasGroup(_energySlider.overlordPercent > 1);
+        
     }
     
     private void RefreshLoadSlider()
     {
         _loadSlider.RefreshLoad();
+        loadWarningCanvas.ActiveCanvasGroup(_loadSlider.overlordPercent > 1);
     }
 
     /// <summary>
@@ -251,7 +260,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
 
     private void OnUnitSelect_StorageClick()
     {
-
+        ShipBuilder.instance.StorageCurrentHoverUnit();
     }
 
     private void OnUnitSelect_ChangePostionClick()
@@ -259,8 +268,4 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
 
     }
 
-    private void OnUnitSelect_SellClick()
-    {
-
-    }
 }

@@ -7,7 +7,12 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 {
     private GoodsItemType itemType;
     private GeneralUnlockItemType unlockItemType;
+
+    private bool useUnlockType = false;
+
     private int itemID;
+
+    private DetailHoverItemBase _hoverItem;
 
     public void Awake()
     {
@@ -48,6 +53,7 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
     {
         this.itemID = itemID;
         this.unlockItemType = type;
+        useUnlockType = true;
         Sprite icon = null;
         Sprite frameBG = null;
 
@@ -75,27 +81,52 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 
     public void OnHoverEnter()
     {
-
+        if (itemType == GoodsItemType.ShipUnit || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipUnit))
+        {
+            UIManager.Instance.CreatePoolerUI<UnitDetailHover>("UnitDetailHover", true, E_UI_Layer.Top, null, (panel) =>
+            {
+                panel.Initialization(itemID);
+                _hoverItem = panel;
+            });
+        } 
+        else if (itemType == GoodsItemType.ShipPlug || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipPlug))
+        {
+            UIManager.Instance.CreatePoolerUI<PlugDetailHover>("PlugDetailHover", true, E_UI_Layer.Top, null, (panel) =>
+            {
+                panel.Initialization(itemID);
+                _hoverItem = panel;
+            });
+        }
     }
 
     public void OnHoverExit()
     {
-
+        DestroyHover();
     }
 
     public void PoolableReset()
     {
         itemID = 0;
+        useUnlockType = false;
     }
 
     public void PoolableDestroy()
     {
         PoolableReset();
+        DestroyHover();
         PoolManager.Instance.BackObject(transform.name, gameObject);
     }
 
     public void PoolableSetActive(bool isactive = true)
     {
 
+    }
+
+    private void DestroyHover()
+    {
+        if (_hoverItem == null)
+            return;
+
+        _hoverItem.PoolableDestroy();
     }
 }

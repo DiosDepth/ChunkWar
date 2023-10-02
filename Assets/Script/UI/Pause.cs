@@ -42,6 +42,7 @@ public class Pause : GUIBasePanel
 
     public override void Hidden()
     {
+        ClearSlot();
         base.Hidden();
     }
 

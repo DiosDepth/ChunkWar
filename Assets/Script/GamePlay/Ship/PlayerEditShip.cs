@@ -45,6 +45,8 @@ public class PlayerEditShip : PlayerShip
         {
             RestoreEditorUnitFromUnitInfo(UnitInfoList[i]);
         }
+
+        RefreshShipEnergy();
     }
 
     public Unit AddEditUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction, bool isEditorMode = false)
