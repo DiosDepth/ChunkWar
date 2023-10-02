@@ -345,9 +345,9 @@ public class MTC_OnShieldRecover : ModifyTriggerConfig
 
 public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
 {
-    [HorizontalGroup("AB", 120)]
+    [HorizontalGroup("AB", 150)]
     [LabelText("≈–∂œ…À∫¶¿‡–Õ")]
-    [LabelWidth(50)]
+    [LabelWidth(80)]
     public BoolType DamageTypeBool = BoolType.All;
 
     [HorizontalGroup("AB", 200)]
@@ -359,6 +359,17 @@ public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
     [LabelText("≈–∂œ±©ª˜")]
     [LabelWidth(50)]
     public BoolType CriticalBool = BoolType.All;
+
+    [HorizontalGroup("AD", 150)]
+    [LabelText("–ﬁ’˝◊Ó÷’…À∫¶")]
+    [LabelWidth(80)]
+    public bool ModifyFinalDamage = false;
+
+    [HorizontalGroup("AD", 120)]
+    [LabelText("…À∫¶‘ˆº”%")]
+    [LabelWidth(50)]
+    [ShowIf("ModifyFinalDamage")]
+    public float DamageAddPercent;
 
     public MTC_OnWeaponHitTarget(ModifyTriggerType type) : base(type)
     {

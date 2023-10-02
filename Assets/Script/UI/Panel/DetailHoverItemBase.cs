@@ -65,8 +65,8 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRect);
         _enable = true;
 
-        RectWidth = _contentRect.rect.width;
-        RectHeight = _contentRect.rect.height;
+        RectWidth = _contentRect.rect.width * _contentRect.localScale.x;
+        RectHeight = _contentRect.rect.height * _contentRect.localScale.y;
 
         UpdatePosition();
         _mainCanvas.ActiveCanvasGroup(true);
@@ -191,16 +191,15 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         float windowWidth = Screen.width;
         float windowHeight = Screen.height;
         var _mousePosition = UIManager.Instance.CurrentMousePosition;
-
         ///超出右边界，设置锚点为右
         if (_mousePosition.x + RectWidth > windowWidth)
         {
             ///超出顶部，设置锚点右上
-            if(_mousePosition.y + RectHeight > windowHeight)
+            if (_mousePosition.y + RectHeight > windowHeight)
             {
                 SetCorner(UICornerData.CornerType.RightTop);
             }
-            else if(_mousePosition.y - RectHeight < 0)
+            else if (_mousePosition.y - RectHeight < 0) 
             {
                 SetCorner(UICornerData.CornerType.RightDown);
             }
@@ -208,17 +207,43 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         ///超出左边界，设置锚点为左
         else if (_mousePosition.x - RectWidth < 0)
         {
-
             if (_mousePosition.y + RectHeight > windowHeight)
             {
                 SetCorner(UICornerData.CornerType.LeftTop);
             }
-            else if (_mousePosition.y - RectHeight < 0)
+            else if(_mousePosition.y - RectHeight < 0)
             {
                 SetCorner(UICornerData.CornerType.LeftDown);
             }
         }
-        else
+        ///超出上边界，设置锚点为上
+        else if (_mousePosition.y + RectHeight > windowHeight)
+        {
+            ///超出右边界
+            if (_mousePosition.x + RectWidth > windowWidth)
+            {
+                SetCorner(UICornerData.CornerType.RightTop);
+            }
+            else if(_mousePosition.x - RectWidth < 0)
+            {
+                SetCorner(UICornerData.CornerType.LeftTop);
+            }
+        }
+        ///超出下边界，设置锚点为下
+        else if (_mousePosition.y - RectHeight < 0)
+        {
+            ///超出右边界
+            if (_mousePosition.x + RectWidth > windowWidth)
+            {
+                SetCorner(UICornerData.CornerType.RightDown);
+            }
+            else
+            {
+                SetCorner(UICornerData.CornerType.LeftDown);
+            }
+        }
+        else if (_mousePosition.y - RectHeight >= 0 && _mousePosition.y + RectHeight <= windowHeight &&
+            _mousePosition.x - RectWidth >= 0 && _mousePosition.x + RectWidth <= windowWidth) 
         {
             SetCorner(UICornerData.CornerType.LeftTop);
         }

@@ -400,6 +400,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         InitAllGoodsItems();
         ///InitPlugs
         InitShipPlugs();
+        InitOriginShipUnit();
     }
 
     /// <summary>
@@ -496,7 +497,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     }
 
-
     /// <summary>
     /// 增加货币
     /// </summary>
@@ -552,6 +552,32 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         if(campData != null)
         {
             campData.AddCampScore(totalScore, out BattleResult.campLevelInfo);
+        }
+    }
+
+    /// <summary>
+    /// 舰船初始化携带的额外Building
+    /// </summary>
+    private void InitOriginShipUnit()
+    {
+        if (currentShipSelection == null)
+            return;
+
+        var shipCfg = currentShipSelection.itemconfig as PlayerShipConfig;
+        var shipUnitCfg = shipCfg.OriginUnits;
+        if(shipUnitCfg != null && shipUnitCfg.Count > 0)
+        {
+            for(int i = 0; i < shipUnitCfg.Count; i++)
+            {
+                var unitCfg = DataManager.Instance.GetUnitConfig(shipUnitCfg[i].UnitID);
+                if (unitCfg == null)
+                    return;
+
+                UnitInfo info = new UnitInfo(shipUnitCfg[i]);
+                info.occupiedCoords = ShipMapData.GetOccupiedCoords(unitCfg.ID, info.pivot);
+
+                ShipMapData.UnitList.Add(info);
+            }
         }
     }
 

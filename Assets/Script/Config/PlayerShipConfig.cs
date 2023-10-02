@@ -16,6 +16,14 @@ public class ShipUnitEditorPreivewItem
     public int Value;
 }
 
+[System.Serializable]
+public class ShipInitUnitConfig
+{
+    public int UnitID;
+    public byte PosX;
+    public byte PosY;
+}
+
 [CreateAssetMenu(fileName = "Configs_PlayerShip_", menuName = "Configs/Unit/PlayerShipConfig")]
 public class PlayerShipConfig : BaseShipConfig
 {
@@ -53,6 +61,11 @@ public class PlayerShipConfig : BaseShipConfig
     [LabelText("≥ı º≤Âº˛")]
     [LabelWidth(100)]
     public List<int> ShipOriginPlugs = new List<int>();
+
+    [FoldoutGroup("≈‰÷√")]
+    [LabelText("≥ı ºUnit")]
+    [LabelWidth(100)]
+    public List<ShipInitUnitConfig> OriginUnits = new List<ShipInitUnitConfig>();
 
     [OnValueChanged("OnShipEditorSpriteChange")]
     public Sprite ShipEditorSprite;

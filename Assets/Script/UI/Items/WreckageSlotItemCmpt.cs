@@ -22,7 +22,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private TextMeshProUGUI _energyCostText;
     private TextMeshProUGUI _loadCostText;
     private Transform _unitInfoRoot;
-    private Text _typeText;
+    private RectTransform _tagRoot;
     private CanvasGroup _contentCanvas;
     private CanvasGroup _wasteCanvas;
 
@@ -35,9 +35,11 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private WreckageItemInfo _info;
     private float ScrollHeight;
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
+    private const string ItemTag_PrefabPath = "Prefab/GUIPrefab/PoolUI/ItemTagCmpt";
 
     public void Awake()
     {
+        _tagRoot = transform.Find("Content/Info/Detail/TypeInfo").SafeGetComponent<RectTransform>();
         _detailScroll = transform.Find("Content/DetailInfo").SafeGetComponent<ScrollRect>();
         ScrollHeight = _detailScroll.transform.SafeGetComponent<RectTransform>().rect.height;
         _detailContentRect = transform.Find("Content/DetailInfo/Viewport/Content").SafeGetComponent<RectTransform>();
@@ -48,12 +50,10 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _wasteCanvas = transform.Find("WasteContent").SafeGetComponent<CanvasGroup>();
         _contentCanvas = transform.Find("Content").SafeGetComponent<CanvasGroup>();
         _icon = transform.Find("Content/Info/Icon/Image").SafeGetComponent<Image>();
-        _rarityBG = transform.Find("Content/Info/Icon/BG").SafeGetComponent<Image>();
+        _rarityBG = transform.Find("BG").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
 
-
         _descText = _detailContentRect.Find("Desc").GetComponent<TextMeshProUGUI>();
-        _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
         _sellText = transform.Find("Content/Sell/Value").SafeGetComponent<TextMeshProUGUI>();
         _unitInfoRoot = _detailContentRect.Find("UnitInfo");
 
@@ -126,14 +126,14 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _descText.text = info.Desc;
         _icon.sprite = info.UnitConfig.GeneralConfig.IconSprite;
         _nameText.color = info.RarityColor;
-        _rarityBG.sprite = GameHelper.GetRarityBGSprite(info.Rarity);
-        _typeText.text = info.TypeName;
+        _rarityBG.sprite = GameHelper.GetRarityBG_Big(info.Rarity);
         _sellText.text = info.SellPrice.ToString();
 
         _loadCostText.text = string.Format("{0:F1}", info.LoadCost);
         _energyCostText.text = string.Format("{0:F1}", info.GetEnergyCost());
 
         SetUpUintInfo(info.UnitConfig);
+        SetUpTag(info.UnitConfig);
         await UniTask.WaitForFixedUpdate();
         LayoutRebuilder.ForceRebuildLayoutImmediate(_detailContentRect);
 
@@ -197,6 +197,25 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
                 }, _unitInfoRoot);
             }
         }
+    }
+
+    private void SetUpTag(BaseUnitConfig cfg)
+    {
+        _tagRoot.Pool_BackAllChilds(ItemTag_PrefabPath);
+
+        foreach (ItemTag tag in System.Enum.GetValues(typeof(ItemTag)))
+        {
+            if (cfg.HasUnitTag(tag))
+            {
+                PoolManager.Instance.GetObjectSync(ItemTag_PrefabPath, true, (obj) =>
+                {
+                    var cmpt = obj.transform.SafeGetComponent<ItemTagCmpt>();
+                    cmpt.SetUp(tag);
+                }, _tagRoot);
+            }
+        }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_tagRoot);
     }
 
     private void SelectedChanged(bool select)

@@ -120,15 +120,15 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     #endregion
 
-    protected virtual void Trigger(uint parentUnitID = 0)
+    protected virtual bool Trigger(uint parentUnitID = 0)
     {
         if (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount)
-            return;
+            return false;
 
         if (Config.UsePercent && !Utility.RandomResult(0, Config.Percent)) 
         {
             ///Percent not vaild
-            return;
+            return false;
         }
 
         currentTriggerCount++;
@@ -137,6 +137,7 @@ public abstract class ModifyTriggerData : IPropertyModify
         {
             effects[i].Excute(this, parentUnitID);
         }
+        return true;
     }
 
     /// <summary>

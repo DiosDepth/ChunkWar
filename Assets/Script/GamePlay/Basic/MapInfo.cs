@@ -19,16 +19,6 @@ public class UnitInfo : MapInfo
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
 
-    /// <summary>
-    /// 目标进化UnitID
-    /// </summary>
-    public int TargetEvolveUnitID;
-
-    /// <summary>
-    /// 当前进化点数
-    /// </summary>
-    public byte EvolvePoints;
-
     public UnitInfo(Unit m_unit)
     {
         UID = m_unit.UID;
@@ -37,6 +27,12 @@ public class UnitInfo : MapInfo
         direction = m_unit.direction;
         pivot = m_unit.pivot;
         occupiedCoords = m_unit.occupiedCoords;
+    }
+
+    public UnitInfo(ShipInitUnitConfig cfg)
+    {
+        UnitID = cfg.UnitID;
+        pivot = new Vector2Int(cfg.PosX, cfg.PosY);
     }
 
 }
