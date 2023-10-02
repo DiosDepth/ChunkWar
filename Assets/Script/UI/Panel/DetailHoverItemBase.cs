@@ -8,6 +8,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
 {
     private CanvasGroup _mainCanvas;
     protected RectTransform _contentRect;
+    protected RectTransform _mainRect;
     private Transform _unitInfoRoot;
     private Transform _propertyModifyRoot;
     private RectTransform _tagRoot;
@@ -25,10 +26,15 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
     private const string ShopPropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopItemProperty";
     private const string ItemTag_PrefabPath = "Prefab/GUIPrefab/PoolUI/ItemTagCmpt";
 
+    private float RectWidth;
+    private float RectHeight;
+    private UICornerData.CornerType currentCornerType = UICornerData.CornerType.NONE;
+
     protected override void Awake()
     {
         base.Awake();
         _mainCanvas = transform.SafeGetComponent<CanvasGroup>();
+        _mainRect = transform.SafeGetComponent<RectTransform>();
         _contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
         _unitInfoRoot = _contentRect.Find("UnitInfo");
         _tagRoot = _contentRect.Find("Info/Detail/TypeInfo").SafeGetComponent<RectTransform>();
@@ -58,6 +64,10 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRect);
         _enable = true;
+
+        RectWidth = _contentRect.rect.width;
+        RectHeight = _contentRect.rect.height;
+
         UpdatePosition();
         _mainCanvas.ActiveCanvasGroup(true);
     }
@@ -77,12 +87,6 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
     public void PoolableSetActive(bool isactive = true)
     {
 
-    }
-
-    private void UpdatePosition()
-    {
-        var mousePos = UIManager.Instance.GetUIPosByMousePos();
-        transform.localPosition = mousePos;
     }
 
     protected void SetUpUintInfo(BaseUnitConfig cfg)
@@ -170,4 +174,70 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
             }, _propertyModifyRoot);
         }
     }
+
+
+    #region Position
+    private void UpdatePosition()
+    {
+        transform.localPosition = UIManager.Instance.GetUIPosByMousePos();
+        CheckBounds();
+    }
+
+    /// <summary>
+    /// 检测是否超出屏幕
+    /// </summary>
+    private void CheckBounds()
+    {
+        float windowWidth = Screen.width;
+        float windowHeight = Screen.height;
+        var _mousePosition = UIManager.Instance.CurrentMousePosition;
+
+        ///超出右边界，设置锚点为右
+        if (_mousePosition.x + RectWidth > windowWidth)
+        {
+            ///超出顶部，设置锚点右上
+            if(_mousePosition.y + RectHeight > windowHeight)
+            {
+                SetCorner(UICornerData.CornerType.RightTop);
+            }
+            else if(_mousePosition.y - RectHeight < 0)
+            {
+                SetCorner(UICornerData.CornerType.RightDown);
+            }
+        }
+        ///超出左边界，设置锚点为左
+        else if (_mousePosition.x - RectWidth < 0)
+        {
+
+            if (_mousePosition.y + RectHeight > windowHeight)
+            {
+                SetCorner(UICornerData.CornerType.LeftTop);
+            }
+            else if (_mousePosition.y - RectHeight < 0)
+            {
+                SetCorner(UICornerData.CornerType.LeftDown);
+            }
+        }
+        else
+        {
+            SetCorner(UICornerData.CornerType.LeftTop);
+        }
+    }
+
+    private void SetCorner(UICornerData.CornerType type)
+    {
+        if (currentCornerType == type)
+            return;
+
+        currentCornerType = type;
+        var cornerData = Utility.GetCornerData(type);
+        if (cornerData == null)
+            return;
+
+        _mainRect.pivot = new Vector2(cornerData.PivotX, cornerData.PivotY);
+        _contentRect.pivot = new Vector2(cornerData.PivotX, cornerData.PivotY);
+        _contentRect.transform.localPosition = Vector2.zero;
+    }
+
+    #endregion
 }

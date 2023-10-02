@@ -34,6 +34,8 @@ public static class GameHelper
     private static string ShipLevelUpRarity_Frame_T3 = "Sprite/General/ShipLevelUpItem_Frame_Tier3";
     private static string ShipLevelUpRarity_Frame_T4 = "Sprite/General/ShipLevelUpItem_Frame_Tier4";
 
+
+
     private struct TempDropRandomItem : RandomObject
     {
         public int Weight { get; set; }

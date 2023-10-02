@@ -57,6 +57,10 @@ public class UIManager : Singleton<UIManager>
     private object tempowner;
 
     private Vector2 _mousePosition;
+    public Vector2 CurrentMousePosition
+    {
+        get { return _mousePosition; }
+    }
 
     private PointerEventData pointerEventData;
 

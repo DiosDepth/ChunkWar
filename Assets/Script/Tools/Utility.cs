@@ -3,8 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public static class Utility 
 {
+
+    public static List<UICornerData> CornerData = new List<UICornerData>
+    {
+        { new UICornerData( UICornerData.CornerType.LeftTop)},
+        { new UICornerData ( UICornerData.CornerType.LeftDown)},
+        { new UICornerData ( UICornerData.CornerType.RightTop)},
+        { new UICornerData ( UICornerData.CornerType.RightDown)},
+    };
+
+    public static UICornerData GetCornerData(UICornerData.CornerType type)
+    {
+        return CornerData.Find(x => x.Type == type);
+    }
+
     /// <summary>
     /// General Clamp
     /// 限制值大小
@@ -128,4 +144,48 @@ public static class Utility
 public interface RandomObject
 {
     int Weight { get; set; }
+}
+
+public class UICornerData
+{
+    public enum CornerType
+    {
+        NONE,
+        LeftTop,
+        LeftDown,
+        RightTop,
+        RightDown
+    }
+
+    public CornerType Type;
+    public float PivotX = 0;
+    public float PivotY = 0;
+
+    public UICornerData(CornerType type)
+    {
+        this.Type = type;
+        switch (type)
+        {
+            case CornerType.LeftTop:
+                PivotX = 0;
+                PivotY = 1;
+                break;
+
+            case CornerType.LeftDown:
+                PivotX = 0;
+                PivotY = 0;
+                break;
+
+            case CornerType.RightTop:
+                PivotX = 1;
+                PivotY = 1;
+                break;
+
+            case CornerType.RightDown:
+                PivotX = 1;
+                PivotY = 0;
+                break;
+
+        }
+    }
 }
