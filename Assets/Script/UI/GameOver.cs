@@ -74,6 +74,12 @@ public class GameOver : GUIBasePanel
         OnShipPropertySwitchClick();
     }
 
+    public override void Hidden()
+    {
+        base.Hidden();
+        ClearSlot();
+    }
+
     private void InitContent()
     {
         ClearSlot();

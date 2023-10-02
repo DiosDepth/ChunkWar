@@ -7,7 +7,12 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 {
     private GoodsItemType itemType;
     private GeneralUnlockItemType unlockItemType;
+
+    private bool useUnlockType = false;
+
     private int itemID;
+
+    private UnitDetailHover _hoverItem;
 
     public void Awake()
     {
@@ -48,6 +53,7 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
     {
         this.itemID = itemID;
         this.unlockItemType = type;
+        useUnlockType = true;
         Sprite icon = null;
         Sprite frameBG = null;
 
@@ -75,27 +81,45 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 
     public void OnHoverEnter()
     {
-
+        if(itemType == GoodsItemType.ShipUnit || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipUnit))
+        {
+            UIManager.Instance.CreatePoolerUI<UnitDetailHover>("UnitDetailHover", true, E_UI_Layer.Top, null, (panel) =>
+            {
+                panel.Initialization(itemID);
+                _hoverItem = panel;
+            });
+        }
     }
 
     public void OnHoverExit()
     {
-
+        DestroyHover();
     }
 
     public void PoolableReset()
     {
         itemID = 0;
+        useUnlockType = false;
     }
 
     public void PoolableDestroy()
     {
         PoolableReset();
+        DestroyHover();
         PoolManager.Instance.BackObject(transform.name, gameObject);
     }
 
     public void PoolableSetActive(bool isactive = true)
     {
 
+    }
+
+    private void DestroyHover()
+    {
+        if (itemType == GoodsItemType.ShipUnit || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipUnit))
+        {
+            UIManager.Instance.BackPoolerUI("UnitDetailHover", _hoverItem.gameObject);
+            _hoverItem = null;
+        }
     }
 }

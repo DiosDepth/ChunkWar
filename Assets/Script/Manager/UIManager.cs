@@ -77,6 +77,13 @@ public class UIManager : Singleton<UIManager>
         GetUILayer(ref top, "Top", canvas);
 
         InputDispatcher.Instance.Action_GamePlay_Point += HandleBuildMouseMove;
+        InputDispatcher.Instance.Action_UI_Point += HandleBuildMouseMove;
+    }
+
+    ~UIManager()
+    {
+        InputDispatcher.Instance.Action_GamePlay_Point -= HandleBuildMouseMove;
+        InputDispatcher.Instance.Action_UI_Point -= HandleBuildMouseMove;
     }
 
     public GUIBasePanel GetGUIFromDic(string name)
@@ -165,9 +172,9 @@ public class UIManager : Singleton<UIManager>
 
     }
 
-    public void BackPoolerUI(string m_ui_res_path, GameObject m_backobj)
+    public void BackPoolerUI(string m_uiname, GameObject m_backobj)
     {
-        PoolManager.Instance.BackObject(m_ui_res_path, m_backobj);
+        PoolManager.Instance.BackObject(resPoolUIPath + m_uiname, m_backobj);
     }
 
     public void ShowUI<T>(string m_uiname, E_UI_Layer m_uilayer, object m_owner = null, UnityAction<T> callback = null) where T : GUIBasePanel
