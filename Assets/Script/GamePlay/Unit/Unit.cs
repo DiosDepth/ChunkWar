@@ -122,11 +122,14 @@ public class UnitBaseAttribute
     private void CalculateEnergyCost()
     {
         float rate = 0;
-        if(_parentUnit._baseUnitConfig.HasUnitTag(ItemTag.Weapon))
+
+        var baseCfg = _parentUnit._baseUnitConfig;
+
+        if (baseCfg.HasUnitTag(ItemTag.Weapon) || baseCfg.HasUnitTag(ItemTag.MainWeapon)) 
         {
             rate = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
         }
-        else if (_parentUnit._baseUnitConfig.HasUnitTag(ItemTag.Shield))
+        else if (baseCfg.HasUnitTag(ItemTag.Shield))
         {
             rate = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
         }

@@ -231,3 +231,19 @@ MonoBehaviour:
     ChineseSimplified: "\u91CF\u4EA7\u578B\u62A4\u536B\u8230"
     English: 
     Japanese: 
+  - TextID: ItemTag_Shield
+    ChineseSimplified: "\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: ItemTag_Weapon
+    ChineseSimplified: "\u6B66\u5668"
+    English: 
+    Japanese: 
+  - TextID: ItemTag_MainWeapon
+    ChineseSimplified: "\u4E3B\u6B66\u5668"
+    English: 
+    Japanese: 
+  - TextID: ItemTag_WareHouse
+    ChineseSimplified: "\u8D27\u4ED3"
+    English: 
+    Japanese: 

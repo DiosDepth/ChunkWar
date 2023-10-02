@@ -14,6 +14,8 @@ public static class GameHelper
     public static string Bool_True_Text = "Bool_True_Text";
     public static string Bool_False_Text = "Bool_False_Text";
 
+    public static string ItemTagTextTitle = "ItemTag_";
+
     private static string Color_White_Code = "#FFFFFF";
     private static string Color_Red_Code = "#C61616";
     private static string Color_Blue_Code = "#09B3CB";
@@ -59,6 +61,17 @@ public static class GameHelper
             default:
                 return Color.white;
         }
+    }
+
+    /// <summary>
+    /// 获取TAG名称
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public static string GetItemTagName(ItemTag tag)
+    {
+        var tagStr = ItemTagTextTitle + tag.ToString();
+        return LocalizationManager.Instance.GetTextValue(tagStr);
     }
 
     public static Sprite GetRarityBGSprite(GoodsItemRarity rarity)
@@ -243,11 +256,51 @@ public static class GameHelper
         return currentShip.CoreUnits[0].HpComponent;
     }
 
-    public static int GetUnitEnergyCost(BaseUnitConfig cfg)
+    /// <summary>
+    /// 单位能源消耗
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    public static float GetUnitEnergyCost(BaseUnitConfig cfg)
     {
-        var rate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
-        rate = Mathf.Clamp(rate, -100, float.MaxValue);
-        return Mathf.RoundToInt(cfg.BaseEnergyCost * (100 + rate) / 100f);
+        if (cfg.unitType == UnitType.MainWeapons)
+            return 0f;
+
+        var energyCostBase = cfg.BaseEnergyCost;
+        var costModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
+        float modify = 0;
+        ///ShieldModify
+        if (cfg.HasUnitTag(ItemTag.Shield))
+        {
+            modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
+        }
+        else if (cfg.HasUnitTag(ItemTag.Weapon) || cfg.HasUnitTag(ItemTag.MainWeapon)) 
+        {
+            modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
+        }
+
+        var totalUnitModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
+
+        var cost = Mathf.Clamp(energyCostBase * (1 + (costModify + modify + totalUnitModify) / 100f), 0, float.MaxValue);
+        return cost;
+    }
+    
+    /// <summary>
+    /// 单位负载消耗
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    public static float GetUnitLoadCost(BaseUnitConfig cfg)
+    {
+        if (cfg.unitType == UnitType.MainWeapons)
+            return 0f;
+
+        var wreckageCfg = DataManager.Instance.GetWreckageDropItemConfig(cfg.ID);
+        if (wreckageCfg == null)
+            return 0;
+
+        var loadCost = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitLoadCost);
+        return Mathf.Clamp(wreckageCfg.LoadCost * (1 + loadCost / 100f), 0, float.MaxValue);
     }
 
     #endregion
@@ -640,8 +693,9 @@ public static class GameHelper
         else if (type == UI_WeaponUnitPropertyType.ShieldDamage)
         {
             var shieldDamage = CalculateShieldDamage(cfg);
+            shieldDamage = Mathf.CeilToInt(shieldDamage);
             string damageColor = GetColorCode(shieldDamage, cfg.ShieldDamage, false);
-            return string.Format("<color={0}>{1:F2}%</color>", damageColor, shieldDamage);
+            return string.Format("<color={0}>{1}%</color>", damageColor, shieldDamage);
         }
 
         return string.Empty;

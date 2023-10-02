@@ -54,13 +54,13 @@ public class ItemPropertyModifyCmpt : MonoBehaviour,IPoolable
 
     public void PoolableDestroy()
     {
-
+        PoolableReset();
+        PoolManager.Instance.BackObject(transform.name, this.gameObject);
     }
 
     public void PoolableReset()
     {
-        PoolableReset();
-        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+        
     }
 
     public void PoolableSetActive(bool isactive = true)

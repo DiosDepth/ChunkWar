@@ -130,8 +130,8 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         _typeText.text = info.TypeName;
         _sellText.text = info.SellPrice.ToString();
 
-        _loadCostText.text = ((int)info.LoadCost).ToString();
-        _energyCostText.text = ((int)info.GetEnergyCost()).ToString();
+        _loadCostText.text = string.Format("{0:F1}", info.LoadCost);
+        _energyCostText.text = string.Format("{0:F1}", info.GetEnergyCost());
 
         SetUpUintInfo(info.UnitConfig);
         await UniTask.WaitForFixedUpdate();

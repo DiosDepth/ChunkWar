@@ -25,7 +25,7 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
         private set;
     }
 
-    public int LoadCost
+    public float LoadCost
     {
         get;
         private set;
@@ -134,23 +134,7 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
 
     public float GetEnergyCost()
     {
-        var energyCostBase = UnitConfig.BaseEnergyCost;
-        var costModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
-        float modify = 0;
-        ///ShieldModify
-        if(UnitConfig.HasUnitTag(ItemTag.Shield))
-        {
-            modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldEnergyCostPercent);
-        }
-        else if (UnitConfig.HasUnitTag(ItemTag.Weapon))
-        {
-            modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
-        }
-
-        var totalUnitModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
-
-        var cost = Mathf.Clamp(energyCostBase * (1 + (costModify + modify + totalUnitModify) / 100f), 0, float.MaxValue);
-        return cost;
+        return GameHelper.GetUnitEnergyCost(UnitConfig);
     }
 
     private void CalculateSellPrice()
@@ -162,9 +146,7 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
 
     private void CalculateLoadCost()
     {
-        var loadCost = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitLoadCost);
-        var load = Mathf.Clamp(_cfg.LoadCost * (1 + loadCost / 100f), 0, float.MaxValue);
-        LoadCost = Mathf.CeilToInt(load);
+        LoadCost = GameHelper.GetUnitLoadCost(UnitConfig);
     }
 
 }

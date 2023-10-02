@@ -8,7 +8,9 @@ public enum ItemTag
 {
     Shield = 1<<1,
     Weapon = 1<<2,
-    WareHouse = 1<<3,
+    MainWeapon = 1<<3,
+    WareHouse = 1<<4,
+  
 }
 
 [System.Serializable]

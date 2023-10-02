@@ -12,7 +12,7 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 
     private int itemID;
 
-    private UnitDetailHover _hoverItem;
+    private DetailHoverItemBase _hoverItem;
 
     public void Awake()
     {
@@ -81,9 +81,17 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 
     public void OnHoverEnter()
     {
-        if(itemType == GoodsItemType.ShipUnit || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipUnit))
+        if (itemType == GoodsItemType.ShipUnit || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipUnit))
         {
             UIManager.Instance.CreatePoolerUI<UnitDetailHover>("UnitDetailHover", true, E_UI_Layer.Top, null, (panel) =>
+            {
+                panel.Initialization(itemID);
+                _hoverItem = panel;
+            });
+        } 
+        else if (itemType == GoodsItemType.ShipPlug || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipPlug))
+        {
+            UIManager.Instance.CreatePoolerUI<PlugDetailHover>("PlugDetailHover", true, E_UI_Layer.Top, null, (panel) =>
             {
                 panel.Initialization(itemID);
                 _hoverItem = panel;
@@ -116,10 +124,9 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
 
     private void DestroyHover()
     {
-        if (itemType == GoodsItemType.ShipUnit || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipUnit))
-        {
-            UIManager.Instance.BackPoolerUI("UnitDetailHover", _hoverItem.gameObject);
-            _hoverItem = null;
-        }
+        if (_hoverItem == null)
+            return;
+
+        _hoverItem.PoolableDestroy();
     }
 }
