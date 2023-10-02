@@ -31,6 +31,7 @@ public class PlayerShip : BaseShip
 
     public bool isDebug;
 
+
     public GameObject container;
     public SpriteRenderer sprite;
     
@@ -190,8 +191,25 @@ public class PlayerShip : BaseShip
         {
             RestoreUnitFromUnitInfo(UnitInfoList[i]);
         }
+
+
+
+
+        //添加测试的代码。 用来作为Building的测试。 完成后应该删除
+
+        //GameObject building;
+        //BaseUnitConfig unitconfig;
+        //DataManager.Instance.UnitConfigDataDic.TryGetValue(1003, out unitconfig);
+
+        //building = Instantiate(unitconfig.Prefab);
+
+
+
+
+
+
         //初始化主武器
-        if( mainWeapon == null)
+        if ( mainWeapon == null)
         {
             if(RogueManager.Instance.currentWeaponSelection != null)
             {
@@ -475,6 +493,12 @@ public class PlayerShip : BaseShip
                 _unitList.Add(tempunit);
             }
         }
+
+
+
+
+
+
     }
 
     public void RemoveUnit(Unit m_unit)

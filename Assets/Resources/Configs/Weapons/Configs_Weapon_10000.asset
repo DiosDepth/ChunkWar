@@ -415,7 +415,7 @@ MonoBehaviour:
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
     Name: Weapon_Name_10000
-    Desc: 
+    Desc: Weapon_Desc_10000
     Rarity: 0
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: d89dbbac3930fa9479768f183b53e88f, type: 3}
@@ -438,7 +438,7 @@ MonoBehaviour:
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0
-  BaseRange: 60
+  BaseRange: 100
   BaseCriticalRate: 5
   CriticalDamage: 150
   TotalDamageCount: 8

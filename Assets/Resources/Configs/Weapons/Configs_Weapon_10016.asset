@@ -415,7 +415,7 @@ MonoBehaviour:
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 15d669631ae23bb438fa7ef67b6d3fcf, type: 3}
     Name: Weapon_Name_10016
-    Desc: 
+    Desc: Weapon_Desc_10016
     Rarity: 3
     SortingOrder: 0
   Prefab: {fileID: 5156482088037079168, guid: 66aeca63430b46b48beb8679eb004f5e, type: 3}
@@ -428,7 +428,7 @@ MonoBehaviour:
   EditBrushSprite: {fileID: 21300000, guid: 15d669631ae23bb438fa7ef67b6d3fcf, type: 3}
   EditorBrushDefaultRotation: 0
   ItemTags: 4
-  BaseHP: 100
+  BaseHP: 800
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -438,13 +438,13 @@ MonoBehaviour:
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
   DamageType: 0
-  BaseRange: 100
-  BaseCriticalRate: 20
-  CriticalDamage: 130
-  TotalDamageCount: 12
-  ShootPerCount: 2
-  CD: 4
-  FireCD: 0.2
+  BaseRange: 800
+  BaseCriticalRate: 10
+  CriticalDamage: 150
+  TotalDamageCount: 3
+  ShootPerCount: 1
+  CD: 15
+  FireCD: 0.25
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0

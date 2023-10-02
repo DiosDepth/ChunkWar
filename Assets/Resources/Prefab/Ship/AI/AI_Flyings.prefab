@@ -41,9 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3431155976711396024}
   - component: {fileID: 2036907068945415827}
-  - component: {fileID: 5650079698145544124}
   - component: {fileID: 3502843801109665848}
-  - component: {fileID: 4254137073360052133}
   - component: {fileID: 1067569461047974568}
   m_Layer: 9
   m_Name: AI_Flyings
@@ -91,22 +89,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!58 &5650079698145544124
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155976711396027}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!114 &3502843801109665848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,51 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e9d1ece3227044cb2ff0233c38a633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 4254137073360052133}
+  controller: {fileID: 0}
   deathVFXName: ExplodeVFX
   CoreUnits: []
   AIShipCfg: {fileID: 0}
   AIType: 1
---- !u!114 &4254137073360052133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155976711396027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c07c8cf54db314e85c429ffa0fccc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsUpdate: 0
-  rb: {fileID: 2036907068945415827}
-  collider: {fileID: 5650079698145544124}
-  controlledTarget: {fileID: 3502843801109665848}
-  updateFrequence: 0.003
-  States:
-  - StateName: Steering
-    Actions: []
-    FixedActions: []
-    Transitions: []
-  currentState:
-    StateName: 
-    Actions:
-    - {fileID: 0}
-    FixedActions: []
-    Transitions:
-    - Decision: {fileID: 0}
-      TrueState: 
-      FalseState: 
-  previousState:
-    StateName: 
-    Actions:
-    - {fileID: 0}
-    FixedActions: []
-    Transitions:
-    - Decision: {fileID: 0}
-      TrueState: 
-      FalseState: 
 --- !u!114 &1067569461047974568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d6c755aae42964789956e3e83e9316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  IsUpdate: 0
+  rb: {fileID: 2036907068945415827}
+  collider: {fileID: 0}
   maxAcceleration: 7
   maxAngularAcceleration: 6
   targetSerchingRadius: 30

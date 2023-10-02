@@ -428,7 +428,7 @@ MonoBehaviour:
   EditBrushSprite: {fileID: 21300000, guid: f45fcf4bd128dba478120d521ae2b089, type: 3}
   EditorBrushDefaultRotation: 0
   ItemTags: 4
-  BaseHP: 100
+  BaseHP: 65
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -438,13 +438,13 @@ MonoBehaviour:
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
   DamageType: 0
-  BaseRange: 100
-  BaseCriticalRate: 20
-  CriticalDamage: 130
+  BaseRange: 300
+  BaseCriticalRate: 2
+  CriticalDamage: 125
   TotalDamageCount: 12
-  ShootPerCount: 2
-  CD: 4
-  FireCD: 0.2
+  ShootPerCount: 1
+  CD: 2.5
+  FireCD: 0.1
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0

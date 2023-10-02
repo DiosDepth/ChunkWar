@@ -14,12 +14,12 @@ public struct SteeringBehaviorInfo
     public float angular;
 }
 
-public class AISteeringBehaviorController : MonoBehaviour, IBoid
+public class AISteeringBehaviorController : BaseController, IBoid
 {
 
     //public SteeringBehaviorController steeringBehaviorController;
 
-    public Rigidbody2D rb;
+
     public float maxAcceleration = 10f;
     public float maxAngularAcceleration = 3f;
     public float targetSerchingRadius = 15f;

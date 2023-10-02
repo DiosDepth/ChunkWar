@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4139111094964381583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5123346590922557502}
+  m_Layer: 7
+  m_Name: FirePoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5123346590922557502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139111094964381583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.124, y: 0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1000722331128833097}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5156482088037079168
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,10 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1000722331128833097}
-  - component: {fileID: 1782626029106110755}
+  - component: {fileID: 4181350280920004602}
   - component: {fileID: 3570088764188553282}
   m_Layer: 7
-  m_Name: ShipWeapon_006
+  m_Name: ShipWeapon_10010
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,10 +63,11 @@ Transform:
   m_Children:
   - {fileID: 30283576541635495}
   - {fileID: 6516888820155779860}
+  - {fileID: 5123346590922557502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1782626029106110755
+--- !u!114 &4181350280920004602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,29 +79,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f8161de3fdd1548a87f0c1c67ef5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 0
+  UnitID: 10010
   state: 1
   IsRestoreable: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
-  maxTargetCount: 1
+  maxTargetCount: 2
   unitSprite: {fileID: 8113757006542053505}
-  rotationRoot: {fileID: 6516888820155779860}
+  rotationRoot: {fileID: 1000722331128833097}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   currentEvolvePoints: 0
   weaponmode: 0
-  firemode: 1
-  aimingtype: 2
-  bulletType: 1
-  targetmode: 0
+  firemode: 0
+  aimingtype: 1
+  bulletType: 6
+  targetmode: 1
   mask:
     serializedVersion: 2
     m_Bits: 128
   firePoint:
   - {fileID: 6516888820155779860}
+  - {fileID: 5123346590922557502}
   scatter: 0
   roatateSpeed: 180
   weaponAttribute:
@@ -105,7 +138,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44, y: 0.85}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &8133459280409676957
 GameObject:
@@ -181,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 11
-  m_Sprite: {fileID: 21300000, guid: f45fcf4bd128dba478120d521ae2b089, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e3b92e4f9d5c36489c0ec8655e6cfa2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -232,7 +265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8364843252387233737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.509, z: 0}
+  m_LocalPosition: {x: -0.165, y: 0.888, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

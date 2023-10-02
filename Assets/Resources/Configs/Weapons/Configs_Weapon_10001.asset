@@ -415,7 +415,7 @@ MonoBehaviour:
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
     Name: Weapon_Name_10001
-    Desc: 
+    Desc: Weapon_Desc_10001
     Rarity: 1
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: d89dbbac3930fa9479768f183b53e88f, type: 3}

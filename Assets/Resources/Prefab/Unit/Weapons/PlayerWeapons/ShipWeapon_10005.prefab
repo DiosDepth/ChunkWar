@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4139111094964381583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.124, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0.955, y: 1.3809999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -40,10 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1000722331128833097}
-  - component: {fileID: 4181350280920004602}
+  - component: {fileID: 1742537613087546461}
   - component: {fileID: 3570088764188553282}
   m_Layer: 7
-  m_Name: ShipWeapon_003
+  m_Name: ShipWeapon_10005
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4181350280920004602
+--- !u!114 &1742537613087546461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,12 +79,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f8161de3fdd1548a87f0c1c67ef5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 0
-  state: 1
+  UnitID: 10005
+  state: 0
   IsRestoreable: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
-  maxTargetCount: 1
+  maxTargetCount: 2
   unitSprite: {fileID: 8113757006542053505}
   rotationRoot: {fileID: 1000722331128833097}
   redirection: 1
@@ -93,9 +93,9 @@ MonoBehaviour:
   occupiedCoords: []
   currentEvolvePoints: 0
   weaponmode: 0
-  firemode: 1
+  firemode: 0
   aimingtype: 1
-  bulletType: 1
+  bulletType: 6
   targetmode: 0
   mask:
     serializedVersion: 2
@@ -103,7 +103,7 @@ MonoBehaviour:
   firePoint:
   - {fileID: 6516888820155779860}
   - {fileID: 5123346590922557502}
-  scatter: 0
+  scatter: 5
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0
@@ -127,7 +127,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.5298292, y: 0.32102484}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -138,7 +138,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1812526, y: 1.0420498}
   m_EdgeRadius: 0
 --- !u!1 &8133459280409676957
 GameObject:
@@ -214,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 11
-  m_Sprite: {fileID: 21300000, guid: 6e3b92e4f9d5c36489c0ec8655e6cfa2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d864cdb967bbc74485e21829169bb12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -265,7 +265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8364843252387233737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.165, y: 0.888, z: 0}
+  m_LocalPosition: {x: 0.04, y: 1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
