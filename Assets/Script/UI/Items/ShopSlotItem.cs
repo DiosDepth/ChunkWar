@@ -7,34 +7,45 @@ using System;
 
 public class ShopSlotItem : MonoBehaviour
 {
-    public GoodsItemType ItemType;
     private int itemTypeID;
 
     private Image _icon;
+    private Image _rarityBG;
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
     private Text _costText;
     private Transform PropertyModifyRoot;
-    private Text _typeText;
+    private RectTransform _tagRoot;
+    private RectTransform _detailContentRect;
 
     private ShopGoodsInfo _goodsInfo;
+    private ScrollRect _detailScroll;
     private Button _buyButton;
     private Transform _unitInfoRoot;
 
     private static Color _costNormalColor = new Color(1f, 1f, 1f);
     private static Color _costRedColor = new Color(0.6f, 0, 0);
+    private float ScrollHeight;
+
     private const string ShopPropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopItemProperty";
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
+    private const string ItemTag_PrefabPath = "Prefab/GUIPrefab/PoolUI/ItemTagCmpt";
 
     private void Awake()
     {
-        PropertyModifyRoot = transform.Find("Content/PropertyModify");
-        _unitInfoRoot = transform.Find("Content/UnitInfo");
-        _icon = transform.Find("Content/Info/Icon").GetComponent<Image>();
+        _detailScroll = transform.Find("Content/DetailInfo").SafeGetComponent<ScrollRect>();
+        ScrollHeight = _detailScroll.transform.SafeGetComponent<RectTransform>().rect.height;
+
+        _detailContentRect = transform.Find("Content/DetailInfo/Viewport/Content").SafeGetComponent<RectTransform>();
+        _tagRoot = transform.Find("Content/Info/Detail/TypeInfo").SafeGetComponent<RectTransform>();
+        _icon = transform.Find("Content/Info/Icon/Image").GetComponent<Image>();
+        _rarityBG = transform.Find("BG").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
-        _descText = transform.Find("Content/Desc").GetComponent<TextMeshProUGUI>();
+
+        PropertyModifyRoot = _detailContentRect.Find("PropertyModify");
+        _unitInfoRoot = _detailContentRect.Find("UnitInfo");
+        _descText = _detailContentRect.Find("Desc").GetComponent<TextMeshProUGUI>();
         _costText = transform.Find("Content/Buy/Value").GetComponent<Text>();
-        _typeText = transform.Find("Content/Info/Detail/TypeInfo/Text").GetComponent<Text>();
         _buyButton = transform.Find("Content/Buy").GetComponent<Button>();
         _buyButton.onClick.AddListener(OnBuyButtonClick);
         transform.Find("Functions/Lock").GetComponent<Button>().onClick.AddListener(OnLockButtonClick);
@@ -46,33 +57,29 @@ public class ShopSlotItem : MonoBehaviour
         if (info == null)
             return;
 
-        string name = string.Empty;
-        string desc = string.Empty;
-        Sprite icon = null;
-
         itemTypeID = info._cfg.TypeID;
-        _unitInfoRoot.transform.SafeSetActive(false);
-        PropertyModifyRoot.transform.SafeSetActive(true);
         var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
-        if (plugCfg != null)
-        {
-            name = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
-            desc = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
-            icon = plugCfg.GeneralConfig.IconSprite;
-        }
-        _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipPlug_Text);
+        if (plugCfg == null)
+            return;
+
+        _rarityBG.sprite = GameHelper.GetRarityBG_Big(plugCfg.GeneralConfig.Rarity);
         _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
         SetUpProperty();
 
-        _nameText.text = name;
-        _descText.text = desc;
-        _icon.sprite = icon;
+        _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
+        _descText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
+        _icon.sprite = plugCfg.GeneralConfig.IconSprite;
       
         RefreshCost();
+        SetUpTag(plugCfg);
         SetSold(false);
 
-        var contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_detailContentRect);
+
+        ///设置是否可以滑动
+        bool enableScroll = _detailContentRect.rect.height > ScrollHeight;
+        _detailScroll.transform.SafeGetComponent<Image>().raycastTarget = enableScroll;
+        _detailScroll.vertical = enableScroll;
     }
 
     /// <summary>
@@ -200,6 +207,33 @@ public class ShopSlotItem : MonoBehaviour
                 cmpt.SetUp(cfgs[index].ModifyKey, cfgs[index].Value, modifyPercent);
                 index++;
             }, PropertyModifyRoot);
+        }
+    }
+
+    private void SetUpTag(ShipPlugItemConfig cfg)
+    {
+        _tagRoot.Pool_BackAllChilds(ItemTag_PrefabPath);
+
+        foreach (ItemTag tag in System.Enum.GetValues(typeof(ItemTag)))
+        {
+            if (cfg.HasUnitTag(tag))
+            {
+                PoolManager.Instance.GetObjectSync(ItemTag_PrefabPath, true, (obj) =>
+                {
+                    var cmpt = obj.transform.SafeGetComponent<ItemTagCmpt>();
+                    cmpt.SetUp(tag);
+                }, _tagRoot);
+            }
+        }
+
+        if(_tagRoot.childCount == 0)
+        {
+            _tagRoot.transform.SafeSetActive(false);
+        }
+        else
+        {
+            _tagRoot.transform.SafeSetActive(true);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_tagRoot);
         }
     }
 }

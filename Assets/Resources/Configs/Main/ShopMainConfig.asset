@@ -88,7 +88,7 @@ MonoBehaviour:
       Data: 0
     - Name: BaseWeight
       Entry: 3
-      Data: 0
+      Data: 30
     - Name: WeightAddPerEnterCount
       Entry: 4
       Data: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
       Data: 0
     - Name: BaseWeight
       Entry: 3
-      Data: 0
+      Data: 30
     - Name: WeightAddPerEnterCount
       Entry: 4
       Data: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
       Data: 0
     - Name: BaseWeight
       Entry: 3
-      Data: 0
+      Data: 20
     - Name: WeightAddPerEnterCount
       Entry: 4
       Data: 0
@@ -172,381 +172,615 @@ MonoBehaviour:
   Goods:
   - GoodID: 1
     Weight: 20
-    ItemType: 1
     TypeID: 1001
     CostBase: 100
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 2
     Weight: 20
-    ItemType: 1
     TypeID: 1002
     CostBase: 50
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 3
     Weight: 20
-    ItemType: 1
     TypeID: 1003
     CostBase: 45
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 4
     Weight: 20
-    ItemType: 1
     TypeID: 1004
     CostBase: 55
     Unique: 1
     MaxBuyCount: 4
   - GoodID: 5
     Weight: 20
-    ItemType: 1
     TypeID: 1005
     CostBase: 55
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 6
     Weight: 20
-    ItemType: 1
     TypeID: 1006
     CostBase: 45
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 7
     Weight: 20
-    ItemType: 1
     TypeID: 1007
     CostBase: 20
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 8
     Weight: 20
-    ItemType: 1
     TypeID: 1008
     CostBase: 30
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 9
     Weight: 20
-    ItemType: 1
     TypeID: 1009
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 10
     Weight: 20
-    ItemType: 1
     TypeID: 1010
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 11
     Weight: 20
-    ItemType: 1
     TypeID: 1011
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 12
     Weight: 20
-    ItemType: 1
     TypeID: 1012
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 13
     Weight: 20
-    ItemType: 1
     TypeID: 1013
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 14
     Weight: 20
-    ItemType: 1
     TypeID: 1014
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 15
     Weight: 20
-    ItemType: 1
     TypeID: 1015
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 16
     Weight: 20
-    ItemType: 1
     TypeID: 1016
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 17
     Weight: 20
-    ItemType: 1
     TypeID: 1017
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 18
     Weight: 20
-    ItemType: 1
     TypeID: 1018
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 19
     Weight: 20
-    ItemType: 1
     TypeID: 1019
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 20
     Weight: 20
-    ItemType: 1
     TypeID: 1020
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 21
     Weight: 20
-    ItemType: 1
     TypeID: 1021
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 22
     Weight: 20
-    ItemType: 1
     TypeID: 1022
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 23
     Weight: 20
-    ItemType: 1
     TypeID: 1023
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 24
     Weight: 20
-    ItemType: 1
     TypeID: 1024
     CostBase: 0
     Unique: 0
     MaxBuyCount: 2
   - GoodID: 25
     Weight: 20
-    ItemType: 1
     TypeID: 1025
     CostBase: 0
     Unique: 0
     MaxBuyCount: 4
   - GoodID: 26
     Weight: 20
-    ItemType: 1
     TypeID: 1026
     CostBase: 0
     Unique: 0
     MaxBuyCount: 2
   - GoodID: 27
     Weight: 20
-    ItemType: 1
     TypeID: 1027
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 28
     Weight: 20
-    ItemType: 1
     TypeID: 1028
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 29
     Weight: 20
-    ItemType: 1
     TypeID: 1029
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 30
     Weight: 20
-    ItemType: 1
     TypeID: 1030
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 31
     Weight: 20
-    ItemType: 1
     TypeID: 1031
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 32
     Weight: 20
-    ItemType: 1
     TypeID: 1032
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 33
     Weight: 20
-    ItemType: 1
     TypeID: 1033
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 34
     Weight: 20
-    ItemType: 1
     TypeID: 1034
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 35
     Weight: 20
-    ItemType: 1
     TypeID: 1035
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 36
     Weight: 20
-    ItemType: 1
     TypeID: 1036
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 37
     Weight: 20
-    ItemType: 1
     TypeID: 1037
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 38
     Weight: 20
-    ItemType: 1
     TypeID: 1038
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 39
     Weight: 20
-    ItemType: 1
     TypeID: 1039
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 40
     Weight: 20
-    ItemType: 1
     TypeID: 1040
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 41
     Weight: 20
-    ItemType: 1
     TypeID: 1041
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 42
     Weight: 20
-    ItemType: 1
     TypeID: 1042
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 43
     Weight: 20
-    ItemType: 1
     TypeID: 1043
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 44
     Weight: 20
-    ItemType: 1
     TypeID: 1044
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 45
     Weight: 20
-    ItemType: 1
     TypeID: 1045
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 46
     Weight: 20
-    ItemType: 1
     TypeID: 1046
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 47
     Weight: 20
-    ItemType: 1
     TypeID: 1047
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 48
     Weight: 20
-    ItemType: 1
     TypeID: 1048
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 49
     Weight: 20
-    ItemType: 1
     TypeID: 1049
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 50
     Weight: 20
-    ItemType: 1
     TypeID: 1050
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 51
     Weight: 20
-    ItemType: 1
     TypeID: 1051
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 52
     Weight: 20
-    ItemType: 1
     TypeID: 1052
     CostBase: 0
     Unique: 0
     MaxBuyCount: -1
   - GoodID: 53
     Weight: 20
-    ItemType: 1
     TypeID: 1053
     CostBase: 0
     Unique: 1
     MaxBuyCount: -1
   - GoodID: 54
     Weight: 20
-    ItemType: 1
     TypeID: 1054
     CostBase: 0
     Unique: 1
+    MaxBuyCount: -1
+  - GoodID: 55
+    Weight: 20
+    TypeID: 1055
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 56
+    Weight: 20
+    TypeID: 1056
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 57
+    Weight: 20
+    TypeID: 1057
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 58
+    Weight: 20
+    TypeID: 1058
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 59
+    Weight: 20
+    TypeID: 1059
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 60
+    Weight: 20
+    TypeID: 1060
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 61
+    Weight: 20
+    TypeID: 1061
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 62
+    Weight: 20
+    TypeID: 1062
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 63
+    Weight: 20
+    TypeID: 1063
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 64
+    Weight: 20
+    TypeID: 1064
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 65
+    Weight: 20
+    TypeID: 1065
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 66
+    Weight: 20
+    TypeID: 1066
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 67
+    Weight: 20
+    TypeID: 1067
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 68
+    Weight: 20
+    TypeID: 1068
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 69
+    Weight: 20
+    TypeID: 1069
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 70
+    Weight: 20
+    TypeID: 1070
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 71
+    Weight: 20
+    TypeID: 1071
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 72
+    Weight: 20
+    TypeID: 1072
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 73
+    Weight: 20
+    TypeID: 1073
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 74
+    Weight: 20
+    TypeID: 1074
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 75
+    Weight: 20
+    TypeID: 1075
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 76
+    Weight: 20
+    TypeID: 1076
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 77
+    Weight: 20
+    TypeID: 1077
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 78
+    Weight: 20
+    TypeID: 1078
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 79
+    Weight: 20
+    TypeID: 1079
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 80
+    Weight: 20
+    TypeID: 1080
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 81
+    Weight: 20
+    TypeID: 1081
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 82
+    Weight: 20
+    TypeID: 1082
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 83
+    Weight: 20
+    TypeID: 1083
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 84
+    Weight: 20
+    TypeID: 1084
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 85
+    Weight: 20
+    TypeID: 1085
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 86
+    Weight: 20
+    TypeID: 1086
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 87
+    Weight: 20
+    TypeID: 1087
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 88
+    Weight: 20
+    TypeID: 1088
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 89
+    Weight: 20
+    TypeID: 1089
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 90
+    Weight: 20
+    TypeID: 1090
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 91
+    Weight: 20
+    TypeID: 1091
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 92
+    Weight: 20
+    TypeID: 1092
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 93
+    Weight: 20
+    TypeID: 1093
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 94
+    Weight: 20
+    TypeID: 1094
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 95
+    Weight: 20
+    TypeID: 1095
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 96
+    Weight: 20
+    TypeID: 1096
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 97
+    Weight: 20
+    TypeID: 1097
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 98
+    Weight: 20
+    TypeID: 1098
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 99
+    Weight: 20
+    TypeID: 1099
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 100
+    Weight: 20
+    TypeID: 1100
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 101
+    Weight: 20
+    TypeID: 1101
+    CostBase: 0
+    Unique: 0
+    MaxBuyCount: -1
+  - GoodID: 102
+    Weight: 20
+    TypeID: 1102
+    CostBase: 0
+    Unique: 0
     MaxBuyCount: -1
   WreckageDrops:
   - UnitID: 10000

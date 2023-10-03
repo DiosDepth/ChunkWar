@@ -24,7 +24,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     protected override void Awake()
     {
         base.Awake();
-        _shopContentRoot = transform.Find("ShopPanel/Content/Shop");
+        _shopContentRoot = transform.Find("ShopPanel/Content");
         _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
@@ -51,7 +51,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
     public void OnLaunchBtnPressed()
     {
-        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
+        RogueManager.Instance.ExitShop();
     }
 
     public void RemoveSlot(int m_index)
@@ -78,11 +78,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
             case RogueEventType.RefreshWreckage:
 
-                break;
-
-            case RogueEventType.RefreshShopWeaponInfo:
-                UI_WeaponUnitPropertyType type = (UI_WeaponUnitPropertyType)evt.param[0];
-                RefreshShopWeaponItemProperty(type);
                 break;
 
             case RogueEventType.HoverUnitDisplay:
@@ -203,18 +198,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     private void OnPlugItemSelect(uint uid, int dataIndex)
     {
         ///RefreshInfo
-    }
-
-    private void RefreshShopWeaponItemProperty(UI_WeaponUnitPropertyType type)
-    {
-        for(int i = 0; i < allShopSlotItems.Count; i++)
-        {
-            var item = allShopSlotItems[i];
-            if(item.ItemType == GoodsItemType.ShipUnit)
-            {
-                item.RefreshWeaponProperty(type);
-            }
-        }
     }
 
     /// <summary>

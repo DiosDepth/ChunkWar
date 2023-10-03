@@ -103,6 +103,9 @@ public class ShopGoodsItemConfig
     private void OnInit()
     {
         CostValue = 0;
+        if (TypeID == 0)
+            return;
+
         var items = DataManager.Instance.GetShipPlugItemConfig(TypeID);
         if (items != null)
         {

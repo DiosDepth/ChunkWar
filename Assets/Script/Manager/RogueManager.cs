@@ -48,7 +48,6 @@ public enum RogueEventType
     ShopReroll,
     ShopCostChange,
     ShipPlugChange,
-    RefreshShopWeaponInfo,
     HoverUnitDisplay,
     HideHoverUnitDisplay,
     WreckageDropRefresh,
@@ -530,11 +529,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         _currentEXP.BindChangeAction(OnCurrrentEXPChange);
         _shipLevel.BindChangeAction(OnShipLevelUp);
-
-        ///BindProperty Change
-        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.DamagePercent, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
-        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.PhysicsDamage, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
-        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.EnergyDamage, () => { RefreshWeaponItemInfo(UI_WeaponUnitPropertyType.Damage); });
     }
 
     /// <summary>
@@ -1154,12 +1148,29 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void EnterShop()
     {
+        GameManager.Instance.PauseGame();
         RefreshShop(false);
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
         CameraManager.Instance.SetOrthographicSize(20);
         UIManager.Instance.HiddenUI("ShipHUD");
         UIManager.Instance.ShowUI<ShopHUD>("ShopHUD", E_UI_Layer.Mid, this, (panel) => 
+        {
+            panel.Initialization();
+        });
+    }
+
+    /// <summary>
+    /// Àë¿ªÉÌµê
+    /// </summary>
+    public void ExitShop()
+    {
+        GameManager.Instance.UnPauseGame();
+        InputDispatcher.Instance.ChangeInputMode("Player");
+        CameraManager.Instance.SetFollowPlayerShip();
+        CameraManager.Instance.SetOrthographicSize(40);
+        UIManager.Instance.HiddenUI("ShopHUD");
+        UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, this, (panel) =>
         {
             panel.Initialization();
         });
@@ -1409,11 +1420,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private void OnShopCostChange()
     {
         RogueEvent.Trigger(RogueEventType.ShopCostChange);
-    }
-
-    private void RefreshWeaponItemInfo(UI_WeaponUnitPropertyType type)
-    {
-        RogueEvent.Trigger(RogueEventType.RefreshShopWeaponInfo, type);
     }
 
     #endregion

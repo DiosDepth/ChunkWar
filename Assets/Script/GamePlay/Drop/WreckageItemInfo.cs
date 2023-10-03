@@ -41,22 +41,6 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
         get { return LocalizationManager.Instance.GetTextValue(UnitConfig.GeneralConfig.Desc); }
     }
 
-    public string TypeName
-    {
-        get
-        {
-            if (UnitConfig.unitType == UnitType.Weapons)
-            {
-                return LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipWeapon_Text);
-            }
-            else if (UnitConfig.unitType == UnitType.Buildings)
-            {
-                return LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipBuilding_Text);
-            }
-            return string.Empty;
-        }
-    }
-
     public Color RarityColor
     {
         get

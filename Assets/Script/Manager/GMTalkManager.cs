@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 
 public class GMTalkManager : Singleton<GMTalkManager>
 {
-    private const string Key_FetchReward = "FetchReward";
-    private const string Key_AddMaterial = "AddMaterial";
-
     private Dictionary<string, Func<string[], bool>> GMFunctionDic;
 
     private const int BattleTestCreateIndex_Start = 100000;
@@ -33,45 +30,12 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private void InitialCmd()
     {
-
-        /// Cmd : jump to shop
-        AddGMFunctionToDic("harbor", (starry) => 
-        {
-            if(LevelManager.Instance.currentLevel.levelName == AvaliableLevel.BattleLevel_001.ToString())
-            {
-                GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
- 
-        });
-
-        AddGMFunctionToDic("exp", (param) =>
-        {
-            if (param.Length != 1)
-                return false;
-            int value = 0;
-            int.TryParse(param[0], out value);
-            RogueManager.Instance.AddEXP(value);
-            return true;
-        });
-
-
-        AddGMFunctionToDic("waste", (param) =>
-        {
-            if (param.Length != 1)
-                return false;
-            int value = 0;
-            int.TryParse(param[0], out value);
-            RogueManager.Instance.AddDropWasteCount(value);
-            return true;
-        });
-
+        AddGMFunctionToDic("harbor", EnterHarbor);
+        AddGMFunctionToDic("exp", AddEXP);
+        AddGMFunctionToDic("waste", AddWaste);
         AddGMFunctionToDic("campscore", AddCampScore);
         AddGMFunctionToDic("win", Win);
+        AddGMFunctionToDic("Shop", EnterShop);
     }
 
     
@@ -103,6 +67,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
             return;
 
         var keyWords = strlst[0];
+        keyWords.ToLower();
         strlst.RemoveAt(0);
         if (GMFunctionDic.ContainsKey(keyWords))
         {
@@ -123,6 +88,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private void AddGMFunctionToDic(string key, Func<string[], bool> actions)
     {
+        key.ToLower();
         if (GMFunctionDic.ContainsKey(key))
             return;
 
@@ -148,8 +114,54 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private bool Win(string[] content)
     {
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
         GameEvent.Trigger(EGameState.EGameState_GameOver);
         return true;
     }
+
+    private bool EnterShop(string[] content)
+    {
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        RogueManager.Instance.EnterShop();
+        return true;
+    }
+
+    private bool EnterHarbor(string[] content)
+    {
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        if (LevelManager.Instance.currentLevel.levelName == AvaliableLevel.BattleLevel_001.ToString())
+        {
+            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool AddEXP(string[] content)
+    {
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        if (content.Length != 1)
+            return false;
+        int value = 0;
+        int.TryParse(content[0], out value);
+        RogueManager.Instance.AddEXP(value);
+        return true;
+    }
+
+    private bool AddWaste(string[] content)
+    {
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        if (content.Length != 1)
+            return false;
+        int value = 0;
+        int.TryParse(content[0], out value);
+        RogueManager.Instance.AddDropWasteCount(value);
+        return true;
+    }
+
     #endregion
+
 }
