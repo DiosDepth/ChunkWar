@@ -50,45 +50,20 @@ public class ShopSlotItem : MonoBehaviour
         string desc = string.Empty;
         Sprite icon = null;
 
-        this.ItemType = info._cfg.ItemType;
         itemTypeID = info._cfg.TypeID;
-        if (ItemType == GoodsItemType.ShipPlug)
+        _unitInfoRoot.transform.SafeSetActive(false);
+        PropertyModifyRoot.transform.SafeSetActive(true);
+        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
+        if (plugCfg != null)
         {
-            _unitInfoRoot.transform.SafeSetActive(false);
-            PropertyModifyRoot.transform.SafeSetActive(true);
-            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
-            if(plugCfg != null)
-            {
-                name = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
-                desc = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
-                icon = plugCfg.GeneralConfig.IconSprite;
-            }
-            _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipPlug_Text);
-            _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
-            SetUpProperty();
+            name = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
+            desc = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
+            icon = plugCfg.GeneralConfig.IconSprite;
         }
-        else if (ItemType == GoodsItemType.ShipUnit)
-        {
-            _unitInfoRoot.transform.SafeSetActive(true);
-            PropertyModifyRoot.transform.SafeSetActive(false);
-            var unitCfg = DataManager.Instance.GetUnitConfig(itemTypeID);
-            if(unitCfg != null)
-            {
-                name = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Name);
-                desc = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Desc);
-                icon = unitCfg.GeneralConfig.IconSprite;
-                _nameText.color = GameHelper.GetRarityColor(unitCfg.GeneralConfig.Rarity);
-                if (unitCfg.unitType == UnitType.Weapons)
-                {
-                    _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipWeapon_Text);
-                }
-                else if (unitCfg.unitType == UnitType.Buildings)
-                {
-                    _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipBuilding_Text);
-                }
-                SetUpUintInfo(unitCfg);
-            }
-        }
+        _typeText.text = LocalizationManager.Instance.GetTextValue(GameHelper.ShopItemType_ShipPlug_Text);
+        _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
+        SetUpProperty();
+
         _nameText.text = name;
         _descText.text = desc;
         _icon.sprite = icon;
@@ -196,17 +171,14 @@ public class ShopSlotItem : MonoBehaviour
 
     private void SetUpProperty()
     {
-        var type = _goodsInfo._cfg.ItemType;
-        if(type == GoodsItemType.ShipPlug)
+        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(_goodsInfo._cfg.TypeID);
+        PropertyModifyRoot.Pool_BackAllChilds(ShopPropertyItem_PrefabPath);
+        if (plugCfg != null)
         {
-            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(_goodsInfo._cfg.TypeID);
-            PropertyModifyRoot.Pool_BackAllChilds(ShopPropertyItem_PrefabPath);
-            if (plugCfg != null)
-            {
-                SetUpPropertyCmpt(plugCfg.PropertyModify, false);
-                SetUpPropertyCmpt(plugCfg.PropertyPercentModify, true);
-            }
+            SetUpPropertyCmpt(plugCfg.PropertyModify, false);
+            SetUpPropertyCmpt(plugCfg.PropertyPercentModify, true);
         }
+
         var rect = PropertyModifyRoot.GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }

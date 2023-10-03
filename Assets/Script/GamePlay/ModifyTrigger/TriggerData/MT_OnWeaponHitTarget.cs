@@ -44,6 +44,13 @@ public class MT_OnWeaponHitTarget : ModifyTriggerData
             (_hitCfg.CriticalBool == BoolType.False && info.isCritical))
             return;
 
-        Trigger();
+        if(Trigger())
+        {
+            if (_hitCfg.ModifyFinalDamage)
+            {
+                var percent = 1 + _hitCfg.DamageAddPercent / 100f;
+                damageInfo.Damage = Mathf.RoundToInt(damageInfo.Damage * percent);
+            }
+        }
     }
 }

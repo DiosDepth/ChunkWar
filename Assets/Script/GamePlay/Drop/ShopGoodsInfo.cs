@@ -96,17 +96,10 @@ public class ShopGoodsInfo : RandomObject
         info.Weight = cfg.Weight;
         info.DiscountValue = 0;
 
-        if (cfg.ItemType == GoodsItemType.ShipPlug)
+        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(cfg.TypeID);
+        if (plugCfg != null)
         {
-            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(cfg.TypeID);
-            if (plugCfg != null)
-            {
-                info.Rarity = plugCfg.GeneralConfig.Rarity;
-            }
-        }
-        else if (cfg.ItemType == GoodsItemType.ShipUnit)
-        {
-
+            info.Rarity = plugCfg.GeneralConfig.Rarity;
         }
 
         return info;
@@ -149,7 +142,7 @@ public class ShopGoodsInfo : RandomObject
         if (_cfg.MaxBuyCount == -1)
             return true;
 
-        var currentCount = RogueManager.Instance.GetCurrentGoodsCount(GoodsID);
+        var currentCount = RogueManager.Instance.GetCurrentPlugCount(GoodsID);
         if (_cfg.Unique && currentCount == 1)
             return false;
 

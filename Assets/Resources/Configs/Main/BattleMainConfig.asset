@@ -19,23 +19,28 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 2ae19cf3b1a3876439a54dedf5b8b26b, type: 3}
     - {fileID: 21300000, guid: 1f8848de4a13db34ea1601e4e717fad3, type: 3}
     - {fileID: 21300000, guid: 08809e2c08e6f3344b51c9dc61bf9fec, type: 3}
-    - {fileID: 21300000, guid: e27f0d0c4b16d7a40a428f97006b6bbc, type: 3}
-    - {fileID: 21300000, guid: 155625dc38cb90842a3d52f10ae91006, type: 3}
-    - {fileID: 21300000, guid: 0b43561315597b844ad1b435728ed5b0, type: 3}
+    - {fileID: 21300000, guid: 94744565cb17e904f8c6d746d27d7668, type: 3}
+    - {fileID: 21300000, guid: a8b8c0007cfd02c49b06483d30a364d7, type: 3}
+    - {fileID: 21300000, guid: 3569e81281a3b2540a59e4c8aaf8063a, type: 3}
     - {fileID: 21300000, guid: 06f5fb8941942b543b831ac667f94d17, type: 3}
-    - {fileID: 21300000, guid: ba5e47215639b1748b058387d5aea65a, type: 3}
-    - {fileID: 21300000, guid: 1d763a7303eeeef499065ec693e8562e, type: 3}
-    - {fileID: 21300000, guid: 9bf9634ff2a6cda4096accd22f9011d5, type: 3}
-    - {fileID: 21300000, guid: 647d919380b4ba2488f1c34d8860cdd9, type: 3}
-    - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
-    - {fileID: 21300000, guid: 911b3b45310cd8c429c04122313979a8, type: 3}
+    - {fileID: 21300000, guid: ca336cc7fd9a2954ab4ca211d885c114, type: 3}
+    - {fileID: 21300000, guid: de1defb904304fe46b3131cca5cac124, type: 3}
+    - {fileID: 21300000, guid: 6ab9d75f79ac83140ad921f5ea7cb502, type: 3}
+    - {fileID: 21300000, guid: b47f90625c31a7841b739b3453f7a627, type: 3}
+    - {fileID: 21300000, guid: ae207818d97b0ad4484983182ffe7bbe, type: 3}
+    - {fileID: 21300000, guid: 54255137700c44c4796d9537cbf96418, type: 3}
+    - {fileID: 21300000, guid: 6056dc16abab48c4bbc16ca2b0376cf8, type: 3}
     - {fileID: 21300000, guid: 36ce59a4401ec5240b6992820c323be5, type: 3}
     - {fileID: 21300000, guid: cdbda0e9c9c2b764c8f2a53fc0e6faf8, type: 3}
-    - {fileID: 21300000, guid: 964648ffe7791304a8712b96b53de3dd, type: 3}
-    - {fileID: 21300000, guid: ec61eadb7162bea48b41c2b9559d51c7, type: 3}
+    - {fileID: 21300000, guid: 974614ab4c6048347b934ba1227cb732, type: 3}
+    - {fileID: 21300000, guid: 9afd55b9c4444a446a1bf56e14878807, type: 3}
+    - {fileID: 21300000, guid: 71fdbb832e1ad754a8c4bd05f23d25d1, type: 3}
+    - {fileID: 21300000, guid: bdc76230147c06b4c9260fd8b5851517, type: 3}
+    - {fileID: 21300000, guid: 99d7bcceaaa24ca4eb7c3ade8d77972d, type: 3}
     - {fileID: 21300000, guid: a071c91c8b868b74da8cf837f4cfb1e0, type: 3}
-    - {fileID: 21300000, guid: fb0894800bee3a24f8d3c969c2353dfc, type: 3}
-    - {fileID: 21300000, guid: fda083d8e658ad848b3b6cd85450dde5, type: 3}
+    - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
+    - {fileID: 21300000, guid: 623c9c38a2686e7469151bfdb7ac0752, type: 3}
+    - {fileID: 21300000, guid: 987ad998979eaa647b07c68fa5816d58, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -404,7 +409,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -413,7 +418,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -425,7 +430,31 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 3
-      Data: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -489,7 +518,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 20
+      Data: 22
     - Name: 
       Entry: 7
       Data: 
@@ -533,8 +562,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_AttackSpeed
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_AttackSpeed
     - Name: Icon
       Entry: 10
       Data: 4
@@ -623,7 +652,7 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_ShopCostPercent
     - Name: ModifyPercentNameText
-      Entry: 6
+      Entry: 1
       Data: 
     - Name: Icon
       Entry: 10
@@ -683,8 +712,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_WeaponRange
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_WeaponRange
     - Name: Icon
       Entry: 10
       Data: 9
@@ -713,8 +742,8 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_Luck
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_Luck
     - Name: Icon
       Entry: 10
       Data: 10
@@ -743,11 +772,11 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_SuckerRange
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_SuckerRange
     - Name: Icon
       Entry: 10
-      Data: 6
+      Data: 11
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -773,11 +802,11 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_PhysicsDamage
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_PhysicsDamage
     - Name: Icon
       Entry: 10
-      Data: 11
+      Data: 12
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -803,11 +832,11 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_EnergyDamage
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_EnergyDamage
     - Name: Icon
       Entry: 10
-      Data: 12
+      Data: 13
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -837,7 +866,7 @@ MonoBehaviour:
       Data: 
     - Name: Icon
       Entry: 10
-      Data: 13
+      Data: 14
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -863,11 +892,11 @@ MonoBehaviour:
       Entry: 1
       Data: CriticalDamagePercentAdd
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_CriticalDamagePercentAdd
     - Name: Icon
       Entry: 10
-      Data: 14
+      Data: 15
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -893,11 +922,11 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_ShieldHP
     - Name: ModifyPercentNameText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: MP_PropertyName_ShieldHP
     - Name: Icon
       Entry: 10
-      Data: 15
+      Data: 16
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -927,7 +956,7 @@ MonoBehaviour:
       Data: MP_PropertyName_ShipArmor
     - Name: Icon
       Entry: 10
-      Data: 16
+      Data: 17
     - Name: IsPercent
       Entry: 5
       Data: false
@@ -957,7 +986,7 @@ MonoBehaviour:
       Data: MP_PropertyName_ShipParry
     - Name: Icon
       Entry: 10
-      Data: 17
+      Data: 18
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -987,7 +1016,7 @@ MonoBehaviour:
       Data: MP_PropertyName_ShipSpeed
     - Name: Icon
       Entry: 10
-      Data: 18
+      Data: 19
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -1017,10 +1046,10 @@ MonoBehaviour:
       Data: MP_PropertyName_ExplodeDamage
     - Name: Icon
       Entry: 10
-      Data: 19
+      Data: 20
     - Name: IsPercent
       Entry: 5
-      Data: true
+      Data: false
     - Name: ReverseColor
       Entry: 5
       Data: false
@@ -1047,7 +1076,7 @@ MonoBehaviour:
       Data: 
     - Name: Icon
       Entry: 10
-      Data: 17
+      Data: 21
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -1077,10 +1106,70 @@ MonoBehaviour:
       Data: 
     - Name: Icon
       Entry: 10
-      Data: 11
+      Data: 22
     - Name: IsPercent
       Entry: 5
       Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 46
+    - Name: $v
+      Entry: 7
+      Data: 41|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Command
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_Command
+    - Name: Icon
+      Entry: 10
+      Data: 23
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 35
+    - Name: $v
+      Entry: 7
+      Data: 42|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldArmor
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_ShieldArmor
+    - Name: Icon
+      Entry: 10
+      Data: 24
+    - Name: IsPercent
+      Entry: 5
+      Data: false
     - Name: ReverseColor
       Entry: 5
       Data: false

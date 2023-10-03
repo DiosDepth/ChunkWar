@@ -135,8 +135,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     private Dictionary<int, ShopGoodsInfo> goodsItems;
     private Dictionary<int, WreckageItemInfo> wreckageItems;
-
-    private Dictionary<int, byte> _playerCurrentGoods;
+    private Dictionary<int, int> plugItemCountDic;
 
     /// <summary>
     /// 当前舰船插件物品
@@ -282,10 +281,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _inLevelDropItems[GoodsItemRarity.Tier3] = 0;
         _inLevelDropItems[GoodsItemRarity.Tier4] = 0;
 
+        plugItemCountDic.Clear();
         MainPropertyData.Clear();
         goodsItems.Clear();
         wreckageItems.Clear();
-        _playerCurrentGoods.Clear();
         _currentShipPlugs.Clear();
         AllCurrentShipPlugs.Clear();
         globalModifySpecialDatas.Clear();
@@ -400,6 +399,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         InitAllGoodsItems();
         ///InitPlugs
         InitShipPlugs();
+        InitOriginShipUnit();
     }
 
     /// <summary>
@@ -423,9 +423,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public override void Initialization()
     {
         base.Initialization();
+        plugItemCountDic = new Dictionary<int, int>();
         BattleResult = new BattleResultInfo();
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
-        _playerCurrentGoods = new Dictionary<int, byte>();
         CurrentRogueShopItems = new List<ShopGoodsInfo>();
         CurrentShipLevelUpItems = new List<ShipLevelUpItem>();
 
@@ -496,7 +496,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     }
 
-
     /// <summary>
     /// 增加货币
     /// </summary>
@@ -552,6 +551,32 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         if(campData != null)
         {
             campData.AddCampScore(totalScore, out BattleResult.campLevelInfo);
+        }
+    }
+
+    /// <summary>
+    /// 舰船初始化携带的额外Building
+    /// </summary>
+    private void InitOriginShipUnit()
+    {
+        if (currentShipSelection == null)
+            return;
+
+        var shipCfg = currentShipSelection.itemconfig as PlayerShipConfig;
+        var shipUnitCfg = shipCfg.OriginUnits;
+        if(shipUnitCfg != null && shipUnitCfg.Count > 0)
+        {
+            for(int i = 0; i < shipUnitCfg.Count; i++)
+            {
+                var unitCfg = DataManager.Instance.GetUnitConfig(shipUnitCfg[i].UnitID);
+                if (unitCfg == null)
+                    return;
+
+                UnitInfo info = new UnitInfo(shipUnitCfg[i]);
+                info.occupiedCoords = ShipMapData.GetOccupiedCoords(unitCfg.ID, info.pivot);
+
+                ShipMapData.UnitList.Add(info);
+            }
         }
     }
 
@@ -1156,10 +1181,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         if (!info.CheckCanBuy())
             return false;
 
-        ///临时仓库已满，无法购买
-        if (info._cfg.ItemType == GoodsItemType.ShipUnit)
-            return false;
-
         var cost = info.Cost;
         AddCurrency(-cost);
         info.OnItemSold();
@@ -1169,23 +1190,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private void GainShopItem(ShopGoodsInfo info)
     {
-        ///RefreshCount
-        if (_playerCurrentGoods.ContainsKey(info.GoodsID))
-        {
-            _playerCurrentGoods[info.GoodsID]++;
-
-        }
-        else
-        {
-            _playerCurrentGoods.Add(info.GoodsID, 1);
-        }
-
-        var itemType = info._cfg.ItemType;
-        int typeID = info._cfg.TypeID; 
-        if (itemType == GoodsItemType.ShipPlug)
-        {
-            AddNewShipPlug(typeID, info.GoodsID);
-        }
+        AddNewShipPlug(info._cfg.TypeID, info.GoodsID);
     }
     
     /// <summary>
@@ -1222,16 +1227,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
-    /// 获取当前拥有的物件数量
+    /// 获取当前拥有的插件数量
     /// </summary>
     /// <param name="goodsID"></param>
     /// <returns></returns>
-    public byte GetCurrentGoodsCount(int goodsID)
+    public byte GetCurrentPlugCount(int plugID)
     {
-        if (_playerCurrentGoods.ContainsKey(goodsID))
-            return _playerCurrentGoods[goodsID];
-
-        return 0;
+        byte count = 0;
+        for(int i = 0; i < AllCurrentShipPlugs.Count; i++)
+        {
+            var id = AllCurrentShipPlugs[i].PlugID;
+            if (id == plugID)
+                count++;
+        }
+        return count;
     }
 
     /// <summary>
@@ -1281,7 +1290,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
                 }
                 else if (goods._cfg.MaxBuyCount > 0)
                 {
-                    var currentCount = GetCurrentGoodsCount(goods.GoodsID);
+                    var currentCount = GetCurrentPlugCount(goods._cfg.TypeID);
                     var currentRandomPoolCount = result.FindAll(x => x.GoodsID == goods.GoodsID).Count;
                     if(currentCount + currentRandomPoolCount + 1 >= goods._cfg.MaxBuyCount)
                     {
@@ -1544,13 +1553,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <returns></returns>
     public int GetSameShipPlugTotalCount(int plugID)
     {
-        int result = 0;
-        for(int i =0;i< AllCurrentShipPlugs.Count; i++)
-        {
-            if (AllCurrentShipPlugs[i].PlugID == plugID)
-                result++;
-        }
-        return result;
+        if (plugItemCountDic.ContainsKey(plugID))
+            return plugItemCountDic[plugID];
+
+        return 0;
     }
 
     /// <summary>
@@ -1569,6 +1575,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         if (plugInfo == null)
             return;
 
+        if (plugItemCountDic.ContainsKey(plugID))
+        {
+            plugItemCountDic[plugID]++;
+        }
+        else
+        {
+            plugItemCountDic.Add(plugID, 1);
+        }
+
         var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipPlug, plugInfo);
         plugInfo.UID = uid;
         plugInfo.OnAdded();
@@ -1584,7 +1599,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         foreach(var item in goodsItems.Values)
         {
             var cfg = item._cfg;
-            if (cfg.ItemType == GoodsItemType.ShipPlug && cfg.TypeID == plugID)
+            if (cfg.TypeID == plugID)
                 return item.GoodsID;
         }
         return 0;

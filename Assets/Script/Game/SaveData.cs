@@ -282,8 +282,6 @@ public class ShipMapData
 
     public ShipMapData(PlayerShip shipdata)
     {
-
-        
         for (int row = 0; row < shipdata.ChunkMap.GetLength(0); row++)
         {
             for (int colume = 0; colume < shipdata.ChunkMap.GetLength(1); colume++)
@@ -306,7 +304,6 @@ public class ShipMapData
         }
 
     }
-
 
     public ShipMapData(int[,] shipmap)
     {
@@ -335,6 +332,38 @@ public class ShipMapData
             }
         }
 
+    }
+
+    /// <summary>
+    /// 获取实际占据的格子
+    /// </summary>
+    /// <param name="unitID"></param>
+    /// <param name="pivot"></param>
+    /// <returns></returns>
+    public List<Vector2Int> GetOccupiedCoords(int unitID, Vector2Int pivot)
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        var unitCfg = DataManager.Instance.GetUnitConfig(unitID);
+
+        var unitMap = unitCfg.GetReletiveCoord();
+        unitMap.AddToAll(pivot);
+
+        if (unitMap.Length > 0)
+        {
+            for (int i = 0; i < unitMap.Length; i++)
+            {
+                var buildarray = GameHelper.CoordinateMapToArray(unitMap[i], GameGlobalConfig.ShipMapSize);
+                if (ShipMap[buildarray.x, buildarray.y].isOccupied)
+                {
+                    Debug.LogError("初始化Unit失败，格已经被占据 " + string.Format("X :{0}  Y :{1}", buildarray.x, buildarray.y));
+                    return result;
+                }
+
+                result.Add(unitMap[i]);
+            }
+        }
+        return result;
     }
 
 }

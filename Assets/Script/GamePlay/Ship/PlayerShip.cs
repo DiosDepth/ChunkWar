@@ -457,7 +457,6 @@ public class PlayerShip : BaseShip
             if (tempunit != null)
             {
                 tempunit.UnitID = m_unitInfo.UnitID;
-                tempunit.UID = m_unitInfo.UID;
                 tempunit.direction = m_unitInfo.direction;
                 tempunit.pivot = m_unitInfo.pivot;
                 tempunit.occupiedCoords = m_unitInfo.occupiedCoords;
@@ -480,6 +479,17 @@ public class PlayerShip : BaseShip
                 else
                 {
                     tempunit.Initialization(this, unitconfig);
+                }
+
+                if (m_unitInfo.UID == 0)
+                {
+                    ///这里处理舰船特性，初始化自带的Unit问题
+                    tempunit.UID = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipUnit, tempunit);
+                    RogueManager.Instance.AddNewShipUnit(tempunit);
+                }
+                else
+                {
+                    tempunit.UID = m_unitInfo.UID;
                 }
 
                 obj.transform.parent = buildingsParent.transform;

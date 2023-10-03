@@ -31,16 +31,12 @@ MonoBehaviour:
     ChineseSimplified: "\u4F24\u5BB3"
     English: 
     Japanese: 
-  - TextID: PropertyName_Critical
-    ChineseSimplified: "\u66B4\u51FB"
+  - TextID: MP_PropertyName_DamagePercent
+    ChineseSimplified: "\u4F24\u5BB3\u4FEE\u6B63"
     English: 
     Japanese: 
   - TextID: PropertyName_Luck
     ChineseSimplified: "\u5E78\u8FD0"
-    English: 
-    Japanese: 
-  - TextID: PropertyName_WeaponRange
-    ChineseSimplified: "\u6B66\u5668\u8303\u56F4"
     English: 
     Japanese: 
   - TextID: PropertyName_ExplodeDamage
@@ -65,5 +61,117 @@ MonoBehaviour:
     Japanese: 
   - TextID: MP_PropertyName_ShipArmor
     ChineseSimplified: "\u88C5\u7532\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShipHP
+    ChineseSimplified: "\u8230\u8239\u7ED3\u6784"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyNameShipHP
+    ChineseSimplified: "\u8230\u8239\u7ED3\u6784\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_Critical
+    ChineseSimplified: "\u66B4\u51FB"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_Critical
+    ChineseSimplified: "\u66B4\u51FB\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_Luck
+    ChineseSimplified: "\u5E78\u8FD0\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_WeaponRange
+    ChineseSimplified: "\u8303\u56F4"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_WeaponRange
+    ChineseSimplified: "\u8303\u56F4\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_AttackSpeed
+    ChineseSimplified: "\u88C5\u586B\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_AttackSpeed
+    ChineseSimplified: "\u88C5\u586B\u901F\u5EA6\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_SuckerRange
+    ChineseSimplified: "\u62FE\u53D6\u8303\u56F4"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_SuckerRange
+    ChineseSimplified: "\u62FE\u53D6\u8303\u56F4\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShopCostPercent
+    ChineseSimplified: "\u5546\u8239\u4EF7\u683C"
+    English: 
+    Japanese: 
+  - TextID: CriticalDamagePercentAdd
+    ChineseSimplified: "\u66B4\u51FB\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: MP_CriticalDamagePercentAdd
+    ChineseSimplified: "\u66B4\u51FB\u4F24\u5BB3\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_PhysicsDamage
+    ChineseSimplified: "\u5B9E\u5F39\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_PhysicsDamage
+    ChineseSimplified: "\u5B9E\u5F39\u4F24\u5BB3\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_EnergyDamage
+    ChineseSimplified: "\u80FD\u91CF\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_EnergyDamage
+    ChineseSimplified: "\u80FD\u91CF\u4F24\u5BB3\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShieldHP
+    ChineseSimplified: "\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_ShieldHP
+    ChineseSimplified: "\u62A4\u76FE\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShipSpeed
+    ChineseSimplified: "\u8230\u8239\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_ShipSpeed
+    ChineseSimplified: "\u8230\u8239\u901F\u5EA6\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShipParry
+    ChineseSimplified: "\u95EA\u907F"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_ShipParry
+    ChineseSimplified: "\u95EA\u907F\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_Command
+    ChineseSimplified: "\u6307\u6325"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_Command
+    ChineseSimplified: "\u6307\u6325\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShieldArmor
+    ChineseSimplified: "\u62A4\u76FE\u5F3A\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_ShieldArmor
+    ChineseSimplified: "\u62A4\u76FE\u5F3A\u5EA6\u4FEE\u6B63"
     English: 
     Japanese: 
