@@ -1071,7 +1071,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
             for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
             {
                 damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
-                if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
+                if (damagetargetindex < 0 || damagetargetindex >= playerActiveUnitList.Count)
                 {
                     continue;
                 }

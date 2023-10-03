@@ -30,10 +30,11 @@ public class InstanceHit : Bullet
         switch ((_owner as Weapon).aimingtype)
         {
             case WeaponAimingType.Directional:
-                DirectionalInstanceHit02();
+                DirectionalInstanceHit();
                 //DirectionalInstanceHit();
                 break;
             case WeaponAimingType.TargetDirectional:
+                DirectionalInstanceHit();
                 break;
             case WeaponAimingType.TargetBased:
 
@@ -42,70 +43,68 @@ public class InstanceHit : Bullet
     }
 
 
+    //public void DirectionalInstanceHit()
+    //{
+    //    Debug.Log("InstanceHit");
+
+    //    InstanceHitLine.startWidth = width;
+    //    InstanceHitLine.endWidth = width;
+    //    LeanTween.value(0, maxDistance, emittime).setOnUpdate((value) =>
+    //    {
+    //        InstanceHitLine.SetPosition(1, new Vector3(0, value, 0));
+
+    //    }).setOnComplete(() =>
+    //    {
+    //        //创建射线
+    //        hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
+
+    //        if (hitlist != null && hitlist?.Length > 0)
+    //        {
+    //            for (int i = 0; i < hitlist.Length; i++)
+    //            {
+    //                if (hitlist[i].collider.gameObject != null)
+    //                {
+    //                    if (hitlist[i].collider.tag == this.tag)
+    //                    {
+    //                        continue;
+    //                    }
+    //                    // 创建特效表现
+
+    //                    PlayVFX(HitVFX, hitlist[i].point);
+
+    //                    //产生伤害
+    //                    if (_owner is Weapon)
+    //                    {
+    //                        var damage = (_owner as Weapon).weaponAttribute.GetDamage();
+    //                        ///TODO Value
+    //                        damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
+    //                        hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(damage);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //        //延迟激光然后销毁激光
+    //        LeanTween.delayedCall(duration, () =>
+    //        {
+    //            LeanTween.value(width, 0, deathtime).setOnUpdate((value) =>
+    //            {
+    //                InstanceHitLine.startWidth = value;
+    //                InstanceHitLine.endWidth = value;
+    //            }).setOnComplete(() =>
+    //            {
+    //                Death(null);
+    //            });
+    //        });
+    //    });
+
+    //}
+
+
     public void DirectionalInstanceHit()
-    {
-        Debug.Log("InstanceHit");
-
-        InstanceHitLine.startWidth = width;
-        InstanceHitLine.endWidth = width;
-        LeanTween.value(0, maxDistance, emittime).setOnUpdate((value) =>
-        {
-            InstanceHitLine.SetPosition(1, new Vector3(0, value, 0));
-
-        }).setOnComplete(() =>
-        {
-            //创建射线
-            hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
-
-            if (hitlist != null && hitlist?.Length > 0)
-            {
-                for (int i = 0; i < hitlist.Length; i++)
-                {
-                    if (hitlist[i].collider.gameObject != null)
-                    {
-                        if (hitlist[i].collider.tag == this.tag)
-                        {
-                            continue;
-                        }
-                        // 创建特效表现
-
-                        PlayVFX(HitVFX, hitlist[i].point);
-
-                        //产生伤害
-                        if (_owner is Weapon)
-                        {
-                            var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-                            ///TODO Value
-                            damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
-                            hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(damage);
-                        }
-                    }
-                }
-            }
-            //延迟激光然后销毁激光
-            LeanTween.delayedCall(duration, () =>
-            {
-                LeanTween.value(width, 0, deathtime).setOnUpdate((value) =>
-                {
-                    InstanceHitLine.startWidth = value;
-                    InstanceHitLine.endWidth = value;
-                }).setOnComplete(() =>
-                {
-                    Death(null);
-                });
-            });
-        });
-
-    }
-
-
-    public void DirectionalInstanceHit02()
     {
 
         InstanceHitLine.startWidth = 0;
         InstanceHitLine.endWidth = width;
-
-       
 
         hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
 
