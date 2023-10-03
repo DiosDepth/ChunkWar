@@ -407,3 +407,11 @@ MonoBehaviour:
     ChineseSimplified: "\u51FA\u552E"
     English: 
     Japanese: 
+  - TextID: ShopItem_BuyLimit
+    ChineseSimplified: "\u9650\u5236"
+    English: 
+    Japanese: 
+  - TextID: ShopItem_Sold
+    ChineseSimplified: "\u5DF2\u552E\u51FA"
+    English: 
+    Japanese: 

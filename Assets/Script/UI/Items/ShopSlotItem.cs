@@ -13,7 +13,8 @@ public class ShopSlotItem : MonoBehaviour
     private Image _rarityBG;
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
-    private Text _costText;
+    private TextMeshProUGUI _costText;
+    private TextMeshProUGUI _limitText;
     private Transform PropertyModifyRoot;
     private RectTransform _tagRoot;
     private RectTransform _detailContentRect;
@@ -22,6 +23,7 @@ public class ShopSlotItem : MonoBehaviour
     private ScrollRect _detailScroll;
     private Button _buyButton;
     private Transform _unitInfoRoot;
+    private Transform LimitInfoTrans;
 
     private static Color _costNormalColor = new Color(1f, 1f, 1f);
     private static Color _costRedColor = new Color(0.6f, 0, 0);
@@ -36,6 +38,8 @@ public class ShopSlotItem : MonoBehaviour
         _detailScroll = transform.Find("Content/DetailInfo").SafeGetComponent<ScrollRect>();
         ScrollHeight = _detailScroll.transform.SafeGetComponent<RectTransform>().rect.height;
 
+        LimitInfoTrans = transform.Find("Content/Info/Detail/LimitInfo");
+        _limitText = LimitInfoTrans.Find("Content/Value").SafeGetComponent<TextMeshProUGUI>();
         _detailContentRect = transform.Find("Content/DetailInfo/Viewport/Content").SafeGetComponent<RectTransform>();
         _tagRoot = transform.Find("Content/Info/Detail/TypeInfo").SafeGetComponent<RectTransform>();
         _icon = transform.Find("Content/Info/Icon/Image").GetComponent<Image>();
@@ -45,7 +49,7 @@ public class ShopSlotItem : MonoBehaviour
         PropertyModifyRoot = _detailContentRect.Find("PropertyModify");
         _unitInfoRoot = _detailContentRect.Find("UnitInfo");
         _descText = _detailContentRect.Find("Desc").GetComponent<TextMeshProUGUI>();
-        _costText = transform.Find("Content/Buy/Value").GetComponent<Text>();
+        _costText = transform.Find("Content/Buy/Value").GetComponent<TextMeshProUGUI>();
         _buyButton = transform.Find("Content/Buy").GetComponent<Button>();
         _buyButton.onClick.AddListener(OnBuyButtonClick);
         transform.Find("Functions/Lock").GetComponent<Button>().onClick.AddListener(OnLockButtonClick);
@@ -65,7 +69,7 @@ public class ShopSlotItem : MonoBehaviour
         _rarityBG.sprite = GameHelper.GetRarityBG_Big(plugCfg.GeneralConfig.Rarity);
         _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
         SetUpProperty();
-
+        SetUpBuyLimit(_goodsInfo);
         _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
         _descText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
         _icon.sprite = plugCfg.GeneralConfig.IconSprite;
@@ -134,6 +138,7 @@ public class ShopSlotItem : MonoBehaviour
         {
             ///Set Buy
             SetSold(true);
+            SetUpBuyLimit(_goodsInfo);
         }
     }
 
@@ -171,7 +176,7 @@ public class ShopSlotItem : MonoBehaviour
 
     private void SetSold(bool sold)
     {
-        transform.Find("Content").SafeSetActive(!sold);
+        _buyButton.interactable = !sold;
         transform.Find("Sold").SafeSetActive(sold);
         transform.Find("Functions").SafeSetActive(!sold);
     }
@@ -208,6 +213,19 @@ public class ShopSlotItem : MonoBehaviour
                 index++;
             }, PropertyModifyRoot);
         }
+    }
+
+    private void SetUpBuyLimit(ShopGoodsInfo info)
+    {
+        var limit = info.GetBuyLimit;
+        if(limit <= -1)
+        {
+            LimitInfoTrans.SafeSetActive(false);
+            return;
+        }
+        var currentCount = RogueManager.Instance.GetCurrentPlugCount(itemTypeID);
+        _limitText.text = string.Format("{0}/{1}", currentCount, limit);
+        LimitInfoTrans.SafeSetActive(true);
     }
 
     private void SetUpTag(ShipPlugItemConfig cfg)

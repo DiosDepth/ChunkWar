@@ -13,8 +13,11 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     private TextMeshProUGUI _rerollCostText;
     private EnhancedScroller _plugGridScroller;
     private BuildSelectHoverCmpt _hoverCmpt;
+    private ShipPropertyGroupPanel _propertyGroup;
+    private Text _propertyBtnText;
 
-
+    private const string PropertyBtnSwitch_Main = "ShipMainProperty_Btn_Text";
+    private const string PropertyBtnSwitch_Sub = "ShipSubProperty_Btn_Text";
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
@@ -30,6 +33,8 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = transform.Find("ShopPanel/Top/Reroll/Reroll/RerollCost").SafeGetComponent<TextMeshProUGUI>();
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
+        _propertyBtnText = transform.Find("PropertyPanel/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
+        _propertyGroup = transform.Find("PropertyPanel/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
     }
 
     public override void Initialization()
@@ -38,6 +43,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         this.EventStartListening<RogueEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
+        GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
         _hoverCmpt.SetActive(false);
         InitShopContent();
         RefreshGeneral();
@@ -45,6 +51,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
     public override void Hidden( )
     {
+        _plugGridController.Clear();
         this.EventStopListening<RogueEvent>();
         base.Hidden();
     }
@@ -52,11 +59,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     public void OnLaunchBtnPressed()
     {
         RogueManager.Instance.ExitShop();
-    }
-
-    public void RemoveSlot(int m_index)
-    {
-
     }
 
     public void OnEvent(RogueEvent evt)
@@ -95,12 +97,13 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         RefreshCurrency();
         RefreshReroll();
         InitPlugController();
+        OnShipPropertySwitchClick();
     }
 
     private void InitPlugController()
     {
         _plugGridController = new GeneralScrollerGirdItemController();
-        _plugGridController.numberOfCellsPerRow = 9;
+        _plugGridController.numberOfCellsPerRow = 15;
         _plugGridController.InitPrefab(ShipPlugGridItem_PrefabPath, true);
         _plugGridController.OnItemSelected += OnPlugItemSelect;
         _plugGridScroller.Delegate = _plugGridController;
@@ -221,4 +224,16 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         }
     }
 
+    private void OnShipPropertySwitchClick()
+    {
+        _propertyGroup.SwitchGroupType();
+        if (_propertyGroup.CurrentGroupType == ShipPropertyGroupPanel.GroupType.Main)
+        {
+            _propertyBtnText.text = LocalizationManager.Instance.GetTextValue(PropertyBtnSwitch_Main);
+        }
+        else
+        {
+            _propertyBtnText.text = LocalizationManager.Instance.GetTextValue(PropertyBtnSwitch_Sub);
+        }
+    }
 }

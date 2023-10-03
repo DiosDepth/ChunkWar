@@ -1294,12 +1294,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
                 var goods = goodsReusult[0];
                 goods.OnItemAddToShop();
                 result.Add(goods);
-                ///如果数量到上限或者unique,从列表中去除
-                if (goods._cfg.Unique)
-                {
-                    allVaild.Remove(goods);
-                }
-                else if (goods._cfg.MaxBuyCount > 0)
+                ///如果数量到上限,从列表中去除
+                if (goods._cfg.MaxBuyCount > 0)
                 {
                     var currentCount = GetCurrentPlugCount(goods._cfg.TypeID);
                     var currentRandomPoolCount = result.FindAll(x => x.GoodsID == goods.GoodsID).Count;

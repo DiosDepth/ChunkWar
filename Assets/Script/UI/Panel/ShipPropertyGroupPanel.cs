@@ -19,6 +19,7 @@ public class ShipPropertyGroupPanel : MonoBehaviour
          PropertyModifyKey.AttackSpeed,
          PropertyModifyKey.ShipArmor,
          PropertyModifyKey.Critical,
+         PropertyModifyKey.CriticalDamagePercentAdd,
          PropertyModifyKey.PhysicsDamage,
          PropertyModifyKey.EnergyDamage,
          PropertyModifyKey.Command,
