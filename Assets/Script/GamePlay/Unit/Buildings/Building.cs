@@ -3,12 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
+public class BuildingAttribute : UnitBaseAttribute
+{
+    public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
+    {
+        base.InitProeprty(parentUnit, cfg, isPlayerShip);
+    }
+
+    public override void Destroy()
+    {
+        base.Destroy();
+    }
+}
+
 public class Building : Unit
 {
 
     private List<BaseBuildingComponent> _buildingComponents = new List<BaseBuildingComponent>();
 
     protected BuildingConfig _buildingConfig;
+
+    public BuildingAttribute buildingAttribute;
 
     public override void Start()
     {
@@ -23,14 +39,27 @@ public class Building : Unit
         UpdateBuildingComponents();
     }
 
+    protected override void OnDestroy()
+    {
+        buildingAttribute?.Destroy();
+        base.OnDestroy();
+    }
+
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _baseUnitConfig = m_unitconfig;
         _buildingConfig = m_unitconfig as BuildingConfig;
         _owner = m_owner;
+        InitBuildingAttribute(m_owner is PlayerShip);
         base.Initialization(m_owner, m_unitconfig);
  
         InitBuildingComponent();
+    }
+
+    public virtual void InitBuildingAttribute(bool isPlayerShip)
+    {
+        buildingAttribute.InitProeprty(this, _buildingConfig, isPlayerShip);
+        baseAttribute = buildingAttribute;
     }
 
     public override bool TakeDamage(DamageResultInfo info)

@@ -376,3 +376,11 @@ public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
 
     }
 }
+
+public class MTC_OnWeaponReload : ModifyTriggerConfig
+{
+    public MTC_OnWeaponReload(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}

@@ -492,3 +492,19 @@ MonoBehaviour:
     ChineseSimplified: "\u80FD\u91CF\u589E\u5E45\u5668"
     English: 
     Japanese: 
+  - TextID: ShipPlug_Name_2
+    ChineseSimplified: "\u96F7\u66B4\u7EA7\u5BFC\u5F39\u62A4\u536B\u8230"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_3
+    ChineseSimplified: "\u53DB\u9003\u8005"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Name_4
+    ChineseSimplified: "\u6BC1\u706D\u8005"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Effect_1004
+    ChineseSimplified: "\u6BCF<color=#09B3CB>5</color>\u79D2\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+2%</color>\uFF0C\u540C\u65F6\u6B66\u5668\u80FD\u6E90\u6D88\u8017<color=#EF3E3E>+3%</color>\uFF0C\u6CE2\u6B21\u7ED3\u675F\u540E\u6E05\u7A7A"
+    English: 
+    Japanese: 

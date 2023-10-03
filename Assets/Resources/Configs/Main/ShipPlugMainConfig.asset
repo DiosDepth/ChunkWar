@@ -1076,8 +1076,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1004
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -1649,8 +1649,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1008
     - Name: ItemTags
       Entry: 3
       Data: 0
