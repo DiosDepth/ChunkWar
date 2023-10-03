@@ -104,7 +104,6 @@ public class ShipMainWeapon : Weapon
         {
             if (firemode == WeaponFireMode.Linked)
             {
-     
                 WeaponTargetInfo info;
                 while(targetList.Count < maxTargetCount)
                 {

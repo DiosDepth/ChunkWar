@@ -566,6 +566,15 @@ public class AIManager : Singleton<AIManager>, IPauseable
         if(!aiProjectileList.Contains(bullet))
         {
             aiProjectileList.Add(bullet);
+            float3 initialtargetpos;
+            if((bullet.Owner as Weapon).aimingtype == WeaponAimingType.Directional)
+            {
+                initialtargetpos = initialtargetpos = bullet.transform.position + bullet.transform.up * bullet.Owner.baseAttribute.WeaponRange;
+            }
+            else
+            {
+                initialtargetpos = bullet.target.transform.position;
+            }
             aiProjectile_JobInfo.Add(new ProjectileJobInitialInfo
                 (
                     bullet.target? bullet.target.transform.position : bullet.transform.up,
@@ -576,6 +585,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
                     bullet.acceleration,
                     bullet.rotSpeed,
                     bullet.InitialmoveDirection.ToVector3(),
+                    initialtargetpos,
                    (int)bullet.movementType,
                    (int)bullet.damageType,
                    bullet.damageRadius
@@ -1010,11 +1020,31 @@ public class AIManager : Singleton<AIManager>, IPauseable
             }
             else
             {
-
-                if (aiProjectileList[i].IsApplyDamageAtThisFrame)
+                switch (aiProjectileList[i].damageTriggerPattern)
                 {
-                    aiProjectileDamageList.Add(aiProjectileList[i]);
-                    aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                    case DamageTriggerPattern.Collider:
+                        if (aiProjectileList[i].IsApplyDamageAtThisFrame)
+                        {
+                            aiProjectileDamageList.Add(aiProjectileList[i]);
+                            aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                        }
+                        break;
+                    case DamageTriggerPattern.PassTrough:
+
+
+                        break;
+                    case DamageTriggerPattern.Point:
+                        aiProjectileDamageList.Add(aiProjectileList[i]);
+                        aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                        break;
+                    case DamageTriggerPattern.Target:
+                        if (aiProjectileList[i].IsApplyDamageAtThisFrame)
+                        {
+                            aiProjectileDamageList.Add(aiProjectileList[i]);
+                            aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                        }
+                        break;
+
                 }
                 _aiProjectileDeathIndex.Add(i);
             }
@@ -1068,19 +1098,77 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         for (int i = 0; i < aiProjectileDamageList.Count; i++)
         {
-            for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
+            switch (aiProjectileDamageList[i].damageTriggerPattern)
             {
-                damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
-                if (damagetargetindex < 0 || damagetargetindex >= playerActiveUnitList.Count)
-                {
-                    continue;
-                }
-                damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
-                aiProjectileDamageList[i].ApplyDamage(damageble);
+                case DamageTriggerPattern.Collider:
+                    if (aiProjectileDamageList[i].damageType == DamageTargetType.Target)
+                    {
+                        damageble = aiProjectileDamageList[i].damageTarget[0].GetComponent<IDamageble>();
+                        aiProjectileDamageList[i].ApplyDamage(damageble);
+                    }
+                    if (aiProjectileDamageList[i].damageType == DamageTargetType.PointRadius)
+                    {
+                        for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
+                        {
+                            damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
+                            if (damagetargetindex < 0 || damagetargetindex >= playerActiveUnitList.Count)
+                            {
+                                continue;
+                            }
+                            damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                            aiProjectileDamageList[i].ApplyDamage(damageble);
+                        }
+                    }
+                    break;
+                case DamageTriggerPattern.PassTrough:
+                    break;
+                case DamageTriggerPattern.Point:
+
+                    if (aiProjectileDamageList[i].damageType == DamageTargetType.Target)
+                    {
+                        Debug.LogError("you can't damage a target while Damage Trigger Pattern is Point");
+                    }
+                    if (aiProjectileDamageList[i].damageType == DamageTargetType.PointRadius)
+                    {
+                        for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
+                        {
+                            damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
+                            if (damagetargetindex < 0 || damagetargetindex >= playerActiveUnitList.Count)
+                            {
+                                continue;
+                            }
+                            damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                            aiProjectileDamageList[i].ApplyDamage(damageble);
+                        }
+                    }
+
+                    break;
+                case DamageTriggerPattern.Target:
+
+                    if (aiProjectileDamageList[i].damageType == DamageTargetType.Target)
+                    {
+                        damageble = aiProjectileDamageList[i].damageTarget[0].GetComponent<IDamageble>();
+                        aiProjectileDamageList[i].ApplyDamage(damageble);
+                    }
+                    if (aiProjectileDamageList[i].damageType == DamageTargetType.PointRadius)
+                    {
+                        for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
+                        {
+                            damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
+                            if (damagetargetindex < 0 || damagetargetindex >= playerActiveUnitList.Count)
+                            {
+                                continue;
+                            }
+                            damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                            aiProjectileDamageList[i].ApplyDamage(damageble);
+                        }
+                    }
+                    break;
             }
+
         }
 
-     
+
         rv_aiProjectileDamageTargetCountPre.Dispose();
         rv_aiProjectileDamageTargetIndex.Dispose();
     }

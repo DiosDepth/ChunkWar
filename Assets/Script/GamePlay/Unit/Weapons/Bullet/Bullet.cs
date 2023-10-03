@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -31,16 +32,19 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 {
     public BulletType type;
     public OwnerType ownertype;
-    public DamageType damageType = DamageType.Point;
+    public DamageTargetType damageType = DamageTargetType.Target;
     public float damageRadius = 5;
 
     public string ShootVFX = "HitVFX";
     public string HitVFX = "HitVFX";
     public string DeathVFX = "HitVFX";
+
+    public Unit Owner { get { return _owner; } }
     protected Unit _owner;
     protected GameObject firepoint;
 
     public GameObject target;
+    public List<GameObject> damageTarget;
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     protected Vector2 _initialmoveDirection = Vector2.up;
 
@@ -187,6 +191,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     {
         SetUpdate(false);
         _isApplyDamageAtThisFrame = false;
+        damageTarget.Clear();
         target = null;
     }
 

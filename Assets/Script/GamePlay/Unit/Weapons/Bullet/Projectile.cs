@@ -10,14 +10,24 @@ using UnityEngine.EventSystems;
 public enum ProjectileMovementType
 {
     Straight = 1,
-    StraightToPos = 2,
+    TowardToTarget = 2,
     FollowTarget = 3,
+    StraightToPos = 4,
 }
-public enum DamageType
+public enum DamageTargetType
 {
-    Point = 1,
+    Target = 1,
     PointRadius = 2,
 }
+
+public enum DamageTriggerPattern
+{
+    Collider,
+    PassTrough,
+    Point,
+    Target,
+}
+
 public struct ProjectileJobInitialInfo
 {
     public float3 update_targetPos;
@@ -30,6 +40,7 @@ public struct ProjectileJobInitialInfo
     public float acceleration;
     public float rotSpeed;
     public float3 initialDirection;
+    public float3 initialTargetPos;
     public float3 update_moveDirection;
     public int movementType;
     public int damageType;
@@ -45,7 +56,7 @@ public struct ProjectileJobInitialInfo
     /// <param name="m_acceleration"></param>
     /// <param name="m_rotspeed"></param>
     /// <param name="m_initialdirection"></param>
-    public ProjectileJobInitialInfo(float3 m_update_targetPos, float3 m_update_selfPos, float m_lifttime, float m_maxspeed, float m_initialspeed, float m_acceleration, float m_rotspeed, float3 m_initialdirection, int m_movementType , int m_damageType, float m_damageRadius)
+    public ProjectileJobInitialInfo(float3 m_update_targetPos, float3 m_update_selfPos, float m_lifttime, float m_maxspeed, float m_initialspeed, float m_acceleration, float m_rotspeed, float3 m_initialdirection, float3 m_initialTargetPos, int m_movementType , int m_damageType, float m_damageRadius)
     {
         update_targetPos = m_update_targetPos;
         update_selfPos = m_update_selfPos;
@@ -57,6 +68,7 @@ public struct ProjectileJobInitialInfo
         acceleration = m_acceleration;
         rotSpeed = m_rotspeed;
         initialDirection = m_initialdirection;
+        initialTargetPos = m_initialTargetPos;
         update_moveDirection = initialDirection;
         movementType = m_movementType;
         damageType = m_damageType;
@@ -83,6 +95,7 @@ public class Projectile : Bullet, IDamageble
     public Rigidbody2D rb;
     public Collider2D bulletCollider;
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
+    public DamageTriggerPattern damageTriggerPattern = DamageTriggerPattern.Collider;
 
     public float lifeTime = 10;
     public float maxSpeed = 2.5f;
@@ -109,33 +122,7 @@ public class Projectile : Bullet, IDamageble
     // Update is called once per frame
     protected override void Update()
     {
-        //while (Time.time < _movetimestamp)
-        //{
-        //    _tempmovement = new NativeArray<float3>(1, Allocator.TempJob);
-
-        //    switch (movementType)
-        //    {
-        //        case ProjectileMovementType.Straight:
-
-        //            //StaightJob staightJob = new StaightJob
-        //            //{
-        //            //    job_selfPos = transform.position,
-        //            //    job_deltatime = Time.deltaTime,
-        //            //    job_maxSpeed = maxSpeed,
-        //            //    job_moveDirection = _movedirection.ToVector3(),
-
-        //            //    JRD_movement = _tempmovement,
-        //            //};
-
-        //            break;
-        //        case ProjectileMovementType.StraightToPos:
-
-        //            break;
-        //        case ProjectileMovementType.FollowTarget:
-
-        //            break;
-        //    }
-        //}
+ 
     }
 
     public override void Shoot()
@@ -176,7 +163,7 @@ public class Projectile : Bullet, IDamageble
 
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                //直线运动的Job算法
+                //直线运动的Job算法 Straight
                 if (job_jobInfo[i].movementType == 1)
                 {
                     currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
@@ -202,15 +189,14 @@ public class Projectile : Bullet, IDamageble
                         bulletJobUpdateInfo.islifeended = false;
                     }
                     bulletJobUpdateInfo.moveDirection = moveDirection;
-              
                 }
 
-
+                //目标导向的Job算法 TowardToTarget
                 if (job_jobInfo[i].movementType == 2)
                 {
-
                     targetDirection = math.normalize(job_jobInfo[i].update_targetPos - job_jobInfo[i].update_selfPos);
                     currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
+                    currentSpeed = math.clamp(currentSpeed, 0, job_jobInfo[i].maxSpeed);
 
                     //算出偏转力方向
                     rotateDirection = math.normalize(targetDirection - job_jobInfo[i].update_moveDirection);
@@ -235,7 +221,68 @@ public class Projectile : Bullet, IDamageble
                         bulletJobUpdateInfo.islifeended = false;
                     }
                     bulletJobUpdateInfo.moveDirection = moveDirection;
-                    
+                }
+
+                //目标跟踪的Job算法 FollowTarget
+                if (job_jobInfo[i].movementType == 3)
+                {
+                    targetDirection = math.normalize(job_jobInfo[i].update_targetPos - job_jobInfo[i].update_selfPos);
+                    currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
+                    currentSpeed = math.clamp(currentSpeed, 0, job_jobInfo[i].maxSpeed);
+
+                    moveDirection = targetDirection;
+                    //更具当前移动方向计算deltamovement
+                    deltaMovement = job_jobInfo[i].update_selfPos + (moveDirection * currentSpeed * job_deltatime);
+
+
+                    bulletJobUpdateInfo.deltaMovement = deltaMovement;
+                    bulletJobUpdateInfo.currentSpeed = currentSpeed;
+                    bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_lifeTimeRemain - job_deltatime;
+
+
+                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0)
+                    {
+                        bulletJobUpdateInfo.lifeTimeRemain = 0;
+                        bulletJobUpdateInfo.islifeended = true;
+                    }
+                    else
+                    {
+                        bulletJobUpdateInfo.islifeended = false;
+                    }
+                    bulletJobUpdateInfo.moveDirection = moveDirection;
+                }
+
+
+                //直线到目标位置的Job算法 StraightToPos
+                if (job_jobInfo[i].movementType == 4)
+                {
+                    targetDirection = math.normalize(job_jobInfo[i].initialTargetPos - job_jobInfo[i].update_selfPos);
+
+                    currentSpeed = job_jobInfo[i].update_currentSpeed + job_jobInfo[i].acceleration;
+                    currentSpeed = math.clamp(currentSpeed, 0, job_jobInfo[i].maxSpeed);
+
+                    moveDirection = targetDirection;
+
+                    deltaMovement = job_jobInfo[i].update_selfPos + (moveDirection * currentSpeed * job_deltatime);
+
+                    //更新BulletJob的值
+                    bulletJobUpdateInfo.deltaMovement = deltaMovement;
+                    bulletJobUpdateInfo.currentSpeed = currentSpeed;
+                    bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_lifeTimeRemain - job_deltatime;
+
+
+                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0 || math.distance(deltaMovement, job_jobInfo[i].initialTargetPos) <= 0.05f)
+                    {
+                        bulletJobUpdateInfo.lifeTimeRemain = 0;
+                        bulletJobUpdateInfo.islifeended = true;
+                    }
+                    else
+                    {
+                        bulletJobUpdateInfo.islifeended = false;
+                    }
+
+
+                    bulletJobUpdateInfo.moveDirection = moveDirection;
                 }
 
                 targetangle = math.degrees(math.atan2(moveDirection.y, moveDirection.x)) - 90;
@@ -316,17 +363,43 @@ public class Projectile : Bullet, IDamageble
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
+        if (damageTriggerPattern == DamageTriggerPattern.Collider)
         {
+            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
+            {
+                return;
+            }
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
+            {
+                damageTarget.Add(collision.gameObject);
+                _isApplyDamageAtThisFrame = true;
+
+            }
             return;
         }
-
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
+        if (damageTriggerPattern == DamageTriggerPattern.Point) { return; }
+        if(damageTriggerPattern == DamageTriggerPattern.Target)
+        {
+            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
+            {
+                return;
+            }
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
+            {
+                if(target.Equals(collision.gameObject))
+                {
+                    damageTarget.Add(collision.gameObject);
+                    _isApplyDamageAtThisFrame = true;
+                }
+            }
+            return;
+        }
+        if(damageTriggerPattern == DamageTriggerPattern.PassTrough)
         {
 
-            _isApplyDamageAtThisFrame = true;
-         
         }
+
     }
 
     public override void Death(UnitDeathInfo info)

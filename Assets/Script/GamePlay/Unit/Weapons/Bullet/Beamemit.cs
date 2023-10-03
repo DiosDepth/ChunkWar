@@ -36,6 +36,7 @@ public class Beamemit : Bullet
                 DirectionalBeam();
                 break;
             case WeaponAimingType.TargetDirectional:
+                DirectionalBeam();
                 break;
             case WeaponAimingType.TargetBased:
                 TargetBaseBeam();
