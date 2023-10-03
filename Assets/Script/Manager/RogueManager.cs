@@ -135,6 +135,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     private Dictionary<int, ShopGoodsInfo> goodsItems;
     private Dictionary<int, WreckageItemInfo> wreckageItems;
+    private Dictionary<int, int> plugItemCountDic;
 
     /// <summary>
     /// 当前舰船插件物品
@@ -280,6 +281,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _inLevelDropItems[GoodsItemRarity.Tier3] = 0;
         _inLevelDropItems[GoodsItemRarity.Tier4] = 0;
 
+        plugItemCountDic.Clear();
         MainPropertyData.Clear();
         goodsItems.Clear();
         wreckageItems.Clear();
@@ -421,6 +423,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public override void Initialization()
     {
         base.Initialization();
+        plugItemCountDic = new Dictionary<int, int>();
         BattleResult = new BattleResultInfo();
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         CurrentRogueShopItems = new List<ShopGoodsInfo>();
@@ -1550,13 +1553,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <returns></returns>
     public int GetSameShipPlugTotalCount(int plugID)
     {
-        int result = 0;
-        for(int i =0;i< AllCurrentShipPlugs.Count; i++)
-        {
-            if (AllCurrentShipPlugs[i].PlugID == plugID)
-                result++;
-        }
-        return result;
+        if (plugItemCountDic.ContainsKey(plugID))
+            return plugItemCountDic[plugID];
+
+        return 0;
     }
 
     /// <summary>
@@ -1574,6 +1574,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var plugInfo = ShipPlugInfo.CreateInfo(plugID, goodsID);
         if (plugInfo == null)
             return;
+
+        if (plugItemCountDic.ContainsKey(plugID))
+        {
+            plugItemCountDic[plugID]++;
+        }
+        else
+        {
+            plugItemCountDic.Add(plugID, 1);
+        }
 
         var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipPlug, plugInfo);
         plugInfo.UID = uid;
