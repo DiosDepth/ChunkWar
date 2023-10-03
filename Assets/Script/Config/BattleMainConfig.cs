@@ -192,6 +192,7 @@ public class PropertyDisplayConfig
 {
     public string NameText;
     public string ModifyPercentNameText;
+    public string DescText;
     public Sprite Icon;
     public bool IsPercent;
     public bool ReverseColor = false;

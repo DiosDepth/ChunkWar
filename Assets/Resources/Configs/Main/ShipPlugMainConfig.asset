@@ -4128,7 +4128,7 @@ MonoBehaviour:
       Data: 
     - Name: EffectDesc
       Entry: 1
-      Data: ShipPlug_EffectDesc_1027
+      Data: ShipPlug_Effect_1027
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -4638,7 +4638,7 @@ MonoBehaviour:
       Data: 
     - Name: EffectDesc
       Entry: 1
-      Data: ShipPlug_EffectDesc_1031
+      Data: ShipPlug_Effect_1032
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -6225,7 +6225,7 @@ MonoBehaviour:
       Data: 
     - Name: EffectDesc
       Entry: 1
-      Data: ShipPlug_EffectDesc_1045
+      Data: ShipPlug_Effect_1045
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -6347,8 +6347,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1046
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -7379,8 +7379,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1054
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -7472,8 +7472,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1045
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -8021,8 +8021,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1060
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -9383,8 +9383,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1071
     - Name: ItemTags
       Entry: 3
       Data: 0

@@ -1402,7 +1402,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             return 0;
 
         var waveIndexDelta = enterCount - rarityCfg.LuckModifyMinEnterCount;
-        return rarityCfg.WeightAddPerEnterCount * waveIndexDelta + rarityCfg.BaseWeight * (100 + playerLuck);
+        return rarityCfg.WeightAddPerEnterCount * waveIndexDelta + rarityCfg.BaseWeight * (1 + playerLuck / 100f);
     }
 
     private void InitAllGoodsItems()

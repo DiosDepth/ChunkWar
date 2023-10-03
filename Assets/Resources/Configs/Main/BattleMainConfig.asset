@@ -544,6 +544,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_DamagePercent
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 3
@@ -574,6 +577,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_AttackSpeed
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 4
@@ -604,6 +610,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_Critical
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 5
@@ -632,6 +641,9 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_ShopRefreshCount
     - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
       Entry: 6
       Data: 
     - Name: Icon
@@ -664,6 +676,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 7
@@ -694,6 +709,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyNameShipHP
+    - Name: DescText
+      Entry: 1
+      Data: PropertyDesc_ShipHP
     - Name: Icon
       Entry: 10
       Data: 8
@@ -724,6 +742,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_WeaponRange
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 9
@@ -754,6 +775,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_Luck
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 10
@@ -784,6 +808,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_SuckerRange
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 11
@@ -814,6 +841,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_PhysicsDamage
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 12
@@ -844,6 +874,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_EnergyDamage
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 13
@@ -872,6 +905,9 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_DamageDeltaPercent
     - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
       Entry: 6
       Data: 
     - Name: Icon
@@ -904,6 +940,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_CriticalDamagePercentAdd
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 15
@@ -934,6 +973,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ShieldHP
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 16
@@ -964,6 +1006,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ShipArmor
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 17
@@ -994,6 +1039,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ShipParry
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 18
@@ -1024,6 +1072,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ShipSpeed
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 19
@@ -1054,6 +1105,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ExplodeDamage
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 20
@@ -1082,6 +1136,9 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_EnemyCount
     - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
       Entry: 6
       Data: 
     - Name: Icon
@@ -1114,6 +1171,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 6
       Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 22
@@ -1144,6 +1204,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_Command
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 23
@@ -1174,6 +1237,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ShieldArmor
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 24
@@ -1204,6 +1270,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ExplodeRange
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 25
@@ -1234,6 +1303,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_Transfixion
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 26
@@ -1264,6 +1336,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_TransfixionDamage
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 27
@@ -1294,6 +1369,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_MissileCount
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 28
@@ -1324,6 +1402,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_PhysicalCount
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 29
@@ -1354,6 +1435,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ShieldRatioAdd
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 30
@@ -1384,6 +1468,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_UnitHPRecover
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 31
@@ -1414,6 +1501,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_EXPAddPercent
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 32
@@ -1442,6 +1532,9 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_EnemyDrop
     - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
       Entry: 6
       Data: 
     - Name: Icon
@@ -1474,6 +1567,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_EnemySpeed
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 34
@@ -1502,6 +1598,9 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_SellPrice
     - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
       Entry: 6
       Data: 
     - Name: Icon
@@ -1534,6 +1633,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_EnergyCostAdd
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 10
       Data: 21
@@ -1564,6 +1666,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_UnitEnergyGenerate
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 6
       Data: 
@@ -1594,6 +1699,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_UnitLoadCost
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 6
       Data: 
@@ -1624,6 +1732,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_WeaponEnergyCost
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 6
       Data: 
@@ -1654,6 +1765,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 6
       Data: 
@@ -1682,6 +1796,9 @@ MonoBehaviour:
       Entry: 1
       Data: PropertyName_WasteLoad
     - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
       Entry: 6
       Data: 
     - Name: Icon
@@ -1714,6 +1831,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_UnitLoadAdd
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 6
       Data: 
@@ -1744,6 +1864,9 @@ MonoBehaviour:
     - Name: ModifyPercentNameText
       Entry: 1
       Data: MP_PropertyName_ShieldEnergyCost
+    - Name: DescText
+      Entry: 6
+      Data: 
     - Name: Icon
       Entry: 6
       Data: 
