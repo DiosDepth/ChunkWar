@@ -125,7 +125,7 @@ public class UnitBaseAttribute
 
         var baseCfg = _parentUnit._baseUnitConfig;
 
-        if (baseCfg.HasUnitTag(ItemTag.Weapon) || baseCfg.HasUnitTag(ItemTag.MainWeapon)) 
+        if (baseCfg.HasUnitTag(ItemTag.Weapon) || baseCfg.HasUnitTag(ItemTag.MainWeapon) || baseCfg.HasUnitTag(ItemTag.Building)) 
         {
             rate = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
         }
@@ -315,7 +315,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public virtual void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
-
+        _baseUnitConfig = m_unitconfig;
         _owner = m_owner;
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);

@@ -10,6 +10,7 @@ public enum ItemTag
     Weapon = 1<<2,
     MainWeapon = 1<<3,
     WareHouse = 1<<4,
+    Building = 1 << 5,
   
 }
 

@@ -29,7 +29,7 @@ public class AIAdditionalWeapon : AdditionalWeapon
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
-        _owner = m_owner;
+
         base.Initialization(m_owner, m_unitconfig);
     }
 

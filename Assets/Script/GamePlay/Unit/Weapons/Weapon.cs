@@ -461,10 +461,12 @@ public class Weapon : Unit
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
-        this._weaponCfg = m_unitconfig as WeaponConfig;
         _baseUnitConfig = m_unitconfig;
+        _weaponCfg = m_unitconfig as WeaponConfig;
+        _owner = m_owner;
         InitWeaponAttribute(m_owner is PlayerShip);
         base.Initialization(m_owner, m_unitconfig);
+
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
         DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
         if (_bulletdata == null)

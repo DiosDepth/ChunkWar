@@ -18,14 +18,18 @@ public class Building : Unit
     // Update is called once per frame
     public override void Update()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         base.Update();
         UpdateBuildingComponents();
     }
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
-        base.Initialization(m_owner, m_unitconfig);
+        _baseUnitConfig = m_unitconfig;
         _buildingConfig = m_unitconfig as BuildingConfig;
+        _owner = m_owner;
+        base.Initialization(m_owner, m_unitconfig);
+ 
         InitBuildingComponent();
     }
 
@@ -118,5 +122,14 @@ public class Building : Unit
         }
     }
 
-  
+
+    public override void PauseGame()
+    {
+        base.PauseGame();
+    }
+    public override void UnPauseGame()
+    {
+        base.UnPauseGame();
+    }
+
 }
