@@ -339,7 +339,7 @@ public class Projectile : Bullet, IDamageble
         base.ApplyDamage(damageble);
         var damage = (_owner as Weapon).weaponAttribute.GetDamage();
         damageble.TakeDamage(damage);
-        Death(null);
+        //Death(null);
     }
     public bool TakeDamage(DamageResultInfo info)
     {

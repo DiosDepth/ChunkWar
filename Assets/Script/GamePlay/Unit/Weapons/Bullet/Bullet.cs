@@ -1,5 +1,6 @@
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
@@ -68,6 +69,8 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         [ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_JobInfo;
 
         public NativeArray<int> rv_findedTargetsCount;
+
+        [NativeDisableContainerSafetyRestriction]
         public NativeArray<int> rv_findedTargetIndex;
         private int length;
         public void Execute(int startIndex, int count)

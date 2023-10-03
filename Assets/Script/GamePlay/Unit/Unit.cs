@@ -255,20 +255,27 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         GameManager.Instance.UnRegisterPauseable(this);
         state = DamagableState.Destroyed;
 
-        if(_owner is AIShip)
+        if (IsCoreUnit)
         {
-            AIManager.Instance.RemoveSingleUnit(this);
+            _owner.CheckDeath(this, info);
+            //destroy owner
         }
-
-        if(_owner is PlayerShip)
+        else
         {
-            AIManager.Instance.RemoveTargetUnit(this);
-
-            if(_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
+            if (_owner is AIShip)
             {
-                (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
+                AIManager.Instance.RemoveSingleUnit(this);
             }
-   
+
+            if (_owner is PlayerShip)
+            {
+                AIManager.Instance.RemoveTargetUnit(this);
+
+                if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
+                {
+                    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
+                }
+            }
         }
         this.gameObject.SetActive(false);
         SetUnitProcess(false);
@@ -280,13 +287,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
             unitSprite.color = Color.black;
-
-            if (IsCoreUnit)
-            {
-                _owner.CheckDeath(this, info);
-                //destroy owner
-            }
-
         });
     
     }
@@ -505,6 +505,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 isCriticalKill = info.IsCritical
             };
             Death(deathInfo);
+
         }
 
         return isDie;

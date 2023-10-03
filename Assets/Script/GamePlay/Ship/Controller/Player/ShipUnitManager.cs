@@ -70,8 +70,7 @@ public class ShipUnitManager:IPauseable
         UpdateActiveUnit();
         UpdateWeapon();
         UpdateBuilding();
-        UpdateBullet();
-        UpdateProjectileDamage();
+        UpdateProjectile();
     }
 
 
@@ -165,7 +164,7 @@ public class ShipUnitManager:IPauseable
 
     }
 
-    protected virtual void UpdateBullet()
+    protected virtual void UpdateProjectile()
     {
         if (projectileList == null || projectileList.Count == 0)
         {
@@ -189,27 +188,34 @@ public class ShipUnitManager:IPauseable
 
         //移动子弹
         //处理子弹旋转方向
+        //创建子弹的伤害List 和对应的死亡List
         projiectileDeathIndexList.Clear();
+        //处理所有子弹的伤害逻辑
+        projectileDamageList.Clear();
+        damageProjectile_JobInfo.Clear();
+
 
         for (int i = 0; i < projectileList.Count; i++)
         {
-            if (!rv_projectile_jobUpdateInfo[i].islifeended)
+            if (!rv_projectile_jobUpdateInfo[i].islifeended && !projectileList[i].IsApplyDamageAtThisFrame)
             {
                 projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
                 projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
             }
             else
             {
+                if(projectileList[i].IsApplyDamageAtThisFrame)
+                {
+                    projectileDamageList.Add(projectileList[i]);
+                    damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
+                }
                 projiectileDeathIndexList.Add(i);
             }
-
         }
-
+        HandleProjectileDamage();
         UpdateBulletJobData();
 
         rv_projectile_jobUpdateInfo.Dispose();
-
-
     }
 
     public void UpdateBulletJobData()
@@ -242,30 +248,15 @@ public class ShipUnitManager:IPauseable
         }
     }
 
-    public void UpdateProjectileDamage()
+    public void HandleProjectileDamage()
     {
-        //处理所有子弹的伤害逻辑
-        projectileDamageList.Clear();
 
-        damageProjectile_JobInfo.Clear();
- 
-
-        for (int i = 0; i < projectileList.Count; i++)
-        {
-            if (projectileList[i].IsApplyDamageAtThisFrame == true)
-            {
-                projectileDamageList.Add(projectileList[i]);
-                damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
-            }
-        }
         //projectileDamageList = projectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
 
         if (projectileDamageList.Count == 0)
         {
             return;
         }
-
-
         rv_projectileDamageTargetIndex = new NativeArray<int>(projectileDamageList.Count * AIManager.Instance.aiActiveUnitList.Count, Allocator.TempJob);
         rv_projectileDamageTargetCountPre = new NativeArray<int>(projectileDamageList.Count, Allocator.TempJob);
         JobHandle jobHandle;
@@ -293,8 +284,16 @@ public class ShipUnitManager:IPauseable
             for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
             {
                 damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.aiActiveUnitList.Count + n];
+                if(damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
+                {
+                    continue;
+                }
                 damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
-                projectileDamageList[i].ApplyDamage(damageble);
+                if(damageble != null && projectileDamageList[i] != null)
+                {
+                   projectileDamageList[i].ApplyDamage(damageble);
+                }
+       
             }
         }
 

@@ -378,7 +378,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         //update weapon
         UpdateAIAdditionalWeapon();
         UpdateProjectile();
-        ProcessProjectileDamage();
+ 
 
     }
 
@@ -997,16 +997,25 @@ public class AIManager : Singleton<AIManager>, IPauseable
         //移动子弹
         //处理子弹旋转方向
         _aiProjectileDeathIndex.Clear();
+        //处理所有子弹的伤害逻辑
+        aiProjectileDamageList.Clear();
+        aiDamageProjectile_JobInfo.Clear();
 
         for (int i = 0; i < aiProjectileList.Count; i++)
         {
-            if (!rv_aiProjectile_jobUpdateInfo[i].islifeended)
+            if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && !aiProjectileList[i].IsApplyDamageAtThisFrame)
             {
                 aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
                 aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
             }
             else
             {
+
+                if (aiProjectileList[i].IsApplyDamageAtThisFrame)
+                {
+                    aiProjectileDamageList.Add(aiProjectileList[i]);
+                    aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                }
                 _aiProjectileDeathIndex.Add(i);
             }
         }
@@ -1014,8 +1023,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
 
 
+        HandleProjectileDamage();
 
-    
+
 
 
         UpdateProjectileJobData();
@@ -1024,22 +1034,8 @@ public class AIManager : Singleton<AIManager>, IPauseable
         //dispose
     }
 
-    public void ProcessProjectileDamage()
+    public void HandleProjectileDamage()
     {
-        //处理所有子弹的伤害逻辑
-        aiProjectileDamageList.Clear();
-
-
-        //aiDamageProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.TempJob);
-        aiDamageProjectile_JobInfo.Clear();
-        for (int i = 0; i < aiProjectileList.Count; i++)
-        {
-            if (aiProjectileList[i].IsApplyDamageAtThisFrame == true)
-            {
-                aiProjectileDamageList.Add(aiProjectileList[i]);
-                aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
-            }
-        }
 
         //aiProjectileDamageList = aiProjectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
 
@@ -1075,6 +1071,10 @@ public class AIManager : Singleton<AIManager>, IPauseable
             for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
             {
                 damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
+                if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
+                {
+                    continue;
+                }
                 damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
                 aiProjectileDamageList[i].ApplyDamage(damageble);
             }
