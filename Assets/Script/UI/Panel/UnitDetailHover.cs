@@ -42,6 +42,18 @@ public class UnitDetailHover : DetailHoverItemBase
             _descText.text = string.Empty;
         }
 
+        if (!string.IsNullOrEmpty(unitCfg.ProertyDescText))
+        {
+            var text = LocalizationManager.Instance.GetTextValue(unitCfg.ProertyDescText);
+            _effectDesc1.text = text;
+            _effectDesc2.text = text;
+            _effectDesc1.transform.SafeSetActive(true);
+        }
+        else
+        {
+            _effectDesc1.transform.SafeSetActive(false);
+        }
+
         _loadCostText.text = string.Format("{0:F1}", GameHelper.GetUnitLoadCost(unitCfg));
         _energyCostText.text = string.Format("{0:F1}", GameHelper.GetUnitEnergyCost(unitCfg));
 

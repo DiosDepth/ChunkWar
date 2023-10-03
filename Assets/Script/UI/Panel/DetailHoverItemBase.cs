@@ -17,6 +17,8 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
     protected Image _rarityBG;
     protected TextMeshProUGUI _nameText;
     protected TextMeshProUGUI _descText;
+    protected TextMeshProUGUI _effectDesc1;
+    protected TextMeshProUGUI _effectDesc2;
 
     private List<ItemPropertyModifyCmpt> ModifyCmpts = new List<ItemPropertyModifyCmpt>();
     private List<ItemTagCmpt> tagCmpt = new List<ItemTagCmpt>();
@@ -43,6 +45,8 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         _rarityBG = _contentRect.Find("Info/Icon/BG").SafeGetComponent<Image>();
         _nameText = _contentRect.Find("Info/Detail/Name").GetComponent<TextMeshProUGUI>();
         _descText = _contentRect.Find("Desc").SafeGetComponent<TextMeshProUGUI>();
+        _effectDesc1 = _contentRect.Find("EffectDesc").SafeGetComponent<TextMeshProUGUI>();
+        _effectDesc2 = _contentRect.Find("EffectDesc/Desc").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public override void Initialization(params object[] param)

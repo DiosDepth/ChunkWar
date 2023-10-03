@@ -140,6 +140,12 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     {
         string savePath = DetermineSavePath(string.Empty);
         var fullPath = savePath + DetermineSaveFileName(globalSaveName);
+
+        if (!Directory.Exists(savePath))
+        {
+            Directory.CreateDirectory(savePath);
+        }
+
         if (!File.Exists(fullPath))
         {
             globalSaveData = GlobalSaveData.GenerateNewSaveData();

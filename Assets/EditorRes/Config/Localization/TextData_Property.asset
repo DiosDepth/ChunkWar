@@ -263,3 +263,51 @@ MonoBehaviour:
     ChineseSimplified: "\u80FD\u6E90\u6D88\u8017\u4FEE\u6B63"
     English: 
     Japanese: 
+  - TextID: PropertyName_UnitEnergyGenerate
+    ChineseSimplified: "\u53CD\u5E94\u5806\u80FD\u6E90"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_UnitEnergyGenerate
+    ChineseSimplified: "\u53CD\u5E94\u5806\u80FD\u6E90\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_UnitLoadCost
+    ChineseSimplified: "\u88C5\u5907\u8D1F\u8F7D"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_UnitLoadCost
+    ChineseSimplified: "\u88C5\u5907\u8D1F\u8F7D\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_WeaponEnergyCost
+    ChineseSimplified: "\u6B66\u5668\u80FD\u8017"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_WeaponEnergyCost
+    ChineseSimplified: "\u6B66\u5668\u80FD\u8017\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_WasteSellPriceAdd
+    ChineseSimplified: "\u6B8B\u9AB8\u4EF7\u683C"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_WasteLoad
+    ChineseSimplified: "\u6B8B\u9AB8\u8D1F\u8F7D"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_UnitLoadAdd
+    ChineseSimplified: "\u8D27\u4ED3\u5BB9\u91CF"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_UnitLoadAdd
+    ChineseSimplified: "\u8D27\u4ED3\u5BB9\u91CF\u4FEE\u6B63"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShieldEnergyCost
+    ChineseSimplified: "\u62A4\u76FE\u80FD\u8017"
+    English: 
+    Japanese: 
+  - TextID: MP_PropertyName_ShieldEnergyCost
+    ChineseSimplified: "\u62A4\u76FE\u80FD\u8017\u4FEE\u6B63"
+    English: 
+    Japanese: 

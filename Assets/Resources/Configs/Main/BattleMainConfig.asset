@@ -528,7 +528,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 34
+      Data: 41
     - Name: 
       Entry: 7
       Data: 
@@ -1540,6 +1540,216 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 20
+    - Name: $v
+      Entry: 7
+      Data: 55|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_UnitEnergyGenerate
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_UnitEnergyGenerate
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 28
+    - Name: $v
+      Entry: 7
+      Data: 56|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_UnitLoadCost
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_UnitLoadCost
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 19
+    - Name: $v
+      Entry: 7
+      Data: 57|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_WeaponEnergyCost
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_WeaponEnergyCost
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 32
+    - Name: $v
+      Entry: 7
+      Data: 58|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_WasteSellPriceAdd
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 33
+    - Name: $v
+      Entry: 7
+      Data: 59|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_WasteLoad
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 29
+    - Name: $v
+      Entry: 7
+      Data: 60|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_UnitLoadAdd
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_UnitLoadAdd
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 37
+    - Name: $v
+      Entry: 7
+      Data: 61|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldEnergyCost
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_ShieldEnergyCost
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
     - Name: ReverseColor
       Entry: 5
       Data: true

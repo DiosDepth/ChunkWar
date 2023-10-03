@@ -6,3 +6,7 @@ ShipPlug_Effect_1009	武器冷却期间能源消耗<color=#EF3E3E>+20%</color>
 ShipPlug_Effect_1013  	每<color=#EF3E3E>-5%</color>速度<color=#09B3CB>+1</color>装甲
 ShipPlug_Effect_1014	每<color=#09B3CB>2%</color>舰船速度<color=#09B3CB>+1%</color>装填速度
 ShipPlug_Effect_1021	每击杀<color=#09B3CB>15</color>名敌人增加<color=#09B3CB>1%</color>伤害，波次结束后清空
+ShipPlug_Effect_1023	每一个T1装备 -3%暴击率
+ShipPlug_Effect_1027	刷新插件时，随机一个商品价格降低30%
+ShipPlug_Effect_1032	负载溢出100%的部分转化为伤害
+ShipPlug_Effect_1045	进入港口时，每有一个装备残骸，永久增加3点结构值

@@ -60,14 +60,15 @@ public class WeaponRuntimeItemCmpt : MonoBehaviour, IPoolable
 
     public void PoolableDestroy()
     {
-        _targetWeapon.HpComponent.UnBindHPChangeAction(UpdateWeaponHP);
-        _targetWeapon.OnReloadCDUpdate -= UpdateWeaponCD;
-        _targetWeapon.OnMagazineChange -= OnUpdateArmor;
+        PoolableReset();
+        PoolManager.Instance.BackObject(transform.name, gameObject);
     }
 
     public void PoolableReset()
     {
-
+        _targetWeapon.HpComponent.UnBindHPChangeAction(UpdateWeaponHP);
+        _targetWeapon.OnReloadCDUpdate -= UpdateWeaponCD;
+        _targetWeapon.OnMagazineChange -= OnUpdateArmor;
     }
 
     public void PoolableSetActive(bool isactive = true)
