@@ -1169,7 +1169,11 @@ public class Weapon : Unit
             if (magazine <= 0 && weaponAttribute.MagazineBased)
             {
                 weaponstate.ChangeState(WeaponState.Reload);
-                ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
+                if(_owner is PlayerShip)
+                {
+                    ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
+                    LevelManager.Instance.PlayerWeaponReload(UID, true);
+                }
 
             }
             else
@@ -1211,7 +1215,11 @@ public class Weapon : Unit
             else
             {
                 weaponstate.ChangeState(WeaponState.Recover);
-                ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDEnd, UID);
+                if(_owner is PlayerShip)
+                {
+                    ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDEnd, UID);
+                    LevelManager.Instance.PlayerWeaponReload(UID, false);
+                }
             }
         }
     }

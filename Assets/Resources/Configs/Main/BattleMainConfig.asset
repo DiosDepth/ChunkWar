@@ -31,16 +31,26 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 54255137700c44c4796d9537cbf96418, type: 3}
     - {fileID: 21300000, guid: 6056dc16abab48c4bbc16ca2b0376cf8, type: 3}
     - {fileID: 21300000, guid: 36ce59a4401ec5240b6992820c323be5, type: 3}
-    - {fileID: 21300000, guid: cdbda0e9c9c2b764c8f2a53fc0e6faf8, type: 3}
+    - {fileID: 21300000, guid: 5e93217934c7bf14aa3f1d24d15a1247, type: 3}
     - {fileID: 21300000, guid: 974614ab4c6048347b934ba1227cb732, type: 3}
     - {fileID: 21300000, guid: 9afd55b9c4444a446a1bf56e14878807, type: 3}
     - {fileID: 21300000, guid: 71fdbb832e1ad754a8c4bd05f23d25d1, type: 3}
     - {fileID: 21300000, guid: bdc76230147c06b4c9260fd8b5851517, type: 3}
     - {fileID: 21300000, guid: 99d7bcceaaa24ca4eb7c3ade8d77972d, type: 3}
-    - {fileID: 21300000, guid: a071c91c8b868b74da8cf837f4cfb1e0, type: 3}
-    - {fileID: 21300000, guid: aa45d7fa33b1b48449604d79fbe2f221, type: 3}
+    - {fileID: 21300000, guid: 3e225b288dcb07b4bbbb3b3188da656d, type: 3}
+    - {fileID: 21300000, guid: ce983f0093c3de4439935d861555b9f7, type: 3}
     - {fileID: 21300000, guid: 623c9c38a2686e7469151bfdb7ac0752, type: 3}
     - {fileID: 21300000, guid: 987ad998979eaa647b07c68fa5816d58, type: 3}
+    - {fileID: 21300000, guid: ba2ab8de3c4331341bb9d776549dafb1, type: 3}
+    - {fileID: 21300000, guid: a4aae0d34768f8247a3b74109642840f, type: 3}
+    - {fileID: 21300000, guid: fbf3f65cd033c2049b9f32fb05d9e620, type: 3}
+    - {fileID: 21300000, guid: 0dffb3ddcb3127f448eff7f352a873bd, type: 3}
+    - {fileID: 21300000, guid: 1eb8b1d73c9d9f642915125522e38189, type: 3}
+    - {fileID: 21300000, guid: 11bd734378928894ea500c4a907eb531, type: 3}
+    - {fileID: 21300000, guid: 267b4f89105f7fd4786ef4abc924ce06, type: 3}
+    - {fileID: 21300000, guid: 1a8689827bc549b46b58f34393d92e9c, type: 3}
+    - {fileID: 21300000, guid: 5d1542524f367a74cafa1bc6c84f94b7, type: 3}
+    - {fileID: 21300000, guid: ee80cf7f7c2675f49bd9464bc2616726, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -518,7 +528,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 22
+      Data: 34
     - Name: 
       Entry: 7
       Data: 
@@ -1173,6 +1183,366 @@ MonoBehaviour:
     - Name: ReverseColor
       Entry: 5
       Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 42
+    - Name: $v
+      Entry: 7
+      Data: 43|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ExplodeRange
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_ExplodeRange
+    - Name: Icon
+      Entry: 10
+      Data: 25
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 23
+    - Name: $v
+      Entry: 7
+      Data: 44|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Transfixion
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_Transfixion
+    - Name: Icon
+      Entry: 10
+      Data: 26
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 24
+    - Name: $v
+      Entry: 7
+      Data: 45|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_TransfixionDamage
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_TransfixionDamage
+    - Name: Icon
+      Entry: 10
+      Data: 27
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 50
+    - Name: $v
+      Entry: 7
+      Data: 46|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_MissileCount
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_MissileCount
+    - Name: Icon
+      Entry: 10
+      Data: 28
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 53
+    - Name: $v
+      Entry: 7
+      Data: 47|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_PhysicalCount
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_PhysicalCount
+    - Name: Icon
+      Entry: 10
+      Data: 29
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 30
+    - Name: $v
+      Entry: 7
+      Data: 48|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldRatioAdd
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_ShieldRatioAdd
+    - Name: Icon
+      Entry: 10
+      Data: 30
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 40
+    - Name: $v
+      Entry: 7
+      Data: 49|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_UnitHPRecover
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_UnitHPRecover
+    - Name: Icon
+      Entry: 10
+      Data: 31
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 12
+    - Name: $v
+      Entry: 7
+      Data: 50|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EXPAddPercent
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_EXPAddPercent
+    - Name: Icon
+      Entry: 10
+      Data: 32
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 34
+    - Name: $v
+      Entry: 7
+      Data: 51|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EnemyDrop
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 10
+      Data: 33
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 45
+    - Name: $v
+      Entry: 7
+      Data: 52|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EnemySpeed
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_EnemySpeed
+    - Name: Icon
+      Entry: 10
+      Data: 34
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 27
+    - Name: $v
+      Entry: 7
+      Data: 53|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_SellPrice
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 10
+      Data: 7
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 36
+    - Name: $v
+      Entry: 7
+      Data: 54|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EnergyCostAdd
+    - Name: ModifyPercentNameText
+      Entry: 1
+      Data: MP_PropertyName_EnergyCostAdd
+    - Name: Icon
+      Entry: 10
+      Data: 21
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 

@@ -104,6 +104,10 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnWeaponHitTarget(type));
             }
+            else if (type == ModifyTriggerType.OnPlayerWeaponReload)
+            {
+                result.Add(type.ToString(), new MTC_OnWeaponReload(type));
+            }
         }
 
         return result;

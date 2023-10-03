@@ -415,3 +415,7 @@ MonoBehaviour:
     ChineseSimplified: "\u5DF2\u552E\u51FA"
     English: 
     Japanese: 
+  - TextID: ShopItem_Lock
+    ChineseSimplified: "\u9501\u5B9A"
+    English: 
+    Japanese: 

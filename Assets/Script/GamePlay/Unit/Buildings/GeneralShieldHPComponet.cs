@@ -138,7 +138,12 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
             if (_shieldRecoverTimer >= ShieldRecoverTime)
             {
                 _shieldRecovering = true;
-                LevelManager.Instance.ShieldRecoverStart(ParentUnit.UID);
+
+                if(ParentUnit._owner is PlayerShip)
+                {
+                    LevelManager.Instance.ShieldRecoverStart(ParentUnit.UID);
+                }
+                
             }
         }
 
@@ -209,7 +214,12 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         {
             ///RecoverFinish
             _shieldRecovering = false;
-            LevelManager.Instance.OnShieldRecoverEnd(ParentUnit.UID);
+
+            if(ParentUnit._owner is PlayerShip)
+            {
+                LevelManager.Instance.OnShieldRecoverEnd(ParentUnit.UID);
+            }
+
             _recoverDeltaTimer = 0;
             _shieldRecoverTimer = 0;
         }

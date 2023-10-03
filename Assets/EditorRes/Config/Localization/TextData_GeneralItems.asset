@@ -508,3 +508,23 @@ MonoBehaviour:
     ChineseSimplified: "\u6BCF<color=#09B3CB>5</color>\u79D2\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+2%</color>\uFF0C\u540C\u65F6\u6B66\u5668\u80FD\u6E90\u6D88\u8017<color=#EF3E3E>+3%</color>\uFF0C\u6CE2\u6B21\u7ED3\u675F\u540E\u6E05\u7A7A"
     English: 
     Japanese: 
+  - TextID: ShipPlug_Effect_1008
+    ChineseSimplified: "\u6BCF<color=#09B3CB>2%</color>\u901F\u5EA6<color=#09B3CB>+1%</color>\u88C5\u586B\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Effect_1009
+    ChineseSimplified: "\u6B66\u5668\u51B7\u5374\u671F\u95F4\u80FD\u6E90\u6D88\u8017<color=#EF3E3E>+20%</color>"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Effect_1013
+    ChineseSimplified: "\u6BCF<color=#EF3E3E>-5%</color>\u901F\u5EA6<color=#09B3CB>+1</color>\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Effect_1014
+    ChineseSimplified: "\u6BCF<color=#09B3CB>2%</color>\u8230\u8239\u901F\u5EA6<color=#09B3CB>+1%</color>\u88C5\u586B\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Effect_1021
+    ChineseSimplified: "\u6BCF\u51FB\u6740<color=#09B3CB>15</color>\u540D\u654C\u4EBA\u589E\u52A0<color=#09B3CB>1%</color>\u4F24\u5BB3\uFF0C\u6CE2\u6B21\u7ED3\u675F\u540E\u6E05\u7A7A"
+    English: 
+    Japanese: 

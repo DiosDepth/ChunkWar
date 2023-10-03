@@ -52,7 +52,7 @@ public class ShopSlotItem : MonoBehaviour
         _costText = transform.Find("Content/Buy/Value").GetComponent<TextMeshProUGUI>();
         _buyButton = transform.Find("Content/Buy").GetComponent<Button>();
         _buyButton.onClick.AddListener(OnBuyButtonClick);
-        transform.Find("Functions/Lock").GetComponent<Button>().onClick.AddListener(OnLockButtonClick);
+        transform.Find("Lock").GetComponent<Button>().onClick.AddListener(OnLockButtonClick);
     }
 
     public void SetUp(ShopGoodsInfo info)
@@ -77,7 +77,7 @@ public class ShopSlotItem : MonoBehaviour
         RefreshCost();
         SetUpTag(plugCfg);
         SetSold(false);
-
+        SetLockState(info.IsLock);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_detailContentRect);
 
         ///设置是否可以滑动
@@ -144,7 +144,14 @@ public class ShopSlotItem : MonoBehaviour
 
     private void OnLockButtonClick()
     {
+        bool lockState = RogueManager.Instance.ChangeShopItemLockState(_goodsInfo);
+        SetLockState(lockState);
+    }
 
+    private void SetLockState(bool isLock)
+    {
+        ///Lock
+        transform.Find("Lock/Text").transform.SafeSetActive(isLock);
     }
 
     private void SetUpUintInfo(BaseUnitConfig cfg)
@@ -177,8 +184,9 @@ public class ShopSlotItem : MonoBehaviour
     private void SetSold(bool sold)
     {
         _buyButton.interactable = !sold;
+
         transform.Find("Sold").SafeSetActive(sold);
-        transform.Find("Functions").SafeSetActive(!sold);
+        transform.Find("Lock").SafeSetActive(!sold);
     }
 
     private void SetUpProperty()

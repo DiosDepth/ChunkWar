@@ -1056,7 +1056,7 @@ MonoBehaviour:
       Data: 
     - Name: Rarity
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: SortingOrder
       Entry: 3
       Data: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
       Data: 
     - Name: Rarity
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: SortingOrder
       Entry: 3
       Data: 0
@@ -1338,7 +1338,7 @@ MonoBehaviour:
       Data: 
     - Name: Rarity
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: SortingOrder
       Entry: 3
       Data: 0
@@ -1515,7 +1515,7 @@ MonoBehaviour:
       Data: 
     - Name: Rarity
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: SortingOrder
       Entry: 3
       Data: 0
@@ -1805,8 +1805,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1009
     - Name: ItemTags
       Entry: 3
       Data: 0
@@ -1827,7 +1827,90 @@ MonoBehaviour:
       Data: 103|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 104|MTC_OnWeaponReload, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 15
+    - Name: TriggerCount
+      Entry: 3
+      Data: -1
+    - Name: UsePercent
+      Entry: 5
+      Data: false
+    - Name: Percent
+      Entry: 4
       Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 105|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 106|MTEC_AddUnitTimerModifier, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 9
+    - Name: ModifyMap
+      Entry: 7
+      Data: 107|System.Collections.Generic.Dictionary`2[[UnitPropertyModifyKey, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 108|System.Collections.Generic.EnumEqualityComparer`1[[UnitPropertyModifyKey,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 4
+      Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: UseDuration
+      Entry: 5
+      Data: false
+    - Name: DurationTime
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -1839,13 +1922,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 104|ShipPlugItemConfig, Assembly-CSharp
+      Data: 109|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1010
     - Name: GeneralConfig
       Entry: 7
-      Data: 105|GeneralItemConfig, Assembly-CSharp
+      Data: 110|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 9
@@ -1866,13 +1949,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 106|PropertyModifyConfig[], Assembly-CSharp
+      Data: 111|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 107|PropertyModifyConfig, Assembly-CSharp
+      Data: 112|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -1893,7 +1976,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 108|PropertyModifyConfig, Assembly-CSharp
+      Data: 113|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 39
@@ -1914,7 +1997,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 109|PropertyModifyConfig, Assembly-CSharp
+      Data: 114|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -1947,7 +2030,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 110|PropertyModifyConfig[], Assembly-CSharp
+      Data: 115|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1959,7 +2042,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 111|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 116|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1974,13 +2057,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 112|ShipPlugItemConfig, Assembly-CSharp
+      Data: 117|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1011
     - Name: GeneralConfig
       Entry: 7
-      Data: 113|GeneralItemConfig, Assembly-CSharp
+      Data: 118|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 10
@@ -2001,13 +2084,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 114|PropertyModifyConfig[], Assembly-CSharp
+      Data: 119|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 115|PropertyModifyConfig, Assembly-CSharp
+      Data: 120|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -2028,7 +2111,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 116|PropertyModifyConfig, Assembly-CSharp
+      Data: 121|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 20
@@ -2061,7 +2144,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 117|PropertyModifyConfig[], Assembly-CSharp
+      Data: 122|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2073,7 +2156,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 118|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 123|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2088,13 +2171,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 119|ShipPlugItemConfig, Assembly-CSharp
+      Data: 124|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1012
     - Name: GeneralConfig
       Entry: 7
-      Data: 120|GeneralItemConfig, Assembly-CSharp
+      Data: 125|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 11
@@ -2115,13 +2198,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 121|PropertyModifyConfig[], Assembly-CSharp
+      Data: 126|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 122|PropertyModifyConfig, Assembly-CSharp
+      Data: 127|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -2142,7 +2225,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 123|PropertyModifyConfig, Assembly-CSharp
+      Data: 128|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 36
@@ -2175,7 +2258,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 124|PropertyModifyConfig[], Assembly-CSharp
+      Data: 129|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2187,7 +2270,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 125|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 130|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2202,13 +2285,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 126|ShipPlugItemConfig, Assembly-CSharp
+      Data: 131|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1013
     - Name: GeneralConfig
       Entry: 7
-      Data: 127|GeneralItemConfig, Assembly-CSharp
+      Data: 132|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 12
@@ -2229,7 +2312,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 128|PropertyModifyConfig[], Assembly-CSharp
+      Data: 133|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2241,13 +2324,13 @@ MonoBehaviour:
       Data: 
     - Name: EffectDesc
       Entry: 1
-      Data: ShipPlug_EffectDesc_1013
+      Data: ShipPlug_Desc_1013
     - Name: ItemTags
       Entry: 3
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 129|PropertyModifyConfig[], Assembly-CSharp
+      Data: 134|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2259,13 +2342,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 130|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 135|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 131|MTC_PropertyTransfer, Assembly-CSharp
+      Data: 136|MTC_PropertyTransfer, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 3
@@ -2280,7 +2363,7 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 132|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 137|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2316,13 +2399,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 133|ShipPlugItemConfig, Assembly-CSharp
+      Data: 138|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1014
     - Name: GeneralConfig
       Entry: 7
-      Data: 134|GeneralItemConfig, Assembly-CSharp
+      Data: 139|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 13
@@ -2343,7 +2426,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 135|PropertyModifyConfig[], Assembly-CSharp
+      Data: 140|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2355,13 +2438,13 @@ MonoBehaviour:
       Data: 
     - Name: EffectDesc
       Entry: 1
-      Data: ShipPlug_EffectDesc_1014
+      Data: ShipPlug_Effect_1014
     - Name: ItemTags
       Entry: 3
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 136|PropertyModifyConfig[], Assembly-CSharp
+      Data: 141|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2373,13 +2456,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 137|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 142|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 138|MTC_PropertyTransfer, Assembly-CSharp
+      Data: 143|MTC_PropertyTransfer, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 3
@@ -2394,7 +2477,7 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 139|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 144|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2430,13 +2513,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 140|ShipPlugItemConfig, Assembly-CSharp
+      Data: 145|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1015
     - Name: GeneralConfig
       Entry: 7
-      Data: 141|GeneralItemConfig, Assembly-CSharp
+      Data: 146|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 14
@@ -2457,13 +2540,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 142|PropertyModifyConfig[], Assembly-CSharp
+      Data: 147|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 143|PropertyModifyConfig, Assembly-CSharp
+      Data: 148|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -2484,7 +2567,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 144|PropertyModifyConfig, Assembly-CSharp
+      Data: 149|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -2505,7 +2588,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 145|PropertyModifyConfig, Assembly-CSharp
+      Data: 150|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -2526,7 +2609,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 146|PropertyModifyConfig, Assembly-CSharp
+      Data: 151|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -2559,7 +2642,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 147|PropertyModifyConfig[], Assembly-CSharp
+      Data: 152|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2571,7 +2654,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 148|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 153|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2586,13 +2669,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 149|ShipPlugItemConfig, Assembly-CSharp
+      Data: 154|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1016
     - Name: GeneralConfig
       Entry: 7
-      Data: 150|GeneralItemConfig, Assembly-CSharp
+      Data: 155|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 15
@@ -2613,13 +2696,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 151|PropertyModifyConfig[], Assembly-CSharp
+      Data: 156|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 152|PropertyModifyConfig, Assembly-CSharp
+      Data: 157|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -2640,7 +2723,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 153|PropertyModifyConfig, Assembly-CSharp
+      Data: 158|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 19
@@ -2673,7 +2756,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 154|PropertyModifyConfig[], Assembly-CSharp
+      Data: 159|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2685,7 +2768,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 155|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 160|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2700,13 +2783,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 156|ShipPlugItemConfig, Assembly-CSharp
+      Data: 161|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1017
     - Name: GeneralConfig
       Entry: 7
-      Data: 157|GeneralItemConfig, Assembly-CSharp
+      Data: 162|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 16
@@ -2727,13 +2810,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 158|PropertyModifyConfig[], Assembly-CSharp
+      Data: 163|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 159|PropertyModifyConfig, Assembly-CSharp
+      Data: 164|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -2754,7 +2837,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 160|PropertyModifyConfig, Assembly-CSharp
+      Data: 165|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -2775,7 +2858,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 161|PropertyModifyConfig, Assembly-CSharp
+      Data: 166|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -2808,7 +2891,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 162|PropertyModifyConfig[], Assembly-CSharp
+      Data: 167|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2820,7 +2903,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 163|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 168|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2835,13 +2918,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 164|ShipPlugItemConfig, Assembly-CSharp
+      Data: 169|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1018
     - Name: GeneralConfig
       Entry: 7
-      Data: 165|GeneralItemConfig, Assembly-CSharp
+      Data: 170|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 17
@@ -2862,13 +2945,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 166|PropertyModifyConfig[], Assembly-CSharp
+      Data: 171|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 167|PropertyModifyConfig, Assembly-CSharp
+      Data: 172|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -2889,7 +2972,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 168|PropertyModifyConfig, Assembly-CSharp
+      Data: 173|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -2910,7 +2993,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 169|PropertyModifyConfig, Assembly-CSharp
+      Data: 174|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -2943,7 +3026,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 170|PropertyModifyConfig[], Assembly-CSharp
+      Data: 175|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2955,7 +3038,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 171|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 176|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -2970,13 +3053,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 172|ShipPlugItemConfig, Assembly-CSharp
+      Data: 177|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1019
     - Name: GeneralConfig
       Entry: 7
-      Data: 173|GeneralItemConfig, Assembly-CSharp
+      Data: 178|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 18
@@ -2997,13 +3080,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 174|PropertyModifyConfig[], Assembly-CSharp
+      Data: 179|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 175|PropertyModifyConfig, Assembly-CSharp
+      Data: 180|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -3024,7 +3107,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 176|PropertyModifyConfig, Assembly-CSharp
+      Data: 181|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -3057,7 +3140,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 177|PropertyModifyConfig[], Assembly-CSharp
+      Data: 182|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3069,7 +3152,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 178|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 183|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3084,13 +3167,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 179|ShipPlugItemConfig, Assembly-CSharp
+      Data: 184|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1020
     - Name: GeneralConfig
       Entry: 7
-      Data: 180|GeneralItemConfig, Assembly-CSharp
+      Data: 185|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 19
@@ -3111,13 +3194,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 181|PropertyModifyConfig[], Assembly-CSharp
+      Data: 186|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 182|PropertyModifyConfig, Assembly-CSharp
+      Data: 187|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -3138,7 +3221,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 183|PropertyModifyConfig, Assembly-CSharp
+      Data: 188|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 19
@@ -3159,7 +3242,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 184|PropertyModifyConfig, Assembly-CSharp
+      Data: 189|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -3192,7 +3275,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 185|PropertyModifyConfig[], Assembly-CSharp
+      Data: 190|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3204,7 +3287,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 186|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 191|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3219,13 +3302,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 187|ShipPlugItemConfig, Assembly-CSharp
+      Data: 192|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1021
     - Name: GeneralConfig
       Entry: 7
-      Data: 188|GeneralItemConfig, Assembly-CSharp
+      Data: 193|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 20
@@ -3246,7 +3329,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 189|PropertyModifyConfig[], Assembly-CSharp
+      Data: 194|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3257,14 +3340,14 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: EffectDesc
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: ShipPlug_Effect_1021
     - Name: ItemTags
       Entry: 3
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 190|PropertyModifyConfig[], Assembly-CSharp
+      Data: 195|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3276,13 +3359,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 191|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 196|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 192|MTC_OnKillEnemy, Assembly-CSharp
+      Data: 197|MTC_OnKillEnemy, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 0
@@ -3297,13 +3380,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 193|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 198|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 194|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 199|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -3348,13 +3431,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 195|ShipPlugItemConfig, Assembly-CSharp
+      Data: 200|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1022
     - Name: GeneralConfig
       Entry: 7
-      Data: 196|GeneralItemConfig, Assembly-CSharp
+      Data: 201|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 21
@@ -3375,13 +3458,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 197|PropertyModifyConfig[], Assembly-CSharp
+      Data: 202|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 198|PropertyModifyConfig, Assembly-CSharp
+      Data: 203|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -3402,7 +3485,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 199|PropertyModifyConfig, Assembly-CSharp
+      Data: 204|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -3423,7 +3506,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 200|PropertyModifyConfig, Assembly-CSharp
+      Data: 205|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -3444,7 +3527,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 201|PropertyModifyConfig, Assembly-CSharp
+      Data: 206|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -3465,7 +3548,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 202|PropertyModifyConfig, Assembly-CSharp
+      Data: 207|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 19
@@ -3498,7 +3581,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 203|PropertyModifyConfig[], Assembly-CSharp
+      Data: 208|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3510,7 +3593,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 204|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 209|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3525,13 +3608,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 205|ShipPlugItemConfig, Assembly-CSharp
+      Data: 210|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1023
     - Name: GeneralConfig
       Entry: 7
-      Data: 206|GeneralItemConfig, Assembly-CSharp
+      Data: 211|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 22
@@ -3552,13 +3635,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 207|PropertyModifyConfig[], Assembly-CSharp
+      Data: 212|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 208|PropertyModifyConfig, Assembly-CSharp
+      Data: 213|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -3591,7 +3674,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 209|PropertyModifyConfig[], Assembly-CSharp
+      Data: 214|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3603,13 +3686,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 210|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 215|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 211|MTC_ByItemRarityCount, Assembly-CSharp
+      Data: 216|MTC_ByItemRarityCount, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 10
@@ -3624,13 +3707,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 212|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 217|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 213|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 218|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -3657,7 +3740,7 @@ MonoBehaviour:
       Data: 0
     - Name: VaildRarity
       Entry: 7
-      Data: 214|System.Collections.Generic.List`1[[GoodsItemRarity, Assembly-CSharp]],
+      Data: 219|System.Collections.Generic.List`1[[GoodsItemRarity, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -3685,13 +3768,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 215|ShipPlugItemConfig, Assembly-CSharp
+      Data: 220|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1024
     - Name: GeneralConfig
       Entry: 7
-      Data: 216|GeneralItemConfig, Assembly-CSharp
+      Data: 221|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 23
@@ -3712,13 +3795,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 217|PropertyModifyConfig[], Assembly-CSharp
+      Data: 222|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 218|PropertyModifyConfig, Assembly-CSharp
+      Data: 223|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 6
@@ -3739,7 +3822,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 219|PropertyModifyConfig, Assembly-CSharp
+      Data: 224|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 7
@@ -3772,7 +3855,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 220|PropertyModifyConfig[], Assembly-CSharp
+      Data: 225|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3784,7 +3867,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 221|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 226|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3799,13 +3882,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 222|ShipPlugItemConfig, Assembly-CSharp
+      Data: 227|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1025
     - Name: GeneralConfig
       Entry: 7
-      Data: 223|GeneralItemConfig, Assembly-CSharp
+      Data: 228|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 24
@@ -3826,13 +3909,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 224|PropertyModifyConfig[], Assembly-CSharp
+      Data: 229|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 225|PropertyModifyConfig, Assembly-CSharp
+      Data: 230|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 7
@@ -3865,7 +3948,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 226|PropertyModifyConfig[], Assembly-CSharp
+      Data: 231|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3877,7 +3960,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 227|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 232|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3892,13 +3975,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 228|ShipPlugItemConfig, Assembly-CSharp
+      Data: 233|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1026
     - Name: GeneralConfig
       Entry: 7
-      Data: 229|GeneralItemConfig, Assembly-CSharp
+      Data: 234|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 25
@@ -3919,13 +4002,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 230|PropertyModifyConfig[], Assembly-CSharp
+      Data: 235|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 231|PropertyModifyConfig, Assembly-CSharp
+      Data: 236|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 32
@@ -3946,7 +4029,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 232|PropertyModifyConfig, Assembly-CSharp
+      Data: 237|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 33
@@ -3979,7 +4062,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 233|PropertyModifyConfig[], Assembly-CSharp
+      Data: 238|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -3991,7 +4074,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 234|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 239|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4006,13 +4089,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 235|ShipPlugItemConfig, Assembly-CSharp
+      Data: 240|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1027
     - Name: GeneralConfig
       Entry: 7
-      Data: 236|GeneralItemConfig, Assembly-CSharp
+      Data: 241|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 26
@@ -4033,7 +4116,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 237|PropertyModifyConfig[], Assembly-CSharp
+      Data: 242|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4051,7 +4134,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 238|PropertyModifyConfig[], Assembly-CSharp
+      Data: 243|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4063,13 +4146,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 239|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 244|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 240|MTC_OnRefreshShop, Assembly-CSharp
+      Data: 245|MTC_OnRefreshShop, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 9
@@ -4084,13 +4167,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 241|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 246|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 242|MTEC_TempReduceShopPrice, Assembly-CSharp
+      Data: 247|MTEC_TempReduceShopPrice, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 3
@@ -4123,13 +4206,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 243|ShipPlugItemConfig, Assembly-CSharp
+      Data: 248|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1028
     - Name: GeneralConfig
       Entry: 7
-      Data: 244|GeneralItemConfig, Assembly-CSharp
+      Data: 249|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 27
@@ -4150,13 +4233,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 245|PropertyModifyConfig[], Assembly-CSharp
+      Data: 250|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 246|PropertyModifyConfig, Assembly-CSharp
+      Data: 251|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 29
@@ -4189,7 +4272,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 247|PropertyModifyConfig[], Assembly-CSharp
+      Data: 252|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4201,7 +4284,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 248|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 253|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4216,13 +4299,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 249|ShipPlugItemConfig, Assembly-CSharp
+      Data: 254|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1029
     - Name: GeneralConfig
       Entry: 7
-      Data: 250|GeneralItemConfig, Assembly-CSharp
+      Data: 255|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 28
@@ -4243,13 +4326,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 251|PropertyModifyConfig[], Assembly-CSharp
+      Data: 256|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 252|PropertyModifyConfig, Assembly-CSharp
+      Data: 257|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -4282,7 +4365,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 253|PropertyModifyConfig[], Assembly-CSharp
+      Data: 258|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4294,7 +4377,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 254|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 259|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4309,13 +4392,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 255|ShipPlugItemConfig, Assembly-CSharp
+      Data: 260|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1030
     - Name: GeneralConfig
       Entry: 7
-      Data: 256|GeneralItemConfig, Assembly-CSharp
+      Data: 261|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 29
@@ -4336,13 +4419,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 257|PropertyModifyConfig[], Assembly-CSharp
+      Data: 262|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 258|PropertyModifyConfig, Assembly-CSharp
+      Data: 263|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 28
@@ -4375,7 +4458,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 259|PropertyModifyConfig[], Assembly-CSharp
+      Data: 264|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4387,7 +4470,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 260|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 265|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4402,13 +4485,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 261|ShipPlugItemConfig, Assembly-CSharp
+      Data: 266|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1031
     - Name: GeneralConfig
       Entry: 7
-      Data: 262|GeneralItemConfig, Assembly-CSharp
+      Data: 267|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 30
@@ -4429,13 +4512,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 263|PropertyModifyConfig[], Assembly-CSharp
+      Data: 268|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 264|PropertyModifyConfig, Assembly-CSharp
+      Data: 269|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 47
@@ -4468,7 +4551,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 265|PropertyModifyConfig[], Assembly-CSharp
+      Data: 270|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4480,7 +4563,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 266|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 271|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4495,13 +4578,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 267|ShipPlugItemConfig, Assembly-CSharp
+      Data: 272|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1032
     - Name: GeneralConfig
       Entry: 7
-      Data: 268|GeneralItemConfig, Assembly-CSharp
+      Data: 273|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 31
@@ -4522,13 +4605,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 269|PropertyModifyConfig[], Assembly-CSharp
+      Data: 274|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 270|PropertyModifyConfig, Assembly-CSharp
+      Data: 275|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -4561,7 +4644,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 271|PropertyModifyConfig[], Assembly-CSharp
+      Data: 276|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4573,7 +4656,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 272|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 277|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4588,13 +4671,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 273|ShipPlugItemConfig, Assembly-CSharp
+      Data: 278|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1033
     - Name: GeneralConfig
       Entry: 7
-      Data: 274|GeneralItemConfig, Assembly-CSharp
+      Data: 279|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 32
@@ -4615,13 +4698,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 275|PropertyModifyConfig[], Assembly-CSharp
+      Data: 280|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 276|PropertyModifyConfig, Assembly-CSharp
+      Data: 281|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -4642,7 +4725,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 277|PropertyModifyConfig, Assembly-CSharp
+      Data: 282|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -4675,7 +4758,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 278|PropertyModifyConfig[], Assembly-CSharp
+      Data: 283|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4687,7 +4770,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 279|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 284|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4702,13 +4785,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 280|ShipPlugItemConfig, Assembly-CSharp
+      Data: 285|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1034
     - Name: GeneralConfig
       Entry: 7
-      Data: 281|GeneralItemConfig, Assembly-CSharp
+      Data: 286|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 33
@@ -4729,13 +4812,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 282|PropertyModifyConfig[], Assembly-CSharp
+      Data: 287|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 283|PropertyModifyConfig, Assembly-CSharp
+      Data: 288|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -4756,7 +4839,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 284|PropertyModifyConfig, Assembly-CSharp
+      Data: 289|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 9
@@ -4789,7 +4872,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 285|PropertyModifyConfig[], Assembly-CSharp
+      Data: 290|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4801,7 +4884,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 286|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 291|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4816,13 +4899,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 287|ShipPlugItemConfig, Assembly-CSharp
+      Data: 292|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1035
     - Name: GeneralConfig
       Entry: 7
-      Data: 288|GeneralItemConfig, Assembly-CSharp
+      Data: 293|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 34
@@ -4843,13 +4926,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 289|PropertyModifyConfig[], Assembly-CSharp
+      Data: 294|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 290|PropertyModifyConfig, Assembly-CSharp
+      Data: 295|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -4870,7 +4953,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 291|PropertyModifyConfig, Assembly-CSharp
+      Data: 296|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 39
@@ -4891,7 +4974,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 292|PropertyModifyConfig, Assembly-CSharp
+      Data: 297|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -4924,7 +5007,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 293|PropertyModifyConfig[], Assembly-CSharp
+      Data: 298|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4936,7 +5019,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 294|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 299|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -4951,13 +5034,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 295|ShipPlugItemConfig, Assembly-CSharp
+      Data: 300|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1036
     - Name: GeneralConfig
       Entry: 7
-      Data: 296|GeneralItemConfig, Assembly-CSharp
+      Data: 301|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 35
@@ -4978,13 +5061,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 297|PropertyModifyConfig[], Assembly-CSharp
+      Data: 302|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 298|PropertyModifyConfig, Assembly-CSharp
+      Data: 303|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -5005,7 +5088,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 299|PropertyModifyConfig, Assembly-CSharp
+      Data: 304|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -5026,7 +5109,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 300|PropertyModifyConfig, Assembly-CSharp
+      Data: 305|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -5047,7 +5130,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 301|PropertyModifyConfig, Assembly-CSharp
+      Data: 306|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 36
@@ -5080,7 +5163,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 302|PropertyModifyConfig[], Assembly-CSharp
+      Data: 307|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5092,7 +5175,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 303|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 308|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5107,13 +5190,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 304|ShipPlugItemConfig, Assembly-CSharp
+      Data: 309|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1037
     - Name: GeneralConfig
       Entry: 7
-      Data: 305|GeneralItemConfig, Assembly-CSharp
+      Data: 310|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 36
@@ -5134,13 +5217,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 306|PropertyModifyConfig[], Assembly-CSharp
+      Data: 311|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 307|PropertyModifyConfig, Assembly-CSharp
+      Data: 312|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -5161,7 +5244,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 308|PropertyModifyConfig, Assembly-CSharp
+      Data: 313|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -5182,7 +5265,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 309|PropertyModifyConfig, Assembly-CSharp
+      Data: 314|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -5203,7 +5286,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 310|PropertyModifyConfig, Assembly-CSharp
+      Data: 315|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 35
@@ -5236,7 +5319,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 311|PropertyModifyConfig[], Assembly-CSharp
+      Data: 316|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5248,7 +5331,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 312|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 317|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5263,13 +5346,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 313|ShipPlugItemConfig, Assembly-CSharp
+      Data: 318|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1038
     - Name: GeneralConfig
       Entry: 7
-      Data: 314|GeneralItemConfig, Assembly-CSharp
+      Data: 319|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 37
@@ -5290,13 +5373,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 315|PropertyModifyConfig[], Assembly-CSharp
+      Data: 320|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 316|PropertyModifyConfig, Assembly-CSharp
+      Data: 321|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -5317,7 +5400,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 317|PropertyModifyConfig, Assembly-CSharp
+      Data: 322|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 39
@@ -5350,7 +5433,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 318|PropertyModifyConfig[], Assembly-CSharp
+      Data: 323|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5362,7 +5445,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 319|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 324|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5377,13 +5460,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 320|ShipPlugItemConfig, Assembly-CSharp
+      Data: 325|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1039
     - Name: GeneralConfig
       Entry: 7
-      Data: 321|GeneralItemConfig, Assembly-CSharp
+      Data: 326|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 38
@@ -5404,13 +5487,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 322|PropertyModifyConfig[], Assembly-CSharp
+      Data: 327|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 323|PropertyModifyConfig, Assembly-CSharp
+      Data: 328|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -5431,7 +5514,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 324|PropertyModifyConfig, Assembly-CSharp
+      Data: 329|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -5464,7 +5547,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 325|PropertyModifyConfig[], Assembly-CSharp
+      Data: 330|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5476,7 +5559,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 326|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 331|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5491,13 +5574,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 327|ShipPlugItemConfig, Assembly-CSharp
+      Data: 332|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1040
     - Name: GeneralConfig
       Entry: 7
-      Data: 328|GeneralItemConfig, Assembly-CSharp
+      Data: 333|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 39
@@ -5518,13 +5601,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 329|PropertyModifyConfig[], Assembly-CSharp
+      Data: 334|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 330|PropertyModifyConfig, Assembly-CSharp
+      Data: 335|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -5545,7 +5628,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 331|PropertyModifyConfig, Assembly-CSharp
+      Data: 336|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -5566,7 +5649,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 332|PropertyModifyConfig, Assembly-CSharp
+      Data: 337|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -5599,7 +5682,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 333|PropertyModifyConfig[], Assembly-CSharp
+      Data: 338|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5611,7 +5694,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 334|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 339|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5626,13 +5709,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 335|ShipPlugItemConfig, Assembly-CSharp
+      Data: 340|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1041
     - Name: GeneralConfig
       Entry: 7
-      Data: 336|GeneralItemConfig, Assembly-CSharp
+      Data: 341|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 40
@@ -5653,13 +5736,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 337|PropertyModifyConfig[], Assembly-CSharp
+      Data: 342|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 338|PropertyModifyConfig, Assembly-CSharp
+      Data: 343|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 40
@@ -5692,7 +5775,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 339|PropertyModifyConfig[], Assembly-CSharp
+      Data: 344|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5704,7 +5787,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 340|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 345|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5719,13 +5802,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 341|ShipPlugItemConfig, Assembly-CSharp
+      Data: 346|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1042
     - Name: GeneralConfig
       Entry: 7
-      Data: 342|GeneralItemConfig, Assembly-CSharp
+      Data: 347|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 41
@@ -5746,13 +5829,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 343|PropertyModifyConfig[], Assembly-CSharp
+      Data: 348|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 344|PropertyModifyConfig, Assembly-CSharp
+      Data: 349|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -5773,7 +5856,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 345|PropertyModifyConfig, Assembly-CSharp
+      Data: 350|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -5794,7 +5877,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 346|PropertyModifyConfig, Assembly-CSharp
+      Data: 351|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 36
@@ -5827,7 +5910,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 347|PropertyModifyConfig[], Assembly-CSharp
+      Data: 352|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5839,7 +5922,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 348|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 353|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5854,13 +5937,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 349|ShipPlugItemConfig, Assembly-CSharp
+      Data: 354|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1043
     - Name: GeneralConfig
       Entry: 7
-      Data: 350|GeneralItemConfig, Assembly-CSharp
+      Data: 355|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 42
@@ -5881,13 +5964,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 351|PropertyModifyConfig[], Assembly-CSharp
+      Data: 356|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 352|PropertyModifyConfig, Assembly-CSharp
+      Data: 357|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 40
@@ -5908,7 +5991,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 353|PropertyModifyConfig, Assembly-CSharp
+      Data: 358|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -5929,7 +6012,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 354|PropertyModifyConfig, Assembly-CSharp
+      Data: 359|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -5962,7 +6045,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 355|PropertyModifyConfig[], Assembly-CSharp
+      Data: 360|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5974,7 +6057,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 356|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 361|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -5989,13 +6072,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 357|ShipPlugItemConfig, Assembly-CSharp
+      Data: 362|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1044
     - Name: GeneralConfig
       Entry: 7
-      Data: 358|GeneralItemConfig, Assembly-CSharp
+      Data: 363|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 43
@@ -6016,13 +6099,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 359|PropertyModifyConfig[], Assembly-CSharp
+      Data: 364|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 360|PropertyModifyConfig, Assembly-CSharp
+      Data: 365|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -6043,7 +6126,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 361|PropertyModifyConfig, Assembly-CSharp
+      Data: 366|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -6076,7 +6159,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 362|PropertyModifyConfig[], Assembly-CSharp
+      Data: 367|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6088,7 +6171,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 363|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 368|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6103,13 +6186,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 364|ShipPlugItemConfig, Assembly-CSharp
+      Data: 369|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1045
     - Name: GeneralConfig
       Entry: 7
-      Data: 365|GeneralItemConfig, Assembly-CSharp
+      Data: 370|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 44
@@ -6130,7 +6213,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 366|PropertyModifyConfig[], Assembly-CSharp
+      Data: 371|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6148,7 +6231,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 367|PropertyModifyConfig[], Assembly-CSharp
+      Data: 372|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6160,13 +6243,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 368|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 373|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 369|MTC_OnEnterHarbor, Assembly-CSharp
+      Data: 374|MTC_OnEnterHarbor, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 11
@@ -6181,13 +6264,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 370|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 375|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 371|MTEC_AddPropertyValueBySpecialCount, Assembly-CSharp
+      Data: 376|MTEC_AddPropertyValueBySpecialCount, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 4
@@ -6226,13 +6309,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 372|ShipPlugItemConfig, Assembly-CSharp
+      Data: 377|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1046
     - Name: GeneralConfig
       Entry: 7
-      Data: 373|GeneralItemConfig, Assembly-CSharp
+      Data: 378|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 45
@@ -6253,7 +6336,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 374|PropertyModifyConfig[], Assembly-CSharp
+      Data: 379|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6271,7 +6354,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 375|PropertyModifyConfig[], Assembly-CSharp
+      Data: 380|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6283,13 +6366,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 376|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 381|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 377|MTC_CoreHPPercent, Assembly-CSharp
+      Data: 382|MTC_CoreHPPercent, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 12
@@ -6304,13 +6387,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 378|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 383|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 379|MTEC_SetPropertyValue, Assembly-CSharp
+      Data: 384|MTEC_SetPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 2
@@ -6328,7 +6411,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 380|MTEC_SetPropertyValue, Assembly-CSharp
+      Data: 385|MTEC_SetPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 2
@@ -6370,13 +6453,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 381|ShipPlugItemConfig, Assembly-CSharp
+      Data: 386|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1047
     - Name: GeneralConfig
       Entry: 7
-      Data: 382|GeneralItemConfig, Assembly-CSharp
+      Data: 387|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 46
@@ -6397,13 +6480,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 383|PropertyModifyConfig[], Assembly-CSharp
+      Data: 388|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 384|PropertyModifyConfig, Assembly-CSharp
+      Data: 389|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -6424,7 +6507,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 385|PropertyModifyConfig, Assembly-CSharp
+      Data: 390|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -6445,7 +6528,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 386|PropertyModifyConfig, Assembly-CSharp
+      Data: 391|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 39
@@ -6466,7 +6549,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 387|PropertyModifyConfig, Assembly-CSharp
+      Data: 392|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -6499,7 +6582,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 388|PropertyModifyConfig[], Assembly-CSharp
+      Data: 393|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6511,7 +6594,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 389|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 394|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6526,13 +6609,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 390|ShipPlugItemConfig, Assembly-CSharp
+      Data: 395|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1048
     - Name: GeneralConfig
       Entry: 7
-      Data: 391|GeneralItemConfig, Assembly-CSharp
+      Data: 396|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 47
@@ -6553,13 +6636,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 392|PropertyModifyConfig[], Assembly-CSharp
+      Data: 397|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 393|PropertyModifyConfig, Assembly-CSharp
+      Data: 398|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 21
@@ -6592,7 +6675,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 394|PropertyModifyConfig[], Assembly-CSharp
+      Data: 399|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6604,7 +6687,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 395|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 400|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6619,13 +6702,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 396|ShipPlugItemConfig, Assembly-CSharp
+      Data: 401|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1049
     - Name: GeneralConfig
       Entry: 7
-      Data: 397|GeneralItemConfig, Assembly-CSharp
+      Data: 402|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 48
@@ -6646,13 +6729,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 398|PropertyModifyConfig[], Assembly-CSharp
+      Data: 403|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 399|PropertyModifyConfig, Assembly-CSharp
+      Data: 404|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 35
@@ -6673,7 +6756,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 400|PropertyModifyConfig, Assembly-CSharp
+      Data: 405|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 21
@@ -6694,7 +6777,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 401|PropertyModifyConfig, Assembly-CSharp
+      Data: 406|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 37
@@ -6727,7 +6810,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 402|PropertyModifyConfig[], Assembly-CSharp
+      Data: 407|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6739,7 +6822,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 403|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 408|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6754,13 +6837,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 404|ShipPlugItemConfig, Assembly-CSharp
+      Data: 409|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1050
     - Name: GeneralConfig
       Entry: 7
-      Data: 405|GeneralItemConfig, Assembly-CSharp
+      Data: 410|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 49
@@ -6781,13 +6864,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 406|PropertyModifyConfig[], Assembly-CSharp
+      Data: 411|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 407|PropertyModifyConfig, Assembly-CSharp
+      Data: 412|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 35
@@ -6808,7 +6891,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 408|PropertyModifyConfig, Assembly-CSharp
+      Data: 413|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 37
@@ -6841,7 +6924,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 409|PropertyModifyConfig[], Assembly-CSharp
+      Data: 414|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6853,7 +6936,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 410|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 415|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6868,13 +6951,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 411|ShipPlugItemConfig, Assembly-CSharp
+      Data: 416|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1051
     - Name: GeneralConfig
       Entry: 7
-      Data: 412|GeneralItemConfig, Assembly-CSharp
+      Data: 417|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 50
@@ -6895,13 +6978,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 413|PropertyModifyConfig[], Assembly-CSharp
+      Data: 418|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 414|PropertyModifyConfig, Assembly-CSharp
+      Data: 419|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 21
@@ -6922,7 +7005,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 415|PropertyModifyConfig, Assembly-CSharp
+      Data: 420|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 35
@@ -6955,7 +7038,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 416|PropertyModifyConfig[], Assembly-CSharp
+      Data: 421|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6967,7 +7050,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 417|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 422|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -6982,13 +7065,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 418|ShipPlugItemConfig, Assembly-CSharp
+      Data: 423|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1052
     - Name: GeneralConfig
       Entry: 7
-      Data: 419|GeneralItemConfig, Assembly-CSharp
+      Data: 424|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 51
@@ -7009,13 +7092,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 420|PropertyModifyConfig[], Assembly-CSharp
+      Data: 425|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 421|PropertyModifyConfig, Assembly-CSharp
+      Data: 426|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 30
@@ -7036,7 +7119,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 422|PropertyModifyConfig, Assembly-CSharp
+      Data: 427|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 35
@@ -7069,7 +7152,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 423|PropertyModifyConfig[], Assembly-CSharp
+      Data: 428|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7081,7 +7164,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 424|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 429|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7096,13 +7179,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 425|ShipPlugItemConfig, Assembly-CSharp
+      Data: 430|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1053
     - Name: GeneralConfig
       Entry: 7
-      Data: 426|GeneralItemConfig, Assembly-CSharp
+      Data: 431|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 52
@@ -7123,13 +7206,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 427|PropertyModifyConfig[], Assembly-CSharp
+      Data: 432|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 428|PropertyModifyConfig, Assembly-CSharp
+      Data: 433|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 26
@@ -7150,7 +7233,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 429|PropertyModifyConfig, Assembly-CSharp
+      Data: 434|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 25
@@ -7183,7 +7266,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 430|PropertyModifyConfig[], Assembly-CSharp
+      Data: 435|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7195,13 +7278,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 431|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 436|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 432|MTC_OnShieldRecover, Assembly-CSharp
+      Data: 437|MTC_OnShieldRecover, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 13
@@ -7216,13 +7299,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 433|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 438|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 434|MTEC_SetUnitPropertyValue, Assembly-CSharp
+      Data: 439|MTEC_SetUnitPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 5
@@ -7258,13 +7341,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 435|ShipPlugItemConfig, Assembly-CSharp
+      Data: 440|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1054
     - Name: GeneralConfig
       Entry: 7
-      Data: 436|GeneralItemConfig, Assembly-CSharp
+      Data: 441|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 53
@@ -7285,7 +7368,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 437|PropertyModifyConfig[], Assembly-CSharp
+      Data: 442|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7303,7 +7386,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 438|PropertyModifyConfig[], Assembly-CSharp
+      Data: 443|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7315,7 +7398,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 439|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 444|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7330,13 +7413,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 440|ShipPlugItemConfig, Assembly-CSharp
+      Data: 445|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1055
     - Name: GeneralConfig
       Entry: 7
-      Data: 441|GeneralItemConfig, Assembly-CSharp
+      Data: 446|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 54
@@ -7357,13 +7440,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 442|PropertyModifyConfig[], Assembly-CSharp
+      Data: 447|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 443|PropertyModifyConfig, Assembly-CSharp
+      Data: 448|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 48
@@ -7396,7 +7479,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 444|PropertyModifyConfig[], Assembly-CSharp
+      Data: 449|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7408,7 +7491,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 445|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 450|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7423,13 +7506,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 446|ShipPlugItemConfig, Assembly-CSharp
+      Data: 451|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1056
     - Name: GeneralConfig
       Entry: 7
-      Data: 447|GeneralItemConfig, Assembly-CSharp
+      Data: 452|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 55
@@ -7450,13 +7533,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 448|PropertyModifyConfig[], Assembly-CSharp
+      Data: 453|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 449|PropertyModifyConfig, Assembly-CSharp
+      Data: 454|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 41
@@ -7477,7 +7560,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 450|PropertyModifyConfig, Assembly-CSharp
+      Data: 455|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -7498,7 +7581,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 451|PropertyModifyConfig, Assembly-CSharp
+      Data: 456|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -7531,7 +7614,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 452|PropertyModifyConfig[], Assembly-CSharp
+      Data: 457|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7543,7 +7626,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 453|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 458|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7558,13 +7641,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 454|ShipPlugItemConfig, Assembly-CSharp
+      Data: 459|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1057
     - Name: GeneralConfig
       Entry: 7
-      Data: 455|GeneralItemConfig, Assembly-CSharp
+      Data: 460|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 56
@@ -7585,13 +7668,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 456|PropertyModifyConfig[], Assembly-CSharp
+      Data: 461|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 457|PropertyModifyConfig, Assembly-CSharp
+      Data: 462|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 42
@@ -7624,7 +7707,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 458|PropertyModifyConfig[], Assembly-CSharp
+      Data: 463|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7636,7 +7719,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 459|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 464|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7651,13 +7734,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 460|ShipPlugItemConfig, Assembly-CSharp
+      Data: 465|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1058
     - Name: GeneralConfig
       Entry: 7
-      Data: 461|GeneralItemConfig, Assembly-CSharp
+      Data: 466|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 57
@@ -7678,13 +7761,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 462|PropertyModifyConfig[], Assembly-CSharp
+      Data: 467|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 463|PropertyModifyConfig, Assembly-CSharp
+      Data: 468|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 41
@@ -7705,7 +7788,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 464|PropertyModifyConfig, Assembly-CSharp
+      Data: 469|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 42
@@ -7726,7 +7809,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 465|PropertyModifyConfig, Assembly-CSharp
+      Data: 470|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -7747,7 +7830,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 466|PropertyModifyConfig, Assembly-CSharp
+      Data: 471|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 49
@@ -7780,7 +7863,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 467|PropertyModifyConfig[], Assembly-CSharp
+      Data: 472|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7792,7 +7875,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 468|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 473|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7807,13 +7890,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 469|ShipPlugItemConfig, Assembly-CSharp
+      Data: 474|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1059
     - Name: GeneralConfig
       Entry: 7
-      Data: 470|GeneralItemConfig, Assembly-CSharp
+      Data: 475|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 58
@@ -7834,13 +7917,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 471|PropertyModifyConfig[], Assembly-CSharp
+      Data: 476|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 472|PropertyModifyConfig, Assembly-CSharp
+      Data: 477|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 49
@@ -7873,7 +7956,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 473|PropertyModifyConfig[], Assembly-CSharp
+      Data: 478|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7885,7 +7968,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 474|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 479|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7900,13 +7983,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 475|ShipPlugItemConfig, Assembly-CSharp
+      Data: 480|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1060
     - Name: GeneralConfig
       Entry: 7
-      Data: 476|GeneralItemConfig, Assembly-CSharp
+      Data: 481|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 59
@@ -7927,7 +8010,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 477|PropertyModifyConfig[], Assembly-CSharp
+      Data: 482|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7945,7 +8028,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 478|PropertyModifyConfig[], Assembly-CSharp
+      Data: 483|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7957,13 +8040,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 479|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 484|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 480|MTC_OnWeaponHitTarget, Assembly-CSharp
+      Data: 485|MTC_OnWeaponHitTarget, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 14
@@ -7978,7 +8061,7 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 481|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 486|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8017,13 +8100,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 482|ShipPlugItemConfig, Assembly-CSharp
+      Data: 487|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1061
     - Name: GeneralConfig
       Entry: 7
-      Data: 483|GeneralItemConfig, Assembly-CSharp
+      Data: 488|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 60
@@ -8044,13 +8127,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 484|PropertyModifyConfig[], Assembly-CSharp
+      Data: 489|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 485|PropertyModifyConfig, Assembly-CSharp
+      Data: 490|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 41
@@ -8071,7 +8154,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 486|PropertyModifyConfig, Assembly-CSharp
+      Data: 491|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -8092,7 +8175,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 487|PropertyModifyConfig, Assembly-CSharp
+      Data: 492|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -8125,7 +8208,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 488|PropertyModifyConfig[], Assembly-CSharp
+      Data: 493|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8137,7 +8220,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 489|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 494|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8152,13 +8235,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 490|ShipPlugItemConfig, Assembly-CSharp
+      Data: 495|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1062
     - Name: GeneralConfig
       Entry: 7
-      Data: 491|GeneralItemConfig, Assembly-CSharp
+      Data: 496|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 61
@@ -8179,13 +8262,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 492|PropertyModifyConfig[], Assembly-CSharp
+      Data: 497|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 493|PropertyModifyConfig, Assembly-CSharp
+      Data: 498|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 41
@@ -8206,7 +8289,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 494|PropertyModifyConfig, Assembly-CSharp
+      Data: 499|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 50
@@ -8227,7 +8310,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 495|PropertyModifyConfig, Assembly-CSharp
+      Data: 500|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -8248,7 +8331,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 496|PropertyModifyConfig, Assembly-CSharp
+      Data: 501|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 42
@@ -8281,7 +8364,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 497|PropertyModifyConfig[], Assembly-CSharp
+      Data: 502|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8293,7 +8376,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 498|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 503|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8308,13 +8391,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 499|ShipPlugItemConfig, Assembly-CSharp
+      Data: 504|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1063
     - Name: GeneralConfig
       Entry: 7
-      Data: 500|GeneralItemConfig, Assembly-CSharp
+      Data: 505|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 62
@@ -8335,13 +8418,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 501|PropertyModifyConfig[], Assembly-CSharp
+      Data: 506|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 502|PropertyModifyConfig, Assembly-CSharp
+      Data: 507|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 23
@@ -8362,7 +8445,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 503|PropertyModifyConfig, Assembly-CSharp
+      Data: 508|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 24
@@ -8395,7 +8478,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 504|PropertyModifyConfig[], Assembly-CSharp
+      Data: 509|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8407,7 +8490,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 505|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 510|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8422,13 +8505,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 506|ShipPlugItemConfig, Assembly-CSharp
+      Data: 511|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1064
     - Name: GeneralConfig
       Entry: 7
-      Data: 507|GeneralItemConfig, Assembly-CSharp
+      Data: 512|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 63
@@ -8449,13 +8532,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 508|PropertyModifyConfig[], Assembly-CSharp
+      Data: 513|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 509|PropertyModifyConfig, Assembly-CSharp
+      Data: 514|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 24
@@ -8488,7 +8571,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 510|PropertyModifyConfig[], Assembly-CSharp
+      Data: 515|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8500,7 +8583,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 511|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 516|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8515,13 +8598,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 512|ShipPlugItemConfig, Assembly-CSharp
+      Data: 517|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1065
     - Name: GeneralConfig
       Entry: 7
-      Data: 513|GeneralItemConfig, Assembly-CSharp
+      Data: 518|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 64
@@ -8542,13 +8625,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 514|PropertyModifyConfig[], Assembly-CSharp
+      Data: 519|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 515|PropertyModifyConfig, Assembly-CSharp
+      Data: 520|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -8569,7 +8652,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 516|PropertyModifyConfig, Assembly-CSharp
+      Data: 521|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -8602,7 +8685,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 517|PropertyModifyConfig[], Assembly-CSharp
+      Data: 522|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8614,7 +8697,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 518|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 523|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8629,13 +8712,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 519|ShipPlugItemConfig, Assembly-CSharp
+      Data: 524|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1066
     - Name: GeneralConfig
       Entry: 7
-      Data: 520|GeneralItemConfig, Assembly-CSharp
+      Data: 525|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 65
@@ -8656,13 +8739,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 521|PropertyModifyConfig[], Assembly-CSharp
+      Data: 526|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 522|PropertyModifyConfig, Assembly-CSharp
+      Data: 527|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -8683,7 +8766,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 523|PropertyModifyConfig, Assembly-CSharp
+      Data: 528|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -8716,7 +8799,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 524|PropertyModifyConfig[], Assembly-CSharp
+      Data: 529|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8728,7 +8811,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 525|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 530|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8743,13 +8826,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 526|ShipPlugItemConfig, Assembly-CSharp
+      Data: 531|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1067
     - Name: GeneralConfig
       Entry: 7
-      Data: 527|GeneralItemConfig, Assembly-CSharp
+      Data: 532|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 66
@@ -8770,13 +8853,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 528|PropertyModifyConfig[], Assembly-CSharp
+      Data: 533|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 529|PropertyModifyConfig, Assembly-CSharp
+      Data: 534|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -8797,7 +8880,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 530|PropertyModifyConfig, Assembly-CSharp
+      Data: 535|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -8818,7 +8901,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 531|PropertyModifyConfig, Assembly-CSharp
+      Data: 536|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -8851,7 +8934,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 532|PropertyModifyConfig[], Assembly-CSharp
+      Data: 537|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8863,7 +8946,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 533|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 538|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8878,13 +8961,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 534|ShipPlugItemConfig, Assembly-CSharp
+      Data: 539|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1068
     - Name: GeneralConfig
       Entry: 7
-      Data: 535|GeneralItemConfig, Assembly-CSharp
+      Data: 540|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 67
@@ -8905,13 +8988,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 536|PropertyModifyConfig[], Assembly-CSharp
+      Data: 541|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 537|PropertyModifyConfig, Assembly-CSharp
+      Data: 542|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -8932,7 +9015,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 538|PropertyModifyConfig, Assembly-CSharp
+      Data: 543|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 39
@@ -8965,7 +9048,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 539|PropertyModifyConfig[], Assembly-CSharp
+      Data: 544|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8977,7 +9060,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 540|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 545|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -8992,13 +9075,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 541|ShipPlugItemConfig, Assembly-CSharp
+      Data: 546|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1069
     - Name: GeneralConfig
       Entry: 7
-      Data: 542|GeneralItemConfig, Assembly-CSharp
+      Data: 547|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 68
@@ -9019,13 +9102,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 543|PropertyModifyConfig[], Assembly-CSharp
+      Data: 548|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 544|PropertyModifyConfig, Assembly-CSharp
+      Data: 549|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -9046,7 +9129,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 545|PropertyModifyConfig, Assembly-CSharp
+      Data: 550|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -9067,7 +9150,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 546|PropertyModifyConfig, Assembly-CSharp
+      Data: 551|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -9100,7 +9183,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 547|PropertyModifyConfig[], Assembly-CSharp
+      Data: 552|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9112,7 +9195,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 548|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 553|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9127,13 +9210,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 549|ShipPlugItemConfig, Assembly-CSharp
+      Data: 554|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1070
     - Name: GeneralConfig
       Entry: 7
-      Data: 550|GeneralItemConfig, Assembly-CSharp
+      Data: 555|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 69
@@ -9154,13 +9237,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 551|PropertyModifyConfig[], Assembly-CSharp
+      Data: 556|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 552|PropertyModifyConfig, Assembly-CSharp
+      Data: 557|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -9181,7 +9264,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 553|PropertyModifyConfig, Assembly-CSharp
+      Data: 558|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 36
@@ -9214,7 +9297,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 554|PropertyModifyConfig[], Assembly-CSharp
+      Data: 559|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9226,7 +9309,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 555|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 560|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9241,13 +9324,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 556|ShipPlugItemConfig, Assembly-CSharp
+      Data: 561|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1071
     - Name: GeneralConfig
       Entry: 7
-      Data: 557|GeneralItemConfig, Assembly-CSharp
+      Data: 562|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 70
@@ -9268,13 +9351,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 558|PropertyModifyConfig[], Assembly-CSharp
+      Data: 563|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 559|PropertyModifyConfig, Assembly-CSharp
+      Data: 564|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 1
@@ -9307,7 +9390,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 560|PropertyModifyConfig[], Assembly-CSharp
+      Data: 565|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9319,13 +9402,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 561|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 566|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 562|MTC_OnPlayerShipMove, Assembly-CSharp
+      Data: 567|MTC_OnPlayerShipMove, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 8
@@ -9340,13 +9423,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 563|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 568|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 564|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 569|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -9376,7 +9459,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 565|MTC_OnPlayerShipMove, Assembly-CSharp
+      Data: 570|MTC_OnPlayerShipMove, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 8
@@ -9391,13 +9474,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 566|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 571|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 567|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 572|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -9436,13 +9519,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 568|ShipPlugItemConfig, Assembly-CSharp
+      Data: 573|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1072
     - Name: GeneralConfig
       Entry: 7
-      Data: 569|GeneralItemConfig, Assembly-CSharp
+      Data: 574|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 71
@@ -9463,7 +9546,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 570|PropertyModifyConfig[], Assembly-CSharp
+      Data: 575|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9481,7 +9564,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 571|PropertyModifyConfig[], Assembly-CSharp
+      Data: 576|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9493,7 +9576,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 572|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 577|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9508,13 +9591,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 573|ShipPlugItemConfig, Assembly-CSharp
+      Data: 578|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1073
     - Name: GeneralConfig
       Entry: 7
-      Data: 574|GeneralItemConfig, Assembly-CSharp
+      Data: 579|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 72
@@ -9535,13 +9618,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 575|PropertyModifyConfig[], Assembly-CSharp
+      Data: 580|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 576|PropertyModifyConfig, Assembly-CSharp
+      Data: 581|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -9562,7 +9645,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 577|PropertyModifyConfig, Assembly-CSharp
+      Data: 582|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 35
@@ -9583,7 +9666,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 578|PropertyModifyConfig, Assembly-CSharp
+      Data: 583|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 38
@@ -9616,7 +9699,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 579|PropertyModifyConfig[], Assembly-CSharp
+      Data: 584|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9628,7 +9711,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 580|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 585|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9643,13 +9726,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 581|ShipPlugItemConfig, Assembly-CSharp
+      Data: 586|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1074
     - Name: GeneralConfig
       Entry: 7
-      Data: 582|GeneralItemConfig, Assembly-CSharp
+      Data: 587|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 73
@@ -9670,13 +9753,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 583|PropertyModifyConfig[], Assembly-CSharp
+      Data: 588|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 584|PropertyModifyConfig, Assembly-CSharp
+      Data: 589|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -9697,7 +9780,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 585|PropertyModifyConfig, Assembly-CSharp
+      Data: 590|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -9730,7 +9813,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 586|PropertyModifyConfig[], Assembly-CSharp
+      Data: 591|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9742,7 +9825,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 587|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 592|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9757,13 +9840,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 588|ShipPlugItemConfig, Assembly-CSharp
+      Data: 593|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1075
     - Name: GeneralConfig
       Entry: 7
-      Data: 589|GeneralItemConfig, Assembly-CSharp
+      Data: 594|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 74
@@ -9784,13 +9867,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 590|PropertyModifyConfig[], Assembly-CSharp
+      Data: 595|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 591|PropertyModifyConfig, Assembly-CSharp
+      Data: 596|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -9811,7 +9894,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 592|PropertyModifyConfig, Assembly-CSharp
+      Data: 597|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 36
@@ -9844,7 +9927,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 593|PropertyModifyConfig[], Assembly-CSharp
+      Data: 598|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9856,7 +9939,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 594|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 599|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9871,13 +9954,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 595|ShipPlugItemConfig, Assembly-CSharp
+      Data: 600|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1076
     - Name: GeneralConfig
       Entry: 7
-      Data: 596|GeneralItemConfig, Assembly-CSharp
+      Data: 601|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 75
@@ -9898,13 +9981,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 597|PropertyModifyConfig[], Assembly-CSharp
+      Data: 602|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 598|PropertyModifyConfig, Assembly-CSharp
+      Data: 603|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 39
@@ -9925,7 +10008,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 599|PropertyModifyConfig, Assembly-CSharp
+      Data: 604|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 14
@@ -9946,7 +10029,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 600|PropertyModifyConfig, Assembly-CSharp
+      Data: 605|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -9979,7 +10062,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 601|PropertyModifyConfig[], Assembly-CSharp
+      Data: 606|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -9991,7 +10074,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 602|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 607|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10006,13 +10089,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 603|ShipPlugItemConfig, Assembly-CSharp
+      Data: 608|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1077
     - Name: GeneralConfig
       Entry: 7
-      Data: 604|GeneralItemConfig, Assembly-CSharp
+      Data: 609|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 76
@@ -10033,13 +10116,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 605|PropertyModifyConfig[], Assembly-CSharp
+      Data: 610|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 606|PropertyModifyConfig, Assembly-CSharp
+      Data: 611|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -10060,7 +10143,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 607|PropertyModifyConfig, Assembly-CSharp
+      Data: 612|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 14
@@ -10093,7 +10176,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 608|PropertyModifyConfig[], Assembly-CSharp
+      Data: 613|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10105,7 +10188,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 609|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 614|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10120,13 +10203,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 610|ShipPlugItemConfig, Assembly-CSharp
+      Data: 615|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1078
     - Name: GeneralConfig
       Entry: 7
-      Data: 611|GeneralItemConfig, Assembly-CSharp
+      Data: 616|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 77
@@ -10147,13 +10230,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 612|PropertyModifyConfig[], Assembly-CSharp
+      Data: 617|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 613|PropertyModifyConfig, Assembly-CSharp
+      Data: 618|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -10174,7 +10257,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 614|PropertyModifyConfig, Assembly-CSharp
+      Data: 619|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 14
@@ -10207,7 +10290,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 615|PropertyModifyConfig[], Assembly-CSharp
+      Data: 620|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10219,7 +10302,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 616|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 621|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10234,13 +10317,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 617|ShipPlugItemConfig, Assembly-CSharp
+      Data: 622|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1079
     - Name: GeneralConfig
       Entry: 7
-      Data: 618|GeneralItemConfig, Assembly-CSharp
+      Data: 623|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 78
@@ -10261,7 +10344,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 619|PropertyModifyConfig[], Assembly-CSharp
+      Data: 624|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10279,7 +10362,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 620|PropertyModifyConfig[], Assembly-CSharp
+      Data: 625|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10291,13 +10374,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 621|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 626|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 622|MTC_OnKillEnemy, Assembly-CSharp
+      Data: 627|MTC_OnKillEnemy, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 0
@@ -10312,13 +10395,13 @@ MonoBehaviour:
       Data: 30
     - Name: Effects
       Entry: 7
-      Data: 623|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 628|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 624|MTEC_GainDropWaste, Assembly-CSharp
+      Data: 629|MTEC_GainDropWaste, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 7
@@ -10357,13 +10440,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 625|ShipPlugItemConfig, Assembly-CSharp
+      Data: 630|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1080
     - Name: GeneralConfig
       Entry: 7
-      Data: 626|GeneralItemConfig, Assembly-CSharp
+      Data: 631|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 79
@@ -10384,13 +10467,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 627|PropertyModifyConfig[], Assembly-CSharp
+      Data: 632|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 628|PropertyModifyConfig, Assembly-CSharp
+      Data: 633|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -10423,7 +10506,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 629|PropertyModifyConfig[], Assembly-CSharp
+      Data: 634|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10435,7 +10518,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 630|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 635|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10450,13 +10533,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 631|ShipPlugItemConfig, Assembly-CSharp
+      Data: 636|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1081
     - Name: GeneralConfig
       Entry: 7
-      Data: 632|GeneralItemConfig, Assembly-CSharp
+      Data: 637|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 80
@@ -10477,7 +10560,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 633|PropertyModifyConfig[], Assembly-CSharp
+      Data: 638|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10495,7 +10578,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 634|PropertyModifyConfig[], Assembly-CSharp
+      Data: 639|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10507,13 +10590,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 635|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 640|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 636|MTC_Timer, Assembly-CSharp
+      Data: 641|MTC_Timer, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 6
@@ -10528,23 +10611,23 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 637|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 642|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 638|MTEC_AddGlobalTimerModifier, Assembly-CSharp
+      Data: 643|MTEC_AddGlobalTimerModifier, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 8
     - Name: ModifyMap
       Entry: 7
-      Data: 639|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[System.Single,
+      Data: 644|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 640|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
+      Data: 645|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -10600,6 +10683,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseDuration
+      Entry: 5
+      Data: false
     - Name: DurationTime
       Entry: 4
       Data: 5
@@ -10635,13 +10721,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 641|ShipPlugItemConfig, Assembly-CSharp
+      Data: 646|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1082
     - Name: GeneralConfig
       Entry: 7
-      Data: 642|GeneralItemConfig, Assembly-CSharp
+      Data: 647|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 81
@@ -10662,13 +10748,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 643|PropertyModifyConfig[], Assembly-CSharp
+      Data: 648|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 644|PropertyModifyConfig, Assembly-CSharp
+      Data: 649|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -10689,7 +10775,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 645|PropertyModifyConfig, Assembly-CSharp
+      Data: 650|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 14
@@ -10710,7 +10796,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 646|PropertyModifyConfig, Assembly-CSharp
+      Data: 651|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -10731,7 +10817,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 647|PropertyModifyConfig, Assembly-CSharp
+      Data: 652|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -10752,7 +10838,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 648|PropertyModifyConfig, Assembly-CSharp
+      Data: 653|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 19
@@ -10785,7 +10871,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 649|PropertyModifyConfig[], Assembly-CSharp
+      Data: 654|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10797,7 +10883,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 650|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 655|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10812,13 +10898,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 651|ShipPlugItemConfig, Assembly-CSharp
+      Data: 656|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1083
     - Name: GeneralConfig
       Entry: 7
-      Data: 652|GeneralItemConfig, Assembly-CSharp
+      Data: 657|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 82
@@ -10839,13 +10925,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 653|PropertyModifyConfig[], Assembly-CSharp
+      Data: 658|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 654|PropertyModifyConfig, Assembly-CSharp
+      Data: 659|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 20
@@ -10878,7 +10964,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 655|PropertyModifyConfig[], Assembly-CSharp
+      Data: 660|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10890,7 +10976,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 656|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 661|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10905,13 +10991,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 657|ShipPlugItemConfig, Assembly-CSharp
+      Data: 662|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1084
     - Name: GeneralConfig
       Entry: 7
-      Data: 658|GeneralItemConfig, Assembly-CSharp
+      Data: 663|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 83
@@ -10932,13 +11018,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 659|PropertyModifyConfig[], Assembly-CSharp
+      Data: 664|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 660|PropertyModifyConfig, Assembly-CSharp
+      Data: 665|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 51
@@ -10971,7 +11057,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 661|PropertyModifyConfig[], Assembly-CSharp
+      Data: 666|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10983,7 +11069,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 662|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 667|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -10998,13 +11084,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 663|ShipPlugItemConfig, Assembly-CSharp
+      Data: 668|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1085
     - Name: GeneralConfig
       Entry: 7
-      Data: 664|GeneralItemConfig, Assembly-CSharp
+      Data: 669|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 84
@@ -11025,13 +11111,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 665|PropertyModifyConfig[], Assembly-CSharp
+      Data: 670|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 666|PropertyModifyConfig, Assembly-CSharp
+      Data: 671|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 20
@@ -11052,7 +11138,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 667|PropertyModifyConfig, Assembly-CSharp
+      Data: 672|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -11085,7 +11171,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 668|PropertyModifyConfig[], Assembly-CSharp
+      Data: 673|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11097,7 +11183,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 669|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 674|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11112,13 +11198,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 670|ShipPlugItemConfig, Assembly-CSharp
+      Data: 675|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1086
     - Name: GeneralConfig
       Entry: 7
-      Data: 671|GeneralItemConfig, Assembly-CSharp
+      Data: 676|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 85
@@ -11139,13 +11225,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 672|PropertyModifyConfig[], Assembly-CSharp
+      Data: 677|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 673|PropertyModifyConfig, Assembly-CSharp
+      Data: 678|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 20
@@ -11166,7 +11252,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 674|PropertyModifyConfig, Assembly-CSharp
+      Data: 679|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 51
@@ -11199,7 +11285,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 675|PropertyModifyConfig[], Assembly-CSharp
+      Data: 680|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11211,7 +11297,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 676|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 681|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11226,13 +11312,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 677|ShipPlugItemConfig, Assembly-CSharp
+      Data: 682|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1087
     - Name: GeneralConfig
       Entry: 7
-      Data: 678|GeneralItemConfig, Assembly-CSharp
+      Data: 683|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 86
@@ -11253,13 +11339,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 679|PropertyModifyConfig[], Assembly-CSharp
+      Data: 684|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 680|PropertyModifyConfig, Assembly-CSharp
+      Data: 685|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 52
@@ -11292,7 +11378,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 681|PropertyModifyConfig[], Assembly-CSharp
+      Data: 686|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11304,7 +11390,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 682|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 687|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11319,13 +11405,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 683|ShipPlugItemConfig, Assembly-CSharp
+      Data: 688|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1088
     - Name: GeneralConfig
       Entry: 7
-      Data: 684|GeneralItemConfig, Assembly-CSharp
+      Data: 689|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 87
@@ -11346,13 +11432,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 685|PropertyModifyConfig[], Assembly-CSharp
+      Data: 690|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 686|PropertyModifyConfig, Assembly-CSharp
+      Data: 691|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 20
@@ -11373,7 +11459,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 687|PropertyModifyConfig, Assembly-CSharp
+      Data: 692|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 31
@@ -11406,7 +11492,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 688|PropertyModifyConfig[], Assembly-CSharp
+      Data: 693|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11418,7 +11504,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 689|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 694|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11433,13 +11519,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 690|ShipPlugItemConfig, Assembly-CSharp
+      Data: 695|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1089
     - Name: GeneralConfig
       Entry: 7
-      Data: 691|GeneralItemConfig, Assembly-CSharp
+      Data: 696|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 88
@@ -11460,13 +11546,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 692|PropertyModifyConfig[], Assembly-CSharp
+      Data: 697|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 693|PropertyModifyConfig, Assembly-CSharp
+      Data: 698|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -11499,7 +11585,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 694|PropertyModifyConfig[], Assembly-CSharp
+      Data: 699|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11511,7 +11597,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 695|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 700|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11526,13 +11612,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 696|ShipPlugItemConfig, Assembly-CSharp
+      Data: 701|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1090
     - Name: GeneralConfig
       Entry: 7
-      Data: 697|GeneralItemConfig, Assembly-CSharp
+      Data: 702|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 89
@@ -11553,13 +11639,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 698|PropertyModifyConfig[], Assembly-CSharp
+      Data: 703|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 699|PropertyModifyConfig, Assembly-CSharp
+      Data: 704|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 12
@@ -11592,7 +11678,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 700|PropertyModifyConfig[], Assembly-CSharp
+      Data: 705|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11604,7 +11690,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 701|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 706|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11619,13 +11705,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 702|ShipPlugItemConfig, Assembly-CSharp
+      Data: 707|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1091
     - Name: GeneralConfig
       Entry: 7
-      Data: 703|GeneralItemConfig, Assembly-CSharp
+      Data: 708|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 90
@@ -11646,13 +11732,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 704|PropertyModifyConfig[], Assembly-CSharp
+      Data: 709|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 705|PropertyModifyConfig, Assembly-CSharp
+      Data: 710|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 12
@@ -11673,7 +11759,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 706|PropertyModifyConfig, Assembly-CSharp
+      Data: 711|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -11694,7 +11780,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 707|PropertyModifyConfig, Assembly-CSharp
+      Data: 712|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -11715,7 +11801,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 708|PropertyModifyConfig, Assembly-CSharp
+      Data: 713|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 4
@@ -11748,7 +11834,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 709|PropertyModifyConfig[], Assembly-CSharp
+      Data: 714|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11760,7 +11846,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 710|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 715|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11775,13 +11861,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 711|ShipPlugItemConfig, Assembly-CSharp
+      Data: 716|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1092
     - Name: GeneralConfig
       Entry: 7
-      Data: 712|GeneralItemConfig, Assembly-CSharp
+      Data: 717|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 91
@@ -11802,13 +11888,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 713|PropertyModifyConfig[], Assembly-CSharp
+      Data: 718|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 714|PropertyModifyConfig, Assembly-CSharp
+      Data: 719|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 12
@@ -11829,7 +11915,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 715|PropertyModifyConfig, Assembly-CSharp
+      Data: 720|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -11850,7 +11936,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 716|PropertyModifyConfig, Assembly-CSharp
+      Data: 721|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 36
@@ -11883,7 +11969,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 717|PropertyModifyConfig[], Assembly-CSharp
+      Data: 722|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11895,7 +11981,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 718|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 723|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11910,13 +11996,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 719|ShipPlugItemConfig, Assembly-CSharp
+      Data: 724|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1093
     - Name: GeneralConfig
       Entry: 7
-      Data: 720|GeneralItemConfig, Assembly-CSharp
+      Data: 725|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 92
@@ -11937,7 +12023,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 721|PropertyModifyConfig[], Assembly-CSharp
+      Data: 726|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11955,7 +12041,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 722|PropertyModifyConfig[], Assembly-CSharp
+      Data: 727|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -11967,13 +12053,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 723|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 728|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 724|MTC_WaveState, Assembly-CSharp
+      Data: 729|MTC_WaveState, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 5
@@ -11988,13 +12074,13 @@ MonoBehaviour:
       Data: 0
     - Name: Effects
       Entry: 7
-      Data: 725|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 730|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 726|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 731|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -12012,7 +12098,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 727|MTEC_AddPropertyValue, Assembly-CSharp
+      Data: 732|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
       Data: 0
@@ -12051,13 +12137,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 728|ShipPlugItemConfig, Assembly-CSharp
+      Data: 733|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1094
     - Name: GeneralConfig
       Entry: 7
-      Data: 729|GeneralItemConfig, Assembly-CSharp
+      Data: 734|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 93
@@ -12078,13 +12164,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 730|PropertyModifyConfig[], Assembly-CSharp
+      Data: 735|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 731|PropertyModifyConfig, Assembly-CSharp
+      Data: 736|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -12105,7 +12191,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 732|PropertyModifyConfig, Assembly-CSharp
+      Data: 737|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -12138,7 +12224,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 733|PropertyModifyConfig[], Assembly-CSharp
+      Data: 738|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12150,7 +12236,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 734|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 739|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12165,13 +12251,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 735|ShipPlugItemConfig, Assembly-CSharp
+      Data: 740|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1095
     - Name: GeneralConfig
       Entry: 7
-      Data: 736|GeneralItemConfig, Assembly-CSharp
+      Data: 741|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 94
@@ -12192,13 +12278,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 737|PropertyModifyConfig[], Assembly-CSharp
+      Data: 742|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 738|PropertyModifyConfig, Assembly-CSharp
+      Data: 743|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 53
@@ -12219,7 +12305,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 739|PropertyModifyConfig, Assembly-CSharp
+      Data: 744|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -12252,7 +12338,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 740|PropertyModifyConfig[], Assembly-CSharp
+      Data: 745|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12264,7 +12350,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 741|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 746|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12279,13 +12365,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 742|ShipPlugItemConfig, Assembly-CSharp
+      Data: 747|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1096
     - Name: GeneralConfig
       Entry: 7
-      Data: 743|GeneralItemConfig, Assembly-CSharp
+      Data: 748|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 95
@@ -12306,13 +12392,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 744|PropertyModifyConfig[], Assembly-CSharp
+      Data: 749|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 745|PropertyModifyConfig, Assembly-CSharp
+      Data: 750|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -12333,7 +12419,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 746|PropertyModifyConfig, Assembly-CSharp
+      Data: 751|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -12366,7 +12452,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 747|PropertyModifyConfig[], Assembly-CSharp
+      Data: 752|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12378,7 +12464,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 748|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 753|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12393,13 +12479,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 749|ShipPlugItemConfig, Assembly-CSharp
+      Data: 754|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1097
     - Name: GeneralConfig
       Entry: 7
-      Data: 750|GeneralItemConfig, Assembly-CSharp
+      Data: 755|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 96
@@ -12420,13 +12506,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 751|PropertyModifyConfig[], Assembly-CSharp
+      Data: 756|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 752|PropertyModifyConfig, Assembly-CSharp
+      Data: 757|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 18
@@ -12447,7 +12533,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 753|PropertyModifyConfig, Assembly-CSharp
+      Data: 758|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -12480,7 +12566,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 754|PropertyModifyConfig[], Assembly-CSharp
+      Data: 759|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12492,7 +12578,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 755|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 760|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12507,13 +12593,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 756|ShipPlugItemConfig, Assembly-CSharp
+      Data: 761|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1098
     - Name: GeneralConfig
       Entry: 7
-      Data: 757|GeneralItemConfig, Assembly-CSharp
+      Data: 762|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 97
@@ -12534,13 +12620,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 758|PropertyModifyConfig[], Assembly-CSharp
+      Data: 763|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 759|PropertyModifyConfig, Assembly-CSharp
+      Data: 764|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -12561,7 +12647,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 760|PropertyModifyConfig, Assembly-CSharp
+      Data: 765|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -12582,7 +12668,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 761|PropertyModifyConfig, Assembly-CSharp
+      Data: 766|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -12615,7 +12701,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 762|PropertyModifyConfig[], Assembly-CSharp
+      Data: 767|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12627,7 +12713,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 763|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 768|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12642,13 +12728,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 764|ShipPlugItemConfig, Assembly-CSharp
+      Data: 769|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1099
     - Name: GeneralConfig
       Entry: 7
-      Data: 765|GeneralItemConfig, Assembly-CSharp
+      Data: 770|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 98
@@ -12669,13 +12755,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 766|PropertyModifyConfig[], Assembly-CSharp
+      Data: 771|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 767|PropertyModifyConfig, Assembly-CSharp
+      Data: 772|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 53
@@ -12696,7 +12782,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 768|PropertyModifyConfig, Assembly-CSharp
+      Data: 773|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -12729,7 +12815,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 769|PropertyModifyConfig[], Assembly-CSharp
+      Data: 774|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12741,7 +12827,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 770|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 775|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12756,13 +12842,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 771|ShipPlugItemConfig, Assembly-CSharp
+      Data: 776|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1100
     - Name: GeneralConfig
       Entry: 7
-      Data: 772|GeneralItemConfig, Assembly-CSharp
+      Data: 777|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 99
@@ -12783,13 +12869,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 773|PropertyModifyConfig[], Assembly-CSharp
+      Data: 778|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 774|PropertyModifyConfig, Assembly-CSharp
+      Data: 779|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -12810,7 +12896,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 775|PropertyModifyConfig, Assembly-CSharp
+      Data: 780|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -12831,7 +12917,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 776|PropertyModifyConfig, Assembly-CSharp
+      Data: 781|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -12852,7 +12938,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 777|PropertyModifyConfig, Assembly-CSharp
+      Data: 782|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 5
@@ -12873,7 +12959,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 778|PropertyModifyConfig, Assembly-CSharp
+      Data: 783|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 4
@@ -12906,7 +12992,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 779|PropertyModifyConfig[], Assembly-CSharp
+      Data: 784|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12918,7 +13004,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 780|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 785|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12933,13 +13019,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 781|ShipPlugItemConfig, Assembly-CSharp
+      Data: 786|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1101
     - Name: GeneralConfig
       Entry: 7
-      Data: 782|GeneralItemConfig, Assembly-CSharp
+      Data: 787|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 100
@@ -12960,7 +13046,7 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 783|PropertyModifyConfig[], Assembly-CSharp
+      Data: 788|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12978,7 +13064,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 784|PropertyModifyConfig[], Assembly-CSharp
+      Data: 789|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -12990,13 +13076,13 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 785|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 790|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 786|MTC_OnWeaponHitTarget, Assembly-CSharp
+      Data: 791|MTC_OnWeaponHitTarget, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
       Data: 14
@@ -13011,7 +13097,7 @@ MonoBehaviour:
       Data: 5
     - Name: Effects
       Entry: 7
-      Data: 787|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 792|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13050,13 +13136,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 788|ShipPlugItemConfig, Assembly-CSharp
+      Data: 793|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1102
     - Name: GeneralConfig
       Entry: 7
-      Data: 789|GeneralItemConfig, Assembly-CSharp
+      Data: 794|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 10
       Data: 101
@@ -13077,13 +13163,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 790|PropertyModifyConfig[], Assembly-CSharp
+      Data: 795|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 791|PropertyModifyConfig, Assembly-CSharp
+      Data: 796|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -13104,7 +13190,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 792|PropertyModifyConfig, Assembly-CSharp
+      Data: 797|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -13125,7 +13211,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 793|PropertyModifyConfig, Assembly-CSharp
+      Data: 798|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -13146,7 +13232,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 794|PropertyModifyConfig, Assembly-CSharp
+      Data: 799|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -13167,7 +13253,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 795|PropertyModifyConfig, Assembly-CSharp
+      Data: 800|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 3
@@ -13200,7 +13286,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 796|PropertyModifyConfig[], Assembly-CSharp
+      Data: 801|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13212,7 +13298,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 797|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 802|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13227,13 +13313,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 798|ShipPlugItemConfig, Assembly-CSharp
+      Data: 803|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1103
     - Name: GeneralConfig
       Entry: 7
-      Data: 799|GeneralItemConfig, Assembly-CSharp
+      Data: 804|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 6
       Data: 
@@ -13254,13 +13340,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 800|PropertyModifyConfig[], Assembly-CSharp
+      Data: 805|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 801|PropertyModifyConfig, Assembly-CSharp
+      Data: 806|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -13281,7 +13367,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 802|PropertyModifyConfig, Assembly-CSharp
+      Data: 807|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -13314,7 +13400,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 803|PropertyModifyConfig[], Assembly-CSharp
+      Data: 808|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13326,7 +13412,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 804|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 809|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13341,13 +13427,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 805|ShipPlugItemConfig, Assembly-CSharp
+      Data: 810|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1104
     - Name: GeneralConfig
       Entry: 7
-      Data: 806|GeneralItemConfig, Assembly-CSharp
+      Data: 811|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 6
       Data: 
@@ -13368,13 +13454,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 807|PropertyModifyConfig[], Assembly-CSharp
+      Data: 812|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 808|PropertyModifyConfig, Assembly-CSharp
+      Data: 813|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -13395,7 +13481,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 809|PropertyModifyConfig, Assembly-CSharp
+      Data: 814|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 8
@@ -13428,7 +13514,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 810|PropertyModifyConfig[], Assembly-CSharp
+      Data: 815|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13440,7 +13526,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 811|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 816|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13455,13 +13541,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 812|ShipPlugItemConfig, Assembly-CSharp
+      Data: 817|ShipPlugItemConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
       Data: 1105
     - Name: GeneralConfig
       Entry: 7
-      Data: 813|GeneralItemConfig, Assembly-CSharp
+      Data: 818|GeneralItemConfig, Assembly-CSharp
     - Name: IconSprite
       Entry: 6
       Data: 
@@ -13482,13 +13568,13 @@ MonoBehaviour:
       Data: 
     - Name: PropertyModify
       Entry: 7
-      Data: 814|PropertyModifyConfig[], Assembly-CSharp
+      Data: 819|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 815|PropertyModifyConfig, Assembly-CSharp
+      Data: 820|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 16
@@ -13509,7 +13595,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 816|PropertyModifyConfig, Assembly-CSharp
+      Data: 821|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 15
@@ -13530,7 +13616,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 817|PropertyModifyConfig, Assembly-CSharp
+      Data: 822|PropertyModifyConfig, Assembly-CSharp
     - Name: ModifyKey
       Entry: 3
       Data: 2
@@ -13563,7 +13649,7 @@ MonoBehaviour:
       Data: 0
     - Name: PropertyPercentModify
       Entry: 7
-      Data: 818|PropertyModifyConfig[], Assembly-CSharp
+      Data: 823|PropertyModifyConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -13575,7 +13661,7 @@ MonoBehaviour:
       Data: 
     - Name: ModifyTriggers
       Entry: 7
-      Data: 819|ModifyTriggerConfig[], Assembly-CSharp
+      Data: 824|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

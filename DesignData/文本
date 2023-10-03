@@ -1,3 +1,8 @@
 ShipPlug_Effect_1004    每<color=#09B3CB>5</color>秒装填速度<color=#09B3CB>+2%</color>，同时武器能源消耗<color=#EF3E3E>+3%</color>，波次结束后清空
 
 ShipPlug_Effect_1008	每<color=#09B3CB>2%</color>速度<color=#09B3CB>+1%</color>装填速度
+ShipPlug_Effect_1009	武器冷却期间能源消耗<color=#EF3E3E>+20%</color>
+
+ShipPlug_Effect_1013  	每<color=#EF3E3E>-5%</color>速度<color=#09B3CB>+1</color>装甲
+ShipPlug_Effect_1014	每<color=#09B3CB>2%</color>舰船速度<color=#09B3CB>+1%</color>装填速度
+ShipPlug_Effect_1021	每击杀<color=#09B3CB>15</color>名敌人增加<color=#09B3CB>1%</color>伤害，波次结束后清空
