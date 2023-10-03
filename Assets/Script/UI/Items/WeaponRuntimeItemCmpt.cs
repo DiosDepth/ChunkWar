@@ -19,7 +19,7 @@ public class WeaponRuntimeItemCmpt : MonoBehaviour, IPoolable
 
     public void Awake()
     {
-        _hpImage = transform.Find("HPInfo/HP").SafeGetComponent<Image>();
+        _hpImage = transform.Find("HPInfo/HPFill").SafeGetComponent<Image>();
         _cdImage = transform.Find("Icon/CD").SafeGetComponent<Image>();
         _cdText = transform.Find("Icon/CD/Value").SafeGetComponent<TextMeshProUGUI>();
         _armorText = transform.Find("Info/ArmorInfo/Value").SafeGetComponent<TextMeshProUGUI>();

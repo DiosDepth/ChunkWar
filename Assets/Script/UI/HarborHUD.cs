@@ -123,6 +123,11 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
             case ShipPropertyEventType.WreckageLoadChange:
                 RefreshLoadSlider();
                 break;
+
+            case ShipPropertyEventType.MainPropertyValueChange:
+                var modifyKey = (PropertyModifyKey)evt.param[0];
+                _propertyGroup.RefreshPropertyByKey(modifyKey);
+                break;
         }
     }
 

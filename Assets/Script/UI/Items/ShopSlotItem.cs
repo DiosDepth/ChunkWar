@@ -15,6 +15,9 @@ public class ShopSlotItem : MonoBehaviour
     private TextMeshProUGUI _descText;
     private TextMeshProUGUI _costText;
     private TextMeshProUGUI _limitText;
+    private TextMeshProUGUI _effectDesc1;
+    private TextMeshProUGUI _effectDesc2;
+
     private Transform PropertyModifyRoot;
     private RectTransform _tagRoot;
     private RectTransform _detailContentRect;
@@ -45,6 +48,8 @@ public class ShopSlotItem : MonoBehaviour
         _icon = transform.Find("Content/Info/Icon/Image").GetComponent<Image>();
         _rarityBG = transform.Find("BG").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
+        _effectDesc1 = _detailContentRect.Find("EffectDesc").SafeGetComponent<TextMeshProUGUI>();
+        _effectDesc2 = _detailContentRect.Find("EffectDesc/Desc").SafeGetComponent<TextMeshProUGUI>();
 
         PropertyModifyRoot = _detailContentRect.Find("PropertyModify");
         _unitInfoRoot = _detailContentRect.Find("UnitInfo");
@@ -68,10 +73,10 @@ public class ShopSlotItem : MonoBehaviour
 
         _rarityBG.sprite = GameHelper.GetRarityBG_Big(plugCfg.GeneralConfig.Rarity);
         _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
+        SetEffectDesc(LocalizationManager.Instance.GetTextValue(plugCfg.EffectDesc), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
         SetUpProperty();
         SetUpBuyLimit(_goodsInfo);
         _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
-        _descText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
         _icon.sprite = plugCfg.GeneralConfig.IconSprite;
       
         RefreshCost();
@@ -152,6 +157,30 @@ public class ShopSlotItem : MonoBehaviour
     {
         ///Lock
         transform.Find("Lock/Text").transform.SafeSetActive(isLock);
+    }
+
+    private void SetEffectDesc(string effectText, string descText)
+    {
+        if (string.IsNullOrEmpty(effectText))
+        {
+            _effectDesc1.transform.SafeSetActive(false);
+        }
+        else
+        {
+            _effectDesc1.text = effectText;
+            _effectDesc2.text = effectText;
+            _effectDesc1.transform.SafeSetActive(true);
+        }
+
+        if (string.IsNullOrEmpty(descText))
+        {
+            _descText.transform.SafeSetActive(false);
+        }
+        else
+        {
+            _descText.text = descText;
+            _descText.transform.SafeSetActive(true);
+        }
     }
 
     private void SetUpUintInfo(BaseUnitConfig cfg)

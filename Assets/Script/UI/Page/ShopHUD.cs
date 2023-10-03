@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
+public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<ShipPropertyEvent>
 {
     private Transform _shopContentRoot;
     private TextMeshProUGUI _currencyText;
@@ -41,6 +41,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     {
         base.Initialization();
         this.EventStartListening<RogueEvent>();
+        this.EventStartListening<ShipPropertyEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
         GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
@@ -53,6 +54,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     {
         _plugGridController.Clear();
         this.EventStopListening<RogueEvent>();
+        this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
     }
 
@@ -78,8 +80,8 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
                 RefreshAllShopItemCost();
                 break;
 
-            case RogueEventType.RefreshWreckage:
-
+            case RogueEventType.ShipPlugChange:
+                RefreshShipPlugsContent();
                 break;
 
             case RogueEventType.HoverUnitDisplay:
@@ -88,6 +90,24 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
             case RogueEventType.HideHoverUnitDisplay:
                 OnHideHoverUnitDisplay((Unit)evt.param[0]);
+                break;
+        }
+    }
+
+    public void OnEvent(ShipPropertyEvent evt)
+    {
+        switch (evt.type)
+        {
+            case ShipPropertyEventType.EnergyChange:
+                break;
+
+            case ShipPropertyEventType.WreckageLoadChange:
+
+                break;
+
+            case ShipPropertyEventType.MainPropertyValueChange:
+                var modifyKey = (PropertyModifyKey)evt.param[0];
+                _propertyGroup.RefreshPropertyByKey(modifyKey);
                 break;
         }
     }
