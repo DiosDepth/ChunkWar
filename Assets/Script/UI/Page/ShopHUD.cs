@@ -13,8 +13,11 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     private TextMeshProUGUI _rerollCostText;
     private EnhancedScroller _plugGridScroller;
     private BuildSelectHoverCmpt _hoverCmpt;
+    private ShipPropertyGroupPanel _propertyGroup;
+    private Text _propertyBtnText;
 
-
+    private const string PropertyBtnSwitch_Main = "ShipMainProperty_Btn_Text";
+    private const string PropertyBtnSwitch_Sub = "ShipSubProperty_Btn_Text";
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
@@ -24,12 +27,14 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     protected override void Awake()
     {
         base.Awake();
-        _shopContentRoot = transform.Find("ShopPanel/Content/Shop");
+        _shopContentRoot = transform.Find("ShopPanel/Content");
         _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = transform.Find("ShopPanel/Top/Reroll/Reroll/RerollCost").SafeGetComponent<TextMeshProUGUI>();
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
+        _propertyBtnText = transform.Find("PropertyPanel/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
+        _propertyGroup = transform.Find("PropertyPanel/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
     }
 
     public override void Initialization()
@@ -38,6 +43,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         this.EventStartListening<RogueEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
+        GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
         _hoverCmpt.SetActive(false);
         InitShopContent();
         RefreshGeneral();
@@ -45,18 +51,14 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
     public override void Hidden( )
     {
+        _plugGridController.Clear();
         this.EventStopListening<RogueEvent>();
         base.Hidden();
     }
 
     public void OnLaunchBtnPressed()
     {
-        GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
-    }
-
-    public void RemoveSlot(int m_index)
-    {
-
+        RogueManager.Instance.ExitShop();
     }
 
     public void OnEvent(RogueEvent evt)
@@ -80,11 +82,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
 
                 break;
 
-            case RogueEventType.RefreshShopWeaponInfo:
-                UI_WeaponUnitPropertyType type = (UI_WeaponUnitPropertyType)evt.param[0];
-                RefreshShopWeaponItemProperty(type);
-                break;
-
             case RogueEventType.HoverUnitDisplay:
                 OnHoverUnitDisplay((Unit)evt.param[0]);
                 break;
@@ -100,12 +97,13 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         RefreshCurrency();
         RefreshReroll();
         InitPlugController();
+        OnShipPropertySwitchClick();
     }
 
     private void InitPlugController()
     {
         _plugGridController = new GeneralScrollerGirdItemController();
-        _plugGridController.numberOfCellsPerRow = 9;
+        _plugGridController.numberOfCellsPerRow = 15;
         _plugGridController.InitPrefab(ShipPlugGridItem_PrefabPath, true);
         _plugGridController.OnItemSelected += OnPlugItemSelect;
         _plugGridScroller.Delegate = _plugGridController;
@@ -205,18 +203,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         ///RefreshInfo
     }
 
-    private void RefreshShopWeaponItemProperty(UI_WeaponUnitPropertyType type)
-    {
-        for(int i = 0; i < allShopSlotItems.Count; i++)
-        {
-            var item = allShopSlotItems[i];
-            if(item.ItemType == GoodsItemType.ShipUnit)
-            {
-                item.RefreshWeaponProperty(type);
-            }
-        }
-    }
-
     /// <summary>
     /// œ‘ æUnit—°÷–
     /// </summary>
@@ -238,4 +224,16 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         }
     }
 
+    private void OnShipPropertySwitchClick()
+    {
+        _propertyGroup.SwitchGroupType();
+        if (_propertyGroup.CurrentGroupType == ShipPropertyGroupPanel.GroupType.Main)
+        {
+            _propertyBtnText.text = LocalizationManager.Instance.GetTextValue(PropertyBtnSwitch_Main);
+        }
+        else
+        {
+            _propertyBtnText.text = LocalizationManager.Instance.GetTextValue(PropertyBtnSwitch_Sub);
+        }
+    }
 }

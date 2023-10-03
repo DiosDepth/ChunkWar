@@ -14,6 +14,8 @@ public class GMTalkMainPage : GUIBasePanel
         GetGUIComponent<Button>("Close").onClick.AddListener(ClosePage);
         GetGUIComponent<Button>("Shop").onClick.AddListener(JumpToShop);
         GetGUIComponent<Button>("Vectory").onClick.AddListener(Vectory);
+        GetGUIComponent<Button>("Harbor").onClick.AddListener(EnterHarbor);
+
         _filed = transform.Find("Content/InputContent/GMCommandField").SafeGetComponent<InputField>();
     }
 
@@ -40,11 +42,16 @@ public class GMTalkMainPage : GUIBasePanel
 
     private void JumpToShop()
     {
-        GMTalkManager.Instance.HandleGMTalkInputContent("jumptoshop");
+        GMTalkManager.Instance.HandleGMTalkInputContent("Shop");
     }
 
     private void Vectory()
     {
         GMTalkManager.Instance.HandleGMTalkInputContent("win");
+    }
+
+    private void EnterHarbor()
+    {
+        GMTalkManager.Instance.HandleGMTalkInputContent("harbor");
     }
 }

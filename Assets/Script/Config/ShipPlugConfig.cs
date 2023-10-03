@@ -50,10 +50,16 @@ public class ShipPlugItemConfig
     [HideReferenceObjectPicker]
     public PropertyModifyConfig[] PropertyModify = new PropertyModifyConfig[0];
 
-    [FoldoutGroup("修正配置")]
+    [FoldoutGroup("其他配置")]
     [LabelText("效果描述")]
     [LabelWidth(80)]
     public string EffectDesc;
+
+    [FoldoutGroup("其他配置")]
+    [LabelText("TAG")]
+    [LabelWidth(80)]
+    [EnumToggleButtons]
+    public ItemTag ItemTags;
 
     [FoldoutGroup("修正配置")]
     [HorizontalGroup("修正配置/B", 500)]
@@ -70,6 +76,11 @@ public class ShipPlugItemConfig
     [ValueDropdown("GetTriggerLst", DrawDropdownForListElements = false)]
     [HideReferenceObjectPicker]
     public ModifyTriggerConfig[] ModifyTriggers = new ModifyTriggerConfig[0];
+
+    public bool HasUnitTag(ItemTag tag)
+    {
+        return ItemTags.HasFlag(tag);
+    }
 
 
     private ValueDropdownList<ModifyTriggerConfig> GetTriggerLst()

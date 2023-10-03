@@ -85,11 +85,7 @@ public class ShopGoodsItemConfig
     [TableColumnWidth(80, false)]
     public int CostBase;
 
-    [TableColumnWidth(50, false)]
-    public bool Unique;
-
     [TableColumnWidth(100, false)]
-    [HideIf("Unique")]
     public int MaxBuyCount = -1;
 
 #if UNITY_EDITOR
@@ -103,6 +99,9 @@ public class ShopGoodsItemConfig
     private void OnInit()
     {
         CostValue = 0;
+        if (TypeID == 0)
+            return;
+
         var items = DataManager.Instance.GetShipPlugItemConfig(TypeID);
         if (items != null)
         {

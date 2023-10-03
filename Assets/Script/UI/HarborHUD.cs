@@ -63,6 +63,8 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
 
     public override void Hidden()
     {
+        _wreckageGridController.Clear();
+        _plugGridController.Clear();
         this.EventStopListening<RogueEvent>();
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
@@ -203,7 +205,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     private void InitPlugController()
     {
         _plugGridController = new GeneralScrollerGirdItemController();
-        _plugGridController.numberOfCellsPerRow = 9;
+        _plugGridController.numberOfCellsPerRow = 15;
         _plugGridController.InitPrefab(ShipPlugGridItem_PrefabPath, true);
         _plugGridController.OnItemSelected += OnPlugItemSelect;
         _plugGridScroller.Delegate = _plugGridController;

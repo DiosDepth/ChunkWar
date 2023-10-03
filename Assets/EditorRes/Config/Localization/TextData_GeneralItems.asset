@@ -39,43 +39,6 @@ MonoBehaviour:
     ChineseSimplified: "\u6B66\u5668\u8FC7\u8F7D\u82AF\u7247"
     English: 
     Japanese: 
-  - TextID: Weapon_Name_10000
-    ChineseSimplified: "\u901F\u5C04\u683C\u6797\u70AET1"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10001
-    ChineseSimplified: "\u901F\u5C04\u683C\u6797\u70AET2"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_003
-    ChineseSimplified: "\u56DB\u8054\u66B4\u98CE\u96EA"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_002
-    ChineseSimplified: "\u9AD8\u65AF\u5DE8\u70AE"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_001
-    ChineseSimplified: "\u6536\u5272\u8005\u683C\u6797"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Desc_001
-    ChineseSimplified: "\u4E00\u79CD\u4E2D\u7A0B\u52A0\u519C\u70AE\uFF0C\u968F\u7740\u65F6\u95F4\u7684\u63A8\u79FB\u53EF\u63D0\u4F9B\u51FA\u8272\u7684\u4F24\u5BB3\uFF0C\u5E76\u4E14\u8FD8\u5177\u6709\u663E\u7740\u7684
-      EMP \u6709\u6548\u8F7D\u8377\u3002"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Desc_002
-    ChineseSimplified: "\u9AD8\u65AF\u70AE\u662F\u4E00\u79CD\u91CD\u578B\u52A8\u80FD\u6B66\u5668\u3002\u672C\u8D28\u4E0A\u662F\u8F68\u9053\u70AE\u548C\u8D85\u9AD8\u901F\u9A71\u52A8\u5668\u7684\u66F4\u5927\u7248\u672C\uFF0C\u5B83\u53EF\u4EE5\u6709\u6548\u5730\u5728\u8FDC\u8DDD\u79BB\u51FB\u843D\u62A4\u76FE\u548C\u8F7B\u578B\u88C5\u7532\u3002"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Desc_003
-    ChineseSimplified: "\u4E00\u79CD\u4E2D\u7A0B\u706B\u70AE\uFF0C\u65E8\u5728\u7A7F\u900F\u91CD\u578B\u88C5\u7532\u3002\u539F\u59CB\u4F24\u5BB3\u8F93\u51FA\u8FD8\u4F7F\u5176\u80FD\u591F\u538B\u5012\u8F83\u5F31\u7684\u62A4\u76FE\u53D1\u5C04\u5668\u3002"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10002
-    ChineseSimplified: "\u901F\u5C04\u683C\u6797\u70AET3"
-    English: 
-    Japanese: 
   - TextID: ShipPlug_Name_1005
     ChineseSimplified: "\u4F5C\u6218\u5904\u7406\u5668\u2161\u578B"
     English: 
@@ -98,22 +61,6 @@ MonoBehaviour:
     Japanese: 
   - TextID: ShipPlug_Name_1008
     ChineseSimplified: "\u8D85\u9AD8\u901F\u4F5C\u6218\u5904\u7406\u5668"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10005
-    ChineseSimplified: "\u53CC\u8054\u901F\u5C04\u683C\u6797\u70AET1"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10006
-    ChineseSimplified: "\u53CC\u8054\u901F\u5C04\u683C\u6797\u70AET2"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10007
-    ChineseSimplified: "\u53CC\u8054\u901F\u5C04\u683C\u6797\u70AET3"
-    English: 
-    Japanese: 
-  - TextID: Building_Name_1001
-    ChineseSimplified: "\u5C0F\u578B\u62A4\u76FE"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1009
@@ -187,42 +134,6 @@ MonoBehaviour:
   - TextID: ShipPropertyDesc_1
     ChineseSimplified: "\u95EA\u907F\u4E0A\u9650\u4E3A<color=#09B3CB>90%</color>\n\u6BCF<color=#09B3CB>2%</color>\u95EA\u907F
       <color=#09B3CB>+1%</color>\u88C5\u586B\u901F\u5EA6"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10010
-    ChineseSimplified: "\u53CC\u8054\u706B\u795ET2"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10011
-    ChineseSimplified: "\u53CC\u8054\u706B\u795ET3"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10012
-    ChineseSimplified: "\u53CC\u8054\u706B\u795ET4"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10015
-    ChineseSimplified: "\u8F68\u9053\u70AET3"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10016
-    ChineseSimplified: "\u8F68\u9053\u70AET4"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10020
-    ChineseSimplified: "\u6B7B\u795E"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10025
-    ChineseSimplified: "\u5C0F\u578B\u6FC0\u5149T1"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10026
-    ChineseSimplified: "\u5C0F\u578B\u6FC0\u5149T2"
-    English: 
-    Japanese: 
-  - TextID: Weapon_Name_10027
-    ChineseSimplified: "\u5C0F\u578B\u6FC0\u5149T3"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1016

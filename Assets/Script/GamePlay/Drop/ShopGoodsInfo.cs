@@ -39,6 +39,17 @@ public class ShopGoodsInfo : RandomObject
         protected set;
     }
 
+    /// <summary>
+    /// ¹ºÂòÏÞÖÆ
+    /// </summary>
+    public int GetBuyLimit
+    {
+        get
+        {
+            return _cfg.MaxBuyCount;
+        }
+    }
+
     public GoodsItemRarity Rarity
     {
         get;
@@ -143,10 +154,8 @@ public class ShopGoodsInfo : RandomObject
             return true;
 
         var currentCount = RogueManager.Instance.GetCurrentPlugCount(GoodsID);
-        if (_cfg.Unique && currentCount == 1)
-            return false;
 
-        if (_cfg.MaxBuyCount > 1 && currentCount >= _cfg.MaxBuyCount)
+        if (_cfg.MaxBuyCount > 0 && currentCount >= _cfg.MaxBuyCount)
             return false;
 
         return true;

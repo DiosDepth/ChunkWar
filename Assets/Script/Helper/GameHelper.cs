@@ -6,9 +6,6 @@ using System;
 
 public static class GameHelper 
 {
-    public static string ShopItemType_ShipPlug_Text = "ShopItemType_ShipPlug_Text";
-    public static string ShopItemType_ShipBuilding_Text = "ShopItemType_ShipBuilding_Text";
-    public static string ShopItemType_ShipWeapon_Text = "ShopItemType_ShipWeapon_Text";
     public static string GeneralButton_Back_Text = "UI_General_Back";
 
     public static string Bool_True_Text = "Bool_True_Text";

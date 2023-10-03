@@ -172,6 +172,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 4|PropertyModifyConfig[], Assembly-CSharp
@@ -391,6 +394,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 17|PropertyModifyConfig[], Assembly-CSharp
@@ -502,6 +508,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 24|PropertyModifyConfig[], Assembly-CSharp
@@ -592,6 +601,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 30|PropertyModifyConfig[], Assembly-CSharp
@@ -745,6 +757,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 39|PropertyModifyConfig[], Assembly-CSharp
@@ -877,6 +892,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 47|PropertyModifyConfig[], Assembly-CSharp
@@ -988,6 +1006,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 54|PropertyModifyConfig[], Assembly-CSharp
@@ -1057,6 +1078,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 59|PropertyModifyConfig[], Assembly-CSharp
@@ -1264,6 +1288,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 71|PropertyModifyConfig[], Assembly-CSharp
@@ -1438,6 +1465,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 81|PropertyModifyConfig[], Assembly-CSharp
@@ -1549,6 +1579,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 88|PropertyModifyConfig[], Assembly-CSharp
@@ -1618,6 +1651,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 93|PropertyModifyConfig[], Assembly-CSharp
@@ -1771,6 +1807,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 102|PropertyModifyConfig[], Assembly-CSharp
@@ -1903,6 +1942,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 110|PropertyModifyConfig[], Assembly-CSharp
@@ -2014,6 +2056,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 117|PropertyModifyConfig[], Assembly-CSharp
@@ -2125,6 +2170,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 124|PropertyModifyConfig[], Assembly-CSharp
@@ -2194,6 +2242,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 1
       Data: ShipPlug_EffectDesc_1013
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 129|PropertyModifyConfig[], Assembly-CSharp
@@ -2305,6 +2356,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 1
       Data: ShipPlug_EffectDesc_1014
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 136|PropertyModifyConfig[], Assembly-CSharp
@@ -2500,6 +2554,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 147|PropertyModifyConfig[], Assembly-CSharp
@@ -2611,6 +2668,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 154|PropertyModifyConfig[], Assembly-CSharp
@@ -2743,6 +2803,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 162|PropertyModifyConfig[], Assembly-CSharp
@@ -2875,6 +2938,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 170|PropertyModifyConfig[], Assembly-CSharp
@@ -2986,6 +3052,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 177|PropertyModifyConfig[], Assembly-CSharp
@@ -3118,6 +3187,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 185|PropertyModifyConfig[], Assembly-CSharp
@@ -3187,6 +3259,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 190|PropertyModifyConfig[], Assembly-CSharp
@@ -3418,6 +3493,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 203|PropertyModifyConfig[], Assembly-CSharp
@@ -3508,6 +3586,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 1
       Data: ShipPlug_EffectDesc_1023
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 209|PropertyModifyConfig[], Assembly-CSharp
@@ -3686,6 +3767,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 220|PropertyModifyConfig[], Assembly-CSharp
@@ -3776,6 +3860,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 226|PropertyModifyConfig[], Assembly-CSharp
@@ -3887,6 +3974,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 233|PropertyModifyConfig[], Assembly-CSharp
@@ -3956,6 +4046,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 1
       Data: ShipPlug_EffectDesc_1027
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 238|PropertyModifyConfig[], Assembly-CSharp
@@ -4091,6 +4184,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 247|PropertyModifyConfig[], Assembly-CSharp
@@ -4181,6 +4277,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 1
       Data: ShipPlug_EffectDesc_1029
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 253|PropertyModifyConfig[], Assembly-CSharp
@@ -4271,6 +4370,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 259|PropertyModifyConfig[], Assembly-CSharp
@@ -4361,6 +4463,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 265|PropertyModifyConfig[], Assembly-CSharp
@@ -4451,6 +4556,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 1
       Data: ShipPlug_EffectDesc_1031
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 271|PropertyModifyConfig[], Assembly-CSharp
@@ -4562,6 +4670,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 278|PropertyModifyConfig[], Assembly-CSharp
@@ -4673,6 +4784,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 285|PropertyModifyConfig[], Assembly-CSharp
@@ -4805,6 +4919,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 293|PropertyModifyConfig[], Assembly-CSharp
@@ -4958,6 +5075,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 302|PropertyModifyConfig[], Assembly-CSharp
@@ -5111,6 +5231,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 311|PropertyModifyConfig[], Assembly-CSharp
@@ -5222,6 +5345,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 318|PropertyModifyConfig[], Assembly-CSharp
@@ -5333,6 +5459,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 325|PropertyModifyConfig[], Assembly-CSharp
@@ -5465,6 +5594,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 333|PropertyModifyConfig[], Assembly-CSharp
@@ -5555,6 +5687,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 339|PropertyModifyConfig[], Assembly-CSharp
@@ -5687,6 +5822,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 347|PropertyModifyConfig[], Assembly-CSharp
@@ -5819,6 +5957,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 355|PropertyModifyConfig[], Assembly-CSharp
@@ -5930,6 +6071,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 362|PropertyModifyConfig[], Assembly-CSharp
@@ -5999,6 +6143,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 1
       Data: ShipPlug_EffectDesc_1045
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 367|PropertyModifyConfig[], Assembly-CSharp
@@ -6119,6 +6266,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 375|PropertyModifyConfig[], Assembly-CSharp
@@ -6344,6 +6494,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 388|PropertyModifyConfig[], Assembly-CSharp
@@ -6434,6 +6587,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 394|PropertyModifyConfig[], Assembly-CSharp
@@ -6566,6 +6722,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 402|PropertyModifyConfig[], Assembly-CSharp
@@ -6677,6 +6836,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 409|PropertyModifyConfig[], Assembly-CSharp
@@ -6788,6 +6950,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 416|PropertyModifyConfig[], Assembly-CSharp
@@ -6899,6 +7064,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 423|PropertyModifyConfig[], Assembly-CSharp
@@ -7010,6 +7178,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 430|PropertyModifyConfig[], Assembly-CSharp
@@ -7127,6 +7298,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 438|PropertyModifyConfig[], Assembly-CSharp
@@ -7217,6 +7391,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 444|PropertyModifyConfig[], Assembly-CSharp
@@ -7349,6 +7526,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 452|PropertyModifyConfig[], Assembly-CSharp
@@ -7439,6 +7619,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 458|PropertyModifyConfig[], Assembly-CSharp
@@ -7592,6 +7775,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 467|PropertyModifyConfig[], Assembly-CSharp
@@ -7682,6 +7868,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 473|PropertyModifyConfig[], Assembly-CSharp
@@ -7751,6 +7940,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 478|PropertyModifyConfig[], Assembly-CSharp
@@ -7928,6 +8120,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 488|PropertyModifyConfig[], Assembly-CSharp
@@ -8081,6 +8276,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 497|PropertyModifyConfig[], Assembly-CSharp
@@ -8192,6 +8390,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 504|PropertyModifyConfig[], Assembly-CSharp
@@ -8282,6 +8483,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 510|PropertyModifyConfig[], Assembly-CSharp
@@ -8393,6 +8597,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 517|PropertyModifyConfig[], Assembly-CSharp
@@ -8504,6 +8711,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 524|PropertyModifyConfig[], Assembly-CSharp
@@ -8636,6 +8846,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 532|PropertyModifyConfig[], Assembly-CSharp
@@ -8747,6 +8960,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 539|PropertyModifyConfig[], Assembly-CSharp
@@ -8879,6 +9095,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 547|PropertyModifyConfig[], Assembly-CSharp
@@ -8990,6 +9209,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 554|PropertyModifyConfig[], Assembly-CSharp
@@ -9080,6 +9302,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 560|PropertyModifyConfig[], Assembly-CSharp
@@ -9251,6 +9476,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 571|PropertyModifyConfig[], Assembly-CSharp
@@ -9383,6 +9611,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 579|PropertyModifyConfig[], Assembly-CSharp
@@ -9494,6 +9725,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 586|PropertyModifyConfig[], Assembly-CSharp
@@ -9605,6 +9839,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 593|PropertyModifyConfig[], Assembly-CSharp
@@ -9737,6 +9974,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 601|PropertyModifyConfig[], Assembly-CSharp
@@ -9848,6 +10088,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 608|PropertyModifyConfig[], Assembly-CSharp
@@ -9959,6 +10202,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 615|PropertyModifyConfig[], Assembly-CSharp
@@ -10028,6 +10274,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 620|PropertyModifyConfig[], Assembly-CSharp
@@ -10169,6 +10418,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 629|PropertyModifyConfig[], Assembly-CSharp
@@ -10238,6 +10490,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 634|PropertyModifyConfig[], Assembly-CSharp
@@ -10525,6 +10780,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 649|PropertyModifyConfig[], Assembly-CSharp
@@ -10615,6 +10873,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 655|PropertyModifyConfig[], Assembly-CSharp
@@ -10705,6 +10966,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 661|PropertyModifyConfig[], Assembly-CSharp
@@ -10816,6 +11080,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 668|PropertyModifyConfig[], Assembly-CSharp
@@ -10927,6 +11194,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 675|PropertyModifyConfig[], Assembly-CSharp
@@ -11017,6 +11287,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 681|PropertyModifyConfig[], Assembly-CSharp
@@ -11128,6 +11401,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 688|PropertyModifyConfig[], Assembly-CSharp
@@ -11218,6 +11494,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 694|PropertyModifyConfig[], Assembly-CSharp
@@ -11308,6 +11587,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 700|PropertyModifyConfig[], Assembly-CSharp
@@ -11461,6 +11743,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 709|PropertyModifyConfig[], Assembly-CSharp
@@ -11593,6 +11878,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 717|PropertyModifyConfig[], Assembly-CSharp
@@ -11662,6 +11950,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 722|PropertyModifyConfig[], Assembly-CSharp
@@ -11842,6 +12133,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 733|PropertyModifyConfig[], Assembly-CSharp
@@ -11953,6 +12247,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 740|PropertyModifyConfig[], Assembly-CSharp
@@ -12064,6 +12361,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 747|PropertyModifyConfig[], Assembly-CSharp
@@ -12175,6 +12475,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 754|PropertyModifyConfig[], Assembly-CSharp
@@ -12307,6 +12610,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 762|PropertyModifyConfig[], Assembly-CSharp
@@ -12418,6 +12724,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 769|PropertyModifyConfig[], Assembly-CSharp
@@ -12592,6 +12901,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 779|PropertyModifyConfig[], Assembly-CSharp
@@ -12661,6 +12973,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 784|PropertyModifyConfig[], Assembly-CSharp
@@ -12880,6 +13195,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 796|PropertyModifyConfig[], Assembly-CSharp
@@ -12991,6 +13309,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 803|PropertyModifyConfig[], Assembly-CSharp
@@ -13102,6 +13423,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 810|PropertyModifyConfig[], Assembly-CSharp
@@ -13234,6 +13558,9 @@ MonoBehaviour:
     - Name: EffectDesc
       Entry: 6
       Data: 
+    - Name: ItemTags
+      Entry: 3
+      Data: 0
     - Name: PropertyPercentModify
       Entry: 7
       Data: 818|PropertyModifyConfig[], Assembly-CSharp
