@@ -776,10 +776,8 @@ public class Weapon : Unit
 
     public virtual void WeaponFiring()
     {
-
         DoFire();
         weaponstate.ChangeState(WeaponState.Fired);
-
     }
 
     public virtual void DoFire()

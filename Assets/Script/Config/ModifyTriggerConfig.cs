@@ -108,6 +108,10 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnWeaponReload(type));
             }
+            else if (type == ModifyTriggerType.OnPlayerWeaponFire)
+            {
+                result.Add(type.ToString(), new MTC_OnWeaponFire(type));
+            }
         }
 
         return result;
@@ -384,6 +388,25 @@ public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
 public class MTC_OnWeaponReload : ModifyTriggerConfig
 {
     public MTC_OnWeaponReload(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnWeaponFire : ModifyTriggerConfig
+{
+    [HorizontalGroup("AD", 120)]
+    [LabelText("射击次数")]
+    [LabelWidth(50)]
+    public bool CheckFireCount;
+
+    [HorizontalGroup("AD", 120)]
+    [LabelText("射击次数")]
+    [LabelWidth(50)]
+    [ShowIf("CheckFireCount")]
+    public int FireCount;
+
+    public MTC_OnWeaponFire(ModifyTriggerType type) : base(type)
     {
 
     }

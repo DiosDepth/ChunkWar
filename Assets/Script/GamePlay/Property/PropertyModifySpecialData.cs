@@ -59,6 +59,17 @@ public class PropertyModifySpecialData
                     break;
             }
         }
+        else if(Config.SpecialType == ModifySpecialType.Count)
+        {
+            switch (Config.SpecialKeyParam)
+            {
+                case "EnemyCount":
+                    LevelManager.Instance.OnEnemyCountChange += OnEnemyCountChange;
+                    var currentEnemyCount = AIManager.Instance.ShipCount;
+                    OnEnemyCountChange(currentEnemyCount);
+                    break;
+            }
+        }
     }
 
     public void OnRemove()
@@ -86,6 +97,15 @@ public class PropertyModifySpecialData
                     break;
                 case "EnergyPercent":
                     mgr.OnEnergyPercentChange -= OnPercentChange_More100;
+                    break;
+            }
+        }
+        else if (Config.SpecialType == ModifySpecialType.Count)
+        {
+            switch (Config.SpecialKeyParam)
+            {
+                case "EnemyCount":
+                    LevelManager.Instance.OnEnemyCountChange -= OnEnemyCountChange;
                     break;
             }
         }
@@ -142,6 +162,16 @@ public class PropertyModifySpecialData
         float delta = percent - 100;
         delta = Mathf.Clamp(delta, 0, float.MaxValue);
         RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * GetFinialConfigValue());
+    }
+
+    /// <summary>
+    /// 敌人数量变化
+    /// </summary>
+    /// <param name="count"></param>
+    private void OnEnemyCountChange(int count)
+    {
+        var finalValue = Config.Value * count;
+        RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, finalValue);
     }
     
 }

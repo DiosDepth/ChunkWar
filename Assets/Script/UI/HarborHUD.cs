@@ -37,7 +37,6 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         _energySlider = transform.Find("EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _loadSlider = transform.Find("ItemPanel/Top/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
-        _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _propertyGroup = transform.Find("PropertyPanel/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
         _propertyBtnText = transform.Find("PropertyPanel/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
         _unitSelectOption = transform.Find("UnitSelectOption").SafeGetComponent<UnitSelectOption>();
@@ -56,7 +55,6 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
         GetGUIComponent<Button>("Storage").onClick.AddListener(OnUnitSelect_StorageClick);
         GetGUIComponent<Button>("ChangePos").onClick.AddListener(OnUnitSelect_ChangePostionClick);
-        _hoverCmpt.SetActive(false);
         _unitSelectOption.Active(null, false);
         RefreshGeneral();
     }
@@ -65,6 +63,8 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     {
         _wreckageGridController.Clear();
         _plugGridController.Clear();
+        _hoverCmpt?.PoolableDestroy();
+
         this.EventStopListening<RogueEvent>();
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
@@ -245,14 +245,21 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     private void OnHoverUnitDisplay(Unit unit)
     {
         var pos = UIManager.GetUIposBWorldPosition(unit.transform.position);
-        _hoverCmpt.SetUp(pos, unit._baseUnitConfig.GetMapSize(), unit);
+        var offset = new Vector2(unit._baseUnitConfig.CorsorOffsetX, unit._baseUnitConfig.CorsorOffsetY);
+        UIManager.Instance.CreatePoolerUI<BuildSelectHoverCmpt>("BuildSelectHover", true, E_UI_Layer.Top, null, (panel) =>
+        {
+            panel.SetUp(pos, unit._baseUnitConfig.GetMapSize(), offset, unit.UnitID);
+            _hoverCmpt = panel;
+        });
         unit.OutLineHighlight(true);
-        _hoverCmpt.SetActive(true);
     }
 
     private void OnHideHoverUnitDisplay(Unit unit)
     {
-        _hoverCmpt.SetActive(false);
+        if(_hoverCmpt != null)
+        {
+            _hoverCmpt.PoolableDestroy();
+        }
         if (unit != null)
         {
             unit.OutLineHighlight(false);

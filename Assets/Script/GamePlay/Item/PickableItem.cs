@@ -117,7 +117,7 @@ public class PickableItem : MonoBehaviour, IPoolable
     }
 
 
-    public  void PoolableReset()
+    public virtual void PoolableReset()
     {
         ///Reset
         trigger.enabled = true;

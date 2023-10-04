@@ -147,6 +147,9 @@ public class PoolManager : Singleton<PoolManager>
         {
             ResManager.Instance.LoadAsync<GameObject>(m_key, (obj) =>
             {
+                if (obj == null)
+                    return;
+
                 obj.name = m_key;
                 obj.SetActive(m_active);
                 if (parentTrans != null)

@@ -277,6 +277,9 @@ public class EGameState_GameStart : GameState
     {
         if(context.phase == InputActionPhase.Performed)
         {
+            if (RogueManager.Instance.IsShowingShipLevelUp)
+                return;
+
             InputDispatcher.Instance.ChangeInputMode("UI");
             UIManager.Instance.HiddenUI("ShipHUD");
             GameManager.Instance.PauseGame();
@@ -291,6 +294,9 @@ public class EGameState_GameStart : GameState
     {
         if(context.phase == InputActionPhase.Performed)
         {
+            if (RogueManager.Instance.IsShowingShipLevelUp)
+                return;
+
             InputDispatcher.Instance.ChangeInputMode("Player");
             UIManager.Instance.HiddenUI("Pause");
             GameManager.Instance.UnPauseGame();

@@ -56,7 +56,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         SetUp(UnitID);
     }
 
-    public void Update()
+    public virtual void Update()
     {
         if (_enable)
         {
@@ -64,7 +64,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         }
     }
 
-    protected virtual void SetUp(int id)
+    protected virtual void SetUp(int id, bool updatePosition = true)
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRect);
         _enable = true;
@@ -72,7 +72,11 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         RectWidth = _contentRect.rect.width * _contentRect.localScale.x;
         RectHeight = _contentRect.rect.height * _contentRect.localScale.y;
 
-        UpdatePosition();
+        if (updatePosition)
+        {
+            UpdatePosition();
+        }
+        
         _mainCanvas.ActiveCanvasGroup(true);
     }
 

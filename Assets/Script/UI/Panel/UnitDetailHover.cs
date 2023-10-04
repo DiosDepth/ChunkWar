@@ -17,13 +17,17 @@ public class UnitDetailHover : DetailHoverItemBase
         _loadCostText = _contentRect.Find("Content/Load/LoadValue").SafeGetComponent<TextMeshProUGUI>();
     }
 
-
     public override void Initialization(params object[] param)
     {
         base.Initialization(param);
     }
 
-    protected override void SetUp(int unitID)
+    public override void Update()
+    {
+        base.Update();
+    }
+
+    protected override void SetUp(int unitID, bool updatePosition = true)
     {
         var unitCfg = DataManager.Instance.GetUnitConfig(unitID);
         if (unitCfg == null)
@@ -60,7 +64,7 @@ public class UnitDetailHover : DetailHoverItemBase
         SetUpUintInfo(unitCfg);
         SetUpItemTag(unitCfg);
 
-        base.SetUp(unitID);
+        base.SetUp(unitID, updatePosition);
     }
    
 }
