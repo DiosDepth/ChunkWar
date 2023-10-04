@@ -524,6 +524,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         HpComponent.SetMaxHP(baseAttribute.HPMax);
     }
 
+    public virtual void GameOver()
+    {
+        SetUnitProcess(false);
+    }
 
     public virtual void PauseGame()
     {

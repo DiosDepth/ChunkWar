@@ -138,20 +138,6 @@ public class AISteeringBehaviorController : BaseController, IBoid
         }
     }
 
-    public struct LinearizeJob : IJob
-    {
-        public NativeQueue<float3> Source;
-        public NativeList<float3> Result;
-        public void Execute()
-        {
-            float3 vect;
-            
-            while (Source.TryDequeue(out vect))
-            {
-                Result.Add(vect);
-            }
-        }
-    }
 
 
 

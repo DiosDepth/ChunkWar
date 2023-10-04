@@ -11,6 +11,7 @@ using static Weapon;
 
 public class ShipUnitManager:IPauseable
 {
+    public bool ProcessShip;
     public BaseShip targetShip;
     public List<ShipAdditionalWeapon> activeWeaponList;
     public List<Building> activeBuildingList;
@@ -62,11 +63,13 @@ public class ShipUnitManager:IPauseable
     {
         GameManager.Instance.RegisterPauseable(this);
         targetShip = target;
+        ProcessShip = true;
     }
 
     public virtual void Update()
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!ProcessShip) { return; }
         UpdateActiveUnit();
         UpdateWeapon();
         UpdateBuilding();
@@ -74,7 +77,43 @@ public class ShipUnitManager:IPauseable
     }
 
 
+    public void GameOver()
+    {
+        ProcessShip = false;
+        for (int i = 0; i < activeWeaponList.Count; i++)
+        {
+            activeWeaponList[i].GameOver();
+        }
+        for (int i = 0; i < activeBuildingList.Count; i++)
+        {
+            activeBuildingList[i].GameOver();
+        }
+        for (int i = 0; i < projectileList.Count; i++)
+        {
+            projectileList[i].GameOver();
+        }
+        Stop();
+        UnLoad();
+    }
 
+    public void Stop()
+    {
+        ProcessShip = false;
+
+
+    }
+
+    public void UnLoad()
+    {
+        GameManager.Instance.UnRegisterPauseable(this);
+        activeWeaponList?.Clear();
+        activeBuildingList?.Clear();
+        projectileList?.Clear();
+        projectileDamageList?.Clear();
+        projiectileDeathIndexList?.Clear();
+
+        DisposeAllJobData();
+    }
     //Only other weapon but main weapon
     protected virtual void UpdateWeapon()
     {
@@ -186,17 +225,17 @@ public class ShipUnitManager:IPauseable
         aibulletjobhandle.Complete();
         //更新子弹当前的JobData
 
-        //移动子弹
-        //处理子弹旋转方向
+
         //创建子弹的伤害List 和对应的死亡List
         projiectileDeathIndexList.Clear();
-        //处理所有子弹的伤害逻辑
         projectileDamageList.Clear();
         damageProjectile_JobInfo.Clear();
 
-
+        //Loop 所有的子弹并且创建他们的伤害和死亡List，注意伤害和死亡的List并不是一一对应的。 有些子弹在产生伤害之后并不会死亡，比如穿透子弹
         for (int i = 0; i < projectileList.Count; i++)
         {
+            //移动子弹
+            //处理子弹旋转方向
             if (!rv_projectile_jobUpdateInfo[i].islifeended && !projectileList[i].IsApplyDamageAtThisFrame)
             {
                 projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
@@ -204,76 +243,44 @@ public class ShipUnitManager:IPauseable
             }
             else
             {
-                switch (projectileList[i].damageTriggerPattern)
+                if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.Point && rv_projectile_jobUpdateInfo[i].islifeended)
                 {
-                    case DamageTriggerPattern.Collider:
-                        if (projectileList[i].IsApplyDamageAtThisFrame)
-                        {
-                            projectileDamageList.Add(projectileList[i]);
-                            damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
-                        }
-                        break;
-                    case DamageTriggerPattern.PassTrough:
-                        break;
-                    case DamageTriggerPattern.Point:
-                            projectileDamageList.Add(projectileList[i]);
-
-                            damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
-                        break;
-                    case DamageTriggerPattern.Target:
-                        if (projectileList[i].IsApplyDamageAtThisFrame)
-                        {
-                            projectileDamageList.Add(projectileList[i]);
-                            damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
-                        }
-                        break;
+                    projectileDamageList.Add(projectileList[i]);
+                    damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
+                    projiectileDeathIndexList.Add(i);
+                    continue;
                 }
 
+                if (projectileList[i].IsApplyDamageAtThisFrame)
+                {
+                    projectileDamageList.Add(projectileList[i]);
+                    damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
+                }
 
-                projiectileDeathIndexList.Add(i);
+                if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough && projectileList[i].PassThroughCount <= 0)
+                {
+                    projiectileDeathIndexList.Add(i);
+                    continue;
+                }
+
+                if(rv_projectile_jobUpdateInfo[i].islifeended)
+                {
+                    projiectileDeathIndexList.Add(i);
+                }
+                
             }
         }
+
+        //处理所有子弹的伤害逻辑
         HandleProjectileDamage();
+        //更新每个子弹的信息，并且销毁LifeEnd的子弹
         UpdateBulletJobData();
 
         rv_projectile_jobUpdateInfo.Dispose();
     }
-
-    public void UpdateBulletJobData()
-    {
-        //这里需要先更新子弹的信息，然后在吧死亡的子弹移除， 否则rv aibullet的静态数据长度无法操作
-        //虽然会浪费运算量。但是可以保证index不会错位
-        ProjectileJobInitialInfo bulletJobInfo;
-        for (int i = 0; i < projectileList.Count; i++)
-        {
-            if (rv_projectile_jobUpdateInfo[i].islifeended)
-                continue;
-
-            bulletJobInfo = projectile_JobInfo[i];
-
-            bulletJobInfo.update_targetPos = projectileList[i].target ? projectileList[i].target.transform.position : projectileList[i].transform.up;
-            bulletJobInfo.update_selfPos = projectileList[i].transform.position;
-            bulletJobInfo.update_lifeTimeRemain = rv_projectile_jobUpdateInfo[i].lifeTimeRemain;
-            bulletJobInfo.update_moveDirection = rv_projectile_jobUpdateInfo[i].moveDirection;
-            bulletJobInfo.update_currentSpeed = rv_projectile_jobUpdateInfo[i].currentSpeed;
-
-            projectile_JobInfo[i] = bulletJobInfo;
-        }
-
-        //最后一步 执行子弹死亡
-        int deathindex = 0;
-        for (int i = 0; i < projiectileDeathIndexList.Count; i++)
-        {
-            deathindex = projiectileDeathIndexList[i];
-            projectileList[deathindex].Death(null);
-        }
-    }
-
     public void HandleProjectileDamage()
     {
-
         //projectileDamageList = projectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
-
         if (projectileDamageList.Count == 0)
         {
             return;
@@ -282,6 +289,8 @@ public class ShipUnitManager:IPauseable
         rv_projectileDamageTargetCountPre = new NativeArray<int>(projectileDamageList.Count, Allocator.TempJob);
         JobHandle jobHandle;
 
+        //找到所有子弹的伤害目标，可能是单个或者多个。 
+        //TODO 这里可以进行优化，根据子弹是否为多目标来进行Job，不过目前的方式是统一处理， 需要完成所有逻辑之后抽象出来
         Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
         {
             job_JobInfo = damageProjectile_JobInfo,
@@ -300,98 +309,66 @@ public class ShipUnitManager:IPauseable
         int damagetargetindex;
         IDamageble damageble;
 
+        //Loop所有会产生伤害的子弹List，
         for (int i = 0; i < projectileDamageList.Count; i++)
         {
-            switch (projectileDamageList[i].damageTriggerPattern)
+            //设置对应子弹的prepareDamageTargetList，用来在后面实际Apply Damage做准备
+            for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
             {
-                case DamageTriggerPattern.Collider:
-                    if (projectileDamageList[i].damageType == DamageTargetType.Target)
+                damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.aiActiveUnitList.Count + n];
+                if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
+                {
+                    continue;
+                }
+                damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                if (damageble != null && projectileDamageList[i] != null)
+                {
+                    if(!projectileDamageList[i].prepareDamageTargetList.Contains(damageble))
                     {
-                        damageble = projectileDamageList[i].damageTarget[0].GetComponent<IDamageble>();
-                        projectileDamageList[i].ApplyDamage(damageble);
+                        projectileDamageList[i].prepareDamageTargetList.Add(damageble);
                     }
-                    if (projectileDamageList[i].damageType == DamageTargetType.PointRadius)
-                    {
-
-                        for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
-                        {
-                            damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.aiActiveUnitList.Count + n];
-                            if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
-                            {
-                                continue;
-                            }
-                            damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
-                            if (damageble != null && projectileDamageList[i] != null)
-                            {
-                                projectileDamageList[i].ApplyDamage(damageble);
-                            }
-                        }
-                    }
-
-                    break;
-                case DamageTriggerPattern.PassTrough:
-                    break;
-                case DamageTriggerPattern.Point:
-                    if (projectileDamageList[i].damageType == DamageTargetType.Target)
-                    {
-                        Debug.LogError("you can't damage a target while Damage Trigger Pattern is Point");
-                    }
-                    if (projectileDamageList[i].damageType == DamageTargetType.PointRadius)
-                    {
-
-                        for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
-                        {
-                            damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.aiActiveUnitList.Count + n];
-                            if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
-                            {
-                                continue;
-                            }
-                            damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
-                            if (damageble != null && projectileDamageList[i] != null)
-                            {
-                                projectileDamageList[i].ApplyDamage(damageble);
-                            }
-
-                        }
-                    }
-                    break;
-                case DamageTriggerPattern.Target:
-
-                    if (projectileDamageList[i].damageType == DamageTargetType.Target)
-                    {
-                        damageble = projectileDamageList[i].damageTarget[0].GetComponent<IDamageble>();
-                        projectileDamageList[i].ApplyDamage(damageble);
-                    }
-                    if (projectileDamageList[i].damageType == DamageTargetType.PointRadius)
-                    {
-
-                        for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
-                        {
-                            damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.aiActiveUnitList.Count + n];
-                            if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
-                            {
-                                continue;
-                            }
-                            damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
-                            if (damageble != null && projectileDamageList[i] != null)
-                            {
-                                projectileDamageList[i].ApplyDamage(damageble);
-                            }
-                        }
-                    }
-
-                    break;
+                }
             }
-
-
-
-
+            //Apply Damage to every damage target
+            projectileDamageList[i].ApplyDamageAllTarget();
         }
 
         //damageProjectile_JobInfo.Dispose();
         rv_projectileDamageTargetCountPre.Dispose();
         rv_projectileDamageTargetIndex.Dispose();
     }
+
+
+    public void UpdateBulletJobData()
+    {
+        //这里需要先更新子弹的信息，然后在吧死亡的子弹移除， 否则rv aibullet的静态数据长度无法操作
+        //虽然会浪费运算量。但是可以保证index不会错位
+        ProjectileJobInitialInfo bulletJobInfo;
+        for (int i = 0; i < projectileList.Count; i++)
+        {
+            if (rv_projectile_jobUpdateInfo[i].islifeended)
+                continue;
+
+            bulletJobInfo = projectile_JobInfo[i];
+
+            bulletJobInfo.update_targetPos = projectileList[i].initialTarget ? projectileList[i].initialTarget.transform.position : projectileList[i].transform.up;
+            bulletJobInfo.update_selfPos = projectileList[i].transform.position;
+            bulletJobInfo.update_lifeTimeRemain = rv_projectile_jobUpdateInfo[i].lifeTimeRemain;
+            bulletJobInfo.update_moveDirection = rv_projectile_jobUpdateInfo[i].moveDirection;
+            bulletJobInfo.update_currentSpeed = rv_projectile_jobUpdateInfo[i].currentSpeed;
+
+            projectile_JobInfo[i] = bulletJobInfo;
+        }
+
+        //最后一步 执行子弹死亡
+        int deathindex = 0;
+        for (int i = 0; i < projiectileDeathIndexList.Count; i++)
+        {
+            deathindex = projiectileDeathIndexList[i];
+            projectileList[deathindex].Death(null);
+        }
+    }
+
 
 
     public virtual void AddActiveUnit(Unit unit)
@@ -479,11 +456,11 @@ public class ShipUnitManager:IPauseable
             }
             else
             {
-                initialtargetpos = bullet.target.transform.position;
+                initialtargetpos = bullet.initialTarget.transform.position;
             }
             projectile_JobInfo.Add(new ProjectileJobInitialInfo
                 (
-                    bullet.target ? bullet.target.transform.position : bullet.transform.up,
+                    bullet.initialTarget ? bullet.initialTarget.transform.position : bullet.transform.up,
                     bullet.transform.position,
                     bullet.lifeTime,
                     bullet.maxSpeed,

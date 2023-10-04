@@ -90,11 +90,16 @@ public class BaseController : MonoBehaviour, IPauseable
 
     }
 
-    public void PauseGame()
+    public virtual void GameOver()
+    {
+        SetControllerUpdate(false);
+
+    }
+    public virtual void PauseGame()
     {
 
     }
-    public void UnPauseGame()
+    public virtual void UnPauseGame()
     {
       
     }

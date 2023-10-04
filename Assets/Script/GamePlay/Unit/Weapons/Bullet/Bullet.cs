@@ -35,19 +35,26 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public DamageTargetType damageType = DamageTargetType.Target;
     public float damageRadius = 5;
 
+    [Header("---VFXSettings---")]
     public string ShootVFX = "HitVFX";
     public string HitVFX = "HitVFX";
     public string DeathVFX = "HitVFX";
 
+    [HideInInspector]
     public Unit Owner { get { return _owner; } }
     protected Unit _owner;
     protected GameObject firepoint;
 
-    public GameObject target;
-    public List<GameObject> damageTarget;
+    [HideInInspector]
+    public GameObject initialTarget;
+    [HideInInspector]
+    public List<IDamageble> prepareDamageTargetList = new List<IDamageble>();
+    protected List<IDamageble> damagedTargetList = new List<IDamageble>();
+
+    [HideInInspector]
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     protected Vector2 _initialmoveDirection = Vector2.up;
-
+    [HideInInspector]
     public bool IsApplyDamageAtThisFrame { get { return _isApplyDamageAtThisFrame; } }
     protected bool _isApplyDamageAtThisFrame;
     protected bool _isUpdate;
@@ -98,7 +105,6 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
                             break;
                         }
                     }
-
                 }
 
                 if (job_JobInfo[i].damageType == 2)
@@ -130,7 +136,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 
     public virtual void SetTarget(GameObject m_target)
     {
-        target = m_target;
+        initialTarget = m_target;
     }
     public virtual void SetFirePoint(GameObject m_firepoint)
     {
@@ -191,8 +197,8 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     {
         SetUpdate(false);
         _isApplyDamageAtThisFrame = false;
-        damageTarget.Clear();
-        target = null;
+        prepareDamageTargetList.Clear();
+        initialTarget = null;
     }
 
     public virtual void PoolableDestroy()
@@ -208,11 +214,36 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         this.gameObject.SetActive(isactive);
     }
 
-    public virtual void ApplyDamage(IDamageble damageble)
+    public virtual void ApplyDamageAllTarget()
     {
+        if (prepareDamageTargetList == null || prepareDamageTargetList.Count == 0) { return; }
+        if (damageType == DamageTargetType.Target)
+        {
+            ApplyDamage(initialTarget.GetComponent<IDamageble>());
+        }
+
+        if(damageType == DamageTargetType.PointRadius)
+        {
+            for (int i = 0; i < prepareDamageTargetList.Count; i++)
+            {
+                ApplyDamage(prepareDamageTargetList[i]);
+            }
+        }
 
     }
 
+    public virtual void ApplyDamage(IDamageble damageble)
+    {
+        _isApplyDamageAtThisFrame = false;
+        var damage = (_owner as Weapon).weaponAttribute.GetDamage();
+        damageble.TakeDamage(damage);
+        damagedTargetList.Add(damageble);
+    }
+
+    public virtual void GameOver()
+    {
+
+    }
 
     public virtual void PauseGame()
     {

@@ -97,11 +97,22 @@ public class Projectile : Bullet, IDamageble
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
     public DamageTriggerPattern damageTriggerPattern = DamageTriggerPattern.Collider;
 
+    [Header("---CommanSettings---")]
     public float lifeTime = 10;
     public float maxSpeed = 2.5f;
     public float rotSpeed = 180f;
     public float initialSpeed = 20f;
     public float acceleration = 0.25f;
+
+    [Header("---PassThroughSettings---")]
+    public int maxPassThroughCount = 5;
+
+
+    [HideInInspector]
+    public  int PassThroughCount { get { return passThroughCount; } }
+    protected int passThroughCount = 0;
+
+
     public bool IsinterceptTarget = true;
 
     /// <summary>
@@ -139,6 +150,7 @@ public class Projectile : Bullet, IDamageble
         base.Initialization();
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
         HpComponent = new GeneralHPComponet(100, 100);
+        passThroughCount = maxPassThroughCount;
     }
 
     [BurstCompile]
@@ -301,49 +313,10 @@ public class Projectile : Bullet, IDamageble
     }
 
 
-    //public IEnumerator FollowTarget(UnityAction callback)
-    //{
-    //    _beforemovetimestamp = Time.time + 0.5f;
-    //    float currentspeed = initialSpeed;
-
-
-    //    while (Time.time < _beforemovetimestamp)
-    //    {
-    //        currentspeed += acceleration;
-    //        _tempmovement = transform.position.ToVector2() + (_movedirection * currentspeed * Time.deltaTime);
-
-    //        //transform.rotation = MathExtensionTools.CalculateRotation(this.transform.up, _movedirection, rotSpeed);
-    //        rb.MovePosition(_tempmovement);
-    //        yield return null;
-    //    }
-    //    _movetimestamp = Time.time + lifeTime;
-
-
-    //    while (Time.time < _movetimestamp)
-    //    {
-    //        if (target != null)
-    //        {
-    //            _movedirection = transform.position.DirectionToXY(target.transform.position);
-    //        }
-
-
-    //        currentspeed += acceleration;
-    //        transform.rotation = MathExtensionTools.CalculateRotation(this.transform.up, _movedirection, rotSpeed);
-
-    //        _tempmovement = transform.position.ToVector2() + (transform.up.ToVector2() * currentspeed * Time.deltaTime);
-
-    //        rb.MovePosition(_tempmovement);
-
-    //        yield return null;
-    //    }
-    //    callback?.Invoke();
-    //}
-
-
-
     public override void PoolableReset()
     {
         base.PoolableReset();
+        passThroughCount = maxPassThroughCount;
     }
 
     public override void PoolableSetActive(bool isactive = true)
@@ -372,7 +345,7 @@ public class Projectile : Bullet, IDamageble
 
             if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
             {
-                damageTarget.Add(collision.gameObject);
+                prepareDamageTargetList.Add(collision.gameObject.GetComponent<IDamageble>());
                 _isApplyDamageAtThisFrame = true;
 
             }
@@ -387,9 +360,9 @@ public class Projectile : Bullet, IDamageble
             }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
             {
-                if(target.Equals(collision.gameObject))
+                if(initialTarget.Equals(collision.gameObject))
                 {
-                    damageTarget.Add(collision.gameObject);
+                    prepareDamageTargetList.Add(collision.gameObject.GetComponent<IDamageble>());
                     _isApplyDamageAtThisFrame = true;
                 }
             }
@@ -397,7 +370,23 @@ public class Projectile : Bullet, IDamageble
         }
         if(damageTriggerPattern == DamageTriggerPattern.PassTrough)
         {
-
+            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
+            {
+                return;
+            }
+            if(damagedTargetList.Contains(collision.GetComponent<IDamageble>()))
+            {
+                return;
+            }
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
+            {
+                if (initialTarget.Equals(collision.gameObject))
+                {
+                    prepareDamageTargetList.Add(collision.gameObject.GetComponent<IDamageble>());
+                    _isApplyDamageAtThisFrame = true;
+                }
+            }
+            return;
         }
 
     }
@@ -407,12 +396,18 @@ public class Projectile : Bullet, IDamageble
         base.Death(info);
     }
 
+    public override void ApplyDamageAllTarget()
+    {
+        base.ApplyDamageAllTarget();
+    }
+
     public override void ApplyDamage(IDamageble damageble)
     {
         base.ApplyDamage(damageble);
-        var damage = (_owner as Weapon).weaponAttribute.GetDamage();
-        damageble.TakeDamage(damage);
-        //Death(null);
+        if(damageTriggerPattern == DamageTriggerPattern.PassTrough)
+        {
+            passThroughCount--;
+        }
     }
     public bool TakeDamage(DamageResultInfo info)
     {

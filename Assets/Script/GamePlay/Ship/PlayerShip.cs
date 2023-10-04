@@ -654,6 +654,10 @@ public class PlayerShip : BaseShip
         }
     }
 
+    public override void GameOver()
+    {
+        base.GameOver();
+    }
     public override void PauseGame()
     {
         

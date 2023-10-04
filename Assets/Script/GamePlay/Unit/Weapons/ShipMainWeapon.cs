@@ -63,8 +63,6 @@ public class ShipMainWeapon : Weapon
 
     public virtual void UpdateMainWeaponTargetList()
     {
-
-
         // searching for targets
         rv_weaponTargetsInfoQue.Clear();
         FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
@@ -240,8 +238,6 @@ public class ShipMainWeapon : Weapon
         activeWeaponAttackRangeList = new NativeList<float>(Allocator.Persistent);
         activeWeaponTargetCountList = new NativeList<int>(Allocator.Persistent);
         rv_weaponTargetsInfoQue = new NativeQueue<RV_WeaponTargetInfo>(Allocator.Persistent);
-
-
     }
 
     public override void ProcessWeapon()

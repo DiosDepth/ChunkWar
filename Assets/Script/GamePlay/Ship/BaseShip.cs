@@ -284,6 +284,14 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
         return MathExtensionTools.GetRadomPosFromOutRange(0.5f, MaxSize, shipPos);
     }
 
+    public virtual void GameOver()
+    {
+        for (int i = 0; i < CoreUnits.Count; i++)
+        {
+            CoreUnits[i].GameOver();
+        }
+
+    }
     public virtual void PauseGame()
     {
       

@@ -414,6 +414,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void RogueBattleOver()
     {
+        currentShip?.controller.GameOver();
         Timer.Pause();
         Timer.RemoveAllTrigger();
         SettleCampScore();

@@ -9,7 +9,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Collections;
 using Unity.Burst;
-
+using Unity.Collections.LowLevel.Unsafe;
 
 public class DamageResultInfo
 {
@@ -532,6 +532,7 @@ public class Weapon : Unit
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
 
+        [NativeDisableContainerSafetyRestriction]
         public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
 
 

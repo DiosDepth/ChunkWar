@@ -157,6 +157,10 @@ public class AIShip : BaseShip,IPoolable
         }
     }
 
+    public override void GameOver()
+    {
+        base.GameOver();
+    }
     public override void PauseGame()
     {
         base.PauseGame();

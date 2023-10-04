@@ -118,6 +118,7 @@ public class ShipController : BaseController, IBoid
     public void HandleMovementInput(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!IsUpdate) { return; }
         if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
         switch (context.phase)
         {
@@ -144,6 +145,7 @@ public class ShipController : BaseController, IBoid
     public void HandlePointInput(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!IsUpdate) { return; }
         if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
         switch (context.phase)
         {
@@ -167,6 +169,7 @@ public class ShipController : BaseController, IBoid
     public void HandleAttackInput(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!IsUpdate) { return; }
         if (targetShip.conditionState.CurrentState == ShipConditionState.Freeze || 
             targetShip.conditionState.CurrentState == ShipConditionState.Death)
         {
@@ -190,7 +193,8 @@ public class ShipController : BaseController, IBoid
 
     public virtual void HandleMovement()
     {
-        if(targetShip.conditionState.CurrentState == ShipConditionState.Immovable ||
+        if (!IsUpdate) { return; }
+        if (targetShip.conditionState.CurrentState == ShipConditionState.Immovable ||
             targetShip.conditionState.CurrentState == ShipConditionState.Freeze ||
             targetShip.conditionState.CurrentState == ShipConditionState.Death)
         {
@@ -228,6 +232,7 @@ public class ShipController : BaseController, IBoid
     public virtual void HandleRotation()
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!IsUpdate) { return; }
         //if (MovementInput.sqrMagnitude == 0)
         //{
         //    _crossZ = 0;
@@ -284,6 +289,13 @@ public class ShipController : BaseController, IBoid
     {
         velocity = (transform.position - lastpos) / Time.deltaTime;
         lastpos = transform.position;
+    }
+
+    public override void GameOver()
+    {
+        base.GameOver();
+        targetShip.GameOver();
+        shipUnitManager.GameOver();
     }
 
     #region Private

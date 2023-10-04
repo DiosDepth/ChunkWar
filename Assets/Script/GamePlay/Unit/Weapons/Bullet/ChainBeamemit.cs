@@ -61,7 +61,7 @@ public class ChainBeamemit : Bullet
             {
                 _tempRaytFrequenceStamp = Time.time;
 
-                _direction = MathExtensionTools.DirectionToXY(transform.position, target.transform.position);
+                _direction = MathExtensionTools.DirectionToXY(transform.position, initialTarget.transform.position);
                 hitlist = Physics2D.RaycastAll(transform.position, _direction, maxDistance, mask);
 
                 //Find First hit Target;
@@ -166,7 +166,7 @@ public class ChainBeamemit : Bullet
         if (firepoint == null) { return; }
 
         transform.position = firepoint.transform.position;
-        _direction = MathExtensionTools.DirectionToXY(transform.position, target.transform.position);
+        _direction = MathExtensionTools.DirectionToXY(transform.position, initialTarget.transform.position);
 
         transform.rotation = MathExtensionTools.GetRotationFromDirection(_direction);
         if (!_isChained) { return; }
