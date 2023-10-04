@@ -145,7 +145,6 @@ public class PlayerShip : BaseShip
     protected override void OnDestroy()
     {
         base.OnDestroy();
-
         if (mainWeapon != null)
         {
             Destroy(mainWeapon.gameObject);

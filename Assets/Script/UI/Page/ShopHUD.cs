@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
+public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<ShipPropertyEvent>
 {
     private Transform _shopContentRoot;
     private TextMeshProUGUI _currencyText;
@@ -15,6 +15,11 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     private BuildSelectHoverCmpt _hoverCmpt;
     private ShipPropertyGroupPanel _propertyGroup;
     private Text _propertyBtnText;
+
+    private ShipPropertySliderCmpt _energySlider;
+    private ShipPropertySliderCmpt _loadSlider;
+    private CanvasGroup loadWarningCanvas;
+    private CanvasGroup energyWarningCanvas;
 
     private const string PropertyBtnSwitch_Main = "ShipMainProperty_Btn_Text";
     private const string PropertyBtnSwitch_Sub = "ShipSubProperty_Btn_Text";
@@ -35,12 +40,18 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
         _propertyBtnText = transform.Find("PropertyPanel/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
         _propertyGroup = transform.Find("PropertyPanel/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
+
+        _energySlider = transform.Find("SliderContent/EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _loadSlider = transform.Find("SliderContent/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        loadWarningCanvas = _loadSlider.transform.Find("Content/Info/Warning").SafeGetComponent<CanvasGroup>();
+        energyWarningCanvas = _energySlider.transform.Find("Content/Info/Warning").SafeGetComponent<CanvasGroup>();
     }
 
     public override void Initialization()
     {
         base.Initialization();
         this.EventStartListening<RogueEvent>();
+        this.EventStartListening<ShipPropertyEvent>();
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
         GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
@@ -52,7 +63,9 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     public override void Hidden( )
     {
         _plugGridController.Clear();
+        ClearAllShopSlotItems();
         this.EventStopListening<RogueEvent>();
+        this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
     }
 
@@ -78,8 +91,8 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
                 RefreshAllShopItemCost();
                 break;
 
-            case RogueEventType.RefreshWreckage:
-
+            case RogueEventType.ShipPlugChange:
+                RefreshShipPlugsContent();
                 break;
 
             case RogueEventType.HoverUnitDisplay:
@@ -92,12 +105,32 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
         }
     }
 
+    public void OnEvent(ShipPropertyEvent evt)
+    {
+        switch (evt.type)
+        {
+            case ShipPropertyEventType.EnergyChange:
+                RefreshEnergySlider();
+                break;
+            case ShipPropertyEventType.WreckageLoadChange:
+                RefreshLoadSlider();
+                break;
+
+            case ShipPropertyEventType.MainPropertyValueChange:
+                var modifyKey = (PropertyModifyKey)evt.param[0];
+                _propertyGroup.RefreshPropertyByKey(modifyKey);
+                break;
+        }
+    }
+
     private void RefreshGeneral()
     {
         RefreshCurrency();
         RefreshReroll();
         InitPlugController();
         OnShipPropertySwitchClick();
+        RefreshEnergySlider();
+        RefreshLoadSlider();
     }
 
     private void InitPlugController()
@@ -126,7 +159,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
             var index = 0;
             for (int i = 0; i < allShopItems.Count; i++)
             {
-
                 PoolManager.Instance.GetObjectAsync(ShipGoodsItem_PrefabPath, true, (obj) =>
                 {
                     var cmpt = obj.GetComponent<ShopSlotItem>();
@@ -150,6 +182,18 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>
     {
         _shopContentRoot.Pool_BackAllChilds(ShipGoodsItem_PrefabPath);
         allShopSlotItems.Clear();
+    }
+
+    private void RefreshEnergySlider()
+    {
+        _energySlider.RefreshEnergy();
+        energyWarningCanvas.ActiveCanvasGroup(_energySlider.overlordPercent > 1);
+    }
+
+    private void RefreshLoadSlider()
+    {
+        _loadSlider.RefreshLoad();
+        loadWarningCanvas.ActiveCanvasGroup(_loadSlider.overlordPercent > 1);
     }
 
     /// <summary>

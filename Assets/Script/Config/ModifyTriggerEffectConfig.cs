@@ -56,9 +56,13 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_AddGlobalTimerModifier(type));
             }
+            else if (type == ModifyTriggerEffectType.AddUnitTimerModifier)
+            {
+                result.Add(type.ToString(), new MTEC_AddUnitTimerModifier(type));
+            }
             else if (type == ModifyTriggerEffectType.EnterUnitState)
             {
-                result.Add(type.ToString(), new MTEC_EnterUnitState(type));
+                result.Add(type.ToString(), new MTEC_AddUnitTimerModifier(type));
             }
             else if(type == ModifyTriggerEffectType.GainDropWaste)
             {
@@ -350,8 +354,14 @@ public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
     public Dictionary<PropertyModifyKey, float> ModifyMap = new Dictionary<PropertyModifyKey, float>();
 
     [HorizontalGroup("AA", 200)]
+    [LabelText("使用时间")]
+    [LabelWidth(80)]
+    public bool UseDuration = true;
+
+    [HorizontalGroup("AA", 200)]
     [LabelText("持续时间")]
     [LabelWidth(80)]
+    [ShowIf("UseDuration")]
     public float DurationTime;
 
     public MTEC_AddGlobalTimerModifier(ModifyTriggerEffectType type) : base(type)
@@ -370,37 +380,36 @@ public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
     }
 }
 
-public class MTEC_EnterUnitState : ModifyTriggerEffectConfig
+public class MTEC_AddUnitTimerModifier : ModifyTriggerEffectConfig
 {
 
-    [HorizontalGroup("AA", 200)]
-    [LabelText("Key")]
-    [LabelWidth(40)]
-    public UnitPropertyModifyKey ModifyKey;
+    [DictionaryDrawerSettings()]
+    public Dictionary<UnitPropertyModifyKey, float> ModifyMap = new Dictionary<UnitPropertyModifyKey, float>();
 
-    [HorizontalGroup("AA", 120)]
-    [LabelText("值")]
-    [LabelWidth(40)]
-    public float Value;
+    [HorizontalGroup("AA", 140)]
+    [LabelText("使用时间")]
+    [LabelWidth(80)]
+    public bool UseDuration = true;
 
     [HorizontalGroup("AA", 200)]
     [LabelText("持续时间")]
-    [LabelWidth(40)]
+    [LabelWidth(80)]
+    [ShowIf("UseDuration")]
     public float DurationTime;
 
-    public MTEC_EnterUnitState(ModifyTriggerEffectType type) : base(type)
+    public MTEC_AddUnitTimerModifier(ModifyTriggerEffectType type) : base(type)
     {
 
     }
 
     public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
-
+        data.AddTimerModifier_Unit(this, parentUnitUID);
     }
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
-
+        data.RemoveTimerModifier_Unit(this, parentUnitUID);
     }
 }
 

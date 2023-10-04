@@ -2279,6 +2279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PropertyType: 3
   PercentMode: 0
+  overlordPercent: 0
 --- !u!1 &3636093735487573938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2776,6 +2777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PropertyType: 1
   PercentMode: 0
+  overlordPercent: 0
 --- !u!1 &4561595644841853268
 GameObject:
   m_ObjectHideFlags: 0

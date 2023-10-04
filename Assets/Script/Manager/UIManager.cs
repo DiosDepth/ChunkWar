@@ -336,7 +336,12 @@ public class UIManager : Singleton<UIManager>
 
     public Vector2 GetUIPosByMousePos()
     {
-        return new Vector2(_mousePosition.x - Screen.width / 2f, _mousePosition.y - Screen.height / 2f);
+        float RowX = _mousePosition.x - Screen.width / 2f;
+        float RowY = _mousePosition.y - Screen.height / 2f;
+
+        var canvasSize = canvas.transform.SafeGetComponent<RectTransform>().sizeDelta;
+        var targetPos = new Vector2(RowX * (canvasSize.x / Screen.width), RowY * (canvasSize.y / Screen.height));
+        return targetPos;
     }
 
     public bool IsMouseOverUI()

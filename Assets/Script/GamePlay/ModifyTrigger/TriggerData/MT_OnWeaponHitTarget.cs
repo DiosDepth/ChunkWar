@@ -54,3 +54,47 @@ public class MT_OnWeaponHitTarget : ModifyTriggerData
         }
     }
 }
+
+
+public class MT_OnWeaponReload : ModifyTriggerData
+{
+    private MTC_OnWeaponReload _reloadCfg;
+
+    private List<uint> _uidStorage = new List<uint>();
+
+    public MT_OnWeaponReload(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _reloadCfg = cfg as MTC_OnWeaponReload;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        LevelManager.Instance.OnPlayerWeaponReload += OnPlayerWeaponReload;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+    }
+
+    private void OnPlayerWeaponReload(uint weaponUID, bool reloadStart)
+    {
+        if (reloadStart)
+        {
+            if (!_uidStorage.Contains(weaponUID))
+            {
+                _uidStorage.Add(weaponUID);
+            }
+            EffectTrigger(weaponUID);
+        }
+        else
+        {
+            if (_uidStorage.Contains(weaponUID))
+            {
+                _uidStorage.Remove(weaponUID);
+                UnEffectTrigger(weaponUID);
+            }
+        }
+    }
+}

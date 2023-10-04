@@ -232,7 +232,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b12f8e8705e5ad14b90028136ae87c03, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -252,8 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6be9deba723aa842934a862184c22cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiGroup: {fileID: 0}
-  root: {fileID: 0}
+  IsFinish: 0
 --- !u!225 &5157883331591458358
 CanvasGroup:
   m_ObjectHideFlags: 0

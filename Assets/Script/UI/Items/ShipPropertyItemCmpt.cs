@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable
+public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
 {
     public PropertyModifyKey PropertyKey;
 
     private Image _icon;
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _valueText;
+    private Transform _hoverTrans;
+    private PropertyHoverItem _hoverItem;
 
     private static Color _normalColor = Color.white;
     private static Color _positiveColor = new Color(0f, 0.92f, 1f);
@@ -18,9 +20,12 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable
 
     public void Awake()
     {
+        transform.Find("BG").SafeGetComponent<GeneralHoverItemControl>().item = this;
         _icon = transform.Find("Icon").SafeGetComponent<Image>();
         _nameText = transform.Find("Name").SafeGetComponent<TextMeshProUGUI>();
         _valueText = transform.Find("ValueBG/Value").SafeGetComponent<TextMeshProUGUI>();
+        _hoverTrans = transform.Find("Hover");
+        _hoverTrans.transform.SafeSetActive(false);
     }
 
     public void Refresh()
@@ -80,7 +85,10 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable
 
     public void PoolableReset()
     {
-
+        if(_hoverItem != null)
+        {
+            _hoverItem.PoolableDestroy();
+        }
     }
 
     public void PoolableDestroy()
@@ -91,5 +99,25 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable
     public void PoolableSetActive(bool isactive = true)
     {
 
+    }
+
+    public void OnHoverEnter()
+    {
+        _hoverTrans.SafeSetActive(true);
+        UIManager.Instance.CreatePoolerUI<PropertyHoverItem>("PropertyHoverItem", true, E_UI_Layer.Top, null, (panel) =>
+        {
+            var cfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(PropertyKey);
+            panel.Initialization(cfg);
+            _hoverItem = panel;
+        });
+    }
+
+    public void OnHoverExit()
+    {
+        _hoverTrans.SafeSetActive(false);
+        if(_hoverItem != null)
+        {
+            _hoverItem.PoolableDestroy();
+        }
     }
 }

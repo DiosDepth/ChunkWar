@@ -52,6 +52,7 @@ public enum ModifyTriggerType
     ByCoreHPPercent,
     OnShieldRecover,
     OnWeaponHitTarget,
+    OnPlayerWeaponReload,
 }
 
 public enum ModifyTriggerEffectType
@@ -65,6 +66,7 @@ public enum ModifyTriggerEffectType
     EnterUnitState,
     GainDropWaste,
     AddGlobalTimerModifier,
+    AddUnitTimerModifier,
 }
 
 public class BattleMainConfig : SerializedScriptableObject
@@ -190,6 +192,7 @@ public class PropertyDisplayConfig
 {
     public string NameText;
     public string ModifyPercentNameText;
+    public string DescText;
     public Sprite Icon;
     public bool IsPercent;
     public bool ReverseColor = false;

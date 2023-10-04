@@ -262,6 +262,11 @@ public class PoolManager : Singleton<PoolManager>
         {
             t.PoolableDestroy();
         }
+    }
 
+    public void RecycleAndClearAll()
+    {
+        Recycle();
+        ClearAll();
     }
 }

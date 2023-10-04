@@ -64,6 +64,13 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         this.EventStopListening<ShipPropertyEvent>();
         this.EventStopListening<RogueEvent>();
         BindTimerChange(false);
+
+        for (int i = _weaponItemCmpts.Count - 1; i >= 0; i--) 
+        {
+            _weaponItemCmpts[i].PoolableDestroy();
+        }
+        _weaponItemCmpts.Clear();
+
         base.Hidden();
     }
 

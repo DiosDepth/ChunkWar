@@ -1200,6 +1200,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         return true;
     }
 
+    public bool ChangeShopItemLockState(ShopGoodsInfo info)
+    {
+        if (info == null)
+            return false;
+
+        info.IsLock = !info.IsLock;
+        return info.IsLock;
+    }
+
     private void GainShopItem(ShopGoodsInfo info)
     {
         AddNewShipPlug(info._cfg.TypeID, info.GoodsID);
@@ -1220,15 +1229,25 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             CurrentRerollCost = GetCurrentRefreshCost();
             AddCurrency(-CurrentRerollCost);
         }
+
+        byte itemLockCount = 0;
+
         ///Reset
-        if (CurrentShipLevelUpItems != null && CurrentShipLevelUpItems.Count > 0) 
+        if (CurrentRogueShopItems != null && CurrentRogueShopItems.Count > 0) 
         {
-            CurrentRogueShopItems.ForEach(x => x.Reset());
+            CurrentRogueShopItems.ForEach(x => 
+            {
+                x.Reset();
+                if (x.IsLock)
+                    itemLockCount++;
+            });
         }
 
         _currentRereollCount++;
         ///RefreshShop
         var refreshCount = GetCurrentShopRefreshCount();
+        ///去除已经锁定的物品
+        refreshCount = (byte)Mathf.Max(0, refreshCount - itemLockCount);
         GenerateShopGoods(refreshCount, _shopRefreshTotalCount);
         RogueEvent.Trigger(RogueEventType.ShopReroll);
 
@@ -1261,10 +1280,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <param name="count"></param>
     /// <param name="enterCount"></param>
     /// <returns></returns>
-    private List<ShopGoodsInfo> GenerateShopGoods(byte count, int enterCount)
+    private void GenerateShopGoods(byte count, int enterCount)
     {
         List<ShopGoodsInfo> result = new List<ShopGoodsInfo>();
-        var allVaild = goodsItems.Values.ToList().FindAll(x => x.IsVaild);
+        var allVaild = goodsItems.Values.ToList().FindAll(x => x.IsVaild && !x.IsLock);
 
         var tier2Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier2);
         var tier3Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier3);
@@ -1316,8 +1335,29 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
         Debug.Log(sb.ToString());
 #endif
-        CurrentRogueShopItems = result;
-        return result;
+
+        ///Combine ShopItems
+        for(int i = CurrentRogueShopItems.Count - 1; i >= 0; i--)
+        {
+            ///已锁定的物品不变化
+            if (CurrentRogueShopItems[i].IsLock)
+                continue;
+
+            if(result.Count > 0)
+            {
+                CurrentRogueShopItems[i] = result[result.Count - 1];
+                result.RemoveAt(result.Count - 1);
+            }
+            else
+            {
+                CurrentRogueShopItems.RemoveAt(i);
+            }
+        }
+
+        if(result.Count > 0)
+        {
+            CurrentRogueShopItems.AddRange(result);
+        }
     }
 
     /// <summary>
@@ -1363,7 +1403,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             return 0;
 
         var waveIndexDelta = enterCount - rarityCfg.LuckModifyMinEnterCount;
-        return rarityCfg.WeightAddPerEnterCount * waveIndexDelta + rarityCfg.BaseWeight * (100 + playerLuck);
+        return rarityCfg.WeightAddPerEnterCount * waveIndexDelta + rarityCfg.BaseWeight * (1 + playerLuck / 100f);
     }
 
     private void InitAllGoodsItems()

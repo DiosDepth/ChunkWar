@@ -105,13 +105,37 @@ public abstract class ModifyTriggerData : IPropertyModify
         _timerModifiers.Add(modifer);
     }
 
+    public void AddTimerModifier_Unit(MTEC_AddUnitTimerModifier config, uint parentUnitUID)
+    {
+        TimerModiferData_Unit modifier = new TimerModiferData_Unit(config, UID, parentUnitUID);
+        modifier.OnAdded();
+        _timerModifiers.Add(modifier);
+    }
+
     public void RemoveTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
     {
         ///移除一个
         for(int i = _timerModifiers.Count - 1; i >=0; i--)
         {
-            if(_timerModifiers[i] is TimerModiferData_Global)
+            var modifier = _timerModifiers[i];
+            if (modifier is TimerModiferData_Global)
             {
+                modifier.OnRemove();
+                _timerModifiers.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
+    public void RemoveTimerModifier_Unit(MTEC_AddUnitTimerModifier config, uint parentUnitUID)
+    {
+        ///移除一个
+        for (int i = _timerModifiers.Count - 1; i >= 0; i--)
+        {
+            var modifier = _timerModifiers[i];
+            if (modifier is TimerModiferData_Unit && (modifier as TimerModiferData_Unit).TargetUnitUID == parentUnitUID) 
+            {
+                modifier.OnRemove();
                 _timerModifiers.RemoveAt(i);
                 break;
             }

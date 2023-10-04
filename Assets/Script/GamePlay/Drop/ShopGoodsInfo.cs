@@ -74,6 +74,15 @@ public class ShopGoodsInfo : RandomObject
         }
     }
 
+    /// <summary>
+    /// ÊÇ·ñËø¶¨
+    /// </summary>
+    public bool IsLock
+    {
+        get;
+        set;
+    }
+
     public int Cost
     {
         get { return GetCost(); }
@@ -133,6 +142,7 @@ public class ShopGoodsInfo : RandomObject
     public void OnItemSold()
     {
         _sold = true;
+        IsLock = false;
     }
 
     public void SetDiscountValue(byte value)

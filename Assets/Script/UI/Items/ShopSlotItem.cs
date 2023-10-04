@@ -15,6 +15,9 @@ public class ShopSlotItem : MonoBehaviour
     private TextMeshProUGUI _descText;
     private TextMeshProUGUI _costText;
     private TextMeshProUGUI _limitText;
+    private TextMeshProUGUI _effectDesc1;
+    private TextMeshProUGUI _effectDesc2;
+
     private Transform PropertyModifyRoot;
     private RectTransform _tagRoot;
     private RectTransform _detailContentRect;
@@ -33,6 +36,7 @@ public class ShopSlotItem : MonoBehaviour
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
     private const string ItemTag_PrefabPath = "Prefab/GUIPrefab/PoolUI/ItemTagCmpt";
 
+    private const string ShopGoods_DiscountText = "ShopGoods_DiscountText";
     private void Awake()
     {
         _detailScroll = transform.Find("Content/DetailInfo").SafeGetComponent<ScrollRect>();
@@ -45,6 +49,8 @@ public class ShopSlotItem : MonoBehaviour
         _icon = transform.Find("Content/Info/Icon/Image").GetComponent<Image>();
         _rarityBG = transform.Find("BG").SafeGetComponent<Image>();
         _nameText = transform.Find("Content/Info/Detail/Name").GetComponent<TextMeshProUGUI>();
+        _effectDesc1 = _detailContentRect.Find("EffectDesc").SafeGetComponent<TextMeshProUGUI>();
+        _effectDesc2 = _detailContentRect.Find("EffectDesc/Desc").SafeGetComponent<TextMeshProUGUI>();
 
         PropertyModifyRoot = _detailContentRect.Find("PropertyModify");
         _unitInfoRoot = _detailContentRect.Find("UnitInfo");
@@ -52,7 +58,7 @@ public class ShopSlotItem : MonoBehaviour
         _costText = transform.Find("Content/Buy/Value").GetComponent<TextMeshProUGUI>();
         _buyButton = transform.Find("Content/Buy").GetComponent<Button>();
         _buyButton.onClick.AddListener(OnBuyButtonClick);
-        transform.Find("Functions/Lock").GetComponent<Button>().onClick.AddListener(OnLockButtonClick);
+        transform.Find("Lock").GetComponent<Button>().onClick.AddListener(OnLockButtonClick);
     }
 
     public void SetUp(ShopGoodsInfo info)
@@ -68,16 +74,17 @@ public class ShopSlotItem : MonoBehaviour
 
         _rarityBG.sprite = GameHelper.GetRarityBG_Big(plugCfg.GeneralConfig.Rarity);
         _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
+        SetEffectDesc(LocalizationManager.Instance.GetTextValue(plugCfg.EffectDesc), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
         SetUpProperty();
         SetUpBuyLimit(_goodsInfo);
         _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
-        _descText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc);
         _icon.sprite = plugCfg.GeneralConfig.IconSprite;
-      
+
+        SetUpDiscount();
         RefreshCost();
         SetUpTag(plugCfg);
         SetSold(false);
-
+        SetLockState(info.IsLock);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_detailContentRect);
 
         ///设置是否可以滑动
@@ -144,7 +151,48 @@ public class ShopSlotItem : MonoBehaviour
 
     private void OnLockButtonClick()
     {
+        bool lockState = RogueManager.Instance.ChangeShopItemLockState(_goodsInfo);
+        SetLockState(lockState);
+    }
 
+    private void SetLockState(bool isLock)
+    {
+        ///Lock
+        transform.Find("Lock/Text").transform.SafeSetActive(isLock);
+    }
+
+    private void SetUpDiscount()
+    {
+        var disCountTrans = transform.Find("Content/DisCount");
+        disCountTrans.SafeSetActive(_goodsInfo.DiscountValue != 0);
+        if(_goodsInfo.DiscountValue != 0)
+        {
+            disCountTrans.Find("Value").SafeGetComponent<TextMeshProUGUI>().text = string.Format("{0}{1}", _goodsInfo.DiscountValue, LocalizationManager.Instance.GetTextValue(ShopGoods_DiscountText));
+        }
+    }
+
+    private void SetEffectDesc(string effectText, string descText)
+    {
+        if (string.IsNullOrEmpty(effectText))
+        {
+            _effectDesc1.transform.SafeSetActive(false);
+        }
+        else
+        {
+            _effectDesc1.text = effectText;
+            _effectDesc2.text = effectText;
+            _effectDesc1.transform.SafeSetActive(true);
+        }
+
+        if (string.IsNullOrEmpty(descText))
+        {
+            _descText.transform.SafeSetActive(false);
+        }
+        else
+        {
+            _descText.text = descText;
+            _descText.transform.SafeSetActive(true);
+        }
     }
 
     private void SetUpUintInfo(BaseUnitConfig cfg)
@@ -177,8 +225,9 @@ public class ShopSlotItem : MonoBehaviour
     private void SetSold(bool sold)
     {
         _buyButton.interactable = !sold;
+
         transform.Find("Sold").SafeSetActive(sold);
-        transform.Find("Functions").SafeSetActive(!sold);
+        transform.Find("Lock").SafeSetActive(!sold);
     }
 
     private void SetUpProperty()
