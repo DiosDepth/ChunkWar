@@ -60,6 +60,10 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return new MT_OnShieldRecover(cfg, uid);
             case ModifyTriggerType.OnWeaponHitTarget:
                 return new MT_OnWeaponHitTarget(cfg, uid);
+            case ModifyTriggerType.OnPlayerWeaponReload:
+                return new MT_OnWeaponReload(cfg, uid);
+            case ModifyTriggerType.OnPlayerWeaponFire:
+                return new MT_OnWeaponFire(cfg, uid);
 
         }
 

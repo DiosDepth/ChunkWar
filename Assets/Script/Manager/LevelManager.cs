@@ -110,6 +110,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<int> OnEnemyCountChange;
     /* 武器reload */
     public UnityAction<uint, bool> OnPlayerWeaponReload;
+    /* 武器发射 */
+    public UnityAction<uint, int> OnPlayerWeaponFire;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -482,6 +484,11 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void PlayerWeaponReload(uint weaponUID, bool isReloadStart)
     {
         OnPlayerWeaponReload?.Invoke(weaponUID, isReloadStart);
+    }
+
+    public void PlayerWeaponFire(uint weaponUID, int count)
+    {
+        OnPlayerWeaponFire?.Invoke(weaponUID, count);
     }
 
     /// <summary>

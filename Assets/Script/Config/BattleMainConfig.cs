@@ -53,6 +53,7 @@ public enum ModifyTriggerType
     OnShieldRecover,
     OnWeaponHitTarget,
     OnPlayerWeaponReload,
+    OnPlayerWeaponFire,
 }
 
 public enum ModifyTriggerEffectType

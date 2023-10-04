@@ -98,3 +98,62 @@ public class MT_OnWeaponReload : ModifyTriggerData
         }
     }
 }
+
+public class MT_OnWeaponFire : ModifyTriggerData
+{
+    private MTC_OnWeaponFire _fireCfg;
+
+    private Dictionary<uint, int> _fireCountDic = new Dictionary<uint, int>();
+
+    public MT_OnWeaponFire(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _fireCfg = cfg as MTC_OnWeaponFire;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        LevelManager.Instance.OnPlayerWeaponFire += OnWeaponFire;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        LevelManager.Instance.OnPlayerWeaponFire -= OnWeaponFire;
+    }
+
+    private void OnWeaponFire(uint uid, int count)
+    {
+        ///数量保护
+        count = Mathf.Clamp(1, count, 100);
+        var fireCount = Mathf.Max(1, _fireCfg.FireCount);
+
+        if (!_fireCfg.CheckFireCount)
+        {
+            Trigger(uid);
+            return;
+        }
+
+        if (_fireCountDic.ContainsKey(uid))
+        {
+            var newCount = _fireCountDic[uid] + count;
+            while(newCount >= fireCount)
+            {
+                newCount -= fireCount;
+                Trigger();
+            }
+            _fireCountDic[uid] = newCount;
+        }
+        else
+        {
+            while(count >= fireCount)
+            {
+                count -= _fireCfg.FireCount;
+                Trigger();
+            }
+
+            _fireCountDic.Add(uid, count);
+        }
+    }
+
+}
