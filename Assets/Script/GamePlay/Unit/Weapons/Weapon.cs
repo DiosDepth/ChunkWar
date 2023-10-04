@@ -13,13 +13,15 @@ using Unity.Collections.LowLevel.Unsafe;
 
 public class DamageResultInfo
 {
+    public Unit attackerUnit;
+    public Vector2 HitPoint;
+
     public int Damage;
     public bool IsCritical;
     public bool IsPlayerAttack;
+    public bool IsHit = true;
     public WeaponDamageType DamageType;
     public float ShieldDamagePercent;
-
-    public int DamageTemp;
 }
 
 
@@ -118,6 +120,8 @@ public class WeaponAttribute : UnitBaseAttribute
     private byte BaseTransfixion;
     private float BaseTransfixionReduce;
     private float BaseShieldDamagePercent;
+    private float BaseDamageRatioMin;
+    private float BaseDamageRatioMax;
 
     /// <summary>
     /// Œ‰∆˜…À∫¶
@@ -179,8 +183,6 @@ public class WeaponAttribute : UnitBaseAttribute
         UseDamageRatio = _weaponCfg.UseDamageRatio;
         DamageType = _weaponCfg.DamageType;
         BaseDamage = _weaponCfg.DamageBase;
-        DamageRatioMin = _weaponCfg.DamageRatioMin;
-        DamageRatioMax = _weaponCfg.DamageRatioMax;
         BaseCritical = _weaponCfg.BaseCriticalRate;
         BaseWeaponRange = _weaponCfg.BaseRange;
         BaseReloadCD = _weaponCfg.CD;
@@ -190,6 +192,8 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseTransfixion = _weaponCfg.BaseTransfixion;
         BaseTransfixionReduce = _weaponCfg.TransfixionReduce;
         BaseShieldDamagePercent = _weaponCfg.ShieldDamage;
+        BaseDamageRatioMin = _weaponCfg.DamageRatioMin;
+        BaseDamageRatioMax = _weaponCfg.DamageRatioMax;
 
         if (isPlayerShip)
         {
@@ -210,6 +214,8 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageRangeMin, CalclculateDamageRatioMin);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
 
             CalculateBaseDamageModify();
             CalculateWeaponRange();
@@ -221,6 +227,8 @@ public class WeaponAttribute : UnitBaseAttribute
             CalculateTransfixionPercent();
             CalculateCriticalDamagePercent();
             CalculateShieldDamagePercent();
+            CalclculateDamageRatioMin();
+            CalclculateDamageRatioMax();
         }
         else
         {
@@ -250,6 +258,8 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMin, CalclculateDamageRatioMin);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
         }
     }
 
@@ -331,6 +341,20 @@ public class WeaponAttribute : UnitBaseAttribute
         var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldDamageAdd);
         var newValue = delta + BaseShieldDamagePercent;
         ShieldDamagePercent = Mathf.Max(-100, newValue);
+    }
+
+    private void CalclculateDamageRatioMin()
+    {
+        var modify = mainProperty.GetPropertyFinal(PropertyModifyKey.DamageRangeMin);
+        var newValue = modify / 100f + BaseDamageRatioMin;
+        DamageRatioMin = Mathf.Max(0, newValue);
+    }
+
+    private void CalclculateDamageRatioMax()
+    {
+        var modify = mainProperty.GetPropertyFinal(PropertyModifyKey.DamageRangeMax);
+        var newValue = modify / 100f + BaseDamageRatioMax;
+        DamageRatioMax = Mathf.Clamp(newValue, DamageRatioMin, float.MaxValue);
     }
 }
 public enum WeaponControlType

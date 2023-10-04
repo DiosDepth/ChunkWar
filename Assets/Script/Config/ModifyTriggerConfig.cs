@@ -52,11 +52,11 @@ public abstract class ModifyTriggerConfig
         ValueDropdownList<ModifyTriggerConfig> result = new ValueDropdownList<ModifyTriggerConfig>();
         foreach(ModifyTriggerType type in System.Enum.GetValues(typeof(ModifyTriggerType)))
         {
-            if(type == ModifyTriggerType.OnKillEnemy)
+            if (type == ModifyTriggerType.OnKillEnemy)
             {
                 result.Add(type.ToString(), new MTC_OnKillEnemy(type));
             }
-            else if(type == ModifyTriggerType.PropertyTransfer)
+            else if (type == ModifyTriggerType.PropertyTransfer)
             {
                 result.Add(type.ToString(), new MTC_PropertyTransfer(type));
             }
@@ -84,7 +84,7 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnRefreshShop(type));
             }
-            else if(type == ModifyTriggerType.ItemRarityCount)
+            else if (type == ModifyTriggerType.ItemRarityCount)
             {
                 result.Add(type.ToString(), new MTC_ByItemRarityCount(type));
             }
@@ -111,6 +111,10 @@ public abstract class ModifyTriggerConfig
             else if (type == ModifyTriggerType.OnPlayerWeaponFire)
             {
                 result.Add(type.ToString(), new MTC_OnWeaponFire(type));
+            }
+            else if (type == ModifyTriggerType.OnPlayerShipParry) 
+            {
+                result.Add(type.ToString(), new MTC_OnPlayerShipParry(type));
             }
         }
 
@@ -407,6 +411,14 @@ public class MTC_OnWeaponFire : ModifyTriggerConfig
     public int FireCount;
 
     public MTC_OnWeaponFire(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnPlayerShipParry : ModifyTriggerConfig
+{
+    public MTC_OnPlayerShipParry(ModifyTriggerType type) : base(type)
     {
 
     }

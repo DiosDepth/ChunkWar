@@ -7,6 +7,7 @@ public enum WeaponDamageType
 {
     Physics,
     Energy,
+    NONE,
 }
 
 [CreateAssetMenu(fileName = "Configs_Weapon_", menuName = "Configs/Unit/WeaponConfig")]

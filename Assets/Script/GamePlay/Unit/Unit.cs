@@ -452,15 +452,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             return false;
         }
 
-        ///Hit Events
-        HitInfo hitInfo = new HitInfo
-        {
-            DamageType = info.DamageType,
-            isPlayerAttack = info.IsPlayerAttack,
-            isCritical = info.IsCritical
-        };
-        LevelManager.Instance.UnitHit(hitInfo, info);
-
         if (_owner is AIShip)
         {
             int Damage = info.Damage;
@@ -483,6 +474,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 }
             }
 
+            LevelManager.Instance.UnitHit(info);
             ///只有敌人才显示伤害数字
             ///这里需要显示对应的漂浮文字
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
@@ -496,22 +488,29 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         }
         else if (_owner is PlayerShip)
         {
-            ///CalculatePlayerDamage
-            GameHelper.ResolvePlayerUnitDamage(ref info);
-        }
-        
-        bool isDie = HpComponent.ChangeHP(-info.Damage);
-        if(isDie)
-        {
-            UnitDeathInfo deathInfo = new UnitDeathInfo
+            ///CalculatePlayerTakeDamage
+            GameHelper.ResolvePlayerUnitDamage(info);
+            if (!info.IsHit)
             {
-                isCriticalKill = info.IsCritical
-            };
-            Death(deathInfo);
-
+                ///Parry
+                LevelManager.Instance.PlayerShipParry(info.attackerUnit);
+            }
         }
 
-        return isDie;
+        if (info.IsHit)
+        {
+            bool isDie = HpComponent.ChangeHP(-info.Damage);
+            if (isDie)
+            {
+                UnitDeathInfo deathInfo = new UnitDeathInfo
+                {
+                    isCriticalKill = info.IsCritical
+                };
+                Death(deathInfo);
+            }
+            return isDie;
+        }
+        return false;
     }
     
 

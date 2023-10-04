@@ -58,6 +58,7 @@ public enum ModifyTriggerType
     OnWeaponHitTarget,
     OnPlayerWeaponReload,
     OnPlayerWeaponFire,
+    OnPlayerShipParry,
 }
 
 public enum ModifyTriggerEffectType
@@ -72,6 +73,8 @@ public enum ModifyTriggerEffectType
     GainDropWaste,
     AddGlobalTimerModifier,
     AddUnitTimerModifier,
+    CreateExplode,
+    CreateDamage,
 }
 
 public class BattleMainConfig : SerializedScriptableObject

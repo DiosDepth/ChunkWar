@@ -68,6 +68,14 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_GainDropWaste(type));
             }
+            else if (type == ModifyTriggerEffectType.CreateExplode)
+            {
+                result.Add(type.ToString(), new MTEC_CreateExplode(type));
+            }
+            else if (type == ModifyTriggerEffectType.CreateDamage)
+            {
+                result.Add(type.ToString(), new MTEC_CreateDamage(type));
+            }
         }
 
         return result;
@@ -428,6 +436,86 @@ public class MTEC_GainDropWaste : ModifyTriggerEffectConfig
     public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
         RogueManager.Instance.AddDropWasteCount(Value);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
+
+public enum PointTargetType
+{
+    NONE,
+    HitPoint,
+}
+
+public class MTEC_CreateExplode : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 120)]
+    [LabelText("点类型")]
+    [LabelWidth(40)]
+    public PointTargetType PointTarget;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("爆炸范围")]
+    [LabelWidth(60)]
+    public int ExplodeRange;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("爆炸伤害")]
+    [LabelWidth(60)]
+    public int ExplodeDamageBase;
+
+    [HorizontalGroup("AD", 800)]
+    public List<UnitPropertyModifyFrom> DamageModifyFrom = new List<UnitPropertyModifyFrom>();
+
+
+    public MTEC_CreateExplode(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.CreateExplode(this, parentUnitUID);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
+
+public enum EffectDamageTargetType
+{
+    Target,
+    Random,
+}
+
+public class MTEC_CreateDamage : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 120)]
+    [LabelText("目标类型")]
+    [LabelWidth(40)]
+    public EffectDamageTargetType TargetType;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("伤害")]
+    [LabelWidth(60)]
+    public int Damage;
+
+    [HorizontalGroup("AD", 800)]
+    public List<UnitPropertyModifyFrom> DamageModifyFrom = new List<UnitPropertyModifyFrom>();
+
+    public MTEC_CreateDamage(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
     }
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)

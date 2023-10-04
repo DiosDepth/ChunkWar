@@ -184,6 +184,14 @@ public enum PropertyModifyKey
     /// 实弹数量
     /// </summary>
     PhysicalCount,
+    /// <summary>
+    /// 伤害范围下限
+    /// </summary>
+    DamageRangeMin,
+    /// <summary>
+    /// 伤害范围上限
+    /// </summary>
+    DamageRangeMax
 }
 
 /// <summary>

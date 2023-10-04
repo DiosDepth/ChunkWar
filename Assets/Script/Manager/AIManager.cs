@@ -1191,6 +1191,11 @@ public class AIManager : Singleton<AIManager>, IPauseable
         return randomlist;
     }
 
+    public Unit GetUnitByUID(uint uid)
+    {
+        return aiActiveUnitList.Find(x => x.UID == uid);
+    }
+
     public Unit GetAIUnitWithCondition(FindCondition condition)
     {
         Unit unit;

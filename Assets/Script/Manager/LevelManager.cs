@@ -105,13 +105,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /* 护盾损坏 */
     public UnityAction<uint> OnShieldBroken;
     /* Unit受击 */
-    public UnityAction<HitInfo, DamageResultInfo> OnUnitHit;
+    public UnityAction<DamageResultInfo> OnUnitHit;
     /* 敌人数量变化 */
     public UnityAction<int> OnEnemyCountChange;
     /* 武器reload */
     public UnityAction<uint, bool> OnPlayerWeaponReload;
     /* 武器发射 */
     public UnityAction<uint, int> OnPlayerWeaponFire;
+    /* 玩家闪避 */
+    public UnityAction<Unit> OnPlayerShipParry;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -471,9 +473,14 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         OnShieldBroken?.Invoke(targetUnitID);
     }
 
-    public void UnitHit(HitInfo info, DamageResultInfo damageInfo)
+    public void UnitHit(DamageResultInfo damageInfo)
     {
-        OnUnitHit?.Invoke(info, damageInfo);
+        OnUnitHit?.Invoke(damageInfo);
+    }
+
+    public void PlayerShipParry(Unit attackerUnit)
+    {
+        OnPlayerShipParry?.Invoke(attackerUnit);
     }
 
     /// <summary>
