@@ -403,7 +403,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
         {
             return;
         }
+
         aiShipList.Add(ship);
+        OnEnemyCountChange();
         IBoid boid = ship.GetComponent<IBoid>();
         aiShipBoidList.Add(boid);
 
@@ -453,6 +455,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         {
             AddAI(shiplist[i]);
         }
+
     }
 
     public void RemoveAI(AIShip ship)
@@ -460,6 +463,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         int index = aiShipList.IndexOf(ship);
         RemoveReminedUnit(ship);
         RemoveAI(index);
+        OnEnemyCountChange();
     }
     protected void RemoveAI(int index)
     {
@@ -1161,5 +1165,10 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public void UnPauseGame()
     {
         
+    }
+
+    private void OnEnemyCountChange()
+    {
+        LevelManager.Instance.EnemyShipCountChange(ShipCount);
     }
 }

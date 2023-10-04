@@ -21,6 +21,10 @@ public enum ModifySpecialType
     /// 超出100%的部分
     /// </summary>
     More100,
+    /// <summary>
+    /// 数量
+    /// </summary>
+    Count,
 }
 
 public enum ModifyTriggerType
