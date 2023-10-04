@@ -130,6 +130,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 是否显示舰船升级界面
+    /// </summary>
+    public bool IsShowingShipLevelUp = false;
+
+    /// <summary>
     /// 所有商店物品
     /// </summary>
     private Dictionary<int, ShopGoodsInfo> goodsItems;
@@ -221,7 +226,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 波次结束后自动进入港口
     /// </summary>
     private bool autoEnterHarbor = true;
-    private bool _isPause = false;
 
     #region Action 
 
@@ -302,13 +306,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public void PauseGame()
     {
         Timer.Pause();
-        _isPause = true;
     }
 
     public void UnPauseGame()
     {
         Timer.StartTimer();
-        _isPause = false;
     }
 
     /// <summary>
@@ -325,9 +327,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void OnUpdateBattle()
     {
-        if (_isPause)
-            return;
-
         for (int i = 0; i < AllCurrentShipPlugs.Count; i++) 
         {
             AllCurrentShipPlugs[i].OnBattleUpdate();
@@ -1721,7 +1720,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     public void ShipLevelUp(byte oldLevel, int levelUpCount = 1)
     {
-        GameManager.Instance.PauseGame();
         RefreshShipLevelUpItems(false);
 
         ///重复升级保护
@@ -1732,6 +1730,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             return;
         }
 
+        IsShowingShipLevelUp = true;
+        GameManager.Instance.PauseGame();
         ///DisplayUI
         UIManager.Instance.ShowUI<ShipLevelUpPage>("ShipLevelUpPage", E_UI_Layer.Top, RogueManager.Instance, (panel) =>
         {

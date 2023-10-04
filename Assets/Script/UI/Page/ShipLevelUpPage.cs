@@ -129,6 +129,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
             UIManager.Instance.HiddenUI("ShipLevelUpPage");
             InputDispatcher.Instance.ChangeInputMode("Player");
             GameManager.Instance.UnPauseGame();
+            RogueManager.Instance.IsShowingShipLevelUp = false;
         }
         else
         {

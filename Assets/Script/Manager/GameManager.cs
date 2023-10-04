@@ -229,9 +229,9 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     public List<CampSaveData> CreateCampSaveDatas()
     {
         List<CampSaveData> result = new List<CampSaveData>();
-        for (int i = 0; i < _campDatas.Count; i++)
+        foreach(var campData in _campDatas.Values)
         {
-            CampSaveData data = _campDatas[i].CreateCampSaveData();
+            CampSaveData data = campData.CreateCampSaveData();
             result.Add(data);
         }
         return result;

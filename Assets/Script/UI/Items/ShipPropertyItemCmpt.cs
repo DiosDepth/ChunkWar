@@ -67,8 +67,14 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
 
     public void OnDestroy()
     {
+        _hoverItem?.PoolableDestroy();
         var propertyData = RogueManager.Instance.MainPropertyData;
         propertyData.UnBindPropertyChangeAction(PropertyKey, OnPropertyChangeAction);
+    }
+
+    public void OnDisable()
+    {
+        _hoverItem?.PoolableDestroy();
     }
 
     private void OnPropertyChangeAction()
@@ -85,10 +91,6 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
 
     public void PoolableReset()
     {
-        if(_hoverItem != null)
-        {
-            _hoverItem.PoolableDestroy();
-        }
     }
 
     public void PoolableDestroy()
@@ -115,9 +117,6 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
     public void OnHoverExit()
     {
         _hoverTrans.SafeSetActive(false);
-        if(_hoverItem != null)
-        {
-            _hoverItem.PoolableDestroy();
-        }
+        _hoverItem?.PoolableDestroy();
     }
 }
