@@ -270,7 +270,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             if (_owner is PlayerShip)
             {
                 AIManager.Instance.RemoveTargetUnit(this);
-
+                RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
                 if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
                 {
                     (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
@@ -309,7 +309,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     protected virtual void OnDestroy()
     {
-        RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
+        if(_owner is PlayerShip)
+        {
+            RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
+        }
         GameManager.Instance.UnRegisterPauseable(this);
     }
 

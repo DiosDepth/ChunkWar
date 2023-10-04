@@ -68,6 +68,7 @@ public class GlobalSaveData
     {
         CombineAchievementSaves();
         CombineShipSaveData();
+        CombineUnitSaveData();
     }
 
     #region SetData
@@ -168,6 +169,24 @@ public class GlobalSaveData
             newSav.Unlock = shipItem.UnlockDefault;
             newSav.InitHardLevelSave();
             ShipSaveData.Add(newSav);
+        }
+    }
+
+    private void CombineUnitSaveData()
+    {
+        var allUnit = DataManager.Instance.GetAllUnitConfigs();
+        for(int i = 0; i < allUnit.Count; i++)
+        {
+            var unit = allUnit[i];
+
+            var unitSav = UnitSaveDatas.Find(x => x.UnitID == unit.ID);
+            if (unitSav != null)
+                continue;
+
+            UnitSaveData newSav = new UnitSaveData();
+            newSav.UnitID = unit.ID;
+            newSav.Unlock = unit.UnlockDefault;
+            UnitSaveDatas.Add(newSav);
         }
     }
 

@@ -26,7 +26,7 @@ public class FloatingText : GUIBasePanel,IPoolable
 
     public override void Show()
     {
-        StartCoroutine(MonoManager.Instance.Delay(duration, () => 
+        StartCoroutine(MonoManager.Instance.DelayUnSacleTime(duration, () => 
         {
             Hidden();
         }));

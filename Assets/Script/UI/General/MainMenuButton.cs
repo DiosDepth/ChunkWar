@@ -164,6 +164,9 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
         else if (Type == MainMenuButtonType.MainMenu)
         {
             UIManager.Instance.HiddenUI("Pause");
+            LevelManager.Instance.UnloadCurrentLevel();
+            PoolManager.Instance.RecycleAndClearAll();
+
             GameStateTransitionEvent.Trigger(EGameState.EGameState_MainMenu);
         }
         else if (Type == MainMenuButtonType.Restart)
@@ -178,7 +181,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
                 panel.Initialization();
             });
             InputDispatcher.Instance.ChangeInputMode("Player");
-            UIManager.Instance.HiddenUI("Pause");
+            GameManager.Instance.UnPauseGame();
         }
 
         

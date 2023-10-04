@@ -36,6 +36,7 @@ public class ShopSlotItem : MonoBehaviour
     private const string UnitInfo_PropertyItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/UnitPropertyItem";
     private const string ItemTag_PrefabPath = "Prefab/GUIPrefab/PoolUI/ItemTagCmpt";
 
+    private const string ShopGoods_DiscountText = "ShopGoods_DiscountText";
     private void Awake()
     {
         _detailScroll = transform.Find("Content/DetailInfo").SafeGetComponent<ScrollRect>();
@@ -78,7 +79,8 @@ public class ShopSlotItem : MonoBehaviour
         SetUpBuyLimit(_goodsInfo);
         _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
         _icon.sprite = plugCfg.GeneralConfig.IconSprite;
-      
+
+        SetUpDiscount();
         RefreshCost();
         SetUpTag(plugCfg);
         SetSold(false);
@@ -157,6 +159,16 @@ public class ShopSlotItem : MonoBehaviour
     {
         ///Lock
         transform.Find("Lock/Text").transform.SafeSetActive(isLock);
+    }
+
+    private void SetUpDiscount()
+    {
+        var disCountTrans = transform.Find("Content/DisCount");
+        disCountTrans.SafeSetActive(_goodsInfo.DiscountValue != 0);
+        if(_goodsInfo.DiscountValue != 0)
+        {
+            disCountTrans.Find("Value").SafeGetComponent<TextMeshProUGUI>().text = string.Format("{0}{1}", _goodsInfo.DiscountValue, LocalizationManager.Instance.GetTextValue(ShopGoods_DiscountText));
+        }
     }
 
     private void SetEffectDesc(string effectText, string descText)

@@ -145,7 +145,6 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     {
         _energySlider.RefreshEnergy();
         energyWarningCanvas.ActiveCanvasGroup(_energySlider.overlordPercent > 1);
-        
     }
     
     private void RefreshLoadSlider()

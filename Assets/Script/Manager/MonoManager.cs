@@ -179,4 +179,10 @@ public class MonoManager : Singleton<MonoManager>
         }
     }
 
+    public IEnumerator DelayUnSacleTime(float delayTime, UnityAction callback)
+    {
+        yield return new WaitForSecondsRealtime(delayTime);
+        callback?.Invoke();
+    }
+
 }

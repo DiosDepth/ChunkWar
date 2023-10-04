@@ -16,6 +16,11 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     private ShipPropertyGroupPanel _propertyGroup;
     private Text _propertyBtnText;
 
+    private ShipPropertySliderCmpt _energySlider;
+    private ShipPropertySliderCmpt _loadSlider;
+    private CanvasGroup loadWarningCanvas;
+    private CanvasGroup energyWarningCanvas;
+
     private const string PropertyBtnSwitch_Main = "ShipMainProperty_Btn_Text";
     private const string PropertyBtnSwitch_Sub = "ShipSubProperty_Btn_Text";
     private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
@@ -35,6 +40,11 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         _plugGridScroller = transform.Find("ShipPlugSlots/Scroll View").SafeGetComponent<EnhancedScroller>();
         _propertyBtnText = transform.Find("PropertyPanel/PropertyTitle/PropertyBtn/Text").SafeGetComponent<Text>();
         _propertyGroup = transform.Find("PropertyPanel/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
+
+        _energySlider = transform.Find("SliderContent/EnergySlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        _loadSlider = transform.Find("SliderContent/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
+        loadWarningCanvas = _loadSlider.transform.Find("Content/Info/Warning").SafeGetComponent<CanvasGroup>();
+        energyWarningCanvas = _energySlider.transform.Find("Content/Info/Warning").SafeGetComponent<CanvasGroup>();
     }
 
     public override void Initialization()
@@ -53,6 +63,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     public override void Hidden( )
     {
         _plugGridController.Clear();
+        ClearAllShopSlotItems();
         this.EventStopListening<RogueEvent>();
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
@@ -99,10 +110,10 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         switch (evt.type)
         {
             case ShipPropertyEventType.EnergyChange:
+                RefreshEnergySlider();
                 break;
-
             case ShipPropertyEventType.WreckageLoadChange:
-
+                RefreshLoadSlider();
                 break;
 
             case ShipPropertyEventType.MainPropertyValueChange:
@@ -118,6 +129,8 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         RefreshReroll();
         InitPlugController();
         OnShipPropertySwitchClick();
+        RefreshEnergySlider();
+        RefreshLoadSlider();
     }
 
     private void InitPlugController()
@@ -146,7 +159,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
             var index = 0;
             for (int i = 0; i < allShopItems.Count; i++)
             {
-
                 PoolManager.Instance.GetObjectAsync(ShipGoodsItem_PrefabPath, true, (obj) =>
                 {
                     var cmpt = obj.GetComponent<ShopSlotItem>();
@@ -170,6 +182,18 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     {
         _shopContentRoot.Pool_BackAllChilds(ShipGoodsItem_PrefabPath);
         allShopSlotItems.Clear();
+    }
+
+    private void RefreshEnergySlider()
+    {
+        _energySlider.RefreshEnergy();
+        energyWarningCanvas.ActiveCanvasGroup(_energySlider.overlordPercent > 1);
+    }
+
+    private void RefreshLoadSlider()
+    {
+        _loadSlider.RefreshLoad();
+        loadWarningCanvas.ActiveCanvasGroup(_loadSlider.overlordPercent > 1);
     }
 
     /// <summary>

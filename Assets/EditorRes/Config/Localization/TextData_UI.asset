@@ -419,3 +419,7 @@ MonoBehaviour:
     ChineseSimplified: "\u9501\u5B9A"
     English: 
     Japanese: 
+  - TextID: ShopGoods_DiscountText
+    ChineseSimplified: OFF
+    English: 
+    Japanese: 
