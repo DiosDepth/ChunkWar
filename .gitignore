@@ -25,3 +25,4 @@ Assets/Data/PlayerSaveInfo
 Assets/Data/GlobalSaveData.sav
 Packages/manifest.json
 .vs/
+fmod_editor.log
