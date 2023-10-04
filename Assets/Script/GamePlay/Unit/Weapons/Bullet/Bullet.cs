@@ -39,6 +39,10 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public string ShootVFX = "HitVFX";
     public string HitVFX = "HitVFX";
     public string DeathVFX = "HitVFX";
+    public bool hasIndicator;
+    [HideInInspector]
+    protected string IndicatorPath = "Prefab/Unit/Indicator/DamageIndicator";
+    protected DamageIndicator _indicator;
 
     [HideInInspector]
     public Unit Owner { get { return _owner; } }
@@ -144,7 +148,15 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     }
     public virtual void Shoot()
     {
+        if(hasIndicator)
+        {
+            PoolManager.Instance.GetObjectSync(IndicatorPath, true, (obj) => 
+            {
+                _indicator = obj.GetComponent<DamageIndicator>();
+                 
+            });
 
+        }
     }
 
     protected virtual void OnEnable()

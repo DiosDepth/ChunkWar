@@ -16,8 +16,9 @@ public class ShipUnitManager:IPauseable
     public List<ShipAdditionalWeapon> activeWeaponList;
     public List<Building> activeBuildingList;
     public List<Projectile> projectileList = new List<Projectile>();
-    private List<int> projiectileDeathIndexList = new List<int>();
-    private List<Projectile> projectileDamageList = new List<Projectile>();
+    private List<int> _projectileDeathIndexList = new List<int>();
+    private List<Projectile> _ProjectileDeathList = new List<Projectile>();
+    private List<Projectile> _projectileDamageList = new List<Projectile>();
     NativeList<ProjectileJobInitialInfo> damageProjectile_JobInfo;
     public NativeArray<int> rv_projectileDamageTargetIndex;
     public NativeArray<int> rv_projectileDamageTargetCountPre;
@@ -109,8 +110,8 @@ public class ShipUnitManager:IPauseable
         activeWeaponList?.Clear();
         activeBuildingList?.Clear();
         projectileList?.Clear();
-        projectileDamageList?.Clear();
-        projiectileDeathIndexList?.Clear();
+        _projectileDamageList?.Clear();
+        _projectileDeathIndexList?.Clear();
 
         DisposeAllJobData();
     }
@@ -227,8 +228,8 @@ public class ShipUnitManager:IPauseable
 
 
         //创建子弹的伤害List 和对应的死亡List
-        projiectileDeathIndexList.Clear();
-        projectileDamageList.Clear();
+        _projectileDeathIndexList.Clear();
+        _projectileDamageList.Clear();
         damageProjectile_JobInfo.Clear();
 
         //Loop 所有的子弹并且创建他们的伤害和死亡List，注意伤害和死亡的List并不是一一对应的。 有些子弹在产生伤害之后并不会死亡，比如穿透子弹
@@ -245,27 +246,27 @@ public class ShipUnitManager:IPauseable
             {
                 if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.Point && rv_projectile_jobUpdateInfo[i].islifeended)
                 {
-                    projectileDamageList.Add(projectileList[i]);
+                    _projectileDamageList.Add(projectileList[i]);
                     damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
-                    projiectileDeathIndexList.Add(i);
+                    _projectileDeathIndexList.Add(i);
                     continue;
                 }
 
                 if (projectileList[i].IsApplyDamageAtThisFrame)
                 {
-                    projectileDamageList.Add(projectileList[i]);
+                    _projectileDamageList.Add(projectileList[i]);
                     damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
                 }
 
                 if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough && projectileList[i].PassThroughCount <= 0)
                 {
-                    projiectileDeathIndexList.Add(i);
+                    _projectileDeathIndexList.Add(i);
                     continue;
                 }
 
                 if(rv_projectile_jobUpdateInfo[i].islifeended)
                 {
-                    projiectileDeathIndexList.Add(i);
+                    _projectileDeathIndexList.Add(i);
                 }
                 
             }
@@ -281,12 +282,12 @@ public class ShipUnitManager:IPauseable
     public void HandleProjectileDamage()
     {
         //projectileDamageList = projectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
-        if (projectileDamageList.Count == 0)
+        if (_projectileDamageList.Count == 0)
         {
             return;
         }
-        rv_projectileDamageTargetIndex = new NativeArray<int>(projectileDamageList.Count * AIManager.Instance.aiActiveUnitList.Count, Allocator.TempJob);
-        rv_projectileDamageTargetCountPre = new NativeArray<int>(projectileDamageList.Count, Allocator.TempJob);
+        rv_projectileDamageTargetIndex = new NativeArray<int>(_projectileDamageList.Count * AIManager.Instance.aiActiveUnitList.Count, Allocator.TempJob);
+        rv_projectileDamageTargetCountPre = new NativeArray<int>(_projectileDamageList.Count, Allocator.TempJob);
         JobHandle jobHandle;
 
         //找到所有子弹的伤害目标，可能是单个或者多个。 
@@ -302,7 +303,7 @@ public class ShipUnitManager:IPauseable
 
         };
 
-        jobHandle = findBulletDamageTargetJob.ScheduleBatch(projectileDamageList.Count, 2);
+        jobHandle = findBulletDamageTargetJob.ScheduleBatch(_projectileDamageList.Count, 2);
         jobHandle.Complete();
 
 
@@ -310,7 +311,7 @@ public class ShipUnitManager:IPauseable
         IDamageble damageble;
 
         //Loop所有会产生伤害的子弹List，
-        for (int i = 0; i < projectileDamageList.Count; i++)
+        for (int i = 0; i < _projectileDamageList.Count; i++)
         {
             //设置对应子弹的prepareDamageTargetList，用来在后面实际Apply Damage做准备
             for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
@@ -321,16 +322,16 @@ public class ShipUnitManager:IPauseable
                     continue;
                 }
                 damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
-                if (damageble != null && projectileDamageList[i] != null)
+                if (damageble != null && _projectileDamageList[i] != null)
                 {
-                    if(!projectileDamageList[i].prepareDamageTargetList.Contains(damageble))
+                    if(!_projectileDamageList[i].prepareDamageTargetList.Contains(damageble))
                     {
-                        projectileDamageList[i].prepareDamageTargetList.Add(damageble);
+                        _projectileDamageList[i].prepareDamageTargetList.Add(damageble);
                     }
                 }
             }
             //Apply Damage to every damage target
-            projectileDamageList[i].ApplyDamageAllTarget();
+            _projectileDamageList[i].ApplyDamageAllTarget();
         }
 
         //damageProjectile_JobInfo.Dispose();
@@ -361,11 +362,17 @@ public class ShipUnitManager:IPauseable
         }
 
         //最后一步 执行子弹死亡
+        _ProjectileDeathList.Clear();
         int deathindex = 0;
-        for (int i = 0; i < projiectileDeathIndexList.Count; i++)
+        for (int i = 0; i < _projectileDeathIndexList.Count; i++)
         {
-            deathindex = projiectileDeathIndexList[i];
-            projectileList[deathindex].Death(null);
+            deathindex = _projectileDeathIndexList[i];
+            _ProjectileDeathList.Add(projectileList[deathindex]);
+            //projectileList[deathindex].Death(null);
+        }
+        for (int i = 0; i < _ProjectileDeathList.Count; i++)
+        {
+            _ProjectileDeathList[i].Death(null);
         }
     }
 
@@ -509,8 +516,8 @@ public class ShipUnitManager:IPauseable
             }
         }
         projectileList.Clear();
-        projiectileDeathIndexList.Clear();
-        projectileDamageList.Clear();
+        _projectileDeathIndexList.Clear();
+        _projectileDamageList.Clear();
 
         //Dispose all job data
         DisposeAllJobData();

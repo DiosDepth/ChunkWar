@@ -1,13 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.U2D;
 
-
+public enum FindCondition
+{
+    MaximumHP,
+    MinimumHP,
+    ClosestDistance,
+    LongestDistance,
+}
 public class AIManager : Singleton<AIManager>, IPauseable
 {
     public const int MaxAICount = 300;
@@ -29,8 +36,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
     //AI list Info
     public List<AIShip> aiShipList = new List<AIShip>();
     public List<Projectile> aiProjectileList = new List<Projectile>();
-    private List<Projectile> aiProjectileDamageList = new List<Projectile>();
+    private List<Projectile> _aiProjectileDamageList = new List<Projectile>();
     private List<int> _aiProjectileDeathIndex = new List<int>();
+    private List<Projectile> _aiProjectileDeathList = new List<Projectile>();
     public NativeList<ProjectileJobInitialInfo> aiProjectile_JobInfo;
 
     public NativeArray<ProjectileJobRetrunInfo> rv_aiProjectile_jobUpdateInfo;
@@ -347,7 +355,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
             
         }
         aiProjectileList.Clear();
-        aiProjectileDamageList.Clear();
+        _aiProjectileDamageList.Clear();
         _aiProjectileDeathIndex.Clear();
 
         //Dispose all job data
@@ -1007,7 +1015,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         //创建子弹的伤害List 和对应的死亡List
         _aiProjectileDeathIndex.Clear();
-        aiProjectileDamageList.Clear();
+        _aiProjectileDamageList.Clear();
         aiDamageProjectile_JobInfo.Clear();
 
         //Loop 所有的子弹并且创建他们的伤害和死亡List，注意伤害和死亡的List并不是一一对应的。 有些子弹在产生伤害之后并不会死亡，比如穿透子弹
@@ -1024,7 +1032,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
             {
                 if (aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Point && rv_aiProjectile_jobUpdateInfo[i].islifeended)
                 {
-                    aiProjectileDamageList.Add(aiProjectileList[i]);
+                    _aiProjectileDamageList.Add(aiProjectileList[i]);
                     aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
                     _aiProjectileDeathIndex.Add(i);
                     continue;
@@ -1032,7 +1040,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
                 if (aiProjectileList[i].IsApplyDamageAtThisFrame)
                 {
-                    aiProjectileDamageList.Add(aiProjectileList[i]);
+                    _aiProjectileDamageList.Add(aiProjectileList[i]);
                     aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
                 }
 
@@ -1065,13 +1073,13 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         //aiProjectileDamageList = aiProjectileList.FindAll(x => x.IsApplyDamageAtThisFrame);
 
-        if(aiProjectileDamageList.Count == 0)
+        if(_aiProjectileDamageList.Count == 0)
         {
             return;
         }
 
-        rv_aiProjectileDamageTargetIndex = new NativeArray<int>(aiProjectileDamageList.Count * playerActiveUnitList.Count, Allocator.TempJob);
-        rv_aiProjectileDamageTargetCountPre = new NativeArray<int>(aiProjectileDamageList.Count, Allocator.TempJob);
+        rv_aiProjectileDamageTargetIndex = new NativeArray<int>(_aiProjectileDamageList.Count * playerActiveUnitList.Count, Allocator.TempJob);
+        rv_aiProjectileDamageTargetCountPre = new NativeArray<int>(_aiProjectileDamageList.Count, Allocator.TempJob);
         JobHandle jobHandle;
 
         //找到所有子弹的伤害目标，可能是单个或者多个。 
@@ -1086,7 +1094,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
             rv_findedTargetIndex = rv_aiProjectileDamageTargetIndex,
 
         };
-        jobHandle = findBulletDamageTargetJob.ScheduleBatch(aiProjectileDamageList.Count, 2);
+        jobHandle = findBulletDamageTargetJob.ScheduleBatch(_aiProjectileDamageList.Count, 2);
         jobHandle.Complete();
 
 
@@ -1094,7 +1102,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         IDamageble damageble;
 
         //Loop所有会产生伤害的子弹List，
-        for (int i = 0; i < aiProjectileDamageList.Count; i++)
+        for (int i = 0; i < _aiProjectileDamageList.Count; i++)
         {
             //设置对应子弹的prepareDamageTargetList，用来在后面实际Apply Damage做准备
             for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
@@ -1105,16 +1113,16 @@ public class AIManager : Singleton<AIManager>, IPauseable
                     continue;
                 }
                 damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
-                if (damageble != null && aiProjectileDamageList[i] != null)
+                if (damageble != null && _aiProjectileDamageList[i] != null)
                 {
-                    if (!aiProjectileDamageList[i].prepareDamageTargetList.Contains(damageble))
+                    if (!_aiProjectileDamageList[i].prepareDamageTargetList.Contains(damageble))
                     {
-                        aiProjectileDamageList[i].prepareDamageTargetList.Add(damageble);
+                        _aiProjectileDamageList[i].prepareDamageTargetList.Add(damageble);
                     }
                 }
             }
             //Apply Damage to every damage target
-            aiProjectileDamageList[i].ApplyDamageAllTarget();
+            _aiProjectileDamageList[i].ApplyDamageAllTarget();
         }
 
         //damageProjectile_JobInfo.Dispose();
@@ -1144,13 +1152,74 @@ public class AIManager : Singleton<AIManager>, IPauseable
         }
 
         //最后一步 执行子弹死亡
+        _aiProjectileDeathList.Clear();
         int deathindex = 0;
         for (int i = 0; i < _aiProjectileDeathIndex.Count; i++)
         {
             deathindex = _aiProjectileDeathIndex[i];
-            aiProjectileList[deathindex].Death(null);
+            _aiProjectileDeathList.Add(aiProjectileList[deathindex]);
+            //aiProjectileList[deathindex].Death(null);
+        }
+        for (int i = 0; i < _aiProjectileDeathList.Count; i++)
+        {
+            _aiProjectileDeathList[i].Death(null);
+        }
+    }
+
+    public List<Unit> GetRandomAIUnitList( int count)
+    {
+        List<Unit> randomlist = new List<Unit>() ;
+        System.Random rnd = new System.Random();
+        int randIndex;
+        for (int i = 0; i < count; i++)
+        {
+            randIndex = rnd.Next(aiActiveUnitList.Count);
+            if (!randomlist.Contains(aiActiveUnitList[randIndex]))
+            {
+                randomlist.Add(aiActiveUnitList[randIndex]);
+            }
+            else
+            {
+                i--;
+            }
 
         }
+        return randomlist;
+    }
+
+    public Unit GetAIUnitWithCondition(FindCondition condition)
+    {
+        Unit unit;
+        if( condition == FindCondition.MaximumHP)
+        {
+            unit = aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP).Last();
+            return unit;
+        }
+        if(condition == FindCondition.MinimumHP)
+        {
+            unit = aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP).First();
+            return unit;
+        }
+
+        return null;
+    }
+
+    public Unit GetAIUnitWithCondition(FindCondition condition, Vector3 referencePos)
+    {
+        Unit unit;
+
+        if(condition == FindCondition.ClosestDistance)
+        {
+            unit = aiActiveUnitList.OrderBy(u => math.distance(u.transform.position, referencePos)).First();
+            return unit;
+        }
+        if(condition == FindCondition.LongestDistance)
+        {
+            unit = aiActiveUnitList.OrderBy(u => math.distance(u.transform.position, referencePos)).Last();
+            return unit;
+        }
+
+        return null;
     }
 
     public void PauseGame()

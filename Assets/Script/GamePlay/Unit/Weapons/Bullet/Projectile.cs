@@ -283,7 +283,7 @@ public class Projectile : Bullet, IDamageble
                     bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_lifeTimeRemain - job_deltatime;
 
 
-                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0 || math.distance(deltaMovement, job_jobInfo[i].initialTargetPos) <= 0.05f)
+                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0 || math.distance(deltaMovement, job_jobInfo[i].initialTargetPos) <= 0.1f)
                     {
                         bulletJobUpdateInfo.lifeTimeRemain = 0;
                         bulletJobUpdateInfo.islifeended = true;
@@ -388,7 +388,6 @@ public class Projectile : Bullet, IDamageble
             }
             return;
         }
-
     }
 
     public override void Death(UnitDeathInfo info)

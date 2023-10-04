@@ -412,14 +412,12 @@ public class Weapon : Unit
     public WeaponTargetMode targetmode = WeaponTargetMode.Single;
 
     public LayerMask mask = 1 << 7;
-
-
-
     public Transform[] firePoint;
     public float scatter = 0f;
-
     public float roatateSpeed = 180f;
 
+
+    [HideInInspector]
     public WeaponAttribute weaponAttribute;
 
     [Sirenix.OdinInspector.ReadOnly]
@@ -481,7 +479,6 @@ public class Weapon : Unit
 
         _firepointindex = 0;
         _targetindex = 0;
-
     }
 
     public override void InitializationEditorUnit(PlayerEditShip ship, BaseUnitConfig m_unitconfig)
@@ -490,6 +487,8 @@ public class Weapon : Unit
         base.InitializationEditorUnit(ship, m_unitconfig);
         InitWeaponAttribute(true);
     }
+
+
 
     public override void Start()
     {
