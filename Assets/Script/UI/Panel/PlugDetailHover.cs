@@ -14,7 +14,7 @@ public class PlugDetailHover : DetailHoverItemBase
         base.Initialization(param);
     }
 
-    protected override void SetUp(int id)
+    protected override void SetUp(int id, bool updatePosition = true)
     {
         var plugCfg = DataManager.Instance.GetShipPlugItemConfig(id);
         if (plugCfg == null)
@@ -47,7 +47,7 @@ public class PlugDetailHover : DetailHoverItemBase
         }
 
         SetUpProperty(plugCfg);
-        base.SetUp(id);
+        base.SetUp(id, updatePosition);
     }
 
 

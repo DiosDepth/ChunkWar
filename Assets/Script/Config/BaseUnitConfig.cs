@@ -50,16 +50,29 @@ public class BaseUnitConfig : BaseConfig
     [LabelWidth(80)]
     public string ProertyDescText;
 
+    [FoldoutGroup("建造配置")]
     [LabelText("建造笔刷图片")]
     [LabelWidth(80)]
-    [HorizontalGroup("C", 150)]
     [PreviewField(60, Alignment = ObjectFieldAlignment.Left)]
     public Sprite EditBrushSprite;
 
     [LabelText("建造默认旋转")]
     [LabelWidth(70)]
-    [HorizontalGroup("C", 130)]
+    [FoldoutGroup("建造配置")]
+    [HorizontalGroup("建造配置/A", 200)]
     public int EditorBrushDefaultRotation;
+
+    [LabelText("偏移X")]
+    [LabelWidth(70)]
+    [FoldoutGroup("建造配置")]
+    [HorizontalGroup("建造配置/A", 200)]
+    public float CorsorOffsetX = 0;
+
+    [LabelText("偏移Y")]
+    [LabelWidth(70)]
+    [FoldoutGroup("建造配置")]
+    [HorizontalGroup("建造配置/A", 200)]
+    public float CorsorOffsetY = 0;
 
     [LabelText("Tag")]
     [HorizontalGroup("D")]

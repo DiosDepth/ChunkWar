@@ -33,7 +33,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     {
         base.Awake();
         _shopContentRoot = transform.Find("ShopPanel/Content");
-        _hoverCmpt = transform.Find("BuildSelectHover").SafeGetComponent<BuildSelectHoverCmpt>();
         _currencyContent = transform.Find("ShopPanel/Top/ResCount").SafeGetComponent<RectTransform>();
         _currencyText = _currencyContent.Find("CurrencyText").SafeGetComponent<TextMeshProUGUI>();
         _rerollCostText = transform.Find("ShopPanel/Top/Reroll/Reroll/RerollCost").SafeGetComponent<TextMeshProUGUI>();
@@ -55,7 +54,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         GetGUIComponent<Button>("Launch").onClick.AddListener(OnLaunchBtnPressed);
         GetGUIComponent<Button>("Reroll").onClick.AddListener(OnRerollBtnClick);
         GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
-        _hoverCmpt.SetActive(false);
         InitShopContent();
         RefreshGeneral();
     }
@@ -64,6 +62,8 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     {
         _plugGridController.Clear();
         ClearAllShopSlotItems();
+        _hoverCmpt?.PoolableDestroy();
+
         this.EventStopListening<RogueEvent>();
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
@@ -254,14 +254,21 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     private void OnHoverUnitDisplay(Unit unit)
     {
         var pos = UIManager.GetUIposBWorldPosition(unit.transform.position);
-        _hoverCmpt.SetUp(pos, unit._baseUnitConfig.GetMapSize(), unit);
+        var offset = new Vector2(unit._baseUnitConfig.CorsorOffsetX, unit._baseUnitConfig.CorsorOffsetY);
+        UIManager.Instance.CreatePoolerUI<BuildSelectHoverCmpt>("BuildSelectHover", true, E_UI_Layer.Top, null, (panel) =>
+        {
+            panel.SetUp(pos, unit._baseUnitConfig.GetMapSize(), offset, unit.UnitID);
+            _hoverCmpt = panel;
+        });
         unit.OutLineHighlight(true);
-        _hoverCmpt.SetActive(true);
     }
 
     private void OnHideHoverUnitDisplay(Unit unit)
     {
-        _hoverCmpt.SetActive(false);
+        if(_hoverCmpt != null)
+        {
+            _hoverCmpt.PoolableDestroy();
+        }
         if(unit != null)
         {
             unit.OutLineHighlight(false);
