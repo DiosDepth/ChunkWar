@@ -15,6 +15,7 @@ public enum ItemTag
 }
 
 [System.Serializable]
+[HideReferenceObjectPicker]
 public class UnitPropertyModifyFrom
 {
     [HorizontalGroup("CC", 300)]

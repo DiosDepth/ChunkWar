@@ -115,6 +115,8 @@ public class ChainBeamemit : Bullet
                 if (_owner is Weapon)
                 {
                     var damage = (_owner as Weapon).weaponAttribute.GetDamage();
+                    damage.HitPoint = hit.point;
+                    damage.attackerUnit = _owner;
                     hit.collider.GetComponent<IDamageble>()?.TakeDamage(damage);
                 }
                 _isChained = true;

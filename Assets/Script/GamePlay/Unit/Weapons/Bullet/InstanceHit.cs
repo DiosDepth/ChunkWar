@@ -135,6 +135,8 @@ public class InstanceHit : Bullet
                             var damage = (_owner as Weapon).weaponAttribute.GetDamage();
                             ///TODO Value
                             damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
+                            damage.attackerUnit = _owner;
+                            damage.HitPoint = hitlist[i].point;
                             hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(damage);
                         }
 

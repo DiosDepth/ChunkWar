@@ -540,16 +540,50 @@ public static class GameHelper
     }
 
     /// <summary>
+    /// º∆À„…À∫¶£¨∫¨–ﬁ’˝
+    /// </summary>
+    /// <param name="baseDamage"></param>
+    /// <param name="modify"></param>
+    /// <returns></returns>
+    public static int CalculatePlayerDamageWithModify(int baseDamage, List<UnitPropertyModifyFrom> modify, out bool critical)
+    {
+        var cirticalRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Critical);
+        critical = Utility.RandomResult(0, cirticalRatio);
+
+        float damage = baseDamage;
+        for (int i = 0; i < modify.Count; i++)
+        {
+            var item = modify[i];
+            var value = RogueManager.Instance.MainPropertyData.GetPropertyFinal(item.PropertyKey);
+            damage += value * item.Ratio;
+        }
+
+        var damagePercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamagePercent);
+        damage = damage * (1 + damagePercent / 100f);
+        damage = Mathf.Clamp(damage, 0, damage);
+        return Mathf.RoundToInt(damage);
+    }
+
+    /// <summary>
     /// ÕÊº“ ‹µΩ…À∫¶
     /// </summary>
     /// <param name="info"></param>
-    public static void ResolvePlayerUnitDamage(ref DamageResultInfo info)
+    public static void ResolvePlayerUnitDamage(DamageResultInfo info)
     {
-        var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
-        var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
-        armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
-        float DamageTake = 1 / (float)(1 + armor / armorParam);
-        info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
+        ///º∆À„…¡±‹
+        var parry = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipParry);
+        parry = Mathf.Clamp(parry, 0, 100);
+        bool isParry = Utility.RandomResult(0, parry);
+        info.IsHit = !isParry;
+
+        if (!isParry)
+        {
+            var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
+            var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
+            armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
+            float DamageTake = 1 / (float)(1 + armor / armorParam);
+            info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
+        }
     }
 
     /// <summary>
@@ -672,7 +706,15 @@ public static class GameHelper
         }
         else if (type == UI_WeaponUnitPropertyType.DamageRatio)
         {
-            return string.Format("{0:F2} ~ {1:F2}", cfg.DamageRatioMin, cfg.DamageRatioMax);
+            var ratioModifyMin = propertyData.GetPropertyFinal(PropertyModifyKey.DamageRangeMin);
+            var ratioModifyMax = propertyData.GetPropertyFinal(PropertyModifyKey.DamageRangeMax);
+
+            float ratioMin = ratioModifyMin / 100f + cfg.DamageRatioMin;
+            ratioMin = Mathf.Max(0, ratioMin);
+
+            float ratioMax = ratioModifyMax / 100f + cfg.DamageRatioMax;
+
+            return string.Format("{0:F2} ~ {1:F2}", ratioMin, ratioMax);
         }
         else if (type == UI_WeaponUnitPropertyType.Damage)
         {

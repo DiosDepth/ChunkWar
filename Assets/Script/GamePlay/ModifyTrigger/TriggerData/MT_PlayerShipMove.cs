@@ -49,3 +49,33 @@ public class MT_PlayerShipMove : ModifyTriggerData
         }
     }
 }
+
+public class MT_PlayerShipParry : ModifyTriggerData
+{
+    private MTC_OnPlayerShipParry _parryCfg;
+
+    public MT_PlayerShipParry(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _parryCfg = cfg as MTC_OnPlayerShipParry;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        LevelManager.Instance.OnPlayerShipParry += OnPlayerShipParry;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        LevelManager.Instance.OnPlayerShipParry -= OnPlayerShipParry;
+    }
+
+    private void OnPlayerShipParry(Unit unit)
+    {
+        if (unit == null)
+            return;
+
+        Trigger(unit.UID);
+    }
+}

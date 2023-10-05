@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitInfo
-{
-    public bool isPlayerAttack;
-    public WeaponDamageType DamageType;
-    public bool isCritical;
-
-}
-
 public class MT_OnWeaponHitTarget : ModifyTriggerData
 {
     private MTC_OnWeaponHitTarget _hitCfg;
+
+    public DamageResultInfo DamageInfo;
 
     public MT_OnWeaponHitTarget(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
     {
@@ -31,17 +25,18 @@ public class MT_OnWeaponHitTarget : ModifyTriggerData
         LevelManager.Instance.OnUnitHit -= OnWeaponHit;
     }
 
-    private void OnWeaponHit(HitInfo info, DamageResultInfo damageInfo)
+    private void OnWeaponHit(DamageResultInfo damageInfo)
     {
-        if (!info.isPlayerAttack)
+        DamageInfo = damageInfo;
+        if (!damageInfo.IsPlayerAttack)
             return;
 
-        if ((_hitCfg.DamageTypeBool == BoolType.True && info.DamageType != _hitCfg.DamageType) ||
-            (_hitCfg.DamageTypeBool == BoolType.False && info.DamageType == _hitCfg.DamageType))
+        if ((_hitCfg.DamageTypeBool == BoolType.True && damageInfo.DamageType != _hitCfg.DamageType) ||
+            (_hitCfg.DamageTypeBool == BoolType.False && damageInfo.DamageType == _hitCfg.DamageType))
             return;
 
-        if ((_hitCfg.CriticalBool == BoolType.True && !info.isCritical) ||
-            (_hitCfg.CriticalBool == BoolType.False && info.isCritical))
+        if ((_hitCfg.CriticalBool == BoolType.True && !damageInfo.IsCritical) ||
+            (_hitCfg.CriticalBool == BoolType.False && damageInfo.IsCritical))
             return;
 
         if(Trigger())

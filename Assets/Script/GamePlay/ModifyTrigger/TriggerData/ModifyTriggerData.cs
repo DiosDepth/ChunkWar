@@ -146,6 +146,48 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
     }
 
+    public void CreateExplode(MTEC_CreateExplode config, uint parentUnitUID)
+    {
+        ///Calculate Damage
+        bool isCritial = false;
+        var damage = GameHelper.CalculatePlayerDamageWithModify(config.ExplodeDamageBase, config.DamageModifyFrom, out isCritial);
+
+        if (config.PointTarget == PointTargetType.HitPoint)
+        {
+            var data = this as MT_OnWeaponHitTarget;
+            if (data == null || data.DamageInfo == null)
+                return;
+
+            var hitPoint = data.DamageInfo.HitPoint;
+            ///TODO
+        }
+    }
+
+    public void CreateDamage(MTEC_CreateDamage config, uint parentUnitID)
+    {
+        ///Damage
+        bool isCritial = false;
+        var damage = GameHelper.CalculatePlayerDamageWithModify(config.Damage, config.DamageModifyFrom, out isCritial);
+        
+        if (config.TargetType == EffectDamageTargetType.Target)
+        {
+            var targetUnit = AIManager.Instance.GetUnitByUID(parentUnitID);
+            if (targetUnit == null)
+                return;
+
+            DamageResultInfo info = new DamageResultInfo()
+            {
+                attackerUnit = null,
+                Damage = damage,
+                IsCritical = isCritial,
+                DamageType = WeaponDamageType.NONE,
+                IsPlayerAttack = true
+            };
+
+            (targetUnit as IDamageble).TakeDamage(info);
+        }
+    }
+
     #endregion
 
     protected virtual bool Trigger(uint parentUnitID = 0)
