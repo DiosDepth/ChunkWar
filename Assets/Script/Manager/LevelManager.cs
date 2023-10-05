@@ -96,8 +96,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<BaseShip, UnitDeathInfo> Action_OnShipDie;
     /* 玩家飞船运动 */
     public UnityAction<bool> OnPlayerShipMove;
-    /* 玩家血量变化 */
-    public UnityAction<float> OnCoreHPPercentChange;
+    /* 玩家血量变化  百分比  血量 */
+    public UnityAction<float, int, int> OnCoreHPPercentChange;
     /* 护盾回复开始 */
     public UnityAction<uint> OnShieldRecoverStart;
     /* 护盾回复结束 */
@@ -114,6 +114,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<uint, int> OnPlayerWeaponFire;
     /* 玩家闪避 */
     public UnityAction<Unit> OnPlayerShipParry;
+    /* 玩家核心受到伤害 */
+    public UnityAction<DamageResultInfo> OnPlayerCoreUnitTakeDamage;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -396,9 +398,14 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         }
     }
 
-    public void OnPlayerShipCoreHPPercentChange(float percent)
+    public void OnPlayerShipCoreHPPercentChange(float percent, int oldValue, int newValue)
     {
-        OnCoreHPPercentChange?.Invoke(percent);
+        OnCoreHPPercentChange?.Invoke(percent, oldValue, newValue);
+    }
+
+    public void PlayerCoreUnitTakeDamage(DamageResultInfo damage)
+    {
+        OnPlayerCoreUnitTakeDamage?.Invoke(damage);
     }
 
     #region Battle Misc

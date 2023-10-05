@@ -39,7 +39,8 @@ public class WeaponRuntimeItemCmpt : MonoBehaviour, IPoolable
         nameCmpt.color = GameHelper.GetRarityColor(generalCfg.Rarity);
         InitMagazine();
 
-        weapon.HpComponent.BindHPChangeAction(UpdateWeaponHP, true);
+        var hp = weapon.HpComponent.GetCurrentHP;
+        weapon.HpComponent.BindHPChangeAction(UpdateWeaponHP, true, hp, hp);
         weapon.OnReloadCDUpdate += UpdateWeaponCD;
         weapon.OnMagazineChange += OnUpdateArmor;
 
@@ -93,7 +94,7 @@ public class WeaponRuntimeItemCmpt : MonoBehaviour, IPoolable
         }
     }
 
-    private void UpdateWeaponHP()
+    private void UpdateWeaponHP(int oldValue, int newValue)
     {
         var hpRatio = _targetWeapon.HpComponent.HPPercent;
         _hpImage.fillAmount = hpRatio / 100f;

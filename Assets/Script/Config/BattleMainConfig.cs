@@ -60,6 +60,7 @@ public enum ModifyTriggerType
     OnPlayerWeaponFire,
     OnPlayerShipParry,
     OnShieldBroken,
+    OnPlayerCoreUnitTakeDamage,
 }
 
 public enum ModifyTriggerEffectType

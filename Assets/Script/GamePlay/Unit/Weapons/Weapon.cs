@@ -1292,14 +1292,14 @@ public class Weapon : Unit
     /// </summary>
     public void InitCoreData()
     {
-        HpComponent.BindHPChangeAction(OnPlayerCoreHPChange, false);
+        HpComponent.BindHPChangeAction(OnPlayerCoreHPChange, false, 0, 0);
     }
 
-    private void OnPlayerCoreHPChange()
+    private void OnPlayerCoreHPChange(int oldValue, int newValue)
     {
         ShipPropertyEvent.Trigger(ShipPropertyEventType.CoreHPChange);
         var percent = HpComponent.HPPercent;
-        LevelManager.Instance.OnPlayerShipCoreHPPercentChange(percent);
+        LevelManager.Instance.OnPlayerShipCoreHPPercentChange(percent, oldValue, newValue);
     }
 
     public override void PauseGame()

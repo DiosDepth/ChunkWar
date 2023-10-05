@@ -21,8 +21,11 @@ public abstract class TimerModiferData
 
     private bool useDuration;
 
-    public TimerModiferData(float totalTime, bool useDuration, uint uid)
+    protected ModifyTriggerData _parentTrigger;
+
+    public TimerModiferData(ModifyTriggerData parent, float totalTime, bool useDuration, uint uid)
     {
+        this._parentTrigger = parent;
         this.TotalTime = totalTime;
         this.UID = uid;
         this.useDuration = useDuration;
@@ -31,12 +34,18 @@ public abstract class TimerModiferData
 
     public virtual void OnAdded()
     {
-
+        if (_parentTrigger.Config.SelfUnique)
+        {
+            _parentTrigger._uniqueEffecting = true;
+        }
     }
 
     public virtual void OnRemove()
     {
-
+        if (_parentTrigger.Config.SelfUnique)
+        {
+            _parentTrigger._uniqueEffecting = false;
+        }
     }
 
     public void OnUpdate()
@@ -59,7 +68,7 @@ public class TimerModiferData_Global : TimerModiferData
 {
     private MTEC_AddGlobalTimerModifier _cfg;
 
-    public TimerModiferData_Global(MTEC_AddGlobalTimerModifier cfg, uint uid) : base(cfg.DurationTime, cfg.UseDuration, uid)
+    public TimerModiferData_Global(ModifyTriggerData parent, MTEC_AddGlobalTimerModifier cfg, uint uid) : base(parent, cfg.DurationTime, cfg.UseDuration, uid)
     {
         this._cfg = cfg;
     }
@@ -79,6 +88,7 @@ public class TimerModiferData_Global : TimerModiferData
     public override void OnRemove()
     {
         base.OnRemove();
+
         if (_cfg.ModifyMap != null)
         {
             foreach (var item in _cfg.ModifyMap)
@@ -95,7 +105,7 @@ public class TimerModiferData_Unit : TimerModiferData
 
     public uint TargetUnitUID;
 
-    public TimerModiferData_Unit(MTEC_AddUnitTimerModifier cfg, uint uid, uint targetUnitID) : base(cfg.DurationTime, cfg.UseDuration, uid)
+    public TimerModiferData_Unit(ModifyTriggerData parent, MTEC_AddUnitTimerModifier cfg, uint uid, uint targetUnitID) : base(parent, cfg.DurationTime, cfg.UseDuration, uid)
     {
         this._cfg = cfg;
         this.TargetUnitUID = targetUnitID;

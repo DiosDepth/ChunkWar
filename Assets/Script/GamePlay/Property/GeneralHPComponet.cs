@@ -71,16 +71,21 @@ public class GeneralHPComponet
         OnHpChangeAction?.Invoke(_currentHP.Value, MaxHP, HPPercent);
     }
 
-    public void BindHPChangeAction(Action callback, bool trigger)
+    public void BindHPChangeAction(Action<int, int> callback, bool trigger, int oldValue, int newValue)
     {
         _currentHP.BindChangeAction(callback);
         if (trigger)
         {
-            callback?.Invoke();
+            callback?.Invoke(oldValue, newValue);
         }
     }
 
     public void UnBindHPChangeAction(Action callback)
+    {
+        _currentHP.UnBindChangeAction(callback);
+    }
+
+    public void UnBindHPChangeAction(Action<int , int> callback)
     {
         _currentHP.UnBindChangeAction(callback);
     }

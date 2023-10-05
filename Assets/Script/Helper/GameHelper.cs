@@ -618,6 +618,18 @@ public static class GameHelper
         return Mathf.RoundToInt(wasteCount * sellPercent);
     }
    
+    /// <summary>
+    /// 获取爆炸范围
+    /// </summary>
+    /// <param name="range"></param>
+    /// <returns></returns>
+    public static float CalculateExplodeRange(int range)
+    {
+        var rangeRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Explode_Range);
+        var newRange = range * (1 + rangeRatio / 100f);
+        newRange = Mathf.Max(0, newRange);
+        return newRange / 10f;
+    }
 
     /// <summary>
     /// 计算实际CD

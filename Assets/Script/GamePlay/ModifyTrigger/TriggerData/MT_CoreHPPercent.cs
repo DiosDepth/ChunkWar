@@ -24,7 +24,7 @@ public class MT_CoreHPPercent : ModifyTriggerData
         LevelManager.Instance.OnCoreHPPercentChange -= OnCoreHPChange;
     }
 
-    private void OnCoreHPChange(float percent)
+    private void OnCoreHPChange(float percent, int oldValue, int newValue)
     {
         bool vaild = MathExtensionTools.CalculateCompareType(_coreConfig.HPPercent, percent * 100, _coreConfig.Compare);
         if(vaild && !_istriggering)

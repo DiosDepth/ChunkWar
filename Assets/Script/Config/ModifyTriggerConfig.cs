@@ -25,6 +25,11 @@ public abstract class ModifyTriggerConfig
     public int TriggerCount;
 
     [HorizontalGroup("AA", 120)]
+    [LabelText("效果唯一")]
+    [LabelWidth(80)]
+    public bool SelfUnique;
+
+    [HorizontalGroup("AA", 120)]
     [LabelText("概率触发")]
     [LabelWidth(80)]
     public bool UsePercent;
@@ -120,10 +125,16 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnShieldBroken(type));
             }
+            else if(type == ModifyTriggerType.OnPlayerCoreUnitTakeDamage)
+            {
+                result.Add(type.ToString(), new MTC_OnPlayerCoreUnitTakeDamage(type));
+            }
         }
 
         return result;
     }
+
+    public abstract ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid);
 
     private static ValueDropdownList<ModifyTriggerEffectConfig> GetEffectList()
     {
@@ -136,6 +147,11 @@ public class MTC_OnAdd : ModifyTriggerConfig
     public MTC_OnAdd(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnAdd(this, uid);
     }
 }
 
@@ -160,6 +176,11 @@ public class MTC_OnKillEnemy : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_ShipDie(this, uid);
+    }
 }
 
 public class MTC_WaveState : ModifyTriggerConfig
@@ -172,6 +193,11 @@ public class MTC_WaveState : ModifyTriggerConfig
     public MTC_WaveState(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_WaveState(this, uid);
     }
 }
 
@@ -215,6 +241,11 @@ public class MTC_Timer : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_Timer(this, uid);
+    }
 }
 
 public class MTC_PropertyTransfer : ModifyTriggerConfig
@@ -242,6 +273,11 @@ public class MTC_PropertyTransfer : ModifyTriggerConfig
     public MTC_PropertyTransfer(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_PropertyTransfer(this, uid);
     }
 }
 
@@ -277,6 +313,11 @@ public class MTC_ItemTransfer : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_ItemTransfer(this, uid);
+    }
 }
 
 public class MTC_OnPlayerShipMove : ModifyTriggerConfig
@@ -289,6 +330,11 @@ public class MTC_OnPlayerShipMove : ModifyTriggerConfig
     public MTC_OnPlayerShipMove(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_PlayerShipMove(this, uid);
     }
 }
 
@@ -304,6 +350,7 @@ public class MTC_ByItemRarityCount : ModifyTriggerConfig
         All
     }
 
+
     [HorizontalGroup("AB", 200)]
     [LabelText("类型")]
     [LabelWidth(50)]
@@ -314,6 +361,11 @@ public class MTC_ByItemRarityCount : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_ItemRarityCount(this, uid);
+    }
 }
 
 public class MTC_OnRefreshShop : ModifyTriggerConfig
@@ -321,6 +373,11 @@ public class MTC_OnRefreshShop : ModifyTriggerConfig
     public MTC_OnRefreshShop(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnShopRefresh(this, uid);
     }
 }
 
@@ -330,13 +387,20 @@ public class MTC_OnEnterHarbor : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnEnterHarbor(this, uid);
+    }
 }
 
 public class MTC_CoreHPPercent : ModifyTriggerConfig
 {
+
     [HorizontalGroup("AB", 200)]
     [LabelText("比例")]
     [LabelWidth(50)]
+    [ShowIf("IsPercent")]
     public byte HPPercent;
 
     [HorizontalGroup("AB", 200)]
@@ -348,6 +412,11 @@ public class MTC_CoreHPPercent : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_CoreHPPercent(this, uid);
+    }
 }
 
 public class MTC_OnShieldRecover : ModifyTriggerConfig
@@ -356,6 +425,11 @@ public class MTC_OnShieldRecover : ModifyTriggerConfig
     public MTC_OnShieldRecover(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnShieldRecover(this, uid);
     }
 }
 
@@ -391,6 +465,11 @@ public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnWeaponHitTarget(this, uid);
+    }
 }
 
 public class MTC_OnWeaponReload : ModifyTriggerConfig
@@ -398,6 +477,11 @@ public class MTC_OnWeaponReload : ModifyTriggerConfig
     public MTC_OnWeaponReload(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnWeaponReload(this, uid);
     }
 }
 
@@ -418,6 +502,11 @@ public class MTC_OnWeaponFire : ModifyTriggerConfig
     {
 
     }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnWeaponFire(this, uid);
+    }
 }
 
 public class MTC_OnPlayerShipParry : ModifyTriggerConfig
@@ -425,6 +514,11 @@ public class MTC_OnPlayerShipParry : ModifyTriggerConfig
     public MTC_OnPlayerShipParry(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_PlayerShipParry(this, uid);
     }
 }
 
@@ -435,5 +529,44 @@ public class MTC_OnShieldBroken : ModifyTriggerConfig
     public MTC_OnShieldBroken(ModifyTriggerType type) : base(type)
     {
 
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnShieldBroken(this, uid);
+    }
+}
+
+public class MTC_OnPlayerCoreUnitTakeDamage : ModifyTriggerConfig
+{
+    [HorizontalGroup("AD", 120)]
+    [LabelText("值")]
+    [LabelWidth(50)]
+    public int Value;
+
+    [HorizontalGroup("AD", 250)]
+    [LabelText("比较")]
+    [LabelWidth(50)]
+    public CompareType Compare;
+
+    [HorizontalGroup("AD", 150)]
+    [LabelText("修正最终伤害")]
+    [LabelWidth(80)]
+    public bool ModifyFinalDamage = false;
+
+    [HorizontalGroup("AD", 120)]
+    [LabelText("伤害增加%")]
+    [LabelWidth(50)]
+    [ShowIf("ModifyFinalDamage")]
+    public float DamageAddPercent;
+
+    public MTC_OnPlayerCoreUnitTakeDamage(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_PlayerCoreUnitTakeDamage(this, uid);
     }
 }

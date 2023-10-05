@@ -17,3 +17,14 @@ ShipPlug_Effect_1054	护盾被击破时，对场上所有敌人装备造成#0的
 ShipPlug_Effect_1055	护盾不会受到小于<color=#09B3CB>10</color>以内的伤害
 ShipPlug_Effect_1060	实弹命中时，有<color=#09B3CB>3%</color>概率发生爆炸，造成30（50%爆炸）爆炸伤害
 ShipPlug_Effect_1071	停止移动时装甲<color=#09B3CB>+10</color>，移动时装甲<color=#EF3E3E>-2</color>， 船体值<color=#09B3CB>+150</color>
+ShipPlug_Effect_1072 	核心受到单次大于<color=#09B3CB>300</color>的结构伤害时，此次伤害降低<color=#09B3CB>30%</color>，并且在<color=#09B3CB>5</color>秒内装甲<color=#09B3CB>+8</color>（加成唯一）
+
+ShipPlug_Effect_1079 	暴击击杀敌人时，有<color=#09B3CB>30%</color>概率额外获得<color=#09B3CB>1</color>点舰船残骸
+ShipPlug_Effect_1080	场上每有一个敌人，能源消耗<color=#EF3E3E>+1</color>
+ShipPlug_Effect_1081	每<color=#09B3CB>15</color>秒进入持续<color=#09B3CB>5</color>秒的超载模式，期间暴击率<color=#09B3CB>+40%</color>，暴击伤害<color=#09B3CB>+25%</color>，武器能源消耗<color=#EF3E3E>+50%</color>
+
+ShipPlug_Effect_1089	能耗低于<color=#09B3CB>100%</color>的部分，每<color=#09B3CB>1%</color>提升<color=#09B3CB>1%</color>伤害
+ShipPlug_Effect_1093	波次结束后获得经验<color=#09B3CB>+10%</color>
+ShipPlug_Effect_1101	实弹命中后，有<color=#09B3CB>5%</color>概率使本次伤害提高<color=#09B3CB>100%</color>
+ShipPlug_Effect_1109	能量武器命中时，有<color=#09B3CB>15%</color>概率产生爆炸，造成<color=#09B3CB>#0</color>的伤害
+ShipPlug_Effect_1114	闪避时，对攻击的敌人造成<color=#09B3CB>#0</color>点伤害

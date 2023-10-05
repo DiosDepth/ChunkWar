@@ -16,6 +16,11 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     protected int currentTriggerCount;
 
+    /// <summary>
+    /// 加成正在生效
+    /// </summary>
+    public bool _uniqueEffecting = false;
+
     private List<TimerModiferData> _timerModifiers;
 
     public ModifyTriggerData(ModifyTriggerConfig cfg, uint uid)
@@ -23,54 +28,6 @@ public abstract class ModifyTriggerData : IPropertyModify
         this.Config = cfg;
         this.UID = uid;
         _timerModifiers = new List<TimerModiferData>();
-    }
-
-    /// <summary>
-    /// 创建Trigger
-    /// </summary>
-    /// <param name="cfg"></param>
-    /// <param name="uid"></param>
-    /// <returns></returns>
-    public static ModifyTriggerData CreateTrigger(ModifyTriggerConfig cfg, uint uid)
-    {
-        switch (cfg.TriggerType)
-        {
-            case ModifyTriggerType.OnKillEnemy:
-                return new MT_ShipDie(cfg, uid);
-            case ModifyTriggerType.PropertyTransfer:
-                return new MT_PropertyTransfer(cfg, uid);
-            case ModifyTriggerType.ItemTransfer:
-                return new MT_ItemTransfer(cfg, uid);
-            case ModifyTriggerType.OnWaveEnd:
-            case ModifyTriggerType.OnWaveStart:
-                return new MT_WaveState(cfg, uid);
-            case ModifyTriggerType.Timer:
-                return new MT_Timer(cfg, uid);
-            case ModifyTriggerType.OnAdd:
-                return new MT_OnAdd(cfg, uid);
-            case ModifyTriggerType.OnPlayerShipMove:
-                return new MT_PlayerShipMove(cfg, uid);
-            case ModifyTriggerType.OnRefreshShop:
-                return new MT_OnShopRefresh(cfg, uid);
-            case ModifyTriggerType.ItemRarityCount:
-                return new MT_ItemRarityCount(cfg, uid);
-            case ModifyTriggerType.OnEnterHarbor:
-                return new MT_OnEnterHarbor(cfg, uid);
-            case ModifyTriggerType.OnShieldRecover:
-                return new MT_OnShieldRecover(cfg, uid);
-            case ModifyTriggerType.OnWeaponHitTarget:
-                return new MT_OnWeaponHitTarget(cfg, uid);
-            case ModifyTriggerType.OnPlayerWeaponReload:
-                return new MT_OnWeaponReload(cfg, uid);
-            case ModifyTriggerType.OnPlayerWeaponFire:
-                return new MT_OnWeaponFire(cfg, uid);
-            case ModifyTriggerType.OnShieldBroken:
-                return new MT_OnShieldBroken(cfg, uid);
-
-        }
-
-        Debug.LogError("ModifyTriggerData Create Error ! Type = " + cfg.TriggerType);
-        return null;
     }
 
     public virtual void OnTriggerAdd()
@@ -99,21 +56,21 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     public virtual void Reset()
     {
-
+        _uniqueEffecting = false;
     }
 
     #region Function
 
     public void AddTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
     {
-        TimerModiferData_Global modifer = new TimerModiferData_Global(config, UID);
+        TimerModiferData_Global modifer = new TimerModiferData_Global(this, config, UID);
         modifer.OnAdded();
         _timerModifiers.Add(modifer);
     }
 
     public void AddTimerModifier_Unit(MTEC_AddUnitTimerModifier config, uint parentUnitUID)
     {
-        TimerModiferData_Unit modifier = new TimerModiferData_Unit(config, UID, parentUnitUID);
+        TimerModiferData_Unit modifier = new TimerModiferData_Unit(this, config, UID, parentUnitUID);
         modifier.OnAdded();
         _timerModifiers.Add(modifier);
     }
@@ -148,12 +105,17 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
     }
 
+    /// <summary>
+    /// 创建爆炸
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="parentUnitUID"></param>
     public void CreateExplode(MTEC_CreateExplode config, uint parentUnitUID)
     {
         ///Calculate Damage
         bool isCritial = false;
         var damage = GameHelper.CalculatePlayerDamageWithModify(config.ExplodeDamageBase, config.DamageModifyFrom, out isCritial);
-
+        var explodeRange = GameHelper.CalculateExplodeRange(config.ExplodeRange);
         if (config.PointTarget == PointTargetType.HitPoint)
         {
             var data = this as MT_OnWeaponHitTarget;
@@ -161,7 +123,27 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return;
 
             var hitPoint = data.DamageInfo.HitPoint;
-            ///TODO
+            var allaiPos = AIManager.Instance.aiActiveUnitPos;
+            var targetInfos = GameHelper.FindTargetsByPoint(hitPoint, explodeRange, allaiPos);
+            var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
+            
+            for(int i = 0; i < allUnits.Count; i++)
+            {
+                var unit = allUnits[i].reference;
+                if(unit != null)
+                {
+                    ///Create Damage
+                    DamageResultInfo info = new DamageResultInfo()
+                    {
+                        attackerUnit = null,
+                        Damage = damage,
+                        IsCritical = isCritial,
+                        DamageType = WeaponDamageType.NONE,
+                        IsPlayerAttack = true
+                    };
+                    (unit as IDamageble).TakeDamage(info);
+                }
+            }
         }
     }
 
@@ -223,6 +205,10 @@ public abstract class ModifyTriggerData : IPropertyModify
             ///Percent not vaild
             return false;
         }
+
+        ///加成唯一并且正在生效
+        if (Config.SelfUnique && _uniqueEffecting)
+            return false;
 
         currentTriggerCount++;
         var effects = Config.Effects;

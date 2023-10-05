@@ -105,7 +105,7 @@ public class ShipPlugInfo : IPropertyModify
         {
             for (int i = 0; i < triggers.Length; i++) 
             {
-                var triggerData = ModifyTriggerData.CreateTrigger(triggers[i], UID);
+                var triggerData = triggers[i].Create(triggers[i], UID);
                 if(triggerData != null)
                 {
                     var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
