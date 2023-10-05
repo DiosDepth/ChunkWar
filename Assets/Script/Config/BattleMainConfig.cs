@@ -59,6 +59,7 @@ public enum ModifyTriggerType
     OnPlayerWeaponReload,
     OnPlayerWeaponFire,
     OnPlayerShipParry,
+    OnShieldBroken,
 }
 
 public enum ModifyTriggerEffectType

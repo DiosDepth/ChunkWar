@@ -14,7 +14,6 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<int, BaseUnitConfig> UnitConfigDataDic = new Dictionary<int, BaseUnitConfig>();
     
     public Dictionary<string, LevelData> LevelDataDic = new Dictionary<string, LevelData>();
-    public Dictionary<string, BulletData> BulletDataDic = new Dictionary<string, BulletData>();
     public Dictionary<string, PickUpData> PickUpDataDic = new Dictionary<string, PickUpData>();
 
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
@@ -26,6 +25,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, LevelSpawnConfig> _levelPresetDic = new Dictionary<int, LevelSpawnConfig>();
     private Dictionary<int, CampConfig> _campConfigDic = new Dictionary<int, CampConfig>();
     private Dictionary<int, EnemyHardLevelData> _enemyHardLevelDatas = new Dictionary<int, EnemyHardLevelData>();
+    private Dictionary<string, BulletConfig> _bulletConfig = new Dictionary<string, BulletConfig>();
 
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
@@ -286,6 +286,14 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
+    public BulletConfig GetBulletConfigByType(AvaliableBulletType type)
+    {
+        BulletConfig result = null;
+        _bulletConfig.TryGetValue(type.ToString(), out result);
+        Debug.Assert(result != null, "GetBulletConfigByID Null! ID= " + type);
+        return result;
+    }
+
     public List<CampConfig> GetAllCampConfigs()
     {
         return _campConfigDic.Values.ToList();
@@ -339,9 +347,6 @@ public class DataManager : Singleton<DataManager>
             case "SoundData":
                 LoadingData<SoundDataInfo>(m_fileinfo, SoundDataDic);
                 break;
-            case "BulletData":
-                LoadingData<BulletData>(m_fileinfo, BulletDataDic);
-                break;
             case "PickUpData":
                 LoadingData<PickUpData>(m_fileinfo, PickUpDataDic);
                 break;
@@ -378,6 +383,7 @@ public class DataManager : Singleton<DataManager>
         var enemy = Resources.LoadAll<AIShipConfig>(DataConfigPath.EnemyShipConfigRoot);
         var achievement = Resources.LoadAll<AchievementItemConfig>(DataConfigPath.AchievementConfigRoot);
         var camps = Resources.LoadAll<CampConfig>(DataConfigPath.CampConfigRoot);
+        var allBullets = Resources.LoadAll<BulletConfig>(DataConfigPath.BulletConfigRoot);
 
         if (builds != null && builds.Length > 0)
         {
@@ -444,6 +450,19 @@ public class DataManager : Singleton<DataManager>
                     continue;
                 }
                 _campConfigDic.Add(camps[i].CampID, camps[i]);
+            }
+        }
+
+        if(allBullets != null && allBullets.Length > 0)
+        {
+            for (int i = 0; i < allBullets.Length; i++)
+            {
+                if (_bulletConfig.ContainsKey(allBullets[i].BulletName))
+                {
+                    Debug.LogError("Find Same Bullet !" + allBullets[i].ID);
+                    continue;
+                }
+                _bulletConfig.Add(allBullets[i].BulletName, allBullets[i]);
             }
         }
     }

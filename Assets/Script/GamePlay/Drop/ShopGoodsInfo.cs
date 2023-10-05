@@ -134,6 +134,19 @@ public class ShopGoodsInfo : RandomObject
         return sb.ToString();
     }
 
+    /// <summary>
+    /// ªÒ»°√Ë ˆ
+    /// </summary>
+    /// <returns></returns>
+    public string GetEffectDesc()
+    {
+        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(_cfg.TypeID);
+        if (plugCfg == null)
+            return string.Empty;
+
+        return plugCfg.GetEffectDesc();
+    }
+
     public void OnItemAddToShop()
     {
         _sold = false;

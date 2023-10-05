@@ -39,3 +39,37 @@ public class MT_OnShieldRecover : ModifyTriggerData
         }
     }
 }
+
+public class MT_OnShieldBroken : ModifyTriggerData
+{
+    private MTC_OnShieldBroken _shieldCfg;
+
+    public MT_OnShieldBroken(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _shieldCfg = cfg as MTC_OnShieldBroken;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        LevelManager.Instance.OnShieldBroken += OnShieldBroken;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        LevelManager.Instance.OnShieldBroken -= OnShieldBroken;
+    }
+
+    private void OnShieldBroken(uint targetUID)
+    {
+        var unit = AIManager.Instance.GetUnitByUID(targetUID);
+        if (unit == null)
+            return;
+
+        if (_shieldCfg.IsPlayer && unit._owner is PlayerShip)
+        {
+            Trigger(targetUID);
+        }
+    }
+}

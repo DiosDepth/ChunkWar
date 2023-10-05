@@ -13,7 +13,7 @@ ShipPlug_Effect_1045	进入港口时，每有一个装备残骸，永久增加<c
 ShipPlug_Effect_1046	核心结构值低于<color=#09B3CB>50%</color>时，结构再生<color=#09B3CB>+15</color>，装甲<color=#09B3CB>+2</color>
 
 
-ShipPlug_Effect_1054	护盾被击破时，对场上所有敌人装备造成30（50%能量）的伤害
+ShipPlug_Effect_1054	护盾被击破时，对场上所有敌人装备造成#0的伤害
 ShipPlug_Effect_1055	护盾不会受到小于<color=#09B3CB>10</color>以内的伤害
 ShipPlug_Effect_1060	实弹命中时，有<color=#09B3CB>3%</color>概率发生爆炸，造成30（50%爆炸）爆炸伤害
 ShipPlug_Effect_1071	停止移动时装甲<color=#09B3CB>+10</color>，移动时装甲<color=#EF3E3E>-2</color>， 船体值<color=#09B3CB>+150</color>

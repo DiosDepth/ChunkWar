@@ -11,6 +11,7 @@ public class DataConfigPath
     public const string EnemyShipConfigRoot = "Configs/EnemyShips";
     public const string AchievementConfigRoot = "Configs/Achievement";
     public const string CampConfigRoot = "Configs/Camps";
+    public const string BulletConfigRoot = "Configs/Bullets";
 
     public const string BattleMainConfigPath = "Configs/Main/BattleMainConfig";
     public const string GameMiscConfigPath = "Configs/Main/GameMiscConfig";

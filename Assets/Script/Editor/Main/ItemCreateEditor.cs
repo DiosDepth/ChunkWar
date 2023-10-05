@@ -9,7 +9,16 @@ using UnityEngine;
 public enum ItemCreateType
 {
     Achievement,
-    LevelPreset
+    LevelPreset,
+    Bullet
+}
+
+public enum BulletCreateType
+{
+    Beam,
+    ChainBeam,
+    InstanceHit,
+    Projectile
 }
 
 public class ItemCreateEditor : OdinEditorWindow
@@ -40,8 +49,10 @@ public class ItemCreateEditor : OdinEditorWindow
 
     [LabelText("ID")]
     [OnValueChanged("OnItemIDChange")]
-    [ReadOnly]
     public int CurrentCreateItemID = 0;
+
+    [ShowIf("CreateType", ItemCreateType.Bullet)]
+    public BulletCreateType BulletType;
 
     [OnInspectorInit]
     private void OnItemIDChange()
@@ -53,6 +64,10 @@ public class ItemCreateEditor : OdinEditorWindow
         else if (CreateType == ItemCreateType.LevelPreset)
         {
             _itemCreateError = CurrentCreateItemID <= 0 || LevelPresetDataOverview.Instance.IsLevelPresetIDExists(CurrentCreateItemID);
+        }
+        else if(CreateType == ItemCreateType.Bullet)
+        {
+            _itemCreateError = CurrentCreateItemID <= 0 || BulletDataOverview.Instance.IsBulletIDExists(CurrentCreateItemID);
         }
     }
     [HideInEditorMode]
@@ -73,6 +88,10 @@ public class ItemCreateEditor : OdinEditorWindow
         {
             CreateLevelPreset();
         }
+        else if(CreateType == ItemCreateType.Bullet)
+        {
+            CreateBullet();
+        }
         Close();
     }
 
@@ -89,6 +108,49 @@ public class ItemCreateEditor : OdinEditorWindow
         Debug.Log("创建成功");
     }
 
+    private void CreateBullet()
+    {
+        string fileName = string.Format("Bullet_{0}", CurrentCreateItemID);
+        if(BulletType == BulletCreateType.Beam)
+        {
+            SimEditorUtility.CreateAssets<BulletBeamConfig>("Assets/Resources/Configs/Bullets", fileName, obj =>
+            {
+                OnBulletCreate(obj);
+            });
+        }
+        else if(BulletType == BulletCreateType.ChainBeam)
+        {
+            SimEditorUtility.CreateAssets<BulletChainBeamConfig>("Assets/Resources/Configs/Bullets", fileName, obj =>
+            {
+                OnBulletCreate(obj);
+            });
+        }
+        else if (BulletType == BulletCreateType.InstanceHit)
+        {
+            SimEditorUtility.CreateAssets<BulletInstanceHitConfig>("Assets/Resources/Configs/Bullets", fileName, obj =>
+            {
+                OnBulletCreate(obj);
+            });
+        }
+        else if (BulletType == BulletCreateType.Projectile)
+        {
+            SimEditorUtility.CreateAssets<BulletProjectileConfig>("Assets/Resources/Configs/Bullets", fileName, obj =>
+            {
+                OnBulletCreate(obj);
+            });
+        }
+
+        Debug.Log("创建成功");
+    }
+
+    private void OnBulletCreate(BulletConfig cfg)
+    {
+        cfg.ID = CurrentCreateItemID;
+        BulletDataOverview.Instance.AddInfoToRefDic(CurrentCreateItemID, cfg);
+        var parentWin = GetWindow<BulletEditor>();
+        parentWin.TrySelectMenuItemWithObject(cfg);
+    }
+
     private void CreateLevelPreset()
     {
         string fileName = string.Format("LevelPreset_{0}", CurrentCreateItemID);
@@ -99,7 +161,6 @@ public class ItemCreateEditor : OdinEditorWindow
             var parentWin = GetWindow<LevelPresetEditor>();
             parentWin.TrySelectMenuItemWithObject(obj);
         });
-        Debug.Log("创建成功");
     }
 
     public static void OpenCreateWindow(ItemCreateType createType)

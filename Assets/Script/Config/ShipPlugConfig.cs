@@ -56,6 +56,11 @@ public class ShipPlugItemConfig
     public string EffectDesc;
 
     [FoldoutGroup("其他配置")]
+    [LabelText("效果描述")]
+    [LabelWidth(80)]
+    public bool EffectDescDamageParam = false;
+
+    [FoldoutGroup("其他配置")]
     [LabelText("TAG")]
     [LabelWidth(80)]
     [EnumToggleButtons]
@@ -82,6 +87,46 @@ public class ShipPlugItemConfig
         return ItemTags.HasFlag(tag);
     }
 
+    public string GetEffectDesc()
+    {
+        if (EffectDescDamageParam)
+        {
+            ///Param
+            for (int i = 0; i < ModifyTriggers.Length; i++)
+            {
+
+                var trigger = ModifyTriggers[i];
+                for (int j = 0; j < trigger.Effects.Length; i++)
+                {
+                    var effect = trigger.Effects[i];
+                    if (effect.EffectType == ModifyTriggerEffectType.CreateDamage)
+                    {
+                        MTEC_CreateDamage damage = effect as MTEC_CreateDamage;
+                        var finalDamage = GameHelper.CalculatePlayerDamageWithModify(damage.Damage, damage.DamageModifyFrom, out bool critical);
+
+                        ///图标TODO
+                        var descRow = LocalizationManager.Instance.GetTextValue(EffectDesc);
+                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, finalDamage.ToString());
+                    }
+                    else if (effect.EffectType == ModifyTriggerEffectType.CreateExplode)
+                    {
+                        MTEC_CreateExplode explde = effect as MTEC_CreateExplode;
+                        var finalDamage = GameHelper.CalculatePlayerDamageWithModify(explde.ExplodeDamageBase, explde.DamageModifyFrom, out bool critical);
+
+                        ///图标TODO
+                        var descRow = LocalizationManager.Instance.GetTextValue(EffectDesc);
+                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, finalDamage.ToString());
+                    }
+                }
+            }
+            return LocalizationManager.Instance.GetTextValue(EffectDesc);
+        }
+        else
+        {
+            return LocalizationManager.Instance.GetTextValue(EffectDesc);
+        }
+    }
+
 
     private ValueDropdownList<ModifyTriggerConfig> GetTriggerLst()
     {
@@ -93,4 +138,6 @@ public class ShipPlugItemConfig
     {
         return new PropertyModifyConfig();
     }
+
+
 }

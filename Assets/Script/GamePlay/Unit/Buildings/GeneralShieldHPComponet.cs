@@ -183,7 +183,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
 
         if (IsShieldBroken)
         {
-            LevelManager.Instance.OnShieldBroken(ParentUnit.UID);
+            LevelManager.Instance.ShieldBroken(ParentUnit.UID);
         }
 
         return newValue <= 0;
@@ -217,7 +217,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
 
             if(ParentUnit._owner is PlayerShip)
             {
-                LevelManager.Instance.OnShieldRecoverEnd(ParentUnit.UID);
+                LevelManager.Instance.ShieldRecoverEnd(ParentUnit.UID);
             }
 
             _recoverDeltaTimer = 0;

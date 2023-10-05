@@ -74,7 +74,7 @@ public class ShopSlotItem : MonoBehaviour
 
         _rarityBG.sprite = GameHelper.GetRarityBG_Big(plugCfg.GeneralConfig.Rarity);
         _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
-        SetEffectDesc(LocalizationManager.Instance.GetTextValue(plugCfg.EffectDesc), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
+        SetEffectDesc(info.GetEffectDesc(), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
         SetUpProperty();
         SetUpBuyLimit(_goodsInfo);
         _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);

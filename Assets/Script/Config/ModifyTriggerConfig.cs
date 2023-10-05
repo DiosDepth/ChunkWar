@@ -116,6 +116,10 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnPlayerShipParry(type));
             }
+            else if(type == ModifyTriggerType.OnShieldBroken)
+            {
+                result.Add(type.ToString(), new MTC_OnShieldBroken(type));
+            }
         }
 
         return result;
@@ -419,6 +423,16 @@ public class MTC_OnWeaponFire : ModifyTriggerConfig
 public class MTC_OnPlayerShipParry : ModifyTriggerConfig
 {
     public MTC_OnPlayerShipParry(ModifyTriggerType type) : base(type)
+    {
+
+    }
+}
+
+public class MTC_OnShieldBroken : ModifyTriggerConfig
+{
+    public bool IsPlayer = true;
+
+    public MTC_OnShieldBroken(ModifyTriggerType type) : base(type)
     {
 
     }

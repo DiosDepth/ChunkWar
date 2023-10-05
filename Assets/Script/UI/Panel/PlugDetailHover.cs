@@ -36,7 +36,7 @@ public class PlugDetailHover : DetailHoverItemBase
 
         if (!string.IsNullOrEmpty(plugCfg.EffectDesc))
         {
-            var text = LocalizationManager.Instance.GetTextValue(plugCfg.EffectDesc);
+            var text = plugCfg.GetEffectDesc();
             _effectDesc1.text = text;
             _effectDesc2.text = text;
             _effectDesc1.transform.SafeSetActive(true);

@@ -489,6 +489,7 @@ public class MTEC_CreateExplode : ModifyTriggerEffectConfig
 
 public enum EffectDamageTargetType
 {
+    All,
     Target,
     Random,
 }

@@ -471,7 +471,7 @@ public class Weapon : Unit
   
     protected int _firepointindex = 0;
     protected int _targetindex = 0;
-    protected BulletData _bulletdata;
+    protected BulletConfig _bulletdata;
     public Bullet _lastbullet;
 
     public WeaponConfig WeaponCfg { get { return _weaponCfg; } }
@@ -490,7 +490,7 @@ public class Weapon : Unit
         base.Initialization(m_owner, m_unitconfig);
 
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
-        DataManager.Instance.BulletDataDic.TryGetValue(bulletType.ToString(), out _bulletdata);
+        _bulletdata = DataManager.Instance.GetBulletConfigByType(bulletType);
         if (_bulletdata == null)
         {
             Debug.LogError("Bullet Data is Invalid");

@@ -64,6 +64,8 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return new MT_OnWeaponReload(cfg, uid);
             case ModifyTriggerType.OnPlayerWeaponFire:
                 return new MT_OnWeaponFire(cfg, uid);
+            case ModifyTriggerType.OnShieldBroken:
+                return new MT_OnShieldBroken(cfg, uid);
 
         }
 
@@ -185,6 +187,27 @@ public abstract class ModifyTriggerData : IPropertyModify
             };
 
             (targetUnit as IDamageble).TakeDamage(info);
+        }
+        else if(config.TargetType == EffectDamageTargetType.All)
+        {
+            var allUnit = AIManager.Instance.aiActiveUnitList;
+            for(int i = 0; i < allUnit.Count; i++)
+            {
+                var unit = allUnit[i];
+                if (unit == null)
+                    continue;
+
+                DamageResultInfo info = new DamageResultInfo()
+                {
+                    attackerUnit = null,
+                    Damage = damage,
+                    IsCritical = isCritial,
+                    DamageType = WeaponDamageType.NONE,
+                    IsPlayerAttack = true
+                };
+
+                (unit as IDamageble).TakeDamage(info);
+            }
         }
     }
 

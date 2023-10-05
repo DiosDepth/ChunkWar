@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb7108951e9f7524f820bae78c014be8, type: 3}
-  m_Name: LevelPreset_1
+  m_Script: {fileID: 11500000, guid: 2bf801ef19417cc408769da93c0db527, type: 3}
+  m_Name: Bullet_5
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -20,17 +20,16 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: WaveConfig
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[WaveConfig, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  LevelPresetID: 1
+    SerializationNodes: []
+  ID: 5
+  BulletName: BaseInstanceHit_Player
+  Type: 1
+  Prefab: {fileID: 3574238879806340193, guid: 15ca84b9fe0efa143aa878f2f74b95ec, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/BaseInstanceHit_Player
+  HitAudio: 
+  ExplodeRange: 0
+  MaxDistance: 0
+  Width: 0
+  EmitTime: 0
+  Duration: 0
+  DeathTime: 0

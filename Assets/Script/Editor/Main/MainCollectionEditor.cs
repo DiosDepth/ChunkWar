@@ -83,4 +83,12 @@ public class MainCollectionEditor : OdinEditorWindow
         var win = GetWindow<MainCollectionEditor>();
         win.Close();
     }
+
+    [Button("◊”µØ≈‰÷√", ButtonSizes.Large)]
+    public static void ShowBulletEditor()
+    {
+        BulletEditor.ShowWindow();
+        var win = GetWindow<MainCollectionEditor>();
+        win.Close();
+    }
 }
