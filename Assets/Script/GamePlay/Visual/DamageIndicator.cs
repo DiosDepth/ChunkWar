@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,85 +11,47 @@ public enum IndicatorShape
     Circle,
     Line,
 }
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
-public class DamageIndicator : MonoBehaviour, IPoolable
+
+
+[Serializable]
+public class Indicator
 {
-
-    public MeshFilter meshFilter;
-    public MeshRenderer meshRender;
-    public Material Mat;
-
-    [Header("---IndicatorSettings---")]
-    public IndicatorShape shape;
-    private float _lifeTime;
-
-    [Header("---RectSettings---")]
-    public Vector2 rectSize;
-
-    [Header("---CircleSettings---")]
-    public float radius;
     [SerializeField]
-    [Range(1, 360)]
-    public float angle;
-    public int quality = 16;
+    public MeshFilter meshFilter;
+    [SerializeField]
+    public MeshRenderer meshRender;
+    [SerializeField]
+    public Material mat;
+    [HideInInspector]
+    public Vector3 center;
 
 
-    private List<Vector3> _vertices;
-    // Start is called before the first frame update
-    void Start()
+    protected List<Vector3> vertices = new List<Vector3>();
+    public Indicator(Vector3 m_center)
     {
-        switch (shape)
+        center = m_center;
+    }
+    public Indicator (Vector3 m_center, MeshFilter m_meshFilter, MeshRenderer m_meshRenderer, Material m_mat)
+    {
+        center = m_center;
+        meshFilter = m_meshFilter;
+        meshRender = m_meshRenderer;
+        mat = m_mat;
+    }
+
+ 
+    public virtual List<Vector3> CreateVertices()
+    {
+        return null;
+    }
+
+    public virtual void DrawIndicator()
+    {
+        if(vertices == null || vertices.Count == 0) 
         {
-            case IndicatorShape.Rect:
-                break;
-            case IndicatorShape.Circle:
-                _vertices = CreateCircle(transform.position, angle, radius, quality);
-                break;
-            case IndicatorShape.Line:
-                break;
+            Debug.LogError("Vertices data is null or 0 count , please make sure you already created vertices, you should call CreateVertices() before DrawIndicator()");
+            return;
         }
-
-
-        DrawIndicatorMesh(_vertices);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SetIndicator()
-    {
-
-    }
-
-    private List<Vector3> CreateCircle(Vector3 center, float angle, float radius, int quality)
-    {
-        float eachAngle = angle / quality;
-        List<Vector3> vertices = new List<Vector3>();
-
-        vertices.Add(center);
-        for (int i = 0; i <= quality; i++)
-        {
-            Vector3 vertex = center + Quaternion.Euler(0, 0, angle / 2 - eachAngle * i) * Vector2.up * radius;
-            vertices.Add(vertex);
-        }
-        return vertices;
-    }
-
-    private List<Vector3> CreateRect(Vector3 center, float length, float width)
-    {
-        List<Vector3> vertices = new List<Vector3>();
-
-
-        return vertices;
-    }
-
-    private void DrawIndicatorMesh(List<Vector3> vertices)
-    {
         int[] triangles;
         int triangleCount = vertices.Count - 2;
         triangles = new int[3 * triangleCount];
@@ -112,21 +75,176 @@ public class DamageIndicator : MonoBehaviour, IPoolable
         mesh.triangles = triangles;
         mesh.uv = uvs;
         meshFilter.mesh = mesh;
-        meshRender.material = Mat;
+        meshRender.material = mat;
     }
 
-    public void PoolableReset()
+}
+
+[Serializable]
+public class RectIndicator: Indicator
+{
+
+    [Header("---RectSettings---")]
+    public Vector2 rectSize;
+
+
+    public RectIndicator(Vector3 m_center, Vector2 m_rectsize, MeshFilter m_meshFilter, MeshRenderer m_meshRenderer, Material m_mat) : base(m_center, m_meshFilter, m_meshRenderer, m_mat)
     {
-        throw new System.NotImplementedException();
+        rectSize = m_rectsize;
+    }
+    public override List<Vector3> CreateVertices()
+    {
+   
+
+
+        return vertices;
     }
 
-    public void PoolableDestroy()
+}
+
+[Serializable]
+public class CircleIndicator:Indicator
+{
+    [Header("---CircleSettings---")]
+    public float radius = 3;
+    [SerializeField]
+    [Range(1, 360)]
+    public float angle= 360;
+    public int quality = 16;
+
+    public CircleIndicator(Vector3 m_center, MeshFilter m_meshFilter, MeshRenderer m_meshRenderer, Material m_mat) : base(m_center, m_meshFilter, m_meshRenderer, m_mat) { }
+
+    public CircleIndicator(Vector3 m_center, float m_radius , float m_angle , int m_quality , MeshFilter m_meshFilter, MeshRenderer m_meshRenderer, Material m_mat) : base(m_center, m_meshFilter, m_meshRenderer, m_mat)
     {
-        throw new System.NotImplementedException();
+        radius = m_radius;
+        angle = m_angle;
+        quality = m_quality;
     }
 
-    public void PoolableSetActive(bool isactive = true)
+    public override List<Vector3> CreateVertices()
     {
-        throw new System.NotImplementedException();
+        float eachAngle = angle / quality;
+
+
+        vertices.Add(center);
+        for (int i = 0; i <= quality; i++)
+        {
+            Vector3 vertex = center + Quaternion.Euler(0, 0, angle / 2 - eachAngle * i) * Vector2.up * radius;
+            vertices.Add(vertex);
+        }
+        return vertices;
+    }
+}
+
+[Serializable]
+public class LineIndicator:Indicator
+{
+    public float length;
+
+    public LineIndicator(Vector3 m_center, float m_length): base(m_center)
+    {
+        length = m_length;
+    }
+    
+    public override List<Vector3> CreateVertices()
+    {
+        return vertices;
+    }
+}
+
+
+[RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshRenderer))]
+public class DamageIndicator : MonoBehaviour, IPoolable, IPauseable
+{
+
+    [Header("---IndicatorSettings---")]
+    public IndicatorShape shape;
+    public MeshFilter meshFilter;
+    public MeshRenderer meshRender;
+    public Material mat;
+    private float _lifeTime;
+
+    [HideInInspector]
+    public Indicator indicator;
+
+
+
+    private List<Vector3> _vertices;
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+
+
+    public virtual void Initialization(IndicatorShape m_shape, float m_lifetime = -1)
+    {
+        GameManager.Instance.RegisterPauseable(this);
+        shape = m_shape;
+        _lifeTime = m_lifetime;
+    }
+    public virtual void  CreateIndicator()
+    {
+        switch (shape)
+        {
+            case IndicatorShape.Rect:
+
+                break;
+            case IndicatorShape.Circle:
+                indicator = new CircleIndicator(transform.position, meshFilter, meshRender, mat);
+                indicator.CreateVertices();
+                break;
+            case IndicatorShape.Line:
+                break;
+        }
+    }
+
+    // Update is called once per frame
+    public virtual void Update()
+    {
+      
+    }
+
+    public virtual void ShowIndicator()
+    {
+        indicator.DrawIndicator();
+    }
+
+    public virtual void UpdateIndicator()
+    {
+        if (GameManager.Instance.IsPauseGame()) { return; }
+
+    }
+
+    public virtual void RemoveIndicator()
+    {
+        PoolableDestroy();
+    }
+
+    public virtual void PoolableReset()
+    {
+        _lifeTime = -1;
+    }
+
+    public virtual void PoolableDestroy()
+    {
+        GameManager.Instance.UnRegisterPauseable(this);
+    }
+
+    public virtual void PoolableSetActive(bool isactive = true)
+    {
+        
+    }
+
+    public virtual void PauseGame()
+    {
+       
+    }
+
+    public virtual void UnPauseGame()
+    {
+        
     }
 }

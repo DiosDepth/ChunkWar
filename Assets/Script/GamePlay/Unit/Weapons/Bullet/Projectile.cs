@@ -1,5 +1,6 @@
 
 using JetBrains.Annotations;
+using Sirenix.OdinInspector;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -94,6 +95,7 @@ public class Projectile : Bullet, IDamageble
 
     public Rigidbody2D rb;
     public Collider2D bulletCollider;
+    
     public ProjectileMovementType movementType = ProjectileMovementType.Straight;
     public DamageTriggerPattern damageTriggerPattern = DamageTriggerPattern.Collider;
 
@@ -105,6 +107,7 @@ public class Projectile : Bullet, IDamageble
     public float acceleration = 0.25f;
 
     [Header("---PassThroughSettings---")]
+    [ShowIf("damageTriggerPattern", DamageTriggerPattern.PassTrough)]
     public int maxPassThroughCount = 5;
 
 
@@ -141,8 +144,26 @@ public class Projectile : Bullet, IDamageble
         base.Shoot();
 
         PoolableSetActive();
+    }
+
+    public override void ShowIndicator()
+    {
+        base.ShowIndicator();
+
+        if (damageType == DamageTargetType.PointRadius && damageTriggerPattern == DamageTriggerPattern.Point)
+        {
+            if( shape == IndicatorShape.Circle)
+            {
+                PoolManager.Instance.GetObjectSync(IndicatorPath, true, (obj) => 
+                {
+                    _indicator = obj.GetComponent<DamageIndicator>();
+                    _indicator.Initialization(shape);
 
 
+
+                }, (LevelManager.Instance.currentLevel as BattleLevel).IndicatorPool.transform);
+            }
+        }
     }
 
     public override void Initialization()
@@ -157,8 +178,8 @@ public class Projectile : Bullet, IDamageble
     public struct CalculateProjectileMovementJobJob : IJobParallelForBatch
     {
 
-        [ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_jobInfo;
-        [ReadOnly] public float job_deltatime;
+        [Unity.Collections.ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_jobInfo;
+        [Unity.Collections.ReadOnly] public float job_deltatime;
 
 
         public NativeArray<ProjectileJobRetrunInfo> rv_bulletJobUpdateInfos;
@@ -306,7 +327,12 @@ public class Projectile : Bullet, IDamageble
     }
 
 
-
+    public override void UpdateBullet()
+    {
+        if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!_isUpdate) { return; }
+        base.UpdateBullet();
+    }
     public void Move(Vector3 movement)
     {
         rb.MovePosition(movement);

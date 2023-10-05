@@ -533,9 +533,6 @@ public class Weapon : Unit
 
         [NativeDisableContainerSafetyRestriction]
         public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
-
-
-    
         RV_WeaponTargetInfo tempinfo;
         int index;
         public void Execute(int startIndex, int count)

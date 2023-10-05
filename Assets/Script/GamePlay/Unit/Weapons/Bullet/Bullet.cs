@@ -1,3 +1,5 @@
+
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
@@ -33,13 +35,21 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public BulletType type;
     public OwnerType ownertype;
     public DamageTargetType damageType = DamageTargetType.Target;
+
+    [ShowIf("damageType", DamageTargetType.PointRadius)]
     public float damageRadius = 5;
 
     [Header("---VFXSettings---")]
     public string ShootVFX = "HitVFX";
     public string HitVFX = "HitVFX";
     public string DeathVFX = "HitVFX";
+
+    [Header("---IndicatorSettings---")]
     public bool hasIndicator;
+
+    public IndicatorShape shape;
+
+   
     [HideInInspector]
     protected string IndicatorPath = "Prefab/Unit/Indicator/DamageIndicator";
     protected DamageIndicator _indicator;
@@ -79,9 +89,9 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 
     public struct FindBulletDamageTargetJob : IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float3> job_targetsPos;
-        [ReadOnly] public int job_targesTotalCount;
-        [ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_JobInfo;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
+        [Unity.Collections.ReadOnly] public int job_targesTotalCount;
+        [Unity.Collections.ReadOnly] public NativeArray<ProjectileJobInitialInfo> job_JobInfo;
 
         public NativeArray<int> rv_findedTargetsCount;
 
@@ -150,12 +160,33 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     {
         if(hasIndicator)
         {
-            PoolManager.Instance.GetObjectSync(IndicatorPath, true, (obj) => 
-            {
-                _indicator = obj.GetComponent<DamageIndicator>();
-                 
-            });
+            ShowIndicator();
+        }
+    }
 
+    public virtual void ShowIndicator()
+    {
+        if (_indicator == null) { return; }
+        _indicator.UpdateIndicator();
+    }
+
+    public virtual void UpdateIndicator()
+    {
+        if(_indicator== null) { return; }
+        _indicator.UpdateIndicator();
+
+    }
+    public virtual void RemoveIndicator()
+    {
+        _indicator.RemoveIndicator();
+  
+    }
+
+    public virtual void UpdateBullet()
+    {
+        if(hasIndicator)
+        {
+            UpdateIndicator();
         }
     }
 
@@ -190,6 +221,10 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveBullet(this);
         }
 
+        if(hasIndicator)
+        {
+            RemoveIndicator();
+        }
         PlayVFX(DeathVFX, this.transform.position);
         PoolableDestroy();
     }

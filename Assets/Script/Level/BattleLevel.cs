@@ -11,6 +11,7 @@ public class BattleLevel : LevelEntity
 
     public GameObject BulletPool;
     public GameObject AIPool;
+    public GameObject IndicatorPool;
 
     protected override void Update()
     {
@@ -23,7 +24,9 @@ public class BattleLevel : LevelEntity
     {
         BulletPool = new GameObject("BulletPool");
         AIPool = new GameObject("AIPool");
+        IndicatorPool = new GameObject("IndicatorPool");
         startPoint = GameObject.Find("StartPoint").transform.position;
+
         cameraBoard = GameObject.Find("CameraBoard").GetComponent<PolygonCollider2D>();
         _timer = RogueManager.Instance.Timer;
     }
