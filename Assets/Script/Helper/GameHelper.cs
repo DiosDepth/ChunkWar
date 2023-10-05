@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Unity.Jobs;
+using Unity.Collections.LowLevel.Unsafe;
+using Unity.Collections;
+using Unity.Mathematics;
+using System.Reflection;
+using Unity.VisualScripting;
+using FMOD;
 
 public static class GameHelper 
 {
@@ -175,7 +182,7 @@ public static class GameHelper
         var expMap = DataManager.Instance.battleCfg.EXPMap;
         if(expMap == null || expMap.Length < level)
         {
-            Debug.Log("EXP MAP ERROR! LEVEL = " + level);
+            UnityEngine.Debug.Log("EXP MAP ERROR! LEVEL = " + level);
             return int.MaxValue;
         }
         return expMap[level];
@@ -807,6 +814,100 @@ public static class GameHelper
         else
         {
             return reverse ? Color_Blue_Code : Color_Red_Code;
+        }
+    }
+
+    /// <summary>
+    /// refencePos 是你找目标的参考点，
+    /// radius 是参考周边范围，
+    ///  targetsPos是一个NavitveArray 找寻目标的全集，可以从AIManage.Instance.aiActiveUnitPos里面取所有的unit位置作为全集
+    ///  count 设置为-1 会获取所有范围内目标，否则需要指定数量
+    ///  这里返回的是一个FindTargetInfo数组， 调用AIManage.Instance.GetActiveUnitReferenceByFindTargetInfo()来获取对应的Unit
+    /// </summary>
+    /// <param name="referencePos"></param>
+    /// <param name="radius"></param>
+    /// <param name="targetsPos"></param>
+    /// <param name="count"></param>
+    /// <returns></returns>
+    public static TargetInfo[] FindTargetsByPoint(Vector3 referencePos, float radius, NativeArray<float3> targetsPos, int count = -1)
+    {
+        //List<FindTargetInfoWithReference> result = new List<FindTargetInfoWithReference>();
+        NativeQueue<TargetInfo> rv_findedTargetsInfo = new NativeQueue<TargetInfo>(Allocator.TempJob);
+
+        JobHandle jobHandle;
+
+        FindTargesByPoint findTargesByPoint = new FindTargesByPoint
+        {
+            job_selfPos = referencePos,
+            job_radius = radius,
+            job_targetsPos = targetsPos,
+
+            rv_findedTargetsInfo = rv_findedTargetsInfo.AsParallelWriter(),
+        };
+        jobHandle = findTargesByPoint.ScheduleBatch(targetsPos.Length, 2);
+        jobHandle.Complete();
+
+        NativeArray<TargetInfo> targetsinfo = rv_findedTargetsInfo.ToArray(Allocator.TempJob);
+        targetsinfo.Sort();
+
+        if(targetsinfo.Length >= count && count != -1)
+        {
+            targetsinfo.Slice(0, count);
+        }
+
+
+        //FindTargetInfoWithReference referenceinfo;
+        //for (int i = 0; i < targetsinfo.Length; i++)
+        //{
+        //    referenceinfo.info = targetsinfo[i];
+        //    referenceinfo.refrence = AIManager.Instance.aiActiveUnitList[targetsinfo[i].index];
+        //    result.Add(referenceinfo);
+        //}
+
+        TargetInfo[] result = targetsinfo.ToArray();
+
+        targetsinfo.Dispose();
+        rv_findedTargetsInfo.Dispose();
+
+        return result;
+    }
+
+    public struct TargetInfo : IComparable<TargetInfo>
+    {
+        public int index;
+        public float distance;
+        public float3 pos;
+
+        public int CompareTo(TargetInfo obj)
+        {
+            return this.distance.CompareTo(obj.distance);
+        }
+    }
+
+    public struct FindTargesByPoint : IJobParallelForBatch
+    {
+        [Unity.Collections.ReadOnly] public float3 job_selfPos;
+        [Unity.Collections.ReadOnly] public float job_radius;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
+
+        [NativeDisableContainerSafetyRestriction]
+        public NativeQueue<TargetInfo>.ParallelWriter rv_findedTargetsInfo;
+
+        private float distance;
+        private TargetInfo info;
+        public void Execute(int startIndex, int count)
+        {
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+                distance = math.distance(job_selfPos, job_targetsPos[i]);
+                if (distance <= job_radius)
+                {
+                    info.index = i;
+                    info.distance = distance;
+                    info.pos = job_targetsPos[i];
+                    rv_findedTargetsInfo.Enqueue(info);
+                }
+            }
         }
     }
 

@@ -237,6 +237,10 @@ public class ShipUnitManager:IPauseable
         {
             //移动子弹
             //处理子弹旋转方向
+            if (!rv_projectile_jobUpdateInfo[i].islifeended)
+            {
+                projectileList[i].UpdateBullet();
+            }
             if (!rv_projectile_jobUpdateInfo[i].islifeended && !projectileList[i].IsApplyDamageAtThisFrame)
             {
                 projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);

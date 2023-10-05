@@ -161,33 +161,30 @@ public class ChainBeamemit : Bullet
 
     }
 
-    // Update is called once per frame
-    protected override void Update()
+    public override void UpdateBullet()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         if (!_isUpdate) { return; }
         if (firepoint == null) { return; }
-
+        base.UpdateBullet();
         transform.position = firepoint.transform.position;
         _direction = MathExtensionTools.DirectionToXY(transform.position, initialTarget.transform.position);
 
         transform.rotation = MathExtensionTools.GetRotationFromDirection(_direction);
         if (!_isChained) { return; }
 
-        base.Update();
-
-        //_targetDistance = MathExtensionTools.DistanceXY(target.transform.position, transform.position);
-
-
-        if(hit)
+        if (hit)
         {
             _targetDistance = MathExtensionTools.DistanceXY(hit.transform.position, transform.position);
             beamline.SetPosition(1, new Vector3(0, _targetDistance, 0));
         }
+    }
 
-        //update start Position
-        //update End Position
-        //update rotation
-
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+        UpdateBullet();
     }
 
 

@@ -5,8 +5,10 @@ using System.Linq;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEditor.U2D.Common;
 using UnityEngine;
 using UnityEngine.U2D;
+using static GameHelper;
 
 public enum FindCondition
 {
@@ -15,6 +17,13 @@ public enum FindCondition
     ClosestDistance,
     LongestDistance,
 }
+
+public struct UnitReferenceInfo
+{
+    public TargetInfo info;
+    public Unit reference;
+}
+
 public class AIManager : Singleton<AIManager>, IPauseable
 {
     public const int MaxAICount = 300;
@@ -168,6 +177,20 @@ public class AIManager : Singleton<AIManager>, IPauseable
         // allocate all job data 
     
 
+    }
+
+
+    public virtual List<UnitReferenceInfo> GetActiveUnitReferenceByTargetInfo(TargetInfo[] info)
+    {
+        List<UnitReferenceInfo> result = new List<UnitReferenceInfo>();
+        UnitReferenceInfo tempinfo;
+        for (int i = 0; i < info.Length; i++)
+        {
+            tempinfo.info = info[i];
+            tempinfo.reference = aiActiveUnitList[info[i].index];
+            result.Add(tempinfo);
+        }
+        return result;
     }
 
     public virtual void AllocateAIJobData()
@@ -1027,10 +1050,16 @@ public class AIManager : Singleton<AIManager>, IPauseable
         {
             //移动子弹
             //处理子弹旋转方向
+            if(!rv_aiProjectile_jobUpdateInfo[i].islifeended)
+            {
+                aiProjectileList[i].UpdateBullet();
+            }
+         
             if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && !aiProjectileList[i].IsApplyDamageAtThisFrame)
             {
                 aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
                 aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
+             
             }
             else
             {
@@ -1186,7 +1215,6 @@ public class AIManager : Singleton<AIManager>, IPauseable
             {
                 i--;
             }
-
         }
         return randomlist;
     }
@@ -1209,7 +1237,6 @@ public class AIManager : Singleton<AIManager>, IPauseable
             unit = aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP).First();
             return unit;
         }
-
         return null;
     }
 

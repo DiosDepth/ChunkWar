@@ -185,8 +185,11 @@ MonoBehaviour:
   ShootVFX: HitVFX
   HitVFX: HitVFX
   DeathVFX: HitVFX
-  target: {fileID: 0}
-  damageTarget: []
+  hasIndicator: 1
+  shape: 1
+  angle: 360
+  quality: 16
+  initialTarget: {fileID: 0}
   rb: {fileID: 5862403524487350706}
   bulletCollider: {fileID: 7448544990957314191}
   movementType: 4
@@ -196,4 +199,5 @@ MonoBehaviour:
   rotSpeed: 180
   initialSpeed: 20
   acceleration: 0.25
+  maxPassThroughCount: 5
   IsinterceptTarget: 1
