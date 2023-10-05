@@ -182,7 +182,7 @@ public static class GameHelper
         var expMap = DataManager.Instance.battleCfg.EXPMap;
         if(expMap == null || expMap.Length < level)
         {
-            Debug.Log("EXP MAP ERROR! LEVEL = " + level);
+            UnityEngine.Debug.Log("EXP MAP ERROR! LEVEL = " + level);
             return int.MaxValue;
         }
         return expMap[level];

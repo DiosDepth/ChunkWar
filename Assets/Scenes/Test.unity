@@ -269,18 +269,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1558340891 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4318896937676052968, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
-    type: 3}
-  m_PrefabInstance: {fileID: 4318896936413377546}
-  m_PrefabAsset: {fileID: 0}
---- !u!33 &1558340892 stripped
-MeshFilter:
-  m_CorrespondingSourceObject: {fileID: 4318896937676052969, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
-    type: 3}
-  m_PrefabInstance: {fileID: 4318896936413377546}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4318896936413377546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -293,31 +281,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageIndicator
       objectReference: {fileID: 0}
-    - target: {fileID: 4318896937676052974, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
-        type: 3}
-      propertyPath: mat
-      value: 
-      objectReference: {fileID: 2100000, guid: 5a0bf7691536332408e629bad6eadbca, type: 2}
-    - target: {fileID: 4318896937676052974, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
-        type: 3}
-      propertyPath: shape
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4318896937676052974, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
-        type: 3}
-      propertyPath: indicator.Mat
-      value: 
-      objectReference: {fileID: 2100000, guid: 5a0bf7691536332408e629bad6eadbca, type: 2}
-    - target: {fileID: 4318896937676052974, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
-        type: 3}
-      propertyPath: indicator.meshFilter
-      value: 
-      objectReference: {fileID: 1558340892}
-    - target: {fileID: 4318896937676052974, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
-        type: 3}
-      propertyPath: indicator.meshRender
-      value: 
-      objectReference: {fileID: 1558340891}
     - target: {fileID: 4318896937676052975, guid: 99b2721a57ea81a4d85cd36dcc7c034a,
         type: 3}
       propertyPath: m_RootOrder

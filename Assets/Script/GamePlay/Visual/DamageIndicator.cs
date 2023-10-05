@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
@@ -168,8 +169,8 @@ public class DamageIndicator : MonoBehaviour, IPoolable, IPauseable
     [HideInInspector]
     public Indicator indicator;
 
-
-
+    protected bool isUpdate;
+    private float _timestamp;
     private List<Vector3> _vertices;
     // Start is called before the first frame update
     void Start()
@@ -179,27 +180,35 @@ public class DamageIndicator : MonoBehaviour, IPoolable, IPauseable
 
 
 
-    public virtual void Initialization(IndicatorShape m_shape, float m_lifetime = -1)
+    public virtual void Initialization(float m_lifetime = 0)
     {
         GameManager.Instance.RegisterPauseable(this);
-        shape = m_shape;
+
         _lifeTime = m_lifetime;
     }
-    public virtual void  CreateIndicator()
-    {
-        switch (shape)
-        {
-            case IndicatorShape.Rect:
 
-                break;
-            case IndicatorShape.Circle:
-                indicator = new CircleIndicator(transform.position, meshFilter, meshRender, mat);
-                indicator.CreateVertices();
-                break;
-            case IndicatorShape.Line:
-                break;
-        }
+    public virtual void CreateIndicator(IndicatorShape m_shape, Vector3 m_center, float m_radius, float m_angle = 360, int m_quality = 16)
+    {
+        if(m_shape != IndicatorShape.Circle) { return; }
+        indicator = new CircleIndicator(m_center, m_radius,m_angle, m_quality, meshFilter, meshRender, mat);
+        indicator.CreateVertices();
     }
+
+    public virtual void CreateIndicator(IndicatorShape m_shape, Vector3 m_center, Vector2 m_rectsize)
+    {
+        if(m_shape != IndicatorShape.Rect) { return; }
+        indicator = new RectIndicator(m_center, m_rectsize, meshFilter, meshRender, mat);
+        indicator.CreateVertices();
+    }
+
+    public virtual void CreateIndicator(IndicatorShape m_shape, Vector3 m_center, float m_length)
+    {
+        if (m_shape != IndicatorShape.Line) { return; }
+        indicator = new LineIndicator(m_center, m_length);
+        indicator.CreateVertices();
+    }
+
+
 
     // Update is called once per frame
     public virtual void Update()
@@ -210,11 +219,22 @@ public class DamageIndicator : MonoBehaviour, IPoolable, IPauseable
     public virtual void ShowIndicator()
     {
         indicator.DrawIndicator();
+        if (_lifeTime > 0)
+        {
+            _timestamp = _lifeTime;
+        }
+        isUpdate = true;
     }
 
     public virtual void UpdateIndicator()
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!isUpdate) { return; }
+
+        if((_timestamp - Time.deltaTime) <= 0 && _lifeTime > 0)
+        {
+            RemoveIndicator();
+        }
 
     }
 
@@ -225,17 +245,20 @@ public class DamageIndicator : MonoBehaviour, IPoolable, IPauseable
 
     public virtual void PoolableReset()
     {
-        _lifeTime = -1;
+        _lifeTime = 0;
+        isUpdate = false;
     }
 
     public virtual void PoolableDestroy()
     {
         GameManager.Instance.UnRegisterPauseable(this);
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
 
     public virtual void PoolableSetActive(bool isactive = true)
     {
-        
+        this.gameObject.SetActive(isactive);
     }
 
     public virtual void PauseGame()

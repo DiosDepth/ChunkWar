@@ -92,7 +92,7 @@ public struct ProjectileJobRetrunInfo
 
 public class Projectile : Bullet, IDamageble
 {
-
+    [Header("---ProjectileSettings---")]
     public Rigidbody2D rb;
     public Collider2D bulletCollider;
     
@@ -148,22 +148,30 @@ public class Projectile : Bullet, IDamageble
 
     public override void ShowIndicator()
     {
-        base.ShowIndicator();
-
         if (damageType == DamageTargetType.PointRadius && damageTriggerPattern == DamageTriggerPattern.Point)
         {
             if( shape == IndicatorShape.Circle)
             {
+               
                 PoolManager.Instance.GetObjectSync(IndicatorPath, true, (obj) => 
                 {
                     _indicator = obj.GetComponent<DamageIndicator>();
-                    _indicator.Initialization(shape);
-
-
-
+                    _indicator.Initialization();
+                    _indicator.CreateIndicator(shape, Vector3.zero, damageRadius,angle,quality);
+                    Vector3 initialtargetpos;
+                    if((Owner as Weapon).aimingtype == WeaponAimingType.Directional)
+                    {
+                        initialtargetpos = transform.position + transform.up * Owner.baseAttribute.WeaponRange;
+                    }
+                    else
+                    {
+                        initialtargetpos = initialTarget.transform.position;
+                    }
+                    _indicator.transform.position = initialtargetpos;
                 }, (LevelManager.Instance.currentLevel as BattleLevel).IndicatorPool.transform);
             }
         }
+        base.ShowIndicator();
     }
 
     public override void Initialization()

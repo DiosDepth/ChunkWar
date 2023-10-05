@@ -46,15 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2c61f6020fd0f45aa1c5f0d5ec33c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shape: 1
   meshFilter: {fileID: 4318896937676052969}
   meshRender: {fileID: 4318896937676052968}
-  Mat: {fileID: 2100000, guid: 5a0bf7691536332408e629bad6eadbca, type: 2}
-  shape: 1
-  liftTime: 0
-  rectSize: {x: 0, y: 0}
-  radius: 5
-  angle: 360
-  quality: 16
+  mat: {fileID: 2100000, guid: 5a0bf7691536332408e629bad6eadbca, type: 2}
+  indicator:
+    meshFilter: {fileID: 4318896937676052969}
+    meshRender: {fileID: 4318896937676052968}
+    mat: {fileID: 0}
+    center: {x: 0, y: 0, z: 0}
 --- !u!33 &4318896937676052969
 MeshFilter:
   m_ObjectHideFlags: 0

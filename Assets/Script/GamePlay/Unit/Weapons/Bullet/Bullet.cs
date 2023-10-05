@@ -47,7 +47,17 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     [Header("---IndicatorSettings---")]
     public bool hasIndicator;
 
+  
+    [BoxGroup("Indicator")]
     public IndicatorShape shape;
+
+    [ShowIf("shape", IndicatorShape.Circle)]
+    [BoxGroup("Indicator")]
+    public float angle = 360;
+
+    [ShowIf("shape", IndicatorShape.Circle)]
+    [BoxGroup("Indicator")]
+    public int quality = 16;
 
    
     [HideInInspector]
@@ -167,7 +177,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public virtual void ShowIndicator()
     {
         if (_indicator == null) { return; }
-        _indicator.UpdateIndicator();
+        _indicator.ShowIndicator();
     }
 
     public virtual void UpdateIndicator()
@@ -178,6 +188,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     }
     public virtual void RemoveIndicator()
     {
+        if (_indicator == null) { return; }
         _indicator.RemoveIndicator();
   
     }
