@@ -252,7 +252,7 @@ public class ShopSlotItem : MonoBehaviour
         var index = 0;
         for (int i = 0; i < cfgs.Length; i++)
         {
-            if (cfgs[i].BySpecialValue)
+            if (cfgs[i].BySpecialValue || cfgs[i].Value == 0)
                 continue;
 
             PoolManager.Instance.GetObjectSync(ShopPropertyItem_PrefabPath, true, (obj) =>

@@ -15,8 +15,6 @@ public class InstanceHit : Bullet
 
     public LineRenderer InstanceHitLine;
 
-
-
     private Coroutine startEmitCoroutine;
     private RaycastHit2D[] hitlist;
     private Collider2D[] overlaplist;
@@ -137,7 +135,12 @@ public class InstanceHit : Bullet
                             damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
                             damage.attackerUnit = _owner;
                             damage.HitPoint = hitlist[i].point;
-                            hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(damage);
+                            var target = hitlist[i].collider.GetComponent<IDamageble>();
+                            if(target != null)
+                            {
+                                damage.Target = target;
+                                target.TakeDamage(damage);
+                            }
                         }
 
                         //延迟激光然后销毁激光

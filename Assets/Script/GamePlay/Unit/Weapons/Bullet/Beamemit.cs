@@ -84,7 +84,12 @@ public class Beamemit : Bullet
                             damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
                             damage.attackerUnit = _owner;
                             damage.HitPoint = hitlist[i].point;
-                            hitlist[i].collider.GetComponent<IDamageble>()?.TakeDamage(damage);
+                            var target = hitlist[i].collider.GetComponent<IDamageble>();
+                            if(target != null)
+                            {
+                                damage.Target = target;
+                                target.TakeDamage(damage);
+                            }
                         }
                     }
                 }

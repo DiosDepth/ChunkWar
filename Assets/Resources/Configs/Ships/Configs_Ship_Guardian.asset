@@ -1450,7 +1450,8 @@ MonoBehaviour:
   UnlockDefault: 1
   EditorPrefab: {fileID: 7848178515196352761, guid: a10c7de08668784478b4b8f60ff83c26,
     type: 3}
-  ShipPropertyDesc: 
+  ShipPropertyDesc: ShipPropertyDesc_3
   ShipHardLevels: 01000000020000000300000004000000
   ShipOriginPlugs: 
+  OriginUnits: []
   ShipEditorSprite: {fileID: 21300000, guid: 41deddf9871e0ba4d8984cae723f95a8, type: 3}

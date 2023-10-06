@@ -199,10 +199,10 @@ MonoBehaviour:
       Data: 16
     - Name: MaxRotateSpeed_Base
       Entry: 4
-      Data: 15
+      Data: 25
     - Name: RotationAcceleration
       Entry: 4
-      Data: 0.5
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

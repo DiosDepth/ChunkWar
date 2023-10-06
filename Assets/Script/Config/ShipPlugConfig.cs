@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class ShipPlugConfig : SerializedScriptableObject
 {
-    [ListDrawerSettings( NumberOfItemsPerPage = 10, CustomAddFunction = "AddItem")]
+    [ListDrawerSettings( NumberOfItemsPerPage = 5, CustomAddFunction = "AddItem")]
     [HideReferenceObjectPicker]
     [LabelText("²å¼þÁÐ±í")]
     public List<ShipPlugItemConfig> PlugConfigs = new List<ShipPlugItemConfig>();

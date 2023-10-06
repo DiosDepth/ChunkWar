@@ -129,6 +129,10 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnPlayerCoreUnitTakeDamage(type));
             }
+            else if(type == ModifyTriggerType.OnPlayerCreateExplode)
+            {
+                result.Add(type.ToString(), new MTC_OnPlayerCreateExplode(type));
+            }
         }
 
         return result;
@@ -568,5 +572,18 @@ public class MTC_OnPlayerCoreUnitTakeDamage : ModifyTriggerConfig
     public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
     {
         return new MT_PlayerCoreUnitTakeDamage(this, uid);
+    }
+}
+
+public class MTC_OnPlayerCreateExplode : ModifyTriggerConfig
+{
+    public MTC_OnPlayerCreateExplode(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnPlayerCreateExplode(this, uid);
     }
 }
