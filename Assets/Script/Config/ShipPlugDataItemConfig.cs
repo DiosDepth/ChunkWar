@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -82,7 +83,8 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
 
                         ///Õº±ÍTODO
                         var descRow = LocalizationManager.Instance.GetTextValue(EffectDesc);
-                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, finalDamage.ToString());
+                        var damageText = GetDamamgeValueDescText(damage.DamageModifyFrom, finalDamage, damage.Damage);
+                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, damageText);
                     }
                     else if (effect.EffectType == ModifyTriggerEffectType.CreateExplode)
                     {
@@ -91,7 +93,8 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
 
                         ///Õº±ÍTODO
                         var descRow = LocalizationManager.Instance.GetTextValue(EffectDesc);
-                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, finalDamage.ToString());
+                        var damageText = GetDamamgeValueDescText(explde.DamageModifyFrom, finalDamage, explde.ExplodeDamageBase);
+                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, damageText);
                     }
                 }
             }
@@ -101,6 +104,39 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
         {
             return LocalizationManager.Instance.GetTextValue(EffectDesc);
         }
+    }
+
+    private string GetDamamgeValueDescText(List<UnitPropertyModifyFrom> modifyFroms, int damage, int rowDamage)
+    {
+        StringBuilder sb = new StringBuilder();
+        string color = GameHelper.GetColorCode(damage, rowDamage, false);
+
+        ///…À∫¶ÕºŒƒªÏ≈≈
+        sb.Append(string.Format("<color={0}>{1}</color> ", color, damage));
+
+        if (modifyFroms != null && modifyFroms.Count > 0)
+        {
+            sb.Append("[");
+            for (int i = 0; i < modifyFroms.Count; i++)
+            {
+                var modifyFrom = modifyFroms[i];
+                var proeprtyDisplayCfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(modifyFrom.PropertyKey);
+                if (proeprtyDisplayCfg != null)
+                {
+                    if (modifyFrom.Ratio == 1)
+                    {
+                        sb.Append(string.Format("{0}%<sprite={1}>", modifyFrom.Ratio * 100, proeprtyDisplayCfg.TextSpriteIndex));
+                    }
+                    else
+                    {
+                        sb.Append(string.Format("<sprite={0}>", proeprtyDisplayCfg.TextSpriteIndex));
+                    }
+                }
+            }
+            sb.Append("]");
+        }
+
+        return sb.ToString();
     }
 
 

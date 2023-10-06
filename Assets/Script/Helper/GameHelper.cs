@@ -7,9 +7,7 @@ using Unity.Jobs;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Collections;
 using Unity.Mathematics;
-using System.Reflection;
-using Unity.VisualScripting;
-using FMOD;
+using System.Text;
 
 public static class GameHelper 
 {
@@ -20,9 +18,9 @@ public static class GameHelper
 
     public static string ItemTagTextTitle = "ItemTag_";
 
-    private static string Color_White_Code = "#FFFFFF";
-    private static string Color_Red_Code = "#C61616";
-    private static string Color_Blue_Code = "#09B3CB";
+    public static string Color_White_Code = "#FFFFFF";
+    public static string Color_Red_Code = "#C61616";
+    public static string Color_Blue_Code = "#09B3CB";
 
     private static Color RarityColor_T1 = Color.white;
     private static Color RarityColor_T2 = new Color(0, 0.83f, 1f);
@@ -752,13 +750,40 @@ public static class GameHelper
             var damage = CalculteWeaponDamage(cfg);
             string color = GetColorCode(damage, cfg.DamageBase, false);
 
+            StringBuilder sb = new StringBuilder();
+            ///…À∫¶ÕºŒƒªÏ≈≈
+            sb.Append(string.Format("<color={0}>{1}</color> ", color, damage));
+
+            if(cfg.DamageModifyFrom != null && cfg.DamageModifyFrom.Count > 0)
+            {
+                sb.Append("[");
+                for (int i = 0; i < cfg.DamageModifyFrom.Count; i++)
+                {
+                    var modifyFrom = cfg.DamageModifyFrom[i];
+                    var proeprtyDisplayCfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(modifyFrom.PropertyKey);
+                    if(proeprtyDisplayCfg != null)
+                    {
+                        if(modifyFrom.Ratio == 1)
+                        {
+                            sb.Append(string.Format("{0}%<sprite={1}>", modifyFrom.Ratio * 100, proeprtyDisplayCfg.TextSpriteIndex));
+                        }
+                        else
+                        {
+                            sb.Append(string.Format("<sprite={0}>", proeprtyDisplayCfg.TextSpriteIndex));
+                        }
+                    }
+                }
+                sb.Append("]");
+            }
+
             if (damageCount > 1)
             {
-                return string.Format("<color={0}>{1}</color> X{2}", color, damage, damageCount);
+                sb.Append(string.Format(" X{0}", damageCount));
+                return sb.ToString();
             }
             else
             {
-                return string.Format("<color={0}>{1}</color>", color, damage);
+                return sb.ToString();
             }
         }
         else if (type == UI_WeaponUnitPropertyType.Range)
@@ -832,7 +857,7 @@ public static class GameHelper
         return result;
     }
 
-    private static string GetColorCode(float value1, float value2, bool reverse)
+    public static string GetColorCode(float value1, float value2, bool reverse)
     {
         if (value1 == value2)
             return Color_White_Code;

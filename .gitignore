@@ -27,3 +27,4 @@ Packages/manifest.json
 .vs/
 fmod_editor.log
 Assets/SaveData/
+Assets/SaveData/GlobalSaveData.sav

@@ -209,6 +209,7 @@ public class PropertyDisplayConfig
     public Sprite Icon;
     public bool IsPercent;
     public bool ReverseColor = false;
+    public int TextSpriteIndex = -1;
 }
 
 [System.Serializable]

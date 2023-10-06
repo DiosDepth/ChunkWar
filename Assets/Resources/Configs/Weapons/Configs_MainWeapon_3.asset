@@ -451,5 +451,7 @@ MonoBehaviour:
   ShieldDamage: 150
   BaseTransfixion: 0
   TransfixionReduce: 0
-  DamageModifyFrom: []
+  DamageModifyFrom:
+  - PropertyKey: 15
+    Ratio: 0.8
   FireAudioClip: SFX_Missile_Fire_001
