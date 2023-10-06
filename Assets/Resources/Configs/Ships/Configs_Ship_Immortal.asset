@@ -1449,7 +1449,8 @@ MonoBehaviour:
   PlayerShipCampID: 2
   UnlockDefault: 0
   EditorPrefab: {fileID: 0}
-  ShipPropertyDesc: 
+  ShipPropertyDesc: ShipPropertyDesc_6
   ShipHardLevels: 
   ShipOriginPlugs: 
+  OriginUnits: []
   ShipEditorSprite: {fileID: 0}

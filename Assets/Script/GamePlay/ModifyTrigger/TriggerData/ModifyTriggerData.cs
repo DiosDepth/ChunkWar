@@ -112,6 +112,8 @@ public abstract class ModifyTriggerData : IPropertyModify
     /// <param name="parentUnitUID"></param>
     public void CreateExplode(MTEC_CreateExplode config, uint parentUnitUID)
     {
+        bool createSuccess = false;
+
         ///Calculate Damage
         bool isCritial = false;
         var damage = GameHelper.CalculatePlayerDamageWithModify(config.ExplodeDamageBase, config.DamageModifyFrom, out isCritial);
@@ -136,6 +138,7 @@ public abstract class ModifyTriggerData : IPropertyModify
                     DamageResultInfo info = new DamageResultInfo()
                     {
                         attackerUnit = null,
+                        Target = unit,
                         Damage = damage,
                         IsCritical = isCritial,
                         DamageType = WeaponDamageType.NONE,
@@ -144,6 +147,12 @@ public abstract class ModifyTriggerData : IPropertyModify
                     (unit as IDamageble).TakeDamage(info);
                 }
             }
+            createSuccess = true;
+        }
+
+        if (createSuccess)
+        {
+            LevelManager.Instance.PlayerCreateExplode();
         }
     }
 
@@ -162,6 +171,7 @@ public abstract class ModifyTriggerData : IPropertyModify
             DamageResultInfo info = new DamageResultInfo()
             {
                 attackerUnit = null,
+                Target = targetUnit,
                 Damage = damage,
                 IsCritical = isCritial,
                 DamageType = WeaponDamageType.NONE,
@@ -182,6 +192,7 @@ public abstract class ModifyTriggerData : IPropertyModify
                 DamageResultInfo info = new DamageResultInfo()
                 {
                     attackerUnit = null,
+                    Target = unit,
                     Damage = damage,
                     IsCritical = isCritial,
                     DamageType = WeaponDamageType.NONE,
@@ -192,6 +203,36 @@ public abstract class ModifyTriggerData : IPropertyModify
             }
         }
     }
+
+    public void ModifyDamageByTargetDistance(MTEC_ModifyDamgeByTargetDistance cfg, uint targetUID)
+    {
+        if (Config.TriggerType != ModifyTriggerType.OnWeaponHitTarget)
+            return;
+
+        var damageData = (this as MT_OnWeaponHitTarget).DamageInfo;
+        if (damageData == null)
+            return;
+
+        var distance = GameHelper.GetUnitDistance(damageData.Target, damageData.attackerUnit);
+        var per = distance * 10 / (float)cfg.DistancePer;
+        var percent = Mathf.RoundToInt(per * cfg.DamagePercent) / 100f;
+
+        percent = Mathf.Clamp(percent, -100f, cfg.DamagePercentMax);
+
+        var damage = damageData.Damage * (1 + percent / 100f);
+        damageData.Damage = Mathf.RoundToInt(damage);
+    }
+
+    #endregion
+
+    #region Condition
+
+    public bool ByWasteCount(MCC_ByWasteCount cfg)
+    {
+        var currentWasteCount = RogueManager.Instance.GetDropWasteCount;
+        return MathExtensionTools.CalculateCompareType(currentWasteCount, cfg.Value, cfg.Compare);
+    }
+
 
     #endregion
 

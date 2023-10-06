@@ -440,7 +440,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         {
             foreach (var property in plugCfg.PropertyModify)
             {
-                if (property.Value == 0)
+                if (property.Value == 0 || property.BySpecialValue) 
                     continue;
 
                 PoolManager.Instance.GetObjectSync(ShipProperty_ItemPrefabPath, true, (obj) =>

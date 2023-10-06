@@ -15,6 +15,7 @@ public class DamageResultInfo
 {
     public Unit attackerUnit;
     public Vector2 HitPoint;
+    public IDamageble Target;
 
     public int Damage;
     public bool IsCritical;

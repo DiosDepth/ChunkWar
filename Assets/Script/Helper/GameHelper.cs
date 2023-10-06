@@ -357,6 +357,24 @@ public static class GameHelper
     }
 
     /// <summary>
+    /// 获取Unit距离
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="attackerUnit"></param>
+    /// <returns></returns>
+    public static float GetUnitDistance(IDamageble target, Unit attackerUnit)
+    {
+        if (attackerUnit == null || target == null)
+            return 0;
+
+        if(target is Unit)
+        {
+            return Vector2.Distance((target as Unit).transform.position, attackerUnit.transform.position);
+        }
+        return 0;
+    }
+
+    /// <summary>
     /// 所有存档ID
     /// </summary>
     /// <returns></returns>

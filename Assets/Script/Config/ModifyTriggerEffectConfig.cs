@@ -15,6 +15,12 @@ public abstract class ModifyTriggerEffectConfig
     [LabelWidth(50)]
     public ModifyTriggerEffectType EffectType;
 
+    [LabelText("条件")]
+    [HideReferenceObjectPicker]
+    [DisableContextMenu(DisableForMember = true, DisableForCollectionElements = true)]
+    [ValueDropdown("GetConditionList", DrawDropdownForListElements = false)]
+    public ModifyConditionConfig[] Conditions = new ModifyConditionConfig[0];
+
     public ModifyTriggerEffectConfig(ModifyTriggerEffectType type)
     {
         this.EffectType = type;
@@ -76,9 +82,22 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_CreateDamage(type));
             }
+            else if(type == ModifyTriggerEffectType.GainCurrency)
+            {
+                result.Add(type.ToString(), new MTEC_GainCurrency(type));
+            }
+            else if (type == ModifyTriggerEffectType.ModifyDamgeByTargetDistance)
+            {
+                result.Add(type.ToString(), new MTEC_ModifyDamgeByTargetDistance(type));
+            }
         }
 
         return result;
+    }
+
+    private static ValueDropdownList<ModifyConditionConfig> GetConditionList()
+    {
+        return ModifyConditionConfig.GetModifyConditionList();
     }
 }
 
@@ -444,6 +463,29 @@ public class MTEC_GainDropWaste : ModifyTriggerEffectConfig
     }
 }
 
+public class MTEC_GainCurrency : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 120)]
+    [LabelText("值")]
+    [LabelWidth(40)]
+    public int Value;
+
+    public MTEC_GainCurrency(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        RogueManager.Instance.AddCurrency(Value);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
+
 public enum PointTargetType
 {
     NONE,
@@ -516,7 +558,40 @@ public class MTEC_CreateDamage : ModifyTriggerEffectConfig
 
     public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
+        data.CreateDamage(this, parentUnitUID);
+    }
 
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
+
+public class MTEC_ModifyDamgeByTargetDistance : ModifyTriggerEffectConfig
+{
+    [HorizontalGroup("AA", 120)]
+    [LabelText("距离")]
+    [LabelWidth(40)]
+    public int DistancePer;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("伤害")]
+    [LabelWidth(40)]
+    public float DamagePercent;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("最大百分比")]
+    [LabelWidth(40)]
+    public float DamagePercentMax;
+
+    public MTEC_ModifyDamgeByTargetDistance(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.ModifyDamageByTargetDistance(this, parentUnitUID);
     }
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)

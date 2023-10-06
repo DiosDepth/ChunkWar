@@ -152,3 +152,30 @@ public class MT_OnWeaponFire : ModifyTriggerData
     }
 
 }
+
+public class MT_OnPlayerCreateExplode : ModifyTriggerData
+{
+    private MTC_OnPlayerCreateExplode _explodeCfg;
+
+    public MT_OnPlayerCreateExplode(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _explodeCfg = cfg as MTC_OnPlayerCreateExplode;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        LevelManager.Instance.OnPlayerCreateExplode += OnPlayerCreateExplode;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        LevelManager.Instance.OnPlayerCreateExplode -= OnPlayerCreateExplode;
+    }
+
+    private void OnPlayerCreateExplode()
+    {
+        Trigger();
+    }
+}

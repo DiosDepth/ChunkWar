@@ -28,3 +28,10 @@ ShipPlug_Effect_1093	波次结束后获得经验<color=#09B3CB>+10%</color>
 ShipPlug_Effect_1101	实弹命中后，有<color=#09B3CB>5%</color>概率使本次伤害提高<color=#09B3CB>100%</color>
 ShipPlug_Effect_1109	能量武器命中时，有<color=#09B3CB>15%</color>概率产生爆炸，造成<color=#09B3CB>#0</color>的伤害
 ShipPlug_Effect_1114	闪避时，对攻击的敌人造成<color=#09B3CB>#0</color>点伤害
+
+
+ShipPropertyDesc_2		爆炸时有<color=#09B3CB>30%</color>概率获得<color=#09B3CB>1</color>点舰船残骸
+ShipPropertyDesc_3		场上每有一个敌人，自身装填速度<color=#EF3E3E>-0.5%</color>
+ShipPropertyDesc_5		残骸数大于<color=#09B3CB>100</color>时，每秒消耗<color=#09B3CB>3</color>点残骸，并获得<color=#09B3CB>6</color>个星币
+ShipPlug_Effect_5  		残骸数大于<color=#09B3CB>100</color>时，每秒消耗<color=#09B3CB>3</color>点残骸，并获得<color=#09B3CB>6</color>个星币
+ShipPlug_Effect_6 		每30个残骸增加自身1%伤害

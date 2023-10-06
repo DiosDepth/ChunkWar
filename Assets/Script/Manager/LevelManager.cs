@@ -116,6 +116,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<Unit> OnPlayerShipParry;
     /* 玩家核心受到伤害 */
     public UnityAction<DamageResultInfo> OnPlayerCoreUnitTakeDamage;
+    /* 玩家制造爆炸 */
+    public UnityAction OnPlayerCreateExplode;
     #endregion
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
@@ -321,6 +323,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         isLevelUpdate = false;
         currentLevel.Unload();
         GameObject.Destroy(currentLevel.gameObject);
+        LeanTween.cancelAll();
         currentLevel = null;
     }
 
@@ -503,6 +506,11 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void PlayerWeaponFire(uint weaponUID, int count)
     {
         OnPlayerWeaponFire?.Invoke(weaponUID, count);
+    }
+
+    public void PlayerCreateExplode()
+    {
+        OnPlayerCreateExplode?.Invoke();
     }
 
     /// <summary>

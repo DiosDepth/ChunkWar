@@ -61,6 +61,7 @@ public enum ModifyTriggerType
     OnPlayerShipParry,
     OnShieldBroken,
     OnPlayerCoreUnitTakeDamage,
+    OnPlayerCreateExplode,
 }
 
 public enum ModifyTriggerEffectType
@@ -77,6 +78,8 @@ public enum ModifyTriggerEffectType
     AddUnitTimerModifier,
     CreateExplode,
     CreateDamage,
+    GainCurrency,
+    ModifyDamgeByTargetDistance
 }
 
 public class BattleMainConfig : SerializedScriptableObject
