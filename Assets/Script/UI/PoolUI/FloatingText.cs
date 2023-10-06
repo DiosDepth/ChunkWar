@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -7,9 +8,10 @@ public class FloatingText : GUIBasePanel,IPoolable
 {
     public float duration = 0.75f;
 
-    private static Color _colorNormal = Color.white;
-    private static Color _colorCritical = Color.yellow;
+    private static UnityEngine.Color _colorNormal = UnityEngine.Color.white;
+    private static UnityEngine.Color _colorCritical = UnityEngine.Color.yellow;
 
+    private static float _defaultTextSize = 16;
     private TextMeshProUGUI _text;
 
     protected override void Awake()
@@ -46,7 +48,8 @@ public class FloatingText : GUIBasePanel,IPoolable
 
     public void PoolableReset()
     {
-       
+        _text.fontSize = _defaultTextSize;
+        _text.color = _colorNormal;
     }
 
     public void PoolableSetActive(bool isactive = true)
@@ -64,6 +67,15 @@ public class FloatingText : GUIBasePanel,IPoolable
     {
         _text.SetText(value.ToString());
         _text.color = isCritical ? _colorCritical : _colorNormal;
+    }
+
+    public void SetSize(float size)
+    {
+        _text.fontSize = size;
+    }
+    public void SetColor(UnityEngine.Color color)
+    {
+        _text.color = color;
     }
 
 }

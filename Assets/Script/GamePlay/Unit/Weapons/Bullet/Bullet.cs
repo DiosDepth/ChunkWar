@@ -29,14 +29,16 @@ public enum AvaliableBulletType
     BaseInstanceHit_Player,
     BaseHommingBullet_Player,
     BaseChainBeam_Player,
+    BasePassThroughMissile_Player,
+
 }
 public class Bullet : MonoBehaviour,IPoolable,IPauseable
 {
     public BulletType type;
     public OwnerType ownertype;
-    public DamageTargetType damageType = DamageTargetType.Target;
+    public DamagePattern damagePattern = DamagePattern.Target;
 
-    [ShowIf("damageType", DamageTargetType.PointRadius)]
+    [ShowIf("damagePattern", DamagePattern.PointRadius)]
     public float damageRadius = 5;
 
     [Header("---VFXSettings---")]
@@ -143,7 +145,22 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
                         }
                     }
                 }
-                
+
+
+                if (job_JobInfo[i].damageType ==3)
+                {
+                    for (int n = 0; n < job_targetsPos.Length; n++)
+                    {
+                        if (math.distance(job_JobInfo[i].update_targetPos, job_targetsPos[n]) <= 0.01f)
+                        {
+                            rv_findedTargetIndex[i * job_targesTotalCount + index] = n;
+                            index++;
+                            rv_findedTargetsCount[i] = index;
+                            break;
+                        }
+                    }
+                }
+
 
             }
         }
@@ -275,12 +292,14 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public virtual void ApplyDamageAllTarget()
     {
         if (prepareDamageTargetList == null || prepareDamageTargetList.Count == 0) { return; }
-        if (damageType == DamageTargetType.Target)
+
+
+        if (damagePattern == DamagePattern.Target && initialTarget != null)
         {
             ApplyDamage(initialTarget.GetComponent<IDamageble>());
         }
 
-        if(damageType == DamageTargetType.PointRadius)
+        if(damagePattern == DamagePattern.PointRadius)
         {
             for (int i = 0; i < prepareDamageTargetList.Count; i++)
             {
@@ -288,6 +307,12 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
             }
         }
 
+        if(damagePattern == DamagePattern.Touched)
+        {
+            ApplyDamage(prepareDamageTargetList[0]);
+        }
+
+        prepareDamageTargetList.Clear();
     }
 
     public virtual void ApplyDamage(IDamageble damageble)

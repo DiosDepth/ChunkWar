@@ -622,7 +622,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
                     bullet.InitialmoveDirection.ToVector3(),
                     initialtargetpos,
                    (int)bullet.movementType,
-                   (int)bullet.damageType,
+                   (int)bullet.damagePattern,
                    bullet.damageRadius
                 ));
         }
@@ -1054,42 +1054,85 @@ public class AIManager : Singleton<AIManager>, IPauseable
             {
                 aiProjectileList[i].UpdateBullet();
             }
-         
-            if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && !aiProjectileList[i].IsApplyDamageAtThisFrame)
+            //子弹的移动，伤害，销毁列表维护需要区分四个不同触发类型
+            if (aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Collider)
             {
-                aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
-                aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
-             
-            }
-            else
-            {
-                if (aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Point && rv_aiProjectile_jobUpdateInfo[i].islifeended)
+                //处理Move 和 Rotation
+                if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && !aiProjectileList[i].IsApplyDamageAtThisFrame)
                 {
-                    _aiProjectileDamageList.Add(aiProjectileList[i]);
-                    aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
-                    _aiProjectileDeathIndex.Add(i);
-                    continue;
+                    aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
+                    aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
                 }
+                else
+                {
+                    if (aiProjectileList[i].IsApplyDamageAtThisFrame)
+                    {
+                        _aiProjectileDamageList.Add(aiProjectileList[i]);
+                        aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                    }
+                    //Collide触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+                    _aiProjectileDeathIndex.Add(i);
+                }
+            }
 
+            if (aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough)
+            {
+                //Passthrough 类型的子弹， 之后生命周期末尾
+                if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && aiProjectileList[i].PassThroughCount > 0)
+                {
+                    aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
+                    aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
+                }
                 if (aiProjectileList[i].IsApplyDamageAtThisFrame)
                 {
                     _aiProjectileDamageList.Add(aiProjectileList[i]);
                     aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
                 }
-
-                if(aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough && aiProjectileList[i].PassThroughCount <= 0)
-                {
-                    _aiProjectileDeathIndex.Add(i);
-                    continue;
-                }
-
-
-                if (rv_aiProjectile_jobUpdateInfo[i].islifeended)
+                //PassTrough触发类型的子弹， 只要Pass Count为0 或者LiftTime为0 就会死亡
+                if (aiProjectileList[i].PassThroughCount <= 0 || rv_aiProjectile_jobUpdateInfo[i].islifeended)
                 {
                     _aiProjectileDeathIndex.Add(i);
                 }
-                
+            }
 
+            if (aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Point)
+            {
+                //处理Move 和 Rotation
+                if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && !aiProjectileList[i].IsApplyDamageAtThisFrame)
+                {
+                    aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
+                    aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
+                }
+                else
+                {
+                    //Point触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+                    if (rv_aiProjectile_jobUpdateInfo[i].islifeended)
+                    {
+                        _aiProjectileDamageList.Add(aiProjectileList[i]);
+                        aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                        _aiProjectileDeathIndex.Add(i);
+                    }
+                }
+            }
+
+            if (aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Target)
+            {
+                //处理Move 和 Rotation
+                if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && !aiProjectileList[i].IsApplyDamageAtThisFrame)
+                {
+                    aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
+                    aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
+                }
+                else
+                {
+                    if (aiProjectileList[i].IsApplyDamageAtThisFrame)
+                    {
+                        _aiProjectileDamageList.Add(aiProjectileList[i]);
+                        aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
+                    }
+                    // Target触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+                    _aiProjectileDeathIndex.Add(i);
+                }
             }
         }
         //处理所有子弹的伤害逻辑

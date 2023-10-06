@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   ID: 4
   BulletName: BaseHommingBullet_Player
-  Type: 1
+  Type: 0
   Prefab: {fileID: 8903830990857463265, guid: b52a34b6f679c974bbcdd46e8813a532, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/BaseHommingBullet_AI
   HitAudio: 

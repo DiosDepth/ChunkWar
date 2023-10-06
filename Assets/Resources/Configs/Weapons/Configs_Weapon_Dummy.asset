@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10090
+  m_Name: Configs_Weapon_Dummy
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -209,7 +209,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
       Data: 2
@@ -242,10 +242,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -411,42 +411,42 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10090
+  ID: 0
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
-    Name: Weapon_Name_10090
-    Desc: Weapon_Desc_10090
+    IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+    Name: AIWeapon_LightAutoCannon
+    Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: 5add29b23ae30d345b6c66ac04620cc2, type: 3}
+  Prefab: {fileID: 4947179278027536233, guid: c25451df3e15b2a4a8f7b2b708964603, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
-  redirection: 0
+  redirection: 1
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
+  EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 550
-  BaseEnergyCost: 0
+  BaseHP: 9999
+  BaseEnergyCost: 10
   BaseEnergyGenerate: 0
   LoadAdd: 0
   PropertyModify: []
-  DamageBase: 50
+  DamageBase: 3
   UseDamageRatio: 0
-  DamageRatioMin: 0.94
-  DamageRatioMax: 1.15
+  DamageRatioMin: 0.8
+  DamageRatioMax: 1.2
   DamageType: 0
-  BaseRange: 600
-  BaseCriticalRate: 15
-  CriticalDamage: 150
-  TotalDamageCount: 24
-  ShootPerCount: 8
-  CD: 8
-  FireCD: 0.5
+  BaseRange: 35
+  BaseCriticalRate: 0
+  CriticalDamage: 0
+  TotalDamageCount: 1
+  ShootPerCount: 1
+  CD: 5
+  FireCD: 0
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0

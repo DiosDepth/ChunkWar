@@ -149,14 +149,13 @@ MonoBehaviour:
   weaponmode: 2
   firemode: 0
   aimingtype: 0
-  bulletType: 4
+  bulletType: 9
   targetmode: 0
   mask:
     serializedVersion: 2
     m_Bits: 128
   firePoint:
   - {fileID: 5020116889135989133}
-  - {fileID: 1672738747122067864}
   scatter: 0
   roatateSpeed: 180
   weaponAttribute:
