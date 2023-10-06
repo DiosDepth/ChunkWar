@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   ownertype: 0
-  damageType: 2
+  damagePattern: 1
   damageRadius: 5
   ShootVFX: HitVFX
   HitVFX: HitVFX

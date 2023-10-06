@@ -15,10 +15,11 @@ public enum ProjectileMovementType
     FollowTarget = 3,
     StraightToPos = 4,
 }
-public enum DamageTargetType
+public enum DamagePattern
 {
     Target = 1,
     PointRadius = 2,
+    Touched = 3,
 }
 
 public enum DamageTriggerPattern
@@ -148,7 +149,7 @@ public class Projectile : Bullet, IDamageble
 
     public override void ShowIndicator()
     {
-        if (damageType == DamageTargetType.PointRadius && damageTriggerPattern == DamageTriggerPattern.Point)
+        if (damagePattern == DamagePattern.PointRadius && damageTriggerPattern == DamageTriggerPattern.Point)
         {
             if( shape == IndicatorShape.Circle)
             {
@@ -351,6 +352,8 @@ public class Projectile : Bullet, IDamageble
     {
         base.PoolableReset();
         passThroughCount = maxPassThroughCount;
+        damagedTargetList.Clear();
+        prepareDamageTargetList.Clear();
     }
 
     public override void PoolableSetActive(bool isactive = true)
@@ -404,7 +407,7 @@ public class Projectile : Bullet, IDamageble
         }
         if(damageTriggerPattern == DamageTriggerPattern.PassTrough)
         {
-            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
+            if (collision.tag == this.tag )
             {
                 return;
             }
@@ -414,11 +417,9 @@ public class Projectile : Bullet, IDamageble
             }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Unit"))
             {
-                if (initialTarget.Equals(collision.gameObject))
-                {
-                    prepareDamageTargetList.Add(collision.gameObject.GetComponent<IDamageble>());
-                    _isApplyDamageAtThisFrame = true;
-                }
+                prepareDamageTargetList.Add(collision.gameObject.GetComponent<IDamageble>());
+                _isApplyDamageAtThisFrame = true;
+
             }
             return;
         }

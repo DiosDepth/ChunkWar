@@ -241,38 +241,85 @@ public class ShipUnitManager:IPauseable
             {
                 projectileList[i].UpdateBullet();
             }
-            if (!rv_projectile_jobUpdateInfo[i].islifeended && !projectileList[i].IsApplyDamageAtThisFrame)
+            //子弹的移动，伤害，销毁列表维护需要区分四个不同触发类型
+            if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.Collider)
             {
-                projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
-                projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
-            }
-            else
-            {
-                if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.Point && rv_projectile_jobUpdateInfo[i].islifeended)
+                //处理Move 和 Rotation
+                if (!rv_projectile_jobUpdateInfo[i].islifeended && !projectileList[i].IsApplyDamageAtThisFrame)
                 {
-                    _projectileDamageList.Add(projectileList[i]);
-                    damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
-                    _projectileDeathIndexList.Add(i);
-                    continue;
+                    projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
+                    projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
                 }
+                else
+                {
+                    if (projectileList[i].IsApplyDamageAtThisFrame)
+                    {
+                        _projectileDamageList.Add(projectileList[i]);
+                        damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
+                    }
+                    //Collide触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+                    _projectileDeathIndexList.Add(i);
+                }
+            }
 
+            if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough)
+            {
+                //Passthrough 类型的子弹， 之后生命周期末尾
+                if (!rv_projectile_jobUpdateInfo[i].islifeended && projectileList[i].PassThroughCount >0)
+                {
+                    projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
+                    projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
+                }
                 if (projectileList[i].IsApplyDamageAtThisFrame)
                 {
                     _projectileDamageList.Add(projectileList[i]);
                     damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
                 }
-
-                if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough && projectileList[i].PassThroughCount <= 0)
-                {
-                    _projectileDeathIndexList.Add(i);
-                    continue;
-                }
-
-                if(rv_projectile_jobUpdateInfo[i].islifeended)
+                //PassTrough触发类型的子弹， 只要Pass Count为0 或者LiftTime为0 就会死亡
+                if (projectileList[i].PassThroughCount <= 0 || rv_projectile_jobUpdateInfo[i].islifeended)
                 {
                     _projectileDeathIndexList.Add(i);
                 }
-                
+            }
+
+            if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.Point)
+            {
+                //处理Move 和 Rotation
+                if (!rv_projectile_jobUpdateInfo[i].islifeended && !projectileList[i].IsApplyDamageAtThisFrame)
+                {
+                    projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
+                    projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
+                }
+                else
+                {
+                    //Point触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+                    if (rv_projectile_jobUpdateInfo[i].islifeended)
+                    {
+                        _projectileDamageList.Add(projectileList[i]);
+                        damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
+                        _projectileDeathIndexList.Add(i);
+                    }
+                }
+            }
+
+            if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.Target)
+            {
+                //处理Move 和 Rotation
+                if (!rv_projectile_jobUpdateInfo[i].islifeended && !projectileList[i].IsApplyDamageAtThisFrame)
+                {
+                    projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
+                    projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
+                }
+                else
+                {
+                    if (projectileList[i].IsApplyDamageAtThisFrame)
+                    {
+                        _projectileDamageList.Add(projectileList[i]);
+                        damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
+                    }
+                    // Target触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+                    _projectileDeathIndexList.Add(i);
+                }
             }
         }
 
@@ -481,7 +528,7 @@ public class ShipUnitManager:IPauseable
                     bullet.InitialmoveDirection.ToVector3(),
                     initialtargetpos,
                    (int)bullet.movementType,
-                   (int)bullet.damageType,
+                   (int)bullet.damagePattern,
                    bullet.damageRadius
                 ));
         }

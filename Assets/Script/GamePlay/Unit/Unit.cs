@@ -91,10 +91,21 @@ public class UnitBaseAttribute
         }
         else
         {
-            var enemyShip = _parentUnit._owner as AIShip;
-            _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
-            CalculateEnemyHP();
+            //unit with no owner ,that means this is a dispersed unit;
+            if (_parentUnit._owner == null)
+            {
+                _hardLevelItem = GameHelper.GetEnemyHardLevelItem(1);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
+                CalculateEnemyHP();
+            }
+            else
+            {
+                var enemyShip = _parentUnit._owner as AIShip;
+
+                _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
+                CalculateEnemyHP();
+            }
         }
     }
 
@@ -339,8 +350,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             unitSprite.color = Color.white;
         }
         GameManager.Instance.RegisterPauseable(this);
-
-
     }
 
     /// <summary>
@@ -528,7 +537,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// <summary>
     /// 最大血量变化
     /// </summary>
-    private void OnMaxHPChangeAction()
+    protected void OnMaxHPChangeAction()
     {
         HpComponent.SetMaxHP(baseAttribute.HPMax);
     }
