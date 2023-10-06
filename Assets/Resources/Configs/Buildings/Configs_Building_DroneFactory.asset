@@ -427,6 +427,8 @@ MonoBehaviour:
   ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
   EditorBrushDefaultRotation: 0
+  CorsorOffsetX: 0
+  CorsorOffsetY: 0
   ItemTags: 32
   BaseHP: 100
   BaseEnergyCost: 30

@@ -96,6 +96,16 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
         return _unitList.FindAll(x => x is T).ConvertAll(x => x as T);
     }
 
+    public Unit GetUnitBySlotPosition(Vector2Int pos)
+    {
+        for(int i = 0; i < _unitList.Count; i++)
+        {
+            var coor = _unitList[i].occupiedCoords;
+            if (coor.Contains(pos))
+                return _unitList[i];
+        }
+        return null;
+    }
 
     protected virtual void Awake()
     {

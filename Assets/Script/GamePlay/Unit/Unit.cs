@@ -159,8 +159,13 @@ public class UnitBaseAttribute
 
     private void CalculateEnergyGenerate()
     {
-        var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyGenerate);
+        var percent = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyGenerate);
+        ///Self GenerateValue
+        var delta = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitEnergyGenerate);
         var newValue = BaseEnergyGenerate + delta;
+
+        newValue *= (1 + percent / 100f);
+
         EnergyGenerate = (int)Mathf.Clamp(newValue, 0, float.MaxValue);
         RefreshShipEnergy();
     }
@@ -208,6 +213,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
+    public List<Vector2Int> effectSlotCoords;
 
     public UnitLocalPropertyData LocalPropetyData = new UnitLocalPropertyData();
 
@@ -383,44 +389,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public void OnAdded()
     {
-        var propertyModify = _baseUnitConfig.PropertyModify;
-        if (propertyModify != null && propertyModify.Length > 0)
-        {
-            for (int i = 0; i < propertyModify.Length; i++)
-            {
-                var modify = propertyModify[i];
-                if (!modify.BySpecialValue)
-                {
-                    RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PropertyModifyType.Modify, UID, modify.Value);
-                }
-                else
-                {
-                    PropertyModifySpecialData specialData = new PropertyModifySpecialData(modify, UID);
-                    _modifySpecialDatas.Add(specialData);
-                }
-            }
-        }
-        ///Handle SpecialDatas
-        for (int i = 0; i < _modifySpecialDatas.Count; i++)
-        {
-            _modifySpecialDatas[i].HandlePropetyModifyBySpecialValue();
-        }
-
-        var triggers = _baseUnitConfig.ModifyTriggers;
-        if (triggers != null && triggers.Length > 0)
-        {
-            for (int i = 0; i < triggers.Length; i++)
-            {
-                var triggerData = triggers[i].Create(triggers[i], UID);
-                if (triggerData != null)
-                {
-                    var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
-                    triggerData.UID = uid;
-                    triggerData.OnTriggerAdd();
-                    _modifyTriggerDatas.Add(triggerData);
-                }
-            }
-        }
+        AddModifySpecials();
+        AddModifyTriggers();
+        RefreshEffectSlot();
     }
 
     /// <summary>
@@ -556,5 +527,111 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
        
     }
+
+    #region Proeprty & Effect
+
+    /// <summary>
+    /// 刷新格子效果
+    /// </summary>
+    public void RefreshEffectSlot()
+    {
+        if (_baseUnitConfig.SlotEffects == null || _baseUnitConfig.SlotEffects.Length <= 0)
+            return;
+
+        if (effectSlotCoords == null || effectSlotCoords.Count <= 0)
+            return;
+
+        List<Unit> targetUnits = new List<Unit>();
+        for (int i = 0; i < effectSlotCoords.Count; i++)
+        {
+            var unit = _owner.GetUnitBySlotPosition(effectSlotCoords[i]);
+            if (unit != null && targetUnits.Contains(unit))
+            {
+                targetUnits.Add(unit);
+            }
+        }
+
+        ///CheckMainCondition
+        for (int i = 0; i < _baseUnitConfig.SlotEffects.Length; i++)
+        {
+            var effect = _baseUnitConfig.SlotEffects[i];
+
+            for (int j = 0; j < targetUnits.Count; j++) 
+            {
+                if(CheckEffectSlotMainConditions(effect.MainConditions, targetUnits[j]))
+                {
+                    if(effect.ApplyTarget == UnitSlotEffectApplyTarget.Target)
+                    {
+
+                    }
+                    else if (effect.ApplyTarget == UnitSlotEffectApplyTarget.Self)
+                    {
+
+                    }
+                }
+            }
+        }
+    }
+
+    private void AddModifySpecials()
+    {
+        var propertyModify = _baseUnitConfig.PropertyModify;
+        if (propertyModify != null && propertyModify.Length > 0)
+        {
+            for (int i = 0; i < propertyModify.Length; i++)
+            {
+                var modify = propertyModify[i];
+                if (!modify.BySpecialValue)
+                {
+                    RogueManager.Instance.MainPropertyData.AddPropertyModifyValue(modify.ModifyKey, PropertyModifyType.Modify, UID, modify.Value);
+                }
+                else
+                {
+                    PropertyModifySpecialData specialData = new PropertyModifySpecialData(modify, UID);
+                    _modifySpecialDatas.Add(specialData);
+                }
+            }
+        }
+        ///Handle SpecialDatas
+        for (int i = 0; i < _modifySpecialDatas.Count; i++)
+        {
+            _modifySpecialDatas[i].HandlePropetyModifyBySpecialValue();
+        }
+    }
+
+    private void AddModifyTriggers()
+    {
+        var triggers = _baseUnitConfig.ModifyTriggers;
+        if (triggers != null && triggers.Length > 0)
+        {
+            for (int i = 0; i < triggers.Length; i++)
+            {
+                var triggerData = triggers[i].Create(triggers[i], UID);
+                if (triggerData != null)
+                {
+                    var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
+                    triggerData.UID = uid;
+                    triggerData.OnTriggerAdd();
+                    _modifyTriggerDatas.Add(triggerData);
+                }
+            }
+        }
+    }
+
+    private bool CheckEffectSlotMainConditions(UnitSlotEffectConditionConfig[] cons, Unit targetUnit)
+    {
+        if (cons == null || cons.Length <= 0)
+            return true;
+
+        bool result = true;
+        for(int i = 0; i < cons.Length; i++)
+        {
+            result &= cons[i].GetResult(targetUnit);
+        }
+
+        return result;
+    }
+
+    #endregion
 }
 

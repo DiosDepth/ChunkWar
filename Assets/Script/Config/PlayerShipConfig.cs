@@ -63,6 +63,11 @@ public class PlayerShipConfig : BaseShipConfig
     public List<int> ShipOriginPlugs = new List<int>();
 
     [FoldoutGroup("配置")]
+    [LabelText("插件权重修正")]
+    [LabelWidth(100)]
+    public Dictionary<ShipPlugTag, float> PlugRandomTagRatioDic = new Dictionary<ShipPlugTag, float>();
+
+    [FoldoutGroup("配置")]
     [LabelText("初始Unit")]
     [LabelWidth(100)]
     public List<ShipInitUnitConfig> OriginUnits = new List<ShipInitUnitConfig>();

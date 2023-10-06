@@ -90,6 +90,10 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_ModifyDamgeByTargetDistance(type));
             }
+            else if(type == ModifyTriggerEffectType.AddUnitModifier)
+            {
+                result.Add(type.ToString(), new MTEC_AddUnitModifier(type));
+            }
         }
 
         return result;
@@ -440,6 +444,27 @@ public class MTEC_AddUnitTimerModifier : ModifyTriggerEffectConfig
     }
 }
 
+public class MTEC_AddUnitModifier : ModifyTriggerEffectConfig
+{
+    [DictionaryDrawerSettings()]
+    public Dictionary<UnitPropertyModifyKey, float> ModifyMap = new Dictionary<UnitPropertyModifyKey, float>();
+
+    public MTEC_AddUnitModifier(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.AddModifier_Unit(this, parentUnitUID);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.RemoveModifier_Unit(this, parentUnitUID);
+    }
+}
+
 public class MTEC_GainDropWaste : ModifyTriggerEffectConfig
 {
     [HorizontalGroup("AA", 120)]
@@ -547,6 +572,12 @@ public class MTEC_CreateDamage : ModifyTriggerEffectConfig
     [LabelText("伤害")]
     [LabelWidth(60)]
     public int Damage;
+
+    [ShowIf("TargetType", EffectDamageTargetType.Random)]
+    [HorizontalGroup("AA", 150)]
+    [LabelText("随机目标个数")]
+    [LabelWidth(80)]
+    public int RandomTargetCount = 1;
 
     [HorizontalGroup("AD", 800)]
     public List<UnitPropertyModifyFrom> DamageModifyFrom = new List<UnitPropertyModifyFrom>();

@@ -42,7 +42,7 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
     [LabelText("TAG")]
     [LabelWidth(80)]
     [EnumToggleButtons]
-    public ItemTag ItemTags;
+    public ShipPlugTag PlugTags;
 
     [FoldoutGroup("–ﬁ’˝≈‰÷√")]
     [HorizontalGroup("–ﬁ’˝≈‰÷√/B", 500)]
@@ -59,9 +59,9 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
     [HideReferenceObjectPicker]
     public ModifyTriggerConfig[] ModifyTriggers = new ModifyTriggerConfig[0];
 
-    public bool HasUnitTag(ItemTag tag)
+    public bool HasPlugTag(ShipPlugTag tag)
     {
-        return ItemTags.HasFlag(tag);
+        return PlugTags.HasFlag(tag);
     }
 
     public string GetEffectDesc()

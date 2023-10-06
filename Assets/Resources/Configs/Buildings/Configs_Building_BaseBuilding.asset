@@ -411,6 +411,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SlotEffects
+      Entry: 7
+      Data: 2|UnitSlotEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 1001
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: bd2ef89b3428e4847a0aacaf2fb2af67, type: 3}

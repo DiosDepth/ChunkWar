@@ -79,7 +79,8 @@ public enum ModifyTriggerEffectType
     CreateExplode,
     CreateDamage,
     GainCurrency,
-    ModifyDamgeByTargetDistance
+    ModifyDamgeByTargetDistance,
+    AddUnitModifier,
 }
 
 public class BattleMainConfig : SerializedScriptableObject

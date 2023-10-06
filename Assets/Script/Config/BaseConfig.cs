@@ -88,7 +88,7 @@ public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
             value += 1;
             GUI.changed = true;
             Event.current.Use();
-            if (value == 3)
+            if (value == 4)
             {
                 value = 0;
             }
@@ -97,18 +97,23 @@ public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
 
         if (value == 1)
         {
-            UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0.1f, 0.8f, 0.2f));
-            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
+            EditorGUI.DrawRect(rect.Padding(1), new Color(0.1f, 0.8f, 0.2f));
+            EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
         }
         else if (value == 2)
         {
-            UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0.5f, 0f, 0f, 1f));
-            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
+            EditorGUI.DrawRect(rect.Padding(1), new Color(0.5f, 0f, 0f, 1f));
+            EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
         }
         else if (value == 0)
         {
-            UnityEditor.EditorGUI.DrawRect(rect.Padding(1), new Color(0f, 0f, 0f, 1f));
-            UnityEditor.EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
+            EditorGUI.DrawRect(rect.Padding(1), new Color(0f, 0f, 0f, 1f));
+            EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
+        }
+        else if(value == 3)
+        {
+            EditorGUI.DrawRect(rect.Padding(1), Color.blue);
+            EditorGUI.LabelField(rect.AlignCenterXY(rect.width, rect.height), value.ToString());
         }
         return value;
     }

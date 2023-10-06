@@ -433,6 +433,7 @@ public class PlayerShip : BaseShip
                 tempunit.occupiedCoords.Add(m_unitmap[i]);
             }
         }
+        tempunit.effectSlotCoords = (m_unitconfig as BaseUnitConfig).GetEffectSlotCoord().AddToAll(m_poscoord).ToList();
         _unitList.Add(tempunit);
         RefreshShipEnergy();
         return tempunit;

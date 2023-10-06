@@ -75,6 +75,21 @@ public abstract class ModifyTriggerData : IPropertyModify
         _timerModifiers.Add(modifier);
     }
 
+    public void AddModifier_Unit(MTEC_AddUnitModifier config, uint parentUnitUID)
+    {
+        var targetUnit = RogueManager.Instance.GetPlayerShipUnit(parentUnitUID);
+        if (targetUnit == null)
+            return;
+
+        if (config.ModifyMap != null)
+        {
+            foreach (var item in config.ModifyMap)
+            {
+                targetUnit.LocalPropetyData.AddPropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID, item.Value);
+            }
+        }
+    }
+
     public void RemoveTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
     {
         ///移除一个
@@ -101,6 +116,21 @@ public abstract class ModifyTriggerData : IPropertyModify
                 modifier.OnRemove();
                 _timerModifiers.RemoveAt(i);
                 break;
+            }
+        }
+    }
+
+    public void RemoveModifier_Unit(MTEC_AddUnitModifier config, uint parentUnitUID)
+    {
+        var targetUnit = RogueManager.Instance.GetPlayerShipUnit(parentUnitUID);
+        if (targetUnit == null)
+            return;
+
+        if (config.ModifyMap != null)
+        {
+            foreach (var item in config.ModifyMap)
+            {
+                targetUnit.LocalPropetyData.RemovePropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID);
             }
         }
     }
@@ -186,6 +216,29 @@ public abstract class ModifyTriggerData : IPropertyModify
             for(int i = 0; i < allUnit.Count; i++)
             {
                 var unit = allUnit[i];
+                if (unit == null)
+                    continue;
+
+                DamageResultInfo info = new DamageResultInfo()
+                {
+                    attackerUnit = null,
+                    Target = unit,
+                    Damage = damage,
+                    IsCritical = isCritial,
+                    DamageType = WeaponDamageType.NONE,
+                    IsPlayerAttack = true
+                };
+
+                (unit as IDamageble).TakeDamage(info);
+            }
+        }
+        else if (config.TargetType == EffectDamageTargetType.Random)
+        {
+            ///随机敌人
+            var randomUnit = AIManager.Instance.GetRandomAIUnitList(config.RandomTargetCount);
+            for(int i = 0; i < randomUnit.Count; i++)
+            {
+                var unit = randomUnit[i];
                 if (unit == null)
                     continue;
 
