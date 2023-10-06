@@ -251,13 +251,43 @@ public abstract class ModifyTriggerData : IPropertyModify
         if (Config.SelfUnique && _uniqueEffecting)
             return false;
 
-        currentTriggerCount++;
+        ///CheckCondition
         var effects = Config.Effects;
         for(int i = 0; i < effects.Length; i++)
         {
-            effects[i].Excute(this, parentUnitID);
+            bool trigger = false;
+            var effect = effects[i];
+            if (CheckCondition(effect)) ///有一个触发即为触发
+            {
+                trigger = true;
+                effect.Excute(this, parentUnitID);
+            }
+
+            if (trigger)
+            {
+                currentTriggerCount++;
+            }
         }
         return true;
+    
+    }
+
+    /// <summary>
+    /// 检测条件
+    /// </summary>
+    /// <param name="effectCfg"></param>
+    /// <returns></returns>
+    private bool CheckCondition(ModifyTriggerEffectConfig effectCfg)
+    {
+        if (effectCfg.Conditions == null || effectCfg.Conditions.Length <= 0)
+            return true;
+
+        bool result = true;
+        for(int i = 0; i < effectCfg.Conditions.Length; i++)
+        {
+            result &= effectCfg.Conditions[i].GetResult(this);
+        }
+        return result;
     }
 
     /// <summary>
@@ -268,7 +298,11 @@ public abstract class ModifyTriggerData : IPropertyModify
         var effects = Config.Effects;
         for (int i = 0; i < effects.Length; i++)
         {
-            effects[i].Excute(this, parentUnitID);
+            var effect = effects[i];
+            if (CheckCondition(effect))
+            {
+                effect.Excute(this, parentUnitID);
+            }
         }
     }
 

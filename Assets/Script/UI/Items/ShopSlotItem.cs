@@ -277,7 +277,7 @@ public class ShopSlotItem : MonoBehaviour
         LimitInfoTrans.SafeSetActive(true);
     }
 
-    private void SetUpTag(ShipPlugItemConfig cfg)
+    private void SetUpTag(ShipPlugDataItemConfig cfg)
     {
         _tagRoot.Pool_BackAllChilds(ItemTag_PrefabPath);
 

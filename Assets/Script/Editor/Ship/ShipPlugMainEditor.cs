@@ -7,14 +7,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class ShipPlugMainEditor : OdinEditorWindow
+public class ShipPlugMainEditor : OdinMenuEditorWindow
 {
-    [InlineEditor]
-    [HideReferenceObjectPicker]
-    [HorizontalGroup("VVV", Order = 99)]
-    public ShipPlugConfig ShipPlugCfg;
-
-    private const string ShipPlugConfigPath = "Assets/Resources/Configs/Main/ShipPlugMainConfig.asset";
 
     public static void ShowWindow()
     {
@@ -24,18 +18,24 @@ public class ShipPlugMainEditor : OdinEditorWindow
         win.Show();
     }
 
-    protected override void Initialize()
+    protected override OdinMenuTree BuildMenuTree()
     {
-        base.Initialize();
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
-        ShipPlugCfg = AssetDatabase.LoadAssetAtPath<ShipPlugConfig>(ShipPlugConfigPath);
-    }
+        var tree = new OdinMenuTree(true);
+        tree.Config.DrawSearchToolbar = true;
 
-    [OnInspectorDispose]
-    private void OnDispose()
-    {
-        EditorUtility.SetDirty(ShipPlugCfg);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
+        var menu = tree.AddAllAssetsAtPath("²å¼þÁÐ±í", "Assets/Resources/Configs/ShipPlug", typeof(ShipPlugDataItemConfig), true, true);
+        menu.ForEach(x =>
+        {
+            var childs = x.ChildMenuItems;
+            childs.ForEach(child =>
+            {
+                ShipPlugDataItemConfig info = child.Value as ShipPlugDataItemConfig;
+                var name = LocalizationManager.Instance.GetTextValue(info.GeneralConfig.Name);
+                child.Name = string.Format("[{0}]_{1}", info.ID, name);
+            });
+        });
+        tree.SortMenuItemsByName();
+        return tree;
     }
 }

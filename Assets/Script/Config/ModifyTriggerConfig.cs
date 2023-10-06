@@ -404,7 +404,6 @@ public class MTC_CoreHPPercent : ModifyTriggerConfig
     [HorizontalGroup("AB", 200)]
     [LabelText("±ÈÀý")]
     [LabelWidth(50)]
-    [ShowIf("IsPercent")]
     public byte HPPercent;
 
     [HorizontalGroup("AB", 200)]

@@ -1,44 +1,21 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class ShipPlugConfig : SerializedScriptableObject
+public class ShipPlugDataItemConfig : SerializedScriptableObject
 {
-    [ListDrawerSettings( NumberOfItemsPerPage = 5, CustomAddFunction = "AddItem")]
-    [HideReferenceObjectPicker]
-    [LabelText("插件列表")]
-    public List<ShipPlugItemConfig> PlugConfigs = new List<ShipPlugItemConfig>();
-
-#if UNITY_EDITOR
-    [OnInspectorDispose]
-    private void OnDispose()
-    {
-        EditorUtility.SetDirty(this);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-    }
-#endif
-
-    private ShipPlugItemConfig AddItem()
-    {
-        return new ShipPlugItemConfig();
-    }
-}
-
-
-public class ShipPlugItemConfig
-{
-    [HorizontalGroup("A", 80)]
+    [HorizontalGroup("A", 80, Order = -200)]
     [LabelText("ID")]
     [LabelWidth(30)]
     public int ID;
 
-    [HorizontalGroup("A", 400)]
-    [LabelText("信息配置")]
-    [LabelWidth(80)]
+    [FoldoutGroup("基础信息", -100)]
+    [HideLabel()]
     [HideReferenceObjectPicker]
     public GeneralItemConfig GeneralConfig = new GeneralItemConfig();
 
@@ -74,9 +51,8 @@ public class ShipPlugItemConfig
     [HideReferenceObjectPicker]
     public PropertyModifyConfig[] PropertyPercentModify = new PropertyModifyConfig[0];
 
-    [HorizontalGroup("A", 1000)]
-    [LabelText("触发配置")]
-    [LabelWidth(80)]
+    [FoldoutGroup("触发配置")]
+    [LabelText("触发")]
     [DisableContextMenu(DisableForMember = true, DisableForCollectionElements = true)]
     [ValueDropdown("GetTriggerLst", DrawDropdownForListElements = false)]
     [HideReferenceObjectPicker]
@@ -139,5 +115,13 @@ public class ShipPlugItemConfig
         return new PropertyModifyConfig();
     }
 
-
+#if UNITY_EDITOR
+    [OnInspectorDispose]
+    private void OnDispose()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+#endif
 }

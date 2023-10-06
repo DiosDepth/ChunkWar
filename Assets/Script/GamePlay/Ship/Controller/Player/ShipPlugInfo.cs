@@ -18,7 +18,7 @@ public class ShipPlugInfo : IPropertyModify
     /// </summary>
     public int GoodsID;
 
-    private ShipPlugItemConfig _cfg;
+    private ShipPlugDataItemConfig _cfg;
     public GoodsItemRarity Rarity
     {
         get

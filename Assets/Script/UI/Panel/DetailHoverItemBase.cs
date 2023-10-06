@@ -124,7 +124,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable
         }
     }
 
-    protected void SetUpProperty(ShipPlugItemConfig cfg)
+    protected void SetUpProperty(ShipPlugDataItemConfig cfg)
     {
         for(int i = ModifyCmpts.Count - 1; i >= 0; i--)
         {
