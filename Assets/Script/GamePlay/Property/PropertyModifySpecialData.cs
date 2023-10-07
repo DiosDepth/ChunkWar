@@ -11,6 +11,7 @@ public class PropertyModifySpecialData
 
     private uint UID;
 
+
     public PropertyModifySpecialData(PropertyModifyConfig cfg, uint parentUID)
     {
         this.Config = cfg;

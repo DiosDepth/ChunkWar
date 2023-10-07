@@ -1454,6 +1454,6 @@ MonoBehaviour:
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
-  CoreHP: 50
   SpeedBase: 10
+  AttackBase: 0
   HardLevelGroupID: 1

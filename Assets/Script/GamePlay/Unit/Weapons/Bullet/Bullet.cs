@@ -301,6 +301,8 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 
         if(damagePattern == DamagePattern.PointRadius)
         {
+            ///Explode Damage
+            LevelManager.Instance.PlayerCreateExplode();
             for (int i = 0; i < prepareDamageTargetList.Count; i++)
             {
                 ApplyDamage(prepareDamageTargetList[i]);

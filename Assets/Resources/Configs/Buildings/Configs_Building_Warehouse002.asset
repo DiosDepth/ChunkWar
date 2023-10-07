@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_MainWeapon_7
+  m_Script: {fileID: 11500000, guid: 7144fbede2b43da40b425ccd0fad27b1, type: 3}
+  m_Name: Configs_Building_Warehouse002
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -176,15 +176,6 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
       Data: 0
     - Name: 
       Entry: 3
@@ -209,15 +200,21 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 3
       Data: 2
     - Name: 
       Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
       Data: 0
     - Name: 
       Entry: 3
@@ -242,13 +239,16 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -423,45 +423,34 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 7
+  ID: 1151
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 5d44811472f8a7d4b8217c3fa4764524, type: 3}
-    Name: Weapon_Name_007
-    Desc: Weapon_Desc_007
-    Rarity: 3
+    IconSprite: {fileID: 0}
+    Name: Unit_Name_1151
+    Desc: 
+    Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 579860166384849233, guid: 55a6f60ceeb2cde44b79bd7f0d42db15, type: 3}
+  Prefab: {fileID: 0}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  unitType: 2
+  unitType: 0
+  GroupID: 0
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: 5d44811472f8a7d4b8217c3fa4764524, type: 3}
+  EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 12
-  BaseHP: 500
-  BaseEnergyCost: 0
-  BaseEnergyGenerate: 100
-  LoadAdd: 0
+  ItemTags: 16
+  BaseHP: 120
+  BaseEnergyCost: 5
+  BaseEnergyGenerate: 0
+  LoadAdd: 50
   PropertyModify: []
-  DamageBase: 10
-  UseDamageRatio: 0
-  DamageRatioMin: 0.9
-  DamageRatioMax: 1.1
-  DamageType: 0
-  BaseRange: 400
-  BaseCriticalRate: 15
-  CriticalDamage: 150
-  TotalDamageCount: 9
-  ShootPerCount: 3
-  CD: 1
-  FireCD: 0.2
-  ShieldTransfixion: 0
-  ShieldDamage: 150
-  BaseTransfixion: 0
-  TransfixionReduce: 0
-  DamageModifyFrom: []
-  FireAudioClip: SFX_Missile_Fire_001
+  ShieldConfig:
+    GenerateShield: 0
+    ShieldHP: 0
+    ShieldRecoverValue: 0
+    ShieldRecoverTime: 0
+    ShieldBaseRatio: 0

@@ -34,8 +34,9 @@ public class ShipPropertyGroupPanel : MonoBehaviour
     private static List<PropertyModifyKey> SubPropertyList = new List<PropertyModifyKey>
     {
          PropertyModifyKey.Explode_Damage,
-         PropertyModifyKey.Explode_Range
-
+         PropertyModifyKey.Explode_Range,
+         PropertyModifyKey.TOTAL_ENERGY,       ///×ÜºÍ
+         PropertyModifyKey.TOTAL_LOAD
     };
 
     /// <summary>

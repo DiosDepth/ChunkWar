@@ -161,7 +161,7 @@ public class UnitBaseAttribute
     {
         var percent = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitEnergyGenerate);
         ///Self GenerateValue
-        var delta = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitEnergyGenerate);
+        var delta = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitEnergyGenerateValue);
         var newValue = BaseEnergyGenerate + delta;
 
         newValue *= (1 + percent / 100f);
@@ -224,12 +224,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     }
 
     private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
-
-    /// <summary>
-    /// 当前升级点数
-    /// </summary>
-    public byte currentEvolvePoints;
-
 
 
     public BaseShip _owner
@@ -530,11 +524,27 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     #region Proeprty & Effect
 
+    public void AddNewModifyEffectDatas(List<ModifyTriggerData> datas)
+    {
+        for(int i = 0; i < datas.Count; i++)
+        {
+            AddNewModifyEffectData(datas[i]);
+        }
+    }
+
+    public void AddNewModifyEffectData(ModifyTriggerData data)
+    {
+        data.OnTriggerAdd();
+        _modifyTriggerDatas.Add(data);
+    }
+
     /// <summary>
     /// 刷新格子效果
     /// </summary>
     public void RefreshEffectSlot()
     {
+        RemoveAllSlotEffets();
+
         if (_baseUnitConfig.SlotEffects == null || _baseUnitConfig.SlotEffects.Length <= 0)
             return;
 
@@ -562,15 +572,60 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 {
                     if(effect.ApplyTarget == UnitSlotEffectApplyTarget.Target)
                     {
-
+                        ApplySlotEffectToTarget(targetUnits[i], effect.ApplyEffects, effect.ModifyMap);
                     }
                     else if (effect.ApplyTarget == UnitSlotEffectApplyTarget.Self)
                     {
-
+                        ///自身添加效果
+                        ApplySlotEffectToTarget(this, effect.ApplyEffects, effect.ModifyMap);
                     }
                 }
             }
         }
+    }
+
+    private void ApplySlotEffectToTarget(Unit targetUnit, ModifyTriggerConfig[] triggers, Dictionary<UnitPropertyModifyKey, float> property)
+    {
+        if (targetUnit == null)
+            return;
+
+        if(triggers != null && triggers.Length > 0)
+        {
+            for(int i = 0; i < triggers.Length; i++)
+            {
+                ModifyTriggerData data = triggers[i].Create(triggers[i], 0);
+                var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, data);
+                data.UID = uid;
+                data.FromUnitSlotEffect = true;
+                targetUnit.AddNewModifyEffectData(data);
+            }
+        }
+
+        if(property != null && property.Count > 0)
+        {
+            foreach(var item in property)
+            {
+                targetUnit.LocalPropetyData.AddPropertyModifyValue(item.Key, LocalPropertyModifyType.EffectSlotModify, UID, item.Value);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 移除所有网格效果
+    /// </summary>
+    private void RemoveAllSlotEffets()
+    {
+        for (int i = _modifyTriggerDatas.Count - 1; i >= 0; i--) 
+        {
+            var trigger = _modifyTriggerDatas[i];
+            if (trigger.FromUnitSlotEffect)
+            {
+                trigger.OnTriggerRemove();
+                _modifyTriggerDatas.RemoveAt(i);
+            }
+        }
+
+        LocalPropetyData.ClearAllSlotEffectPropertyModify();
     }
 
     private void AddModifySpecials()
@@ -620,6 +675,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     private bool CheckEffectSlotMainConditions(UnitSlotEffectConditionConfig[] cons, Unit targetUnit)
     {
+        if (targetUnit == null)
+            return false;
+
         if (cons == null || cons.Length <= 0)
             return true;
 

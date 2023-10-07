@@ -194,7 +194,10 @@ public enum PropertyModifyKey
     /// <summary>
     /// …À∫¶∑∂Œß…œœﬁ
     /// </summary>
-    DamageRangeMax
+    DamageRangeMax,
+
+    TOTAL_ENERGY,
+    TOTAL_LOAD,
 }
 
 /// <summary>
@@ -204,5 +207,5 @@ public enum UnitPropertyModifyKey
 {
     NONE,
     UnitEnergyCostPercent,
-    UnitEnergyGenerate,
+    UnitEnergyGenerateValue,
 }

@@ -281,6 +281,20 @@ public static class GameHelper
         return currentShip.CoreUnits[0].HpComponent;
     }
 
+    public static float GetPlayerShipEnergyTotal()
+    {
+        if(RogueManager.Instance.currentShip != null)
+        {
+            return RogueManager.Instance.currentShip.TotalEnergy;
+        }
+
+        if(ShipBuilder.instance != null && ShipBuilder.instance.editorShip != null)
+        {
+            return ShipBuilder.instance.editorShip.TotalEnergy;
+        }
+        return 0;
+    }
+
     /// <summary>
     /// 单位能源消耗
     /// </summary>

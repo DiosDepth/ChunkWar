@@ -516,6 +516,14 @@ public class ShipUnitManager:IPauseable
             {
                 initialtargetpos = bullet.initialTarget.transform.position;
             }
+
+            float damagerRadius = bullet.damageRadius;
+            if(bullet.damagePattern == DamagePattern.PointRadius)
+            {
+                ///CalculateExplodeDamage
+                damagerRadius = GameHelper.CalculateExplodeRange((int)(damagerRadius * 10));
+            }
+
             projectile_JobInfo.Add(new ProjectileJobInitialInfo
                 (
                     bullet.initialTarget ? bullet.initialTarget.transform.position : bullet.transform.up,
@@ -529,7 +537,7 @@ public class ShipUnitManager:IPauseable
                     initialtargetpos,
                    (int)bullet.movementType,
                    (int)bullet.damagePattern,
-                   bullet.damageRadius
+                   damagerRadius
                 ));
         }
 

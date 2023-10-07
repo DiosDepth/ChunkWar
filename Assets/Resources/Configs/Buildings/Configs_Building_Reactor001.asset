@@ -212,7 +212,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 3
       Data: 0
@@ -411,10 +411,22 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SlotEffects
+      Entry: 7
+      Data: 2|UnitSlotEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 1100
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: Building_Name_1100
+    Name: Unit_Name_1100
     Desc: 
     Rarity: 0
     SortingOrder: 0
@@ -422,6 +434,7 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
+  GroupID: 0
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 

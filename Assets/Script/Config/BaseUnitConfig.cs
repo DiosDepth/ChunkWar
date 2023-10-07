@@ -44,6 +44,11 @@ public class BaseUnitConfig : BaseConfig
     [HorizontalGroup("B", 200)]
     public UnitType unitType;
 
+    [LabelText("×éID")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 200)]
+    public int GroupID;
+
     [LabelText("¿ÉÐý×ª")]
     [LabelWidth(80)]
     [HorizontalGroup("B", 150)]

@@ -411,6 +411,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SlotEffects
+      Entry: 7
+      Data: 2|UnitSlotEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 10035
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
@@ -427,6 +439,8 @@ MonoBehaviour:
   ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
   EditorBrushDefaultRotation: 0
+  CorsorOffsetX: 0
+  CorsorOffsetY: 0
   ItemTags: 4
   BaseHP: 30
   BaseEnergyCost: 10

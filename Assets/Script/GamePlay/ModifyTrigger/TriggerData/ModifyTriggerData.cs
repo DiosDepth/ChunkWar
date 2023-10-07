@@ -17,6 +17,11 @@ public abstract class ModifyTriggerData : IPropertyModify
     protected int currentTriggerCount;
 
     /// <summary>
+    /// 是否来源于Unit网格效果
+    /// </summary>
+    public bool FromUnitSlotEffect = false;
+
+    /// <summary>
     /// 加成正在生效
     /// </summary>
     public bool _uniqueEffecting = false;

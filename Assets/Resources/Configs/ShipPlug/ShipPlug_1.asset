@@ -148,7 +148,7 @@ MonoBehaviour:
   PropertyModify: []
   EffectDesc: 
   EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify:
   - ModifyKey: 38
     Value: 20

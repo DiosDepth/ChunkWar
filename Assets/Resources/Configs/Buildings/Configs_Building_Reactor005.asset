@@ -176,13 +176,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
       Data: 3
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 3
       Data: 0
@@ -215,6 +212,9 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 3
       Data: 3
     - Name: 
       Entry: 3
@@ -242,7 +242,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 3
       Data: 3
@@ -425,6 +425,45 @@ MonoBehaviour:
       Data: 4|UnitSlotEffectConditionConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 5|USEC_ByTargetUnitGroupID, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 1
+    - Name: VaildGroupIDs
+      Entry: 7
+      Data: 6|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1105
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ApplyTarget
+      Entry: 3
+      Data: 1
+    - Name: ApplyEffects
+      Entry: 7
+      Data: 7|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
       Data: 0
     - Name: 
       Entry: 13
@@ -432,18 +471,38 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: EffectUnique
-      Entry: 5
-      Data: false
-    - Name: ApplyTarget
-      Entry: 3
-      Data: 1
-    - Name: Effects
+    - Name: ModifyMap
       Entry: 7
-      Data: 5|ModifyTriggerEffectConfig[], Assembly-CSharp
+      Data: 8|System.Collections.Generic.Dictionary`2[[UnitPropertyModifyKey, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 9|System.Collections.Generic.EnumEqualityComparer`1[[UnitPropertyModifyKey,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -462,25 +521,26 @@ MonoBehaviour:
   ID: 1105
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: Building_Name_1105
+    Name: Unit_Name_1105
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
   Prefab: {fileID: 0}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
+  GroupID: 1105
   redirection: 1
   UnlockDefault: 1
-  ProertyDescText: 
+  ProertyDescText: UnitEffect_1105
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 64
-  BaseHP: 0
+  BaseHP: 70
   BaseEnergyCost: 0
-  BaseEnergyGenerate: 0
+  BaseEnergyGenerate: 35
   LoadAdd: 0
   PropertyModify: []
   ShieldConfig:
