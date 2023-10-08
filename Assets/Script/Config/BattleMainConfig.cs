@@ -79,7 +79,8 @@ public enum ModifyTriggerEffectType
     CreateExplode,
     CreateDamage,
     GainCurrency,
-    ModifyDamgeByTargetDistance
+    ModifyDamgeByTargetDistance,
+    AddUnitModifier,
 }
 
 public class BattleMainConfig : SerializedScriptableObject
@@ -209,6 +210,7 @@ public class PropertyDisplayConfig
     public Sprite Icon;
     public bool IsPercent;
     public bool ReverseColor = false;
+    public int TextSpriteIndex = -1;
 }
 
 [System.Serializable]

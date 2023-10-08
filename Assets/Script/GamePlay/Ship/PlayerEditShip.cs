@@ -89,6 +89,7 @@ public class PlayerEditShip : PlayerShip
                 tempunit.occupiedCoords.Add(m_unitmap[i]);
             }
         }
+        tempunit.effectSlotCoords = (m_unitconfig as BaseUnitConfig).GetEffectSlotCoord().AddToAll(m_poscoord).ToList();
 
         _unitList.Add(tempunit);
         RefreshShipEnergy();

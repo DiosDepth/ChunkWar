@@ -66,6 +66,9 @@ public enum PropertyModifyKey
     /// 武器能量消耗百分比
     /// </summary>
     WeaponEnergyCostPercent,
+    /// <summary>
+    /// 单位能源产生，百分比
+    /// </summary>
     UnitEnergyGenerate,
     ShieldHP,
     /// <summary>
@@ -191,7 +194,10 @@ public enum PropertyModifyKey
     /// <summary>
     /// 伤害范围上限
     /// </summary>
-    DamageRangeMax
+    DamageRangeMax,
+
+    TOTAL_ENERGY,
+    TOTAL_LOAD,
 }
 
 /// <summary>
@@ -201,4 +207,5 @@ public enum UnitPropertyModifyKey
 {
     NONE,
     UnitEnergyCostPercent,
+    UnitEnergyGenerateValue,
 }

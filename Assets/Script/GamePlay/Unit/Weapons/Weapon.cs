@@ -123,6 +123,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private float BaseShieldDamagePercent;
     private float BaseDamageRatioMin;
     private float BaseDamageRatioMax;
+    private float EnemyWeaponATKPercent;
 
     /// <summary>
     /// Œ‰∆˜…À∫¶
@@ -157,8 +158,13 @@ public class WeaponAttribute : UnitBaseAttribute
                 ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             }
             var damageRatio = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyDamagePercent);
-            int hardLevelAdd = 0;
-            hardLevelAdd = _hardLevelItem != null ? _hardLevelItem.ATKAdd : 0;
+            float hardLevelAdd = _hardLevelItem != null ? _hardLevelItem.ATKAdd : 0; ;
+            if(_parentUnit._owner != null && _parentUnit._owner is AIShip)
+            {
+                var aishipCfg = (_parentUnit._owner as AIShip).AIShipCfg;
+                hardLevelAdd += aishipCfg.AttackBase;
+            }
+            hardLevelAdd *= EnemyWeaponATKPercent;
             var damage = Mathf.Clamp((BaseDamage + hardLevelAdd) * (1 + damageRatio) * ratio, 0, int.MaxValue);
             Damage =  Mathf.RoundToInt(damage);
         }
@@ -241,6 +247,17 @@ public class WeaponAttribute : UnitBaseAttribute
             WeaponRange = BaseWeaponRange;
             Transfixion = BaseTransfixion;
             TransfixionReduce = BaseTransfixionReduce;
+            EnemyWeaponATKPercent = _weaponCfg.EnemyAttackModify;
+
+            if (_parentUnit._owner == null)
+            {
+                _hardLevelItem = GameHelper.GetEnemyHardLevelItem(1);
+            }
+            else
+            {
+                var enemyShip = _parentUnit._owner as AIShip;
+                _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
+            }
         }
     }
 

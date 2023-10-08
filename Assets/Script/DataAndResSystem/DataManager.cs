@@ -18,7 +18,7 @@ public class DataManager : Singleton<DataManager>
 
     private Dictionary<int, ShopGoodsItemConfig> _shopGoodsDic = new Dictionary<int, ShopGoodsItemConfig>();
     private Dictionary<int, WreckageDropItemConfig> _wreckageItemDic = new Dictionary<int, WreckageDropItemConfig>();
-    private Dictionary<int, ShipPlugItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugItemConfig>();
+    private Dictionary<int, ShipPlugDataItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugDataItemConfig>();
     private Dictionary<int, PlayerShipConfig> _shipConfigDic = new Dictionary<int, PlayerShipConfig>();
     private Dictionary<int, AIShipConfig> _AIShipConfigDic = new Dictionary<int, AIShipConfig>();
     private Dictionary<int, AchievementItemConfig> _achievementDic = new Dictionary<int, AchievementItemConfig>();
@@ -29,7 +29,6 @@ public class DataManager : Singleton<DataManager>
 
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
-    public ShipPlugConfig shipPlugCfg;
     public GameMiscConfig gameMiscCfg;
 
     private bool loadFinish = false;
@@ -93,16 +92,12 @@ public class DataManager : Singleton<DataManager>
 
     public void LoadShipPlugConfig_Editor()
     {
-        shipPlugCfg = ResManager.Instance.Load<ShipPlugConfig>(DataConfigPath.ShipPlugMainConfigPath);
-        if (shipPlugCfg != null)
+        var res = Resources.LoadAll<ShipPlugDataItemConfig>(DataConfigPath.ShipPlugConfigRoot);
+        for (int i = 0; i < res.Length; i++)
         {
-            var plug = shipPlugCfg.PlugConfigs;
-            for (int i = 0; i < plug.Count; i++)
+            if (!_shipPlugDic.ContainsKey(res[i].ID))
             {
-                if (!_shipPlugDic.ContainsKey(plug[i].ID))
-                {
-                    _shipPlugDic.Add(plug[i].ID, plug[i]);
-                }
+                _shipPlugDic.Add(res[i].ID, res[i]);
             }
         }
     }
@@ -112,7 +107,6 @@ public class DataManager : Singleton<DataManager>
     {
         battleCfg = ResManager.Instance.Load<BattleMainConfig>(DataConfigPath.BattleMainConfigPath);
         shopCfg = ResManager.Instance.Load<ShopMainConfig>(DataConfigPath.ShopMainConfigPath);
-        shipPlugCfg = ResManager.Instance.Load<ShipPlugConfig>(DataConfigPath.ShipPlugMainConfigPath);
         gameMiscCfg = ResManager.Instance.Load<GameMiscConfig>(DataConfigPath.GameMiscConfigPath);
 
 #if UNITY_EDITOR
@@ -144,17 +138,6 @@ public class DataManager : Singleton<DataManager>
             }
         }
 
-        if (shipPlugCfg != null)
-        {
-            var plug = shipPlugCfg.PlugConfigs;
-            for (int i = 0; i < plug.Count; i++)
-            {
-                if (!_shipPlugDic.ContainsKey(plug[i].ID))
-                {
-                    _shipPlugDic.Add(plug[i].ID, plug[i]);
-                }
-            }
-        }
     }
 
     public EnemyHardLevelItem GetEnemyHardLevelItem(int groupID, int hardLevelIndex)
@@ -262,9 +245,9 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
-    public ShipPlugItemConfig GetShipPlugItemConfig(int id)
+    public ShipPlugDataItemConfig GetShipPlugItemConfig(int id)
     {
-        ShipPlugItemConfig result = null;
+        ShipPlugDataItemConfig result = null;
         _shipPlugDic.TryGetValue(id, out result);
         Debug.Assert(result != null, "GetShipPlugItemConfig Null! ID= " + id);
         return result;
@@ -384,6 +367,7 @@ public class DataManager : Singleton<DataManager>
         var achievement = Resources.LoadAll<AchievementItemConfig>(DataConfigPath.AchievementConfigRoot);
         var camps = Resources.LoadAll<CampConfig>(DataConfigPath.CampConfigRoot);
         var allBullets = Resources.LoadAll<BulletConfig>(DataConfigPath.BulletConfigRoot);
+        var allPlugs = Resources.LoadAll<ShipPlugDataItemConfig>(DataConfigPath.ShipPlugConfigRoot);
 
         if (builds != null && builds.Length > 0)
         {
@@ -463,6 +447,19 @@ public class DataManager : Singleton<DataManager>
                     continue;
                 }
                 _bulletConfig.Add(allBullets[i].BulletName, allBullets[i]);
+            }
+        }
+
+        if (allPlugs != null && allPlugs.Length > 0)
+        {
+            for (int i = 0; i < allPlugs.Length; i++)
+            {
+                if (_shipPlugDic.ContainsKey(allPlugs[i].ID))
+                {
+                    Debug.LogError("Find Same Plug !" + allPlugs[i].ID);
+                    continue;
+                }
+                _shipPlugDic.Add(allPlugs[i].ID, allPlugs[i]);
             }
         }
     }

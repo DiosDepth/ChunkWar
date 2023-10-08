@@ -6,7 +6,8 @@ using UnityEngine;
 public enum LocalPropertyModifyType
 {
     Modify,
-    TempModify
+    TempModify,
+    EffectSlotModify,
 }
 
 public class UnitLocalPropertyData 
@@ -16,6 +17,17 @@ public class UnitLocalPropertyData
     public void Clear()
     {
         PropertyPool.Clear();
+    }
+
+    /// <summary>
+    /// 移除Unit网格效果加成的修正
+    /// </summary>
+    public void ClearAllSlotEffectPropertyModify()
+    {
+        foreach(var item in PropertyPool.Values)
+        {
+            item.ClearModifySlotEffectValue();
+        }
     }
 
     /// <summary>
@@ -125,6 +137,7 @@ public class UnitLocalPropertyPool
     public UnitPropertyModifyKey PropertyKey;
 
     private Hashtable _propertyTable_Modify;
+    private Hashtable _propertyTable_SlotEffectModify;
 
     private Action propertychangeAction;
 
@@ -143,6 +156,7 @@ public class UnitLocalPropertyPool
     {
         this.PropertyKey = propertyKey;
         _propertyTable_Modify = new Hashtable();
+        _propertyTable_SlotEffectModify = new Hashtable();
         _propertyTemp = new ChangeValue<float>(0, float.MinValue, float.MaxValue);
         PropertyMaxValue = float.MaxValue;
     }
@@ -167,6 +181,9 @@ public class UnitLocalPropertyPool
                 break;
             case LocalPropertyModifyType.TempModify:
                 succ = AddPropertyTempValue(value);
+                break;
+            case LocalPropertyModifyType.EffectSlotModify:
+                succ = AddPropertyModify_SlotEffectValue(key, value);
                 break;
         }
         if (succ)
@@ -206,6 +223,17 @@ public class UnitLocalPropertyPool
                     _propertyTable_Modify.Add(key, value);
                 }
                 break;
+
+            case LocalPropertyModifyType.EffectSlotModify:
+                if (_propertyTable_SlotEffectModify.ContainsKey(key))
+                {
+                    _propertyTable_SlotEffectModify[key] = value;
+                }
+                else
+                {
+                    _propertyTable_SlotEffectModify.Add(key, value);
+                }
+                break;
         }
         propertychangeAction?.Invoke();
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
@@ -217,6 +245,9 @@ public class UnitLocalPropertyPool
         {
             case LocalPropertyModifyType.Modify:
                 _propertyTable_Modify.Remove(key);
+                break;
+            case LocalPropertyModifyType.EffectSlotModify:
+                _propertyTable_SlotEffectModify.Remove(key);
                 break;
         }
 
@@ -232,6 +263,11 @@ public class UnitLocalPropertyPool
         _propertyTemp.Set(0);
     }
 
+    public void ClearModifySlotEffectValue()
+    {
+        _propertyTable_SlotEffectModify.Clear();
+    }
+
     /// <summary>
     /// 获取最终属性
     /// </summary>
@@ -242,6 +278,11 @@ public class UnitLocalPropertyPool
         ///Modify
         float result = 0;
         foreach (var value in _propertyTable_Modify.Values)
+        {
+            result += (float)value;
+        }
+
+        foreach(var value in _propertyTable_SlotEffectModify.Values)
         {
             result += (float)value;
         }
@@ -271,4 +312,17 @@ public class UnitLocalPropertyPool
         return true;
     }
 
+    private bool AddPropertyModify_SlotEffectValue(uint key, float value)
+    {
+        if (_propertyTable_SlotEffectModify.ContainsKey(key))
+        {
+            var newValue = (float)_propertyTable_SlotEffectModify[key] + value;
+            _propertyTable_SlotEffectModify[key] = newValue;
+        }
+        else
+        {
+            _propertyTable_SlotEffectModify.Add(key, value);
+        }
+        return true;
+    }
 }

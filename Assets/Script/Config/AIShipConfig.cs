@@ -39,17 +39,16 @@ public class AIShipConfig : BaseShipConfig
     public EnemyHPBillBoardType BillboardType;
 
     [HideLabel]
-    [TitleGroup("属性配置", Alignment =  TitleAlignments.Centered)]
-    [HorizontalGroup("属性配置/AA", 150)]
-    [BoxGroup("属性配置/AA/核心血量")]
-    public int CoreHP;
-
-
-    [HideLabel]
     [TitleGroup("属性配置", Alignment = TitleAlignments.Centered)]
     [HorizontalGroup("属性配置/AA", 150)]
     [BoxGroup("属性配置/AA/基础速度")]
     public int SpeedBase;
+
+    [HideLabel]
+    [TitleGroup("属性配置", Alignment = TitleAlignments.Centered)]
+    [HorizontalGroup("属性配置/AA", 150)]
+    [BoxGroup("属性配置/AA/基础攻击")]
+    public int AttackBase;
 
     [LabelText("敌人难度等级")]
     public int HardLevelGroupID;

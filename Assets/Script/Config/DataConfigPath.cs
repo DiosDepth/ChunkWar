@@ -12,9 +12,9 @@ public class DataConfigPath
     public const string AchievementConfigRoot = "Configs/Achievement";
     public const string CampConfigRoot = "Configs/Camps";
     public const string BulletConfigRoot = "Configs/Bullets";
+    public const string ShipPlugConfigRoot = "Configs/ShipPlug";
 
     public const string BattleMainConfigPath = "Configs/Main/BattleMainConfig";
     public const string GameMiscConfigPath = "Configs/Main/GameMiscConfig";
     public const string ShopMainConfigPath = "Configs/Main/ShopMainConfig";
-    public const string ShipPlugMainConfigPath = "Configs/Main/ShipPlugMainConfig";
 }

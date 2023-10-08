@@ -11,7 +11,14 @@ public enum ItemTag
     MainWeapon = 1<<3,
     WareHouse = 1<<4,
     Building = 1 << 5,
-  
+    Reactor = 1<<6
+}
+
+[System.Flags]
+public enum ShipPlugTag
+{
+    PhysicsDamage = 1<<1,
+    EnergyDamage = 1<<2,
 }
 
 [System.Serializable]
@@ -36,6 +43,11 @@ public class BaseUnitConfig : BaseConfig
     [LabelWidth(80)]
     [HorizontalGroup("B", 200)]
     public UnitType unitType;
+
+    [LabelText("组ID")]
+    [LabelWidth(80)]
+    [HorizontalGroup("B", 200)]
+    public int GroupID;
 
     [LabelText("可旋转")]
     [LabelWidth(80)]
@@ -119,6 +131,12 @@ public class BaseUnitConfig : BaseConfig
     [HideReferenceObjectPicker]
     public ModifyTriggerConfig[] ModifyTriggers = new ModifyTriggerConfig[0];
 
+    [FoldoutGroup("基础属性")]
+    [LabelText("触发格效果")]
+    [LabelWidth(80)]
+    [DisableContextMenu(DisableForMember = true, DisableForCollectionElements = true)]
+    [HideReferenceObjectPicker]
+    public UnitSlotEffectConfig[] SlotEffects = new UnitSlotEffectConfig[0];
 
     [System.Obsolete]
     protected override void OnEnable()
@@ -148,7 +166,6 @@ public class BaseUnitConfig : BaseConfig
     {
         return ModifyTriggerConfig.GetModifyTriggerList();
     }
-
 
 #endif
 
@@ -252,5 +269,27 @@ public class BaseUnitConfig : BaseConfig
             }
         }
         return reletiveCoord.ToArray();
+    }
+
+    public Vector2Int[] GetEffectSlotCoord()
+    {
+        Vector2Int coord;
+        List<Vector2Int> effectCoord = new List<Vector2Int>();
+
+        effectCoord.Add(MapPivot);
+        for (int x = 0; x < Map.GetLength(0); x++)
+        {
+            for (int y = 0; y < Map.GetLength(1); y++)
+            {
+                if (Map[x, y] == 3)
+                {
+                    coord = GameHelper.CoordinateArrayToMap(new Vector2Int(x, y), GameGlobalConfig.UnitMapSize);
+                    coord = coord - MapPivot;
+
+                    effectCoord.Add(coord);
+                }
+            }
+        }
+        return effectCoord.ToArray();
     }
 }

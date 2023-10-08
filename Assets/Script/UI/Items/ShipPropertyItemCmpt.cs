@@ -31,7 +31,20 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
     public void Refresh()
     {
         var propertyData = RogueManager.Instance.MainPropertyData;
-        var value = propertyData.GetPropertyFinal(PropertyKey);
+
+        float value = 0;
+        if(PropertyKey == PropertyModifyKey.TOTAL_ENERGY)
+        {
+            value = GameHelper.GetPlayerShipEnergyTotal();
+        }
+        else if (PropertyKey == PropertyModifyKey.TOTAL_LOAD)
+        {
+            value = RogueManager.Instance.WreckageTotalLoadValue;
+        }
+        else
+        {
+            value = propertyData.GetPropertyFinal(PropertyKey);
+        }
 
         var targetValue = Mathf.RoundToInt(value);
         var cfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(PropertyKey);

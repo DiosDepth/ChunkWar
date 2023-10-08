@@ -21,6 +21,12 @@ public class WeaponConfig : BaseUnitConfig
 
     [FoldoutGroup("»ù´¡ÊôÐÔ")]
     [HorizontalGroup("»ù´¡ÊôÐÔ/A", 200)]
+    [LabelText("µÐÈË¹¥»÷±ÈÀý")]
+    [LabelWidth(100)]
+    public float EnemyAttackModify;
+
+    [FoldoutGroup("»ù´¡ÊôÐÔ")]
+    [HorizontalGroup("»ù´¡ÊôÐÔ/A", 200)]
     [LabelText("ÉËº¦±ÈÀý¸¡¶¯")]
     [LabelWidth(80)]
     public bool UseDamageRatio = false;

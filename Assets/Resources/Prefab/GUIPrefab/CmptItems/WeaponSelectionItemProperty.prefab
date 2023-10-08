@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c9794ec612cb54eb2f6a9e11655309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponPropertyType: 0
 --- !u!1 &4198293426809457104
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +377,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: b054127d088ace64598cff4bfc33e13f, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901

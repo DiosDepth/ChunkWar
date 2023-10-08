@@ -387,6 +387,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _currentShipPlugs.Clear();
         AllCurrentShipPlugs.Clear();
         globalModifySpecialDatas.Clear();
+        goodsItems.Clear();
 
         ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
 
@@ -395,6 +396,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         InitWreckageData();
         InitShopData();
         InitAllGoodsItems();
+        InitModifyPlugTagWeight();
         ///InitPlugs
         InitShipPlugs();
         InitOriginShipUnit();
@@ -1380,6 +1382,38 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CurrentRerollCost = GetCurrentRefreshCost();
         _playerCurrency.Set(CurrentHardLevel.Cfg.StartCurrency);
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShopCostPercent, OnShopCostChange);
+    }
+
+    /// <summary>
+    /// 根据选择舰船修正整体tag权重，相同权重为加法关系
+    /// </summary>
+    private void InitModifyPlugTagWeight()
+    {
+        if (currentShip == null)
+            return;
+
+        var modifyDic = currentShip.playerShipCfg.PlugRandomTagRatioDic;
+        if (modifyDic == null)
+            return;
+
+        foreach(var item in goodsItems.Values)
+        {
+            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(item._cfg.TypeID);
+            if (plugCfg == null)
+                continue;
+
+            float ratioBase = 1;
+            foreach (var modify in modifyDic)
+            {
+                if (plugCfg.HasPlugTag(modify.Key))
+                {
+                    ratioBase += modify.Value;
+                }
+            }
+
+            item.Weight = Mathf.RoundToInt(ratioBase * item.Weight);
+        }
+
     }
 
     /// <summary>

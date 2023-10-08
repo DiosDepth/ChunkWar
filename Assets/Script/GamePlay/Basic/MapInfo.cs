@@ -18,6 +18,7 @@ public class UnitInfo : MapInfo
     public int direction = 0;
     public Vector2Int pivot;
     public List<Vector2Int> occupiedCoords;
+    public List<Vector2Int> effectSlotCoords;
 
     public UnitInfo(Unit m_unit)
     {
@@ -27,6 +28,7 @@ public class UnitInfo : MapInfo
         direction = m_unit.direction;
         pivot = m_unit.pivot;
         occupiedCoords = m_unit.occupiedCoords;
+        effectSlotCoords = m_unit.effectSlotCoords;
     }
 
     public UnitInfo(ShipInitUnitConfig cfg)

@@ -82,7 +82,7 @@ public class ShopSlotItem : MonoBehaviour
 
         SetUpDiscount();
         RefreshCost();
-        SetUpTag(plugCfg);
+        //SetUpTag(plugCfg);
         SetSold(false);
         SetLockState(info.IsLock);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_detailContentRect);
@@ -277,21 +277,21 @@ public class ShopSlotItem : MonoBehaviour
         LimitInfoTrans.SafeSetActive(true);
     }
 
-    private void SetUpTag(ShipPlugItemConfig cfg)
+    private void SetUpTag(ShipPlugDataItemConfig cfg)
     {
         _tagRoot.Pool_BackAllChilds(ItemTag_PrefabPath);
 
-        foreach (ItemTag tag in System.Enum.GetValues(typeof(ItemTag)))
-        {
-            if (cfg.HasUnitTag(tag))
-            {
-                PoolManager.Instance.GetObjectSync(ItemTag_PrefabPath, true, (obj) =>
-                {
-                    var cmpt = obj.transform.SafeGetComponent<ItemTagCmpt>();
-                    cmpt.SetUp(tag);
-                }, _tagRoot);
-            }
-        }
+        //foreach (ItemTag tag in System.Enum.GetValues(typeof(ItemTag)))
+        //{
+        //    if (cfg.HasPlugTag(tag))
+        //    {
+        //        PoolManager.Instance.GetObjectSync(ItemTag_PrefabPath, true, (obj) =>
+        //        {
+        //            var cmpt = obj.transform.SafeGetComponent<ItemTagCmpt>();
+        //            cmpt.SetUp(tag);
+        //        }, _tagRoot);
+        //    }
+        //}
 
         if(_tagRoot.childCount == 0)
         {

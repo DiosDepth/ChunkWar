@@ -17,6 +17,11 @@ public abstract class ModifyTriggerData : IPropertyModify
     protected int currentTriggerCount;
 
     /// <summary>
+    /// 是否来源于Unit网格效果
+    /// </summary>
+    public bool FromUnitSlotEffect = false;
+
+    /// <summary>
     /// 加成正在生效
     /// </summary>
     public bool _uniqueEffecting = false;
@@ -75,6 +80,21 @@ public abstract class ModifyTriggerData : IPropertyModify
         _timerModifiers.Add(modifier);
     }
 
+    public void AddModifier_Unit(MTEC_AddUnitModifier config, uint parentUnitUID)
+    {
+        var targetUnit = RogueManager.Instance.GetPlayerShipUnit(parentUnitUID);
+        if (targetUnit == null)
+            return;
+
+        if (config.ModifyMap != null)
+        {
+            foreach (var item in config.ModifyMap)
+            {
+                targetUnit.LocalPropetyData.AddPropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID, item.Value);
+            }
+        }
+    }
+
     public void RemoveTimerModifier_Global(MTEC_AddGlobalTimerModifier config)
     {
         ///移除一个
@@ -101,6 +121,21 @@ public abstract class ModifyTriggerData : IPropertyModify
                 modifier.OnRemove();
                 _timerModifiers.RemoveAt(i);
                 break;
+            }
+        }
+    }
+
+    public void RemoveModifier_Unit(MTEC_AddUnitModifier config, uint parentUnitUID)
+    {
+        var targetUnit = RogueManager.Instance.GetPlayerShipUnit(parentUnitUID);
+        if (targetUnit == null)
+            return;
+
+        if (config.ModifyMap != null)
+        {
+            foreach (var item in config.ModifyMap)
+            {
+                targetUnit.LocalPropetyData.RemovePropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID);
             }
         }
     }
@@ -202,6 +237,29 @@ public abstract class ModifyTriggerData : IPropertyModify
                 (unit as IDamageble).TakeDamage(info);
             }
         }
+        else if (config.TargetType == EffectDamageTargetType.Random)
+        {
+            ///随机敌人
+            var randomUnit = AIManager.Instance.GetRandomAIUnitList(config.RandomTargetCount);
+            for(int i = 0; i < randomUnit.Count; i++)
+            {
+                var unit = randomUnit[i];
+                if (unit == null)
+                    continue;
+
+                DamageResultInfo info = new DamageResultInfo()
+                {
+                    attackerUnit = null,
+                    Target = unit,
+                    Damage = damage,
+                    IsCritical = isCritial,
+                    DamageType = WeaponDamageType.NONE,
+                    IsPlayerAttack = true
+                };
+
+                (unit as IDamageble).TakeDamage(info);
+            }
+        }
     }
 
     public void ModifyDamageByTargetDistance(MTEC_ModifyDamgeByTargetDistance cfg, uint targetUID)
@@ -251,13 +309,43 @@ public abstract class ModifyTriggerData : IPropertyModify
         if (Config.SelfUnique && _uniqueEffecting)
             return false;
 
-        currentTriggerCount++;
+        ///CheckCondition
         var effects = Config.Effects;
         for(int i = 0; i < effects.Length; i++)
         {
-            effects[i].Excute(this, parentUnitID);
+            bool trigger = false;
+            var effect = effects[i];
+            if (CheckCondition(effect)) ///有一个触发即为触发
+            {
+                trigger = true;
+                effect.Excute(this, parentUnitID);
+            }
+
+            if (trigger)
+            {
+                currentTriggerCount++;
+            }
         }
         return true;
+    
+    }
+
+    /// <summary>
+    /// 检测条件
+    /// </summary>
+    /// <param name="effectCfg"></param>
+    /// <returns></returns>
+    private bool CheckCondition(ModifyTriggerEffectConfig effectCfg)
+    {
+        if (effectCfg.Conditions == null || effectCfg.Conditions.Length <= 0)
+            return true;
+
+        bool result = true;
+        for(int i = 0; i < effectCfg.Conditions.Length; i++)
+        {
+            result &= effectCfg.Conditions[i].GetResult(this);
+        }
+        return result;
     }
 
     /// <summary>
@@ -268,7 +356,11 @@ public abstract class ModifyTriggerData : IPropertyModify
         var effects = Config.Effects;
         for (int i = 0; i < effects.Length; i++)
         {
-            effects[i].Excute(this, parentUnitID);
+            var effect = effects[i];
+            if (CheckCondition(effect))
+            {
+                effect.Excute(this, parentUnitID);
+            }
         }
     }
 
