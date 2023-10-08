@@ -84,7 +84,7 @@ MonoBehaviour:
       Data: 10
     - Name: MaxRowCount
       Entry: 3
-      Data: 1
+      Data: 5
     - Name: SpawnShpe
       Entry: 3
       Data: 0

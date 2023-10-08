@@ -95,6 +95,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public NativeArray<SteeringBehaviorInfo> rv_evade_steeringInfo;
     public NativeList<float> evade_maxPrediction;
     public NativeList<float> evade_weight;
+    public NativeList<bool> evade_isActive;
 
 
     //arrivebehavior return data
@@ -104,30 +105,36 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public NativeList<float> arrive_arriveRadius;
     public NativeList<float> arrive_slowRadius;
     public NativeList<float> arrive_weight;
+    public NativeList<bool> arrive_isActive;
 
     //facebehavior return data
     public NativeArray<SteeringBehaviorInfo> rv_face_steeringInfo;
     //facebehavior job input data
     public NativeList<float> face_facetargetRadius;
     public NativeList<float> face_weight;
+    public NativeList<bool> face_isActive;
 
 
 
     public NativeArray<SteeringBehaviorInfo> rv_cohesion_steeringInfo;
     public NativeList<float> cohesion_viewAngle;
     public NativeList<float> cohesion_weight;
+    public NativeList<bool> cohesion_isActive;
 
     public NativeArray<SteeringBehaviorInfo> rv_separation_steeringInfo;
     public NativeList<float> separation_threshold;
     public NativeList<float> separation_decayCoefficient;
     public NativeList<float> separation_weight;
+    public NativeList<bool> separation_isActive;
 
     public NativeArray<SteeringBehaviorInfo> rv_alignment_steeringInfo;
     public NativeList<float> alignment_weight;
     public NativeList<float> alignment_alignDistance;
+    public NativeList<bool> alignment_isActive;
 
     public NativeArray<SteeringBehaviorInfo> rv_collisionavoidance_steeringInfo;
     public NativeList<float> collisionavoidance_weight;
+    public NativeList<bool> collisionavoidance_isActive;
 
 
     public NativeArray<SteeringBehaviorInfo> rv_deltaMovement;
@@ -222,29 +229,37 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         evade_maxPrediction = new NativeList<float>(Allocator.Persistent);
         evade_weight = new NativeList<float>(Allocator.Persistent);
+        evade_isActive = new NativeList<bool>(Allocator.Persistent);
         //arrivebehavior return data
         //arrivebehavior job input data
         arrive_arriveRadius = new NativeList<float>(Allocator.Persistent);
         arrive_slowRadius = new NativeList<float>(Allocator.Persistent);
         arrive_weight = new NativeList<float>(Allocator.Persistent);
+        arrive_isActive = new NativeList<bool>(Allocator.Persistent);
         //facebehavior return data
     
         //facebehavior job input data
         face_weight = new NativeList<float>(Allocator.Persistent);
         face_facetargetRadius = new NativeList<float>(Allocator.Persistent);
+        face_isActive = new NativeList<bool>(Allocator.Persistent);
 
 
         cohesion_weight = new NativeList<float>(Allocator.Persistent);
         cohesion_viewAngle = new NativeList<float>(Allocator.Persistent);
+        cohesion_isActive = new NativeList<bool>(Allocator.Persistent);
 
         separation_weight = new NativeList<float>(Allocator.Persistent);
         separation_threshold = new NativeList<float>(Allocator.Persistent);
         separation_decayCoefficient = new NativeList<float>(Allocator.Persistent);
+        separation_isActive = new NativeList<bool>(Allocator.Persistent);
+
 
         alignment_weight = new NativeList<float>(Allocator.Persistent);
         alignment_alignDistance = new NativeList<float>(Allocator.Persistent);
+        alignment_isActive = new NativeList<bool>(Allocator.Persistent);
 
         collisionavoidance_weight = new NativeList<float>(Allocator.Persistent);
+        collisionavoidance_isActive = new NativeList<bool>(Allocator.Persistent);
 
     }
     public virtual void UpdateMoveJobData()
@@ -312,32 +327,38 @@ public class AIManager : Singleton<AIManager>, IPauseable
         if (aiSteeringBehaviorController_aiShipTargetSerchingRadius.IsCreated) { aiSteeringBehaviorController_aiShipTargetSerchingRadius.Dispose(); }
         if (aiSteeringBehaviorController_aiShipDrag.IsCreated) { aiSteeringBehaviorController_aiShipDrag.Dispose(); }
 
-
+        //dispose evade job data
         if (evade_maxPrediction.IsCreated) { evade_maxPrediction.Dispose(); }
         if (evade_weight.IsCreated) { evade_weight.Dispose(); }
-        //dispose arrive job data
+        if(evade_isActive.IsCreated) { evade_isActive.Dispose(); }
 
+        //dispose arrive job data
         if (arrive_arriveRadius.IsCreated) { arrive_arriveRadius.Dispose(); }
         if (arrive_slowRadius.IsCreated) { arrive_slowRadius.Dispose(); }
         if (arrive_weight.IsCreated) { arrive_weight.Dispose(); }
-
+        if (arrive_isActive.IsCreated) { arrive_isActive.Dispose(); }
 
         //dispose face job data
-
         if (face_weight.IsCreated) { face_weight.Dispose(); }
         if (face_facetargetRadius.IsCreated) { face_facetargetRadius.Dispose(); }
+        if (face_isActive.IsCreated) { face_isActive.Dispose(); }
 
+        //dispose separation job data
         if (separation_weight.IsCreated) { separation_weight.Dispose(); }
         if (separation_threshold.IsCreated) { separation_threshold.Dispose(); }
         if (separation_decayCoefficient.IsCreated) { separation_decayCoefficient.Dispose(); }
+        if (separation_isActive.IsCreated) { separation_isActive.Dispose(); }
 
         if (cohesion_weight.IsCreated) { cohesion_weight.Dispose(); }
         if (cohesion_viewAngle.IsCreated) { cohesion_viewAngle.Dispose(); }
+        if(cohesion_isActive.IsCreated) { cohesion_isActive.Dispose(); }
 
         if (alignment_weight.IsCreated) { alignment_weight.Dispose(); }
         if (alignment_alignDistance.IsCreated) { alignment_alignDistance.Dispose(); }
+        if (alignment_isActive.IsCreated) { alignment_isActive.Dispose(); }
 
         if (collisionavoidance_weight.IsCreated) { collisionavoidance_weight.Dispose(); }
+        if (collisionavoidance_isActive.IsCreated) { collisionavoidance_isActive.Dispose(); }
         //weapon job data dispose
     }
 
@@ -458,26 +479,33 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         evade_maxPrediction.Add(controller.evadeBehaviorInfo.maxPrediction);
         evade_weight.Add(controller.evadeBehaviorInfo.GetWeight());
+        evade_isActive.Add(controller.isActiveEvade);
 
         arrive_arriveRadius.Add(controller.arrivelBehaviorInfo.arriveRadius);
         arrive_slowRadius.Add(controller.arrivelBehaviorInfo.slowRadius);
         arrive_weight.Add(controller.arrivelBehaviorInfo.GetWeight());
-
+        arrive_isActive.Add(controller.isActiveArrive);
 
         face_weight.Add(controller.faceBehaviorInfo.GetWeight());
         face_facetargetRadius.Add(controller.faceBehaviorInfo.facetargetRadius);
+        face_isActive.Add(controller.isActiveFace);
 
         cohesion_weight.Add(controller.cohesionBehaviorInfo.GetWeight());
         cohesion_viewAngle.Add(controller.cohesionBehaviorInfo.viewAngle);
+        cohesion_isActive.Add(controller.isActiveCohesion);
 
         separation_weight.Add(controller.separationBehaviorInfo.GetWeight());
         separation_threshold.Add(controller.separationBehaviorInfo.threshold);
         separation_decayCoefficient.Add(controller.separationBehaviorInfo.decayCoefficient);
+        separation_isActive.Add(controller.isActiveSeparation);
 
         alignment_weight.Add(controller.alignmentBehaviorInfo.GetWeight());
         alignment_alignDistance.Add(controller.alignmentBehaviorInfo.alignDistance);
+        alignment_isActive.Add(controller.isActiveAligment);
 
         collisionavoidance_weight.Add(controller.collisionAvoidanceBehaviorInfo.GetWeight());
+        collisionavoidance_isActive.Add(controller.isActiveCollisionAvoidance);
+
     }
 
     public void AddAIRange(List<AIShip> shiplist)
@@ -515,26 +543,33 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         evade_maxPrediction.RemoveAt(index);
         evade_weight.RemoveAt(index);
+        evade_isActive.RemoveAt(index);
 
         arrive_arriveRadius.RemoveAt(index);
         arrive_slowRadius.RemoveAt(index);
         arrive_weight.RemoveAt(index);
+        arrive_isActive.RemoveAt(index);
 
 
         face_weight.RemoveAt(index);
         face_facetargetRadius.RemoveAt(index);
+        face_isActive.RemoveAt(index);
 
         cohesion_weight.RemoveAt(index);
         cohesion_viewAngle.RemoveAt(index);
+        cohesion_isActive.RemoveAt(index);
 
         separation_weight.RemoveAt(index);
         separation_threshold.RemoveAt(index);
         separation_decayCoefficient.RemoveAt(index);
+        separation_isActive.RemoveAt(index);
 
         alignment_weight.RemoveAt(index);
         alignment_alignDistance.RemoveAt(index);
+        alignment_isActive.RemoveAt(index);
 
         collisionavoidance_weight.RemoveAt(index);
+        collisionavoidance_isActive.RemoveAt(index);
     }
 
 
@@ -752,7 +787,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         rv_serchingTargetsCountPerShip = new NativeArray<int>(ShipCount, Allocator.TempJob);
 
 
-        AISteeringBehaviorController.CalculateTargetsPosByRadiusJob calculateTargetsPosByRadiusJob = new AISteeringBehaviorController.CalculateTargetsPosByRadiusJob
+        AISteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob calculateSteeringTargetsPosByRadiusJob = new AISteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob
         {
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
             job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
@@ -764,9 +799,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
             rv_findedTargetVelPreShip = rv_serchingTargetsVelPerShip,
             rv_findedTargetsPosPreShip = rv_serchingTargetsPosPerShip,
         };
-
-        jobhandle_behaviorTargets = calculateTargetsPosByRadiusJob.ScheduleBatch(ShipCount, 2);
-
+        jobhandle_behaviorTargets = calculateSteeringTargetsPosByRadiusJob.ScheduleBatch(ShipCount, 2);
         jobhandle_behaviorTargets.Complete();
 
 
@@ -825,7 +858,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
 
         
-        /*
+        
         CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob collisionAvoidanceBehaviorJob = new CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob
         {
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
@@ -843,7 +876,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         jobhandle_collisionAvoidanceBehavior = collisionAvoidanceBehaviorJob.ScheduleBatch(ShipCount, 2);
         jobhandle_collisionAvoidanceBehavior.Complete();
-        */
+        
 
 
 
@@ -859,25 +892,33 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
             job_evadeSteering = rv_evade_steeringInfo,
             job_evadeWeight = evade_weight,
+            job_evadeIsActive = evade_isActive,
 
             job_arriveSteering = rv_arrive_steeringInfo,
             job_arriveWeight = arrive_weight,
             job_isVelZero = rv_arrive_isVelZero,
+            job_arriveIsActive = arrive_isActive,
 
             job_faceSteering = rv_face_steeringInfo,
             job_faceWeight = face_weight,
+            job_faceIsActive = face_isActive,
 
             job_alignmentSteering = rv_alignment_steeringInfo,
             job_alignmentWeight = alignment_weight,
+            job_alignmentIsActive = alignment_isActive,
 
             job_cohesionSteering = rv_cohesion_steeringInfo,
             job_cohesionWeight = cohesion_weight,
+            job_cohesionIsActive = cohesion_isActive,
 
             job_separationSteering = rv_separation_steeringInfo,
             job_separationWeight = separation_weight,
+            job_separationIsActive = separation_isActive,
 
             job_collisionAvoidanceSteering = rv_collisionavoidance_steeringInfo,
             job_collisionAvoidanceWeight = collisionavoidance_weight,
+            job_collisonAvidanceIsActive = collisionavoidance_isActive,
+
 
             job_deltatime = Time.fixedDeltaTime,
 

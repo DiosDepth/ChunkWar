@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst;
@@ -25,26 +26,38 @@ public class AISteeringBehaviorController : BaseController, IBoid
     public float targetSerchingRadius = 15f;
     public float boidRadius = 1f;
 
-    public bool evadeBehavior = false;
+    public bool isActiveEvade = false;
+    [ShowIf("isActiveEvade")]
     [SerializeField]
     public EvadeBehavior evadeBehaviorInfo;
-    public bool arriveBehavior = false;
+
+    public bool isActiveArrive = false;
+    [ShowIf("isActiveArrive")]
     [SerializeField]
     public ArriveBehavior arrivelBehaviorInfo;
-    public bool faceBehavior = false;
+
+    public bool isActiveFace = false;
+    [ShowIf("isActiveFace")]
     [SerializeField]
     public FaceBehavior faceBehaviorInfo;
-    public bool cohesionBehavior = false;
+
+    public bool isActiveCohesion = false;
+    [ShowIf("isActiveCohesion")]
     [SerializeField]
     public CohesionBehavior cohesionBehaviorInfo;
-    public bool separationBehavior = false;
+
+    public bool isActiveSeparation = false;
+    [ShowIf("isActiveSeparation")]
     [SerializeField]
     public SeparationBehavior separationBehaviorInfo;
-    public bool aligmentBehavior = false;
+
+    public bool isActiveAligment = false;
+    [ShowIf("isActiveAligment")]
     [SerializeField]
     public AlignmentBehavior alignmentBehaviorInfo;
 
-    public bool collisionAvoidanceBehavior = false;
+    public bool isActiveCollisionAvoidance = false;
+    [ShowIf("isActiveCollisionAvoidance")]
     [SerializeField]
     public CollisionAvoidanceBehavior collisionAvoidanceBehaviorInfo;
 
@@ -103,9 +116,9 @@ public class AISteeringBehaviorController : BaseController, IBoid
     {
         //[ReadOnly] public NativeArray<float3> job_selfPos;
         public float job_threshold;
-        [ReadOnly] public NativeArray<float> job_SerchingRadius;
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [ReadOnly] public NativeArray<float3> job_aiShipVel;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_SerchingRadius;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipPos;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipVel;
         
 
         [NativeDisableContainerSafetyRestriction]
@@ -144,37 +157,41 @@ public class AISteeringBehaviorController : BaseController, IBoid
     [BurstCompile]
     public struct CalculateDeltaMovePosJob : IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float> job_aiShipMaxAcceleration;
-        [ReadOnly] public NativeArray<float> Job_aiShipDrag;
-        [ReadOnly] public NativeArray<float3> job_aiShipVelocity;
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [ReadOnly] public float job_deltatime;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_aiShipMaxAcceleration;
+        [Unity.Collections.ReadOnly] public NativeArray<float> Job_aiShipDrag;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipVelocity;
+        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipPos;
+        [Unity.Collections.ReadOnly] public float job_deltatime;
 
 
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_evadeSteering;
-        [ReadOnly] public NativeArray<float> job_evadeWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_evadeSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_evadeWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_evadeIsActive;
 
-        [ReadOnly] public NativeArray<bool> job_isVelZero;
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_arriveSteering;
-        [ReadOnly] public NativeArray<float> job_arriveWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_isVelZero;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_arriveSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_arriveWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_arriveIsActive;
 
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_faceSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_faceWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_faceIsActive;
 
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_faceSteering;
-        [ReadOnly] public NativeArray<float> job_faceWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_cohesionSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_cohesionWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_cohesionIsActive;
 
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_cohesionSteering;
-        [ReadOnly] public NativeArray<float> job_cohesionWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_separationSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_separationWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_separationIsActive;
 
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_separationSteering;
-        [ReadOnly] public NativeArray<float> job_separationWeight;
-      
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_alignmentSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_alignmentWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_alignmentIsActive;
 
-
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_alignmentSteering;
-        [ReadOnly] public NativeArray<float> job_alignmentWeight;
-
-        [ReadOnly] public NativeArray<SteeringBehaviorInfo> job_collisionAvoidanceSteering;
-        [ReadOnly] public NativeArray<float> job_collisionAvoidanceWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_collisionAvoidanceSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_collisionAvoidanceWeight;
+        [Unity.Collections.ReadOnly] public NativeArray<bool> job_collisonAvidanceIsActive;
 
         public NativeArray<SteeringBehaviorInfo> rv_deltainfo;
 
@@ -193,16 +210,54 @@ public class AISteeringBehaviorController : BaseController, IBoid
 
                 if (!job_isVelZero[i])
                 {
-                    accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
+                    if (job_arriveIsActive[i]) { accelaration += job_arriveSteering[i].linear * job_arriveWeight[i]; }
+
                 }
 
-                accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
-                accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
-                accelaration += job_separationSteering[i].linear * job_separationWeight[i];
-                accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i];
-                accelaration += job_evadeSteering[i].linear * job_evadeWeight[i];
+                if (job_cohesionIsActive[i]) { accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i]; }
+                if (job_alignmentIsActive[i]) { accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i]; }
+                if (job_separationIsActive[i]) { accelaration += job_separationSteering[i].linear * job_separationWeight[i]; }
+                if (job_collisonAvidanceIsActive[i]) { accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i]; }
+                if (job_evadeIsActive[i]) { accelaration += job_evadeSteering[i].linear * job_evadeWeight[i]; }
+
+                angle += job_faceSteering[i].angular * job_faceWeight[i];
+
+                if (math.length(accelaration) > job_aiShipMaxAcceleration[i])
+                {
+                    accelaration = math.normalize(accelaration);
+                    accelaration *= job_aiShipMaxAcceleration[i];
+                }
+
+                if (math.length(job_evadeSteering[i].linear) == 0 && job_isVelZero[i])
+                {
+                    vel = float3.zero;
+                }
+                else
+                {
+                    vel = job_aiShipVelocity[i];
+                }
+
+                if (math.length(vel) <= 0.01f)
+                {
+                    vel = 0;
+                }
+
+                deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+                deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;
+                deltainfo.linear = deltamovement;
+
+                if (angle != 0)
+                {
+                    deltainfo.angular = angle;
+                }
+                rv_deltainfo[i] = deltainfo;
             }
+
+
+
         }
+
+
 
 
 

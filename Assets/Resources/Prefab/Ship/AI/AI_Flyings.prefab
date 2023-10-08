@@ -125,42 +125,42 @@ MonoBehaviour:
   maxAngularAcceleration: 6
   targetSerchingRadius: 30
   boidRadius: 3
-  evadeBehavior: 0
+  isActiveEvade: 1
   evadeBehaviorInfo:
     target: {fileID: 0}
-    weight: 3
+    weight: 0.5
     maxPrediction: 25
-  arriveBehavior: 0
+  isActiveArrive: 1
   arrivelBehaviorInfo:
     target: {fileID: 0}
-    weight: 2
+    weight: 1
     arriveRadius: 15
     slowRadius: 30
-  faceBehavior: 1
+  isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
     weight: 1
     facetargetRadius: 30
-  cohesionBehavior: 0
+  isActiveCohesion: 1
   cohesionBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
+    weight: 0.5
     viewAngle: 45
-  separationBehavior: 0
+  isActiveSeparation: 1
   separationBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
+    weight: 0.3
     threshold: 3
     decayCoefficient: -25
-  aligmentBehavior: 0
+  isActiveAligment: 1
   alignmentBehaviorInfo:
     target: {fileID: 0}
     weight: 0.8
     alignDistance: 6
-  collisionAvoidanceBehavior: 0
+  isActiveCollisionAvoidance: 1
   collisionAvoidanceBehaviorInfo:
     target: {fileID: 0}
-    weight: 4
+    weight: 2
   drag: 3
   velocity: {x: 0, y: 0, z: 0}
   lastpos: {x: 0, y: 0, z: 0}
