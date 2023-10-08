@@ -88,7 +88,9 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public bool IsApplyDamageAtThisFrame { get { return _isApplyDamageAtThisFrame; } }
     protected bool _isApplyDamageAtThisFrame;
     protected bool _isUpdate;
-   
+
+    protected BulletConfig _bulletCfg;
+
     public virtual void Initialization()
     {
         GameManager.Instance.RegisterPauseable(this);
@@ -101,6 +103,11 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         {
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
         }
+    }
+
+    public virtual void SetUp(BulletConfig cfg)
+    {
+        this._bulletCfg = cfg;
     }
 
     public struct FindBulletDamageTargetJob : IJobParallelForBatch

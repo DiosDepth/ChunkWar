@@ -980,6 +980,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -1005,6 +1006,7 @@ public class Weapon : Unit
                     {
                         obj.transform.SetTransform(trs);
                         _lastbullet = obj.GetComponent<Bullet>();
+                        _lastbullet.SetUp(_bulletdata);
                         _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                         _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                         _lastbullet.SetFirePoint(trs.gameObject);
@@ -1031,6 +1033,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -1053,6 +1056,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -1084,6 +1088,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);

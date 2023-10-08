@@ -28,6 +28,19 @@ public class ChainBeamemit : Bullet
     private float _tempRaytFrequenceStamp = float.MinValue;
     private Vector2 _direction;
     private bool _isChained;
+
+    private BulletChainBeamConfig _chainBeamCfg;
+
+    public override void SetUp(BulletConfig cfg)
+    {
+        base.SetUp(cfg);
+        _chainBeamCfg = cfg as BulletChainBeamConfig;
+        maxDistance = _chainBeamCfg.MaxDistance;
+        width = _chainBeamCfg.Width;
+        emittime = _chainBeamCfg.EmiteTime;
+        deathtime = _chainBeamCfg.DeathTime;
+    }
+
     public override void Shoot()
     {
         PoolableSetActive();

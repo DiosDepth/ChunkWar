@@ -127,17 +127,17 @@ public class Projectile : Bullet, IDamageble
     //private Coroutine startmovingCoroutine;
     protected float _beforemovetimestamp;
 
+    private BulletProjectileConfig _projectileCfg;
 
-    // Start is called before the first frame update
-    protected override void Start()
+    public override void SetUp(BulletConfig cfg)
     {
-
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
- 
+        base.SetUp(cfg);
+        _projectileCfg = cfg as BulletProjectileConfig;
+        lifeTime = _projectileCfg.LifeTime;
+        maxSpeed = _projectileCfg.MaxSpeed;
+        rotSpeed = _projectileCfg.RotationSpeed;
+        initialSpeed = _projectileCfg.InitialSpeed;
+        acceleration = _projectileCfg.Acceleration;
     }
 
     public override void Shoot()

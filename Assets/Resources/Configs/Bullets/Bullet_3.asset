@@ -25,10 +25,10 @@ MonoBehaviour:
   BulletName: BaseBeam_Player
   Type: 2
   Prefab: {fileID: 3574238879806340193, guid: c1732b46f66c2ca459caffee4cf1c5eb, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/BaseBeam_Player
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseBeam_Player
   HitAudio: 
-  MaxDistance: 0
-  Width: 0
-  EmiteTime: 0
-  Duration: 0
-  DeathTime: 0
+  MaxDistance: 35
+  Width: 0.1
+  EmiteTime: 0.05
+  Duration: 0.25
+  DeathTime: 0.05

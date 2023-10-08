@@ -434,6 +434,7 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 2
+  GroupID: 0
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
@@ -446,8 +447,11 @@ MonoBehaviour:
   BaseEnergyCost: 0
   BaseEnergyGenerate: 100
   LoadAdd: 0
+  ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   DamageBase: 10
+  EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
   DamageRatioMax: 1.1

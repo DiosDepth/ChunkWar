@@ -25,7 +25,7 @@ MonoBehaviour:
   BulletName: BaseHommingBullet_Player
   Type: 0
   Prefab: {fileID: 8903830990857463265, guid: b52a34b6f679c974bbcdd46e8813a532, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/BaseHommingBullet_AI
+  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseHommingBullet_AI
   HitAudio: 
   MaxDistance: 0
   Width: 0

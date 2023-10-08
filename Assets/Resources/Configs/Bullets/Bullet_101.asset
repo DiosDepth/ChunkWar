@@ -28,8 +28,8 @@ MonoBehaviour:
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseBullet_AI
   HitAudio: 
   ExplodeRange: 0
-  LifeTime: 0
-  MaxSpeed: 0
-  RotationSpeed: 0
-  InitialSpeed: 0
-  Acceleration: 0
+  LifeTime: 6
+  MaxSpeed: 80
+  RotationSpeed: 180
+  InitialSpeed: 30
+  Acceleration: 1
