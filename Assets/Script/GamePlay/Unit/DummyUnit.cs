@@ -99,7 +99,7 @@ public class DummyUnit : Unit
     public override void Death(UnitDeathInfo info)
     {
         GameManager.Instance.UnRegisterPauseable(this);
-        state = DamagableState.Destroyed;
+        ChangeUnitState(DamagableState.Destroyed);
 
         if (IsCoreUnit)
         {

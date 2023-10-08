@@ -611,7 +611,16 @@ public static class GameHelper
             var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
             var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
             armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
-            float DamageTake = 1 / (float)(1 + armor / armorParam);
+            float DamageTake = 0;
+            if(armor >= 0)
+            {
+                DamageTake = 1 / (float)(1 + armor / armorParam);
+            }
+            else
+            {
+                DamageTake = 1 + 1 / (float)(1 + Mathf.Abs(armor) / armorParam);
+            }
+            
             info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
         }
     }
@@ -625,7 +634,16 @@ public static class GameHelper
         var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldArmor);
         var armorParam = DataManager.Instance.battleCfg.PlayerShip_ShieldDamageReduce_Param;
         armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
-        float DamageTake = 1 / (float)(1 + armor / armorParam);
+
+        float DamageTake = 0;
+        if(armor >= 0)
+        {
+            DamageTake = 1 / (float)(1 + armor / armorParam);
+        }
+        else
+        {
+            DamageTake = 1 + 1 / (float)(1 + Mathf.Abs(armor) / armorParam);
+        }
         info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
         ///护盾最低无视伤害
         var ignoreDamage = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldIgnoreMinDamage);

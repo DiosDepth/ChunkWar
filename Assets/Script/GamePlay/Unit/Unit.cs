@@ -40,9 +40,19 @@ public class UnitBaseAttribute
         protected set;
     }
 
+    /// <summary>
+    /// Ì±»¾»Ö¸´Ê±³¤
+    /// </summary>
+    public float UnitParalysisRecoverTime
+    {
+        get;
+        protected set;
+    }
+
     private int BaseHP;
     private int BaseEnergyCost;
     private int BaseEnergyGenerate;
+    private float BaseParalysisRecoverTime;
 
     /// <summary>
     /// ÎäÆ÷Éä³Ì
@@ -69,6 +79,7 @@ public class UnitBaseAttribute
         BaseHP = cfg.BaseHP;
         BaseEnergyCost = cfg.BaseEnergyCost;
         BaseEnergyGenerate = cfg.BaseEnergyGenerate;
+        BaseParalysisRecoverTime = cfg.ParalysisResumeTime;
 
         if (isPlayerShip)
         {
@@ -78,6 +89,7 @@ public class UnitBaseAttribute
             {
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitParalysisRecoverTimeRatio, CalculateUnitParalysis);
             }
             
             if(BaseEnergyGenerate != 0)
@@ -88,6 +100,7 @@ public class UnitBaseAttribute
             CalculateHP();
             CalculateEnergyCost();
             CalculateEnergyGenerate();
+            CalculateUnitParalysis();
         }
         else
         {
@@ -117,6 +130,7 @@ public class UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitParalysisRecoverTimeRatio, CalculateUnitParalysis);
         }
         else
         {
@@ -170,6 +184,13 @@ public class UnitBaseAttribute
         RefreshShipEnergy();
     }
 
+    private void CalculateUnitParalysis()
+    {
+        var percent = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitParalysisRecoverTimeRatio);
+        percent = Mathf.Clamp(percent, -100, float.MaxValue);
+        UnitParalysisRecoverTime = (1 + percent / 100f) * BaseParalysisRecoverTime;
+    }
+
     private void CalculateEnemyHP()
     {
         var hpPercent = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
@@ -197,7 +218,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipUnit; } }
 
-    public DamagableState state = DamagableState.None;
+    public DamagableState state
+    {
+        get;
+        private set;
+    }
 
     public bool IsTarget { get { return _isTarget; } }
     public bool IsRestoreable = false;
@@ -235,6 +260,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     public bool IsProcess { get { return _isProcess; } }
     protected bool _isProcess = true;
 
+    /// <summary>
+    /// ÕýÔÚÌ±»¾»Ö¸´
+    /// </summary>
+    private bool _isParalysising = false;
+    private float _paralysisTimer = 0;
+
     public UnitBaseAttribute baseAttribute;
 
     public BaseUnitConfig _baseUnitConfig
@@ -261,10 +292,40 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public virtual void Update() { }
 
+    /// <summary>
+    /// ¸ü¸ÄState
+    /// </summary>
+    /// <param name="target"></param>
+    public virtual void ChangeUnitState(DamagableState target)
+    {
+        if (state == target)
+            return;
+
+        if(state == DamagableState.Paralysis && target == DamagableState.Normal)
+        {
+            if(_owner is PlayerShip)
+            {
+                ///Ì±»¾»Ö¸´
+                AIManager.Instance.AddTargetUnit(this);
+            }
+        }
+
+        state = target;
+        if (target == DamagableState.Paralysis)
+        {
+            OnEnterParalysisState();
+            if (_owner is PlayerShip)
+            {
+                ///ÒÆ³ýÄ¿±êÑ¡ÖÐ
+                AIManager.Instance.RemoveTargetUnit(this);
+            }
+        }
+    }
+
     public virtual void Death(UnitDeathInfo info)
     {
         GameManager.Instance.UnRegisterPauseable(this);
-        state = DamagableState.Destroyed;
+        ChangeUnitState(DamagableState.Destroyed);
 
         if (IsCoreUnit)
         {
@@ -368,6 +429,16 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public void OnUpdateBattle()
     {
+        if (_isParalysising)
+        {
+            _paralysisTimer += Time.deltaTime;
+            if(_paralysisTimer >= baseAttribute.UnitParalysisRecoverTime)
+            {
+                OnParalysisStateFinish();
+            }
+            return;
+        }
+
         if (state == DamagableState.Normal)
         {
             ///UpdateTrigger
@@ -480,13 +551,22 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (info.IsHit)
         {
             bool isDie = HpComponent.ChangeHP(-info.Damage);
+            ///HPÎª0
             if (isDie)
             {
-                UnitDeathInfo deathInfo = new UnitDeathInfo
+                if (_baseUnitConfig.ParalysisResume)
                 {
-                    isCriticalKill = info.IsCritical
-                };
-                Death(deathInfo);
+                    ///Ì±»¾»Ö¸´
+                    ChangeUnitState(DamagableState.Paralysis);
+                }
+                else
+                {
+                    UnitDeathInfo deathInfo = new UnitDeathInfo
+                    {
+                        isCriticalKill = info.IsCritical
+                    };
+                    Death(deathInfo);
+                }
             }
             return isDie;
         }
@@ -519,6 +599,25 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     public virtual void  UnPauseGame()
     {
        
+    }
+
+    /// <summary>
+    /// ½øÈëÌ±»¾×´Ì¬
+    /// </summary>
+    protected virtual void OnEnterParalysisState()
+    {
+        _isParalysising = true;
+    }
+
+    /// <summary>
+    /// Ì±»¾»Ö¸´½áÊø
+    /// </summary>
+    protected virtual void OnParalysisStateFinish()
+    {
+        _isParalysising = false;
+        _paralysisTimer = 0f;
+        ChangeUnitState(DamagableState.Normal);
+        HpComponent.RecoverHPToMax();
     }
 
     #region Proeprty & Effect

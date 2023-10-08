@@ -195,7 +195,10 @@ public enum PropertyModifyKey
     /// 伤害范围上限
     /// </summary>
     DamageRangeMax,
-
+    /// <summary>
+    /// 单位瘫痪时长比例
+    /// </summary>
+    UnitParalysisRecoverTimeRatio,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }

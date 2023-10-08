@@ -443,8 +443,8 @@ public class PlayerShip : BaseShip
                 tempunit.direction = m_unitInfo.direction;
                 tempunit.pivot = m_unitInfo.pivot;
                 tempunit.occupiedCoords = m_unitInfo.occupiedCoords;
-                tempunit.state = DamagableState.Normal;
-                
+                tempunit.ChangeUnitState(DamagableState.Normal);
+
                 for (int n = 0; n < tempunit.occupiedCoords.Count; n++)
                 {
                     occupiedarray = GameHelper.CoordinateMapToArray(tempunit.occupiedCoords[n], GameGlobalConfig.ShipMapSize);
