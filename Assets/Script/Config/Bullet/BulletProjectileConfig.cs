@@ -40,4 +40,10 @@ public class BulletProjectileConfig : BulletConfig
     [LabelWidth(150)]
     [HideLabel]
     public float Acceleration;
+
+    [HorizontalGroup("Info2", 200)]
+    [BoxGroup("Info2/µ¼µ¯ÑªÁ¿")]
+    [LabelWidth(150)]
+    [HideLabel]
+    public int MissileHP;
 }

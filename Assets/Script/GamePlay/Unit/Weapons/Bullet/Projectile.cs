@@ -106,6 +106,7 @@ public class Projectile : Bullet, IDamageble
     public float rotSpeed = 180f;
     public float initialSpeed = 20f;
     public float acceleration = 0.25f;
+    public int MissileHPBase;
 
     [Header("---PassThroughSettings---")]
     [ShowIf("damageTriggerPattern", DamageTriggerPattern.PassTrough)]
@@ -116,7 +117,9 @@ public class Projectile : Bullet, IDamageble
     public  int PassThroughCount { get { return passThroughCount; } }
     protected int passThroughCount = 0;
 
-
+    /// <summary>
+    /// 是否可以被拦截，即拥有HP
+    /// </summary>
     public bool IsinterceptTarget = true;
 
     /// <summary>
@@ -138,6 +141,7 @@ public class Projectile : Bullet, IDamageble
         rotSpeed = _projectileCfg.RotationSpeed;
         initialSpeed = _projectileCfg.InitialSpeed;
         acceleration = _projectileCfg.Acceleration;
+        MissileHPBase = _projectileCfg.MissileHP;
     }
 
     public override void Shoot()
@@ -179,8 +183,37 @@ public class Projectile : Bullet, IDamageble
     {
         base.Initialization();
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
-        HpComponent = new GeneralHPComponet(100, 100);
+        ///HP
+        InitMissileHP();
         passThroughCount = maxPassThroughCount;
+    }
+
+    private void InitMissileHP()
+    {
+        if (!IsinterceptTarget)
+            return;
+
+        if (_owner != null || _owner._owner == null)
+            return;
+
+        int targetHP = 0;
+        if(_owner._owner is PlayerShip)
+        {
+            var missileHPPercent = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.MissileHPPercent);
+            missileHPPercent = Mathf.Clamp(missileHPPercent, -100, float.MaxValue);
+            targetHP = Mathf.RoundToInt(MissileHPBase * (1 + missileHPPercent / 100f));
+        }
+        else if (_owner._owner is AIShip)
+        {
+            ///计算敌人导弹血量
+            var aiShip = _owner._owner as AIShip;
+            var hardLevelItem =  GameHelper.GetEnemyHardLevelItem(aiShip.AIShipCfg.HardLevelGroupID);
+            var hpadd = hardLevelItem.MissileHPAdd;
+            var hpRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
+            targetHP = Mathf.RoundToInt((MissileHPBase + hpadd) * (1 + hpRatio / 100f));
+            targetHP = Mathf.Max(0, targetHP);
+        }
+        HpComponent = new GeneralHPComponet(targetHP, targetHP);
     }
 
     [BurstCompile]
@@ -445,7 +478,7 @@ public class Projectile : Bullet, IDamageble
     }
     public bool TakeDamage(DamageResultInfo info)
     {
-        if (HpComponent == null)
+        if (HpComponent == null || !IsinterceptTarget)
             return false;
 
         bool isDie = HpComponent.ChangeHP(-info.Damage);

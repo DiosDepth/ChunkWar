@@ -77,6 +77,7 @@ public class EnemyHardLevelItem : DataInfo
     public int ATKAdd;
     public int HPAdd;
     public int ShieldAdd;
+    public int MissileHPAdd;
 
     public override void Initialization(string[] row)
     {

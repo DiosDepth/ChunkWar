@@ -33,3 +33,4 @@ MonoBehaviour:
   RotationSpeed: 180
   InitialSpeed: 20
   Acceleration: 0.25
+  MissileHP: 0
