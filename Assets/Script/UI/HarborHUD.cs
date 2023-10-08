@@ -278,7 +278,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
 
     private void OnUnitSelect_ChangePostionClick()
     {
-
+        ShipBuilder.instance.EnterMoveMode();
     }
 
 }

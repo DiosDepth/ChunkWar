@@ -385,7 +385,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         AddModifySpecials();
         AddModifyTriggers();
-        RefreshEffectSlot();
     }
 
     /// <summary>

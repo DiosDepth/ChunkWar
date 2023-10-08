@@ -227,8 +227,8 @@ MonoBehaviour:
     ChineseSimplified: "\u6218\u5217\u8230"
     English: 
     Japanese: 
-  - TextID: Enemy_Flyings
-    ChineseSimplified: "\u91CF\u4EA7\u578B\u62A4\u536B\u8230"
+  - TextID: Enemy_Name_001
+    ChineseSimplified: "\u62E6\u622A\u8005\u2160\u578B"
     English: 
     Japanese: 
   - TextID: ItemTag_Shield
@@ -245,5 +245,21 @@ MonoBehaviour:
     Japanese: 
   - TextID: ItemTag_WareHouse
     ChineseSimplified: "\u8D27\u4ED3"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_002
+    ChineseSimplified: "\u62E6\u622A\u8005\u2161\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_003
+    ChineseSimplified: "\u5B88\u536B\u8005\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_004
+    ChineseSimplified: "\u98DE\u5F39\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_005
+    ChineseSimplified: "\u5C4F\u536B\u2160\u578B"
     English: 
     Japanese: 

@@ -47,6 +47,7 @@ public class PlayerEditShip : PlayerShip
         }
 
         RefreshShipEnergy();
+        RefreshALLUnitSlotEffects();
     }
 
     public Unit AddEditUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction, bool isEditorMode = false)
@@ -93,6 +94,7 @@ public class PlayerEditShip : PlayerShip
 
         _unitList.Add(tempunit);
         RefreshShipEnergy();
+        RefreshALLUnitSlotEffects();
         return tempunit;
     }
 
@@ -111,6 +113,7 @@ public class PlayerEditShip : PlayerShip
         RogueManager.Instance.RemoveShipUnit(m_unit);
         UnitList.Remove(m_unit);
         RefreshShipEnergy();
+        RefreshALLUnitSlotEffects();
         GameObject.Destroy(m_unit.gameObject);
     }
 

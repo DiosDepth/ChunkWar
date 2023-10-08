@@ -58,6 +58,11 @@ public class ShipBuilder : MonoBehaviour
     private bool _isPointOverGameObject;
     private bool _isDisplayingHoverUnit = false;
     private bool _isShowUnitSelectOptionPanel = false;
+    private Vector2Int _tempBuildCenter;
+    /// <summary>
+    /// 移动模式
+    /// </summary>
+    private bool _inMoveMode = false;
 
     private List<ShipChunkGrid> _shipGrids;
     private List<ShipChunkErrorGrid> _tempErrorGrid;
@@ -211,8 +216,10 @@ public class ShipBuilder : MonoBehaviour
                 {
                     editorBrush.ActiveBrush(_isValidPos);
                     if (!_isValidPos)
+                    {
+                        _canUnitPlace = false;
                         return;
-
+                    }
                     //使用selectedChunk 和 当前选择的currentInventoryBuilding 中map信息 来计算是否有其他位置重合，
                     //需要检测已经有的Building
                     if (!HandleUnitBuildProcess())
@@ -282,6 +289,12 @@ public class ShipBuilder : MonoBehaviour
                 break;
             case InputActionPhase.Performed:
 
+                if (_inMoveMode)
+                {
+                    ///退出移动模式
+                    _inMoveMode = false;
+                }
+
                 if(CurrentInventoryItem != null)
                 {
                     OnAddUnit();
@@ -323,6 +336,12 @@ public class ShipBuilder : MonoBehaviour
                 break;
             case InputActionPhase.Performed:
 
+                if (_inMoveMode)
+                {
+                    CancelMoveMode();
+                    return;
+                }
+
                 if (currentInventoryItem != null)
                 {
                     CancelBuildingSelect();
@@ -343,6 +362,27 @@ public class ShipBuilder : MonoBehaviour
     #endregion
 
     #region Public Function
+
+    /// <summary>
+    /// 进入移动模式，重新更换位置
+    /// </summary>
+    public void EnterMoveMode()
+    {
+        if (_inMoveMode || _currentHoverUnit == null)
+            return;
+
+        _inMoveMode = true;
+
+        if (_isShowUnitSelectOptionPanel)
+        {
+            ClearCurrentUnitOptionPanel();
+        }
+        _tempBuildCenter = _currentHoverUnit.pivot;
+        editorShip.RemoveEdtiorUnit(_currentHoverUnit);
+        SetSelectedInventoryItem(new InventoryItem(_currentHoverUnit._baseUnitConfig));
+        SetBrushSprite();
+        _currentHoverUnit = null;
+    }
 
     /// <summary>
     /// 出售Unit
@@ -586,6 +626,37 @@ public class ShipBuilder : MonoBehaviour
         {
             _currentHoverUnit = null;
         }
+    }
+
+    /// <summary>
+    /// 取消移动模式
+    /// </summary>
+    private void CancelMoveMode()
+    {
+        if(currentInventoryItem != null)
+        {
+            _tempUnitMap = _reletiveCoord.AddToAll(_tempBuildCenter);
+            ///恢复
+            var unit = editorShip.AddEditUnit(currentInventoryItem.itemconfig, _tempUnitMap, _tempBuildCenter, _itemDirection, true);
+            var chunks = unit.occupiedCoords;
+            for (int i = 0; i < chunks.Count; i++)
+            {
+                var chunk = chunks[i];
+                var grid = GetChunkGridByPos(chunk.x, chunk.y);
+                if (grid != null)
+                {
+                    grid.SetOccupied(true);
+                }
+            }
+
+            _canUnitPlace = false;
+            _itemDirection = 0;
+            editorBrush.ResetBrush();
+            editorBrush.gameObject.SetActive(false);
+        }
+        
+        currentInventoryItem = null;
+        _inMoveMode = false;
     }
     #endregion
 

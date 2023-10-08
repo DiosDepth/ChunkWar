@@ -812,6 +812,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     #endregion
 
+    
     #region Wave & HardLevel
 
     private int _currentHardLevelIndex;
@@ -982,7 +983,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             AIFactory aIFactory = obj.GetComponent<AIFactory>();
             aIFactory.PoolableSetActive(true);
             aIFactory.Initialization();
-            RectAISpawnSetting spawnSetting = new RectAISpawnSetting((int)cfg.AIType, cfg.TotalCount, cfg.MaxRowCount);
+            RectAISpawnSetting spawnSetting = new RectAISpawnSetting(cfg.AITypeID, cfg.TotalCount, cfg.MaxRowCount);
             spawnSetting.spawnIntervalTime = cfg.SpawnIntervalTime;
             spawnSetting.spawnShape = cfg.SpawnShpe;
 

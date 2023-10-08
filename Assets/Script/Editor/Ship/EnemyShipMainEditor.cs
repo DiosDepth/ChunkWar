@@ -18,6 +18,7 @@ public class EnemyShipMainEditor : OdinMenuEditorWindow
     protected override OdinMenuTree BuildMenuTree()
     {
         var tree = new OdinMenuTree(true);
+        LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         tree.Config.DrawSearchToolbar = true;
 
         var menu = tree.AddAllAssetsAtPath("µÐÈË", "Assets/Resources/Configs/EnemyShips", typeof(AIShipConfig), true, true);
@@ -27,7 +28,7 @@ public class EnemyShipMainEditor : OdinMenuEditorWindow
             childs.ForEach(child =>
             {
                 AIShipConfig info = child.Value as AIShipConfig;
-                child.Name = string.Format("[{0}]_{1}", info.ID, child.Name);
+                child.Name = string.Format("[{0}]_{1}", info.ID, LocalizationManager.Instance.GetTextValue(info.GeneralConfig.Name));
             });
         });
         tree.SortMenuItemsByName();

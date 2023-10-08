@@ -101,6 +101,23 @@ public class DataManager : Singleton<DataManager>
             }
         }
     }
+
+    public void LoadAIShipConfig_Editor()
+    {
+        var enemy = Resources.LoadAll<AIShipConfig>(DataConfigPath.EnemyShipConfigRoot);
+        if (enemy != null && enemy.Length > 0)
+        {
+            for (int i = 0; i < enemy.Length; i++)
+            {
+                if (_AIShipConfigDic.ContainsKey(enemy[i].ID))
+                {
+                    Debug.LogError("Find Same enemyID !" + enemy[i].ID);
+                    continue;
+                }
+                _AIShipConfigDic.Add(enemy[i].ID, enemy[i]);
+            }
+        }
+    }
 #endif
 
     private void LoadMiscData()
