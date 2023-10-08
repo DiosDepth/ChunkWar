@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf801ef19417cc408769da93c0db527, type: 3}
-  m_Name: Bullet_5
+  m_Script: {fileID: 11500000, guid: 12a9991b21095f04e8bd1e68b3543206, type: 3}
+  m_Name: Bullet_106
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,15 +21,15 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  ID: 5
-  BulletName: BaseInstanceHit_Player
-  Type: 1
-  Prefab: {fileID: 3574238879806340193, guid: 15ca84b9fe0efa143aa878f2f74b95ec, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseInstanceHit_Player
+  ID: 106
+  BulletName: BasePassThroughMissile_AI
+  Type: 0
+  Prefab: {fileID: 8903830990857463265, guid: 6c40fd95216b1ec4283e1bd0ad9e026a, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BasePassThroughMissile_AI
   HitAudio: 
   ExplodeRange: 0
-  MaxDistance: 0
-  Width: 0
-  EmitTime: 0
-  Duration: 0
-  DeathTime: 0
+  LifeTime: 0
+  MaxSpeed: 0
+  RotationSpeed: 0
+  InitialSpeed: 0
+  Acceleration: 0

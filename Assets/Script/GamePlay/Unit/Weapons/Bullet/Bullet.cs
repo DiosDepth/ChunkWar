@@ -21,8 +21,12 @@ public enum BulletType
 public enum AvaliableBulletType
 {
     None,
+    BaseBeam_AI,
     BaseBullet_AI,
+    BaseChainBeam_AI,
     BaseHommingBullet_AI,
+    BaseInstanceHit_AI,
+    BasePassThroughMissile_AI,
     BaseBullet_Player,
     BaseBullet02_Player,
     BaseBeam_Player,

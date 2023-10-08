@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf801ef19417cc408769da93c0db527, type: 3}
-  m_Name: Bullet_5
+  m_Script: {fileID: 11500000, guid: c02d655fc75139347b948276521ed4e8, type: 3}
+  m_Name: Bullet_104
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,15 +21,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  ID: 5
-  BulletName: BaseInstanceHit_Player
-  Type: 1
-  Prefab: {fileID: 3574238879806340193, guid: 15ca84b9fe0efa143aa878f2f74b95ec, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseInstanceHit_Player
+  ID: 104
+  BulletName: BaseChainBeam_AI
+  Type: 2
+  Prefab: {fileID: 8903830990857463265, guid: 40189c8e6397bbe4e849c4897488f965, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseChainBeam_AI
   HitAudio: 
-  ExplodeRange: 0
   MaxDistance: 0
   Width: 0
-  EmitTime: 0
+  EmiteTime: 0
   Duration: 0
   DeathTime: 0

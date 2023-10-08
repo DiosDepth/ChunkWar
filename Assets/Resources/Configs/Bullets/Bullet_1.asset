@@ -25,7 +25,7 @@ MonoBehaviour:
   BulletName: BaseBullet_Player
   Type: 1
   Prefab: {fileID: 8903830990857463265, guid: 1010da2bb2d99754180c17add93051d4, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/BaseBullet_Player
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseBullet_Player
   HitAudio: 
   ExplodeRange: 0
   LifeTime: 0

@@ -99,7 +99,7 @@ public class AISteeringBehaviorController : BaseController, IBoid
 
 
     [BurstCompile]
-    public struct CalculateTargetsPosByRadiusJob : IJobParallelForBatch
+    public struct CalculateSteeringTargetsPosByRadiusJob : IJobParallelForBatch
     {
         //[ReadOnly] public NativeArray<float3> job_selfPos;
         public float job_threshold;
@@ -183,78 +183,102 @@ public class AISteeringBehaviorController : BaseController, IBoid
         float angle;
         float3 deltamovement;
         float3 vel;
+
         public void Execute(int startIndex, int count)
         {
-            // apply steering data to ai ship
-
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                angle = 0;
-                accelaration = Vector3.zero;
+                float angle = 0;
+                float3 accelaration = float3.zero;
 
-                if(math.length(job_evadeSteering[i].linear) == 0)
+                if (!job_isVelZero[i])
                 {
-                    if (!job_isVelZero[i])
-                    {
-                        accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
-                    }
-               
-                    accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
-                    accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
-                    accelaration += job_separationSteering[i].linear * job_separationWeight[i];
-                    accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i];
-                }
-                else
-                {
-                    accelaration += job_evadeSteering[i].linear * job_evadeWeight[i];
+                    accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
                 }
 
-
-                angle += job_faceSteering[i].angular * job_faceWeight[i];
-
-                //后面需要叠加其他的behavior
-
-                if (math.length(accelaration) > job_aiShipMaxAcceleration[i])
-                {
-                    accelaration = math.normalize(accelaration);
-                    accelaration *= job_aiShipMaxAcceleration[i];
-                }
-
-
-                if (math.length(job_evadeSteering[i].linear) == 0 && job_isVelZero[i])
-                {
-                    vel = float3.zero;
-                }
-                else
-                {
-                    vel = job_aiShipVelocity[i];
-                }
-
-                if ( math.length(vel) <= 0.01f)
-                {
-                    vel = 0;
-                }
-
-                if(math.length(job_evadeSteering[i].linear) == 0)
-                {
-                    deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
-                }
-                else
-                {
-                    deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
-                }
-     
-                deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;
-
-                deltainfo.linear = deltamovement;
-
-                if (angle != 0)
-                {
-                    deltainfo.angular = angle;
-                }
-                rv_deltainfo[i] = deltainfo;
+                accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
+                accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
+                accelaration += job_separationSteering[i].linear * job_separationWeight[i];
+                accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i];
+                accelaration += job_evadeSteering[i].linear * job_evadeWeight[i];
             }
         }
+
+
+
+
+        //public void Execute(int startIndex, int count)
+        //{
+        //    // apply steering data to ai ship
+
+        //    for (int i = startIndex; i < startIndex + count; i++)
+        //    {
+        //        angle = 0;
+        //        accelaration = Vector3.zero;
+
+        //        if(math.length(job_evadeSteering[i].linear) == 0)
+        //        {
+        //            if (!job_isVelZero[i])
+        //            {
+        //                accelaration += job_arriveSteering[i].linear * job_arriveWeight[i];
+        //            }
+
+        //            accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i];
+        //            accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i];
+        //            accelaration += job_separationSteering[i].linear * job_separationWeight[i];
+        //            accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i];
+        //        }
+        //        else
+        //        {
+        //            accelaration += job_evadeSteering[i].linear * job_evadeWeight[i];
+        //        }
+
+
+        //        angle += job_faceSteering[i].angular * job_faceWeight[i];
+
+        //        //后面需要叠加其他的behavior
+
+        //        if (math.length(accelaration) > job_aiShipMaxAcceleration[i])
+        //        {
+        //            accelaration = math.normalize(accelaration);
+        //            accelaration *= job_aiShipMaxAcceleration[i];
+        //        }
+
+
+        //        if (math.length(job_evadeSteering[i].linear) == 0 && job_isVelZero[i])
+        //        {
+        //            vel = float3.zero;
+        //        }
+        //        else
+        //        {
+        //            vel = job_aiShipVelocity[i];
+        //        }
+
+        //        if ( math.length(vel) <= 0.01f)
+        //        {
+        //            vel = 0;
+        //        }
+
+        //        if(math.length(job_evadeSteering[i].linear) == 0)
+        //        {
+        //            deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+        //        }
+        //        else
+        //        {
+        //            deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+        //        }
+
+        //        deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;
+
+        //        deltainfo.linear = deltamovement;
+
+        //        if (angle != 0)
+        //        {
+        //            deltainfo.angular = angle;
+        //        }
+        //        rv_deltainfo[i] = deltainfo;
+        //    }
+        //}
     }
     public virtual void Move(Vector3 movepos)
     {
