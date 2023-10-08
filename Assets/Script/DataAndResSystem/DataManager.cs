@@ -109,12 +109,10 @@ public class DataManager : Singleton<DataManager>
         {
             for (int i = 0; i < enemy.Length; i++)
             {
-                if (_AIShipConfigDic.ContainsKey(enemy[i].ID))
+                if (!_AIShipConfigDic.ContainsKey(enemy[i].ID))
                 {
-                    Debug.LogError("Find Same enemyID !" + enemy[i].ID);
-                    continue;
+                    _AIShipConfigDic.Add(enemy[i].ID, enemy[i]);
                 }
-                _AIShipConfigDic.Add(enemy[i].ID, enemy[i]);
             }
         }
     }

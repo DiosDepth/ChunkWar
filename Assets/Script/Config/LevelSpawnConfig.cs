@@ -101,6 +101,7 @@ public class WaveEnemySpawnConfig
     [LabelText("单位类型ID")]
     [LabelWidth(80)]
     [OnValueChanged("OnTypeIDChange")]
+    [DelayedProperty]
     public int AITypeID;
 
     [HorizontalGroup("BB", 200)]

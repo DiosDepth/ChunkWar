@@ -263,3 +263,31 @@ MonoBehaviour:
     ChineseSimplified: "\u5C4F\u536B\u2160\u578B"
     English: 
     Japanese: 
+  - TextID: Enemy_Name_006
+    ChineseSimplified: "\u81EA\u7206\u8239"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_100
+    ChineseSimplified: "\u54E8\u536B\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_101
+    ChineseSimplified: "\u62E6\u622A\u8005\u2162\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_102
+    ChineseSimplified: "\u54E8\u536B\u2161\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_103
+    ChineseSimplified: "\u98DE\u5F39\u2161\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_104
+    ChineseSimplified: "\u5C4F\u536B\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_2000
+    ChineseSimplified: "\u707E\u5384"
+    English: 
+    Japanese: 

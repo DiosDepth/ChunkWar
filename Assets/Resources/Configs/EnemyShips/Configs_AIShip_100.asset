@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_Flyings
+  m_Name: Configs_AIShip_100
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1433,10 +1433,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 3
+  ID: 1
   GeneralConfig:
     IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: Enemy_Name_003
+    Name: Enemy_Name_001
     Desc: 
     Rarity: 0
     SortingOrder: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_Flyings
+  m_Name: Configs_AIShip_2000
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1433,24 +1433,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 3
+  ID: 2000
   GeneralConfig:
-    IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: Enemy_Name_003
+    IconSprite: {fileID: 21300000, guid: d583c7db7f91f994da6db9e52b1bc89e, type: 3}
+    Name: Enemy_Name_2000
     Desc: 
-    Rarity: 0
+    Rarity: 3
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: 78e0d89966b208549b01263ff6a23337, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: fa87bda1bcd5d2041b094076be2a9e1e, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  ShipClass: 0
+  ShipClass: 4
   DropList:
   - pickuptype: 1
     count: 1
     dropRate: 80
-  ShowHPBillboard: 0
+  ShowHPBillboard: 1
   ClassLevel: 0
   BillboardType: 0
-  SpeedBase: 10
+  SpeedBase: 2
   AttackBase: 5
   HardLevelGroupID: 1
