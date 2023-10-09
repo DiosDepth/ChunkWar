@@ -517,8 +517,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                     info.Damage = Mathf.RoundToInt(newDamage);
                 }
             }
-
-            LevelManager.Instance.UnitHit(info);
+            LevelManager.Instance.UnitBeforeHit(info);
             ///只有敌人才显示伤害数字
             ///这里需要显示对应的漂浮文字
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
@@ -534,6 +533,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         {
             ///CalculatePlayerTakeDamage
             GameHelper.ResolvePlayerUnitDamage(info);
+            LevelManager.Instance.UnitBeforeHit(info);
             if (!info.IsHit)
             {
                 ///Parry
@@ -548,6 +548,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             }
         }
 
+        LevelManager.Instance.UnitHitFinish(info);
         if (info.IsHit)
         {
             bool isDie = HpComponent.ChangeHP(-info.Damage);

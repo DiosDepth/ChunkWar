@@ -112,6 +112,8 @@ public class BattleMainConfig : SerializedScriptableObject
     public int ShipLoadBase = 50;
     public float Drop_Waste_LoadCostBase;
 
+    public BattleSpecialEntitySpawnConfig EntitySpawnConfig = new BattleSpecialEntitySpawnConfig();
+
     [ListDrawerSettings(ShowIndexLabels = true, NumberOfItemsPerPage = 10)]
     public int[] EXPMap;
 
@@ -274,4 +276,31 @@ public class ShipLevelUpItemRarityConfig
     [LabelText("最大权重")]
     [LabelWidth(80)]
     public float WeightMax;
+}
+
+[HideReferenceObjectPicker]
+public class BattleSpecialEntitySpawnConfig
+{
+    public float EnemyGenerate_Inner_Range = 25f;
+    public float EnemyGenerate_Outer_Range = 45f;
+    /// <summary>
+    /// 陨石生成概率参数1
+    /// </summary>
+    public float MeteoriteGenerate_Rate1;
+    public int MeteoriteGenerate_Timer1;
+    /// <summary>
+    /// 陨石平滑生成
+    /// </summary>
+    public float MeteoriteGenerate_Rate2;
+    public int MeteoriteGenerate_Timer2;
+
+    public Dictionary<GoodsItemRarity, int> MeteoriteGenerate_TypeID_Map = new Dictionary<GoodsItemRarity, int>();
+
+    public int GetMeteoriteGenerate_TypeID(GoodsItemRarity rarity)
+    {
+        if (MeteoriteGenerate_TypeID_Map.ContainsKey(rarity))
+            return MeteoriteGenerate_TypeID_Map[rarity];
+
+        return -1;
+    }
 }

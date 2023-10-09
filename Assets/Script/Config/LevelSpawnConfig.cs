@@ -68,6 +68,17 @@ public class WaveConfig
     [OnCollectionChanged("OnAddedWave")]
     public List<WaveEnemySpawnConfig> SpawnConfig = new List<WaveEnemySpawnConfig>();
 
+    /// <summary>
+    /// 陨石生成稀有度权重
+    /// </summary>
+    public Dictionary<GoodsItemRarity, byte> MeteoriteGenerateRate_RarityMap = new Dictionary<GoodsItemRarity, byte>()
+    {
+        { GoodsItemRarity.Tier1, 0 },
+        { GoodsItemRarity.Tier2, 0 },
+        { GoodsItemRarity.Tier3, 0 },
+        { GoodsItemRarity.Tier4, 0 },
+    };
+
     private WaveEnemySpawnConfig AddNewWaveSpawn()
     {
         return new WaveEnemySpawnConfig();

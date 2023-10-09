@@ -136,6 +136,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     {
         RogueManager.Instance.Clear();
         LevelManager.Instance.Clear();
+        AchievementManager.Instance.ClearRuntimeData();
     }
 
     public bool IsPauseGame()

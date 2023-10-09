@@ -291,3 +291,19 @@ MonoBehaviour:
     ChineseSimplified: "\u707E\u5384"
     English: 
     Japanese: 
+  - TextID: Enemy_Name_5000
+    ChineseSimplified: "\u9668\u77F3T1"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_5001
+    ChineseSimplified: "\u9668\u77F3T2"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_5002
+    ChineseSimplified: "\u9668\u77F3T3"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_5003
+    ChineseSimplified: "\u9668\u77F3T4"
+    English: 
+    Japanese: 

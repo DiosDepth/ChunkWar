@@ -107,5 +107,12 @@ public class BaseShipConfig : BaseConfig
             AssetDatabase.SaveAssets();
         }
     }
+
+    [OnInspectorDispose]
+    private void OnDispose()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+    }
 #endif
 }

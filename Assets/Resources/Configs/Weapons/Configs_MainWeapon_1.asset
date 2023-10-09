@@ -448,6 +448,7 @@ MonoBehaviour:
   BaseEnergyGenerate: 100
   LoadAdd: 0
   ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   DamageBase: 30
   EnemyAttackModify: 0

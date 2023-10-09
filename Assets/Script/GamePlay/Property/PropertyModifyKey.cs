@@ -199,6 +199,11 @@ public enum PropertyModifyKey
     /// 单位瘫痪时长比例
     /// </summary>
     UnitParalysisRecoverTimeRatio,
+    /// <summary>
+    /// 陨石生成数量
+    /// </summary>
+    Meteorite_Generate_Count,
+    AncientUnit_Generate_Count,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }

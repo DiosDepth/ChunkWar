@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_2000
+  m_Name: Configs_AIShip_5001
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1433,12 +1433,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 2000
+  ID: 5001
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: d583c7db7f91f994da6db9e52b1bc89e, type: 3}
-    Name: Enemy_Name_2000
+    Name: Enemy_Name_5001
     Desc: 
-    Rarity: 3
+    Rarity: 1
     SortingOrder: 0
   Prefab: {fileID: 3431155976711396027, guid: fa87bda1bcd5d2041b094076be2a9e1e, type: 3}
   m_FlattendMapLayout: 
@@ -1446,9 +1446,9 @@ MonoBehaviour:
   ShipClass: 0
   DropList:
   - pickuptype: 1
-    count: 5
+    count: 10
     dropRate: 100
-  ShowHPBillboard: 1
+  ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
   SpeedBase: 2

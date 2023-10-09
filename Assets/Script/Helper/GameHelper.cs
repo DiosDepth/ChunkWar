@@ -144,7 +144,7 @@ public static class GameHelper
         var rarityDic = cfg.UnitDropRate;
         foreach(var item in rarityDic)
         {
-            ///Luck & HardLevel modify
+            ///Luck & HardLevel modify TODO
             TempDropRandomItem temp = new TempDropRandomItem
             {
                 Rarity = item.Key,
@@ -578,7 +578,7 @@ public static class GameHelper
     public static int CalculatePlayerDamageWithModify(int baseDamage, List<UnitPropertyModifyFrom> modify, out bool critical)
     {
         var cirticalRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Critical);
-        critical = Utility.RandomResult(0, cirticalRatio);
+        critical = Utility.CalculateRate100(cirticalRatio);
 
         float damage = baseDamage;
         for (int i = 0; i < modify.Count; i++)
@@ -603,7 +603,7 @@ public static class GameHelper
         ///¼ÆËãÉÁ±Ü
         var parry = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipParry);
         parry = Mathf.Clamp(parry, 0, 100);
-        bool isParry = Utility.RandomResult(0, parry);
+        bool isParry = Utility.CalculateRate100(parry);
         info.IsHit = !isParry;
 
         if (!isParry)

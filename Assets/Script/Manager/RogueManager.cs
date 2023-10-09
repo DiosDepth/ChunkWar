@@ -158,6 +158,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private Dictionary<uint, Unit> _currentShipUnits = new Dictionary<uint, Unit>();
     public List<Unit> AllShipUnits = new List<Unit>();
 
+    private BattleSpecialEntitySpawnConfig _entitySpawnConfig;
     /// <summary>
     /// 当前刷新次数
     /// </summary>
@@ -429,7 +430,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
         CurrentRogueShopItems = new List<ShopGoodsInfo>();
         CurrentShipLevelUpItems = new List<ShipLevelUpItem>();
-
+        _entitySpawnConfig = DataManager.Instance.battleCfg.EntitySpawnConfig;
         GameManager.Instance.RegisterPauseable(this);
         InitShipLevelUpItems();
     }
@@ -948,6 +949,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             trigger.BindChangeAction(CreateFactory, cfg.ID);
             Timer.AddTrigger(trigger);
         }
+        ///Generate Meteorite Common
+        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTriger(0, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
+        MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
+        Timer.AddTrigger(MeteoriteTrigger1);
+
+        ///Generate Meteorite Smooth
+        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTriger(0, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
+        MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
+        Timer.AddTrigger(MeteoriteTrigger2);
     }
 
     private void GenerateShopCreateTimer()
@@ -969,6 +979,91 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
     }
 
+    /// <summary>
+    /// 陨石生成器
+    /// </summary>
+    private void CreateMeteorite_Common()
+    {
+        var count = MainPropertyData.GetPropertyFinal(PropertyModifyKey.Meteorite_Generate_Count) + 1;
+        count = Mathf.Clamp(count, 1, GameGlobalConfig.MeteoriteGenerate_MaxCount);
+        float targetCount = _entitySpawnConfig.MeteoriteGenerate_Rate1;
+
+        while (targetCount >= 0)
+        {
+            if (targetCount < 1)
+            {
+                bool generate = Utility.CalculateRate100(targetCount * 100);
+                if (generate)
+                {
+                    GenerateMeteorite();
+                }
+                break;
+            }
+
+            ///GenerateFactory
+            GenerateMeteorite();
+            targetCount--;
+        }
+    }
+
+    private void CreateMeteorite_Smooth()
+    {
+        var count = MainPropertyData.GetPropertyFinal(PropertyModifyKey.Meteorite_Generate_Count) + 1;
+        count = Mathf.Clamp(count, 1, GameGlobalConfig.MeteoriteGenerate_MaxCount);
+
+        var rate = count / _entitySpawnConfig.MeteoriteGenerate_Rate2;
+        bool generate = Utility.CalculateRate100(rate * 100);
+        if (generate)
+        {
+            GenerateMeteorite();
+        }
+    }
+
+    /// <summary>
+    /// 生成陨石
+    /// </summary>
+    private void GenerateMeteorite()
+    {
+        ///Calculate MeteoriteGenerate Tier
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        ///随机陨石稀有度
+        var rarityMap = waveCfg.MeteoriteGenerateRate_RarityMap;
+        List<GeneralRarityRandomItem> randomItems = new List<GeneralRarityRandomItem>();
+        foreach (var item in rarityMap)
+        {
+            if (item.Value <= 0)
+                continue;
+
+            GeneralRarityRandomItem ran = new GeneralRarityRandomItem
+            {
+                Rarity = item.Key,
+                Weight = item.Value
+            };
+            randomItems.Add(ran);
+        }
+
+        var targetResult = Utility.GetRandomList<GeneralRarityRandomItem>(randomItems, 1);
+        if (targetResult.Count != 1)
+            return;
+
+        var targetRarity = targetResult[0].Rarity;
+        var typeID = _entitySpawnConfig.GetMeteoriteGenerate_TypeID(targetRarity);
+        if (typeID == -1)
+            return;
+
+        WaveEnemySpawnConfig cfg = new WaveEnemySpawnConfig
+        {
+            AITypeID = typeID,
+            DurationDelta = 0,
+            LoopCount = 1,
+            TotalCount = 1,
+        };
+        SpawnEntity(cfg);
+    }
+
     private void CreateFactory(int ID)
     {
         var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
@@ -976,8 +1071,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             return;
 
         var cfg = waveCfg.SpawnConfig.Find(x => x.ID == ID);
+        SpawnEntity(cfg);
+    }
 
-        Vector2 spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(20f, 50f, RogueManager.Instance.currentShip.transform.position.ToVector2());
+    private void SpawnEntity(WaveEnemySpawnConfig cfg)
+    {
+        if (cfg == null || currentShip == null)
+            return;
+
+        Vector2 spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
         {
             AIFactory aIFactory = obj.GetComponent<AIFactory>();

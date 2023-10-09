@@ -101,5 +101,5 @@ MonoBehaviour:
     SpecialKeyParam: 
   EffectDesc: ShipPlug_Effect_6
   EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

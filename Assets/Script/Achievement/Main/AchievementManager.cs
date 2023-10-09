@@ -129,6 +129,11 @@ public class AchievementManager : Singleton<AchievementManager>
 
     private Dictionary<string, GameStatisticsData> _game_statistics_data;
 
+    /// <summary>
+    /// 局内Unit统计
+    /// </summary>
+    private Dictionary<uint, UnitStatisticsData> _runtimeUnitStatisticsData;
+
     private Queue<AchievementItemConfig> _achievementUIQueue;
     private bool _isShowingAchievement = false;
     private bool _hasInit = false;
@@ -138,6 +143,7 @@ public class AchievementManager : Singleton<AchievementManager>
         _achievementUIQueue = new Queue<AchievementItemConfig>();
         _watcherDic = new Dictionary<AchievementWatcherType, IAchievementWatcher>();
         _game_statistics_data = new Dictionary<string, GameStatisticsData>();
+        _runtimeUnitStatisticsData = new Dictionary<uint, UnitStatisticsData>();
     }
 
     public async void OnUpdate()
@@ -170,6 +176,11 @@ public class AchievementManager : Singleton<AchievementManager>
         LoadSaveData();
         BindWatcherListener();
         _hasInit = true;
+    }
+
+    public void ClearRuntimeData()
+    {
+        _runtimeUnitStatisticsData.Clear();
     }
 
     /// <summary>
@@ -247,6 +258,7 @@ public class AchievementManager : Singleton<AchievementManager>
         AddWatcherListener<BaseUnitConfig>(AchievementWatcherType.WreckageSell, Watcher_HarborUnitSell);
         AddWatcherListener<int>(AchievementWatcherType.CurrencyChange, Watcher_CurrencyChange);
         AddWatcherListener<GoodsItemRarity>(AchievementWatcherType.WreckageGain, Watcher_WreckageGain);
+        AddWatcherListener<DamageResultInfo>(AchievementWatcherType.UnitHit, Watcher_UnitHit);
         RegisterAchievementWatcher();
     }
 
@@ -325,6 +337,25 @@ public class AchievementManager : Singleton<AchievementManager>
         }
     }
 
+    /// <summary>
+    /// 局内Unit统计数据
+    /// </summary>
+    /// <param name="UID"></param>
+    /// <returns></returns>
+    public UnitStatisticsData GetOrCreateRuntimeUnitStatisticsData(uint UID)
+    {
+        if (_runtimeUnitStatisticsData.ContainsKey(UID))
+        {
+            return _runtimeUnitStatisticsData[UID];
+        }
+        else
+        {
+            var newData = new UnitStatisticsData(UID);
+            _runtimeUnitStatisticsData.Add(UID, newData);
+            return newData;
+        }
+    }
+
     private GameStatisticsData GetOrCreateStatistics_Content(string key)
     {
         if (_game_statistics_data.ContainsKey(key))
@@ -378,6 +409,26 @@ public class AchievementManager : Singleton<AchievementManager>
     private void Watcher_WreckageGain(GoodsItemRarity rarity)
     {
         ChangeStatistics_Int(StatisticsKey_WRECKAGE_GAIN_TOTAL, 1);
+    }
+
+    private void Watcher_UnitHit(DamageResultInfo info)
+    {
+        var currentWaveIndex = RogueManager.Instance.GetCurrentWaveIndex;
+        var attackerUnit = info.attackerUnit;
+        if(attackerUnit != null)
+        {
+            var targetData = GetOrCreateRuntimeUnitStatisticsData(attackerUnit.UID);
+            targetData.AddDamageTotal(currentWaveIndex, info.Damage);
+        }
+
+        var targetUnit = info.Target;
+        if(targetUnit != null && targetUnit is Unit)
+        {
+            var unit = targetUnit as Unit;
+            var targetData = GetOrCreateRuntimeUnitStatisticsData(unit.UID);
+            targetData.AddDamageTakeTotal(currentWaveIndex, info.Damage);
+        }
+
     }
 
     #endregion
