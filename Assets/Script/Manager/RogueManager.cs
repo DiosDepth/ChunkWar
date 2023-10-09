@@ -760,7 +760,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             WreckageItemInfo info = WreckageItemInfo.CreateInfo(allWreckgeData[i]);
             wreckageItems.Add(info.UnitID, info);
         }
-
+        ///权重根据舰船修正
+        InitModifyUnitWreckageTagWeight();
         CalculateTotalLoadValue();
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.UnitWreckageLoadAdd, CalculateTotalLoadValue);
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.UnitLoadCost, CalculateTotalLoadCost);
@@ -770,6 +771,38 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private List<WreckageItemInfo> GetAllWreckageItemsByRarity(GoodsItemRarity rarity)
     {
         return wreckageItems.Values.ToList().FindAll(x => x.Rarity == rarity);
+    }
+
+    /// <summary>
+    /// 根据选择舰船修正整体tag权重，相同权重为加法关系
+    /// </summary>
+    private void InitModifyUnitWreckageTagWeight()
+    {
+        if (currentShip == null)
+            return;
+
+        var modifyDic = currentShip.playerShipCfg.UnitRandomTagRatioDic;
+        if (modifyDic == null)
+            return;
+
+        foreach (var item in wreckageItems.Values)
+        {
+            var unitCfg = DataManager.Instance.GetUnitConfig(item.UnitID);
+            if (unitCfg == null)
+                continue;
+
+            float ratioBase = 1;
+            foreach (var modify in modifyDic)
+            {
+                if (unitCfg.HasUnitTag(modify.Key))
+                {
+                    ratioBase += modify.Value;
+                }
+            }
+
+            item.Weight = Mathf.RoundToInt(ratioBase * item.Weight);
+        }
+
     }
 
     /// <summary>

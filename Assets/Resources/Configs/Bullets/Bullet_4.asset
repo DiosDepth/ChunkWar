@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c28d30143c59c9e40ba5ce18c3b4ad1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 12a9991b21095f04e8bd1e68b3543206, type: 3}
   m_Name: Bullet_4
   m_EditorClassIdentifier: 
   serializationData:
@@ -24,11 +24,13 @@ MonoBehaviour:
   ID: 4
   BulletName: BaseHommingBullet_Player
   Type: 0
-  Prefab: {fileID: 8903830990857463265, guid: b52a34b6f679c974bbcdd46e8813a532, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseHommingBullet_AI
+  Prefab: {fileID: 8903830990857463265, guid: 1e9f7cc231359414f9fc531055be578c, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseHommingBullet_Player
   HitAudio: 
-  MaxDistance: 0
-  Width: 0
-  EmiteTime: 0
-  Duration: 0
-  DeathTime: 0
+  ExplodeRange: 15
+  LifeTime: 5
+  MaxSpeed: 45
+  RotationSpeed: 7
+  InitialSpeed: 5
+  Acceleration: 0.25
+  MissileHP: 100

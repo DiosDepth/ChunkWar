@@ -27,7 +27,7 @@ MonoBehaviour:
   Prefab: {fileID: 8903830990857463265, guid: 72ea840440008054f8dfebc0c33788ae, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseChainBeam_Player
   HitAudio: 
-  MaxDistance: 0
-  Width: 0
-  EmiteTime: 0
-  DeathTime: 0
+  MaxDistance: 45
+  Width: 0.05
+  EmiteTime: 0.1
+  DeathTime: 0.05

@@ -45,5 +45,6 @@ public class BulletProjectileConfig : BulletConfig
     [BoxGroup("Info2/µ¼µ¯ÑªÁ¿")]
     [LabelWidth(150)]
     [HideLabel]
+    [ShowIf("Type", BulletType.Missile)]
     public int MissileHP;
 }
