@@ -27,36 +27,43 @@ public class AISteeringBehaviorController : BaseController, IBoid
     public float boidRadius = 1f;
 
     public bool isActiveEvade = false;
+    [BoxGroup("evadeBehaviorInfo")]
     [ShowIf("isActiveEvade")]
     [SerializeField]
     public EvadeBehavior evadeBehaviorInfo;
 
     public bool isActiveArrive = false;
+    [BoxGroup("arrivelBehaviorInfo")]
     [ShowIf("isActiveArrive")]
     [SerializeField]
     public ArriveBehavior arrivelBehaviorInfo;
 
     public bool isActiveFace = false;
+    [BoxGroup("faceBehaviorInfo")]
     [ShowIf("isActiveFace")]
     [SerializeField]
     public FaceBehavior faceBehaviorInfo;
 
     public bool isActiveCohesion = false;
+    [BoxGroup("cohesionBehaviorInfo")]
     [ShowIf("isActiveCohesion")]
     [SerializeField]
     public CohesionBehavior cohesionBehaviorInfo;
 
     public bool isActiveSeparation = false;
+    [BoxGroup("separationBehaviorInfo")]
     [ShowIf("isActiveSeparation")]
     [SerializeField]
     public SeparationBehavior separationBehaviorInfo;
 
     public bool isActiveAligment = false;
+    [BoxGroup("alignmentBehaviorInfo")]
     [ShowIf("isActiveAligment")]
     [SerializeField]
     public AlignmentBehavior alignmentBehaviorInfo;
 
     public bool isActiveCollisionAvoidance = false;
+    [BoxGroup("collisionAvoidanceBehaviorInfo")]
     [ShowIf("isActiveCollisionAvoidance")]
     [SerializeField]
     public CollisionAvoidanceBehavior collisionAvoidanceBehaviorInfo;

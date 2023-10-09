@@ -1436,7 +1436,7 @@ MonoBehaviour:
   ID: 2
   GeneralConfig:
     IconSprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: AI_Fighter
+    Name: Enemy_Name_002
     Desc: "\u8FDC\u7A0B\u5927\u5BB6\n\u8FDC\u7A0B\u6253\u51FB\n"
     Rarity: 0
     SortingOrder: 0

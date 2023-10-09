@@ -687,8 +687,6 @@ public class AIManager : Singleton<AIManager>, IPauseable
             playerActiveUnitPos.Add(unit.transform.position);
             
         }
-         
-
     }
 
     public void RemoveTargetUnit(Unit unit)

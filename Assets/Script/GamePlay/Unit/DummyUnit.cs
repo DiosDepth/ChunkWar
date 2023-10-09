@@ -25,13 +25,13 @@ public class DummyUnit : Unit
         {
             AIManager.Instance.AddSingleUnit(this);
 
-            IsRestoreable = false;
+
         }
         if (_owner is PlayerShip)
         {
             AIManager.Instance.AddTargetUnit(this);
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
-            IsRestoreable = true;
+
 
             SetUnitProcess(true);
             unitSprite.color = Color.white;

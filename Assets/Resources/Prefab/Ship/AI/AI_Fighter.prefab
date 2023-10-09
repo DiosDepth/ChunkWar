@@ -124,7 +124,7 @@ MonoBehaviour:
   maxAcceleration: 6
   maxAngularAcceleration: 5
   targetSerchingRadius: 45
-  boidRadius: 1
+  boidRadius: 3
   isActiveEvade: 1
   evadeBehaviorInfo:
     target: {fileID: 0}
@@ -245,7 +245,7 @@ SpriteRenderer:
   m_Size: {x: 21, y: 21.030762}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3431155977828216153

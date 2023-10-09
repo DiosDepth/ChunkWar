@@ -224,14 +224,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         private set;
     }
 
-    public bool IsTarget { get { return _isTarget; } }
-    public bool IsRestoreable = false;
     public bool IsCoreUnit = false;
     public string deathVFXName = "ExplodeVFX";
     public List<WeaponTargetInfo> targetList = new List<WeaponTargetInfo>();
     public int maxTargetCount = 3;
 
-    protected bool _isTarget;
     public SpriteRenderer unitSprite;
     public Transform rotationRoot;
     public bool redirection = true;
@@ -307,6 +304,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             {
                 ///瘫痪恢复
                 AIManager.Instance.AddTargetUnit(this);
+                (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
             }
         }
 
@@ -318,6 +316,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             {
                 ///移除目标选中
                 AIManager.Instance.RemoveTargetUnit(this);
+                if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
+                {
+                    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
+                }
             }
         }
     }
@@ -399,13 +401,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         {
             AIManager.Instance.AddSingleUnit(this);
 
-            IsRestoreable = false;
         }
         if (_owner is PlayerShip)
         {
             AIManager.Instance.AddTargetUnit(this);
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
-            IsRestoreable = true;
 
             SetUnitProcess(true);
             unitSprite.color = Color.white;
@@ -491,7 +491,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (HpComponent == null)
             return false;
         //已经死亡或者瘫痪的不会收到更多伤害
-        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis)
+        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis || state == DamagableState.Immortal)
         {
             return false;
         }

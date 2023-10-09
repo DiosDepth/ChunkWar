@@ -15,6 +15,7 @@ public enum DamagableState
     /// ÍêÈ«Ïú»Ù
     /// </summary>
     Destroyed,
+    Immortal,
 }
 public class Chunk : IDamageble
 {

@@ -100,7 +100,7 @@ MonoBehaviour:
     - Name: ID
       Entry: 3
       Data: 2
-    - Name: AIType
+    - Name: AITypeID
       Entry: 3
       Data: 2
     - Name: DurationDelta
@@ -133,7 +133,7 @@ MonoBehaviour:
     - Name: ID
       Entry: 3
       Data: 3
-    - Name: AIType
+    - Name: AITypeID
       Entry: 3
       Data: 3
     - Name: DurationDelta
@@ -168,11 +168,11 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 5|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 7|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 6|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
+      Data: 8|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
