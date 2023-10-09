@@ -172,7 +172,7 @@ public class InstanceHit : Bullet
                     return;
                 }
             }
-            return;
+ 
         }
 
         LeanTween.value(0, maxDistance, emittime).setOnUpdate((value) =>
@@ -219,7 +219,7 @@ public class InstanceHit : Bullet
     public override void Death(UnitDeathInfo info)
     {
 
-        PoolableDestroy();
+       PoolableDestroy();
     }
 
     protected override void OnEnable()

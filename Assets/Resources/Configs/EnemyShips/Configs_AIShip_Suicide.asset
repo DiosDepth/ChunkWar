@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_Fighter
+  m_Name: Configs_AIShip_Suicide
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1387,7 +1387,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 4
-      Data: 100
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -1423,7 +1423,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 4
-      Data: 0
+      Data: 100
     - Name: 
       Entry: 8
       Data: 
@@ -1433,14 +1433,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 2
+  ID: 3
   GeneralConfig:
-    IconSprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: AI_Fighter
-    Desc: "\u8FDC\u7A0B\u5927\u5BB6\n\u8FDC\u7A0B\u6253\u51FB\n"
+    IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+    Name: Enemy_Sucide
+    Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: 8e0220b0ce47c664b941eda24d8cc5fb, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: c2d1bc3584ca295448c43c44f24100d4, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
@@ -1455,5 +1455,5 @@ MonoBehaviour:
   ClassLevel: 0
   BillboardType: 0
   SpeedBase: 10
-  AttackBase: 0
+  AttackBase: 5
   HardLevelGroupID: 1

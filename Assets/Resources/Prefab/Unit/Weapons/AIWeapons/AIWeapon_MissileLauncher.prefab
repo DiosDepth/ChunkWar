@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4947179278027536151}
   - component: {fileID: 1550267850732327031}
-  - component: {fileID: 3676271341615170573}
+  - component: {fileID: 9137603360990519217}
   m_Layer: 7
   m_Name: AIWeapon_MissileLauncher
   m_TagString: AI
@@ -80,33 +80,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 102
-  UID: 0
   state: 0
   IsRestoreable: 0
-  IsCoreUnit: 0
+  IsCoreUnit: 1
   deathVFXName: ExplodeVFX
-  _isTarget: 1
+  maxTargetCount: 2
   unitSprite: {fileID: 4947179279536623990}
+  rotationRoot: {fileID: 4947179278027536151}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
-  currentEvolvePoints: 0
-  weaponmode: 1
-  firemode: 0
-  aimingtype: 2
-  bulletType: 2
+  effectSlotCoords: []
+  weaponmode: 0
+  firemode: 1
+  aimingtype: 1
+  bulletType: 4
   targetmode: 1
   mask:
     serializedVersion: 2
     m_Bits: 128
-  targetList: []
-  maxTargetCount: 3
   firePoint:
   - {fileID: 3324133008493171840}
   - {fileID: 6475950139646896720}
-  scatter: 0
-  rotationRoot: {fileID: 4947179278027536151}
+  scatter: 15
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0
@@ -117,8 +114,8 @@ MonoBehaviour:
     AfterDelay: 0
   magazine: 0
   _lastbullet: {fileID: 0}
---- !u!60 &3676271341615170573
-PolygonCollider2D:
+--- !u!58 &9137603360990519217
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,25 +128,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.3125, y: 0.4375}
-      - {x: -0.375, y: 0}
-      - {x: -0.375, y: -0.375}
-      - {x: -0.25, y: -0.5}
-      - {x: 0.25, y: -0.5}
-      - {x: 0.375, y: -0.375}
-      - {x: 0.375, y: 0}
-      - {x: 0.3125, y: 0.4375}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &4947179279536623991
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,14 +154,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4947179279536623991}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4947179278027536151}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4947179279536623990
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -223,7 +203,7 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 1dd5fdd7bf5a60c489e0322518c6371d, type: 3}
+  m_Sprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

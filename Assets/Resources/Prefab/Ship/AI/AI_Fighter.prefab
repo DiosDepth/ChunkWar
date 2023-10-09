@@ -41,12 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3431155976711396024}
   - component: {fileID: 2036907068945415827}
-  - component: {fileID: 5808496827415363717}
   - component: {fileID: 3502843801109665848}
-  - component: {fileID: 4254137073360052133}
-  - component: {fileID: 2903285305435842433}
-  - component: {fileID: 3443234521725163642}
-  - component: {fileID: 46565608200515095}
+  - component: {fileID: 7566210657034926736}
   m_Layer: 9
   m_Name: AI_Fighter
   m_TagString: AI
@@ -93,35 +89,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!60 &5808496827415363717
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155976711396027}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0.0625, y: 0.0625, z: 0.0625, w: 0.0625}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 21, y: 21.030762}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.5, y: 0.5}
-      - {x: -0.5, y: -0.5}
-      - {x: 0.5, y: -0.5}
-      - {x: 0.5, y: 0.5}
 --- !u!114 &3502843801109665848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,12 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e9d1ece3227044cb2ff0233c38a633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 4254137073360052133}
-  buildingsParent: {fileID: 0}
+  controller: {fileID: 0}
   deathVFXName: ExplodeVFX
+  CoreUnits: []
   AIShipCfg: {fileID: 0}
   AIType: 2
---- !u!114 &4254137073360052133
+--- !u!114 &7566210657034926736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,99 +115,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 3431155976711396027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c07c8cf54db314e85c429ffa0fccc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 24d6c755aae42964789956e3e83e9316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 5808496827415363717}
-  controlledTarget: {fileID: 3502843801109665848}
-  updateFrequence: 0.003
-  States:
-  - StateName: Move
-    Actions:
-    - {fileID: 2903285305435842433}
-    FixedActions: []
-    Transitions:
-    - Decision: {fileID: 46565608200515095}
-      TrueState: Attack
-      FalseState: 
-  - StateName: Attack
-    Actions:
-    - {fileID: 3443234521725163642}
-    FixedActions: []
-    Transitions:
-    - Decision: {fileID: 46565608200515095}
-      TrueState: 
-      FalseState: Move
-  currentState:
-    StateName: 
-    Actions:
-    - {fileID: 0}
-    FixedActions: []
-    Transitions:
-    - Decision: {fileID: 0}
-      TrueState: 
-      FalseState: 
-  previousState:
-    StateName: 
-    Actions:
-    - {fileID: 0}
-    FixedActions: []
-    Transitions:
-    - Decision: {fileID: 0}
-      TrueState: 
-      FalseState: 
---- !u!114 &2903285305435842433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155976711396027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0df2d4adbe01d147b575728f22555cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: 
-  isDebug: 1
-  maxSpeed: 7
-  acceleration: 15
-  maxRotateSpeed: 15
---- !u!114 &3443234521725163642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155976711396027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5053f40aa9c35a45bec0c9447375d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: 
-  isDebug: 0
-  attackRange: 0
-  maxRotateSpeed: 15
---- !u!114 &46565608200515095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155976711396027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d753fc1ed6a684fad62d7b6213523c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDebug: 0
-  Label: 
-  target: {fileID: 0}
-  compare: 3
-  thresholdDistance: 25
+  collider: {fileID: 0}
+  maxAcceleration: 6
+  maxAngularAcceleration: 5
+  targetSerchingRadius: 45
+  boidRadius: 1
+  isActiveEvade: 1
+  evadeBehaviorInfo:
+    target: {fileID: 0}
+    weight: 0.5
+    maxPrediction: 25
+  isActiveArrive: 1
+  arrivelBehaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    arriveRadius: 15
+    slowRadius: 30
+  isActiveFace: 1
+  faceBehaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    facetargetRadius: 30
+  isActiveCohesion: 1
+  cohesionBehaviorInfo:
+    target: {fileID: 0}
+    weight: 0.5
+    viewAngle: 45
+  isActiveSeparation: 1
+  separationBehaviorInfo:
+    target: {fileID: 0}
+    weight: 0.3
+    threshold: 3
+    decayCoefficient: -25
+  isActiveAligment: 1
+  alignmentBehaviorInfo:
+    target: {fileID: 0}
+    weight: 0.8
+    alignDistance: 6
+  isActiveCollisionAvoidance: 1
+  collisionAvoidanceBehaviorInfo:
+    target: {fileID: 0}
+    weight: 2
+  drag: 1
+  velocity: {x: 0, y: 0, z: 0}
+  lastpos: {x: 0, y: 0, z: 0}
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

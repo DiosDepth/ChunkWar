@@ -75,6 +75,10 @@ public class ShipUnitManager:IPauseable
         UpdateWeapon();
         UpdateBuilding();
         UpdateProjectile();
+
+        //UpdateDrone();
+
+        //UpdatePluge();
     }
 
 
@@ -158,7 +162,7 @@ public class ShipUnitManager:IPauseable
             startindex = 0;
             for (int c = 0; c < i; c++)
             {
-                startindex += activeWeaponTargetCountList[i];
+                startindex += activeWeaponTargetCountList[c];
             }
 
 

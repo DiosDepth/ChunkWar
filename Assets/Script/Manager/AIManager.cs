@@ -429,9 +429,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
         if (!ProcessAI) { return; }
         //update weapon
         UpdateAIAdditionalWeapon();
+        //UpdateAIBuilding();
+        //UpdateAIDrone();
         UpdateProjectile();
- 
-
     }
 
     private void LaterUpdate()
@@ -1010,7 +1010,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
                 startindex = 0;
                 for (int c = 0; c < i; c++)
                 {
-                    startindex += aiActiveUnitMaxTargetsCount[i];
+                    startindex += aiActiveUnitMaxTargetsCount[c];
                 }
 
 

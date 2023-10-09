@@ -173,6 +173,11 @@ public class ChainBeamemit : Bullet
         if (firepoint == null) { return; }
         base.UpdateBullet();
         transform.position = firepoint.transform.position;
+        if(initialTarget == null)
+        {
+            return;
+        }
+
         _direction = MathExtensionTools.DirectionToXY(transform.position, initialTarget.transform.position);
 
         transform.rotation = MathExtensionTools.GetRotationFromDirection(_direction);

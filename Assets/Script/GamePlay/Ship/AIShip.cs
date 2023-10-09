@@ -7,6 +7,7 @@ public enum AvaliableAIType
 {
     AI_Flyings = 1,
     AI_Fighter = 2,
+    AI_Suicide = 3,
 }
 
 

@@ -434,6 +434,7 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
+  GroupID: 0
   redirection: 1
   UnlockDefault: 1
   ProertyDescText: 
@@ -453,7 +454,7 @@ MonoBehaviour:
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0
-  BaseRange: 25
+  BaseRange: 45
   BaseCriticalRate: 0
   CriticalDamage: 0
   TotalDamageCount: 2
