@@ -40,9 +40,19 @@ public class UnitBaseAttribute
         protected set;
     }
 
+    /// <summary>
+    /// 瘫痪恢复时长
+    /// </summary>
+    public float UnitParalysisRecoverTime
+    {
+        get;
+        protected set;
+    }
+
     private int BaseHP;
     private int BaseEnergyCost;
     private int BaseEnergyGenerate;
+    private float BaseParalysisRecoverTime;
 
     /// <summary>
     /// 武器射程
@@ -69,6 +79,7 @@ public class UnitBaseAttribute
         BaseHP = cfg.BaseHP;
         BaseEnergyCost = cfg.BaseEnergyCost;
         BaseEnergyGenerate = cfg.BaseEnergyGenerate;
+        BaseParalysisRecoverTime = cfg.ParalysisResumeTime;
 
         if (isPlayerShip)
         {
@@ -78,6 +89,7 @@ public class UnitBaseAttribute
             {
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.UnitParalysisRecoverTimeRatio, CalculateUnitParalysis);
             }
             
             if(BaseEnergyGenerate != 0)
@@ -88,6 +100,7 @@ public class UnitBaseAttribute
             CalculateHP();
             CalculateEnergyCost();
             CalculateEnergyGenerate();
+            CalculateUnitParalysis();
         }
         else
         {
@@ -117,6 +130,7 @@ public class UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitEnergyGenerate, CalculateEnergyGenerate);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitParalysisRecoverTimeRatio, CalculateUnitParalysis);
         }
         else
         {
@@ -170,6 +184,13 @@ public class UnitBaseAttribute
         RefreshShipEnergy();
     }
 
+    private void CalculateUnitParalysis()
+    {
+        var percent = mainProperty.GetPropertyFinal(PropertyModifyKey.UnitParalysisRecoverTimeRatio);
+        percent = Mathf.Clamp(percent, -100, float.MaxValue);
+        UnitParalysisRecoverTime = (1 + percent / 100f) * BaseParalysisRecoverTime;
+    }
+
     private void CalculateEnemyHP()
     {
         var hpPercent = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
@@ -197,7 +218,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipUnit; } }
 
-    public DamagableState state = DamagableState.None;
+    public DamagableState state
+    {
+        get;
+        private set;
+    }
 
     public bool IsTarget { get { return _isTarget; } }
     public bool IsRestoreable = false;
@@ -235,6 +260,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     public bool IsProcess { get { return _isProcess; } }
     protected bool _isProcess = true;
 
+    /// <summary>
+    /// 正在瘫痪恢复
+    /// </summary>
+    private bool _isParalysising = false;
+    private float _paralysisTimer = 0;
+
     public UnitBaseAttribute baseAttribute;
 
     public BaseUnitConfig _baseUnitConfig
@@ -261,10 +292,40 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public virtual void Update() { }
 
+    /// <summary>
+    /// 更改State
+    /// </summary>
+    /// <param name="target"></param>
+    public virtual void ChangeUnitState(DamagableState target)
+    {
+        if (state == target)
+            return;
+
+        if(state == DamagableState.Paralysis && target == DamagableState.Normal)
+        {
+            if(_owner is PlayerShip)
+            {
+                ///瘫痪恢复
+                AIManager.Instance.AddTargetUnit(this);
+            }
+        }
+
+        state = target;
+        if (target == DamagableState.Paralysis)
+        {
+            OnEnterParalysisState();
+            if (_owner is PlayerShip)
+            {
+                ///移除目标选中
+                AIManager.Instance.RemoveTargetUnit(this);
+            }
+        }
+    }
+
     public virtual void Death(UnitDeathInfo info)
     {
         GameManager.Instance.UnRegisterPauseable(this);
-        state = DamagableState.Destroyed;
+        ChangeUnitState(DamagableState.Destroyed);
 
         if (IsCoreUnit)
         {
@@ -368,6 +429,16 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public void OnUpdateBattle()
     {
+        if (_isParalysising)
+        {
+            _paralysisTimer += Time.deltaTime;
+            if(_paralysisTimer >= baseAttribute.UnitParalysisRecoverTime)
+            {
+                OnParalysisStateFinish();
+            }
+            return;
+        }
+
         if (state == DamagableState.Normal)
         {
             ///UpdateTrigger
@@ -385,7 +456,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         AddModifySpecials();
         AddModifyTriggers();
-        RefreshEffectSlot();
     }
 
     /// <summary>
@@ -447,8 +517,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                     info.Damage = Mathf.RoundToInt(newDamage);
                 }
             }
-
-            LevelManager.Instance.UnitHit(info);
+            LevelManager.Instance.UnitBeforeHit(info);
             ///只有敌人才显示伤害数字
             ///这里需要显示对应的漂浮文字
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
@@ -464,6 +533,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         {
             ///CalculatePlayerTakeDamage
             GameHelper.ResolvePlayerUnitDamage(info);
+            LevelManager.Instance.UnitBeforeHit(info);
             if (!info.IsHit)
             {
                 ///Parry
@@ -478,16 +548,26 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             }
         }
 
+        LevelManager.Instance.UnitHitFinish(info);
         if (info.IsHit)
         {
             bool isDie = HpComponent.ChangeHP(-info.Damage);
+            ///HP为0
             if (isDie)
             {
-                UnitDeathInfo deathInfo = new UnitDeathInfo
+                if (_baseUnitConfig.ParalysisResume)
                 {
-                    isCriticalKill = info.IsCritical
-                };
-                Death(deathInfo);
+                    ///瘫痪恢复
+                    ChangeUnitState(DamagableState.Paralysis);
+                }
+                else
+                {
+                    UnitDeathInfo deathInfo = new UnitDeathInfo
+                    {
+                        isCriticalKill = info.IsCritical
+                    };
+                    Death(deathInfo);
+                }
             }
             return isDie;
         }
@@ -520,6 +600,25 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     public virtual void  UnPauseGame()
     {
        
+    }
+
+    /// <summary>
+    /// 进入瘫痪状态
+    /// </summary>
+    protected virtual void OnEnterParalysisState()
+    {
+        _isParalysising = true;
+    }
+
+    /// <summary>
+    /// 瘫痪恢复结束
+    /// </summary>
+    protected virtual void OnParalysisStateFinish()
+    {
+        _isParalysising = false;
+        _paralysisTimer = 0f;
+        ChangeUnitState(DamagableState.Normal);
+        HpComponent.RecoverHPToMax();
     }
 
     #region Proeprty & Effect

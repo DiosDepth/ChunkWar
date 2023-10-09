@@ -105,7 +105,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /* 护盾损坏 */
     public UnityAction<uint> OnShieldBroken;
     /* Unit受击 */
-    public UnityAction<DamageResultInfo> OnUnitHit;
+    public UnityAction<DamageResultInfo> OnUnitBeforeHit;
+    /* Unit受击结束 */
+    public UnityAction<DamageResultInfo> OnUnitHitFinish;
     /* 敌人数量变化 */
     public UnityAction<int> OnEnemyCountChange;
     /* 武器reload */
@@ -483,9 +485,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         OnShieldBroken?.Invoke(targetUnitID);
     }
 
-    public void UnitHit(DamageResultInfo damageInfo)
+    public void UnitBeforeHit(DamageResultInfo damageInfo)
     {
-        OnUnitHit?.Invoke(damageInfo);
+        OnUnitBeforeHit?.Invoke(damageInfo);
+    }
+
+    public void UnitHitFinish(DamageResultInfo damageInfo)
+    {
+        OnUnitHitFinish?.Invoke(damageInfo);
+        AchievementManager.Instance.Trigger(AchievementWatcherType.UnitHit, damageInfo);
     }
 
     public void PlayerShipParry(Unit attackerUnit)

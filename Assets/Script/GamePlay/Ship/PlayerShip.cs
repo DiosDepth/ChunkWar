@@ -191,22 +191,6 @@ public class PlayerShip : BaseShip
             RestoreUnitFromUnitInfo(UnitInfoList[i]);
         }
 
-
-
-
-        //添加测试的代码。 用来作为Building的测试。 完成后应该删除
-
-        //GameObject building;
-        //BaseUnitConfig unitconfig;
-        //DataManager.Instance.UnitConfigDataDic.TryGetValue(1003, out unitconfig);
-
-        //building = Instantiate(unitconfig.Prefab);
-
-
-
-
-
-
         //初始化主武器
         if ( mainWeapon == null)
         {
@@ -229,9 +213,8 @@ public class PlayerShip : BaseShip
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
         RefreshShipEnergy();
+        RefreshALLUnitSlotEffects();
     }
-
-
 
     /// <summary>
     /// 刷新能源
@@ -460,8 +443,8 @@ public class PlayerShip : BaseShip
                 tempunit.direction = m_unitInfo.direction;
                 tempunit.pivot = m_unitInfo.pivot;
                 tempunit.occupiedCoords = m_unitInfo.occupiedCoords;
-                tempunit.state = DamagableState.Normal;
-                
+                tempunit.ChangeUnitState(DamagableState.Normal);
+
                 for (int n = 0; n < tempunit.occupiedCoords.Count; n++)
                 {
                     occupiedarray = GameHelper.CoordinateMapToArray(tempunit.occupiedCoords[n], GameGlobalConfig.ShipMapSize);
@@ -651,6 +634,17 @@ public class PlayerShip : BaseShip
             var mainProperty = RogueManager.Instance.MainPropertyData;
             mainProperty.SetPropertyModifyValue(PropertyModifyKey.ShipParry, PropertyModifyType.Modify, GameGlobalConfig.PropertyModifyUID_ShipClass, classCfg.BaseParry);
             mainProperty.SetPropertyMaxValue(PropertyModifyKey.ShipParry, classCfg.MaxParry);
+        }
+    }
+
+    /// <summary>
+    /// 刷新所有unit的格子效果
+    /// </summary>
+    protected void RefreshALLUnitSlotEffects()
+    {
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].RefreshEffectSlot();
         }
     }
 

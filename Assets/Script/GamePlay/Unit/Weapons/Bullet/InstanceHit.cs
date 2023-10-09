@@ -21,6 +21,19 @@ public class InstanceHit : Bullet
 
     private float tempFalloff = 0.5f;
 
+    private BulletInstanceHitConfig _instanceHitCfg;
+
+    public override void SetUp(BulletConfig cfg)
+    {
+        base.SetUp(cfg);
+        _instanceHitCfg = cfg as BulletInstanceHitConfig;
+        maxDistance = _instanceHitCfg.MaxDistance;
+        width = _instanceHitCfg.Width;
+        emittime = _instanceHitCfg.EmitTime;
+        duration = _instanceHitCfg.Duration;
+        deathtime = _instanceHitCfg.DeathTime;
+    }
+
     public override void Shoot()
     {
         PoolableSetActive();

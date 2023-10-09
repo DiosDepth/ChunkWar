@@ -25,11 +25,12 @@ MonoBehaviour:
   BulletName: BaseBullet02_Player
   Type: 1
   Prefab: {fileID: 8903830990857463265, guid: bc711d73a75e46e4a8cb23bcf4b0d6ec, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/BaseBullet02_Player
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseBullet02_Player
   HitAudio: 
-  ExplodeRange: 0
-  LifeTime: 0
-  MaxSpeed: 0
-  RotationSpeed: 0
-  InitialSpeed: 0
-  Acceleration: 0
+  ExplodeRange: 15
+  LifeTime: 5
+  MaxSpeed: 70
+  RotationSpeed: 180
+  InitialSpeed: 20
+  Acceleration: 0.25
+  MissileHP: 0

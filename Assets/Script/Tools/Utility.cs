@@ -105,6 +105,13 @@ public static class Utility
         return false;
     }
 
+    public static bool CalculateRate100(float rate)
+    {
+        rate = Mathf.Clamp(rate, 0, 100);
+        float dice = UnityEngine.Random.Range(0, 100f);
+        return rate >= dice;
+    }
+
     /// <summary>
     /// 在中间返回true
     /// </summary>

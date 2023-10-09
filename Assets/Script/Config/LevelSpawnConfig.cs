@@ -68,6 +68,17 @@ public class WaveConfig
     [OnCollectionChanged("OnAddedWave")]
     public List<WaveEnemySpawnConfig> SpawnConfig = new List<WaveEnemySpawnConfig>();
 
+    /// <summary>
+    /// 陨石生成稀有度权重
+    /// </summary>
+    public Dictionary<GoodsItemRarity, byte> MeteoriteGenerateRate_RarityMap = new Dictionary<GoodsItemRarity, byte>()
+    {
+        { GoodsItemRarity.Tier1, 0 },
+        { GoodsItemRarity.Tier2, 0 },
+        { GoodsItemRarity.Tier3, 0 },
+        { GoodsItemRarity.Tier4, 0 },
+    };
+
     private WaveEnemySpawnConfig AddNewWaveSpawn()
     {
         return new WaveEnemySpawnConfig();
@@ -97,10 +108,19 @@ public class WaveEnemySpawnConfig
     [LabelWidth(20)]
     public int ID;
 
-    [HorizontalGroup("BB", 200)]
-    [LabelText("单位类型")]
+    [HorizontalGroup("BB", 150)]
+    [LabelText("单位类型ID")]
     [LabelWidth(80)]
-    public AvaliableAIType AIType = AvaliableAIType.AI_Flyings;
+    [OnValueChanged("OnTypeIDChange")]
+    [DelayedProperty]
+    public int AITypeID;
+
+    [HorizontalGroup("BB", 200)]
+    [ShowInInspector]
+    [LabelText("AI名")]
+    [LabelWidth(50)]
+    [ReadOnly]
+    private string AITypeName;
 
     [HorizontalGroup("BB", 160)]
     [LabelText("循环间隔")]
@@ -139,4 +159,24 @@ public class WaveEnemySpawnConfig
     [LabelWidth(80)]
     [MinValue(0)]
     public float SpawnIntervalTime = 0;
+
+    private void OnTypeIDChange()
+    {
+        if (AITypeID == 0)
+            return;
+
+        var aiCfg = DataManager.Instance.GetAIShipConfig(AITypeID);
+        if(aiCfg != null)
+        {
+            AITypeName = LocalizationManager.Instance.GetTextValue(aiCfg.GeneralConfig.Name);
+        }
+    }
+
+#if UNITY_EDITOR
+    [OnInspectorInit]
+    private void OnInit()
+    {
+        OnTypeIDChange();
+    }
+#endif
 }

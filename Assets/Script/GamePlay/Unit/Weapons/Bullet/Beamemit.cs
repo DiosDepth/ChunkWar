@@ -26,6 +26,19 @@ public class Beamemit : Bullet
 
     private float tempFalloff = 0.5f;
 
+    private BulletBeamConfig _beamCfg;
+
+    public override void SetUp(BulletConfig cfg)
+    {
+        base.SetUp(cfg);
+        _beamCfg = cfg as BulletBeamConfig;
+        maxDistance = _beamCfg.MaxDistance;
+        width = _beamCfg.Width;
+        emittime = _beamCfg.EmiteTime;
+        duration = _beamCfg.Duration;
+        deathtime = _beamCfg.DeathTime;
+    }
+
     public override void Shoot()
     {
         PoolableSetActive();

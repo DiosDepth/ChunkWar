@@ -28,8 +28,8 @@ MonoBehaviour:
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseInstanceHit_Player
   HitAudio: 
   ExplodeRange: 0
-  MaxDistance: 0
-  Width: 0
-  EmitTime: 0
-  Duration: 0
-  DeathTime: 0
+  MaxDistance: 35
+  Width: 0.05
+  EmitTime: 0.2
+  Duration: 0.5
+  DeathTime: 0.05

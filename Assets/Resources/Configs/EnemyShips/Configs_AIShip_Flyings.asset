@@ -1423,7 +1423,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 4
-      Data: 100
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -1433,10 +1433,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 1
+  ID: 3
   GeneralConfig:
     IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: Enemy_Flyings
+    Name: Enemy_Name_003
     Desc: 
     Rarity: 0
     SortingOrder: 0
@@ -1446,11 +1446,8 @@ MonoBehaviour:
   ShipClass: 0
   DropList:
   - pickuptype: 1
-    count: 16
-    dropRate: 100
-  - pickuptype: 3
     count: 1
-    dropRate: 100
+    dropRate: 80
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0

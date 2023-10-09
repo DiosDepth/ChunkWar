@@ -65,7 +65,7 @@ public class DummyUnit : Unit
             }
         }
 
-        LevelManager.Instance.UnitHit(info);
+        LevelManager.Instance.UnitBeforeHit(info);
         ///只有敌人才显示伤害数字
         ///这里需要显示对应的漂浮文字
         UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
@@ -99,7 +99,7 @@ public class DummyUnit : Unit
     public override void Death(UnitDeathInfo info)
     {
         GameManager.Instance.UnRegisterPauseable(this);
-        state = DamagableState.Destroyed;
+        ChangeUnitState(DamagableState.Destroyed);
 
         if (IsCoreUnit)
         {

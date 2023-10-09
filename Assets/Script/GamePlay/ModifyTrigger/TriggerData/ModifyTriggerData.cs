@@ -299,7 +299,7 @@ public abstract class ModifyTriggerData : IPropertyModify
         if (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount)
             return false;
 
-        if (Config.UsePercent && !Utility.RandomResult(0, Config.Percent)) 
+        if (Config.UsePercent && !Utility.CalculateRate100(Config.Percent)) 
         {
             ///Percent not vaild
             return false;

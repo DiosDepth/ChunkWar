@@ -9,6 +9,7 @@ public enum AchievementWatcherType
     WreckageSell,
     CurrencyChange,
     WreckageGain,
+    UnitHit,
 }
 
 public interface IAchievementWatcher

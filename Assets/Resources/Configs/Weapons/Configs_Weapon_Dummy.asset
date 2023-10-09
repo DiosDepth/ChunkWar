@@ -447,6 +447,8 @@ MonoBehaviour:
   BaseEnergyCost: 10
   BaseEnergyGenerate: 0
   LoadAdd: 0
+  ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   DamageBase: 3
   EnemyAttackModify: 0

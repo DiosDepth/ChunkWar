@@ -117,6 +117,19 @@ public class BaseUnitConfig : BaseConfig
     public int LoadAdd;
 
     [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/ZZ", 200)]
+    [LabelText("瘫痪恢复")]
+    [LabelWidth(80)]
+    public bool ParalysisResume = false;
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/ZZ", 200)]
+    [LabelText("瘫痪恢复时长")]
+    [ShowIf("ParalysisResume")]
+    [LabelWidth(100)]
+    public float ParalysisResumeTime;
+
+    [FoldoutGroup("基础属性")]
     [LabelText("属性修正")]
     [LabelWidth(80)]
     [ListDrawerSettings(DraggableItems = false, CustomAddFunction = "AddPropertyMidifyConfig")]

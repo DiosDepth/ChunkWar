@@ -60,7 +60,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
-  maxDistance: 0
+  maxDistance: 75
   width: 0.5
   emittime: 0.25
   duration: 0.25

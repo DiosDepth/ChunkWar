@@ -139,7 +139,7 @@ public class WeaponAttribute : UnitBaseAttribute
             var damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.DamagePercent);
             var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             var finalDamage = Mathf.Clamp(damage * (1 + damagePercent / 100f) * ratio, 0, int.MaxValue);
-            bool critical = Utility.RandomResult(0, CriticalRatio);
+            bool critical = Utility.CalculateRate100(CriticalRatio);
             if (critical)
             {
                 Damage = Mathf.RoundToInt(finalDamage * (1 + CriticalDamagePercent / 100f));
@@ -980,6 +980,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -1005,6 +1006,7 @@ public class Weapon : Unit
                     {
                         obj.transform.SetTransform(trs);
                         _lastbullet = obj.GetComponent<Bullet>();
+                        _lastbullet.SetUp(_bulletdata);
                         _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                         _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                         _lastbullet.SetFirePoint(trs.gameObject);
@@ -1031,6 +1033,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -1053,6 +1056,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -1084,6 +1088,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata);
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);

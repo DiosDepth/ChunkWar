@@ -144,7 +144,7 @@ public static class GameHelper
         var rarityDic = cfg.UnitDropRate;
         foreach(var item in rarityDic)
         {
-            ///Luck & HardLevel modify
+            ///Luck & HardLevel modify TODO
             TempDropRandomItem temp = new TempDropRandomItem
             {
                 Rarity = item.Key,
@@ -578,7 +578,7 @@ public static class GameHelper
     public static int CalculatePlayerDamageWithModify(int baseDamage, List<UnitPropertyModifyFrom> modify, out bool critical)
     {
         var cirticalRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Critical);
-        critical = Utility.RandomResult(0, cirticalRatio);
+        critical = Utility.CalculateRate100(cirticalRatio);
 
         float damage = baseDamage;
         for (int i = 0; i < modify.Count; i++)
@@ -603,7 +603,7 @@ public static class GameHelper
         ///计算闪避
         var parry = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipParry);
         parry = Mathf.Clamp(parry, 0, 100);
-        bool isParry = Utility.RandomResult(0, parry);
+        bool isParry = Utility.CalculateRate100(parry);
         info.IsHit = !isParry;
 
         if (!isParry)
@@ -611,7 +611,16 @@ public static class GameHelper
             var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
             var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
             armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
-            float DamageTake = 1 / (float)(1 + armor / armorParam);
+            float DamageTake = 0;
+            if(armor >= 0)
+            {
+                DamageTake = 1 / (float)(1 + armor / armorParam);
+            }
+            else
+            {
+                DamageTake = 1 + 1 / (float)(1 + Mathf.Abs(armor) / armorParam);
+            }
+            
             info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
         }
     }
@@ -625,7 +634,16 @@ public static class GameHelper
         var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldArmor);
         var armorParam = DataManager.Instance.battleCfg.PlayerShip_ShieldDamageReduce_Param;
         armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
-        float DamageTake = 1 / (float)(1 + armor / armorParam);
+
+        float DamageTake = 0;
+        if(armor >= 0)
+        {
+            DamageTake = 1 / (float)(1 + armor / armorParam);
+        }
+        else
+        {
+            DamageTake = 1 + 1 / (float)(1 + Mathf.Abs(armor) / armorParam);
+        }
         info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
         ///护盾最低无视伤害
         var ignoreDamage = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldIgnoreMinDamage);

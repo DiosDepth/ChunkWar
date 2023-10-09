@@ -16,13 +16,13 @@ public class MT_OnWeaponHitTarget : ModifyTriggerData
     public override void OnTriggerAdd()
     {
         base.OnTriggerAdd();
-        LevelManager.Instance.OnUnitHit += OnWeaponHit;
+        LevelManager.Instance.OnUnitBeforeHit += OnWeaponHit;
     }
 
     public override void OnTriggerRemove()
     {
         base.OnTriggerRemove();
-        LevelManager.Instance.OnUnitHit -= OnWeaponHit;
+        LevelManager.Instance.OnUnitBeforeHit -= OnWeaponHit;
     }
 
     private void OnWeaponHit(DamageResultInfo damageInfo)

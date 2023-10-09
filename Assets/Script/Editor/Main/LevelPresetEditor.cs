@@ -20,6 +20,7 @@ public class LevelPresetEditor : OdinMenuEditorWindow
     {
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         LevelPresetDataOverview.Instance.RefreshAndLoad();
+        DataManager.Instance.LoadAIShipConfig_Editor();
         var tree = new OdinMenuTree(true);
         tree.Config.DrawSearchToolbar = true;
 

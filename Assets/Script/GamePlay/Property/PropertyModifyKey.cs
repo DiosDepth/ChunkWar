@@ -195,7 +195,15 @@ public enum PropertyModifyKey
     /// 伤害范围上限
     /// </summary>
     DamageRangeMax,
-
+    /// <summary>
+    /// 单位瘫痪时长比例
+    /// </summary>
+    UnitParalysisRecoverTimeRatio,
+    /// <summary>
+    /// 陨石生成数量
+    /// </summary>
+    Meteorite_Generate_Count,
+    AncientUnit_Generate_Count,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }

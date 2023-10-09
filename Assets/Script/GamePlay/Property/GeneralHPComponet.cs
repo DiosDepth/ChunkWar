@@ -48,6 +48,11 @@ public class GeneralHPComponet
         MaxHP = maxHP;
     }
 
+    public void RecoverHPToMax()
+    {
+        _currentHP.Set(MaxHP);
+    }
+
     /// <summary>
     /// ¸Ä±äÑªÁ¿
     /// </summary>

@@ -227,8 +227,8 @@ MonoBehaviour:
     ChineseSimplified: "\u6218\u5217\u8230"
     English: 
     Japanese: 
-  - TextID: Enemy_Flyings
-    ChineseSimplified: "\u91CF\u4EA7\u578B\u62A4\u536B\u8230"
+  - TextID: Enemy_Name_001
+    ChineseSimplified: "\u62E6\u622A\u8005\u2160\u578B"
     English: 
     Japanese: 
   - TextID: ItemTag_Shield
@@ -245,5 +245,65 @@ MonoBehaviour:
     Japanese: 
   - TextID: ItemTag_WareHouse
     ChineseSimplified: "\u8D27\u4ED3"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_002
+    ChineseSimplified: "\u62E6\u622A\u8005\u2161\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_003
+    ChineseSimplified: "\u5B88\u536B\u8005\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_004
+    ChineseSimplified: "\u98DE\u5F39\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_005
+    ChineseSimplified: "\u5C4F\u536B\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_006
+    ChineseSimplified: "\u81EA\u7206\u8239"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_100
+    ChineseSimplified: "\u54E8\u536B\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_101
+    ChineseSimplified: "\u62E6\u622A\u8005\u2162\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_102
+    ChineseSimplified: "\u54E8\u536B\u2161\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_103
+    ChineseSimplified: "\u98DE\u5F39\u2161\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_104
+    ChineseSimplified: "\u5C4F\u536B\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_2000
+    ChineseSimplified: "\u707E\u5384"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_5000
+    ChineseSimplified: "\u9668\u77F3T1"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_5001
+    ChineseSimplified: "\u9668\u77F3T2"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_5002
+    ChineseSimplified: "\u9668\u77F3T3"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_5003
+    ChineseSimplified: "\u9668\u77F3T4"
     English: 
     Japanese: 

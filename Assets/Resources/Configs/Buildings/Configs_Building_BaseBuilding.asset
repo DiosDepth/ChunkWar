@@ -447,6 +447,8 @@ MonoBehaviour:
   BaseEnergyCost: 30
   BaseEnergyGenerate: 0
   LoadAdd: 0
+  ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   ShieldConfig:
     GenerateShield: 1

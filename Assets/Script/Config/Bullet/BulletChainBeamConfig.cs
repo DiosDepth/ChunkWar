@@ -24,12 +24,6 @@ public class BulletChainBeamConfig : BulletConfig
     public float EmiteTime;
 
     [HorizontalGroup("Info")]
-    [BoxGroup("Info/持续时间")]
-    [LabelWidth(150)]
-    [HideLabel]
-    public float Duration;
-
-    [HorizontalGroup("Info")]
     [BoxGroup("Info/死亡时长")]
     [LabelWidth(150)]
     [HideLabel]

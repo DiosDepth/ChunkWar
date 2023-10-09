@@ -36,6 +36,7 @@ public class AIShipConfig : BaseShipConfig
     [TitleGroup("属性配置", Alignment = TitleAlignments.Centered)]
     [HorizontalGroup("属性配置/AA", 150)]
     [BoxGroup("属性配置/AA/血条类型")]
+    [ShowIf("ShowHPBillboard")]
     public EnemyHPBillBoardType BillboardType;
 
     [HideLabel]

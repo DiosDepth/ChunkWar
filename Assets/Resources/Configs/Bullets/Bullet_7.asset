@@ -25,11 +25,12 @@ MonoBehaviour:
   BulletName: BasePassThroughMissile_Player
   Type: 0
   Prefab: {fileID: 8903830990857463265, guid: 791faa0134e010645b06671849042e49, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/BasePassThroughMissile_Player
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BasePassThroughMissile_Player
   HitAudio: 
-  ExplodeRange: 0
-  LifeTime: 0
-  MaxSpeed: 0
-  RotationSpeed: 0
-  InitialSpeed: 0
-  Acceleration: 0
+  ExplodeRange: 15
+  LifeTime: 7
+  MaxSpeed: 70
+  RotationSpeed: 180
+  InitialSpeed: 20
+  Acceleration: 0.25
+  MissileHP: 100

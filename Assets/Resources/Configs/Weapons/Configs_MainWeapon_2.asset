@@ -447,6 +447,8 @@ MonoBehaviour:
   BaseEnergyCost: 0
   BaseEnergyGenerate: 100
   LoadAdd: 0
+  ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   DamageBase: 15
   EnemyAttackModify: 0
@@ -454,7 +456,7 @@ MonoBehaviour:
   DamageRatioMin: 0.9
   DamageRatioMax: 1.1
   DamageType: 0
-  BaseRange: 25
+  BaseRange: 550
   BaseCriticalRate: 5
   CriticalDamage: 120
   TotalDamageCount: 15

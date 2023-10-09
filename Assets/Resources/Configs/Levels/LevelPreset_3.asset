@@ -67,6 +67,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: MeteoriteGenerateRate_RarityMap
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -110,6 +113,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: MeteoriteGenerateRate_RarityMap
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -152,6 +158,9 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 8
+      Data: 
+    - Name: MeteoriteGenerateRate_RarityMap
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
