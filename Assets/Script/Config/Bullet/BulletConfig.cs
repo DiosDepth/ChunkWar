@@ -33,13 +33,19 @@ public class BulletConfig : SerializedScriptableObject
     [ReadOnly]
     public string PrefabPath;
 
-    [HorizontalGroup("AB", 300)]
+    [FoldoutGroup("Effect")]
     [LabelText("命中音效")]
     [LabelWidth(60)]
     public string HitAudio;
 
+    [FoldoutGroup("Effect")]
+    [LabelText("命中特效")]
+    [LabelWidth(60)]
+    public string HitEffect;
+
+
 #if UNITY_EDITOR
-        
+
     [OnInspectorDispose]
     private void OnDispose()
     {

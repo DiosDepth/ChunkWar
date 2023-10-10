@@ -27,6 +27,7 @@ MonoBehaviour:
   Prefab: {fileID: 8903830990857463265, guid: 791faa0134e010645b06671849042e49, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BasePassThroughMissile_Player
   HitAudio: 
+  HitEffect: 
   ExplodeRange: 15
   LifeTime: 7
   MaxSpeed: 70

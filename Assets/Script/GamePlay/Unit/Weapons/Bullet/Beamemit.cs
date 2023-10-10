@@ -87,7 +87,7 @@ public class Beamemit : Bullet
                         }
                         // 创建特效表现
 
-                        PlayVFX(HitVFX, hitlist[i].point);
+                        PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
 
                         //产生伤害
                         if (_owner is Weapon)
@@ -130,7 +130,7 @@ public class Beamemit : Bullet
 
     }
 
-    public override void PlayVFX(string m_vfxname, Vector3 pos)
+    public override void PlayVFX(string m_vfxname, Vector2 pos)
     {
         base.PlayVFX(m_vfxname, pos);
     }

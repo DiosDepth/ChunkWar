@@ -139,7 +139,7 @@ public class InstanceHit : Bullet
 
                     }).setOnComplete(() =>
                     {
-                        PlayVFX(HitVFX, hitlist[i].point);
+                        PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
                         //²úÉúÉËº¦
                         if (_owner is Weapon)
                         {
@@ -225,7 +225,7 @@ public class InstanceHit : Bullet
 
     }
 
-    public override void PlayVFX(string m_vfxname, Vector3 pos)
+    public override void PlayVFX(string m_vfxname, Vector2 pos)
     {
         base.PlayVFX(m_vfxname, pos);
     }

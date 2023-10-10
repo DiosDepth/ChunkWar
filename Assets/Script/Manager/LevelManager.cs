@@ -168,6 +168,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         if (IsBattleLevel())
         {
             RogueManager.Instance.OnUpdateBattle();
+            EffectManager.Instance.OnUpdate();
         }
     }
 

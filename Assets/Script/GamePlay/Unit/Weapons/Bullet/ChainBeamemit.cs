@@ -122,7 +122,7 @@ public class ChainBeamemit : Bullet
         {
             if(hit)
             {
-                PlayVFX(HitVFX, hit.transform.position);
+                PlayVFX(_bulletCfg.HitEffect, hit.transform.position);
 
                 //²úÉúÉËº¦
                 if (_owner is Weapon)
@@ -158,7 +158,7 @@ public class ChainBeamemit : Bullet
 
     }
 
-    public override void PlayVFX(string m_vfxname, Vector3 pos)
+    public override void PlayVFX(string m_vfxname, Vector2 pos)
     {
         base.PlayVFX(m_vfxname, pos);
     }

@@ -118,14 +118,25 @@ public class WeaponConfig : BaseUnitConfig
     public float TransfixionReduce;
 
     [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/D", 200)]
+    [LabelText("散射角度")]
+    [LabelWidth(80)]
+    public int Scatter = 0;
+
+    [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/E")]
     [LabelText("伤害来源修正")]
     [LabelWidth(100)]
     public List<UnitPropertyModifyFrom> DamageModifyFrom = new List<UnitPropertyModifyFrom>();
 
-    [FoldoutGroup("音频配置")]
+    [FoldoutGroup("效果配置")]
     [LabelText("开火音效")]
     [LabelWidth(100)]
     public string FireAudioClip;
+
+    [FoldoutGroup("效果配置")]
+    [LabelText("开火特效")]
+    [LabelWidth(100)]
+    public string FireEffectPath;
 }
 

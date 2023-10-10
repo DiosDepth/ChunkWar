@@ -41,10 +41,7 @@ MonoBehaviour:
       Data: 2|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 5
+      Data: 0
     - Name: 
       Entry: 13
       Data: 

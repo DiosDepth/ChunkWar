@@ -27,9 +27,10 @@ MonoBehaviour:
   Prefab: {fileID: 3574238879806340193, guid: 15ca84b9fe0efa143aa878f2f74b95ec, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseInstanceHit_Player
   HitAudio: 
+  HitEffect: Hit/Eff_HitSimple
   ExplodeRange: 0
   MaxDistance: 35
-  Width: 0.05
+  Width: 0.1
   EmitTime: 0.2
   Duration: 0.5
   DeathTime: 0.05

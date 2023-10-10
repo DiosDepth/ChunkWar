@@ -991,6 +991,7 @@ public class Weapon : Unit
                  
                     _lastbullet.Shoot();
                 }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                CreateFireEffect(firePoint[i]);
                 _targetindex++;
             }
         }
@@ -1017,6 +1018,7 @@ public class Weapon : Unit
                        
                         _lastbullet.Shoot();
                     }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                    CreateFireEffect(firePoint[i]);
                 }
             }
             aimingtype = temptype;
@@ -1044,6 +1046,8 @@ public class Weapon : Unit
                   
                     _lastbullet.Shoot();
                 }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+
+                CreateFireEffect(firePoint[firepointindex]);
             }
         }
         else
@@ -1069,7 +1073,7 @@ public class Weapon : Unit
                 }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
             }
             aimingtype = temptype;
-
+            CreateFireEffect(firePoint[firepointindex]);
         }
     }
 
@@ -1100,6 +1104,7 @@ public class Weapon : Unit
                     _lastbullet.Shoot();
                 }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
                 _targetindex++;
+                CreateFireEffect(firePoint[i]);
             }
         }
     }
@@ -1302,7 +1307,7 @@ public class Weapon : Unit
             ///Fix Value
             magazine = 1;
         }
-
+        scatter = _weaponCfg.Scatter;
         _beforeDelayCounter = weaponAttribute.BeforeDelay;
         _betweenDelayCounter = weaponAttribute.FireCD;
         _afterDelayCounter = weaponAttribute.AfterDelay;
@@ -1333,5 +1338,13 @@ public class Weapon : Unit
     public override void UnPauseGame()
     {
         base.UnPauseGame();
+    }
+
+    private void CreateFireEffect(Transform targetTrans)
+    {
+        if (string.IsNullOrEmpty(_weaponCfg.FireEffectPath))
+            return;
+
+        EffectManager.Instance.CreateEffectAndFollow(_weaponCfg.FireEffectPath, targetTrans);
     }
 }

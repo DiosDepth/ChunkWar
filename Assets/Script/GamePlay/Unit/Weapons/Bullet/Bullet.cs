@@ -46,8 +46,6 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public float damageRadius = 5;
 
     [Header("---VFXSettings---")]
-    public string ShootVFX = "HitVFX";
-    public string HitVFX = "HitVFX";
     public string DeathVFX = "HitVFX";
 
     [Header("---IndicatorSettings---")]
@@ -264,18 +262,16 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         {
             RemoveIndicator();
         }
-        PlayVFX(DeathVFX, this.transform.position);
+        //PlayVFX(DeathVFX, this.transform.position);
         PoolableDestroy();
     }
 
-    public virtual void PlayVFX(string m_vfxname, Vector3 pos)
+    public virtual void PlayVFX(string m_vfxname, Vector2 pos)
     {
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + m_vfxname, true, (obj) =>
-        {
-            obj.transform.position = pos;
-            obj.GetComponent<ParticleController>().PoolableSetActive();
-            obj.GetComponent<ParticleController>().PlayVFX();
-        });
+        if (string.IsNullOrEmpty(m_vfxname))
+            return;
+
+        EffectManager.Instance.CreateEffect(m_vfxname, pos);
     }
 
 
