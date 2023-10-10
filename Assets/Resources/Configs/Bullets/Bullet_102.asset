@@ -27,6 +27,7 @@ MonoBehaviour:
   Prefab: {fileID: 8903830990857463265, guid: b52a34b6f679c974bbcdd46e8813a532, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseHommingBullet_AI
   HitAudio: 
+  HitEffect: 
   ExplodeRange: 5
   LifeTime: 10
   MaxSpeed: 60

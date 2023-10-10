@@ -467,5 +467,7 @@ MonoBehaviour:
   ShieldDamage: 150
   BaseTransfixion: 0
   TransfixionReduce: 0
+  Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: SFX_Missile_Fire_001
+  FireEffectPath: 

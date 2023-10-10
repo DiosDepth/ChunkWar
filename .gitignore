@@ -28,3 +28,7 @@ Packages/manifest.json
 fmod_editor.log
 Assets/SaveData/
 Assets/SaveData/GlobalSaveData.sav
+FMOD/SOUND/Metadata
+FMOD/SOUND/.unsaved
+FMOD/SOUND/.cache
+FMOD/SOUND/.user

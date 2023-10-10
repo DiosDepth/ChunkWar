@@ -15,11 +15,65 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638320379507776622
+  lastModified: 638325764296716223
   FileSizes:
   - Name: Desktop
-    Value: 14496
+    Value: 494
   Exists: 1
+--- !u!114 &-6987822416961858339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/plasmaflamer_1
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/plasmaflamer_1
+  Guid:
+    Data1: 1697514647
+    Data2: 1318754764
+    Data3: -169863261
+    Data4: -1651609034
+  Banks:
+  - {fileID: 5234979963309887168}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 413
+--- !u!114 &-4260330626709139661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/br_burnout_oneshot_01
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/br_burnout_oneshot_01
+  Guid:
+    Data1: 820141795
+    Data2: 1127194991
+    Data3: -1885980507
+    Data4: -907905684
+  Banks:
+  - {fileID: 5234979963309887168}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1528
 --- !u!114 &-500163902390124906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,7 +89,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638320379507256627
+  lastModified: 638325765354841362
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -56,16 +110,18 @@ MonoBehaviour:
   - {fileID: 8924922072945400526}
   - {fileID: -7708595005476152503}
   - {fileID: -500163902390124906}
+  - {fileID: 5234979963309887168}
   EditorEvents:
-  - {fileID: 1034289329811464765}
+  - {fileID: -6987822416961858339}
+  - {fileID: -4260330626709139661}
   EditorParameters: []
   MasterBanks:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638320379507776622
+  cacheTime: 638325765354851359
   cacheVersion: 131608
---- !u!114 &1034289329811464765
+--- !u!114 &5234979963309887168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,24 +130,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/br_burnout_oneshot_01
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Bullet.bank
   m_EditorClassIdentifier: 
-  Path: event:/br_burnout_oneshot_01
-  Guid:
-    Data1: 820141795
-    Data2: 1127194991
-    Data3: -1885980507
-    Data4: -907905684
-  Banks:
-  - {fileID: -7708595005476152503}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1528
+  Path: FMOD/SOUND/Build/Desktop/Bullet.bank
+  Name: Bullet
+  StudioPath: bank:/Battle/Weapon/Bullet
+  lastModified: 638325764297290534
+  FileSizes:
+  - Name: Desktop
+    Value: 20064
+  Exists: 1
 --- !u!114 &8924922072945400526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,8 +156,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638320379507266624
+  lastModified: 638325765354851359
   FileSizes:
   - Name: Desktop
-    Value: 824
+    Value: 944
   Exists: 1

@@ -28,7 +28,7 @@ MonoBehaviour:
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseChainBeam_Player
   HitAudio: 
   HitEffect: 
-  MaxDistance: 45
-  Width: 0.05
+  MaxDistance: 100
+  Width: 0.15
   EmiteTime: 0.1
   DeathTime: 0.05

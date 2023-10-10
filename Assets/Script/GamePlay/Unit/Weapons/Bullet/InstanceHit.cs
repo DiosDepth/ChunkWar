@@ -53,6 +53,11 @@ public class InstanceHit : Bullet
         }
     }
 
+    public override void SetOwner(Unit owner)
+    {
+        base.SetOwner(owner);
+        InitMaxDistance();
+    }
 
     //public void DirectionalInstanceHit()
     //{
@@ -275,5 +280,10 @@ public class InstanceHit : Bullet
     public override void PoolableSetActive(bool isactive = true)
     {
         base.PoolableSetActive(isactive);
+    }
+
+    private void InitMaxDistance()
+    {
+        maxDistance = (_owner as Weapon).weaponAttribute.WeaponRange / 10f;
     }
 }

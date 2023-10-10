@@ -27,6 +27,7 @@ MonoBehaviour:
   Prefab: {fileID: 3574238879806340193, guid: 5dffd2b7dff52c744b19a0ea76dbee7c, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseInstanceHit_AI
   HitAudio: 
+  HitEffect: 
   ExplodeRange: 0
   MaxDistance: 35
   Width: 0.1

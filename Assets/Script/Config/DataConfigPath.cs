@@ -13,6 +13,7 @@ public class DataConfigPath
     public const string CampConfigRoot = "Configs/Camps";
     public const string BulletConfigRoot = "Configs/Bullets";
     public const string ShipPlugConfigRoot = "Configs/ShipPlug";
+    public const string AudioBankRoot = "FMODBanks";
 
     public const string BattleMainConfigPath = "Configs/Main/BattleMainConfig";
     public const string GameMiscConfigPath = "Configs/Main/GameMiscConfig";

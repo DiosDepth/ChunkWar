@@ -133,11 +133,15 @@ public class WeaponAttribute : UnitBaseAttribute
     {
         int Damage = 0;
         bool isCritical = false;
+        float ratio = 1;
         if (isPlayerShip)
         {
             var damage = BaseDamage + BaseDamageModifyValue;
             var damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.DamagePercent);
-            var ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
+            if (UseDamageRatio)
+            {
+                ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
+            }
             var finalDamage = Mathf.Clamp(damage * (1 + damagePercent / 100f) * ratio, 0, int.MaxValue);
             bool critical = Utility.CalculateRate100(CriticalRatio);
             if (critical)
@@ -151,7 +155,6 @@ public class WeaponAttribute : UnitBaseAttribute
         }
         else
         {
-            float ratio = 1;
             if (UseDamageRatio)
             {
                 ///…À∫¶∏°∂Ø
@@ -822,7 +825,7 @@ public class Weapon : Unit
     public virtual void DoFire()
     {
         int firecount = CalculateFireCount();
-        SoundManager.Instance.Play(_weaponCfg.FireAudioClip, SoundManager.SoundType.SFX);
+        SoundManager.Instance.PlayBattleSound(_weaponCfg.FireAudioClip, transform);
         switch (weaponmode)
         {
             case WeaponControlType.SemiAuto:

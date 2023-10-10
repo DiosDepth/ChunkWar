@@ -8,12 +8,15 @@ public class ChainBeamemit : Bullet
 
 
     public float maxDistance;
-    public float width = 0.25f;
+  
     public float emittime = 0.15f;
-    public float duration = 0.75f;
+   
     public float deathtime = 0.15f;
 
-    public float RayCastFrequence = 0.25f;
+    private float RayCastFrequence = 0.25f;
+    private float duration = 0.75f;
+    private float width = 0.25f;
+
     public LineRenderer beamline;
 
 
@@ -59,6 +62,16 @@ public class ChainBeamemit : Bullet
         }
 
 
+    }
+
+    public override void SetOwner(Unit owner)
+    {
+        base.SetOwner(owner);
+        ///Set Duraiton
+        var ownerWeapon = (_owner as Weapon);
+        var delta = ownerWeapon.weaponAttribute.FireCD;
+        duration = delta * ownerWeapon.WeaponCfg.TotalDamageCount;
+        RayCastFrequence = delta;
     }
 
     public void TargetBaseBeam()

@@ -471,5 +471,5 @@ MonoBehaviour:
   DamageModifyFrom:
   - PropertyKey: 15
     Ratio: 0.8
-  FireAudioClip: 
+  FireAudioClip: Fire/plasmaflamer_1
   FireEffectPath: Fire/Eff_FireSimple

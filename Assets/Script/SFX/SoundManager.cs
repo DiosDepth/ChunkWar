@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using FMODUnity;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -25,9 +25,6 @@ public class SoundManager : Singleton<SoundManager>
     private Dictionary<string, AudioClip> _BGMAudioClipDic = new Dictionary<string, AudioClip>();
     private Dictionary<string, AudioClip> _SFXAudioClipDic = new Dictionary<string, AudioClip>();
 
-
-
-
     public SoundManager()
     {
         Initialization();
@@ -36,8 +33,17 @@ public class SoundManager : Singleton<SoundManager>
     public override void Initialization()
     {
         base.Initialization();
-
+        LoadBanks();
     }
+
+    public void PlayBattleSound(string eventName, Transform trans)
+    {
+        if (string.IsNullOrEmpty(eventName))
+            return;
+        var evtParam = "event:/" + eventName;
+        RuntimeManager.PlayOneShot(evtParam, trans.position);
+    }
+
     public void Play(string name, SoundType type, bool isloop = false)
     {
         //获取播放信息
@@ -201,6 +207,13 @@ public class SoundManager : Singleton<SoundManager>
 
     }
 
-
+    private void LoadBanks()
+    {
+        var bankFiles = Resources.LoadAll<TextAsset>(DataConfigPath.AudioBankRoot);
+        for(int i = 0; i < bankFiles.Length; i++)
+        {
+            RuntimeManager.LoadBank(bankFiles[i]);
+        }
+    }
 
 }

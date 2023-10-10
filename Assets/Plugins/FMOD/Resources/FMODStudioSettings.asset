@@ -643,6 +643,7 @@ MonoBehaviour:
   - Master
   Banks:
   - BattleAudio
+  - Bullet
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
