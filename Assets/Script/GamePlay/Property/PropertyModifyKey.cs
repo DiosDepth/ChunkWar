@@ -204,6 +204,10 @@ public enum PropertyModifyKey
     /// </summary>
     Meteorite_Generate_Count,
     AncientUnit_Generate_Count,
+    Aircraft_Damage,
+    Aircraft_HP,
+    Aircraft_Speed,
+    Aircraft_ShieldRatio,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }

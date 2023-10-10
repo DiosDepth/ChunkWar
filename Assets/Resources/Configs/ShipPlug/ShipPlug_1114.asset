@@ -126,7 +126,7 @@ MonoBehaviour:
     IconSprite: {fileID: 0}
     Name: ShipPlug_Name_1114
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
   PropertyModify: []
   EffectDesc: ShipPlug_Effect_1114
