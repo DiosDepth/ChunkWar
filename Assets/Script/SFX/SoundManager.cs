@@ -27,7 +27,6 @@ public class SoundManager : Singleton<SoundManager>
 
     public SoundManager()
     {
-        Initialization();
     }
 
     public override void Initialization()

@@ -450,7 +450,7 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
-  DamageBase: 12
+  DamageBase: 10
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9

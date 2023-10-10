@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638325798842195636
+  lastModified: 638325805529327690
   FileSizes:
   - Name: Desktop
     Value: 23232
@@ -148,7 +148,7 @@ MonoBehaviour:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638325798842215631
+  cacheTime: 638325805529337682
   cacheVersion: 131608
 --- !u!114 &5234979963309887168
 MonoBehaviour:
@@ -165,7 +165,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638325790719470869
+  lastModified: 638325805529327690
   FileSizes:
   - Name: Desktop
     Value: 20064
@@ -212,7 +212,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638325798842215631
+  lastModified: 638325805529337682
   FileSizes:
   - Name: Desktop
     Value: 1024
