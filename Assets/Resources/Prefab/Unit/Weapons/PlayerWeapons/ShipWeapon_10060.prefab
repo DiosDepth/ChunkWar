@@ -48,8 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 10060
-  state: 1
-  IsRestoreable: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
   maxTargetCount: 1
@@ -59,11 +57,11 @@ MonoBehaviour:
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
-  currentEvolvePoints: 0
+  effectSlotCoords: []
   weaponmode: 0
   firemode: 0
   aimingtype: 1
-  bulletType: 5
+  bulletType: 10
   targetmode: 1
   mask:
     serializedVersion: 2
