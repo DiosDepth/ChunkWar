@@ -242,6 +242,16 @@ public class ShipMainWeapon : Weapon
 
     public override void ProcessWeapon()
     {
+        if (aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional)
+        {
+            UpdateMainWeaponTargetList();
+        }
+
+        if (weaponmode == WeaponControlType.Autonomy)
+        {
+            HandleShipAutonomyMainWeapon();
+        }
+
         base.ProcessWeapon();
 
     }
@@ -259,21 +269,13 @@ public class ShipMainWeapon : Weapon
     public override void WeaponReady()
     {
 
+
         base.WeaponReady();
     }
 
     public override void WeaponStart()
     {
 
-        if (aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional)
-        {
-            UpdateMainWeaponTargetList();
-        }
-
-        if(weaponmode == WeaponControlType.Autonomy)
-        {
-            HandleShipAutonomyMainWeapon();
-        }
 
         base.WeaponStart();
     }
