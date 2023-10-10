@@ -627,7 +627,7 @@ MonoBehaviour:
   AutomaticSampleLoading: 0
   EncryptionKey: 
   ImportType: 1
-  TargetAssetPath: FMODBanks
+  TargetAssetPath: Resources/FMODBanks
   TargetBankFolder: 
   EventLinkage: 0
   LoggingLevel: 2

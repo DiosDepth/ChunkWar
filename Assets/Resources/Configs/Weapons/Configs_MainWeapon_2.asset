@@ -450,7 +450,7 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
-  DamageBase: 32
+  DamageBase: 24
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
@@ -459,9 +459,9 @@ MonoBehaviour:
   BaseRange: 400
   BaseCriticalRate: 5
   CriticalDamage: 120
-  TotalDamageCount: 6
+  TotalDamageCount: 9
   ShootPerCount: 3
-  CD: 2
+  CD: 1.2
   FireCD: 0.6
   ShieldTransfixion: 0
   ShieldDamage: 150
@@ -471,5 +471,5 @@ MonoBehaviour:
   DamageModifyFrom:
   - PropertyKey: 15
     Ratio: 1
-  FireAudioClip: 
+  FireAudioClip: Fire/Ferrogun Fire Final01
   FireEffectPath: Fire/Eff_FireSimple

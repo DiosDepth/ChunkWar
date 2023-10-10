@@ -459,15 +459,15 @@ MonoBehaviour:
   BaseRange: 400
   BaseCriticalRate: 10
   CriticalDamage: 125
-  TotalDamageCount: 10
+  TotalDamageCount: 12
   ShootPerCount: 1
   CD: 2
-  FireCD: 0.1
+  FireCD: 0.3
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   TransfixionReduce: 0
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: 
+  FireAudioClip: Fire/SQpreattack
   FireEffectPath: 

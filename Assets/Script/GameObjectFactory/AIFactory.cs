@@ -65,6 +65,8 @@ public class AIFactory : MonoBehaviour,IPoolable
     private Vector2 _spawnreferencedir;
     private AIShipConfig _shipconfig;
 
+    private const string EntitySpawnEffect = "Battle/Enemy_SpawnEffect";
+
     public virtual void Initialization()
     {
 
@@ -75,14 +77,12 @@ public class AIFactory : MonoBehaviour,IPoolable
         spawnShape = spawnsettings.spawnShape;
         aiSpawnSetting = spawnsettings;
         target = RogueManager.Instance.currentShip.transform;
-        await Spawn(referencepos, callback);
+        _shipconfig = DataManager.Instance.GetAIShipConfig(aiSpawnSetting.spawnUnitID);
+        await Spawn(referencepos, _shipconfig.Prefab.name, callback);
     }
 
-    public async UniTask Spawn(Vector2 referencepos, UnityAction<List<AIShip>> callback)
+    private async UniTask Spawn(Vector2 referencepos, string name, UnityAction<List<AIShip>> callback)
     {
-        AIShip tempship;
-
-        _shipconfig = DataManager.Instance.GetAIShipConfig(aiSpawnSetting.spawnUnitID);
         _rectanglematirx = GetRectangleMatrix();
         _spawnreferencedir = GetSpawnReferenceDir();
 
@@ -92,16 +92,10 @@ public class AIFactory : MonoBehaviour,IPoolable
         {
             //实例化所有的配置敌人ＡＩ
             await UniTask.Delay((int)aiSpawnSetting.spawnIntervalTime * 1000);
-            PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + _shipconfig.Prefab.name, true, (obj) => 
-            {
-                obj.transform.position = _formposlist[i];
-                obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, this.transform.position.DirectionToXY(target.position));
-                tempship = obj.GetComponent<AIShip>();
-                tempship.Initialization();
-                _shiplist.Add(tempship);
-
-            }, (LevelManager.Instance.currentLevel as BattleLevel).AIPool.transform);
+            CreateEntity(_formposlist[i], name);
         }
+
+        await UniTask.Delay(1200);
         callback?.Invoke(_shiplist);
         Debug.Log(string.Format("Create Enemy Success! UnitID = {0} , Count = {1}", aiSpawnSetting.spawnUnitID, _shiplist.Count));
         PoolableDestroy();
@@ -193,5 +187,22 @@ public class AIFactory : MonoBehaviour,IPoolable
     public void PoolableSetActive(bool isactive = true)
     {
         this.gameObject.SetActive(isactive);
+    }
+
+    private async void CreateEntity(Vector2 position, string name)
+    {
+        ///创建特效
+        EffectManager.Instance.CreateEffect(EntitySpawnEffect, position);
+        await UniTask.Delay(1000);
+
+        PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + name, true, (obj) =>
+        {
+            obj.transform.position = position;
+            obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, this.transform.position.DirectionToXY(target.position));
+            var tempship = obj.GetComponent<AIShip>();
+            tempship.Initialization();
+            _shiplist.Add(tempship);
+
+        }, (LevelManager.Instance.currentLevel as BattleLevel).AIPool.transform);
     }
 }

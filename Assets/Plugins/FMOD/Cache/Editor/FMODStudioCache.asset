@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638325764296716223
+  lastModified: 638325798842195636
   FileSizes:
   - Name: Desktop
-    Value: 494
+    Value: 23232
   Exists: 1
 --- !u!114 &-6987822416961858339
 MonoBehaviour:
@@ -47,6 +47,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 413
+--- !u!114 &-6642397187122173245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Ferrogun Fire Final01
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Ferrogun Fire Final01
+  Guid:
+    Data1: -1639975490
+    Data2: 1305688848
+    Data3: 17884841
+    Data4: 691773625
+  Banks:
+  - {fileID: -7708595005476152503}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1166
 --- !u!114 &-4260330626709139661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +116,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638325765354841362
+  lastModified: 638325798842205637
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -114,12 +141,14 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -6987822416961858339}
   - {fileID: -4260330626709139661}
+  - {fileID: 5932116681807520797}
+  - {fileID: -6642397187122173245}
   EditorParameters: []
   MasterBanks:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638325765354851359
+  cacheTime: 638325798842215631
   cacheVersion: 131608
 --- !u!114 &5234979963309887168
 MonoBehaviour:
@@ -135,12 +164,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
-  StudioPath: bank:/Battle/Weapon/Bullet
-  lastModified: 638325764297290534
+  StudioPath: bank:/Weapon/Bullet
+  lastModified: 638325790719470869
   FileSizes:
   - Name: Desktop
     Value: 20064
   Exists: 1
+--- !u!114 &5932116681807520797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/SQpreattack
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/SQpreattack
+  Guid:
+    Data1: 1561065568
+    Data2: 1166934334
+    Data3: -436614511
+    Data4: -435345124
+  Banks:
+  - {fileID: -7708595005476152503}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1402
 --- !u!114 &8924922072945400526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,8 +212,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638325765354851359
+  lastModified: 638325798842215631
   FileSizes:
   - Name: Desktop
-    Value: 944
+    Value: 1024
   Exists: 1
