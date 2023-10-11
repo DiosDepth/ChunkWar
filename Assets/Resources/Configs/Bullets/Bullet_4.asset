@@ -26,9 +26,9 @@ MonoBehaviour:
   Type: 0
   Prefab: {fileID: 8903830990857463265, guid: 1e9f7cc231359414f9fc531055be578c, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseHommingBullet_Player
-  HitAudio: 
+  HitAudio: Fire/missileExplode_001
   HitEffect: 
-  ExplodeRange: 15
+  ExplodeRange: 4
   LifeTime: 5
   MaxSpeed: 45
   RotationSpeed: 7

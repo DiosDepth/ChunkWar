@@ -463,10 +463,9 @@ MonoBehaviour:
   ShootPerCount: 1
   CD: 2
   FireCD: 0.3
-  ShieldTransfixion: 0
+  ShieldTransfixion: 1
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
   Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: Fire/SQpreattack

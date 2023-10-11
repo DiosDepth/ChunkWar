@@ -9,6 +9,14 @@ public class HardLevelInfo
 
     private LevelSpawnConfig _spawnConfig;
 
+    public string BGMEventName
+    {
+        get
+        {
+            return _spawnConfig.BGMEvent;
+        }
+    }
+
     public bool Unlock
     {
         get { return _unlock; }

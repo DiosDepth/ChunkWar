@@ -463,7 +463,7 @@ MonoBehaviour:
   ShootPerCount: 1
   CD: 1
   FireCD: 0.1
-  ShieldTransfixion: 0
+  ShieldTransfixion: 1
   ShieldDamage: 150
   BaseTransfixion: 5
   Scatter: 0

@@ -15,10 +15,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638326555304615000
-  FileSizes:
-  - Name: Desktop
-    Value: 23232
+  lastModified: 638326605675903466
+  FileSizes: []
   Exists: 1
 --- !u!114 &-6987822416961858339
 MonoBehaviour:
@@ -66,7 +64,7 @@ MonoBehaviour:
     Data3: 17884841
     Data4: 691773625
   Banks:
-  - {fileID: -7708595005476152503}
+  - {fileID: 5234979963309887168}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -74,6 +72,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1166
+--- !u!114 &-4948338453216327207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/missileExplode_001
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/missileExplode_001
+  Guid:
+    Data1: 1451983360
+    Data2: 1273018733
+    Data3: 908218261
+    Data4: -8258288
+  Banks:
+  - {fileID: 5234979963309887168}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 95
+  Length: 1655
 --- !u!114 &-4260330626709139661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +126,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1528
+--- !u!114 &-1303298684361366301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BGM/Stellar_Rust
+  m_EditorClassIdentifier: 
+  Path: event:/BGM/Stellar_Rust
+  Guid:
+    Data1: -1978335774
+    Data2: 1214689666
+    Data3: 1829771963
+    Data4: -2004607455
+  Banks:
+  - {fileID: -7708595005476152503}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 294376
 --- !u!114 &-500163902390124906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,10 +168,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638326555304625001
-  FileSizes:
-  - Name: Desktop
-    Value: 1036
+  lastModified: 638326597243441908
+  FileSizes: []
   Exists: 1
 --- !u!114 &-16343717228847713
 MonoBehaviour:
@@ -171,13 +221,43 @@ MonoBehaviour:
   - {fileID: 5932116681807520797}
   - {fileID: -6642397187122173245}
   - {fileID: -16343717228847713}
+  - {fileID: -4948338453216327207}
+  - {fileID: 1760214526661282929}
+  - {fileID: -1303298684361366301}
   EditorParameters: []
   MasterBanks:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638326556237984798
+  cacheTime: 638326606648159588
   cacheVersion: 131608
+--- !u!114 &1760214526661282929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/missileLaunch_001
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/missileLaunch_001
+  Guid:
+    Data1: -1884675617
+    Data2: 1328254010
+    Data3: -861000557
+    Data4: -1337682941
+  Banks:
+  - {fileID: 5234979963309887168}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1742
 --- !u!114 &5234979963309887168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,10 +273,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638326556237984798
-  FileSizes:
-  - Name: Desktop
-    Value: 40928
+  lastModified: 638326606648159588
+  FileSizes: []
   Exists: 1
 --- !u!114 &5932116681807520797
 MonoBehaviour:
@@ -217,7 +295,7 @@ MonoBehaviour:
     Data3: -436614511
     Data4: -435345124
   Banks:
-  - {fileID: -7708595005476152503}
+  - {fileID: 5234979963309887168}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -240,8 +318,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638326555304635001
+  lastModified: 638326597243441908
   FileSizes:
-  - Name: Desktop
-    Value: 1078
+  - Name: 
+    Value: 1240
   Exists: 1

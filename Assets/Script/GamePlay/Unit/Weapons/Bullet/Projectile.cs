@@ -132,6 +132,14 @@ public class Projectile : Bullet, IDamageble
 
     private BulletProjectileConfig _projectileCfg;
 
+    public float DamageRadiusBase
+    {
+        get
+        {
+            return GameHelper.CalculateExplodeRange(_projectileCfg.ExplodeRange);
+        }
+    }
+
     public override void SetUp(BulletConfig cfg)
     {
         base.SetUp(cfg);
@@ -162,7 +170,8 @@ public class Projectile : Bullet, IDamageble
                 {
                     _indicator = obj.GetComponent<DamageIndicator>();
                     _indicator.Initialization();
-                    _indicator.CreateIndicator(shape, Vector3.zero, damageRadius,angle,quality);
+                    var damageRadius = GameHelper.CalculateExplodeRange(DamageRadiusBase);
+                    _indicator.CreateIndicator(shape, Vector3.zero, damageRadius, angle, quality);
                     Vector3 initialtargetpos;
                     if((Owner as Weapon).aimingtype == WeaponAimingType.Directional)
                     {
@@ -463,9 +472,14 @@ public class Projectile : Bullet, IDamageble
         base.Death(info);
     }
 
-    public override void ApplyDamageAllTarget()
+    public override bool ApplyDamageAllTarget()
     {
-        base.ApplyDamageAllTarget();
+        var succ = base.ApplyDamageAllTarget();
+        if (succ)
+        {
+            SoundManager.Instance.PlayBattleSound(_projectileCfg.HitAudio, transform);
+        }
+        return succ;
     }
 
     public override void ApplyDamage(IDamageble damageble)

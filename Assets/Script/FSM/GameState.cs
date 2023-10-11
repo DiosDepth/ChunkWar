@@ -161,6 +161,7 @@ public class EGameState_GamePrepare : GameState
         if (!RogueManager.Instance.InBattle)
         {
             RogueManager.Instance.InitRogueBattle();
+            RogueManager.Instance.PlayCurrentHardLevelBGM();
         }
         
         if (LevelManager.Instance.needServicing)

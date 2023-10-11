@@ -403,6 +403,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         InitOriginShipUnit();
     }
 
+    public void PlayCurrentHardLevelBGM()
+    {
+        if (CurrentHardLevel == null)
+            return;
+
+        var bgmEvent = CurrentHardLevel.BGMEventName;
+        SoundManager.Instance.PlayBGM(bgmEvent);
+    }
+
     /// <summary>
     /// ÉèÖÃ¹Ø¿¨Ê¤Àû
     /// </summary>
