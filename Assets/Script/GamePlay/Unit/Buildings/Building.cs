@@ -34,8 +34,14 @@ public class Building : Unit
     // Update is called once per frame
     public override void Update()
     {
-        if (GameManager.Instance.IsPauseGame()) { return; }
+    
         base.Update();
+   
+    }
+
+    public virtual void BuildingUpdate()
+    {
+        if (GameManager.Instance.IsPauseGame()) { return; }
         UpdateBuildingComponents();
     }
 

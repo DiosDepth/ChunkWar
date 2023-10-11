@@ -86,6 +86,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public NativeList<float> steeringBehaviorJob_aiShipRotationZ;
     public NativeList<float> steeringBehaviorJob_aiShipRadius;
     public NativeList<float> aiSteeringBehaviorController_aiShipMaxAcceleration;
+    public NativeList<float> aiStearingBehaviorController_aiShipMaxVelocity;
     public NativeList<float> aiSteeringBehaviorController_aiShipMaxAngularAcceleration;
     public NativeList<float> aiSteeringBehaviorController_aiShipTargetSerchingRadius;
     public NativeList<float> aiSteeringBehaviorController_aiShipDrag;
@@ -222,6 +223,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         steeringBehaviorJob_aiShipRadius = new NativeList<float>(Allocator.Persistent);
 
         aiSteeringBehaviorController_aiShipMaxAcceleration = new NativeList<float>(Allocator.Persistent);
+        aiStearingBehaviorController_aiShipMaxVelocity = new NativeList<float>(Allocator.Persistent);
         aiSteeringBehaviorController_aiShipMaxAngularAcceleration = new NativeList<float>(Allocator.Persistent);
         aiSteeringBehaviorController_aiShipTargetSerchingRadius = new NativeList<float>(Allocator.Persistent);
         aiSteeringBehaviorController_aiShipDrag = new NativeList<float>(Allocator.Persistent);
@@ -323,6 +325,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         if (steeringBehaviorJob_aiShipRotationZ.IsCreated) { steeringBehaviorJob_aiShipRotationZ.Dispose(); }
 
         if (aiSteeringBehaviorController_aiShipMaxAcceleration.IsCreated) { aiSteeringBehaviorController_aiShipMaxAcceleration.Dispose(); }
+        if (aiStearingBehaviorController_aiShipMaxVelocity.IsCreated) { aiStearingBehaviorController_aiShipMaxVelocity.Dispose(); }
         if (aiSteeringBehaviorController_aiShipMaxAngularAcceleration.IsCreated) { aiSteeringBehaviorController_aiShipMaxAngularAcceleration.Dispose(); }
         if (aiSteeringBehaviorController_aiShipTargetSerchingRadius.IsCreated) { aiSteeringBehaviorController_aiShipTargetSerchingRadius.Dispose(); }
         if (aiSteeringBehaviorController_aiShipDrag.IsCreated) { aiSteeringBehaviorController_aiShipDrag.Dispose(); }
@@ -473,6 +476,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         steeringBehaviorJob_aiShipRotationZ.Add(boid.GetRotationZ());
 
         aiSteeringBehaviorController_aiShipMaxAcceleration.Add(controller.maxAcceleration);
+        aiStearingBehaviorController_aiShipMaxVelocity.Add(controller.maxVelocity);
         aiSteeringBehaviorController_aiShipMaxAngularAcceleration.Add(controller.maxAngularAcceleration);
         aiSteeringBehaviorController_aiShipTargetSerchingRadius.Add(controller.targetSerchingRadius);
         aiSteeringBehaviorController_aiShipDrag.Add(controller.drag);
@@ -537,6 +541,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         steeringBehaviorJob_aiShipRotationZ.RemoveAt(index);
 
         aiSteeringBehaviorController_aiShipMaxAcceleration.RemoveAt(index);
+        aiStearingBehaviorController_aiShipMaxVelocity.RemoveAt(index);
         aiSteeringBehaviorController_aiShipMaxAngularAcceleration.RemoveAt(index);
         aiSteeringBehaviorController_aiShipTargetSerchingRadius.RemoveAt(index);
         aiSteeringBehaviorController_aiShipDrag.RemoveAt(index);
@@ -884,6 +889,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         AISteeringBehaviorController.CalculateDeltaMovePosJob calculateDeltaMovePosJob = new AISteeringBehaviorController.CalculateDeltaMovePosJob
         {
             job_aiShipMaxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
+            job_aiShipMaxVelocity = aiStearingBehaviorController_aiShipMaxVelocity,
             Job_aiShipDrag = aiSteeringBehaviorController_aiShipDrag,
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
             job_aiShipVelocity = steeringBehaviorJob_aiShipVelocity,

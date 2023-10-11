@@ -122,6 +122,7 @@ MonoBehaviour:
   rb: {fileID: 2036907068945415827}
   collider: {fileID: 0}
   maxAcceleration: 7
+  maxVelocity: 30
   maxAngularAcceleration: 6
   targetSerchingRadius: 30
   boidRadius: 3

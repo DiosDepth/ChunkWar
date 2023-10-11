@@ -22,6 +22,7 @@ public class AISteeringBehaviorController : BaseController, IBoid
 
 
     public float maxAcceleration = 10f;
+    public float maxVelocity = 7f;
     public float maxAngularAcceleration = 3f;
     public float targetSerchingRadius = 15f;
     public float boidRadius = 1f;
@@ -165,6 +166,7 @@ public class AISteeringBehaviorController : BaseController, IBoid
     public struct CalculateDeltaMovePosJob : IJobParallelForBatch
     {
         [Unity.Collections.ReadOnly] public NativeArray<float> job_aiShipMaxAcceleration;
+        [Unity.Collections.ReadOnly] public NativeArray<float> job_aiShipMaxVelocity;
         [Unity.Collections.ReadOnly] public NativeArray<float> Job_aiShipDrag;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipVelocity;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipPos;
@@ -250,7 +252,14 @@ public class AISteeringBehaviorController : BaseController, IBoid
                 }
 
                 deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+
+                if(math.length(deltamovement) >= job_aiShipMaxVelocity[i])
+                {
+                    deltamovement = math.normalize(deltamovement) * job_aiShipMaxVelocity[i];
+                }
+
                 deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;
+
                 deltainfo.linear = deltamovement;
 
                 if (angle != 0)

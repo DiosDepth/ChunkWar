@@ -1303,8 +1303,8 @@ public class Weapon : Unit
 
         if (weaponAttribute.MagazineBased)
         {
-            //magazine = 0;
-            magazine = weaponAttribute.MaxMagazineSize;
+            magazine = 0;
+            //magazine = weaponAttribute.MaxMagazineSize;
         }
         else
         {
