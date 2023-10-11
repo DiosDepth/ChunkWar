@@ -42,8 +42,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public OwnerType ownertype;
     public DamagePattern damagePattern = DamagePattern.Target;
 
-    [ShowIf("damagePattern", DamagePattern.PointRadius)]
-    public float damageRadius = 5;
+    
 
     [Header("---VFXSettings---")]
     public string DeathVFX = "HitVFX";
@@ -87,7 +86,12 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     protected bool _isApplyDamageAtThisFrame;
     protected bool _isUpdate;
 
+    /// <summary>
+    /// ×î´ó´©Í¸Êý
+    /// </summary>
+    protected int transfixionCount;
     protected BulletConfig _bulletCfg;
+
 
     public virtual void Initialization()
     {
@@ -182,6 +186,10 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public virtual void SetOwner(Unit owner)
     {
         _owner = owner;
+        if(owner is Weapon)
+        {
+            transfixionCount = (owner as Weapon).weaponAttribute.Transfixion;
+        }
     }
 
     public virtual void SetTarget(GameObject m_target)
@@ -296,9 +304,9 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         this.gameObject.SetActive(isactive);
     }
 
-    public virtual void ApplyDamageAllTarget()
+    public virtual bool ApplyDamageAllTarget()
     {
-        if (prepareDamageTargetList == null || prepareDamageTargetList.Count == 0) { return; }
+        if (prepareDamageTargetList == null || prepareDamageTargetList.Count == 0) { return false; }
 
 
         if (damagePattern == DamagePattern.Target && initialTarget != null)
@@ -320,8 +328,8 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         {
             ApplyDamage(prepareDamageTargetList[0]);
         }
-
         prepareDamageTargetList.Clear();
+        return true;
     }
 
     public virtual void ApplyDamage(IDamageble damageble)

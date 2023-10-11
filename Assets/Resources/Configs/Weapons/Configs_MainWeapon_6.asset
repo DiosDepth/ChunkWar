@@ -425,7 +425,7 @@ MonoBehaviour:
       Data: 
   ID: 6
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 5d44811472f8a7d4b8217c3fa4764524, type: 3}
+    IconSprite: {fileID: 21300000, guid: 6a0f49efe460ea7418b95aac8cfa61a6, type: 3}
     Name: Weapon_Name_006
     Desc: Weapon_Desc_006
     Rarity: 3
@@ -438,7 +438,7 @@ MonoBehaviour:
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: 5d44811472f8a7d4b8217c3fa4764524, type: 3}
+  EditBrushSprite: {fileID: 21300000, guid: 6a0f49efe460ea7418b95aac8cfa61a6, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
@@ -457,17 +457,18 @@ MonoBehaviour:
   DamageRatioMax: 1.1
   DamageType: 0
   BaseRange: 300
-  BaseCriticalRate: 0
+  BaseCriticalRate: 5
   CriticalDamage: 120
-  TotalDamageCount: 60
+  TotalDamageCount: 12
   ShootPerCount: 3
-  CD: 8
-  FireCD: 0.6
-  ShieldTransfixion: 0
+  CD: 2
+  FireCD: 0.3
+  ShieldTransfixion: 1
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
   Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: SFX_Missile_Fire_001
+  DamageModifyFrom:
+  - PropertyKey: 16
+    Ratio: 1
+  FireAudioClip: 
   FireEffectPath: 

@@ -671,12 +671,12 @@ public static class GameHelper
     /// </summary>
     /// <param name="range"></param>
     /// <returns></returns>
-    public static float CalculateExplodeRange(int range)
+    public static float CalculateExplodeRange(float range)
     {
         var rangeRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Explode_Range);
         var newRange = range * (1 + rangeRatio / 100f);
         newRange = Mathf.Max(0, newRange);
-        return newRange / 10f;
+        return newRange;
     }
 
     /// <summary>

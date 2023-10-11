@@ -13,6 +13,8 @@ public class LevelSpawnConfig : SerializedScriptableObject
     [ReadOnly]
     public int LevelPresetID;
 
+    public string BGMEvent;
+
     [ListDrawerSettings(CustomAddFunction = "AddNewWave")]
     [Title("波次信息配置", TitleAlignment = TitleAlignments.Centered)]
     [LabelText("波次")]

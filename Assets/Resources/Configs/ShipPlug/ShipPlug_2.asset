@@ -99,16 +99,16 @@ MonoBehaviour:
     SortingOrder: 0
   PropertyModify:
   - ModifyKey: 41
-    Value: 100
+    Value: 10
     BySpecialValue: 0
     SpecialType: 0
     SpecialKeyParam: 
-  - ModifyKey: 2
-    Value: -50
+  - ModifyKey: 42
+    Value: 20
     BySpecialValue: 0
     SpecialType: 0
     SpecialKeyParam: 
   EffectDesc: 
   EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

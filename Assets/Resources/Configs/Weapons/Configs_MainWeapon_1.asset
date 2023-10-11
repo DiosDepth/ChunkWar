@@ -450,7 +450,7 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
-  DamageBase: 12
+  DamageBase: 10
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
@@ -460,13 +460,12 @@ MonoBehaviour:
   BaseCriticalRate: 5
   CriticalDamage: 150
   TotalDamageCount: 16
-  ShootPerCount: 2
+  ShootPerCount: 1
   CD: 2
   FireCD: 0.1
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
   Scatter: 0
   DamageModifyFrom:
   - PropertyKey: 15

@@ -85,6 +85,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
         GMTalkManager.Instance.Initialization();
+        SoundManager.Instance.Initialization();
     }
 
     public void OnEvent(GameEvent evt)

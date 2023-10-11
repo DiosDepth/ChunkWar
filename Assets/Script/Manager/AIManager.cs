@@ -658,7 +658,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
                     initialtargetpos,
                    (int)bullet.movementType,
                    (int)bullet.damagePattern,
-                   bullet.damageRadius
+                   bullet.DamageRadiusBase
                 ));
         }
 

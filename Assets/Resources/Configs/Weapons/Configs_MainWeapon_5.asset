@@ -450,22 +450,25 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
-  DamageBase: 10
+  DamageBase: 120
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
   DamageRatioMax: 1.1
-  DamageType: 0
-  BaseRange: 300
+  DamageType: 1
+  BaseRange: 350
   BaseCriticalRate: 10
   CriticalDamage: 125
-  TotalDamageCount: 10
+  TotalDamageCount: 1
   ShootPerCount: 1
-  CD: 3
+  CD: 1
   FireCD: 0.1
-  ShieldTransfixion: 0
+  ShieldTransfixion: 1
   ShieldDamage: 150
-  BaseTransfixion: 0
-  TransfixionReduce: 0
-  DamageModifyFrom: []
-  FireAudioClip: SFX_Missile_Fire_001
+  BaseTransfixion: 5
+  Scatter: 0
+  DamageModifyFrom:
+  - PropertyKey: 16
+    Ratio: 2
+  FireAudioClip: Fire/Sunstormfire
+  FireEffectPath: 
