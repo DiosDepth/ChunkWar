@@ -218,6 +218,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipUnit; } }
 
+    [SerializeField]
     public DamagableState state
     {
         get;

@@ -108,14 +108,7 @@ public class Projectile : Bullet, IDamageble
     public float acceleration = 0.25f;
     public int MissileHPBase;
 
-    [Header("---PassThroughSettings---")]
-    [ShowIf("damageTriggerPattern", DamageTriggerPattern.PassTrough)]
-    public int maxPassThroughCount = 5;
 
-
-    [HideInInspector]
-    public  int PassThroughCount { get { return passThroughCount; } }
-    protected int passThroughCount = 0;
 
     /// <summary>
     /// 是否可以被拦截，即拥有HP
@@ -194,7 +187,7 @@ public class Projectile : Bullet, IDamageble
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
         ///HP
         InitMissileHP();
-        passThroughCount = maxPassThroughCount;
+ 
     }
 
     private void InitMissileHP()
@@ -393,7 +386,10 @@ public class Projectile : Bullet, IDamageble
     public override void PoolableReset()
     {
         base.PoolableReset();
-        passThroughCount = maxPassThroughCount;
+        if (_owner is Weapon)
+        {
+            transfixionCount = (_owner as Weapon).weaponAttribute.Transfixion;
+        }
         damagedTargetList.Clear();
         prepareDamageTargetList.Clear();
     }
@@ -487,7 +483,7 @@ public class Projectile : Bullet, IDamageble
         base.ApplyDamage(damageble);
         if(damageTriggerPattern == DamageTriggerPattern.PassTrough)
         {
-            passThroughCount--;
+            transfixionCount--;
         }
     }
     public bool TakeDamage(DamageResultInfo info)

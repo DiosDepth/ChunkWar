@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 102
-  IsCoreUnit: 0
+  IsCoreUnit: 1
   deathVFXName: ExplodeVFX
   maxTargetCount: 1
   unitSprite: {fileID: 4947179279536623990}

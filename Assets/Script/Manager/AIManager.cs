@@ -1123,7 +1123,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
             if (aiProjectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough)
             {
                 //Passthrough 类型的子弹， 之后生命周期末尾
-                if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && aiProjectileList[i].PassThroughCount > 0)
+                if (!rv_aiProjectile_jobUpdateInfo[i].islifeended && aiProjectileList[i].TransFixionCount > 0)
                 {
                     aiProjectileList[i].Move(rv_aiProjectile_jobUpdateInfo[i].deltaMovement);
                     aiProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_aiProjectile_jobUpdateInfo[i].rotation);
@@ -1134,7 +1134,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
                     aiDamageProjectile_JobInfo.Add(aiProjectile_JobInfo[i]);
                 }
                 //PassTrough触发类型的子弹， 只要Pass Count为0 或者LiftTime为0 就会死亡
-                if (aiProjectileList[i].PassThroughCount <= 0 || rv_aiProjectile_jobUpdateInfo[i].islifeended)
+                if (aiProjectileList[i].TransFixionCount <= 0 || rv_aiProjectile_jobUpdateInfo[i].islifeended)
                 {
                     _aiProjectileDeathIndex.Add(i);
                 }

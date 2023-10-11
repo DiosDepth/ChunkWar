@@ -19,7 +19,7 @@ public class InstanceHit : Bullet
     private RaycastHit2D[] hitlist;
     private Collider2D[] overlaplist;
 
-    private float tempFalloff = 0.5f;
+    //private float tempFalloff = 0.5f;
 
     private BulletInstanceHitConfig _instanceHitCfg;
 
@@ -37,7 +37,7 @@ public class InstanceHit : Bullet
     public override void Shoot()
     {
         PoolableSetActive();
-        tempFalloff = (_owner as Weapon).weaponAttribute.TransfixionReduce / 100f;
+        //tempFalloff = (_owner as Weapon).weaponAttribute.TransfixionReduce / 100f;
         switch ((_owner as Weapon).aimingtype)
         {
             case WeaponAimingType.Directional:
@@ -145,9 +145,7 @@ public class InstanceHit : Bullet
 
                     }).setOnComplete(() =>
                     {
-                        ///达到最大穿透数,不产生伤害
-                        if (i > transfixionCount)
-                            return;
+
 
                         PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
                         //产生伤害
@@ -155,7 +153,7 @@ public class InstanceHit : Bullet
                         {
                             var damage = (_owner as Weapon).weaponAttribute.GetDamage();
                             ///TODO Value
-                            damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
+                            //damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
                             damage.attackerUnit = _owner;
                             damage.HitPoint = hitlist[i].point;
                             var target = hitlist[i].collider.GetComponent<IDamageble>();

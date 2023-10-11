@@ -269,7 +269,7 @@ public class ShipUnitManager:IPauseable
             if (projectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough)
             {
                 //Passthrough 类型的子弹， 之后生命周期末尾
-                if (!rv_projectile_jobUpdateInfo[i].islifeended && projectileList[i].PassThroughCount >0)
+                if (!rv_projectile_jobUpdateInfo[i].islifeended && projectileList[i].TransFixionCount > 0)
                 {
                     projectileList[i].Move(rv_projectile_jobUpdateInfo[i].deltaMovement);
                     projectileList[i].transform.rotation = Quaternion.Euler(0, 0, rv_projectile_jobUpdateInfo[i].rotation);
@@ -280,7 +280,7 @@ public class ShipUnitManager:IPauseable
                     damageProjectile_JobInfo.Add(projectile_JobInfo[i]);
                 }
                 //PassTrough触发类型的子弹， 只要Pass Count为0 或者LiftTime为0 就会死亡
-                if (projectileList[i].PassThroughCount <= 0 || rv_projectile_jobUpdateInfo[i].islifeended)
+                if (projectileList[i].TransFixionCount <= 0 || rv_projectile_jobUpdateInfo[i].islifeended)
                 {
                     _projectileDeathIndexList.Add(i);
                 }

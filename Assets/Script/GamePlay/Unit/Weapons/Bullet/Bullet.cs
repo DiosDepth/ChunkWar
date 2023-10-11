@@ -89,6 +89,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     /// <summary>
     /// ×î´ó´©Í¸Êý
     /// </summary>
+    public int TransFixionCount { get { return transfixionCount; } }
     protected int transfixionCount;
     protected BulletConfig _bulletCfg;
 
@@ -104,6 +105,10 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         if(ownertype == OwnerType.Player && (_owner is ShipMainWeapon || _owner is ShipAdditionalWeapon))
         {
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
+        }
+        if (_owner is Weapon)
+        {
+            transfixionCount = (_owner as Weapon).weaponAttribute.Transfixion;
         }
     }
 
@@ -186,10 +191,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public virtual void SetOwner(Unit owner)
     {
         _owner = owner;
-        if(owner is Weapon)
-        {
-            transfixionCount = (owner as Weapon).weaponAttribute.Transfixion;
-        }
+
     }
 
     public virtual void SetTarget(GameObject m_target)
