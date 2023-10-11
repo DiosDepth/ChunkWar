@@ -466,7 +466,6 @@ MonoBehaviour:
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
   Scatter: 0
   DamageModifyFrom:
   - PropertyKey: 15

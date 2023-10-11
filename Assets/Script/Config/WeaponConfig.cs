@@ -113,12 +113,6 @@ public class WeaponConfig : BaseUnitConfig
 
     [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/D", 200)]
-    [LabelText("贯通衰减")]
-    [LabelWidth(80)]
-    public float TransfixionReduce;
-
-    [FoldoutGroup("基础属性")]
-    [HorizontalGroup("基础属性/D", 200)]
     [LabelText("散射角度")]
     [LabelWidth(80)]
     public int Scatter = 0;

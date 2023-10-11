@@ -87,7 +87,12 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     protected bool _isApplyDamageAtThisFrame;
     protected bool _isUpdate;
 
+    /// <summary>
+    /// ×î´ó´©Í¸Êý
+    /// </summary>
+    protected int transfixionCount;
     protected BulletConfig _bulletCfg;
+
 
     public virtual void Initialization()
     {
@@ -182,6 +187,10 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public virtual void SetOwner(Unit owner)
     {
         _owner = owner;
+        if(owner is Weapon)
+        {
+            transfixionCount = (owner as Weapon).weaponAttribute.Transfixion;
+        }
     }
 
     public virtual void SetTarget(GameObject m_target)

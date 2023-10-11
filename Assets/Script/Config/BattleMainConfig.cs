@@ -95,7 +95,8 @@ public class BattleMainConfig : SerializedScriptableObject
     public ushort HardLevelDeltaSeconds = 120;
 
     public byte ShipMaxLevel;
-    public float TransfixionReduce_Max = 0;
+    public float TransfixionDamage_Base = 60;
+    public float TransfixionDamage_Max = 100;
     /// <summary>
     /// 装甲减伤计算参数
     /// </summary>

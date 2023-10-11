@@ -86,6 +86,8 @@ public class Beamemit : Bullet
                             continue;
                         }
                         // 创建特效表现
+                        if (i > transfixionCount)
+                            return;
 
                         PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
 

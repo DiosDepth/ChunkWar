@@ -119,7 +119,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private float BaseCriticalDamagePercent;
     private int BaseMaxMagazineSize;
     private byte BaseTransfixion;
-    private float BaseTransfixionReduce;
+    private float BaseTransfixionDamage;
     private float BaseShieldDamagePercent;
     private float BaseDamageRatioMin;
     private float BaseDamageRatioMax;
@@ -200,7 +200,7 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseCriticalDamagePercent = _weaponCfg.CriticalDamage;
         BaseMaxMagazineSize = _weaponCfg.TotalDamageCount;
         BaseTransfixion = _weaponCfg.BaseTransfixion;
-        BaseTransfixionReduce = _weaponCfg.TransfixionReduce;
+        BaseTransfixionDamage = DataManager.Instance.battleCfg.TransfixionDamage_Base;
         BaseShieldDamagePercent = _weaponCfg.ShieldDamage;
         BaseDamageRatioMin = _weaponCfg.DamageRatioMin;
         BaseDamageRatioMax = _weaponCfg.DamageRatioMax;
@@ -249,7 +249,7 @@ public class WeaponAttribute : UnitBaseAttribute
             MaxMagazineSize = BaseMaxMagazineSize;
             WeaponRange = BaseWeaponRange;
             Transfixion = BaseTransfixion;
-            TransfixionReduce = BaseTransfixionReduce;
+            TransfixionReduce = BaseTransfixionDamage;
             EnemyWeaponATKPercent = _weaponCfg.EnemyAttackModify;
 
             if (_parentUnit._owner == null)
@@ -344,10 +344,10 @@ public class WeaponAttribute : UnitBaseAttribute
 
     private void CalculateTransfixionPercent()
     {
-        var reducemin = DataManager.Instance.battleCfg.TransfixionReduce_Max;
+        var reducemax = DataManager.Instance.battleCfg.TransfixionDamage_Max;
         var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.TransfixionDamagePercent);
-        var newValue = delta + BaseTransfixionReduce;
-        TransfixionReduce = Mathf.Clamp(newValue, reducemin, newValue);
+        var newValue = delta + BaseTransfixionDamage;
+        TransfixionReduce = Mathf.Clamp(newValue, 0, reducemax);
     }
 
     private void CalculateCriticalDamagePercent()

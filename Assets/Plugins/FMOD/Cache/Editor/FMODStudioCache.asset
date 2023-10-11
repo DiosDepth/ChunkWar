@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638325805529327690
+  lastModified: 638326555304615000
   FileSizes:
   - Name: Desktop
     Value: 23232
@@ -116,11 +116,38 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638325798842205637
+  lastModified: 638326555304625001
   FileSizes:
   - Name: Desktop
     Value: 1036
   Exists: 1
+--- !u!114 &-16343717228847713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Sunstormfire
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Sunstormfire
+  Guid:
+    Data1: 1843529186
+    Data2: 1208384691
+    Data3: -1105580878
+    Data4: -1728965756
+  Banks:
+  - {fileID: 5234979963309887168}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2603
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,12 +170,13 @@ MonoBehaviour:
   - {fileID: -4260330626709139661}
   - {fileID: 5932116681807520797}
   - {fileID: -6642397187122173245}
+  - {fileID: -16343717228847713}
   EditorParameters: []
   MasterBanks:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638325805529337682
+  cacheTime: 638326556237984798
   cacheVersion: 131608
 --- !u!114 &5234979963309887168
 MonoBehaviour:
@@ -165,10 +193,10 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638325805529327690
+  lastModified: 638326556237984798
   FileSizes:
   - Name: Desktop
-    Value: 20064
+    Value: 40928
   Exists: 1
 --- !u!114 &5932116681807520797
 MonoBehaviour:
@@ -212,8 +240,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638325805529337682
+  lastModified: 638326555304635001
   FileSizes:
   - Name: Desktop
-    Value: 1024
+    Value: 1078
   Exists: 1

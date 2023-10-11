@@ -134,6 +134,7 @@ public class InstanceHit : Bullet
                     {
                         continue;
                     }
+
                     // 创建特效表现
                     float distance = MathExtensionTools.DistanceXY( this.transform.position.ToVector2(), hitlist[i].point);
 
@@ -144,6 +145,10 @@ public class InstanceHit : Bullet
 
                     }).setOnComplete(() =>
                     {
+                        ///达到最大穿透数,不产生伤害
+                        if (i > transfixionCount)
+                            return;
+
                         PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
                         //产生伤害
                         if (_owner is Weapon)
