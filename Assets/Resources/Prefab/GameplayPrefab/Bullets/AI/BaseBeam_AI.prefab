@@ -48,12 +48,9 @@ MonoBehaviour:
   type: 2
   ownertype: 1
   damagePattern: 1
-  damageRadius: 5
-  ShootVFX: HitVFX
-  HitVFX: HitVFX
   DeathVFX: HitVFX
   hasIndicator: 0
-  shape: 0
+  shape: 2
   angle: 360
   quality: 16
   initialTarget: {fileID: 0}
@@ -86,7 +83,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc460e5b1c6c0bd498b44195a0c3da99, type: 2}
+  - {fileID: 2100000, guid: 0d489a03b1bb0584faeb0b9c09da4aa9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

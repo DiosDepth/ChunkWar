@@ -1438,19 +1438,22 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: 67f4910781cd3c54382ebda60e619b64, type: 3}
     Name: Enemy_Name_101
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: 78e0d89966b208549b01263ff6a23337, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: beeaa1907f3d46643856b6c876d61200, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  ShipClass: 0
+  ShipClass: 1
   DropList:
   - pickuptype: 1
+    count: 2
+    dropRate: 100
+  - pickuptype: 1
     count: 1
-    dropRate: 80
+    dropRate: 70
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
-  SpeedBase: 10
-  AttackBase: 5
+  SpeedBase: 4
+  AttackBase: 15
   HardLevelGroupID: 1

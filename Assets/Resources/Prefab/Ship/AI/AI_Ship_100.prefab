@@ -126,7 +126,7 @@ MonoBehaviour:
   maxAngularAcceleration: 6
   targetSerchingRadius: 30
   boidRadius: 5
-  isActiveEvade: 1
+  isActiveEvade: 0
   evadeBehaviorInfo:
     target: {fileID: 0}
     weight: 0.5

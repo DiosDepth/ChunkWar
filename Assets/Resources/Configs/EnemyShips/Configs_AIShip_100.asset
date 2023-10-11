@@ -1435,7 +1435,7 @@ MonoBehaviour:
       Data: 
   ID: 1
   GeneralConfig:
-    IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+    IconSprite: {fileID: 21300000, guid: 6b6b0a918a27b064b8d9ebe6edbe2663, type: 3}
     Name: Enemy_Name_001
     Desc: 
     Rarity: 0
