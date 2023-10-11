@@ -435,8 +435,8 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 1
   GroupID: 0
-  redirection: 1
-  UnlockDefault: 1
+  redirection: 0
+  UnlockDefault: 0
   ProertyDescText: 
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
@@ -447,6 +447,8 @@ MonoBehaviour:
   BaseEnergyCost: 10
   BaseEnergyGenerate: 0
   LoadAdd: 0
+  ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   DamageBase: 3
   EnemyAttackModify: 1
@@ -456,7 +458,7 @@ MonoBehaviour:
   DamageType: 0
   BaseRange: 5
   BaseCriticalRate: 0
-  CriticalDamage: 0
+  CriticalDamage: 100
   TotalDamageCount: 2
   ShootPerCount: 1
   CD: 10
@@ -464,6 +466,7 @@ MonoBehaviour:
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
+  Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: 
+  FireEffectPath: 

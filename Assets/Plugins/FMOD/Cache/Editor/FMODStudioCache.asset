@@ -99,6 +99,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 95
   Length: 1655
+--- !u!114 &-4526521602577045453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Enemy_EnergyShoot_001
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Enemy_EnergyShoot_001
+  Guid:
+    Data1: 133584362
+    Data2: 1150706682
+    Data3: -439646825
+    Data4: 1148108500
+  Banks:
+  - {fileID: 5234979963309887168}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 1942
 --- !u!114 &-4260330626709139661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +195,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638326597243441908
+  lastModified: 638326630773647210
   FileSizes: []
   Exists: 1
 --- !u!114 &-16343717228847713
@@ -224,12 +251,13 @@ MonoBehaviour:
   - {fileID: -4948338453216327207}
   - {fileID: 1760214526661282929}
   - {fileID: -1303298684361366301}
+  - {fileID: -4526521602577045453}
   EditorParameters: []
   MasterBanks:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638326606648159588
+  cacheTime: 638326630773917624
   cacheVersion: 131608
 --- !u!114 &1760214526661282929
 MonoBehaviour:
@@ -273,7 +301,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638326606648159588
+  lastModified: 638326630773917624
   FileSizes: []
   Exists: 1
 --- !u!114 &5932116681807520797
@@ -318,8 +346,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638326597243441908
+  lastModified: 638326630773657318
   FileSizes:
   - Name: 
-    Value: 1240
+    Value: 1292
   Exists: 1
