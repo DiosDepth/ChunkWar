@@ -102,7 +102,7 @@ MonoBehaviour:
       Data: 2
     - Name: AITypeID
       Entry: 3
-      Data: 101
+      Data: 1500
     - Name: DurationDelta
       Entry: 3
       Data: 1
@@ -114,10 +114,10 @@ MonoBehaviour:
       Data: 1
     - Name: TotalCount
       Entry: 3
-      Data: 4
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: SpawnShpe
       Entry: 3
       Data: 0
