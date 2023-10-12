@@ -135,6 +135,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public void ClearBattle()
     {
+        LevelManager.Instance.UnloadCurrentLevel();
         RogueManager.Instance.Clear();
         LevelManager.Instance.Clear();
         AchievementManager.Instance.ClearRuntimeData();

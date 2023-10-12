@@ -497,6 +497,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             return false;
         }
 
+        var rowScreenPos = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
         if (_owner is AIShip)
         {
             int Damage = info.Damage;
@@ -519,13 +520,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 }
             }
             LevelManager.Instance.UnitBeforeHit(info);
-            ///只有敌人才显示伤害数字
-            ///这里需要显示对应的漂浮文字
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
             {
-                panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
                 panel.Initialization();
-                panel.SetText(Mathf.Abs(Damage), critical);
+                panel.SetText(Mathf.Abs(Damage), critical, rowScreenPos);
                 panel.Show();
 
             });
@@ -542,6 +540,13 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             }
             else
             {
+                ///Show Player TakeDamage
+                UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
+                {
+                    panel.Initialization();
+                    panel.SetPlayerTakeDamageText(Mathf.Abs(info.Damage), rowScreenPos);
+                    panel.Show();
+                });
                 if (IsCoreUnit)
                 {
                     LevelManager.Instance.PlayerCoreUnitTakeDamage(info);

@@ -28,7 +28,7 @@ MonoBehaviour:
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseBeam_AI
   HitAudio: 
   HitEffect: 
-  MaxDistance: 25
+  MaxDistance: 75
   Width: 0.15
   EmiteTime: 0.025
   Duration: 0.5

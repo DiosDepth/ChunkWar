@@ -102,6 +102,18 @@ public class AISteeringBehaviorController : BaseController, IBoid
         velocity = m_vect;
 
     }
+
+
+    public void SetAIConfig(AIShipConfig cfg)
+    {
+        boidRadius = cfg.boidRadius;
+        maxAcceleration = cfg.MaxAcceleration;
+        maxAngularAcceleration = cfg.MaxAngularAcceleration;
+        maxVelocity = cfg.MaxVelocity;
+        targetSerchingRadius = cfg.targetSerchingRadius;
+    }
+
+
     public void UpdateIBoid()
     {
         velocity = (transform.position - lastpos) / Time.fixedDeltaTime;

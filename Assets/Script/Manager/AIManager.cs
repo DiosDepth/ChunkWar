@@ -466,6 +466,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         AddUnit(ship);
         AISteeringBehaviorController controller = ship.GetComponent<AISteeringBehaviorController>();
+        controller.SetAIConfig(ship.AIShipCfg);
         aiSteeringBehaviorControllerList.Add(controller);
 
         //更新Job信息

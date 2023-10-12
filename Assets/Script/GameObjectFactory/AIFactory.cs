@@ -66,13 +66,14 @@ public class AIFactory : MonoBehaviour,IPoolable
     private AIShipConfig _shipconfig;
 
     private const string EntitySpawnEffect = "Battle/Enemy_SpawnEffect";
+    private Transform _aiPool;
 
     public virtual void Initialization()
     {
-
+        _aiPool = (LevelManager.Instance.currentLevel as BattleLevel).AIPool.transform;
     }
 
-    public async void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, UnityAction<List<AIShip>> callback = null)
+    public async void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, UnityAction<AIShip> callback = null)
     {
         spawnShape = spawnsettings.spawnShape;
         aiSpawnSetting = spawnsettings;
@@ -81,7 +82,7 @@ public class AIFactory : MonoBehaviour,IPoolable
         await Spawn(referencepos, _shipconfig.Prefab.name, callback);
     }
 
-    private async UniTask Spawn(Vector2 referencepos, string name, UnityAction<List<AIShip>> callback)
+    private async UniTask Spawn(Vector2 referencepos, string name, UnityAction<AIShip> callback)
     {
         _rectanglematirx = GetRectangleMatrix();
         _spawnreferencedir = GetSpawnReferenceDir();
@@ -92,11 +93,10 @@ public class AIFactory : MonoBehaviour,IPoolable
         {
             //实例化所有的配置敌人ＡＩ
             await UniTask.Delay((int)aiSpawnSetting.spawnIntervalTime * 1000);
-            CreateEntity(_formposlist[i], name);
+            CreateEntity(_formposlist[i], name, callback);
         }
 
         await UniTask.Delay(1200);
-        callback?.Invoke(_shiplist);
         Debug.Log(string.Format("Create Enemy Success! UnitID = {0} , Count = {1}", aiSpawnSetting.spawnUnitID, _shiplist.Count));
         PoolableDestroy();
     }
@@ -189,7 +189,7 @@ public class AIFactory : MonoBehaviour,IPoolable
         this.gameObject.SetActive(isactive);
     }
 
-    private async void CreateEntity(Vector2 position, string name)
+    private async void CreateEntity(Vector2 position, string name, UnityAction<AIShip> callback)
     {
         ///创建特效
         EffectManager.Instance.CreateEffect(EntitySpawnEffect, position);
@@ -202,7 +202,7 @@ public class AIFactory : MonoBehaviour,IPoolable
             var tempship = obj.GetComponent<AIShip>();
             tempship.Initialization();
             _shiplist.Add(tempship);
-
-        }, (LevelManager.Instance.currentLevel as BattleLevel).AIPool.transform);
+            callback?.Invoke(tempship);
+        }, _aiPool);
     }
 }

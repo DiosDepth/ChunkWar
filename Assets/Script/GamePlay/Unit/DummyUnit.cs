@@ -68,11 +68,11 @@ public class DummyUnit : Unit
         LevelManager.Instance.UnitBeforeHit(info);
         ///只有敌人才显示伤害数字
         ///这里需要显示对应的漂浮文字
+        var rowPos = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
         UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
         {
-            panel.transform.position = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
             panel.Initialization();
-            panel.SetText(Mathf.Abs(Damage), critical);
+            panel.SetText(Mathf.Abs(Damage), critical, rowPos);
             panel.SetSize(48);
             panel.SetColor(Color.red);
             panel.Show();
