@@ -609,14 +609,13 @@ public class AIManager : Singleton<AIManager>, IPauseable
             aiActiveUnitMaxTargetsCount.Add(unit.maxTargetCount);
         }
     }
+
+    //当Ship死亡时， 移除Ship的所有Unit
     public void RemoveReminedUnit(AIShip ship)
     {
         for (int i = 0; i < ship.UnitList.Count; i++)
         {
-            if(ship.UnitList[i].isActiveAndEnabled)
-            {
                 RemoveSingleUnit(ship.UnitList[i]);
-            }
         }
     }
 
