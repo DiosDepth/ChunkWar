@@ -1451,6 +1451,10 @@ MonoBehaviour:
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
-  SpeedBase: 2
   AttackBase: 5
   HardLevelGroupID: 1
+  MaxVelocity: 15
+  MaxAcceleration: 2
+  MaxAngularAcceleration: 3
+  boidRadius: 1
+  targetSerchingRadius: 15

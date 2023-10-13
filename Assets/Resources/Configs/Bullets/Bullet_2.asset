@@ -24,6 +24,7 @@ MonoBehaviour:
   ID: 2
   BulletName: BaseBullet02_Player
   Type: 1
+  Owner: 0
   Prefab: {fileID: 8903830990857463265, guid: bc711d73a75e46e4a8cb23bcf4b0d6ec, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseBullet02_Player
   HitAudio: 

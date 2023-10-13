@@ -24,6 +24,7 @@ MonoBehaviour:
   ID: 4
   BulletName: BaseHommingBullet_Player
   Type: 0
+  Owner: 0
   Prefab: {fileID: 8903830990857463265, guid: 1e9f7cc231359414f9fc531055be578c, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseHommingBullet_Player
   HitAudio: Fire/missileExplode_001

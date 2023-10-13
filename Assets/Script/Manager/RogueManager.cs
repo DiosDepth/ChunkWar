@@ -992,12 +992,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             Timer.AddTrigger(trigger);
         }
         ///Generate Meteorite Common
-        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTriger(0, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
+        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTriger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
         MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
         Timer.AddTrigger(MeteoriteTrigger1);
 
         ///Generate Meteorite Smooth
-        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTriger(0, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
+        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTriger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
         MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
         Timer.AddTrigger(MeteoriteTrigger2);
     }
@@ -1102,6 +1102,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             DurationDelta = 0,
             LoopCount = 1,
             TotalCount = 1,
+            MaxRowCount = 1,
         };
         SpawnEntity(cfg);
     }
@@ -1131,10 +1132,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             spawnSetting.spawnIntervalTime = cfg.SpawnIntervalTime;
             spawnSetting.spawnShape = cfg.SpawnShpe;
 
-            aIFactory.StartSpawn(spawnpoint, spawnSetting, (list) =>
+            aIFactory.StartSpawn(spawnpoint, spawnSetting, (ship) =>
             {
-                AIManager.Instance.AddAIRange(list);
-                //LevelManager.Instance.airuntimedata.AddAIDataRange(list);
+                AIManager.Instance.AddAI(ship);
             });
         });
     }

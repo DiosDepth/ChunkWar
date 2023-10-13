@@ -1435,12 +1435,12 @@ MonoBehaviour:
       Data: 
   ID: 5002
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 4f3043175194fb3478f72f8b59b4345c, type: 3}
+    IconSprite: {fileID: 21300000, guid: bc775a84530fdd047a0841481a6f622a, type: 3}
     Name: Enemy_Name_5002
     Desc: 
     Rarity: 2
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: fa87bda1bcd5d2041b094076be2a9e1e, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: d5c4ebb697320da40bd4e96f0b1d9051, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
@@ -1451,6 +1451,10 @@ MonoBehaviour:
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
-  SpeedBase: 2
-  AttackBase: 5
+  AttackBase: 25
   HardLevelGroupID: 1
+  MaxVelocity: 15
+  MaxAcceleration: 2
+  MaxAngularAcceleration: 3
+  boidRadius: 1.5
+  targetSerchingRadius: 15

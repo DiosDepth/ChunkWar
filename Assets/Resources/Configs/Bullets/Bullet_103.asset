@@ -24,11 +24,12 @@ MonoBehaviour:
   ID: 103
   BulletName: BaseBeam_AI
   Type: 2
+  Owner: 1
   Prefab: {fileID: 3574238879806340193, guid: c4f6fde727d0fb5458f63809e4ce6c03, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseBeam_AI
   HitAudio: 
   HitEffect: 
-  MaxDistance: 25
+  MaxDistance: 75
   Width: 0.15
   EmiteTime: 0.025
   Duration: 0.5

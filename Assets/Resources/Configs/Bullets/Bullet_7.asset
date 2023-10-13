@@ -24,6 +24,7 @@ MonoBehaviour:
   ID: 7
   BulletName: BasePassThroughMissile_Player
   Type: 0
+  Owner: 0
   Prefab: {fileID: 8903830990857463265, guid: 791faa0134e010645b06671849042e49, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BasePassThroughMissile_Player
   HitAudio: 

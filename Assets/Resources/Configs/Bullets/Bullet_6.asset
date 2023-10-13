@@ -24,6 +24,7 @@ MonoBehaviour:
   ID: 6
   BulletName: BaseChainBeam_Player
   Type: 2
+  Owner: 0
   Prefab: {fileID: 8903830990857463265, guid: 72ea840440008054f8dfebc0c33788ae, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseChainBeam_Player
   HitAudio: 

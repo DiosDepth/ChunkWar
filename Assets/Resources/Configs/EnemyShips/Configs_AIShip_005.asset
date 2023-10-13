@@ -1457,3 +1457,8 @@ MonoBehaviour:
   SpeedBase: 4
   AttackBase: 15
   HardLevelGroupID: 1
+  MaxVelocity: 10
+  MaxAcceleration: 1
+  MaxAngularAcceleration: 3
+  boidRadius: 2
+  targetSerchingRadius: 25
