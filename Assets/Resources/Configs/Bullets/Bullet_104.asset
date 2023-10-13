@@ -28,7 +28,14 @@ MonoBehaviour:
   Prefab: {fileID: 8903830990857463265, guid: 40189c8e6397bbe4e849c4897488f965, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseChainBeam_AI
   HitAudio: 
-  HitEffect: 
+  HitEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
   MaxDistance: 100
   Width: 0.15
   EmiteTime: 0.025

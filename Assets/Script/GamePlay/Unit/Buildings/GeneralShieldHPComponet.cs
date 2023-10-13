@@ -103,7 +103,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
     public override void OnInit(BaseShip owner, Unit parentUnit)
     {
         base.OnInit(owner, parentUnit);
-        _currentShieldHP = new ChangeValue<int>(MaxShieldHP, 0, MaxShieldHP);
+        _currentShieldHP = new ChangeValue<int>(0, 0, 0);
         if (owner is PlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldHP, CalculateMaxShieldHP);
@@ -122,7 +122,9 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
             ShieldRatio = _shieldRatioBase;
             ShieldRecoverTime = _shieldRecoverCDBase;
             ShieldRecoverValue = _shieldRecoverValueBase;
+            _currentShieldHP.SetMaxValue(MaxShieldHP);
         }
+        
         _currentShieldHP.Set(MaxShieldHP);
     }
 

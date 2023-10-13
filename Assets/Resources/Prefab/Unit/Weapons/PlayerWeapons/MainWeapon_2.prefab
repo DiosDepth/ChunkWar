@@ -141,9 +141,9 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   effectSlotCoords: []
-  weaponmode: 2
+  weaponmode: 0
   firemode: 1
-  aimingtype: 0
+  aimingtype: 1
   bulletName: BaseInstanceHit_Player
   targetmode: 0
   mask:

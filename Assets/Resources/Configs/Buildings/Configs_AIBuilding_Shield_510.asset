@@ -453,7 +453,7 @@ MonoBehaviour:
   ShieldConfig:
     GenerateShield: 1
     ShieldPrefabName: EnemyShield_001
-    ShieldHP: 100
+    ShieldHP: 200
     ShieldRecoverValue: 5
     ShieldRecoverTime: 5
-    ShieldBaseRatio: 10
+    ShieldBaseRatio: 8

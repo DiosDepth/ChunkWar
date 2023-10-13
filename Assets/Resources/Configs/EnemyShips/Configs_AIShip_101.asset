@@ -1443,7 +1443,7 @@ MonoBehaviour:
   Prefab: {fileID: 3431155976711396027, guid: 1ad0645d80b860048b2595272e961704, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  ShipClass: 0
+  ShipClass: 1
   DropList:
   - pickuptype: 1
     count: 2
