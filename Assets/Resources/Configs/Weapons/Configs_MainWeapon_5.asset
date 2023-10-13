@@ -471,4 +471,11 @@ MonoBehaviour:
   - PropertyKey: 16
     Ratio: 2
   FireAudioClip: Fire/Sunstormfire
-  FireEffectPath: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

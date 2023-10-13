@@ -469,4 +469,11 @@ MonoBehaviour:
   Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: SFX_Missile_Fire_001
-  FireEffectPath: 
+  FireEffect:
+    EffectName: Fire/Eff_FireSimple
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

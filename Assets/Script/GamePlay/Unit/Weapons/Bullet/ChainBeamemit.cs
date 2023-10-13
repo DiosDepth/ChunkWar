@@ -171,9 +171,9 @@ public class ChainBeamemit : Bullet
 
     }
 
-    public override void PlayVFX(string m_vfxname, Vector2 pos)
+    public override void PlayVFX(GeneralEffectConfig cfg, Vector2 pos)
     {
-        base.PlayVFX(m_vfxname, pos);
+        base.PlayVFX(cfg, pos);
     }
     public override void Death(UnitDeathInfo info)
     {

@@ -77,12 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da040be90bbc2bb45975225c882a792a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 104
+  UnitID: 105
   IsCoreUnit: 1
   deathVFXName: ExplodeVFX
   maxTargetCount: 1
   unitSprite: {fileID: 4947179279536623990}
-  rotationRoot: {fileID: 4947179278027536151}
+  rotationRoot: {fileID: 2024538285824279120}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}

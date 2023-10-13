@@ -1348,10 +1348,10 @@ public class Weapon : Unit
 
     private void CreateFireEffect(Transform targetTrans)
     {
-        if (string.IsNullOrEmpty(_weaponCfg.FireEffectPath))
+        if (_weaponCfg.FireEffect == null || string.IsNullOrEmpty(_weaponCfg.FireEffect.EffectName))
             return;
 
-        EffectManager.Instance.CreateEffectAndFollow(_weaponCfg.FireEffectPath, targetTrans);
+        EffectManager.Instance.CreateEffectAndFollow(_weaponCfg.FireEffect, targetTrans);
     }
 
 #if UNITY_EDITOR

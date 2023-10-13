@@ -96,9 +96,7 @@ MonoBehaviour:
   IsUpdate: 0
   rb: {fileID: 6859882484743535825}
   collider: {fileID: 26082943194778254}
-  controlledTarget: {fileID: 0}
-  _refrotationspeed: 0
-  _crossZ: 0
+  targetShip: {fileID: 0}
 --- !u!60 &26082943194778254
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -234,7 +232,7 @@ SpriteRenderer:
   m_SortingLayerID: -402000637
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e9db5fe636017584b8dc54e906789dda, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86a2c55f5f905db46a989de3c16ed7ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

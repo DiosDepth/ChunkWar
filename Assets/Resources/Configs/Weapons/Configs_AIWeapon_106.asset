@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_AIWeapon_110
+  m_Name: Configs_AIWeapon_106
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 105
+  ID: 106
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: fe1902413d8ef6c4f95e22301a1bd01d, type: 3}
+    IconSprite: {fileID: 21300000, guid: c7d7de090b125174b935518f5f935944, type: 3}
     Name: 
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 4947179278027536233, guid: 19dc5ef4757722d449e82aec3f2f3256, type: 3}
+  Prefab: {fileID: 4947179278027536233, guid: 850158f3f62dfaa46afd30221e2bc28a, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -443,25 +443,25 @@ MonoBehaviour:
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 25
+  BaseHP: 140
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
-  DamageBase: 12
+  DamageBase: 45
   EnemyAttackModify: 0.5
   UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 1
-  BaseRange: 250
+  BaseRange: 300
   BaseCriticalRate: 0
-  CriticalDamage: 0
+  CriticalDamage: 100
   TotalDamageCount: 1
   ShootPerCount: 1
-  CD: 3
+  CD: 4
   FireCD: 0.1
   ShieldTransfixion: 1
   ShieldDamage: 100
@@ -469,4 +469,11 @@ MonoBehaviour:
   Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: Fire/Enemy_EnergyShoot_001
-  FireEffectPath: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

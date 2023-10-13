@@ -47,19 +47,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   ownertype: 0
-  ShootVFX: HitVFX
-  HitVFX: HitVFX
+  damagePattern: 1
   DeathVFX: HitVFX
+  hasIndicator: 0
+  shape: 0
+  angle: 360
+  quality: 16
+  initialTarget: {fileID: 0}
   mask:
     serializedVersion: 2
     m_Bits: 128
-  beamtype: 0
   maxDistance: 35
+  width: 0.25
   emittime: 0.075
   duration: 0.75
   deathtime: 0.15
   beamline: {fileID: 8102497879578379325}
-  target: {fileID: 0}
 --- !u!120 &8102497879578379325
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -80,7 +83,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc460e5b1c6c0bd498b44195a0c3da99, type: 2}
+  - {fileID: 2100000, guid: eab70e8be42f41f42bba9aced5de309a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,10 +106,10 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 80, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -133,8 +136,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.7480378, b: 1, a: 1}
-      key1: {r: 1, g: 0.7594172, b: 0, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -157,7 +160,7 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0

@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 110
+  ID: 105
   GeneralConfig:
-    IconSprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
-    Name: AI_MissileLauncher
+    IconSprite: {fileID: 21300000, guid: fe1902413d8ef6c4f95e22301a1bd01d, type: 3}
+    Name: 
     Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 4947179278027536233, guid: a41a0dded91b99f41b3979a9f16c2ea7, type: 3}
+  Prefab: {fileID: 4947179278027536233, guid: 19dc5ef4757722d449e82aec3f2f3256, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -443,30 +443,37 @@ MonoBehaviour:
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 50
-  BaseEnergyCost: 10
+  BaseHP: 25
+  BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
-  DamageBase: 20
-  EnemyAttackModify: 1
+  DamageBase: 12
+  EnemyAttackModify: 0.5
   UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
-  DamageType: 0
-  BaseRange: 150
+  DamageType: 1
+  BaseRange: 250
   BaseCriticalRate: 0
-  CriticalDamage: 0
-  TotalDamageCount: 2
-  ShootPerCount: 2
-  CD: 8
-  FireCD: 1
-  ShieldTransfixion: 0
-  ShieldDamage: 200
-  BaseTransfixion: 0
+  CriticalDamage: 100
+  TotalDamageCount: 1
+  ShootPerCount: 1
+  CD: 4
+  FireCD: 0.1
+  ShieldTransfixion: 1
+  ShieldDamage: 100
+  BaseTransfixion: 3
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: 
-  FireEffectPath: 
+  FireAudioClip: Fire/Enemy_EnergyShoot_001
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

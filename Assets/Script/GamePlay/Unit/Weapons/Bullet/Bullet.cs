@@ -257,12 +257,12 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         PoolableDestroy();
     }
 
-    public virtual void PlayVFX(string m_vfxname, Vector2 pos)
+    public virtual void PlayVFX(GeneralEffectConfig cfg, Vector2 pos)
     {
-        if (string.IsNullOrEmpty(m_vfxname))
+        if(cfg == null || string.IsNullOrEmpty(cfg.EffectName))
             return;
 
-        EffectManager.Instance.CreateEffect(m_vfxname, pos);
+        EffectManager.Instance.CreateEffect(cfg, pos);
     }
 
 

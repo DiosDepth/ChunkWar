@@ -471,4 +471,11 @@ MonoBehaviour:
   - PropertyKey: 15
     Ratio: 0.8
   FireAudioClip: Fire/plasmaflamer_1
-  FireEffectPath: Fire/Eff_FireSimple
+  FireEffect:
+    EffectName: Fire/Eff_FireSimple
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

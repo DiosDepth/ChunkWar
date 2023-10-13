@@ -471,4 +471,11 @@ MonoBehaviour:
   - PropertyKey: 41
     Ratio: 0.8
   FireAudioClip: Fire/missileLaunch_001
-  FireEffectPath: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

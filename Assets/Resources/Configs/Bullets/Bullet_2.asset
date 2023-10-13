@@ -28,7 +28,14 @@ MonoBehaviour:
   Prefab: {fileID: 8903830990857463265, guid: bc711d73a75e46e4a8cb23bcf4b0d6ec, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseBullet02_Player
   HitAudio: 
-  HitEffect: 
+  HitEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
   ExplodeRange: 15
   LifeTime: 5
   MaxSpeed: 70

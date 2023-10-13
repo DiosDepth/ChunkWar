@@ -6,6 +6,49 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+[System.Serializable]
+public class GeneralEffectConfig
+{
+    [HorizontalGroup("ZZ",300)]
+    [LabelText("特效名")]
+    [LabelWidth(80)]
+    public string EffectName;
+
+    [HorizontalGroup("ZZ",150)]
+    [LabelText("随机尺寸")]
+    [LabelWidth(80)]
+    public bool RandomScale = false;
+
+    [HorizontalGroup("ZZ")]
+    [LabelText("最小尺寸")]
+    [LabelWidth(80)]
+    [ShowIf("RandomScale")]
+    public float ScaleMin;
+
+    [HorizontalGroup("ZZ")]
+    [LabelText("最大尺寸")]
+    [LabelWidth(80)]
+    [ShowIf("RandomScale")]
+    public float ScaleMax;
+
+    [HorizontalGroup("ZZ", 150)]
+    [LabelText("随机位置")]
+    [LabelWidth(80)]
+    public bool RandomPosition = false;
+
+    [HorizontalGroup("ZZ")]
+    [LabelText("OffsetX")]
+    [LabelWidth(80)]
+    [ShowIf("RandomPosition")]
+    public float PosRandomX;
+
+    [HorizontalGroup("ZZ")]
+    [LabelText("OffsetY")]
+    [LabelWidth(80)]
+    [ShowIf("RandomPosition")]
+    public float PosRandomY;
+}
+
 public class BulletConfig : SerializedScriptableObject
 {
     [HorizontalGroup("AA", 200)]
@@ -46,7 +89,7 @@ public class BulletConfig : SerializedScriptableObject
     [FoldoutGroup("Effect")]
     [LabelText("命中特效")]
     [LabelWidth(60)]
-    public string HitEffect;
+    public GeneralEffectConfig HitEffect;
 
 
 #if UNITY_EDITOR

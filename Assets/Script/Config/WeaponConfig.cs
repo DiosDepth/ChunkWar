@@ -131,6 +131,6 @@ public class WeaponConfig : BaseUnitConfig
     [FoldoutGroup("效果配置")]
     [LabelText("开火特效")]
     [LabelWidth(100)]
-    public string FireEffectPath;
+    public GeneralEffectConfig FireEffect;
 }
 
