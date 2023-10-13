@@ -90,6 +90,32 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public List<PickableItem> pickupList = new List<PickableItem>();
 
+
+    public static Transform BulletPool
+    {
+        get
+        {
+            if (_bulletPool == null)
+            {
+                _bulletPool = new GameObject("BulletPool");
+            }
+            return _bulletPool.transform;
+        }
+    }
+    private static GameObject _bulletPool;
+
+    public static Transform AIPool
+    {
+        get
+        {
+            if (_AIPool == null)
+            {
+                _AIPool = new GameObject("AIPool");
+            }
+            return _AIPool.transform;
+        }
+    }
+    private static GameObject _AIPool;
     #region Actions
 
     /* 飞船死亡 */

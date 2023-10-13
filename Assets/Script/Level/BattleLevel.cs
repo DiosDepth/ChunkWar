@@ -9,8 +9,6 @@ public class BattleLevel : LevelEntity
 {
     private LevelTimer _timer;
 
-    public GameObject BulletPool;
-    public GameObject AIPool;
     public GameObject IndicatorPool;
 
     protected override void Update()
@@ -22,8 +20,6 @@ public class BattleLevel : LevelEntity
 
     public override void Initialization()
     {
-        BulletPool = new GameObject("BulletPool");
-        AIPool = new GameObject("AIPool");
         IndicatorPool = new GameObject("IndicatorPool");
         startPoint = GameObject.Find("StartPoint").transform.position;
 
@@ -35,9 +31,6 @@ public class BattleLevel : LevelEntity
     {
         _timer.Pause();
         RogueManager.Instance.OnMainLevelUnload();
-        GameObject.Destroy(AIPool);
-        GameObject.Destroy(BulletPool);
-
     }
 
 }

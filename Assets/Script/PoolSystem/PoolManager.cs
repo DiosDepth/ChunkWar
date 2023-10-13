@@ -91,6 +91,9 @@ public class PoolManager : Singleton<PoolManager>
         {
             GameObject obj = poolDic[m_key].GetObject(m_active);
             callback(obj,m_trs, m_ref);
+
+            if (parentTrans != null)
+                obj.transform.SetParent(parentTrans, false);
         }
         else
         {
@@ -116,6 +119,9 @@ public class PoolManager : Singleton<PoolManager>
             //temp_obj = poolDic[m_key].GetObject();
             GameObject obj = poolDic[m_key].GetObject(m_active);
             callback(obj,trs);
+
+            if (parentTrans != null)
+                obj.transform.SetParent(parentTrans, false);
         }
         else
         {
@@ -140,8 +146,12 @@ public class PoolManager : Singleton<PoolManager>
 
         if (poolDic.ContainsKey(m_key) && poolDic[m_key].poolList.Count > 0)
         {
-            //temp_obj = poolDic[m_key].GetObject();
-            callback(poolDic[m_key].GetObject(m_active));
+            var obj = poolDic[m_key].GetObject(m_active);
+            callback(obj);
+            if (parentTrans != null)
+            {
+                obj.transform.SetParent(parentTrans, false);
+            }
         }
         else
         {
@@ -153,8 +163,9 @@ public class PoolManager : Singleton<PoolManager>
                 obj.name = m_key;
                 obj.SetActive(m_active);
                 if (parentTrans != null)
-                obj.transform.SetParent(parentTrans, false);
-
+                {
+                    obj.transform.SetParent(parentTrans, false);
+                }
                 callback(obj);
             });
             /*temp_obj =  GameObject.Instantiate(Resources.Load<GameObject>(m_key));
@@ -170,6 +181,7 @@ public class PoolManager : Singleton<PoolManager>
         if (poolDic.ContainsKey(m_key) && poolDic[m_key].poolList.Count > 0)
         {
             temp_obj = poolDic[m_key].GetObject(m_active);
+
         }
         else
         {

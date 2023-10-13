@@ -21,6 +21,7 @@ public class MonoShield : MonoBehaviour, IDamageble, IPoolable
     {
         shieldCmpt = cmpt;
         this.ownerShip = ownerShip;
+        transform.localPosition = Vector2.zero;
         UpdateShieldRatio();
         SetShieldActive(true);
     }
@@ -48,17 +49,19 @@ public class MonoShield : MonoBehaviour, IDamageble, IPoolable
 
         var damage = Mathf.RoundToInt(info.Damage * (1 + info.ShieldDamagePercent / 100f));
 
-        return shieldCmpt.TakeDamage(-damage);
+        bool death = shieldCmpt.TakeDamage(-damage);
+        return death;
     }
 
-    public void Death(UnitDeathInfo info)
+    public void OnRemove()
     {
-
+        PoolableDestroy();
     }
 
     public void PoolableReset()
     {
         SetShieldActive(false);
+        transform.localPosition = Vector2.zero;
     }
 
     public void PoolableDestroy()
@@ -68,6 +71,11 @@ public class MonoShield : MonoBehaviour, IDamageble, IPoolable
     }
 
     public void PoolableSetActive(bool isactive = true)
+    {
+
+    }
+
+    public void Death(UnitDeathInfo info)
     {
 
     }

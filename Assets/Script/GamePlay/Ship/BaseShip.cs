@@ -96,6 +96,15 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
         return _unitList.FindAll(x => x is T).ConvertAll(x => x as T);
     }
 
+    /// <summary>
+    /// ÒÆ³ýUnit
+    /// </summary>
+    /// <param name="unit"></param>
+    public void RemoveUnit(Unit unit)
+    {
+        _unitList.Remove(unit);
+    }
+
     public Unit GetUnitBySlotPosition(Vector2Int pos)
     {
         for(int i = 0; i < _unitList.Count; i++)

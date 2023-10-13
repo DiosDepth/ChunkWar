@@ -13,6 +13,7 @@ public class EffectManager : Singleton<EffectManager>
             if(_effRoot == null)
             {
                 _effRoot = new GameObject("EffectRoot");
+                GameObject.DontDestroyOnLoad(_effRoot);
             }
             return _effRoot;
         }

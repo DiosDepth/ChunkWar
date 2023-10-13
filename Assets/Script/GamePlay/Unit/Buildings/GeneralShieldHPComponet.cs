@@ -173,7 +173,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
 
         if(monoShield != null)
         {
-            monoShield.PoolableDestroy();
+            monoShield.OnRemove();
             monoShield = null;
         }
     }

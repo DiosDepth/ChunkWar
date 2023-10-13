@@ -354,6 +354,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         }
         this.gameObject.SetActive(false);
         SetUnitProcess(false);
+        ///Remove Owner
+        _owner.RemoveUnit(this);
         
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
@@ -363,7 +365,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             vfx.GetComponent<ParticleController>().PlayVFX();
             unitSprite.color = Color.black;
         });
-    
+        
     }
 
     public virtual void Restore()

@@ -50,12 +50,13 @@ public class AIAttack : AIAction
 
     public void Attack()
     {
-  
-        for (int i = 0; i < _controller.controlledTarget.UnitList.Count; i++)
+        var lst = _controller.controlledTarget.UnitList;
+        for (int i = 0; i < lst.Count; i++)
         {
-            if (_controller.controlledTarget.UnitList[i] is Weapon)
+            var unit = lst[i];
+            if (unit is Weapon)
             {
-                (_controller.controlledTarget.UnitList[i] as Weapon).SetUnitProcess(true);
+                (unit as Weapon).SetUnitProcess(true);
             }
         }
     }
@@ -68,14 +69,16 @@ public class AIAttack : AIAction
     public void UpdateWeaponRotation()
     {
         Weapon tempweapon;
-        for (int i = 0; i < _controller.controlledTarget.UnitList.Count; i++)
+        var lst = _controller.controlledTarget.UnitList;
+        for (int i = 0; i < lst.Count; i++)
         {
-            if (_controller.controlledTarget.UnitList[i] is Weapon)
+            var unit = lst[i];
+            if (unit is Weapon)
             {
-                tempweapon = _controller.controlledTarget.UnitList[i] as Weapon;
+                tempweapon = unit as Weapon;
                 if (tempweapon.rotationRoot != null)
                 {
-                    tempweapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(_controller.controlledTarget.UnitList[i].transform.up, _aimdirection, tempweapon.roatateSpeed);
+                    tempweapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(tempweapon.transform.up, _aimdirection, tempweapon.roatateSpeed);
                 }
             }
         }
@@ -89,27 +92,15 @@ public class AIAttack : AIAction
 
     public void StopAttack()
     {
-        for (int i = 0; i < _controller.controlledTarget.UnitList.Count; i++)
+        var lst = _controller.controlledTarget.UnitList;
+        for (int i = 0; i < lst.Count; i++)
         {
-            if (_controller.controlledTarget.UnitList[i] is Weapon)
+            var unit = lst[i];
+            if (unit is Weapon)
             {
-                (_controller.controlledTarget.UnitList[i] as Weapon).WeaponOff();
+                (unit as Weapon).WeaponOff();
             }
         }
-    }
-
-
-
-    // Start is called before the first frame update
-    protected override void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnDrawGizmos()

@@ -995,7 +995,7 @@ public class Weapon : Unit
                     _lastbullet.Initialization();
                  
                     _lastbullet.Shoot();
-                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                }, LevelManager.BulletPool);
                 CreateFireEffect(firePoint[i]);
                 _targetindex++;
             }
@@ -1022,7 +1022,7 @@ public class Weapon : Unit
                         _lastbullet.Initialization();
                        
                         _lastbullet.Shoot();
-                    }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                    }, LevelManager.BulletPool);
                     CreateFireEffect(firePoint[i]);
                 }
             }
@@ -1050,7 +1050,7 @@ public class Weapon : Unit
                     _lastbullet.Initialization();
                   
                     _lastbullet.Shoot();
-                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                }, LevelManager.BulletPool);
 
                 CreateFireEffect(firePoint[firepointindex]);
             }
@@ -1075,7 +1075,7 @@ public class Weapon : Unit
                     _lastbullet.Initialization();
             
                     _lastbullet.Shoot();
-                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                }, LevelManager.BulletPool);
             }
             aimingtype = temptype;
             CreateFireEffect(firePoint[firepointindex]);
@@ -1107,7 +1107,7 @@ public class Weapon : Unit
                     _lastbullet.Initialization();
 
                     _lastbullet.Shoot();
-                }, (LevelManager.Instance.currentLevel as BattleLevel).BulletPool.transform);
+                }, LevelManager.BulletPool);
                 _targetindex++;
                 CreateFireEffect(firePoint[i]);
             }

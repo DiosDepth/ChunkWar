@@ -66,11 +66,10 @@ public class AIFactory : MonoBehaviour,IPoolable
     private AIShipConfig _shipconfig;
 
     private const string EntitySpawnEffect = "Battle/Enemy_SpawnEffect";
-    private Transform _aiPool;
 
     public virtual void Initialization()
     {
-        _aiPool = (LevelManager.Instance.currentLevel as BattleLevel).AIPool.transform;
+
     }
 
     public async void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, UnityAction<AIShip> callback = null)
@@ -203,6 +202,6 @@ public class AIFactory : MonoBehaviour,IPoolable
             tempship.Initialization();
             _shiplist.Add(tempship);
             callback?.Invoke(tempship);
-        }, _aiPool);
+        }, LevelManager.AIPool);
     }
 }
