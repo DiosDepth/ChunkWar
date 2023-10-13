@@ -168,6 +168,12 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldRecoverValue, CalculateShieldRecoverValue);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldRecoverTimeReduce, CalculateShieldRecoverTime);
         }
+
+        if(monoShield != null)
+        {
+            monoShield.PoolableDestroy();
+            monoShield = null;
+        }
     }
     /// <summary>
     /// ¸Ä±äÑªÁ¿
@@ -183,6 +189,10 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
 
         if (IsShieldBroken)
         {
+            if(monoShield != null)
+            {
+                monoShield.SetShieldActive(false);
+            }
             LevelManager.Instance.ShieldBroken(ParentUnit.UID);
         }
 
@@ -212,6 +222,10 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         _currentShieldHP.Set(newValue);
         if(newValue >= MaxShieldHP)
         {
+            if (monoShield != null)
+            {
+                monoShield.SetShieldActive(true);
+            }
             ///RecoverFinish
             _shieldRecovering = false;
 

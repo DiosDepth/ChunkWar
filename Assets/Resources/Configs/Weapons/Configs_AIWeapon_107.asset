@@ -430,7 +430,7 @@ MonoBehaviour:
     Desc: 
     Rarity: 2
     SortingOrder: 0
-  Prefab: {fileID: 4947179278027536233, guid: 850158f3f62dfaa46afd30221e2bc28a, type: 3}
+  Prefab: {fileID: 4947179278027536233, guid: 3c7aceceb2241bc4c80864445f6c5fb1, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -456,7 +456,7 @@ MonoBehaviour:
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 1
-  BaseRange: 500
+  BaseRange: 300
   BaseCriticalRate: 0
   CriticalDamage: 100
   TotalDamageCount: 1

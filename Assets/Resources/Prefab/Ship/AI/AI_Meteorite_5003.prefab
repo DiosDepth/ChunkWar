@@ -105,7 +105,7 @@ MonoBehaviour:
   deathVFXName: ExplodeVFX
   CoreUnits: []
   AIShipCfg: {fileID: 0}
-  AIType: 1
+  AITypeID: 5003
 --- !u!114 &1067569461047974568
 MonoBehaviour:
   m_ObjectHideFlags: 0

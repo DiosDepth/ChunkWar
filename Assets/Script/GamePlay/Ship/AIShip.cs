@@ -3,20 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AvaliableAIType
-{
-    AI_Flyings = 1,
-    AI_Fighter = 2,
-    AI_Suicide = 3,
-}
-
-
 [ShowOdinSerializedPropertiesInInspector]
 public class AIShip : BaseShip,IPoolable
 {
     public AIShipConfig AIShipCfg;
 
-    public AvaliableAIType AIType = AvaliableAIType.AI_Flyings;
+    public int AITypeID;
+
     public override void Initialization()
     {
         base.Initialization();
@@ -27,9 +20,6 @@ public class AIShip : BaseShip,IPoolable
     protected override void Awake()
     {
         base.Awake();
-
-
-
 
     }
     // Start is called before the first frame update
@@ -79,7 +69,7 @@ public class AIShip : BaseShip,IPoolable
 
         //¥¶¿ÌChunk
 
-        AIShipConfig aishipconfig =  DataManager.Instance.GetAIShipConfig((int)AIType);
+        AIShipConfig aishipconfig =  DataManager.Instance.GetAIShipConfig(AITypeID);
         AIShipCfg = aishipconfig;
         baseShipCfg = aishipconfig;
         Vector2Int pos;

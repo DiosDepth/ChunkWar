@@ -29,10 +29,10 @@ MonoBehaviour:
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseInstanceHit_Player
   HitAudio: 
   HitEffect:
-    EffectName: 
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
+    EffectName: Hit/Eff_HitSimple
+    RandomScale: 1
+    ScaleMin: 0.6
+    ScaleMax: 1.3
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0

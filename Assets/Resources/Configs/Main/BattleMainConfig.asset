@@ -491,7 +491,7 @@ MonoBehaviour:
       Data: true
     - Name: LevelPresetID
       Entry: 3
-      Data: 3
+      Data: 100
     - Name: ScoreRatio
       Entry: 4
       Data: 1
@@ -2114,7 +2114,8 @@ MonoBehaviour:
   ShipLevelUp_GrowthItem_Count: 4
   HardLevelDeltaSeconds: 120
   ShipMaxLevel: 50
-  TransfixionReduce_Max: 0
+  TransfixionDamage_Base: 60
+  TransfixionDamage_Max: 100
   PlayerShip_ArmorDamageReduce_Param: 25
   PlayerShip_ShieldDamageReduce_Param: 25
   ShieldRecoverCD: 0.5

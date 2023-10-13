@@ -46,5 +46,6 @@ public static class GameGlobalConfig
     public const string SFXPath = "Prefab/SFX/";
     public const string AIShipPath = "Prefab/Ship/AI/";
     public const string AIFactoryPath = "Prefab/GameplayPrefab/AIFactory";
+    public const string ShieldPath = "Prefab/Unit/Items/";
 
 }

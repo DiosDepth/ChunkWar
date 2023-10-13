@@ -148,12 +148,13 @@ public class Building : Unit
             GeneralShieldHPComponet shieldCmpt = new GeneralShieldHPComponet(shieldCfg);
             AddBuildingComponent(shieldCmpt);
 
-            var shieldItem = ResManager.Instance.Load<GameObject>("Prefab/Unit/Items/PlayerShieldItem_001");
-            shieldItem.transform.SetParent(transform);
-            shieldItem.transform.localPosition = Vector3.zero;
-            MonoShield shield = shieldItem.GetComponent<MonoShield>();
-            shield.InitShield(shieldCmpt, _owner);
-            shieldCmpt.monoShield = shield;
+            var shieldPath = GameGlobalConfig.ShieldPath + shieldCfg.ShieldPrefabName;
+            PoolManager.Instance.GetObjectAsync(shieldPath, true, (obj) =>
+            {
+                var cmpt = obj.GetComponent<MonoShield>();
+                cmpt.InitShield(shieldCmpt, _owner);
+                shieldCmpt.monoShield = cmpt;
+            }, transform);
         }
     }
 

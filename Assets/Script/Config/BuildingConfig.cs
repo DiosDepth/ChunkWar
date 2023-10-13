@@ -19,6 +19,7 @@ public class BuildingShieldConfig
 {
     public bool GenerateShield;
 
+    public string ShieldPrefabName;
     public int ShieldHP;
     public int ShieldRecoverValue;
     public float ShieldRecoverTime;
