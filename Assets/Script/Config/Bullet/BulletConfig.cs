@@ -23,6 +23,11 @@ public class BulletConfig : SerializedScriptableObject
     [LabelWidth(60)]
     public BulletType Type;
 
+    [HorizontalGroup("AA", 250)]
+    [LabelText("Owner")]
+    [LabelWidth(60)]
+    public OwnerType Owner;
+
     [HorizontalGroup("AB", 400)]
     [LabelText("Prefab")]
     [AssetSelector(Paths = "Assets/Resources/Prefab/GameplayPrefab/Bullets")]

@@ -116,6 +116,27 @@ public class DataManager : Singleton<DataManager>
             }
         }
     }
+
+    public void LoadBulletConfig_Editor()
+    {
+        var allBullets = Resources.LoadAll<BulletConfig>(DataConfigPath.BulletConfigRoot);
+        if(allBullets != null && allBullets.Length > 0)
+        {
+            for (int i = 0; i < allBullets.Length; i++)
+            {
+                if (!_bulletConfig.ContainsKey(allBullets[i].BulletName))
+                {
+                    _bulletConfig.Add(allBullets[i].BulletName, allBullets[i]);
+                }
+            }
+        }
+    }
+
+    public List<BulletConfig> GetAllBulletConfig()
+    {
+        return _bulletConfig.Values.ToList();
+    }
+
 #endif
 
     private void LoadMiscData()
@@ -284,11 +305,11 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
-    public BulletConfig GetBulletConfigByType(AvaliableBulletType type)
+    public BulletConfig GetBulletConfigByType(string bulletName)
     {
         BulletConfig result = null;
-        _bulletConfig.TryGetValue(type.ToString(), out result);
-        Debug.Assert(result != null, "GetBulletConfigByID Null! ID= " + type);
+        _bulletConfig.TryGetValue(bulletName, out result);
+        Debug.Assert(result != null, "GetBulletConfigByID Null! ID= " + bulletName);
         return result;
     }
 

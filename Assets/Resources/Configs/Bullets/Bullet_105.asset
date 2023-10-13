@@ -24,12 +24,13 @@ MonoBehaviour:
   ID: 105
   BulletName: BaseInstanceHit_AI
   Type: 1
+  Owner: 1
   Prefab: {fileID: 3574238879806340193, guid: 5dffd2b7dff52c744b19a0ea76dbee7c, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BaseInstanceHit_AI
   HitAudio: 
   HitEffect: 
   ExplodeRange: 0
-  MaxDistance: 35
+  MaxDistance: 60
   Width: 0.1
   EmitTime: 0.2
   Duration: 0.5

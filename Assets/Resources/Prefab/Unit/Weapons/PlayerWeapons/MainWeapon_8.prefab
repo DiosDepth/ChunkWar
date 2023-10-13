@@ -144,7 +144,7 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 2
-  bulletType: 11
+  bulletName: BaseHommingBullet_Player
   targetmode: 1
   mask:
     serializedVersion: 2

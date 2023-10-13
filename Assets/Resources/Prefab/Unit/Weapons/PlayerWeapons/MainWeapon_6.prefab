@@ -175,7 +175,7 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 2
   aimingtype: 2
-  bulletType: 12
+  bulletName: BaseBeam_Player
   targetmode: 1
   mask:
     serializedVersion: 2

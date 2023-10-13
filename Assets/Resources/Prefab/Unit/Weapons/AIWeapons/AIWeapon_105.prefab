@@ -91,7 +91,7 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 0
   aimingtype: 1
-  bulletType: 1
+  bulletName: BaseBeam_AI
   targetmode: 0
   mask:
     serializedVersion: 2

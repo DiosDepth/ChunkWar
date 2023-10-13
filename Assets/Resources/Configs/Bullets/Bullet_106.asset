@@ -24,6 +24,7 @@ MonoBehaviour:
   ID: 106
   BulletName: BasePassThroughMissile_AI
   Type: 0
+  Owner: 1
   Prefab: {fileID: 8903830990857463265, guid: 6c40fd95216b1ec4283e1bd0ad9e026a, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BasePassThroughMissile_AI
   HitAudio: 

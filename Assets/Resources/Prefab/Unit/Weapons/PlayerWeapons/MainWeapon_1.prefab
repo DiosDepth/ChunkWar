@@ -124,7 +124,7 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 1
-  bulletType: 10
+  bulletName: BaseInstanceHit_Player
   targetmode: 0
   mask:
     serializedVersion: 2

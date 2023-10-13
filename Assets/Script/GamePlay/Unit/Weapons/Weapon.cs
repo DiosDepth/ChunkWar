@@ -453,7 +453,9 @@ public class Weapon : Unit
     public StateMachine<WeaponState> weaponstate;
     public WeaponFireMode firemode;
     public WeaponAimingType aimingtype= WeaponAimingType.Directional;
-    public AvaliableBulletType bulletType = AvaliableBulletType.None;
+
+    [ValueDropdown("GetBulletNames")]
+    public string bulletName = string.Empty;
     public WeaponTargetMode targetmode = WeaponTargetMode.Single;
 
     public LayerMask mask = 1 << 7;
@@ -511,7 +513,7 @@ public class Weapon : Unit
         base.Initialization(m_owner, m_unitconfig);
 
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
-        _bulletdata = DataManager.Instance.GetBulletConfigByType(bulletType);
+        _bulletdata = DataManager.Instance.GetBulletConfigByType(bulletName);
         if (_bulletdata == null)
         {
             Debug.LogError("Bullet Data is Invalid");
@@ -1351,4 +1353,30 @@ public class Weapon : Unit
 
         EffectManager.Instance.CreateEffectAndFollow(_weaponCfg.FireEffectPath, targetTrans);
     }
+
+#if UNITY_EDITOR
+
+    private ValueDropdownList<string> GetBulletNames()
+    {
+        ValueDropdownList<string> result = new ValueDropdownList<string>();
+        var allBullets = DataManager.Instance.GetAllBulletConfig();
+
+        var targetowner = this is AIAdditionalWeapon ? OwnerType.AI : OwnerType.Player;
+        for(int i = 0; i < allBullets.Count; i++)
+        {
+            if(allBullets[i].Owner == targetowner)
+            {
+                result.Add(allBullets[i].BulletName);
+            }
+        }
+        return result;
+    }
+
+    [OnInspectorInit]
+    private void OnInitData()
+    {
+        DataManager.Instance.LoadBulletConfig_Editor();
+    }
+
+#endif
 }

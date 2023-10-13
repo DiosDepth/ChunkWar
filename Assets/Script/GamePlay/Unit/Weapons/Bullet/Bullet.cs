@@ -17,25 +17,6 @@ public enum BulletType
     Energy,
 }
 
-
-public enum AvaliableBulletType
-{
-    None,
-    BaseBeam_AI,
-    BaseBullet_AI,
-    BaseChainBeam_AI,
-    BaseHommingBullet_AI,
-    BaseInstanceHit_AI,
-    BasePassThroughMissile_AI,
-    BaseBullet_Player,
-    BaseBullet02_Player,
-    BaseBeam_Player,
-    BaseInstanceHit_Player,
-    BaseHommingBullet_Player,
-    BaseChainBeam_Player,
-    BasePassThroughMissile_Player,
-
-}
 public class Bullet : MonoBehaviour,IPoolable,IPauseable
 {
     public BulletType type;
