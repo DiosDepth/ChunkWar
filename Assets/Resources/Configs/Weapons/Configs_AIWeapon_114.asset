@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10002
+  m_Name: Configs_AIWeapon_114
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,54 +423,54 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10002
+  ID: 114
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
-    Name: Weapon_Name_10002
-    Desc: Weapon_Desc_10002
+    IconSprite: {fileID: 21300000, guid: e25b048a6bceb024fb49a7d9bb677356, type: 3}
+    Name: 
+    Desc: 
     Rarity: 2
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: d89dbbac3930fa9479768f183b53e88f, type: 3}
+  Prefab: {fileID: 4947179278027536233, guid: d3d36f326da98814bb9bfc6245d5d14d, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
   GroupID: 0
   redirection: 0
-  UnlockDefault: 1
+  UnlockDefault: 0
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
-  EditorBrushDefaultRotation: 100
+  EditBrushSprite: {fileID: 0}
+  EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 80
-  BaseEnergyCost: 10
+  BaseHP: 1250
+  BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
-  DamageBase: 8
-  EnemyAttackModify: 0
+  DamageBase: 85
+  EnemyAttackModify: 0.35
   UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
-  DamageType: 0
-  BaseRange: 220
-  BaseCriticalRate: 7
-  CriticalDamage: 150
-  TotalDamageCount: 10
+  DamageType: 1
+  BaseRange: 500
+  BaseCriticalRate: 0
+  CriticalDamage: 0
+  TotalDamageCount: 2
   ShootPerCount: 1
-  CD: 1.6
-  FireCD: 0.15
+  CD: 6
+  FireCD: 2
   ShieldTransfixion: 0
-  ShieldDamage: 150
+  ShieldDamage: 100
   BaseTransfixion: 0
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: Fire/10000_hit1
+  FireAudioClip: 
   FireEffect:
-    EffectName: Fire/Eff_FireSimple
+    EffectName: 
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

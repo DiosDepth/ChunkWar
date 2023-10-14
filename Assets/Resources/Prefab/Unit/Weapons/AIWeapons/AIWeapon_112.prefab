@@ -155,7 +155,7 @@ MonoBehaviour:
   occupiedCoords: []
   effectSlotCoords: []
   weaponmode: 0
-  firemode: 1
+  firemode: 0
   aimingtype: 2
   bulletName: BaseHommingBullet_AI
   targetmode: 1

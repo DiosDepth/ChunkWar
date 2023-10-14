@@ -105,7 +105,7 @@ MonoBehaviour:
       Data: 2
     - Name: AITypeID
       Entry: 3
-      Data: 500
+      Data: 503
     - Name: DurationDelta
       Entry: 3
       Data: 5

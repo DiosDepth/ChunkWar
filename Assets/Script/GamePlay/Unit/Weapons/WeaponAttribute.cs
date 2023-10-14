@@ -237,7 +237,7 @@ public class WeaponAttribute : UnitBaseAttribute
             FireCD = BaseFireCD;
             ReloadTime = BaseReloadCD;
             MaxMagazineSize = BaseMaxMagazineSize;
-            WeaponRange = BaseWeaponRange;
+            WeaponRange = BaseWeaponRange / 10f;
             Transfixion = BaseTransfixion;
             TransfixionReduce = BaseTransfixionDamage;
             EnemyWeaponATKPercent = _weaponCfg.EnemyAttackModify;

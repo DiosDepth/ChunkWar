@@ -222,7 +222,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638327526400321779
+  lastModified: 638328865409787344
   FileSizes: []
   Exists: 1
 --- !u!114 &-16343717228847713
@@ -280,12 +280,13 @@ MonoBehaviour:
   - {fileID: -1303298684361366301}
   - {fileID: -4526521602577045453}
   - {fileID: -6462358094498768463}
+  - {fileID: 3111698903559324271}
   EditorParameters: []
   MasterBanks:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638328399878632986
+  cacheTime: 638328865410967345
   cacheVersion: 131608
 --- !u!114 &1760214526661282929
 MonoBehaviour:
@@ -314,6 +315,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1742
+--- !u!114 &3111698903559324271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/10000_hit1
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/10000_hit1
+  Guid:
+    Data1: 2021069959
+    Data2: 1222344079
+    Data3: -462286674
+    Data4: 1871617550
+  Banks:
+  - {fileID: 5234979963309887168}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5234979963309887168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +357,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638327526401670855
+  lastModified: 638328865410967345
   FileSizes: []
   Exists: 1
 --- !u!114 &5932116681807520797
@@ -374,8 +402,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638327526400331779
+  lastModified: 638328865409797348
   FileSizes:
   - Name: 
-    Value: 1340
+    Value: 1380
   Exists: 1

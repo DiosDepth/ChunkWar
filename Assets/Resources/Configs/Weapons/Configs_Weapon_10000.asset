@@ -456,19 +456,26 @@ MonoBehaviour:
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0
-  BaseRange: 100
+  BaseRange: 175
   BaseCriticalRate: 5
   CriticalDamage: 150
   TotalDamageCount: 8
   ShootPerCount: 1
-  CD: 4
+  CD: 2
   FireCD: 0.15
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  Scatter: 0
+  Scatter: 2
   DamageModifyFrom:
   - PropertyKey: 15
     Ratio: 0.5
-  FireAudioClip: 
-  FireEffectPath: 
+  FireAudioClip: Fire/10000_hit1
+  FireEffect:
+    EffectName: Fire/Eff_FireSimple
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
