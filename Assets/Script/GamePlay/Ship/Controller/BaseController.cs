@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class BaseController : MonoBehaviour, IPauseable
+public class BaseController : MonoBehaviour, IPauseable, IBoid
 {
     public bool IsUpdate = false;
 
 
     public Rigidbody2D rb;
     public new Collider2D collider;
+    public float boidRadius = 1f;
 
     protected Vector2 _lerpedInput;
     protected Vector2 _deltaMovement;
     protected float _deltaSpeed;
     protected float _deltaAcceleration;
+
+    protected Vector3 velocity;
+    protected Vector3 lastpos;
 
     public virtual void Initialization()
     {
@@ -94,6 +99,40 @@ public class BaseController : MonoBehaviour, IPauseable
     {
         SetControllerUpdate(false);
 
+    }
+
+
+    public virtual Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public virtual Vector3 GetVelocity()
+    {
+        return (transform.position - lastpos) / Time.fixedDeltaTime;
+    }
+
+    public virtual float GetRadius()
+    {
+        return boidRadius;
+    }
+
+
+    public virtual float GetRotationZ()
+    {
+        return math.degrees(math.atan2(transform.up.y, transform.up.x)) - 90;
+        //return transform.rotation.eulerAngles.z;
+    }
+
+    public virtual void SetVelocity(Vector3 m_vect)
+    {
+        velocity = m_vect;
+
+    }
+    public virtual void UpdateIBoid()
+    {
+        velocity = (transform.position - lastpos) / Time.fixedDeltaTime;
+        lastpos = transform.position;
     }
     public virtual void PauseGame()
     {

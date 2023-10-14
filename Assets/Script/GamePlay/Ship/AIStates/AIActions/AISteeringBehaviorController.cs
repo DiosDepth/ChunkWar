@@ -15,7 +15,7 @@ public struct SteeringBehaviorInfo
     public float angular;
 }
 
-public class AISteeringBehaviorController : BaseController, IBoid
+public class AISteeringBehaviorController : BaseController
 {
 
     //public SteeringBehaviorController steeringBehaviorController;
@@ -26,7 +26,7 @@ public class AISteeringBehaviorController : BaseController, IBoid
     public float maxAngularAcceleration = 1f;
     public float maxAngularVelocity = 3f;
     public float targetSerchingRadius = 15f;
-    public float boidRadius = 1f;
+
 
     public bool isActiveEvade = false;
     [BoxGroup("evadeBehaviorInfo")]
@@ -73,36 +73,9 @@ public class AISteeringBehaviorController : BaseController, IBoid
 
 
     public float drag = 1f;
-    public Vector3 velocity;
-    public Vector3 lastpos;
-
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
-
-    public Vector3 GetVelocity()
-    {
-        return (transform.position - lastpos) / Time.fixedDeltaTime;
-    }
-
-    public float GetRadius()
-    {
-        return boidRadius;
-    }
 
 
-    public float GetRotationZ()
-    {
-        return math.degrees(math.atan2(transform.up.y, transform.up.x)) - 90;
-        return transform.rotation.eulerAngles.z;
-    }
-
-    public void SetVelocity(Vector3 m_vect)
-    {
-        velocity = m_vect;
-
-    }
+    
 
 
     public void SetAIConfig(AIShipConfig cfg)
@@ -116,11 +89,7 @@ public class AISteeringBehaviorController : BaseController, IBoid
     }
 
 
-    public void UpdateIBoid()
-    {
-        velocity = (transform.position - lastpos) / Time.fixedDeltaTime;
-        lastpos = transform.position;
-    }
+
     // Start is called before the first frame update
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 
-public class ShipController : BaseController, IBoid
+public class ShipController : BaseController
 {
 
     public PlayerShip targetShip;
@@ -261,31 +261,31 @@ public class ShipController : BaseController, IBoid
     }
 
 
-    public Vector3 GetPosition()
+    public override Vector3 GetPosition()
     {
-        return transform.position;
+        return base.GetPosition();
     }
 
-    public Vector3 GetVelocity()
+    public override Vector3 GetVelocity()
     {
         return (transform.position - lastpos) / Time.fixedDeltaTime;
     }
 
-    public float GetRadius()
+    public override float GetRadius()
     {
-        return boidRadius;
+        return base.GetRadius();
     }
 
-    public float GetRotationZ()
+    public override float GetRotationZ()
     {
-        return transform.rotation.eulerAngles.z;
+        return base.GetRotationZ();
     }
-    public void SetVelocity(Vector3 m_vect)
+    public override void SetVelocity(Vector3 m_vect)
     {
-        velocity = m_vect;
+        base.SetVelocity(m_vect);
 
     }
-    public void UpdateIBoid()
+    public override void UpdateIBoid()
     {
         velocity = (transform.position - lastpos) / Time.deltaTime;
         lastpos = transform.position;
