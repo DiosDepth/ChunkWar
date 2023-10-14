@@ -246,7 +246,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public UnityAction OnItemCountChange;
     /* 进入太空港 */
     public UnityAction OnEnterHarbor;
-
+    /* 进入商店 */
+    public UnityAction OnEnterShop;
+    /* 购买商店物品 */
+    public UnityAction<int> OnBuyShopItem;
     private void ClearAction()
     {
         OnWreckageLoadPercentChange = null;
@@ -257,6 +260,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         OnShopRefresh = null;
         OnItemCountChange = null;
         OnEnterHarbor = null;
+        OnEnterShop = null;
+        OnBuyShopItem = null;
     }
 
     #endregion
@@ -703,6 +708,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         int newCount = GetDropWasteCount + count;
         _dropWasteCount.Set(newCount);
         OnWasteCountChange?.Invoke(newCount);
+        ///UpdateLoad
+        CalculateTotalLoadCost();
+        RogueEvent.Trigger(RogueEventType.WasteCountChange);
+    }
+
+    /// <summary>
+    /// 按当前百分比增加数量
+    /// </summary>
+    /// <param name="percent"></param>
+    public void AddDropWasteCountByPercent(float percent)
+    {
+        var targetpercent = Mathf.Max(0, percent / 100f);
+        var targetWaste = Mathf.RoundToInt(GetDropWasteCount * (1 + targetpercent));
+        _dropWasteCount.Set(targetWaste);
+        OnWasteCountChange?.Invoke(targetWaste);
         ///UpdateLoad
         CalculateTotalLoadCost();
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
@@ -1299,6 +1319,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         GameManager.Instance.PauseGame();
         RefreshShop(false);
+        OnEnterShop?.Invoke();
+
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
         CameraManager.Instance.SetOrthographicSize(20);
@@ -1345,6 +1367,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         AddCurrency(-cost);
         info.OnItemSold();
         GainShopItem(info);
+
+        OnBuyShopItem?.Invoke(info.GoodsID);
+
         return true;
     }
 

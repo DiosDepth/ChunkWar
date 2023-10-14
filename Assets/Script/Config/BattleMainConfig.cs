@@ -62,6 +62,13 @@ public enum ModifyTriggerType
     OnShieldBroken,
     OnPlayerCoreUnitTakeDamage,
     OnPlayerCreateExplode,
+    OnBuyShopItem,
+    OnCollectPickable,
+    /// <summary>
+    /// µ¥Î»Ì±»¾
+    /// </summary>
+    OnPlayerUnitParalysis,
+    OnEnterShop,
 }
 
 public enum ModifyTriggerEffectType
@@ -81,6 +88,7 @@ public enum ModifyTriggerEffectType
     GainCurrency,
     ModifyDamgeByTargetDistance,
     AddUnitModifier,
+    HealUnitHP,
 }
 
 public class BattleMainConfig : SerializedScriptableObject

@@ -40,7 +40,12 @@ MonoBehaviour:
     Desc: 
     Rarity: 0
     SortingOrder: 0
-  PropertyModify: []
+  PropertyModify:
+  - ModifyKey: 62
+    Value: 15
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
   EffectDesc: 
   EffectDescDamageParam: 0
   PlugTags: 0

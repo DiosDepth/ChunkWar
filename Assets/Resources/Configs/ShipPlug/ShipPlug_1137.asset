@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea2d38c627d7f244a89a0c1bb902492, type: 3}
+  m_Name: ShipPlug_1137
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: ModifyTriggers
+      Entry: 7
+      Data: 0|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|MTC_OnCollectPickable, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 22
+    - Name: TriggerCount
+      Entry: 3
+      Data: -1
+    - Name: SelfUnique
+      Entry: 5
+      Data: false
+    - Name: UsePercent
+      Entry: 5
+      Data: true
+    - Name: Percent
+      Entry: 4
+      Data: 25
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 2|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 3|MTEC_CreateExplode, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 10
+    - Name: Conditions
+      Entry: 7
+      Data: 4|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PointTarget
+      Entry: 3
+      Data: 2
+    - Name: ExplodeRange
+      Entry: 3
+      Data: 30
+    - Name: ExplodeDamageBase
+      Entry: 3
+      Data: 60
+    - Name: DamageModifyFrom
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[UnitPropertyModifyFrom, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 6|UnitPropertyModifyFrom, Assembly-CSharp
+    - Name: PropertyKey
+      Entry: 3
+      Data: 41
+    - Name: Ratio
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PickUpType
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  ID: 1137
+  GeneralConfig:
+    IconSprite: {fileID: 0}
+    Name: ShipPlug_Name_1137
+    Desc: 
+    Rarity: 1
+    SortingOrder: 0
+  PropertyModify: []
+  EffectDesc: 
+  EffectDescDamageParam: 0
+  PlugTags: 0
+  PropertyPercentModify: []

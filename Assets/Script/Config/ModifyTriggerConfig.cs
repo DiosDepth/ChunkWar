@@ -40,6 +40,18 @@ public abstract class ModifyTriggerConfig
     [LabelWidth(50)]
     public float Percent;
 
+    [ShowIf("UsePercent")]
+    [HorizontalGroup("AA", 140)]
+    [LabelText("幸运修正")]
+    [LabelWidth(80)]
+    public bool UseLuckModify = false;
+
+    [ShowIf("UseLuckModify")]
+    [HorizontalGroup("AA", 140)]
+    [LabelText("修正比例")]
+    [LabelWidth(80)]
+    public float LuckModifyRate;
+
     [LabelText("触发效果")]
     [HorizontalGroup("AC", Order = 1000)]
     [HideReferenceObjectPicker]
@@ -117,21 +129,37 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnWeaponFire(type));
             }
-            else if (type == ModifyTriggerType.OnPlayerShipParry) 
+            else if (type == ModifyTriggerType.OnPlayerShipParry)
             {
                 result.Add(type.ToString(), new MTC_OnPlayerShipParry(type));
             }
-            else if(type == ModifyTriggerType.OnShieldBroken)
+            else if (type == ModifyTriggerType.OnShieldBroken)
             {
                 result.Add(type.ToString(), new MTC_OnShieldBroken(type));
             }
-            else if(type == ModifyTriggerType.OnPlayerCoreUnitTakeDamage)
+            else if (type == ModifyTriggerType.OnPlayerCoreUnitTakeDamage)
             {
                 result.Add(type.ToString(), new MTC_OnPlayerCoreUnitTakeDamage(type));
             }
-            else if(type == ModifyTriggerType.OnPlayerCreateExplode)
+            else if (type == ModifyTriggerType.OnPlayerCreateExplode)
             {
                 result.Add(type.ToString(), new MTC_OnPlayerCreateExplode(type));
+            }
+            else if (type == ModifyTriggerType.OnBuyShopItem)
+            {
+                result.Add(type.ToString(), new MTC_OnBuyShopItem(type));
+            }
+            else if (type == ModifyTriggerType.OnCollectPickable)
+            {
+                result.Add(type.ToString(), new MTC_OnCollectPickable(type));
+            }
+            else if (type == ModifyTriggerType.OnPlayerUnitParalysis)
+            {
+                result.Add(type.ToString(), new MTC_OnPlayerUnitParalysis(type));
+            }
+            else if (type == ModifyTriggerType.OnEnterShop)
+            {
+                result.Add(type.ToString(), new MTC_OnEnterShop(type));
             }
         }
 
@@ -398,6 +426,21 @@ public class MTC_OnEnterHarbor : ModifyTriggerConfig
     }
 }
 
+
+public class MTC_OnEnterShop : ModifyTriggerConfig
+{
+    public MTC_OnEnterShop(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnEnterShop(this, uid);
+    }
+}
+
+
 public class MTC_CoreHPPercent : ModifyTriggerConfig
 {
 
@@ -477,6 +520,23 @@ public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
 
 public class MTC_OnWeaponReload : ModifyTriggerConfig
 {
+    public enum EffectMode
+    {
+        DurationEffect,
+        TriggerInterval
+    }
+
+    [HorizontalGroup("AD", 350)]
+    [LabelText("生效模式")]
+    [LabelWidth(120)]
+    public EffectMode Mode = EffectMode.DurationEffect;
+
+    [HorizontalGroup("AD", 150)]
+    [LabelText("间隔")]
+    [LabelWidth(80)]
+    [ShowIf("Mode", EffectMode.TriggerInterval)]
+    public float Interval;
+
     public MTC_OnWeaponReload(ModifyTriggerType type) : base(type)
     {
 
@@ -584,5 +644,59 @@ public class MTC_OnPlayerCreateExplode : ModifyTriggerConfig
     public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
     {
         return new MT_OnPlayerCreateExplode(this, uid);
+    }
+}
+
+public class MTC_OnBuyShopItem : ModifyTriggerConfig
+{
+    [HorizontalGroup("AD", 250)]
+    [LabelText("检测特殊商品")]
+    [LabelWidth(100)]
+    public bool UseSpecialShopItemID = false;
+
+    [ShowIf("UseSpecialShopItemID")]
+    [LabelText("特殊商品ID")]
+    public int ShopItemID;
+
+    public MTC_OnBuyShopItem(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnBuyShopItem(this, uid);
+    }
+}
+
+public class MTC_OnCollectPickable : ModifyTriggerConfig
+{
+    public AvaliablePickUp PickUpType;
+    public MTC_OnCollectPickable(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnBuyShopItem(this, uid);
+    }
+}
+
+public class MTC_OnPlayerUnitParalysis : ModifyTriggerConfig
+{
+    [HorizontalGroup("AD", 250)]
+    [LabelText("进入瘫痪")]
+    [LabelWidth(100)]
+    public bool IsEnterParalysis;
+
+    public MTC_OnPlayerUnitParalysis(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnPlayerUnitParalysis(this, uid);
     }
 }

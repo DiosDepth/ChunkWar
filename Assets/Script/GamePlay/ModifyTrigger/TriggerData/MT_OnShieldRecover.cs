@@ -73,3 +73,33 @@ public class MT_OnShieldBroken : ModifyTriggerData
         }
     }
 }
+
+public class MT_OnPlayerUnitParalysis : ModifyTriggerData
+{
+
+    private MTC_OnPlayerUnitParalysis _ParalysisCfg;
+    public MT_OnPlayerUnitParalysis(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _ParalysisCfg = cfg as MTC_OnPlayerUnitParalysis;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        LevelManager.Instance.OnPlayerUnitParalysis += OnPlayerUnitParalysis;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        LevelManager.Instance.OnPlayerUnitParalysis -= OnPlayerUnitParalysis;
+    }
+
+    private void OnPlayerUnitParalysis(uint targetUID, bool isEnter)
+    {
+        if (_ParalysisCfg.IsEnterParalysis != isEnter)
+            return;
+
+        Trigger(targetUID);
+    }
+}

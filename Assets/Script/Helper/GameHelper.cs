@@ -317,6 +317,10 @@ public static class GameHelper
         {
             modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.WeaponEnergyCostPercent);
         }
+        else if(cfg.HasUnitTag(ItemTag.Hangar))
+        {
+            modify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Hangar_EnergyCostPercent);
+        }
 
         var totalUnitModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.UnitEnergyCostPercent);
 

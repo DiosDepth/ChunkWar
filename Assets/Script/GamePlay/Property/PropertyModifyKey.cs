@@ -1,3 +1,4 @@
+ 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -208,6 +209,10 @@ public enum PropertyModifyKey
     Aircraft_HP,
     Aircraft_Speed,
     Aircraft_ShieldRatio,
+    /// <summary>
+    /// 机库能源消耗
+    /// </summary>
+    Hangar_EnergyCostPercent,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }
@@ -220,4 +225,5 @@ public enum UnitPropertyModifyKey
     NONE,
     UnitEnergyCostPercent,
     UnitEnergyGenerateValue,
+    UnitDamagePercentAdd,
 }

@@ -17,10 +17,6 @@ public class PickUpWreckage : PickableItem
     public override void PickUp(GameObject picker)
     {
         base.PickUp(picker);
-        RogueManager.Instance.AddInLevelDrop(DropRarity);
-        ///Add EXP
-        RogueManager.Instance.AddEXP(EXPAdd);
-
         tweenUID = LeanTween.value(0, 1, 0.75f).setOnUpdate((alpha) =>
         {
             this.transform.position = Vector3.Lerp(this.transform.position, picker.transform.position, alpha);

@@ -1318,6 +1318,21 @@ public class AIManager : Singleton<AIManager>, IPauseable
         return aiActiveUnitList.Find(x => x.UID == uid);
     }
 
+    public List<Unit> GetAIUnitsWithCondition(FindCondition condition, int count)
+    {
+        aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP);
+        var targetCount = Mathf.Min(count, aiActiveUnitList.Count);
+        if (condition == FindCondition.MaximumHP)
+        {
+            return aiActiveUnitList.Take(targetCount).ToList();
+        }
+        else if (condition == FindCondition.MinimumHP)
+        {
+            return aiActiveUnitList.Reverse<Unit>().Take(targetCount).ToList();
+        }
+        return new List<Unit>();
+    }
+
     public Unit GetAIUnitWithCondition(FindCondition condition)
     {
         Unit unit;

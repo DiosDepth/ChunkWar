@@ -11,7 +11,8 @@ public enum ItemTag
     MainWeapon = 1<<3,
     WareHouse = 1<<4,
     Building = 1 << 5,
-    Reactor = 1<<6
+    Reactor = 1<<6,
+    Hangar = 1<<7,
 }
 
 [System.Flags]

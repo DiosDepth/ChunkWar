@@ -1433,6 +1433,58 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: PlugRandomTagRatioDic
+      Entry: 7
+      Data: 3|System.Collections.Generic.Dictionary`2[[ShipPlugTag, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 4|System.Collections.Generic.EnumEqualityComparer`1[[ShipPlugTag, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: UnitRandomTagRatioDic
+      Entry: 7
+      Data: 5|System.Collections.Generic.Dictionary`2[[ItemTag, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 6|System.Collections.Generic.EnumEqualityComparer`1[[ItemTag, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 7
   GeneralConfig:
     IconSprite: {fileID: 308524481, guid: c4c2e7d773109364ea51d8a53fa5df77, type: 3}

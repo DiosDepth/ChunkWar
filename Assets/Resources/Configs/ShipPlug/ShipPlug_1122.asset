@@ -38,9 +38,29 @@ MonoBehaviour:
     IconSprite: {fileID: 0}
     Name: ShipPlug_Name_1122
     Desc: 
-    Rarity: 0
+    Rarity: 3
     SortingOrder: 0
-  PropertyModify: []
+  PropertyModify:
+  - ModifyKey: 46
+    Value: 5
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
+  - ModifyKey: 59
+    Value: 10
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
+  - ModifyKey: 61
+    Value: 5
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
+  - ModifyKey: 63
+    Value: 10
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
   EffectDesc: 
   EffectDescDamageParam: 0
   PlugTags: 0
