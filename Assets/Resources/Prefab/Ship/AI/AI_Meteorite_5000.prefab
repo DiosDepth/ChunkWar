@@ -124,6 +124,7 @@ MonoBehaviour:
   maxAcceleration: 7
   maxVelocity: 30
   maxAngularAcceleration: 6
+  maxAngularVelocity: 3
   targetSerchingRadius: 30
   boidRadius: 3
   isActiveEvade: 0
@@ -137,12 +138,12 @@ MonoBehaviour:
     weight: 1
     arriveRadius: 1
     slowRadius: 5
-  isActiveFace: 1
+  isActiveFace: 0
   faceBehaviorInfo:
     target: {fileID: 0}
     weight: 1
     facetargetRadius: 30
-  isActiveCohesion: 1
+  isActiveCohesion: 0
   cohesionBehaviorInfo:
     target: {fileID: 0}
     weight: 0.5
@@ -153,7 +154,7 @@ MonoBehaviour:
     weight: 0.3
     threshold: 3
     decayCoefficient: -25
-  isActiveAligment: 1
+  isActiveAligment: 0
   alignmentBehaviorInfo:
     target: {fileID: 0}
     weight: 0.8

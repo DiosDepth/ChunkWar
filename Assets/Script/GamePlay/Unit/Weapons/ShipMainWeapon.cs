@@ -81,6 +81,7 @@ public class ShipMainWeapon : Weapon
 
         if (rv_weaponTargetsInfoQue.Count == 0)
         {
+            targetList.Clear();
             return;
         }
 

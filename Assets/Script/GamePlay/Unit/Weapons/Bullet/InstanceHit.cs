@@ -27,7 +27,7 @@ public class InstanceHit : Bullet
     {
         base.SetUp(cfg);
         _instanceHitCfg = cfg as BulletInstanceHitConfig;
-        maxDistance = _instanceHitCfg.MaxDistance;
+
         width = _instanceHitCfg.Width;
         emittime = _instanceHitCfg.EmitTime;
         duration = _instanceHitCfg.Duration;
@@ -287,6 +287,6 @@ public class InstanceHit : Bullet
 
     private void InitMaxDistance()
     {
-        maxDistance = (_owner as Weapon).weaponAttribute.WeaponRange / 10f + 5f;
+        maxDistance = (_owner as Weapon).weaponAttribute.WeaponRange;
     }
 }

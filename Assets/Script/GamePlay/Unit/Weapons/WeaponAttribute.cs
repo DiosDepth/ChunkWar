@@ -303,7 +303,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private void CalculateWeaponRange()
     {
         var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponRange);
-        WeaponRange = Mathf.Clamp(BaseWeaponRange + weaponRange / 10f, 0, float.MaxValue);
+        WeaponRange = Mathf.Clamp((BaseWeaponRange + weaponRange) / 10f, 0, float.MaxValue);
     }
 
     private void CalculateReloadTime()

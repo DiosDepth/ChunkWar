@@ -218,6 +218,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipUnit; } }
 
+
     [SerializeField]
     public DamagableState state
     {
@@ -414,6 +415,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             unitSprite.color = Color.white;
         }
         GameManager.Instance.RegisterPauseable(this);
+        ChangeUnitState(DamagableState.Normal);
     }
 
     /// <summary>

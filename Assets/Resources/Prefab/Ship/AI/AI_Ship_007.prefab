@@ -163,7 +163,7 @@ MonoBehaviour:
   collisionAvoidanceBehaviorInfo:
     target: {fileID: 0}
     weight: 2
-  drag: 1
+  drag: 3
   velocity: {x: 0, y: 0, z: 0}
   lastpos: {x: 0, y: 0, z: 0}
 --- !u!1 &3431155977748982859
