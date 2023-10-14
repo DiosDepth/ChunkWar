@@ -988,6 +988,24 @@ public class Weapon : Unit
         EffectManager.Instance.CreateEffectAndFollow(_weaponCfg.FireEffect, targetTrans);
     }
 
+    /// <summary>
+    /// 创建打点信息
+    /// </summary>
+    /// <returns></returns>
+    public override UnitLogData GetUnitLogData()
+    {
+        var statistics = AchievementManager.Instance.GetOrCreateRuntimeUnitStatisticsData(UID);
+        UnitLogData data = new UnitLogData();
+        data.UnitID = UnitID;
+        data.UID = UID;
+        data.UnitName = LocalizationManager.Instance.GetTextValue(_baseUnitConfig.GeneralConfig.Name);
+        data.CreateWave = statistics.CreateWaveIndex;
+        data.RemoveWave = statistics.RemoveWaveIndex;
+        data.DamageCreateTotal = statistics.DamageCreateTotal;
+        data.DamageTakeTotal = statistics.DamageTakeTotal;
+        return data;
+    }
+
 #if UNITY_EDITOR
 
     private ValueDropdownList<string> GetBulletNames()

@@ -997,5 +997,4 @@ public static class GameHelper
             }
         }
     }
-
 }

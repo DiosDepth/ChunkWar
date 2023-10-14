@@ -15,6 +15,10 @@ public class GMTalkMainPage : GUIBasePanel
         GetGUIComponent<Button>("Shop").onClick.AddListener(JumpToShop);
         GetGUIComponent<Button>("Vectory").onClick.AddListener(Vectory);
         GetGUIComponent<Button>("Harbor").onClick.AddListener(EnterHarbor);
+        GetGUIComponent<Button>("CreateBattleLog").onClick.AddListener(() =>
+        {
+            GMTalkManager.Instance.HandleGMTalkInputContent("createBattleLog");
+        });
 
         _filed = transform.Find("Content/InputContent/GMCommandField").SafeGetComponent<InputField>();
     }

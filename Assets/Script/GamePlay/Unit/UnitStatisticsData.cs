@@ -16,6 +16,9 @@ public class UnitStatisticsData
 
     public int DamageTakeTotal;
 
+    public int CreateWaveIndex;
+    public int RemoveWaveIndex;
+
     public Dictionary<int, int> WaveCreateDamageTotal;
     public Dictionary<int, int> WaveDamageTakeTotal;
 

@@ -401,7 +401,7 @@ public class ShipBuilder : MonoBehaviour
         
         if(RogueManager.Instance.SellUnit(_currentHoverUnit))
         {
-            editorShip.RemoveEdtiorUnit(_currentHoverUnit);
+            editorShip.RemoveEdtiorUnit(_currentHoverUnit, true);
             _currentHoverUnit = null;
         }
     }
@@ -640,7 +640,7 @@ public class ShipBuilder : MonoBehaviour
         {
             _tempUnitMap = _reletiveCoord.AddToAll(_tempBuildCenter);
             ///»Ö¸´
-            var unit = editorShip.AddEditUnit(currentInventoryItem.itemconfig, _tempUnitMap, _tempBuildCenter, _itemDirection, true);
+            var unit = editorShip.AddEditUnit(currentInventoryItem.itemconfig, _tempUnitMap, _tempBuildCenter, _itemDirection, false);
             var chunks = unit.occupiedCoords;
             for (int i = 0; i < chunks.Count; i++)
             {

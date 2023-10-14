@@ -50,7 +50,7 @@ public class PlayerEditShip : PlayerShip
         RefreshALLUnitSlotEffects();
     }
 
-    public Unit AddEditUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction, bool isEditorMode = false)
+    public Unit AddEditUnit(BaseConfig m_unitconfig, Vector2Int[] m_unitmap, Vector2Int m_poscoord, int m_direction, bool firstAdd = false)
     {
         GameObject obj;
         Vector2Int buildarray;
@@ -95,10 +95,18 @@ public class PlayerEditShip : PlayerShip
         _unitList.Add(tempunit);
         RefreshShipEnergy();
         RefreshALLUnitSlotEffects();
+
+        ///LOG
+        if (firstAdd)
+        {
+            var data = AchievementManager.Instance.GetOrCreateRuntimeUnitStatisticsData(tempunit.UID);
+            data.CreateWaveIndex = RogueManager.Instance.GetCurrentWaveIndex;
+        }
+
         return tempunit;
     }
 
-    public void RemoveEdtiorUnit(Unit m_unit)
+    public void RemoveEdtiorUnit(Unit m_unit, bool firstRemove = false)
     {
         if (!UnitList.Contains(m_unit)) { return; }
 
@@ -114,6 +122,12 @@ public class PlayerEditShip : PlayerShip
         UnitList.Remove(m_unit);
         RefreshShipEnergy();
         RefreshALLUnitSlotEffects();
+        if (firstRemove)
+        {
+            var data = AchievementManager.Instance.GetOrCreateRuntimeUnitStatisticsData(m_unit.UID);
+            data.RemoveWaveIndex = RogueManager.Instance.GetCurrentWaveIndex;
+        }
+
         GameObject.Destroy(m_unit.gameObject);
     }
 

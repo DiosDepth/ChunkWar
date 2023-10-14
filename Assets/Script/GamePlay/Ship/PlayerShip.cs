@@ -648,6 +648,20 @@ public class PlayerShip : BaseShip
         }
     }
 
+    public List<UnitLogData> GenerateAllUnitLogData()
+    {
+        List<UnitLogData> result = new List<UnitLogData>();
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            var log = _unitList[i].GetUnitLogData();
+            if(log != null)
+            {
+                result.Add(log);
+            }
+        }
+        return result;
+    }
+
     public override void GameOver()
     {
         base.GameOver();

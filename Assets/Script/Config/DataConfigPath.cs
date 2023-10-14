@@ -18,4 +18,6 @@ public class DataConfigPath
     public const string BattleMainConfigPath = "Configs/Main/BattleMainConfig";
     public const string GameMiscConfigPath = "Configs/Main/GameMiscConfig";
     public const string ShopMainConfigPath = "Configs/Main/ShopMainConfig";
+
+    public const string Battle_Log_OutPutRootPath = "/BattleLogData";
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
-using Cysharp.Threading.Tasks;
+using System.IO;
+using System;
+using System.Reflection;
 
 public class DataManager : Singleton<DataManager>
 {
@@ -532,4 +534,163 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
+
+    #region CSVExport
+
+    public static void WriteCSV(string fileName, object data)
+    {
+        string name;
+        List<string> props = new List<string>();
+        List<List<string>> items = new List<List<string>>();
+
+        object[] objs = data.GetType().GetCustomAttributes(typeof(CSVTagAttribute), true);
+
+        if (objs == null || objs.Length == 0)
+            return;
+
+        ///生成表头
+        object[] rowObjs = data.GetType().GetCustomAttributes(typeof(CSVCommentAttribute), true);
+        if(rowObjs != null || rowObjs.Length > 0)
+        {
+            name = (objs[0] as CSVTagAttribute).TagName + ",," + (rowObjs[0] as CSVCommentAttribute).Comment;
+        }
+        else
+        {
+            name = (objs[0] as CSVTagAttribute).TagName + ",";
+        }
+
+        ///Property
+        foreach(PropertyInfo property in data.GetType().GetProperties())
+        {
+            object[] objTag = property.GetCustomAttributes(typeof(CSVTagAttribute), true);
+            object[] objComment = property.GetCustomAttributes(typeof(CSVCommentAttribute), true);
+
+            if (objTag == null || objTag.Length == 0)
+                continue;
+
+            object value = property.GetValue(data, null);
+
+            if(value is System.Collections.IList)
+            {
+                List<string> item = new List<string>();
+                items.Add(item);
+                item.Add((objTag[0] as CSVTagAttribute).TagName);
+
+                ///Title
+                object objItem = (value as System.Collections.IList).GetType().GetGenericArguments()[0].GetConstructor(new Type[0]).Invoke(null);
+                string itemStr = "";
+                foreach (PropertyInfo propInfoItem in objItem.GetType().GetProperties())
+                {
+                    object[] objItems = propInfoItem.GetCustomAttributes(typeof(CSVTagAttribute), true);
+                    if (objItems == null || objItems.Length == 0)
+                    {
+                        continue;
+                    }
+                    itemStr += (objItems[0] as CSVTagAttribute).TagName + ",";
+                }
+                item.Add(itemStr);
+
+                ///Value
+                foreach (object valueItem in (value as System.Collections.IList))
+                {
+                    string valueStr = "";
+                    foreach (PropertyInfo propInfoItem in valueItem.GetType().GetProperties())
+                    {
+                        object[] objItems = propInfoItem.GetCustomAttributes(typeof(CSVTagAttribute), true);
+                        if (objItems == null || objItems.Length == 0)
+                        {
+                            continue;
+                        }
+                        valueStr += propInfoItem.GetValue(valueItem, null)?.ToString() + ",";
+                    }
+                    item.Add(valueStr);
+                }
+            }
+            else
+            {
+                if (objComment == null || objComment.Length == 0)
+                {
+                    props.Add((objs[0] as CSVTagAttribute).TagName + "," + (value == null ? "" : value.ToString()) + ",");
+                }
+                else
+                {
+                    props.Add((objs[0] as CSVTagAttribute).TagName + "," + (value == null ? "" : value.ToString()) + "," + (objComment[0] as CSVCommentAttribute).Comment);
+                }
+            }
+        }
+
+        List<string> line = new List<string>();
+        line.Add(name);
+        line.AddRange(props);
+        line.Add("/,");
+        items.ForEach(x =>
+        {
+            line.AddRange(x);
+            line.Add("/,");
+        });
+
+        var root = DetermineLogSavePath();
+        if (!Directory.Exists(root))
+        {
+            Directory.CreateDirectory(root);
+        }
+        var fullPath = string.Format("{0}/{1}.csv", root, fileName);
+
+        if (!File.Exists(fullPath))
+        {
+            var streaming = File.CreateText(fullPath);
+            streaming.WriteLine(line);
+            streaming.Close();
+        }
+    }
+
+    /// <summary>
+    /// Determines the save path to use when loading and saving a file based on a folder name.
+    /// </summary>
+    /// <returns>The save path.</returns>
+    /// <param name="folderName">Folder name.</param>
+    static string DetermineLogSavePath()
+    {
+        var baseRoot = DataConfigPath.Battle_Log_OutPutRootPath;
+        string savePath;
+        // depending on the device we're on, we assemble the path
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            savePath = Application.persistentDataPath + baseRoot;
+        }
+        else
+        {
+            savePath = Application.persistentDataPath + baseRoot;
+        }
+#if UNITY_EDITOR
+        savePath = Application.dataPath + baseRoot;
+#endif
+        return savePath;
+    }
+
+    #endregion
+}
+
+public class CSVTagAttribute : Attribute
+{
+    public string TagName
+    {
+        get;
+        set;
+    }
+
+    public CSVTagAttribute (string tagName)
+    {
+        TagName = tagName;
+    }
+}
+
+public class CSVCommentAttribute : Attribute
+{
+    public string Comment { get; set; }
+
+    public CSVCommentAttribute(string comment)
+    {
+        Comment = comment;
+    }
 }

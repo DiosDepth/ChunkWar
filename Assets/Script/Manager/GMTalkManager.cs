@@ -36,6 +36,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("campscore", AddCampScore);
         AddGMFunctionToDic("win", Win);
         AddGMFunctionToDic("Shop", EnterShop);
+        AddGMFunctionToDic("createBattleLog", CreateBattleLog);
     }
 
     
@@ -123,6 +124,13 @@ public class GMTalkManager : Singleton<GMTalkManager>
     {
         UIManager.Instance.HiddenUI("GMTalkMainPage");
         RogueManager.Instance.EnterShop();
+        return true;
+    }
+
+    private bool CreateBattleLog(string[] content)
+    {
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        RogueManager.Instance.CreateBattleLog();
         return true;
     }
 

@@ -425,6 +425,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void RogueBattleOver()
     {
+        GenerateBattleLog();
         currentShip?.controller.GameOver();
         Timer.Pause();
         Timer.RemoveAllTrigger();
@@ -2073,7 +2074,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     #endregion
 
-
     #region Save
 
     private void CreateNewSaveData()
@@ -2086,6 +2086,35 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SaveLoadManager.Save<SaveData>(sav, sav.SaveName);
         SaveLoadManager.Instance.AddSaveData(sav);
     }
+    #endregion
+
+    #region Log
+
+    public void CreateBattleLog()
+    {
+        GenerateBattleLog();
+    }
+
+    private void GenerateBattleLog()
+    {
+        if (currentShip == null)
+            return;
+
+        BattleLog log = new BattleLog();
+        log.EndTime = System.DateTime.Now.ToString("yyyy-MM-dd");
+        var unitLogDatas = currentShip.GenerateAllUnitLogData();
+        log.UnitLogDatas = unitLogDatas;
+
+#if UNITY_EDITOR
+        var fileName = string.Format("BattleLog_{0}", log.EndTime);
+
+        DataManager.WriteCSV(fileName, log);
+        Debug.Log("导出战斗日志成功");
+#endif
+
+    }
+
+
     #endregion
 }
 
