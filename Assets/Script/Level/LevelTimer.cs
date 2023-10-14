@@ -161,7 +161,7 @@ public class LevelTimerTrigger
     }
 
 
-    public static LevelTimerTrigger CreateTriger(int startSecond, int secondDelta, int loopCount, string TriggerName = null)
+    public static LevelTimerTrigger CreateTrigger(int startSecond, int secondDelta, int loopCount, string TriggerName = null)
     {
         LevelTimerTrigger trigger = new LevelTimerTrigger(startSecond, secondDelta, loopCount);
         trigger.TriggerName = TriggerName;

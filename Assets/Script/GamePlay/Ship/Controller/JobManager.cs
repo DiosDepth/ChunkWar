@@ -25,6 +25,11 @@ public class TargetUnitData : IJobDisposeable
         if (activeTargetUnitPos.IsCreated) { activeTargetUnitPos.Dispose(); }
     }
 
+    public void DisposeReturnValue()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void UpdateData()
     {
         if(activeTargetUnitList.Count  == 0) { return; }
@@ -46,6 +51,11 @@ public class AvoidenceCollisionData : IJobDisposeable
     public void Dispose()
     {
         
+    }
+
+    public void DisposeReturnValue()
+    {
+        throw new System.NotImplementedException();
     }
 
     public void UpdateData()
@@ -80,6 +90,11 @@ public class WeaponData : IJobDisposeable
         if (activeWeaponJobData.IsCreated) { activeWeaponJobData.Dispose(); }
     }
 
+    public void DisposeReturnValue()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void UpdateData()
     {
        if(activeWeaponList.Count == 0) { return; }
@@ -108,6 +123,11 @@ public class BuildingData : IJobDisposeable
     public void Dispose()
     {
         if (activeBuildingJobData.IsCreated) { activeBuildingJobData.Dispose(); }
+    }
+
+    public void DisposeReturnValue()
+    {
+        throw new System.NotImplementedException();
     }
 
     public void UpdateData()

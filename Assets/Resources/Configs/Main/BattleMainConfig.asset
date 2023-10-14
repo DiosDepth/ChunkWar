@@ -77,6 +77,21 @@ MonoBehaviour:
     - Name: MeteoriteGenerate_Timer2
       Entry: 3
       Data: 6
+    - Name: AncientUnitGenerate_Rate1
+      Entry: 4
+      Data: 0.1
+    - Name: AncientUnitGenerate_Timer1
+      Entry: 3
+      Data: 30
+    - Name: AncientUnitGenerate_Rate2
+      Entry: 4
+      Data: 30
+    - Name: AncientUnitGenerate_Timer2
+      Entry: 3
+      Data: 10
+    - Name: AncientUnit_ShipID
+      Entry: 3
+      Data: 5005
     - Name: MeteoriteGenerate_TypeID_Map
       Entry: 7
       Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Int32,

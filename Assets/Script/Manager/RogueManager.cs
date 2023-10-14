@@ -911,7 +911,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.InitTimer(totalTime);
 
         var hardLevelDelta = DataManager.Instance.battleCfg.HardLevelDeltaSeconds;
-        var trigger = LevelTimerTrigger.CreateTriger(0, hardLevelDelta, -1, "HardLevelUpdate");
+        var trigger = LevelTimerTrigger.CreateTrigger(0, hardLevelDelta, -1, "HardLevelUpdate");
         trigger.BindChangeAction(CalculateHardLevelIndex);
         Timer.AddTrigger(trigger);
         CalculateHardLevelIndex();
@@ -990,7 +990,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GenerateEnemyAIFactory();
         GenerateShopCreateTimer();
         ///增加船体值自动恢复Trigger
-        var recoverTrigger = LevelTimerTrigger.CreateTriger(0, 1, -1, "UnitHPRecover");
+        var recoverTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, "UnitHPRecover");
         recoverTrigger.BindChangeAction(OnUpdateUnitHPRecover);
         Timer.AddTrigger(recoverTrigger);
     }
@@ -1008,19 +1008,29 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for(int i = 0; i < enemyCfg.Count; i++)
         {
             var cfg = enemyCfg[i];
-            var trigger = LevelTimerTrigger.CreateTriger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount);
+            var trigger = LevelTimerTrigger.CreateTrigger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount);
             trigger.BindChangeAction(CreateFactory, cfg.ID);
             Timer.AddTrigger(trigger);
         }
         ///Generate Meteorite Common
-        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTriger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
+        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
         MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
         Timer.AddTrigger(MeteoriteTrigger1);
 
         ///Generate Meteorite Smooth
-        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTriger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
+        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
         MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
         Timer.AddTrigger(MeteoriteTrigger2);
+
+        ///Generate Ancient Common
+        var ancientTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer1, _entitySpawnConfig.AncientUnitGenerate_Timer1, -1, "ancientGenerate_1");
+        ancientTrigger1.BindChangeAction(CreateAncientUnitShip);
+        Timer.AddTrigger(ancientTrigger1);
+
+        ///Generate Ancient Smooth
+        var ancientTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer2, _entitySpawnConfig.AncientUnitGenerate_Timer2, -1, "ancientGenerate_2");
+        ancientTrigger2.BindChangeAction(CreateAncientUnitShip_Smooth);
+        Timer.AddTrigger(ancientTrigger2);
     }
 
     private void GenerateShopCreateTimer()
@@ -1036,9 +1046,47 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for (int i = 0; i < shopCfg.Length; i++)
         {
             var time = shopCfg[i];
-            var trigger = LevelTimerTrigger.CreateTriger(time, 0, 1);
+            var trigger = LevelTimerTrigger.CreateTrigger(time, 0, 1);
             trigger.BindChangeAction(CreateShopTeleport);
             Timer.AddTrigger(trigger);
+        }
+    }
+
+    /// <summary>
+    /// 远古无人机生成
+    /// </summary>
+    private void CreateAncientUnitShip()
+    {
+        var count = MainPropertyData.GetPropertyFinal(PropertyModifyKey.AncientUnit_Generate_Count) + 1;
+        count = Mathf.Clamp(count, 1, GameGlobalConfig.AncientUnit_Generate_MaxCount);
+        float targetCount = _entitySpawnConfig.AncientUnitGenerate_Rate1;
+
+        while(targetCount >= 0)
+        {
+            if(targetCount < 1)
+            {
+                bool generate = Utility.CalculateRate100(targetCount * 100);
+                if (generate)
+                {
+                    GenerateAncientUnit();
+                }
+            }
+
+            GenerateAncientUnit();
+            targetCount--;
+        }
+    }
+
+    private void CreateAncientUnitShip_Smooth()
+    {
+        var count = MainPropertyData.GetPropertyFinal(PropertyModifyKey.AncientUnit_Generate_Count) + 1;
+        count = Mathf.Clamp(count, 1, GameGlobalConfig.AncientUnit_Generate_MaxCount);
+
+        var rate = count / _entitySpawnConfig.AncientUnitGenerate_Rate2;
+        bool generate = Utility.CalculateRate100(rate * 100);
+        if (generate)
+        {
+            GenerateAncientUnit();
         }
     }
 
@@ -1120,6 +1168,22 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         WaveEnemySpawnConfig cfg = new WaveEnemySpawnConfig
         {
             AITypeID = typeID,
+            DurationDelta = 0,
+            LoopCount = 1,
+            TotalCount = 1,
+            MaxRowCount = 1,
+        };
+        SpawnEntity(cfg);
+    }
+
+    /// <summary>
+    /// 生成远古单位
+    /// </summary>
+    private void GenerateAncientUnit()
+    {
+        WaveEnemySpawnConfig cfg = new WaveEnemySpawnConfig
+        {
+            AITypeID = _entitySpawnConfig.AncientUnit_ShipID,
             DurationDelta = 0,
             LoopCount = 1,
             TotalCount = 1,
