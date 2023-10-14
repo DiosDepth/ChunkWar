@@ -23,9 +23,10 @@ public class ShipBuilderBrush : MonoBehaviour
         brushSprite.color = validColor;
     }
 
-    public void SetPosition(Vector2 pos)
+    public void SetPosition(Vector2 pos, Vector2 spriteOffset)
     {
         transform.position = pos;
+        brushSprite.transform.localPosition = spriteOffset;
     }
 
     public void SetDirection(int dir)

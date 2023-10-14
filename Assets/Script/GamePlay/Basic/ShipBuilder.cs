@@ -512,7 +512,10 @@ public class ShipBuilder : MonoBehaviour
     private bool HandleUnitBuildProcess()
     {
         _canUnitPlace = true;
-        editorBrush.SetPosition(GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord));
+        var unitCfg = currentInventoryItem.itemconfig as BaseUnitConfig;
+
+        var offset = new Vector2(unitCfg.CorsorOffsetX, unitCfg.CorsorOffsetY);
+        editorBrush.SetPosition(GameHelper.GetWorldPosFromReletiveCoord(editorShip.shipMapCenter, _pointedShipCoord), offset);
 
         _tempUnitMap = _reletiveCoord.AddToAll(_pointedShipCoord);
         //判断当前的Building是否在Chunk范围内,并且当前区块内没有Building占据

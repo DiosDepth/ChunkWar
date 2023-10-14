@@ -411,6 +411,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SlotEffects
+      Entry: 7
+      Data: 2|UnitSlotEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 10015
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 15d669631ae23bb438fa7ef67b6d3fcf, type: 3}
@@ -422,18 +434,24 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
+  GroupID: 0
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: 15d669631ae23bb438fa7ef67b6d3fcf, type: 3}
   EditorBrushDefaultRotation: 0
+  CorsorOffsetX: 0
+  CorsorOffsetY: 0
   ItemTags: 4
   BaseHP: 800
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
+  ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   DamageBase: 50
+  EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
@@ -448,6 +466,14 @@ MonoBehaviour:
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
+  Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

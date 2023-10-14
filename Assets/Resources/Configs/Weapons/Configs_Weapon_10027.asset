@@ -444,28 +444,38 @@ MonoBehaviour:
   CorsorOffsetY: 0
   ItemTags: 4
   BaseHP: 85
-  BaseEnergyCost: 0
+  BaseEnergyCost: 8
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 4
   PropertyModify: []
-  DamageBase: 50
+  DamageBase: 72
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
-  DamageType: 0
+  DamageType: 1
   BaseRange: 300
   BaseCriticalRate: 2
   CriticalDamage: 125
-  TotalDamageCount: 12
+  TotalDamageCount: 1
   ShootPerCount: 1
-  CD: 2.5
+  CD: 1.5
   FireCD: 0.1
-  ShieldTransfixion: 0
+  ShieldTransfixion: 1
   ShieldDamage: 150
-  BaseTransfixion: 0
-  TransfixionReduce: 0
-  DamageModifyFrom: []
+  BaseTransfixion: 3
+  Scatter: 0
+  DamageModifyFrom:
+  - PropertyKey: 16
+    Ratio: 1.1
   FireAudioClip: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

@@ -777,3 +777,11 @@ MonoBehaviour:
     ChineseSimplified: "\u6982\u7387\u7B97\u6CD5"
     English: 
     Japanese: 
+  - TextID: Weapon_Name_10045
+    ChineseSimplified: "\u88C2\u89E3\u5149\u675FT2"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10046
+    ChineseSimplified: "\u88C2\u89E3\u5149\u675FT3"
+    English: 
+    Japanese: 

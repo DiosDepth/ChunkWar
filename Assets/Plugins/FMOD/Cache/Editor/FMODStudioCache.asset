@@ -286,7 +286,7 @@ MonoBehaviour:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638328865410967345
+  cacheTime: 638328867226015625
   cacheVersion: 131608
 --- !u!114 &1760214526661282929
 MonoBehaviour:
@@ -357,7 +357,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638328865410967345
+  lastModified: 638328867226015625
   FileSizes: []
   Exists: 1
 --- !u!114 &5932116681807520797
@@ -402,7 +402,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638328865409797348
+  lastModified: 638328867226015625
   FileSizes:
   - Name: 
     Value: 1380

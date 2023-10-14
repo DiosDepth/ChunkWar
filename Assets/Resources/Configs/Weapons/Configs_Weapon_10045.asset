@@ -411,43 +411,71 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SlotEffects
+      Entry: 7
+      Data: 2|UnitSlotEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 10045
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: d67b40cd7dde2b649806d4fdd77cf4eb, type: 3}
     Name: Weapon_Name_10045
     Desc: Weapon_Desc_10045
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: 2ac402731a752ee41b95a34e1458e873, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
+  GroupID: 0
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: d67b40cd7dde2b649806d4fdd77cf4eb, type: 3}
   EditorBrushDefaultRotation: 0
+  CorsorOffsetX: 0
+  CorsorOffsetY: 0
   ItemTags: 4
   BaseHP: 50
-  BaseEnergyCost: 0
+  BaseEnergyCost: 12
   BaseEnergyGenerate: 0
   LoadAdd: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 4
   PropertyModify: []
-  DamageBase: 50
+  DamageBase: 25
+  EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
-  DamageType: 0
+  DamageType: 1
   BaseRange: 300
   BaseCriticalRate: 45
   CriticalDamage: 200
-  TotalDamageCount: 6
+  TotalDamageCount: 1
   ShootPerCount: 1
   CD: 2
   FireCD: 1.2
-  ShieldTransfixion: 0
-  ShieldDamage: 150
-  BaseTransfixion: 0
-  TransfixionReduce: 0
-  DamageModifyFrom: []
+  ShieldTransfixion: 1
+  ShieldDamage: 175
+  BaseTransfixion: 2
+  Scatter: 0
+  DamageModifyFrom:
+  - PropertyKey: 16
+    Ratio: 1.2
   FireAudioClip: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

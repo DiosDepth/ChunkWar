@@ -92,7 +92,7 @@ MonoBehaviour:
   effectSlotCoords: []
   weaponmode: 0
   firemode: 1
-  aimingtype: 1
+  aimingtype: 2
   bulletName: BaseInstanceHit_Player
   targetmode: 0
   mask:

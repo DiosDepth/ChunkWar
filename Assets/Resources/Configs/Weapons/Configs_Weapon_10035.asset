@@ -434,6 +434,7 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
+  GroupID: 0
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
@@ -443,11 +444,14 @@ MonoBehaviour:
   CorsorOffsetY: 0
   ItemTags: 4
   BaseHP: 30
-  BaseEnergyCost: 10
+  BaseEnergyCost: 8
   BaseEnergyGenerate: 0
   LoadAdd: 0
+  ParalysisResume: 0
+  ParalysisResumeTime: 0
   PropertyModify: []
   DamageBase: 3
+  EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
@@ -462,8 +466,16 @@ MonoBehaviour:
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
+  Scatter: 0
   DamageModifyFrom:
   - PropertyKey: 15
     Ratio: 0.5
   FireAudioClip: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
