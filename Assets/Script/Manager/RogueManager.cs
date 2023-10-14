@@ -2101,7 +2101,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             return;
 
         BattleLog log = new BattleLog();
-        log.EndTime = System.DateTime.Now.ToString("yyyy-MM-dd");
+        log.EndTime = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
         var unitLogDatas = currentShip.GenerateAllUnitLogData();
         log.UnitLogDatas = unitLogDatas;
 

@@ -610,11 +610,11 @@ public class DataManager : Singleton<DataManager>
             {
                 if (objComment == null || objComment.Length == 0)
                 {
-                    props.Add((objs[0] as CSVTagAttribute).TagName + "," + (value == null ? "" : value.ToString()) + ",");
+                    props.Add((objTag[0] as CSVTagAttribute).TagName + "," + (value == null ? "" : value.ToString()) + ",");
                 }
                 else
                 {
-                    props.Add((objs[0] as CSVTagAttribute).TagName + "," + (value == null ? "" : value.ToString()) + "," + (objComment[0] as CSVCommentAttribute).Comment);
+                    props.Add((objTag[0] as CSVTagAttribute).TagName + "," + (value == null ? "" : value.ToString()) + "," + (objComment[0] as CSVCommentAttribute).Comment);
                 }
             }
         }
@@ -636,12 +636,7 @@ public class DataManager : Singleton<DataManager>
         }
         var fullPath = string.Format("{0}/{1}.csv", root, fileName);
 
-        if (!File.Exists(fullPath))
-        {
-            var streaming = File.CreateText(fullPath);
-            streaming.WriteLine(line);
-            streaming.Close();
-        }
+        File.WriteAllLines(fullPath, line, System.Text.Encoding.UTF8);
     }
 
     /// <summary>
