@@ -197,7 +197,7 @@ public class AIFactory : MonoBehaviour,IPoolable
         PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + name, true, (obj) =>
         {
             obj.transform.position = position;
-            obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, this.transform.position.DirectionToXY(target.position));
+            obj.transform.rotation = Quaternion.LookRotation(Vector3.forward,obj.transform.position.DirectionToXY(target.position));
             var tempship = obj.GetComponent<AIShip>();
             tempship.Initialization();
             _shiplist.Add(tempship);
