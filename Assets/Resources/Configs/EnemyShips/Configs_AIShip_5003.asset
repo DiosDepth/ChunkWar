@@ -1456,5 +1456,6 @@ MonoBehaviour:
   MaxVelocity: 15
   MaxAcceleration: 2
   MaxAngularAcceleration: 3
+  MaxAngularVelocity: 1
   boidRadius: 2
   targetSerchingRadius: 15

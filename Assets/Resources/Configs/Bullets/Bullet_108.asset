@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a9991b21095f04e8bd1e68b3543206, type: 3}
-  m_Name: Bullet_106
+  m_Script: {fileID: 11500000, guid: c28d30143c59c9e40ba5ce18c3b4ad1b, type: 3}
+  m_Name: Bullet_108
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,12 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  ID: 106
-  BulletName: BasePassThroughMissile_AI
-  Type: 0
+  ID: 108
+  BulletName: Beam_Middle_AI
+  Type: 2
   Owner: 1
-  Prefab: {fileID: 8903830990857463265, guid: 6c40fd95216b1ec4283e1bd0ad9e026a, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/BasePassThroughMissile_AI
+  Prefab: {fileID: 3574238879806340193, guid: 3d9278b9c67656b43b508455dbd248b2, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/Beam_Middle_AI
   HitAudio: 
   HitEffect:
     EffectName: 
@@ -36,10 +36,8 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ExplodeRange: 15
-  LifeTime: 7
-  MaxSpeed: 70
-  RotationSpeed: 180
-  InitialSpeed: 20
-  Acceleration: 0.25
-  MissileHP: 100
+  MaxDistance: 105
+  Width: 1.5
+  EmiteTime: 0.1
+  Duration: 0.35
+  DeathTime: 0.1

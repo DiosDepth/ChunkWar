@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_5001
+  m_Name: Configs_AIShip_001
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1433,29 +1433,29 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 5001
+  ID: 1
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 8cb1c15e2c5cba54fa8846d255025d86, type: 3}
-    Name: Enemy_Name_5001
+    IconSprite: {fileID: 21300000, guid: 6b6b0a918a27b064b8d9ebe6edbe2663, type: 3}
+    Name: Enemy_Name_001
     Desc: 
-    Rarity: 1
+    Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: cf039d8b49aaca143ae44efedcf8d2c4, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: 78e0d89966b208549b01263ff6a23337, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
   DropList:
   - pickuptype: 1
-    count: 10
-    dropRate: 100
+    count: 1
+    dropRate: 80
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
-  AttackBase: 15
+  AttackBase: 5
   HardLevelGroupID: 1
-  MaxVelocity: 15
-  MaxAcceleration: 2
+  MaxVelocity: 20
+  MaxAcceleration: 4
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 1
-  targetSerchingRadius: 15
+  targetSerchingRadius: 30

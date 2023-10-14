@@ -91,6 +91,9 @@ MonoBehaviour:
     - Name: SpawnIntervalTime
       Entry: 4
       Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 0.8
     - Name: 
       Entry: 8
       Data: 
@@ -124,6 +127,9 @@ MonoBehaviour:
     - Name: SpawnIntervalTime
       Entry: 4
       Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 0.8
     - Name: 
       Entry: 8
       Data: 
@@ -157,6 +163,9 @@ MonoBehaviour:
     - Name: SpawnIntervalTime
       Entry: 4
       Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 0.8
     - Name: 
       Entry: 8
       Data: 

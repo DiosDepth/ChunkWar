@@ -21,6 +21,7 @@ public class FaceBehavior : SteeringBehavior
         [ReadOnly] public NativeArray<float> job_facetagetRadius;
         [ReadOnly] public float3 job_targetPos;
         [ReadOnly] public NativeArray<float> job_maxAngularAcceleration;
+        [ReadOnly] public NativeArray<float> job_maxAngularVelocity;
         [ReadOnly] public float job_deltatime;
 
         public NativeArray<SteeringBehaviorInfo> rv_Steerings;
@@ -72,6 +73,7 @@ public class FaceBehavior : SteeringBehavior
                 diff = (2 * diff) % 360 - diff;
                 //get diff between tareget and from angle
                 diff = math.lerp(0, diff, math.clamp(job_maxAngularAcceleration[i] * job_deltatime, 0, 1));
+                /// MAX TODO
 
                 resultangle = (fromangle + diff) % 360;
                 

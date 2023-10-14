@@ -73,6 +73,7 @@ public class WaveConfig
     /// <summary>
     /// 陨石生成稀有度权重
     /// </summary>
+    [LabelText("陨石生成配置")]
     public Dictionary<GoodsItemRarity, byte> MeteoriteGenerateRate_RarityMap = new Dictionary<GoodsItemRarity, byte>()
     {
         { GoodsItemRarity.Tier1, 0 },
@@ -139,28 +140,39 @@ public class WaveEnemySpawnConfig
     [LabelWidth(100)]
     public int StartTime;
 
-    [HorizontalGroup("CC", 160)]
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
     [LabelText("敌人数量")]
     [LabelWidth(80)]
     [MinValue(1)]
     public int TotalCount = 1;
 
-    [HorizontalGroup("CC", 160)]
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
     [LabelText("每行敌人")]
     [LabelWidth(80)]
     [MinValue(1)]
     public int MaxRowCount = 1;
 
-    [HorizontalGroup("CC", 160)]
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
     [LabelText("队形")]
     [LabelWidth(50)]
     public Shape SpawnShpe = Shape.Rectangle;
 
-    [HorizontalGroup("CC", 160)]
-    [LabelText("生成间隔")]
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
+    [LabelText("时间间隔")]
     [LabelWidth(80)]
     [MinValue(0)]
     public float SpawnIntervalTime = 0;
+
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
+    [LabelText("距离间隔")]
+    [LabelWidth(80)]
+    [MinValue(0)]
+    public float SpawnSizeInterval = 0.8f;
 
     private void OnTypeIDChange()
     {

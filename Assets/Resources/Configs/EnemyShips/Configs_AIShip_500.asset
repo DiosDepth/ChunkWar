@@ -1436,7 +1436,7 @@ MonoBehaviour:
   ID: 500
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 55aab8e043056b1439a99730ff32f397, type: 3}
-    Name: Enemy_Name_103
+    Name: Enemy_Name_500
     Desc: 
     Rarity: 2
     SortingOrder: 0
@@ -1458,6 +1458,7 @@ MonoBehaviour:
   HardLevelGroupID: 1
   MaxVelocity: 8
   MaxAcceleration: 1
-  MaxAngularAcceleration: 3
+  MaxAngularAcceleration: 0.5
+  MaxAngularVelocity: 1
   boidRadius: 4
   targetSerchingRadius: 30

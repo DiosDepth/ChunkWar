@@ -36,7 +36,7 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  MaxDistance: 100
-  Width: 0.15
-  EmiteTime: 0.025
-  DeathTime: 0.05
+  MaxDistance: 50
+  Width: 0.8
+  EmiteTime: 0.05
+  DeathTime: 0.1

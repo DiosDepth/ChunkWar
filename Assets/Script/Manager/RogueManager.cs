@@ -1130,6 +1130,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             aIFactory.Initialization();
             RectAISpawnSetting spawnSetting = new RectAISpawnSetting(cfg.AITypeID, cfg.TotalCount, cfg.MaxRowCount);
             spawnSetting.spawnIntervalTime = cfg.SpawnIntervalTime;
+            spawnSetting.sizeInterval = new Vector2(cfg.SpawnSizeInterval, cfg.SpawnSizeInterval);
             spawnSetting.spawnShape = cfg.SpawnShpe;
 
             aIFactory.StartSpawn(spawnpoint, spawnSetting, (ship) =>

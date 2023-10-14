@@ -117,8 +117,18 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         }
         else
         {
+            var parentAI = OwnerShip as AIShip;
+            var hardLevel = GameHelper.GetEnemyHardLevelItem(parentAI.AIShipCfg.HardLevelGroupID);
+            if(hardLevel != null)
+            {
+                MaxShieldHP = _shieldHPBase + hardLevel.ShieldAdd;
+            }
+            else
+            {
+                MaxShieldHP = _shieldHPBase;
+            }
+
             ///Enemy
-            MaxShieldHP = _shieldHPBase;
             ShieldRatio = _shieldRatioBase;
             ShieldRecoverTime = _shieldRecoverCDBase;
             ShieldRecoverValue = _shieldRecoverValueBase;
@@ -246,6 +256,12 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         var shieldMinRatio = DataManager.Instance.battleCfg.ShieldRatioMin;
         var ratioValue = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldRatioAdd);
         ShieldRatio = Mathf.Clamp(ratioValue + _shieldRatioBase, shieldMinRatio, int.MaxValue);
+
+        ///Refresh MonoShield
+        if(monoShield != null)
+        {
+            monoShield.UpdateShieldRatio();
+        }
     }
 
     /// <summary>

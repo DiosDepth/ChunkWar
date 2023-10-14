@@ -1433,28 +1433,32 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 1
+  ID: 100
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 6b6b0a918a27b064b8d9ebe6edbe2663, type: 3}
-    Name: Enemy_Name_001
+    IconSprite: {fileID: 21300000, guid: 9ea47e6907bbc204fb846d53908f8a13, type: 3}
+    Name: Enemy_Name_100
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: 78e0d89966b208549b01263ff6a23337, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: 4a874665660847e47851869e6bb975f1, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  ShipClass: 0
+  ShipClass: 1
   DropList:
+  - pickuptype: 1
+    count: 1
+    dropRate: 100
   - pickuptype: 1
     count: 1
     dropRate: 80
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
-  AttackBase: 5
+  AttackBase: 15
   HardLevelGroupID: 1
-  MaxVelocity: 20
-  MaxAcceleration: 4
+  MaxVelocity: 10
+  MaxAcceleration: 1
   MaxAngularAcceleration: 3
-  boidRadius: 1
-  targetSerchingRadius: 15
+  MaxAngularVelocity: 1
+  boidRadius: 2
+  targetSerchingRadius: 25

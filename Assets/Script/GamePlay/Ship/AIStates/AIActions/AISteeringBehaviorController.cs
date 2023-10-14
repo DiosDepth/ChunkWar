@@ -23,7 +23,8 @@ public class AISteeringBehaviorController : BaseController, IBoid
 
     public float maxAcceleration = 10f;
     public float maxVelocity = 7f;
-    public float maxAngularAcceleration = 3f;
+    public float maxAngularAcceleration = 1f;
+    public float maxAngularVelocity = 3f;
     public float targetSerchingRadius = 15f;
     public float boidRadius = 1f;
 
@@ -110,6 +111,7 @@ public class AISteeringBehaviorController : BaseController, IBoid
         maxAcceleration = cfg.MaxAcceleration;
         maxAngularAcceleration = cfg.MaxAngularAcceleration;
         maxVelocity = cfg.MaxVelocity;
+        maxAngularVelocity = cfg.MaxAngularVelocity;
         targetSerchingRadius = cfg.targetSerchingRadius;
     }
 

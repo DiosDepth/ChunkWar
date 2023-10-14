@@ -68,6 +68,12 @@ public class AIShipConfig : BaseShipConfig
 
     [FoldoutGroup("AI配置")]
     [HorizontalGroup("AI配置/A")]
+    [BoxGroup("AI配置/A/最大旋转速度")]
+    [HideLabel]
+    public float MaxAngularVelocity = 1f;
+
+    [FoldoutGroup("AI配置")]
+    [HorizontalGroup("AI配置/A")]
     [BoxGroup("AI配置/A/半径大小")]
     [HideLabel]
     public float boidRadius = 1f;

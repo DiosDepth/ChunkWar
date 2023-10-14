@@ -311,3 +311,11 @@ MonoBehaviour:
     ChineseSimplified: "\u5229\u7EF4\u5766"
     English: 
     Japanese: 
+  - TextID: Enemy_Name_500
+    ChineseSimplified: "\u514B\u7F57\u8BFA\u65AF\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_007
+    ChineseSimplified: "\u5DE5\u8702"
+    English: 
+    Japanese: 

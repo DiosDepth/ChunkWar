@@ -425,7 +425,7 @@ MonoBehaviour:
       Data: 
   ID: 111
   GeneralConfig:
-    IconSprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+    IconSprite: {fileID: 21300000, guid: 01470b7dbaf43c74782ed3866d5387c6, type: 3}
     Name: AI_MissileLauncher
     Desc: 
     Rarity: 0
@@ -456,7 +456,7 @@ MonoBehaviour:
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0
-  BaseRange: 250
+  BaseRange: 400
   BaseCriticalRate: 0
   CriticalDamage: 0
   TotalDamageCount: 2
