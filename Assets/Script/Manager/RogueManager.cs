@@ -1296,7 +1296,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SpawnEntity(cfg);
     }
 
-    private void SpawnEntity(WaveEnemySpawnConfig cfg)
+    public void SpawnEntity(WaveEnemySpawnConfig cfg, int overrideHardLevelID = -1)
     {
         if (cfg == null || currentShip == null)
             return;
@@ -1312,7 +1312,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             spawnSetting.sizeInterval = new Vector2(cfg.SpawnSizeInterval, cfg.SpawnSizeInterval);
             spawnSetting.spawnShape = cfg.SpawnShpe;
 
-            aIFactory.StartSpawn(spawnpoint, spawnSetting, (ship) =>
+            aIFactory.StartSpawn(spawnpoint, spawnSetting, overrideHardLevelID, (ship) =>
             {
                 AIManager.Instance.AddAI(ship);
             });

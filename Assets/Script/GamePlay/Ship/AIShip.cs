@@ -10,6 +10,11 @@ public class AIShip : BaseShip,IPoolable
 
     public int AITypeID;
 
+    /// <summary>
+    /// 覆盖难度参数
+    /// </summary>
+    public int OverrideHardLevelID;
+
     public override void Initialization()
     {
         base.Initialization();

@@ -319,3 +319,7 @@ MonoBehaviour:
     ChineseSimplified: "\u5DE5\u8702"
     English: 
     Japanese: 
+  - TextID: HardLevelName_Test
+    ChineseSimplified: "\u6D4B\u8BD5\u6A21\u5F0F"
+    English: 
+    Japanese: 

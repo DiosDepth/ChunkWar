@@ -116,7 +116,7 @@ MonoBehaviour:
   deathVFXName: ExplodeVFX
   maxTargetCount: 2
   unitSprite: {fileID: 8113757006542053505}
-  rotationRoot: {fileID: 1000722331128833097}
+  rotationRoot: {fileID: 3886789395544752138}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}

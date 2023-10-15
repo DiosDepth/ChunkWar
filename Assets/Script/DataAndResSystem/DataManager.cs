@@ -191,6 +191,15 @@ public class DataManager : Singleton<DataManager>
         return null;
     }
 
+    public EnemyHardLevelData GetEnemyHardLevelData(int groupID)
+    {
+        if (_enemyHardLevelDatas.ContainsKey(groupID))
+        {
+            return _enemyHardLevelDatas[groupID];
+        }
+        return null;
+    }
+
     /// <summary>
     /// 根据稀有度获取掉落物
     /// </summary>
@@ -267,6 +276,15 @@ public class DataManager : Singleton<DataManager>
         _AIShipConfigDic.TryGetValue(enemyID, out result);
         Debug.Assert(result != null, "GetEnemyShipConfig Null! ID= " + enemyID);
         return result;
+    }
+
+    public List<AIShipConfig> GetAllAIShips(bool order = true)
+    {
+        var lst = _AIShipConfigDic.Values.ToList();
+        if (order)
+            return lst.OrderBy(x => x.ID).ToList();
+
+        return lst;
     }
 
     public ShopGoodsItemConfig GetShopGoodsCfg(int goodsID)

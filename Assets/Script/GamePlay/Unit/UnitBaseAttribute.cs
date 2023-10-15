@@ -112,9 +112,7 @@ public class UnitBaseAttribute
             }
             else
             {
-                var enemyShip = _parentUnit._owner as AIShip;
-
-                _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
+                InitEnemyHardLevelItem();
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
                 CalculateEnemyHP();
             }
@@ -203,6 +201,19 @@ public class UnitBaseAttribute
         if (playerShip != null)
         {
             playerShip.RefreshShipEnergy();
+        }
+    }
+
+    private void InitEnemyHardLevelItem()
+    {
+        var enemyShip = _parentUnit._owner as AIShip;
+        if(enemyShip.OverrideHardLevelID != -1)
+        {
+            _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
+        }
+        else
+        {
+            _hardLevelItem = DataManager.Instance.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID, enemyShip.OverrideHardLevelID);
         }
     }
 }
