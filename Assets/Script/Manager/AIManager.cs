@@ -619,15 +619,18 @@ public class AIManager : Singleton<AIManager>, IPauseable
     //当Ship死亡时， 移除Ship的所有Unit
     public void RemoveReminedUnit(AIShip ship)
     {
-        for (int i = 0; i < ship.UnitList.Count; i++)
+        for (int i = ship.UnitList.Count - 1; i >=0; i--)
         {
-                RemoveSingleUnit(ship.UnitList[i]);
+            RemoveSingleUnit(ship.UnitList[i]);
         }
     }
 
     public void RemoveSingleUnit(Unit unit)
     {
         int index = aiActiveUnitList.IndexOf(unit);
+        if (index == -1)
+            return;
+
         aiActiveUnitList.RemoveAt(index);
         aiActiveUnitPos.RemoveAt(index);
         aiActiveUnitAttackRange.RemoveAt(index);

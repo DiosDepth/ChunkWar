@@ -37,6 +37,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("win", Win);
         AddGMFunctionToDic("Shop", EnterShop);
         AddGMFunctionToDic("createBattleLog", CreateBattleLog);
+        AddGMFunctionToDic("addPlug", AddPlug);
     }
 
     
@@ -70,6 +71,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var keyWords = strlst[0];
         keyWords.ToLower();
         strlst.RemoveAt(0);
+
         if (GMFunctionDic.ContainsKey(keyWords))
         {
             var func = GMFunctionDic[keyWords];
@@ -156,6 +158,16 @@ public class GMTalkManager : Singleton<GMTalkManager>
         int value = 0;
         int.TryParse(content[0], out value);
         RogueManager.Instance.AddEXP(value);
+        return true;
+    }
+
+    private bool AddPlug(string[] content)
+    {
+        if (content.Length != 1)
+            return false;
+        int value = 0;
+        int.TryParse(content[0], out value);
+        RogueManager.Instance.AddNewShipPlug(value);
         return true;
     }
 

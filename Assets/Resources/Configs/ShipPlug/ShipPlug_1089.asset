@@ -48,5 +48,5 @@ MonoBehaviour:
     SpecialKeyParam: EnergyPercent
   EffectDesc: ShipPlug_Effect_1089
   EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

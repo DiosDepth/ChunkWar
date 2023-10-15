@@ -1486,10 +1486,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///去除已经锁定的物品
         refreshCount = (byte)Mathf.Max(0, refreshCount - itemLockCount);
         GenerateShopGoods(refreshCount, _shopRefreshTotalCount);
-        RogueEvent.Trigger(RogueEventType.ShopReroll);
 
         OnShopRefresh?.Invoke(_currentRereollCount);
-
+        RogueEvent.Trigger(RogueEventType.ShopReroll);
         Debug.Log("刷新商店，刷新次数 = " + _currentRereollCount);
         return true;
     }
@@ -1604,7 +1603,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <returns></returns>
     public List<ShopGoodsInfo> GetRandomCurrentRogueShopItems(int count)
     {
-        if (CurrentRogueShopItems.Count >= count)
+        if (CurrentRogueShopItems.Count <= count)
             return CurrentRogueShopItems;
 
         return Utility.GetRandomList<ShopGoodsInfo>(CurrentRogueShopItems, count);

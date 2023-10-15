@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 
   ID: 1121
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 4f42598e6164dce4d92b83a683dccbad, type: 3}
     Name: ShipPlug_Name_1121
     Desc: 
     Rarity: 2

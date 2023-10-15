@@ -45,6 +45,12 @@ MonoBehaviour:
     - Name: Percent
       Entry: 4
       Data: 15
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
     - Name: Effects
       Entry: 7
       Data: 2|ModifyTriggerEffectConfig[], Assembly-CSharp
@@ -138,7 +144,7 @@ MonoBehaviour:
       Data: 
   ID: 1109
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 521a5b21b00871b4ca0dceace6178461, type: 3}
     Name: ShipPlug_Name_1109
     Desc: 
     Rarity: 3
@@ -146,5 +152,5 @@ MonoBehaviour:
   PropertyModify: []
   EffectDesc: ShipPlug_Effect_1109
   EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

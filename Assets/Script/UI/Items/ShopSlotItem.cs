@@ -167,7 +167,7 @@ public class ShopSlotItem : MonoBehaviour
         disCountTrans.SafeSetActive(_goodsInfo.DiscountValue != 0);
         if(_goodsInfo.DiscountValue != 0)
         {
-            disCountTrans.Find("Value").SafeGetComponent<TextMeshProUGUI>().text = string.Format("{0}{1}", _goodsInfo.DiscountValue, LocalizationManager.Instance.GetTextValue(ShopGoods_DiscountText));
+            disCountTrans.Find("Value").SafeGetComponent<TextMeshProUGUI>().text = string.Format("{0}%{1}", _goodsInfo.DiscountValue, LocalizationManager.Instance.GetTextValue(ShopGoods_DiscountText));
         }
     }
 

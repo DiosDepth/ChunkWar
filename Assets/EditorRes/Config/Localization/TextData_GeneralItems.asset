@@ -802,7 +802,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1138
-    ChineseSimplified: "\u80FD\u91CF\u6CE2\u52A8"
+    ChineseSimplified: "\u7279\u6B8A\u706B\u63A7\u88C5\u7F6E"
     English: 
     Japanese: 
   - TextID: ShipPlug_Name_1139
@@ -819,5 +819,9 @@ MonoBehaviour:
     Japanese: 
   - TextID: ShipPlug_Name_1142
     ChineseSimplified: "\u84C4\u80FD\u5F39\u836F"
+    English: 
+    Japanese: 
+  - TextID: ShipPlug_Effect_1029
+    ChineseSimplified: "\u8D27\u4ED3\u8D1F\u8F7D\u4F4E\u4E8E<color=#09B3CB>100%</color>\u7684\u90E8\u5206\uFF0C\u6BCF\u591A\u4F59<color=#09B3CB>1%</color>\u8D1F\u8F7D\u63D0\u5347<color=#09B3CB>1%</color>\u4F24\u5BB3"
     English: 
     Japanese: 

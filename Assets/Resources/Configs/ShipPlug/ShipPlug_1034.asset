@@ -53,5 +53,5 @@ MonoBehaviour:
     SpecialKeyParam: 
   EffectDesc: 
   EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

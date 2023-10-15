@@ -355,7 +355,7 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     protected virtual bool Trigger(uint parentUnitID = 0)
     {
-        if (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount)
+        if (Config.TriggerCount > 0 && (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount))
             return false;
 
         if (Config.UsePercent) 

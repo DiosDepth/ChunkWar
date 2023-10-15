@@ -53,5 +53,5 @@ MonoBehaviour:
     SpecialKeyParam: EnemyCount
   EffectDesc: ShipPlug_Effect_1080
   EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

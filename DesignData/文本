@@ -8,6 +8,9 @@ ShipPlug_Effect_1014	每<color=#09B3CB>2%</color>舰船速度<color=#09B3CB>+1%<
 ShipPlug_Effect_1021	每击杀<color=#09B3CB>15</color>名敌人增加<color=#09B3CB>1%</color>伤害，波次结束后清空
 ShipPlug_Effect_1023	每一个<color=#09B3CB>T1</color>装备<color=#EF3E3E>-3%</color>暴击率
 ShipPlug_Effect_1027	刷新插件时，随机一个商品价格降低<color=#09B3CB>30%</color>
+
+ShipPlug_Effect_1029	货仓负载低于<color=#09B3CB>100%</color>的部分，每多余<color=#09B3CB>1%</color>负载提升<color=#09B3CB>1%</color>伤害
+
 ShipPlug_Effect_1032	负载溢出<color=#09B3CB>100%</color>的部分转化为伤害
 ShipPlug_Effect_1045	进入港口时，每有一个装备残骸，永久增加<color=#09B3CB>3</color>点结构值
 ShipPlug_Effect_1046	核心结构值低于<color=#09B3CB>50%</color>时，结构再生<color=#09B3CB>+15</color>，装甲<color=#09B3CB>+2</color>
