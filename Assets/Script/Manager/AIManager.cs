@@ -5,9 +5,7 @@ using System.Linq;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEditor.U2D.Common;
 using UnityEngine;
-using UnityEngine.U2D;
 using static GameHelper;
 
 public enum FindCondition

@@ -72,6 +72,8 @@ public class DataManager : Singleton<DataManager>
             LoadLevelConfig();
             LoadAllBaseUnitConfig();
             LoadMiscData();
+            SoundManager.Instance.LoadBanks();
+
             bool iscompleted = CollectCSV(out TextAsset[] datas);
             if (iscompleted)
             {
