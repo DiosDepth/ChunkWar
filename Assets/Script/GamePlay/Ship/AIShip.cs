@@ -13,7 +13,7 @@ public class AIShip : BaseShip,IPoolable
     /// <summary>
     /// 覆盖难度参数
     /// </summary>
-    public int OverrideHardLevelID;
+    public int OverrideHardLevelID = -1;
 
     public override void Initialization()
     {
