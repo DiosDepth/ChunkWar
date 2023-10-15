@@ -122,6 +122,26 @@ public class ShopSlotItem : MonoBehaviour
         }
     }
 
+    public void RefreshLuckPercentProperty()
+    {
+        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
+        if (plugCfg == null)
+            return;
+
+        if (plugCfg.ModifyTriggers == null || plugCfg.ModifyTriggers.Length <= 0)
+            return;
+
+        for (int i = 0; i < plugCfg.ModifyTriggers.Length; i++)
+        {
+            var trigger = plugCfg.ModifyTriggers[i];
+            if (trigger.UsePercent && trigger.UseLuckModify)
+            {
+                SetEffectDesc(plugCfg.GetEffectDesc(), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
+                break;
+            }
+        }
+    }
+
     /// <summary>
     /// Ë¢ÐÂ»¨·Ñ
     /// </summary>

@@ -57,8 +57,7 @@ MonoBehaviour:
     SpecialType: 2
     SpecialKeyParam: EnemyCount
   EffectDesc: 
-  EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify:
   - ModifyKey: 31
     Value: -50

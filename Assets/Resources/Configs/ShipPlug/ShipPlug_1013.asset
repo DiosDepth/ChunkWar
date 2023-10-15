@@ -92,7 +92,6 @@ MonoBehaviour:
     Rarity: 2
     SortingOrder: 0
   PropertyModify: []
-  EffectDesc: ShipPlug_Desc_1013
-  EffectDescDamageParam: 0
+  EffectDesc: ShipPlug_Effect_1013
   PlugTags: 0
   PropertyPercentModify: []

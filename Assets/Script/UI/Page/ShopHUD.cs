@@ -116,6 +116,10 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
                 RefreshLoadSlider();
                 break;
 
+            case ShipPropertyEventType.LuckChange:
+                RefreshShopLuckContent();
+                break;
+
             case ShipPropertyEventType.MainPropertyValueChange:
                 var modifyKey = (PropertyModifyKey)evt.param[0];
                 _propertyGroup.RefreshPropertyByKey(modifyKey);
@@ -285,6 +289,14 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         else
         {
             _propertyBtnText.text = LocalizationManager.Instance.GetTextValue(PropertyBtnSwitch_Sub);
+        }
+    }
+
+    private void RefreshShopLuckContent()
+    {
+        for (int i = 0; i < allShopSlotItems.Count; i++) 
+        {
+            allShopSlotItems[i].RefreshLuckPercentProperty();
         }
     }
 }

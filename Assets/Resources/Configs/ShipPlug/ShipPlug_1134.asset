@@ -78,6 +78,12 @@ MonoBehaviour:
     - Name: Value
       Entry: 3
       Data: 1
+    - Name: GainPercent
+      Entry: 5
+      Data: false
+    - Name: PercentValue
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -107,7 +113,7 @@ MonoBehaviour:
       Data: 
   ID: 1134
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 283ac32679ed6974d973366abadb3168, type: 3}
     Name: ShipPlug_Name_1134
     Desc: 
     Rarity: 3
@@ -123,7 +129,6 @@ MonoBehaviour:
     BySpecialValue: 0
     SpecialType: 0
     SpecialKeyParam: 
-  EffectDesc: 
-  EffectDescDamageParam: 0
+  EffectDesc: ShipPlug_Effect_1134
   PlugTags: 0
   PropertyPercentModify: []

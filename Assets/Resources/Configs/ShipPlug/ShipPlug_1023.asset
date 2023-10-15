@@ -135,6 +135,5 @@ MonoBehaviour:
     SpecialType: 0
     SpecialKeyParam: 
   EffectDesc: ShipPlug_EffectDesc_1023
-  EffectDescDamageParam: 0
   PlugTags: 0
   PropertyPercentModify: []

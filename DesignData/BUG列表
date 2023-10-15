@@ -1,3 +1,9 @@
 第五个激光武器有BUG，第一次发射后子弹不会消失
 多点链式激光配置有问题，只能发射一条射线  低6个武器
 激光射程需要和表现的光束分开，射程用来计算受击
+
+
+导弹HP	PropertyName_MissileHPPercent
+舰载机护盾范围	PropertyName_Aircraft_ShieldRatio
+护盾受击恢复时长	PropertyName_ShieldRecoverTimeReduce
+护盾恢复量	PropertyName_ShieldRecoverValue

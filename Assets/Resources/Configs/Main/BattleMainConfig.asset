@@ -51,6 +51,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 1a8689827bc549b46b58f34393d92e9c, type: 3}
     - {fileID: 21300000, guid: 5d1542524f367a74cafa1bc6c84f94b7, type: 3}
     - {fileID: 21300000, guid: ee80cf7f7c2675f49bd9464bc2616726, type: 3}
+    - {fileID: 21300000, guid: 1fa45f0ff1747e849b1cc4c10201bd51, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -641,7 +642,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 41
+      Data: 52
     - Name: 
       Entry: 7
       Data: 
@@ -2112,6 +2113,402 @@ MonoBehaviour:
     - Name: TextSpriteIndex
       Entry: 3
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 18
+    - Name: $v
+      Entry: 7
+      Data: 65|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldDamage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 10
+      Data: 35
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 60
+    - Name: $v
+      Entry: 7
+      Data: 66|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_AirCraftHP
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 61
+    - Name: $v
+      Entry: 7
+      Data: 67|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_AirCraftSpeed
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 63
+    - Name: $v
+      Entry: 7
+      Data: 68|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_HangerEnergyCostPercent
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 47
+    - Name: $v
+      Entry: 7
+      Data: 69|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_LoadPunishRate
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 52
+    - Name: $v
+      Entry: 7
+      Data: 70|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EnergyPunishRate
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 59
+    - Name: $v
+      Entry: 7
+      Data: 71|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_AirCraftDamage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 49
+    - Name: $v
+      Entry: 7
+      Data: 72|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_MissileHPPercent
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 62
+    - Name: $v
+      Entry: 7
+      Data: 73|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Aircraft_ShieldRatio
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 25
+    - Name: $v
+      Entry: 7
+      Data: 74|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldRecoverValue
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 26
+    - Name: $v
+      Entry: 7
+      Data: 75|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldRecoverTimeReduce
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
     - Name: 
       Entry: 8
       Data: 

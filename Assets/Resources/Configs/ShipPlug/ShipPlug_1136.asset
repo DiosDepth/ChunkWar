@@ -104,13 +104,12 @@ MonoBehaviour:
       Data: 
   ID: 1136
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 83e0f402bad90e947b60a9847ffe9b98, type: 3}
     Name: ShipPlug_Name_1136
     Desc: 
     Rarity: 0
     SortingOrder: 0
   PropertyModify: []
-  EffectDesc: 
-  EffectDescDamageParam: 0
+  EffectDesc: ShipPlug_Effect_1136
   PlugTags: 0
   PropertyPercentModify: []

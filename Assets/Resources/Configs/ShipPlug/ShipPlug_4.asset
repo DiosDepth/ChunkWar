@@ -42,8 +42,7 @@ MonoBehaviour:
     SortingOrder: 0
   PropertyModify: []
   EffectDesc: 
-  EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify:
   - ModifyKey: 1
     Value: -30

@@ -75,6 +75,7 @@ public enum ShipPropertyEventType
     ReloadCDEnd,
     EnergyChange,
     WreckageLoadChange,
+    LuckChange,
 }
 
 public class RogueManager : Singleton<RogueManager>, IPauseable
@@ -547,6 +548,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         _currentEXP.BindChangeAction(OnCurrrentEXPChange);
         _shipLevel.BindChangeAction(OnShipLevelUp);
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.Luck, OnPlayerLuckChange);
     }
 
     /// <summary>
@@ -1370,6 +1372,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             PropertyModifySpecialData data = new PropertyModifySpecialData(wreckageBuff[i], GameGlobalConfig.PropertyModifyUID_WreckageOverload_GlobalBuff);
             globalModifySpecialDatas.Add(data);
         }
+    }
+
+    private void OnPlayerLuckChange()
+    {
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.LuckChange);
     }
 
     #endregion

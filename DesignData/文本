@@ -16,9 +16,9 @@ ShipPlug_Effect_1045	进入港口时，每有一个装备残骸，永久增加<c
 ShipPlug_Effect_1046	核心结构值低于<color=#09B3CB>50%</color>时，结构再生<color=#09B3CB>+15</color>，装甲<color=#09B3CB>+2</color>
 
 
-ShipPlug_Effect_1054	护盾被击破时，对场上所有敌人装备造成#0的伤害
+ShipPlug_Effect_1054	护盾被击破时，对场上所有敌人装备造成#D#的伤害
 ShipPlug_Effect_1055	护盾不会受到小于<color=#09B3CB>10</color>以内的伤害
-ShipPlug_Effect_1060	实弹命中时，有<color=#09B3CB>3%</color>概率发生爆炸，造成30（50%爆炸）爆炸伤害
+ShipPlug_Effect_1060	实弹命中时，有<color=#09B3CB>3%</color>概率发生爆炸，造成#D#爆炸伤害
 ShipPlug_Effect_1071	停止移动时装甲<color=#09B3CB>+10</color>，移动时装甲<color=#EF3E3E>-2</color>， 船体值<color=#09B3CB>+150</color>
 ShipPlug_Effect_1072 	核心受到单次大于<color=#09B3CB>300</color>的结构伤害时，此次伤害降低<color=#09B3CB>30%</color>，并且在<color=#09B3CB>5</color>秒内装甲<color=#09B3CB>+8</color>（加成唯一）
 
@@ -29,9 +29,15 @@ ShipPlug_Effect_1081	每<color=#09B3CB>15</color>秒进入持续<color=#09B3CB>5
 ShipPlug_Effect_1089	能耗低于<color=#09B3CB>100%</color>的部分，每<color=#09B3CB>1%</color>提升<color=#09B3CB>1%</color>伤害
 ShipPlug_Effect_1093	波次结束后获得经验<color=#09B3CB>+10%</color>
 ShipPlug_Effect_1101	实弹命中后，有<color=#09B3CB>5%</color>概率使本次伤害提高<color=#09B3CB>100%</color>
-ShipPlug_Effect_1109	能量武器命中时，有<color=#09B3CB>15%</color>概率产生爆炸，造成<color=#09B3CB>#0</color>的伤害
-ShipPlug_Effect_1114	闪避时，对攻击的敌人造成<color=#09B3CB>#0</color>点伤害
-
+ShipPlug_Effect_1109	能量武器命中时，有<color=#09B3CB>15%</color>概率产生爆炸，造成#D#的伤害
+ShipPlug_Effect_1114	闪避时，对攻击的敌人造成#D#点伤害
+ShipPlug_Effect_1132	商店购买道具时，有#L#的概率获得<color=#09B3CB>5</color>个星币
+ShipPlug_Effect_1133	购买时，#L#的概率获得<color=#09B3CB>1000</color>个星币
+ShipPlug_Effect_1134	击杀敌人时有#L#的概率<color=#09B3CB>+1</color>残骸
+ShipPlug_Effect_1136	拾取残骸时，有<color=#09B3CB>20%</color>概率恢复<color=#09B3CB>10</color>点结构值
+ShipPlug_Effect_1137	拾取装备残骸时，有<color=#09B3CB>25%</color>概率在随机敌人位置造成爆炸，造成#D#的伤害
+ShipPlug_Effect_1139	装备瘫痪时，对场上结构最高的<color=#09B3CB>3</color>个单位造成#D#的伤害
+ShipPlug_Effect_1141	波次开始时，<color=#09B3CB>+10%</color>残骸
 
 ShipPropertyDesc_2		爆炸时有<color=#09B3CB>30%</color>概率获得<color=#09B3CB>1</color>点舰船残骸
 ShipPropertyDesc_3		场上每有一个敌人，自身装填速度<color=#EF3E3E>-0.5%</color>
