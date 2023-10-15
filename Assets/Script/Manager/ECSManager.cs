@@ -5,6 +5,23 @@ using UnityEngine;
 
 public class ECSManager : Singleton<ECSManager>
 {
+    // job data owner type == target
+    public AgentData activeAIAgentData;
+    public UnitData activeAIUnitData;
+    public WeaponData activeAIWeaponData;
+    public BuildingData activeAIBuildingData;
+    public DroneData activeAIDroneData;
+    public ProjectileData activeAIProjectileData;
+
+
+    // job data owner type == self
+    public AgentData activePlayerAgentData;
+    public UnitData activePlayerUnitData;
+    public WeaponData activePlayerWeaponData;
+    public BuildingData activePlayerBuildingData;
+    public DroneData activePlayerDroneData;
+    public ProjectileData activePlayerProjectileData;
+
 
     public PlayerJobController playerJobController;
     public AIJobController AIJobController;
