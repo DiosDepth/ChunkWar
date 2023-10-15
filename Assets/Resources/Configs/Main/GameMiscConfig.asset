@@ -28,10 +28,10 @@ MonoBehaviour:
       Data: 0|BattleMiscRefreshConfig, Assembly-CSharp
     - Name: LevelUpRefreshCostBase
       Entry: 3
-      Data: 5
+      Data: 2
     - Name: LevelUpCostWaveMultiple
-      Entry: 3
-      Data: 3
+      Entry: 4
+      Data: 2.5
     - Name: LevelUpRefreshCountMultiple
       Entry: 3
       Data: 10

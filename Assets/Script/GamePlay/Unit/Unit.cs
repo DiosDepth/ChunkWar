@@ -160,7 +160,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
-            unitSprite.color = Color.black;
         });
         
     }
@@ -178,7 +177,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     
         }
         SetUnitProcess(true);
-        unitSprite.color = Color.white;
     }
 
     protected virtual void OnDestroy()
@@ -208,7 +206,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
 
             SetUnitProcess(true);
-            unitSprite.color = Color.white;
         }
         GameManager.Instance.RegisterPauseable(this);
         ChangeUnitState(DamagableState.Normal);

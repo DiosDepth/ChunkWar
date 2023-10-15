@@ -227,7 +227,7 @@ public class EGameState_GameStart : GameState
             InputDispatcher.Instance.ChangeInputMode("Player");
             InputDispatcher.Instance.Action_GamePlay_Pause += HandlePause;
             InputDispatcher.Instance.Action_UI_UnPause += HandleUnPause;
-
+            RogueManager.Instance.OnExitHarbor();
             UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
             {
                 panel.Initialization();

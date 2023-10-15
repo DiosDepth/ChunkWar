@@ -194,10 +194,16 @@ public class AIFactory : MonoBehaviour,IPoolable
         EffectManager.Instance.CreateEffect(EntitySpawnEffect, position);
         await UniTask.Delay(1000);
 
+        if (!RogueManager.Instance.IsLevelSpawnVaild())
+            return;
+
         PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + name, true, (obj) =>
         {
             obj.transform.position = position;
-            obj.transform.rotation = Quaternion.LookRotation(Vector3.forward,obj.transform.position.DirectionToXY(target.position));
+            if(target != null)
+            {
+                obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, obj.transform.position.DirectionToXY(target.position));
+            }
             var tempship = obj.GetComponent<AIShip>();
             tempship.Initialization();
             _shiplist.Add(tempship);

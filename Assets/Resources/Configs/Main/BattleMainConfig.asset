@@ -2627,13 +2627,13 @@ MonoBehaviour:
     - 5
     - 8
   - Icon: {fileID: 21300000, guid: fda083d8e658ad848b3b6cd85450dde5, type: 3}
-    Name: ShipLevelUp_EnergyTotalAdd
-    ModifyKey: 36
+    Name: ShipLevelUp_ExplodeDamage
+    ModifyKey: 41
     RarityValueMap:
-    - 20
-    - 30
-    - 40
-    - 50
+    - 1
+    - 2
+    - 4
+    - 6
   ShipLevelUpItemRarityMap:
   - Rarity: 0
     MinLevel: 1

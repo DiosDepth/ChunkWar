@@ -15,7 +15,7 @@ public class LevelSpawnConfig : SerializedScriptableObject
 
     public string BGMEvent;
 
-    [ListDrawerSettings(CustomAddFunction = "AddNewWave")]
+    [ListDrawerSettings(CustomAddFunction = "AddNewWave", NumberOfItemsPerPage = 3)]
     [Title("波次信息配置", TitleAlignment = TitleAlignments.Centered)]
     [LabelText("波次")]
     public List<WaveConfig> WaveConfig = new List<WaveConfig>();

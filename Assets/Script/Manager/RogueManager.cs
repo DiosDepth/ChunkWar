@@ -131,6 +131,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 在港口内
+    /// </summary>
+    public bool InHarbor
+    {
+        get;
+        private set;
+    }
+
+    public bool InShop
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
     /// 是否显示舰船升级界面
     /// </summary>
     public bool IsShowingShipLevelUp = false;
@@ -350,6 +365,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void OnEnterHarborInit()
     {
+        InHarbor = true;
         OnEnterHarbor?.Invoke();
 
         var newWreckage = GenerateWreckageItems();
@@ -367,6 +383,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _inLevelDropItems[GoodsItemRarity.Tier2] = 0;
         _inLevelDropItems[GoodsItemRarity.Tier3] = 0;
         _inLevelDropItems[GoodsItemRarity.Tier4] = 0;
+    }
+
+    public void OnExitHarbor()
+    {
+        InHarbor = false;
     }
 
     /// <summary>
@@ -891,6 +912,18 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 是否可以合法创生
+    /// </summary>
+    /// <returns></returns>
+    public bool IsLevelSpawnVaild()
+    {
+        bool result = true;
+        result &= GetTempWaveTime > 0;
+        result &= (InBattle && !InHarbor && !InShop);
+        return result;
+    }
+
+    /// <summary>
     /// 计算hardLevel等级
     /// </summary>
     /// <returns></returns>
@@ -953,10 +986,13 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
 
         Timer.PauseAndSetZero();
-        _waveIndex++;
+        ///停止玩家移动
+        currentShip.controller.SetControllerUpdate(false);
+        AIManager.Instance.ProcessAI = false;
         LevelManager.Instance.CollectAllPickUps();
-        await UniTask.Delay(1000);
 
+        await UniTask.Delay(2000);
+        _waveIndex++;
         if (autoEnterHarbor)
         {
             GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
@@ -1388,6 +1424,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void EnterShop()
     {
+        InShop = true;
         GameManager.Instance.PauseGame();
         RefreshShop(false);
         OnEnterShop?.Invoke();
@@ -1407,6 +1444,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void ExitShop()
     {
+        InShop = false;
         GameManager.Instance.UnPauseGame();
         InputDispatcher.Instance.ChangeInputMode("Player");
         CameraManager.Instance.SetFollowPlayerShip();
@@ -2162,7 +2200,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private void RefreshCurrentLevelUpRerollCost()
     {
         var refreshCfg = DataManager.Instance.gameMiscCfg.RefreshConfig;
-        int waveCost = (GetCurrentWaveIndex - 1) * refreshCfg.LevelUpCostWaveMultiple;
+        float waveCost = (GetCurrentWaveIndex - 1) * refreshCfg.LevelUpCostWaveMultiple;
         float refreshCountCst = (CurrentLevelUpItemRerollCount * refreshCfg.LevelUpCostWaveMultiple) / 100f;
         CurrentLevelUpitemRerollCost = Mathf.RoundToInt((refreshCfg.LevelUpRefreshCostBase + waveCost) * (1 + refreshCountCst));
     }
