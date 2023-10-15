@@ -15,7 +15,7 @@ public struct SteeringBehaviorInfo
     public float angular;
 }
 
-public class AISteeringBehaviorController : BaseController
+public class SteeringBehaviorController : BaseController
 {
 
     //public SteeringBehaviorController steeringBehaviorController;

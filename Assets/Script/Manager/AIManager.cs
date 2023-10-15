@@ -38,7 +38,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public NativeList<float3> avoidanceCollisionVel;
 
     public IBoid playerBoid;
-    public List<Unit> playerActiveUnitList = new List<Unit>();
+    public List<Unit> activeTargetUnitList = new List<Unit>();
     public NativeList<float3> playerActiveUnitPos;
 
 
@@ -57,7 +57,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
 
 
-    public List<AISteeringBehaviorController> aiSteeringBehaviorControllerList = new List<AISteeringBehaviorController>();
+    public List<SteeringBehaviorController> activeSelfSteeringAgentControllerList = new List<SteeringBehaviorController>();
     public List<IBoid> aiShipBoidList = new List<IBoid>();
 
     //需要吧每个AI的Behavior数据单独存下来， 跟随ShipCount
@@ -70,11 +70,11 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
 
 
-    public List<Unit> aiActiveUnitList = new List<Unit>();
+    public List<Unit> activeWeaponList = new List<Unit>();
     //需要根据aiship Unit生死来更新的Jobdata
-    public NativeList<float3> aiActiveUnitPos;
-    public NativeList<float> aiActiveUnitAttackRange;
-    public NativeList<int> aiActiveUnitMaxTargetsCount;
+    public NativeList<float3> position;
+    public NativeList<float> attackRange;
+    public NativeList<int> targetCount;
 
 
   
@@ -85,6 +85,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public NativeList<float3> steeringBehaviorJob_aiShipVelocity;
     public NativeList<float> steeringBehaviorJob_aiShipRotationZ;
     public NativeList<float> steeringBehaviorJob_aiShipRadius;
+                
     public NativeList<float> aiSteeringBehaviorController_aiShipMaxAcceleration;
     public NativeList<float> aiStearingBehaviorController_aiShipMaxVelocity;
     public NativeList<float> aiSteeringBehaviorController_aiShipMaxAngularAcceleration;
@@ -149,7 +150,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
 
     //weapon Update job result data
-    NativeArray<Weapon.RV_WeaponTargetInfo> rv_weaponTargetsInfo;
+    NativeArray<Weapon.WeaponTargetInfo> rv_weaponTargetsInfo;
 
     // Start is called before the first frame update
     public AIManager()
@@ -174,7 +175,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         AllocateAIJobData();
 
         playerBoid = RogueManager.Instance.currentShip.GetComponent<IBoid>();
-        playerActiveUnitList.AddRange(RogueManager.Instance.currentShip.UnitList);
+        activeTargetUnitList.AddRange(RogueManager.Instance.currentShip.UnitList);
 
         avoidanceCollisionPos.Add(playerBoid.GetPosition());
         avoidanceCollisionRadius.Add(playerBoid.GetRadius());
@@ -196,7 +197,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         for (int i = 0; i < info.Length; i++)
         {
             tempinfo.info = info[i];
-            tempinfo.reference = aiActiveUnitList[info[i].index];
+            tempinfo.reference = activeWeaponList[info[i].index];
             result.Add(tempinfo);
         }
         return result;
@@ -209,10 +210,10 @@ public class AIManager : Singleton<AIManager>, IPauseable
         avoidanceCollisionRadius = new NativeList<float>(Allocator.Persistent);
         avoidanceCollisionVel = new NativeList<float3>(Allocator.Persistent);
 
-        aiActiveUnitPos = new NativeList<float3>(Allocator.Persistent);
+        position = new NativeList<float3>(Allocator.Persistent);
 
-        aiActiveUnitAttackRange = new NativeList<float>(Allocator.Persistent);
-        aiActiveUnitMaxTargetsCount = new NativeList<int>(Allocator.Persistent);
+        attackRange = new NativeList<float>(Allocator.Persistent);
+        targetCount = new NativeList<int>(Allocator.Persistent);
 
 
         aiProjectile_JobInfo = new NativeList<ProjectileJobInitialInfo>(Allocator.Persistent);
@@ -288,19 +289,19 @@ public class AIManager : Singleton<AIManager>, IPauseable
             avoidanceCollisionVel[0] = playerBoid.GetVelocity();
         }
         //weapon job data
-        if(playerActiveUnitList.Count >0)
+        if(activeTargetUnitList.Count >0)
         {
-            for (int i = 0; i < playerActiveUnitList.Count; i++)
+            for (int i = 0; i < activeTargetUnitList.Count; i++)
             {
-                playerActiveUnitPos[i] = playerActiveUnitList[i].transform.position;
+                playerActiveUnitPos[i] = activeTargetUnitList[i].transform.position;
             }
         }
 
-        if (aiActiveUnitList.Count > 0)
+        if (activeWeaponList.Count > 0)
         {
-            for (int i = 0; i < aiActiveUnitList.Count; i++)
+            for (int i = 0; i < activeWeaponList.Count; i++)
             {
-                aiActiveUnitPos[i] = aiActiveUnitList[i].transform.position;
+                position[i] = activeWeaponList[i].transform.position;
             }
         }
 
@@ -314,9 +315,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
         if (avoidanceCollisionRadius.IsCreated) { avoidanceCollisionRadius.Dispose(); }
         if (avoidanceCollisionVel.IsCreated) { avoidanceCollisionVel.Dispose(); }
 
-        if (aiActiveUnitPos.IsCreated) { aiActiveUnitPos.Dispose(); }
-        if(aiActiveUnitAttackRange.IsCreated) { aiActiveUnitAttackRange.Dispose(); }
-        if (aiActiveUnitMaxTargetsCount.IsCreated) { aiActiveUnitMaxTargetsCount.Dispose(); }
+        if (position.IsCreated) { position.Dispose(); }
+        if(attackRange.IsCreated) { attackRange.Dispose(); }
+        if (targetCount.IsCreated) { targetCount.Dispose(); }
         if (aiProjectile_JobInfo.IsCreated) { aiProjectile_JobInfo.Dispose(); }
         if (aiDamageProjectile_JobInfo.IsCreated) { aiDamageProjectile_JobInfo.Dispose(); }
 
@@ -384,9 +385,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
                ClearAI();
             }
         }
-        if(playerActiveUnitList != null)
+        if(activeTargetUnitList != null)
         {
-            if(playerActiveUnitList.Count >0)
+            if(activeTargetUnitList.Count >0)
             {
                 ClearTarget();
             }
@@ -396,7 +397,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         //clear all player
         //todo clear all ai weapon
-        aiActiveUnitList.Clear();
+        activeWeaponList.Clear();
        
         //todo clear all bullet
         for (int i = 0; i < aiProjectileList.Count; i++)
@@ -468,9 +469,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
         aiShipBoidList.Add(boid);
 
         AddUnit(ship);
-        AISteeringBehaviorController controller = ship.GetComponent<AISteeringBehaviorController>();
+        SteeringBehaviorController controller = ship.GetComponent<SteeringBehaviorController>();
         controller.SetAIConfig(ship.AIShipCfg);
-        aiSteeringBehaviorControllerList.Add(controller);
+        activeSelfSteeringAgentControllerList.Add(controller);
 
         //更新Job信息
 
@@ -537,7 +538,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
     {
         aiShipList.RemoveAt(index);
         aiShipBoidList.RemoveAt(index);
-        aiSteeringBehaviorControllerList.RemoveAt(index);
+        activeSelfSteeringAgentControllerList.RemoveAt(index);
 
 
         steeringBehaviorJob_aiShipPos.RemoveAt(index);
@@ -588,14 +589,14 @@ public class AIManager : Singleton<AIManager>, IPauseable
     {
         aiShipList.Clear();
         aiShipBoidList.Clear();
-        aiActiveUnitList.Clear();
-        aiSteeringBehaviorControllerList.Clear();
+        activeWeaponList.Clear();
+        activeSelfSteeringAgentControllerList.Clear();
        
     }
     public void ClearTarget()
     {
 
-        playerActiveUnitList.Clear();
+        activeTargetUnitList.Clear();
 
     }
     public void  AddUnit(AIShip ship)
@@ -607,12 +608,12 @@ public class AIManager : Singleton<AIManager>, IPauseable
     }
     public void AddSingleUnit(Unit unit)
     {
-        if(!aiActiveUnitList.Contains(unit) && unit.isActiveAndEnabled)
+        if(!activeWeaponList.Contains(unit) && unit.isActiveAndEnabled)
         {
-            aiActiveUnitList.Add(unit);
-            aiActiveUnitPos.Add(unit.transform.position);
-            aiActiveUnitAttackRange.Add(unit.baseAttribute.WeaponRange);
-            aiActiveUnitMaxTargetsCount.Add(unit.maxTargetCount);
+            activeWeaponList.Add(unit);
+            position.Add(unit.transform.position);
+            attackRange.Add(unit.baseAttribute.WeaponRange);
+            targetCount.Add(unit.maxTargetCount);
         }
     }
 
@@ -627,11 +628,11 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
     public void RemoveSingleUnit(Unit unit)
     {
-        int index = aiActiveUnitList.IndexOf(unit);
-        aiActiveUnitList.RemoveAt(index);
-        aiActiveUnitPos.RemoveAt(index);
-        aiActiveUnitAttackRange.RemoveAt(index);
-        aiActiveUnitMaxTargetsCount.RemoveAt(index);
+        int index = activeWeaponList.IndexOf(unit);
+        activeWeaponList.RemoveAt(index);
+        position.RemoveAt(index);
+        attackRange.RemoveAt(index);
+        targetCount.RemoveAt(index);
     }
 
     public void AddBullet(Bullet bullet )
@@ -691,9 +692,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
     public void AddTargetUnit(Unit unit)
     {
-        if (!playerActiveUnitList.Contains(unit))
+        if (!activeTargetUnitList.Contains(unit))
         {
-            playerActiveUnitList.Add(unit);
+            activeTargetUnitList.Add(unit);
             playerActiveUnitPos.Add(unit.transform.position);
             
         }
@@ -701,8 +702,8 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
     public void RemoveTargetUnit(Unit unit)
     {
-        int index  = playerActiveUnitList.IndexOf(unit);
-        playerActiveUnitList.RemoveAt(index);
+        int index  = activeTargetUnitList.IndexOf(unit);
+        activeTargetUnitList.RemoveAt(index);
         playerActiveUnitPos.RemoveAt(index);
     }
     public void UpdateAIMovement()
@@ -796,7 +797,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         rv_serchingTargetsCountPerShip = new NativeArray<int>(ShipCount, Allocator.TempJob);
 
 
-        AISteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob calculateSteeringTargetsPosByRadiusJob = new AISteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob
+        SteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob calculateSteeringTargetsPosByRadiusJob = new SteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob
         {
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
             job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
@@ -892,7 +893,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         rv_deltaMovement = new NativeArray<SteeringBehaviorInfo>(ShipCount, Allocator.TempJob);
 
         JobHandle jobhandle_deltamoveposjob;
-        AISteeringBehaviorController.CalculateDeltaMovePosJob calculateDeltaMovePosJob = new AISteeringBehaviorController.CalculateDeltaMovePosJob
+        SteeringBehaviorController.CalculateDeltaMovePosJob calculateDeltaMovePosJob = new SteeringBehaviorController.CalculateDeltaMovePosJob
         {
             job_aiShipMaxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
             job_aiShipMaxVelocity = aiStearingBehaviorController_aiShipMaxVelocity,
@@ -941,10 +942,10 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         for (int i = 0; i < ShipCount; i++)
         {
-            aiSteeringBehaviorControllerList[i].UpdateIBoid();
+            activeSelfSteeringAgentControllerList[i].UpdateIBoid();
 
-            aiSteeringBehaviorControllerList[i].Move(rv_deltaMovement[i].linear);
-            aiSteeringBehaviorControllerList[i].transform.rotation = Quaternion.Euler(0, 0,rv_deltaMovement[i].angular);
+            activeSelfSteeringAgentControllerList[i].Move(rv_deltaMovement[i].linear);
+            activeSelfSteeringAgentControllerList[i].transform.rotation = Quaternion.Euler(0, 0,rv_deltaMovement[i].angular);
         }
 
         playerBoid.UpdateIBoid();
@@ -970,19 +971,19 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public void UpdateAIAdditionalWeapon()
     {
 
-        if( aiActiveUnitList == null || aiActiveUnitList.Count == 0)
+        if( activeWeaponList == null || activeWeaponList.Count == 0)
         {
             return;
         }
         AIAdditionalWeapon weapon;
 
         int targetstotalcount = 0;
-        for (int i = 0; i < aiActiveUnitList.Count; i++)
+        for (int i = 0; i < activeWeaponList.Count; i++)
         {
-            targetstotalcount += aiActiveUnitList[i].maxTargetCount;
+            targetstotalcount += activeWeaponList[i].maxTargetCount;
         }
 
-        rv_weaponTargetsInfo = new NativeArray<Weapon.RV_WeaponTargetInfo>(targetstotalcount, Allocator.TempJob);
+        rv_weaponTargetsInfo = new NativeArray<Weapon.WeaponTargetInfo>(targetstotalcount, Allocator.TempJob);
 
         // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
         //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
@@ -990,16 +991,16 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         Weapon.FindMutipleWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleWeaponTargetsJob
         {
-            job_attackRange = aiActiveUnitAttackRange,
-            job_selfPos = aiActiveUnitPos,
-            job_targetsPos =playerActiveUnitPos,
-            job_maxTargetCount = aiActiveUnitMaxTargetsCount,
+            //job_attackRange = attackRange,
+            //job_selfPos = position,
+            //job_targetsPos =playerActiveUnitPos,
+            //job_maxTargetCount = targetCount,
 
             rv_targetsInfo = rv_weaponTargetsInfo,
 
         };
 
-        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(aiActiveUnitList.Count, 2);
+        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(activeWeaponList.Count, 2);
 
 
         jobHandle.Complete();
@@ -1009,31 +1010,31 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         int startindex;
         int targetindex;
-        for (int i = 0; i < aiActiveUnitList.Count; i++)
+        for (int i = 0; i < activeWeaponList.Count; i++)
         {
             //获取Flat Array中的startindex 为后续的拆分做准备
             //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
 
-            if (aiActiveUnitList[i] is AIAdditionalWeapon)
+            if (activeWeaponList[i] is AIAdditionalWeapon)
             {
 
                 startindex = 0;
                 for (int c = 0; c < i; c++)
                 {
-                    startindex += aiActiveUnitMaxTargetsCount[c];
+                    startindex += targetCount[c];
                 }
 
 
-                weapon = aiActiveUnitList[i] as AIAdditionalWeapon;
+                weapon = activeWeaponList[i] as AIAdditionalWeapon;
 
                 //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
                 if (weapon.weaponstate.CurrentState != WeaponState.Firing && weapon.weaponstate.CurrentState != WeaponState.BetweenDelay)
                 {
                     weapon.targetList.Clear();
-                    for (int n = 0; n < aiActiveUnitMaxTargetsCount[i]; n++)
+                    for (int n = 0; n < targetCount[i]; n++)
                     {
                         targetindex = rv_weaponTargetsInfo[startindex + n].targetIndex;
-                        if (targetindex == -1 || playerActiveUnitList == null || playerActiveUnitList.Count == 0)
+                        if (targetindex == -1 || activeTargetUnitList == null || activeTargetUnitList.Count == 0)
                         {
                             break;
                         }
@@ -1041,7 +1042,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
                         {
                             weapon.targetList.Add(new WeaponTargetInfo
                                 (
-                                    playerActiveUnitList[targetindex].gameObject,
+                                    activeTargetUnitList[targetindex].gameObject,
                                     rv_weaponTargetsInfo[startindex + n].targetIndex,
                                     rv_weaponTargetsInfo[startindex + n].distanceToTarget,
                                     rv_weaponTargetsInfo[startindex + n].targetDirection
@@ -1205,7 +1206,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
             return;
         }
 
-        rv_aiProjectileDamageTargetIndex = new NativeArray<int>(_aiProjectileDamageList.Count * playerActiveUnitList.Count, Allocator.TempJob);
+        rv_aiProjectileDamageTargetIndex = new NativeArray<int>(_aiProjectileDamageList.Count * activeTargetUnitList.Count, Allocator.TempJob);
         rv_aiProjectileDamageTargetCountPre = new NativeArray<int>(_aiProjectileDamageList.Count, Allocator.TempJob);
         JobHandle jobHandle;
 
@@ -1214,7 +1215,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
         Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
         {
             job_JobInfo = aiDamageProjectile_JobInfo,
-            job_targesTotalCount = playerActiveUnitList.Count,
+            job_targesTotalCount = activeTargetUnitList.Count,
             job_targetsPos = playerActiveUnitPos,
 
             rv_findedTargetsCount = rv_aiProjectileDamageTargetCountPre,
@@ -1234,12 +1235,12 @@ public class AIManager : Singleton<AIManager>, IPauseable
             //设置对应子弹的prepareDamageTargetList，用来在后面实际Apply Damage做准备
             for (int n = 0; n < rv_aiProjectileDamageTargetCountPre[i]; n++)
             {
-                damagetargetindex = rv_aiProjectileDamageTargetIndex[i * playerActiveUnitList.Count + n];
-                if (damagetargetindex < 0 || damagetargetindex >= playerActiveUnitList.Count)
+                damagetargetindex = rv_aiProjectileDamageTargetIndex[i * activeTargetUnitList.Count + n];
+                if (damagetargetindex < 0 || damagetargetindex >= activeTargetUnitList.Count)
                 {
                     continue;
                 }
-                damageble = playerActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                damageble = activeTargetUnitList[damagetargetindex].GetComponent<IDamageble>();
                 if (damageble != null && _aiProjectileDamageList[i] != null)
                 {
                     if (!_aiProjectileDamageList[i].prepareDamageTargetList.Contains(damageble))
@@ -1300,10 +1301,10 @@ public class AIManager : Singleton<AIManager>, IPauseable
         int randIndex;
         for (int i = 0; i < count; i++)
         {
-            randIndex = rnd.Next(aiActiveUnitList.Count);
-            if (!randomlist.Contains(aiActiveUnitList[randIndex]))
+            randIndex = rnd.Next(activeWeaponList.Count);
+            if (!randomlist.Contains(activeWeaponList[randIndex]))
             {
-                randomlist.Add(aiActiveUnitList[randIndex]);
+                randomlist.Add(activeWeaponList[randIndex]);
             }
             else
             {
@@ -1315,7 +1316,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
     public Unit GetUnitByUID(uint uid)
     {
-        return aiActiveUnitList.Find(x => x.UID == uid);
+        return activeWeaponList.Find(x => x.UID == uid);
     }
 
     public Unit GetAIUnitWithCondition(FindCondition condition)
@@ -1323,12 +1324,12 @@ public class AIManager : Singleton<AIManager>, IPauseable
         Unit unit;
         if( condition == FindCondition.MaximumHP)
         {
-            unit = aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP).Last();
+            unit = activeWeaponList.OrderBy(u => u.HpComponent.GetCurrentHP).Last();
             return unit;
         }
         if(condition == FindCondition.MinimumHP)
         {
-            unit = aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP).First();
+            unit = activeWeaponList.OrderBy(u => u.HpComponent.GetCurrentHP).First();
             return unit;
         }
         return null;
@@ -1340,12 +1341,12 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         if(condition == FindCondition.ClosestDistance)
         {
-            unit = aiActiveUnitList.OrderBy(u => math.distance(u.transform.position, referencePos)).First();
+            unit = activeWeaponList.OrderBy(u => math.distance(u.transform.position, referencePos)).First();
             return unit;
         }
         if(condition == FindCondition.LongestDistance)
         {
-            unit = aiActiveUnitList.OrderBy(u => math.distance(u.transform.position, referencePos)).Last();
+            unit = activeWeaponList.OrderBy(u => math.distance(u.transform.position, referencePos)).Last();
             return unit;
         }
 

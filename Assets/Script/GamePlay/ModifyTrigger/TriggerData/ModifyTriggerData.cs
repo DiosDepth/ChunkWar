@@ -160,7 +160,7 @@ public abstract class ModifyTriggerData : IPropertyModify
                 return;
 
             var hitPoint = data.DamageInfo.HitPoint;
-            var allaiPos = AIManager.Instance.aiActiveUnitPos;
+            var allaiPos = AIManager.Instance.position;
             var targetInfos = GameHelper.FindTargetsByPoint(hitPoint, explodeRange, allaiPos);
             var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
             
@@ -217,7 +217,7 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
         else if(config.TargetType == EffectDamageTargetType.All)
         {
-            var allUnit = AIManager.Instance.aiActiveUnitList;
+            var allUnit = AIManager.Instance.activeWeaponList;
             for(int i = 0; i < allUnit.Count; i++)
             {
                 var unit = allUnit[i];

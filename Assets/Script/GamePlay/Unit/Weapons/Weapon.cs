@@ -137,6 +137,18 @@ public class Weapon : Unit
     public Action<float> OnReloadCDUpdate;
     public Action<int> OnMagazineChange;
 
+    public struct WeaponTargetInfo : IComparable<WeaponTargetInfo>
+    {
+        public int targetIndex;
+        public float distanceToTarget;
+        public float3 targetPos;
+        public float3 targetDirection;
+
+        public int CompareTo(WeaponTargetInfo other)
+        {
+            return distanceToTarget.CompareTo(other.distanceToTarget);
+        }
+    }
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _baseUnitConfig = m_unitconfig;
@@ -189,48 +201,35 @@ public class Weapon : Unit
         base.OnDestroy();
     }
 
-    public struct RV_WeaponTargetInfo : IComparable<RV_WeaponTargetInfo>
-    {
-        public int targetIndex;
-        public float distanceToTarget;
-        public float3 targetPos;
-        public float3 targetDirection;
 
-        public int CompareTo(RV_WeaponTargetInfo other)
-        {
-            return distanceToTarget.CompareTo(other.distanceToTarget);
-        }
-    }
 
     [BurstCompile]
     public struct FindMutipleWeaponTargetsJob : IJobParallelForBatch
     {
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_attackRange;
-        [Unity.Collections.ReadOnly] public NativeArray<float3> job_selfPos;
-        [Unity.Collections.ReadOnly] public NativeArray<int> job_maxTargetCount;
+        [Unity.Collections.ReadOnly] public NativeArray<WeaponJobData> job_weaponJobData;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
 
         [NativeDisableContainerSafetyRestriction]
-        public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
-        RV_WeaponTargetInfo tempinfo;
+        public NativeArray<WeaponTargetInfo> rv_targetsInfo;
+        WeaponTargetInfo tempinfo;
         int index;
         public void Execute(int startIndex, int count)
         {
-            NativeList<RV_WeaponTargetInfo> tempinfolist; 
+            NativeList<WeaponTargetInfo> tempinfolist; 
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                tempinfolist  = new NativeList<RV_WeaponTargetInfo>(Allocator.Temp);
+                tempinfolist  = new NativeList<WeaponTargetInfo>(Allocator.Temp);
                 //找到所有在范围内的target
                 for (int n = 0; n < job_targetsPos.Length; n++)
                 {
                     var targetPos = job_targetsPos[n];
-                    if (math.distance(job_selfPos[i], targetPos) <= job_attackRange[i])
+                    if (math.distance(job_weaponJobData[i].position, targetPos) <= job_weaponJobData[i].attackRange)
                     {
                         tempinfo.targetPos = targetPos;
                         tempinfo.targetIndex = n;
-                        tempinfo.targetDirection = math.normalize(targetPos - job_selfPos[i]);
-                        tempinfo.distanceToTarget = math.distance(targetPos, job_selfPos[i]);
+                        tempinfo.targetDirection = math.normalize(targetPos - job_weaponJobData[i].position);
+                        tempinfo.distanceToTarget = math.distance(targetPos, job_weaponJobData[i].position);
                         tempinfolist.Add(tempinfo);
                     }
                 }
@@ -238,7 +237,7 @@ public class Weapon : Unit
                 index = 0;
                 for (int c = 0; c < i; c++)
                 {
-                    index += job_maxTargetCount[c];
+                    index += job_weaponJobData[c].targetCount;
                 }
 
                
@@ -247,7 +246,7 @@ public class Weapon : Unit
                     //全部找完了之后进行排序
                     tempinfolist.Sort();
                     //排序之后按照最大目标数量进行结果装填
-                    for (int s = 0; s < job_maxTargetCount[i]; s++)
+                    for (int s = 0; s < job_weaponJobData[i].targetCount; s++)
                     {
                         //当前的index不大于 临时目标列表的长度
                         if (s <= tempinfolist.Length - 1)
@@ -262,7 +261,7 @@ public class Weapon : Unit
                 }
                 else
                 {
-                    for (int s = 0; s < job_maxTargetCount[i]; s++)
+                    for (int s = 0; s < job_weaponJobData[i].targetCount; s++)
                     {
                         tempinfo.targetIndex = -1;
                         rv_targetsInfo[index + s] = tempinfo;

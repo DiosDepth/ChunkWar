@@ -29,7 +29,7 @@ public class ShipUnitManager:IPauseable
     public NativeList<float> activeWeaponAttackRangeList;
     public NativeList<float3> activeWeaponPosList;
     public NativeList<int> activeWeaponTargetCountList;
-    public NativeArray<Weapon.RV_WeaponTargetInfo> rv_weaponTargetsInfo;
+    public NativeArray<Weapon.WeaponTargetInfo> rv_weaponTargetsInfo;
 
     public ShipUnitManager()
     {
@@ -132,7 +132,7 @@ public class ShipUnitManager:IPauseable
             targetstotalcount += activeWeaponList[i].maxTargetCount;
         }
 
-        rv_weaponTargetsInfo = new NativeArray<Weapon.RV_WeaponTargetInfo>(targetstotalcount, Allocator.TempJob);
+        rv_weaponTargetsInfo = new NativeArray<Weapon.WeaponTargetInfo>(targetstotalcount, Allocator.TempJob);
 
         // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
         //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
@@ -140,10 +140,10 @@ public class ShipUnitManager:IPauseable
 
         Weapon.FindMutipleWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleWeaponTargetsJob
         {
-            job_attackRange = activeWeaponAttackRangeList,
-            job_selfPos = activeWeaponPosList,
-            job_targetsPos = AIManager.Instance.aiActiveUnitPos,
-            job_maxTargetCount = activeWeaponTargetCountList,
+            //job_attackRange = activeWeaponAttackRangeList,
+            //job_selfPos = activeWeaponPosList,
+            //job_targetsPos = AIManager.Instance.position,
+            //job_maxTargetCount = activeWeaponTargetCountList,
 
             rv_targetsInfo = rv_weaponTargetsInfo,
 
@@ -178,14 +178,14 @@ public class ShipUnitManager:IPauseable
                 }
                 else
                 {
-                    if (AIManager.Instance.aiActiveUnitList == null || AIManager.Instance.aiActiveUnitList.Count == 0)
+                    if (AIManager.Instance.activeWeaponList == null || AIManager.Instance.activeWeaponList.Count == 0)
                     {
                         weapon.WeaponOff();
                         break;
                     }
                     weapon.targetList.Add(new WeaponTargetInfo
                         (
-                            AIManager.Instance.aiActiveUnitList[targetindex].gameObject,
+                            AIManager.Instance.activeWeaponList[targetindex].gameObject,
                             rv_weaponTargetsInfo[startindex + n].targetIndex,
                             rv_weaponTargetsInfo[startindex + n].distanceToTarget,
                             rv_weaponTargetsInfo[startindex + n].targetDirection
@@ -341,7 +341,7 @@ public class ShipUnitManager:IPauseable
         {
             return;
         }
-        rv_projectileDamageTargetIndex = new NativeArray<int>(_projectileDamageList.Count * AIManager.Instance.aiActiveUnitList.Count, Allocator.TempJob);
+        rv_projectileDamageTargetIndex = new NativeArray<int>(_projectileDamageList.Count * AIManager.Instance.activeWeaponList.Count, Allocator.TempJob);
         rv_projectileDamageTargetCountPre = new NativeArray<int>(_projectileDamageList.Count, Allocator.TempJob);
         JobHandle jobHandle;
 
@@ -350,8 +350,8 @@ public class ShipUnitManager:IPauseable
         Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
         {
             job_JobInfo = damageProjectile_JobInfo,
-            job_targesTotalCount = AIManager.Instance.aiActiveUnitList.Count,
-            job_targetsPos = AIManager.Instance.aiActiveUnitPos,
+            job_targesTotalCount = AIManager.Instance.activeWeaponList.Count,
+            job_targetsPos = AIManager.Instance.position,
 
             rv_findedTargetsCount = rv_projectileDamageTargetCountPre,
             rv_findedTargetIndex = rv_projectileDamageTargetIndex,
@@ -371,12 +371,12 @@ public class ShipUnitManager:IPauseable
             //设置对应子弹的prepareDamageTargetList，用来在后面实际Apply Damage做准备
             for (int n = 0; n < rv_projectileDamageTargetCountPre[i]; n++)
             {
-                damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.aiActiveUnitList.Count + n];
-                if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.aiActiveUnitList.Count)
+                damagetargetindex = rv_projectileDamageTargetIndex[i * AIManager.Instance.activeWeaponList.Count + n];
+                if (damagetargetindex < 0 || damagetargetindex >= AIManager.Instance.activeWeaponList.Count)
                 {
                     continue;
                 }
-                damageble = AIManager.Instance.aiActiveUnitList[damagetargetindex].GetComponent<IDamageble>();
+                damageble = AIManager.Instance.activeWeaponList[damagetargetindex].GetComponent<IDamageble>();
                 if (damageble != null && _projectileDamageList[i] != null)
                 {
                     if(!_projectileDamageList[i].prepareDamageTargetList.Contains(damageble))

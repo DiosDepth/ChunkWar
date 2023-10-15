@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class BuildingAttribute : UnitBaseAttribute
 {
+
     public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
     {
         base.InitProeprty(parentUnit, cfg, isPlayerShip);
@@ -19,6 +22,19 @@ public class BuildingAttribute : UnitBaseAttribute
 
 public class Building : Unit
 {
+
+    public struct BuildingTargetInfo : IComparable<BuildingTargetInfo>
+    {
+        public int targetIndex;
+        public float distanceToTarget;
+        public float3 targetPos;
+        public float3 targetDirection;
+
+        public int CompareTo(BuildingTargetInfo other)
+        {
+            return distanceToTarget.CompareTo(other.distanceToTarget);
+        }
+    }
 
     private List<BaseBuildingComponent> _buildingComponents = new List<BaseBuildingComponent>();
 
@@ -38,6 +54,8 @@ public class Building : Unit
         base.Update();
    
     }
+
+
 
     public virtual void BuildingUpdate()
     {
