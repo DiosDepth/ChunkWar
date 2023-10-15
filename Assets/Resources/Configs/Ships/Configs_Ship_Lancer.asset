@@ -1506,4 +1506,4 @@ MonoBehaviour:
   ShipHardLevels: 010000000200000003000000040000000f270000
   ShipOriginPlugs: 
   OriginUnits: []
-  ShipEditorSprite: {fileID: 21300000, guid: e9db5fe636017584b8dc54e906789dda, type: 3}
+  ShipEditorSprite: {fileID: 21300000, guid: 86a2c55f5f905db46a989de3c16ed7ef, type: 3}

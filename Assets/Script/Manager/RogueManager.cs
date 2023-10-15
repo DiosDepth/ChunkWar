@@ -230,6 +230,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 商店进入总次数
     /// </summary>
     private byte _shopRefreshTotalCount = 0;
+    /// <summary>
+    /// 商店免费刷新次数
+    /// </summary>
+    private byte _shopFreeRollCount = 0;
 
     /// <summary>
     /// 当前随机商店物品
@@ -339,6 +343,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _shopRefreshTotalCount = 0;
         _currentGenerateAncientUnitShipCount = 0;
         _currentAncientUnitProtectRateAdd = 0;
+        _shopFreeRollCount = 0;
         ClearAction();
     }
 
@@ -435,7 +440,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         goodsItems.Clear();
 
         ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
-
+        MainPropertyData.BindRowPropertyChangeAction(PropertyModifyKey.ShopFreeRollCount, OnShopFreeRollCountChange);
         InitEnergyAndWreckageCommonBuff();
         InitWave();
         InitWreckageData();
@@ -1482,6 +1487,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         InShop = true;
         GameManager.Instance.PauseGame();
+        RefreshFreeRollCount();
         RefreshShop(false);
         OnEnterShop?.Invoke();
 
@@ -1560,12 +1566,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         if (useCurrency)
         {
-            if (CurrentRerollCost > CurrentCurrency)
-                return false;
+            if(_shopFreeRollCount > 0)
+            {
+                _shopFreeRollCount--;
+                CurrentRerollCost = 0;
+            }
+            else
+            {
+                if (CurrentRerollCost > CurrentCurrency)
+                    return false;
 
-            ///Cost
-            CurrentRerollCost = GetCurrentRefreshCost();
-            AddCurrency(-CurrentRerollCost);
+                ///Cost
+                CurrentRerollCost = GetCurrentRefreshCost();
+                AddCurrency(-CurrentRerollCost);
+            }
         }
 
         byte itemLockCount = 0;
@@ -1821,12 +1835,32 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 免费刷新次数
+    /// </summary>
+    private void RefreshFreeRollCount()
+    {
+        var rollCount = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShopFreeRollCount);
+        _shopFreeRollCount = (byte)Mathf.Clamp(rollCount, 0, byte.MaxValue);
+    }
+
+    private void OnShopFreeRollCountChange(float oldValue, float newValue)
+    {
+        float delta = newValue - oldValue;
+        if(delta > 0)
+        {
+            byte targey = (byte)Mathf.Clamp(_shopFreeRollCount + delta, 0, byte.MaxValue);
+            _shopFreeRollCount = targey;
+        }
+    }
+
+    /// <summary>
     /// 商店花费刷新
     /// </summary>
     private void OnShopCostChange()
     {
         RogueEvent.Trigger(RogueEventType.ShopCostChange);
     }
+
 
     #endregion
 

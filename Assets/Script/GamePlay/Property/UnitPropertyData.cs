@@ -35,6 +35,12 @@ public class UnitPropertyData
         pool.BindChangeAction(changeAction);
     }
 
+    public void BindRowPropertyChangeAction(PropertyModifyKey key, Action<float, float> changeAction)
+    {
+        var pool = GetOrCreatePropertyPool(key);
+        pool.BindRowChangeAction(changeAction);
+    }
+
     public void UnBindPropertyChangeAction(PropertyModifyKey key, Action changeAction)
     {
         var pool = GetOrCreatePropertyPool(key);
@@ -183,9 +189,19 @@ public class UnitPropertyPool
         propertychangeAction += action;
     }
 
+    public void BindRowChangeAction(Action<float, float> action)
+    {
+        _propertyRow.BindChangeAction(action);
+    }
+
     public void UnBindChangeAction(Action action)
     {
         propertychangeAction -= action;
+    }
+
+    public void UnBindRowChangeAction(Action<float, float> action)
+    {
+        _propertyRow.UnBindChangeAction(action);
     }
 
     public bool AddToPool(PropertyModifyType type, uint key, float value)

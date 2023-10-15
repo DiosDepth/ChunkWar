@@ -213,6 +213,7 @@ public enum PropertyModifyKey
     /// 机库能源消耗
     /// </summary>
     Hangar_EnergyCostPercent,
+    ShopFreeRollCount,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }
