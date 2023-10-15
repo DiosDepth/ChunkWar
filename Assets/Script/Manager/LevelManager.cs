@@ -146,7 +146,12 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public UnityAction<DamageResultInfo> OnPlayerCoreUnitTakeDamage;
     /* 玩家制造爆炸 */
     public UnityAction OnPlayerCreateExplode;
+    /* 拾取物件 */
+    public UnityAction<AvaliablePickUp> OnCollectPickUp;
+    /* 玩家组件瘫痪 */
+    public UnityAction<uint, bool> OnPlayerUnitParalysis;
     #endregion
+
 
     private BattleMiscRefreshConfig _refreshMiscConfig;
 
@@ -184,6 +189,27 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         pickupList.Clear();
         needServicing = false;
         isLevelUpdate = false;
+        ClearActions();
+    }
+
+    private void ClearActions()
+    {
+        Action_OnShipDie = null;
+        OnPlayerShipMove = null;
+        OnCoreHPPercentChange = null;
+        OnShieldRecoverStart = null;
+        OnShieldRecoverEnd = null;
+        OnShieldBroken = null;
+        OnUnitBeforeHit = null;
+        OnUnitHitFinish = null;
+        OnEnemyCountChange = null;
+        OnPlayerWeaponReload = null;
+        OnPlayerWeaponFire = null;
+        OnPlayerShipParry = null;
+        OnPlayerCoreUnitTakeDamage = null;
+        OnPlayerCreateExplode = null;
+        OnCollectPickUp = null;
+        OnPlayerUnitParalysis = null;
     }
 
     public virtual void LevelUpdate()
@@ -254,6 +280,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             var gold = pickedItem as PickUpWaste;
             RogueManager.Instance.AddDropWasteCount(gold.WasteGain);
             RogueManager.Instance.AddEXP(gold.EXPGain);
+            CollectPickUp(AvaliablePickUp.WastePickup);
+        }
+        else if (pickedItem is PickUpWreckage)
+        {
+            var wreckage = pickedItem as PickUpWreckage;
+            RogueManager.Instance.AddInLevelDrop(wreckage.DropRarity);
+            ///Add EXP
+            RogueManager.Instance.AddEXP(wreckage.EXPAdd);
+            CollectPickUp(AvaliablePickUp.Wreckage);
         }
     }
 
@@ -555,6 +590,20 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public void EnemyShipCountChange(int count)
     {
         OnEnemyCountChange?.Invoke(count);
+    }
+
+    public void CollectPickUp(AvaliablePickUp type)
+    {
+        OnCollectPickUp?.Invoke(type);
+    }
+
+    /// <summary>
+    /// 玩家装备瘫痪
+    /// </summary>
+    /// <param name="targetUnitID"></param>
+    public void PlayerUnitParalysis(uint targetUnitID, bool isEnter)
+    {
+        OnPlayerUnitParalysis?.Invoke(targetUnitID, isEnter);
     }
 
     #endregion

@@ -84,6 +84,10 @@ public class AIShipConfig : BaseShipConfig
     [HideLabel]
     public float targetSerchingRadius = 15f;
 
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/A")]
+    public string DieAudio;
+
     [System.Obsolete]
     protected override void OnEnable()
     {

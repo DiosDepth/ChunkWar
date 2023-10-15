@@ -160,8 +160,9 @@ public class LevelTimerTrigger
         private set;
     }
 
+    private bool _triggerOnStart = false;
 
-    public static LevelTimerTrigger CreateTriger(int startSecond, int secondDelta, int loopCount, string TriggerName = null)
+    public static LevelTimerTrigger CreateTrigger(int startSecond, int secondDelta, int loopCount, string TriggerName = null)
     {
         LevelTimerTrigger trigger = new LevelTimerTrigger(startSecond, secondDelta, loopCount);
         trigger.TriggerName = TriggerName;
@@ -204,16 +205,29 @@ public class LevelTimerTrigger
         if (_startSecond > currentSecond)
             return;
 
+        if (!_triggerOnStart)
+        {
+            Trigger();
+            _triggerOnStart = true;
+            return;
+        }
+
         if(_secondTimer >= _secondDelta)
         {
-            TriggerActionInt?.Invoke(paramInt);
-            TriggerAction?.Invoke();
-            _currentLoopCount++;
-            _secondTimer = 0;
-            if (!_isLoop && _currentLoopCount >= _totalloopCount)
-            {
-                IsNeedToRemove = true;
-            }
+            Trigger();
+        }
+    }
+
+    private void Trigger()
+    {
+        TriggerActionInt?.Invoke(paramInt);
+        TriggerAction?.Invoke();
+        _currentLoopCount++;
+        _secondTimer = 0;
+
+        if (!_isLoop && _currentLoopCount >= _totalloopCount)
+        {
+            IsNeedToRemove = true;
         }
     }
 }

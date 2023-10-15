@@ -75,6 +75,7 @@ public enum ShipPropertyEventType
     ReloadCDEnd,
     EnergyChange,
     WreckageLoadChange,
+    LuckChange,
 }
 
 public class RogueManager : Singleton<RogueManager>, IPauseable
@@ -130,6 +131,30 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 在港口内
+    /// </summary>
+    public bool InHarbor
+    {
+        get;
+        private set;
+    }
+
+    public bool InShop
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// 波次是否结束
+    /// </summary>
+    public bool WaveEnd
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
     /// 是否显示舰船升级界面
     /// </summary>
     public bool IsShowingShipLevelUp = false;
@@ -163,6 +188,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 当前刷新次数
     /// </summary>
     private int _currentRereollCount = 0;
+
+    /// <summary>
+    /// 当前生成远古飞船数量，用于保底
+    /// </summary>
+    private int _currentGenerateAncientUnitShipCount = 0;
+    private int _currentAncientUnitProtectRateAdd;
 
     private int _waveIndex;
     public int GetCurrentWaveIndex
@@ -199,6 +230,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 商店进入总次数
     /// </summary>
     private byte _shopRefreshTotalCount = 0;
+    /// <summary>
+    /// 商店免费刷新次数
+    /// </summary>
+    private byte _shopFreeRollCount = 0;
 
     /// <summary>
     /// 当前随机商店物品
@@ -246,7 +281,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public UnityAction OnItemCountChange;
     /* 进入太空港 */
     public UnityAction OnEnterHarbor;
-
+    /* 进入商店 */
+    public UnityAction OnEnterShop;
+    /* 购买商店物品 */
+    public UnityAction<int> OnBuyShopItem;
     private void ClearAction()
     {
         OnWreckageLoadPercentChange = null;
@@ -257,6 +295,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         OnShopRefresh = null;
         OnItemCountChange = null;
         OnEnterHarbor = null;
+        OnEnterShop = null;
+        OnBuyShopItem = null;
     }
 
     #endregion
@@ -301,6 +341,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         _currentRereollCount = 0;
         _shopRefreshTotalCount = 0;
+        _currentGenerateAncientUnitShipCount = 0;
+        _currentAncientUnitProtectRateAdd = 0;
+        _shopFreeRollCount = 0;
         ClearAction();
     }
 
@@ -344,6 +387,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void OnEnterHarborInit()
     {
+        InHarbor = true;
         OnEnterHarbor?.Invoke();
 
         var newWreckage = GenerateWreckageItems();
@@ -361,6 +405,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _inLevelDropItems[GoodsItemRarity.Tier2] = 0;
         _inLevelDropItems[GoodsItemRarity.Tier3] = 0;
         _inLevelDropItems[GoodsItemRarity.Tier4] = 0;
+    }
+
+    public void OnExitHarbor()
+    {
+        InHarbor = false;
     }
 
     /// <summary>
@@ -391,7 +440,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         goodsItems.Clear();
 
         ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
-
+        MainPropertyData.BindRowPropertyChangeAction(PropertyModifyKey.ShopFreeRollCount, OnShopFreeRollCountChange);
         InitEnergyAndWreckageCommonBuff();
         InitWave();
         InitWreckageData();
@@ -542,6 +591,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         _currentEXP.BindChangeAction(OnCurrrentEXPChange);
         _shipLevel.BindChangeAction(OnShipLevelUp);
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.Luck, OnPlayerLuckChange);
     }
 
     /// <summary>
@@ -709,6 +759,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 按当前百分比增加数量
+    /// </summary>
+    /// <param name="percent"></param>
+    public void AddDropWasteCountByPercent(float percent)
+    {
+        var targetpercent = Mathf.Max(0, percent / 100f);
+        var targetWaste = Mathf.RoundToInt(GetDropWasteCount * (1 + targetpercent));
+        _dropWasteCount.Set(targetWaste);
+        OnWasteCountChange?.Invoke(targetWaste);
+        ///UpdateLoad
+        CalculateTotalLoadCost();
+        RogueEvent.Trigger(RogueEventType.WasteCountChange);
+    }
+
+    /// <summary>
     /// 获取局内所有残骸包总数
     /// </summary>
     /// <returns></returns>
@@ -869,6 +934,17 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 是否可以合法创生
+    /// </summary>
+    /// <returns></returns>
+    public bool IsLevelSpawnVaild()
+    {
+        bool result = true;
+        result &= (InBattle && !InHarbor && !InShop && !WaveEnd);
+        return result;
+    }
+
+    /// <summary>
     /// 计算hardLevel等级
     /// </summary>
     /// <returns></returns>
@@ -891,7 +967,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.InitTimer(totalTime);
 
         var hardLevelDelta = DataManager.Instance.battleCfg.HardLevelDeltaSeconds;
-        var trigger = LevelTimerTrigger.CreateTriger(0, hardLevelDelta, -1, "HardLevelUpdate");
+        var trigger = LevelTimerTrigger.CreateTrigger(0, hardLevelDelta, -1, "HardLevelUpdate");
         trigger.BindChangeAction(CalculateHardLevelIndex);
         Timer.AddTrigger(trigger);
         CalculateHardLevelIndex();
@@ -913,6 +989,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public async void OnWaveFinish()
     {
+        WaveEnd = true;
         ///Reset TriggerDatas
         ResetAllPlugModifierTriggerDatas();
         ResetAllUnitModifierTriggerDatas();
@@ -931,10 +1008,13 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
 
         Timer.PauseAndSetZero();
-        _waveIndex++;
+        ///停止玩家移动
+        currentShip.controller.SetControllerUpdate(false);
+        AIManager.Instance.ProcessAI = false;
         LevelManager.Instance.CollectAllPickUps();
-        await UniTask.Delay(1000);
 
+        await UniTask.Delay(2000);
+        _waveIndex++;
         if (autoEnterHarbor)
         {
             GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
@@ -949,12 +1029,16 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public async void OnNewWaveStart()
     {
+        WaveEnd = false;
+        _currentGenerateAncientUnitShipCount = 0;
+        _currentAncientUnitProtectRateAdd = 0;
+
         _tempWaveTime = GetCurrentWaveTime();
         AddWaveTrigger();
         CalculateHardLevelIndex();
         Timer.InitTimer(_tempWaveTime);
         Timer.StartTimer();
-       
+        AIManager.Instance.ProcessAI = true;
         OnWaveStateChange?.Invoke(true);
     }
 
@@ -970,7 +1054,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GenerateEnemyAIFactory();
         GenerateShopCreateTimer();
         ///增加船体值自动恢复Trigger
-        var recoverTrigger = LevelTimerTrigger.CreateTriger(0, 1, -1, "UnitHPRecover");
+        var recoverTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, "UnitHPRecover");
         recoverTrigger.BindChangeAction(OnUpdateUnitHPRecover);
         Timer.AddTrigger(recoverTrigger);
     }
@@ -988,19 +1072,39 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for(int i = 0; i < enemyCfg.Count; i++)
         {
             var cfg = enemyCfg[i];
-            var trigger = LevelTimerTrigger.CreateTriger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount);
+            var trigger = LevelTimerTrigger.CreateTrigger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount);
             trigger.BindChangeAction(CreateFactory, cfg.ID);
             Timer.AddTrigger(trigger);
         }
         ///Generate Meteorite Common
-        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTriger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
+        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
         MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
         Timer.AddTrigger(MeteoriteTrigger1);
 
         ///Generate Meteorite Smooth
-        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTriger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
+        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
         MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
         Timer.AddTrigger(MeteoriteTrigger2);
+
+        ///Generate Ancient Common
+        var ancientTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer1, _entitySpawnConfig.AncientUnitGenerate_Timer1, -1, "ancientGenerate_1");
+        ancientTrigger1.BindChangeAction(CreateAncientUnitShip);
+        Timer.AddTrigger(ancientTrigger1);
+
+        int ancientSmoothDeltaTime = 0;
+        if (waveCfg.OverrideAncientUnitSpawnSoomthTimeDelta)
+        {
+            ancientSmoothDeltaTime = waveCfg.OverrideSpawnTime;
+        }
+        else
+        {
+            ancientSmoothDeltaTime = _entitySpawnConfig.AncientUnitGenerate_Timer2;
+        }
+
+        ///Generate Ancient Smooth
+        var ancientTrigger2 = LevelTimerTrigger.CreateTrigger(ancientSmoothDeltaTime, ancientSmoothDeltaTime, -1, "ancientGenerate_2");
+        ancientTrigger2.BindChangeAction(CreateAncientUnitShip_Smooth);
+        Timer.AddTrigger(ancientTrigger2);
     }
 
     private void GenerateShopCreateTimer()
@@ -1016,9 +1120,62 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for (int i = 0; i < shopCfg.Length; i++)
         {
             var time = shopCfg[i];
-            var trigger = LevelTimerTrigger.CreateTriger(time, 0, 1);
+            var trigger = LevelTimerTrigger.CreateTrigger(time, 0, 1);
             trigger.BindChangeAction(CreateShopTeleport);
             Timer.AddTrigger(trigger);
+        }
+    }
+
+    /// <summary>
+    /// 远古无人机生成
+    /// </summary>
+    private void CreateAncientUnitShip()
+    {
+        var count = MainPropertyData.GetPropertyFinal(PropertyModifyKey.AncientUnit_Generate_Count) + 1;
+        count = Mathf.Clamp(count, 1, GameGlobalConfig.AncientUnit_Generate_MaxCount);
+        float targetCount = _entitySpawnConfig.AncientUnitGenerate_Rate1;
+
+        while(targetCount >= 0)
+        {
+            if(targetCount < 1)
+            {
+                bool generate = Utility.CalculateRate100(targetCount * 100);
+                if (generate)
+                {
+                    GenerateAncientUnit();
+                }
+            }
+
+            GenerateAncientUnit();
+            targetCount--;
+        }
+    }
+
+    private void CreateAncientUnitShip_Smooth()
+    {
+        var count = MainPropertyData.GetPropertyFinal(PropertyModifyKey.AncientUnit_Generate_Count) + 1;
+        count = Mathf.Clamp(count, 1, GameGlobalConfig.AncientUnit_Generate_MaxCount);
+
+        var rate = count / _entitySpawnConfig.AncientUnitGenerate_Rate2;
+        bool generate = Utility.CalculateRate100(rate * 100);
+
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+
+        ///保底机制
+        if (!generate && waveCfg != null && waveCfg.UseAncientUnitSpawnProtect)
+        {
+            if(_currentGenerateAncientUnitShipCount < waveCfg.AncientUnitSpawnProtectedCount)
+            {
+                ///如果保底数小于生成数量，启用一次保底，每启用一次概率++
+                _currentAncientUnitProtectRateAdd += DataManager.Instance.battleCfg.EntitySpawnConfig.AncientUnit_ProtectRate_Add;
+                var newRate = rate * 100 + _currentAncientUnitProtectRateAdd;
+                generate = Utility.CalculateRate100(newRate);
+            }
+        }
+
+        if (generate)
+        {
+            GenerateAncientUnit();
         }
     }
 
@@ -1108,6 +1265,32 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SpawnEntity(cfg);
     }
 
+    /// <summary>
+    /// 生成远古单位
+    /// </summary>
+    private void GenerateAncientUnit()
+    {
+        _currentAncientUnitProtectRateAdd = 0;
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        ///如果数量到达最大值，则暂停创生
+        if (_currentGenerateAncientUnitShipCount >= waveCfg.AncientUnitSpawnMax)
+            return;
+
+        _currentGenerateAncientUnitShipCount++;
+        WaveEnemySpawnConfig cfg = new WaveEnemySpawnConfig
+        {
+            AITypeID = _entitySpawnConfig.AncientUnit_ShipID,
+            DurationDelta = 0,
+            LoopCount = 1,
+            TotalCount = 1,
+            MaxRowCount = 1,
+        };
+        SpawnEntity(cfg);
+    }
+
     private void CreateFactory(int ID)
     {
         var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
@@ -1118,7 +1301,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SpawnEntity(cfg);
     }
 
-    private void SpawnEntity(WaveEnemySpawnConfig cfg)
+    public void SpawnEntity(WaveEnemySpawnConfig cfg, int overrideHardLevelID = -1)
     {
         if (cfg == null || currentShip == null)
             return;
@@ -1134,7 +1317,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             spawnSetting.sizeInterval = new Vector2(cfg.SpawnSizeInterval, cfg.SpawnSizeInterval);
             spawnSetting.spawnShape = cfg.SpawnShpe;
 
-            aIFactory.StartSpawn(spawnpoint, spawnSetting, (ship) =>
+            aIFactory.StartSpawn(spawnpoint, spawnSetting, overrideHardLevelID, (ship) =>
             {
                 AIManager.Instance.AddAI(ship);
             });
@@ -1288,6 +1471,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
     }
 
+    private void OnPlayerLuckChange()
+    {
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.LuckChange);
+    }
+
     #endregion
 
     #region Shop
@@ -1297,8 +1485,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void EnterShop()
     {
+        InShop = true;
         GameManager.Instance.PauseGame();
+        RefreshFreeRollCount();
         RefreshShop(false);
+        OnEnterShop?.Invoke();
+
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
         CameraManager.Instance.SetOrthographicSize(20);
@@ -1314,6 +1506,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void ExitShop()
     {
+        InShop = false;
         GameManager.Instance.UnPauseGame();
         InputDispatcher.Instance.ChangeInputMode("Player");
         CameraManager.Instance.SetFollowPlayerShip();
@@ -1345,6 +1538,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         AddCurrency(-cost);
         info.OnItemSold();
         GainShopItem(info);
+
+        OnBuyShopItem?.Invoke(info.GoodsID);
+
         return true;
     }
 
@@ -1370,12 +1566,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         if (useCurrency)
         {
-            if (CurrentRerollCost > CurrentCurrency)
-                return false;
+            if(_shopFreeRollCount > 0)
+            {
+                _shopFreeRollCount--;
+                CurrentRerollCost = 0;
+            }
+            else
+            {
+                if (CurrentRerollCost > CurrentCurrency)
+                    return false;
 
-            ///Cost
-            CurrentRerollCost = GetCurrentRefreshCost();
-            AddCurrency(-CurrentRerollCost);
+                ///Cost
+                CurrentRerollCost = GetCurrentRefreshCost();
+                AddCurrency(-CurrentRerollCost);
+            }
         }
 
         byte itemLockCount = 0;
@@ -1397,10 +1601,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///去除已经锁定的物品
         refreshCount = (byte)Mathf.Max(0, refreshCount - itemLockCount);
         GenerateShopGoods(refreshCount, _shopRefreshTotalCount);
-        RogueEvent.Trigger(RogueEventType.ShopReroll);
 
         OnShopRefresh?.Invoke(_currentRereollCount);
-
+        RogueEvent.Trigger(RogueEventType.ShopReroll);
         Debug.Log("刷新商店，刷新次数 = " + _currentRereollCount);
         return true;
     }
@@ -1515,7 +1718,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <returns></returns>
     public List<ShopGoodsInfo> GetRandomCurrentRogueShopItems(int count)
     {
-        if (CurrentRogueShopItems.Count >= count)
+        if (CurrentRogueShopItems.Count <= count)
             return CurrentRogueShopItems;
 
         return Utility.GetRandomList<ShopGoodsInfo>(CurrentRogueShopItems, count);
@@ -1632,12 +1835,32 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 免费刷新次数
+    /// </summary>
+    private void RefreshFreeRollCount()
+    {
+        var rollCount = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShopFreeRollCount);
+        _shopFreeRollCount = (byte)Mathf.Clamp(rollCount, 0, byte.MaxValue);
+    }
+
+    private void OnShopFreeRollCountChange(float oldValue, float newValue)
+    {
+        float delta = newValue - oldValue;
+        if(delta > 0)
+        {
+            byte targey = (byte)Mathf.Clamp(_shopFreeRollCount + delta, 0, byte.MaxValue);
+            _shopFreeRollCount = targey;
+        }
+    }
+
+    /// <summary>
     /// 商店花费刷新
     /// </summary>
     private void OnShopCostChange()
     {
         RogueEvent.Trigger(RogueEventType.ShopCostChange);
     }
+
 
     #endregion
 
@@ -2067,7 +2290,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private void RefreshCurrentLevelUpRerollCost()
     {
         var refreshCfg = DataManager.Instance.gameMiscCfg.RefreshConfig;
-        int waveCost = (GetCurrentWaveIndex - 1) * refreshCfg.LevelUpCostWaveMultiple;
+        float waveCost = (GetCurrentWaveIndex - 1) * refreshCfg.LevelUpCostWaveMultiple;
         float refreshCountCst = (CurrentLevelUpItemRerollCount * refreshCfg.LevelUpCostWaveMultiple) / 100f;
         CurrentLevelUpitemRerollCost = Mathf.RoundToInt((refreshCfg.LevelUpRefreshCostBase + waveCost) * (1 + refreshCountCst));
     }

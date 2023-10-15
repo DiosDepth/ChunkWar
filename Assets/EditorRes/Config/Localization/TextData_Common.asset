@@ -203,8 +203,8 @@ MonoBehaviour:
     ChineseSimplified: "\u786C\u5316\u62A4\u76FE"
     English: 
     Japanese: 
-  - TextID: ShipLevelUp_EnergyTotalAdd
-    ChineseSimplified: "\u80FD\u6E90\u9635\u5217"
+  - TextID: ShipLevelUp_ExplodeDamage
+    ChineseSimplified: "\u7206\u7834\u5F3A\u5316"
     English: 
     Japanese: 
   - TextID: ShipClassName_Corvette
@@ -317,5 +317,9 @@ MonoBehaviour:
     Japanese: 
   - TextID: Enemy_Name_007
     ChineseSimplified: "\u5DE5\u8702"
+    English: 
+    Japanese: 
+  - TextID: HardLevelName_Test
+    ChineseSimplified: "\u6D4B\u8BD5\u6A21\u5F0F"
     English: 
     Japanese: 

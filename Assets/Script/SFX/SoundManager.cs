@@ -23,7 +23,6 @@ public class SoundManager : Singleton<SoundManager>
     public override void Initialization()
     {
         base.Initialization();
-        LoadBanks();
     }
 
     #region BGM
@@ -54,7 +53,7 @@ public class SoundManager : Singleton<SoundManager>
         RuntimeManager.PlayOneShot(evtParam, trans.position);
     }
 
-    private void LoadBanks()
+    public void LoadBanks()
     {
         var bankFiles = Resources.LoadAll<TextAsset>(DataConfigPath.AudioBankRoot);
         for(int i = 0; i < bankFiles.Length; i++)

@@ -121,13 +121,13 @@ MonoBehaviour:
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
   collider: {fileID: 0}
+  boidRadius: 3
   maxAcceleration: 6
   maxVelocity: 30
   maxAngularAcceleration: 5
   maxAngularVelocity: 3
   targetSerchingRadius: 45
-  boidRadius: 3
-  isActiveEvade: 1
+  isActiveEvade: 0
   evadeBehaviorInfo:
     target: {fileID: 0}
     weight: 0.5
@@ -164,8 +164,6 @@ MonoBehaviour:
     target: {fileID: 0}
     weight: 2
   drag: 3
-  velocity: {x: 0, y: 0, z: 0}
-  lastpos: {x: 0, y: 0, z: 0}
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

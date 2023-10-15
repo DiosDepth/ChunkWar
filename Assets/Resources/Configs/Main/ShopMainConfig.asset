@@ -55,10 +55,10 @@ MonoBehaviour:
       Data: 0
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: BaseWeight
       Entry: 3
-      Data: 40
+      Data: 100
     - Name: WeightAddPerEnterCount
       Entry: 4
       Data: 0
@@ -82,16 +82,16 @@ MonoBehaviour:
       Data: 3|ShopGoodsRarityConfig, Assembly-CSharp
     - Name: MinAppearEneterCount
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: BaseWeight
       Entry: 3
-      Data: 20
+      Data: 0
     - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 0
+      Data: 5
     - Name: WeightMax
       Entry: 4
       Data: 60
@@ -112,16 +112,16 @@ MonoBehaviour:
       Data: 4|ShopGoodsRarityConfig, Assembly-CSharp
     - Name: MinAppearEneterCount
       Entry: 3
-      Data: 0
+      Data: 4
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: BaseWeight
       Entry: 3
-      Data: 20
+      Data: 0
     - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 0
+      Data: 1.5
     - Name: WeightMax
       Entry: 4
       Data: 25
@@ -142,16 +142,16 @@ MonoBehaviour:
       Data: 5|ShopGoodsRarityConfig, Assembly-CSharp
     - Name: MinAppearEneterCount
       Entry: 3
-      Data: 0
+      Data: 8
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 8
     - Name: BaseWeight
       Entry: 3
-      Data: 20
+      Data: 0
     - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 0
+      Data: 0.2
     - Name: WeightMax
       Entry: 4
       Data: 8
@@ -168,7 +168,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   RollCostIncreaceWaveParam: 0.5
-  RollCostWaveBase: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000000000000000000000000000000000000000000000
+  RollCostWaveBase: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000110000001400000017000000190000001d000000
   Goods:
   - GoodID: 1
     Weight: 20
@@ -740,6 +740,151 @@ MonoBehaviour:
     TypeID: 1114
     CostBase: 0
     MaxBuyCount: -1
+  - GoodID: 115
+    Weight: 20
+    TypeID: 1115
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 116
+    Weight: 20
+    TypeID: 1116
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 117
+    Weight: 20
+    TypeID: 1117
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 118
+    Weight: 20
+    TypeID: 1118
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 119
+    Weight: 20
+    TypeID: 1119
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 120
+    Weight: 20
+    TypeID: 1120
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 121
+    Weight: 20
+    TypeID: 1121
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 122
+    Weight: 20
+    TypeID: 1122
+    CostBase: 0
+    MaxBuyCount: 1
+  - GoodID: 123
+    Weight: 20
+    TypeID: 1123
+    CostBase: 0
+    MaxBuyCount: 2
+  - GoodID: 124
+    Weight: 20
+    TypeID: 1124
+    CostBase: 0
+    MaxBuyCount: 3
+  - GoodID: 125
+    Weight: 20
+    TypeID: 1125
+    CostBase: 0
+    MaxBuyCount: 1
+  - GoodID: 126
+    Weight: 20
+    TypeID: 1126
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 127
+    Weight: 20
+    TypeID: 1127
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 128
+    Weight: 20
+    TypeID: 1128
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 129
+    Weight: 20
+    TypeID: 1129
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 130
+    Weight: 20
+    TypeID: 1130
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 131
+    Weight: 20
+    TypeID: 1131
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 132
+    Weight: 20
+    TypeID: 1132
+    CostBase: 0
+    MaxBuyCount: 1
+  - GoodID: 133
+    Weight: 20
+    TypeID: 1133
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 134
+    Weight: 20
+    TypeID: 1134
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 135
+    Weight: 20
+    TypeID: 1135
+    CostBase: 0
+    MaxBuyCount: 1
+  - GoodID: 136
+    Weight: 20
+    TypeID: 1136
+    CostBase: 0
+    MaxBuyCount: 5
+  - GoodID: 137
+    Weight: 20
+    TypeID: 1137
+    CostBase: 0
+    MaxBuyCount: 4
+  - GoodID: 138
+    Weight: 20
+    TypeID: 1138
+    CostBase: 0
+    MaxBuyCount: 1
+  - GoodID: 139
+    Weight: 20
+    TypeID: 1139
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 140
+    Weight: 20
+    TypeID: 1140
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 141
+    Weight: 20
+    TypeID: 1141
+    CostBase: 0
+    MaxBuyCount: 1
+  - GoodID: 142
+    Weight: 20
+    TypeID: 1142
+    CostBase: 0
+    MaxBuyCount: -1
+  - GoodID: 143
+    Weight: 20
+    TypeID: 1143
+    CostBase: 0
+    MaxBuyCount: 1
   WreckageDrops:
   - UnitID: 10000
     Weight: 20

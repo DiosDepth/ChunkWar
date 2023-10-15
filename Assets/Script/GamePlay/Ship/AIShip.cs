@@ -10,6 +10,11 @@ public class AIShip : BaseShip,IPoolable
 
     public int AITypeID;
 
+    /// <summary>
+    /// 覆盖难度参数
+    /// </summary>
+    public int OverrideHardLevelID = -1;
+
     public override void Initialization()
     {
         base.Initialization();
@@ -43,6 +48,11 @@ public class AIShip : BaseShip,IPoolable
         base.Death(info);
         DestroyAIShipBillBoard();
         LevelManager.Instance.pickupList.AddRange(Drop());
+        if (!string.IsNullOrEmpty(AIShipCfg.DieAudio))
+        {
+            SoundManager.Instance.PlayBattleSound(AIShipCfg.DieAudio, transform);
+        }
+
         AIManager.Instance.RemoveAI(this);
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
@@ -51,7 +61,6 @@ public class AIShip : BaseShip,IPoolable
             vfx.GetComponent<ParticleController>().PlayVFX();
             PoolableDestroy();
         });
-
     }
 
     public override void InitProperty()

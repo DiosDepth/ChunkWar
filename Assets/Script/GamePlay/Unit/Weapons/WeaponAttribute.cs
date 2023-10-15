@@ -128,11 +128,13 @@ public class WeaponAttribute : UnitBaseAttribute
         {
             var damage = BaseDamage + BaseDamageModifyValue;
             var damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.DamagePercent);
+            var unitDamagePercent = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitDamagePercentAdd);
+
             if (UseDamageRatio)
             {
                 ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             }
-            var finalDamage = Mathf.Clamp(damage * (1 + damagePercent / 100f) * ratio, 0, int.MaxValue);
+            var finalDamage = Mathf.Clamp(damage * (1 + (damagePercent + unitDamagePercent) / 100f) * ratio, 0, int.MaxValue);
             bool critical = Utility.CalculateRate100(CriticalRatio);
             if (critical)
             {

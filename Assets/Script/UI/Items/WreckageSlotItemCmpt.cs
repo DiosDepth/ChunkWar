@@ -113,6 +113,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     /// </summary>
     private void SetUpWaste()
     {
+        _rarityBG.sprite = GameHelper.GetRarityBG_Big(GoodsItemRarity.Tier1);
         _wasteValueText.text = RogueManager.Instance.GetDropWasteCount.ToString();
         _wasteLoadValueText.text = string.Format("{0:F1}", RogueManager.Instance.GetDropWasteLoad);
     }

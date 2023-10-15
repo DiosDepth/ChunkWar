@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638328399878632986
+  lastModified: 638329977293962284
   FileSizes: []
   Exists: 1
 --- !u!114 &-6987822416961858339
@@ -180,6 +180,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1528
+--- !u!114 &-3289839068403242954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ship/ShipExplode_001
+  m_EditorClassIdentifier: 
+  Path: event:/Ship/ShipExplode_001
+  Guid:
+    Data1: 1417376324
+    Data2: 1272982482
+    Data3: 1996359040
+    Data4: -972118127
+  Banks:
+  - {fileID: 5306218116689222084}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 3406
 --- !u!114 &-1303298684361366301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +249,7 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638328865409787344
+  lastModified: 638320511963513704
   FileSizes: []
   Exists: 1
 --- !u!114 &-16343717228847713
@@ -269,6 +296,7 @@ MonoBehaviour:
   - {fileID: -7708595005476152503}
   - {fileID: -500163902390124906}
   - {fileID: 5234979963309887168}
+  - {fileID: 5306218116689222084}
   EditorEvents:
   - {fileID: -6987822416961858339}
   - {fileID: -4260330626709139661}
@@ -281,12 +309,14 @@ MonoBehaviour:
   - {fileID: -4526521602577045453}
   - {fileID: -6462358094498768463}
   - {fileID: 3111698903559324271}
+  - {fileID: -3289839068403242954}
+  - {fileID: 8817005393438716050}
   EditorParameters: []
   MasterBanks:
   - {fileID: -500163902390124906}
   StringsBanks:
   - {fileID: 8924922072945400526}
-  cacheTime: 638328867226015625
+  cacheTime: 638329977293990999
   cacheVersion: 131608
 --- !u!114 &1760214526661282929
 MonoBehaviour:
@@ -357,7 +387,25 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638328867226015625
+  lastModified: 638329977293981054
+  FileSizes: []
+  Exists: 1
+--- !u!114 &5306218116689222084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Ship.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/SOUND/Build/Desktop/Ship.bank
+  Name: Ship
+  StudioPath: bank:/Ship
+  lastModified: 638329977293990999
   FileSizes: []
   Exists: 1
 --- !u!114 &5932116681807520797
@@ -387,6 +435,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1402
+--- !u!114 &8817005393438716050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ship/ShipExplode_002
+  m_EditorClassIdentifier: 
+  Path: event:/Ship/ShipExplode_002
+  Guid:
+    Data1: 226249406
+    Data2: 1329632113
+    Data3: 735071628
+    Data4: 313881628
+  Banks:
+  - {fileID: 5306218116689222084}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 2650
 --- !u!114 &8924922072945400526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,8 +477,8 @@ MonoBehaviour:
   Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638328867226015625
+  lastModified: 638329977293990999
   FileSizes:
   - Name: 
-    Value: 1380
+    Value: 1510
   Exists: 1

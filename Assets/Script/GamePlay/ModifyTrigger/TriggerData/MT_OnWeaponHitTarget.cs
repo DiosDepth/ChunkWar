@@ -77,18 +77,30 @@ public class MT_OnWeaponReload : ModifyTriggerData
     {
         if (reloadStart)
         {
-            if (!_uidStorage.Contains(weaponUID))
+            if(_reloadCfg.Mode == MTC_OnWeaponReload.EffectMode.DurationEffect)
             {
-                _uidStorage.Add(weaponUID);
+                ///期间一直生效触发
+                if (!_uidStorage.Contains(weaponUID))
+                {
+                    _uidStorage.Add(weaponUID);
+                }
+                EffectTrigger(weaponUID);
             }
-            EffectTrigger(weaponUID);
+      
         }
         else
         {
-            if (_uidStorage.Contains(weaponUID))
+            if(_reloadCfg.Mode == MTC_OnWeaponReload.EffectMode.DurationEffect)
             {
-                _uidStorage.Remove(weaponUID);
-                UnEffectTrigger(weaponUID);
+                if (_uidStorage.Contains(weaponUID))
+                {
+                    _uidStorage.Remove(weaponUID);
+                    UnEffectTrigger(weaponUID);
+                }
+            }
+            else if(_reloadCfg.Mode == MTC_OnWeaponReload.EffectMode.TriggerInterval)
+            {
+
             }
         }
     }

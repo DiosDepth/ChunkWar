@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 3
     - Name: TriggerCount
       Entry: 3
-      Data: 0
+      Data: -1
     - Name: SelfUnique
       Entry: 5
       Data: false
@@ -43,6 +43,12 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: Percent
+      Entry: 4
+      Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
       Entry: 4
       Data: 0
     - Name: Effects
@@ -86,7 +92,6 @@ MonoBehaviour:
     Rarity: 2
     SortingOrder: 0
   PropertyModify: []
-  EffectDesc: ShipPlug_Desc_1013
-  EffectDescDamageParam: 0
-  ItemTags: 0
+  EffectDesc: ShipPlug_Effect_1013
+  PlugTags: 0
   PropertyPercentModify: []

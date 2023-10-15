@@ -35,13 +35,32 @@ MonoBehaviour:
       Data: 
   ID: 1122
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 116a5f4cc68c6304293520c60ed47fdf, type: 3}
     Name: ShipPlug_Name_1122
     Desc: 
-    Rarity: 0
+    Rarity: 3
     SortingOrder: 0
-  PropertyModify: []
+  PropertyModify:
+  - ModifyKey: 46
+    Value: 5
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
+  - ModifyKey: 59
+    Value: 10
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
+  - ModifyKey: 61
+    Value: 5
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
+  - ModifyKey: 63
+    Value: 10
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
   EffectDesc: 
-  EffectDescDamageParam: 0
   PlugTags: 0
   PropertyPercentModify: []

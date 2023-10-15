@@ -28,10 +28,10 @@ MonoBehaviour:
       Data: 0|BattleMiscRefreshConfig, Assembly-CSharp
     - Name: LevelUpRefreshCostBase
       Entry: 3
-      Data: 5
+      Data: 2
     - Name: LevelUpCostWaveMultiple
-      Entry: 3
-      Data: 3
+      Entry: 4
+      Data: 2.5
     - Name: LevelUpRefreshCountMultiple
       Entry: 3
       Data: 10
@@ -193,13 +193,13 @@ MonoBehaviour:
       Data: 7|ShipControlConfig, Assembly-CSharp
     - Name: MaxSpeed_Base
       Entry: 4
-      Data: 11
+      Data: 10
     - Name: Acceleration_Base
       Entry: 4
-      Data: 16
+      Data: 10
     - Name: MaxRotateSpeed_Base
       Entry: 4
-      Data: 25
+      Data: 20
     - Name: RotationAcceleration
       Entry: 4
       Data: 1

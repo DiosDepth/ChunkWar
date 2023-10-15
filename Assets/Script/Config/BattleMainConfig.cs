@@ -62,6 +62,13 @@ public enum ModifyTriggerType
     OnShieldBroken,
     OnPlayerCoreUnitTakeDamage,
     OnPlayerCreateExplode,
+    OnBuyShopItem,
+    OnCollectPickable,
+    /// <summary>
+    /// µ¥Î»Ì±»¾
+    /// </summary>
+    OnPlayerUnitParalysis,
+    OnEnterShop,
 }
 
 public enum ModifyTriggerEffectType
@@ -81,6 +88,7 @@ public enum ModifyTriggerEffectType
     GainCurrency,
     ModifyDamgeByTargetDistance,
     AddUnitModifier,
+    HealUnitHP,
 }
 
 public class BattleMainConfig : SerializedScriptableObject
@@ -294,6 +302,14 @@ public class BattleSpecialEntitySpawnConfig
     /// </summary>
     public float MeteoriteGenerate_Rate2;
     public int MeteoriteGenerate_Timer2;
+
+    public float AncientUnitGenerate_Rate1;
+    public int AncientUnitGenerate_Timer1;
+    public float AncientUnitGenerate_Rate2;
+    public int AncientUnitGenerate_Timer2;
+
+    public int AncientUnit_ShipID;
+    public int AncientUnit_ProtectRate_Add;
 
     public Dictionary<GoodsItemRarity, int> MeteoriteGenerate_TypeID_Map = new Dictionary<GoodsItemRarity, int>();
 

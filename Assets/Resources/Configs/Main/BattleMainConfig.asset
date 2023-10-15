@@ -51,6 +51,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 1a8689827bc549b46b58f34393d92e9c, type: 3}
     - {fileID: 21300000, guid: 5d1542524f367a74cafa1bc6c84f94b7, type: 3}
     - {fileID: 21300000, guid: ee80cf7f7c2675f49bd9464bc2616726, type: 3}
+    - {fileID: 21300000, guid: 1fa45f0ff1747e849b1cc4c10201bd51, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -76,7 +77,25 @@ MonoBehaviour:
       Data: 20
     - Name: MeteoriteGenerate_Timer2
       Entry: 3
-      Data: 6
+      Data: 5
+    - Name: AncientUnitGenerate_Rate1
+      Entry: 4
+      Data: 0.1
+    - Name: AncientUnitGenerate_Timer1
+      Entry: 3
+      Data: 25
+    - Name: AncientUnitGenerate_Rate2
+      Entry: 4
+      Data: 30
+    - Name: AncientUnitGenerate_Timer2
+      Entry: 3
+      Data: 7
+    - Name: AncientUnit_ShipID
+      Entry: 3
+      Data: 5005
+    - Name: AncientUnit_ProtectRate_Add
+      Entry: 3
+      Data: 15
     - Name: MeteoriteGenerate_TypeID_Map
       Entry: 7
       Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Int32,
@@ -160,7 +179,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 4|HardLevelConfig, Assembly-CSharp
@@ -602,18 +621,48 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PropertyDisplay
       Entry: 7
-      Data: 22|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[PropertyDisplayConfig,
-        Assembly-CSharp]], mscorlib
+      Data: 22|HardLevelConfig, Assembly-CSharp
+    - Name: HardLevelID
+      Entry: 3
+      Data: 9999
+    - Name: Name
+      Entry: 1
+      Data: HardLevelName_Test
+    - Name: Desc
+      Entry: 6
+      Data: 
+    - Name: PropertyDesc
+      Entry: 6
+      Data: 
+    - Name: UnlockDesc
+      Entry: 6
+      Data: 
+    - Name: PreviewScore
+      Entry: 3
+      Data: 9999
+    - Name: Icon
+      Entry: 10
+      Data: 2
+    - Name: DefaultUnlock
+      Entry: 5
+      Data: true
+    - Name: LevelPresetID
+      Entry: 3
+      Data: 9999
+    - Name: ScoreRatio
+      Entry: 4
+      Data: 1
+    - Name: StartCurrency
+      Entry: 3
+      Data: 0
+    - Name: StartWreckageDic
+      Entry: 7
+      Data: 23|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+        mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 23|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
+      Data: 24|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -626,7 +675,68 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 41
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyDic
+      Entry: 7
+      Data: 25|System.Collections.Generic.Dictionary`2[[HardLevelModifyType, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 26|System.Collections.Generic.EnumEqualityComparer`1[[HardLevelModifyType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PropertyDisplay
+      Entry: 7
+      Data: 27|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[PropertyDisplayConfig,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 28|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 52
     - Name: 
       Entry: 7
       Data: 
@@ -635,7 +745,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 24|PropertyDisplayConfig, Assembly-CSharp
+      Data: 29|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_DamagePercent
@@ -671,7 +781,7 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 7
-      Data: 25|PropertyDisplayConfig, Assembly-CSharp
+      Data: 30|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_AttackSpeed
@@ -707,7 +817,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 26|PropertyDisplayConfig, Assembly-CSharp
+      Data: 31|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Critical
@@ -743,7 +853,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 27|PropertyDisplayConfig, Assembly-CSharp
+      Data: 32|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopRefreshCount
@@ -779,7 +889,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: 28|PropertyDisplayConfig, Assembly-CSharp
+      Data: 33|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShopCostPercent
@@ -815,7 +925,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 29|PropertyDisplayConfig, Assembly-CSharp
+      Data: 34|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipHP
@@ -851,7 +961,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 30|PropertyDisplayConfig, Assembly-CSharp
+      Data: 35|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_WeaponRange
@@ -887,7 +997,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 31|PropertyDisplayConfig, Assembly-CSharp
+      Data: 36|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Luck
@@ -923,7 +1033,7 @@ MonoBehaviour:
       Data: 9
     - Name: $v
       Entry: 7
-      Data: 32|PropertyDisplayConfig, Assembly-CSharp
+      Data: 37|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_SuckerRange
@@ -959,7 +1069,7 @@ MonoBehaviour:
       Data: 15
     - Name: $v
       Entry: 7
-      Data: 33|PropertyDisplayConfig, Assembly-CSharp
+      Data: 38|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_PhysicsDamage
@@ -995,7 +1105,7 @@ MonoBehaviour:
       Data: 16
     - Name: $v
       Entry: 7
-      Data: 34|PropertyDisplayConfig, Assembly-CSharp
+      Data: 39|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnergyDamage
@@ -1031,7 +1141,7 @@ MonoBehaviour:
       Data: 17
     - Name: $v
       Entry: 7
-      Data: 35|PropertyDisplayConfig, Assembly-CSharp
+      Data: 40|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_DamageDeltaPercent
@@ -1067,7 +1177,7 @@ MonoBehaviour:
       Data: 14
     - Name: $v
       Entry: 7
-      Data: 36|PropertyDisplayConfig, Assembly-CSharp
+      Data: 41|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: CriticalDamagePercentAdd
@@ -1103,7 +1213,7 @@ MonoBehaviour:
       Data: 21
     - Name: $v
       Entry: 7
-      Data: 37|PropertyDisplayConfig, Assembly-CSharp
+      Data: 42|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShieldHP
@@ -1139,7 +1249,7 @@ MonoBehaviour:
       Data: 31
     - Name: $v
       Entry: 7
-      Data: 38|PropertyDisplayConfig, Assembly-CSharp
+      Data: 43|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipArmor
@@ -1175,7 +1285,7 @@ MonoBehaviour:
       Data: 39
     - Name: $v
       Entry: 7
-      Data: 39|PropertyDisplayConfig, Assembly-CSharp
+      Data: 44|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipParry
@@ -1211,7 +1321,7 @@ MonoBehaviour:
       Data: 38
     - Name: $v
       Entry: 7
-      Data: 40|PropertyDisplayConfig, Assembly-CSharp
+      Data: 45|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShipSpeed
@@ -1247,7 +1357,7 @@ MonoBehaviour:
       Data: 41
     - Name: $v
       Entry: 7
-      Data: 41|PropertyDisplayConfig, Assembly-CSharp
+      Data: 46|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ExplodeDamage
@@ -1283,7 +1393,7 @@ MonoBehaviour:
       Data: 43
     - Name: $v
       Entry: 7
-      Data: 42|PropertyDisplayConfig, Assembly-CSharp
+      Data: 47|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnemyCount
@@ -1319,7 +1429,7 @@ MonoBehaviour:
       Data: 44
     - Name: $v
       Entry: 7
-      Data: 43|PropertyDisplayConfig, Assembly-CSharp
+      Data: 48|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EliteBossDamage
@@ -1355,7 +1465,7 @@ MonoBehaviour:
       Data: 46
     - Name: $v
       Entry: 7
-      Data: 44|PropertyDisplayConfig, Assembly-CSharp
+      Data: 49|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Command
@@ -1391,7 +1501,7 @@ MonoBehaviour:
       Data: 35
     - Name: $v
       Entry: 7
-      Data: 45|PropertyDisplayConfig, Assembly-CSharp
+      Data: 50|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShieldArmor
@@ -1427,7 +1537,7 @@ MonoBehaviour:
       Data: 42
     - Name: $v
       Entry: 7
-      Data: 46|PropertyDisplayConfig, Assembly-CSharp
+      Data: 51|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ExplodeRange
@@ -1463,7 +1573,7 @@ MonoBehaviour:
       Data: 23
     - Name: $v
       Entry: 7
-      Data: 47|PropertyDisplayConfig, Assembly-CSharp
+      Data: 52|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_Transfixion
@@ -1499,7 +1609,7 @@ MonoBehaviour:
       Data: 24
     - Name: $v
       Entry: 7
-      Data: 48|PropertyDisplayConfig, Assembly-CSharp
+      Data: 53|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_TransfixionDamage
@@ -1535,7 +1645,7 @@ MonoBehaviour:
       Data: 50
     - Name: $v
       Entry: 7
-      Data: 49|PropertyDisplayConfig, Assembly-CSharp
+      Data: 54|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_MissileCount
@@ -1571,7 +1681,7 @@ MonoBehaviour:
       Data: 53
     - Name: $v
       Entry: 7
-      Data: 50|PropertyDisplayConfig, Assembly-CSharp
+      Data: 55|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_PhysicalCount
@@ -1607,7 +1717,7 @@ MonoBehaviour:
       Data: 30
     - Name: $v
       Entry: 7
-      Data: 51|PropertyDisplayConfig, Assembly-CSharp
+      Data: 56|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShieldRatioAdd
@@ -1643,7 +1753,7 @@ MonoBehaviour:
       Data: 40
     - Name: $v
       Entry: 7
-      Data: 52|PropertyDisplayConfig, Assembly-CSharp
+      Data: 57|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_UnitHPRecover
@@ -1679,7 +1789,7 @@ MonoBehaviour:
       Data: 12
     - Name: $v
       Entry: 7
-      Data: 53|PropertyDisplayConfig, Assembly-CSharp
+      Data: 58|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EXPAddPercent
@@ -1715,7 +1825,7 @@ MonoBehaviour:
       Data: 34
     - Name: $v
       Entry: 7
-      Data: 54|PropertyDisplayConfig, Assembly-CSharp
+      Data: 59|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnemyDrop
@@ -1751,7 +1861,7 @@ MonoBehaviour:
       Data: 45
     - Name: $v
       Entry: 7
-      Data: 55|PropertyDisplayConfig, Assembly-CSharp
+      Data: 60|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnemySpeed
@@ -1787,7 +1897,7 @@ MonoBehaviour:
       Data: 27
     - Name: $v
       Entry: 7
-      Data: 56|PropertyDisplayConfig, Assembly-CSharp
+      Data: 61|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_SellPrice
@@ -1823,7 +1933,7 @@ MonoBehaviour:
       Data: 36
     - Name: $v
       Entry: 7
-      Data: 57|PropertyDisplayConfig, Assembly-CSharp
+      Data: 62|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_EnergyCostAdd
@@ -1859,7 +1969,7 @@ MonoBehaviour:
       Data: 20
     - Name: $v
       Entry: 7
-      Data: 58|PropertyDisplayConfig, Assembly-CSharp
+      Data: 63|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_UnitEnergyGenerate
@@ -1895,7 +2005,7 @@ MonoBehaviour:
       Data: 28
     - Name: $v
       Entry: 7
-      Data: 59|PropertyDisplayConfig, Assembly-CSharp
+      Data: 64|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_UnitLoadCost
@@ -1931,7 +2041,7 @@ MonoBehaviour:
       Data: 19
     - Name: $v
       Entry: 7
-      Data: 60|PropertyDisplayConfig, Assembly-CSharp
+      Data: 65|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_WeaponEnergyCost
@@ -1967,7 +2077,7 @@ MonoBehaviour:
       Data: 32
     - Name: $v
       Entry: 7
-      Data: 61|PropertyDisplayConfig, Assembly-CSharp
+      Data: 66|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_WasteSellPriceAdd
@@ -2003,7 +2113,7 @@ MonoBehaviour:
       Data: 33
     - Name: $v
       Entry: 7
-      Data: 62|PropertyDisplayConfig, Assembly-CSharp
+      Data: 67|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_WasteLoad
@@ -2039,7 +2149,7 @@ MonoBehaviour:
       Data: 29
     - Name: $v
       Entry: 7
-      Data: 63|PropertyDisplayConfig, Assembly-CSharp
+      Data: 68|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_UnitLoadAdd
@@ -2075,7 +2185,7 @@ MonoBehaviour:
       Data: 37
     - Name: $v
       Entry: 7
-      Data: 64|PropertyDisplayConfig, Assembly-CSharp
+      Data: 69|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
       Data: PropertyName_ShieldEnergyCost
@@ -2097,6 +2207,402 @@ MonoBehaviour:
     - Name: TextSpriteIndex
       Entry: 3
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 18
+    - Name: $v
+      Entry: 7
+      Data: 70|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldDamage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 10
+      Data: 35
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 60
+    - Name: $v
+      Entry: 7
+      Data: 71|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_AirCraftHP
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 61
+    - Name: $v
+      Entry: 7
+      Data: 72|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_AirCraftSpeed
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 63
+    - Name: $v
+      Entry: 7
+      Data: 73|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_HangerEnergyCostPercent
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 47
+    - Name: $v
+      Entry: 7
+      Data: 74|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_LoadPunishRate
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 52
+    - Name: $v
+      Entry: 7
+      Data: 75|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_EnergyPunishRate
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 59
+    - Name: $v
+      Entry: 7
+      Data: 76|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_AirCraftDamage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 49
+    - Name: $v
+      Entry: 7
+      Data: 77|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_MissileHPPercent
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 62
+    - Name: $v
+      Entry: 7
+      Data: 78|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Aircraft_ShieldRatio
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 25
+    - Name: $v
+      Entry: 7
+      Data: 79|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldRecoverValue
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 26
+    - Name: $v
+      Entry: 7
+      Data: 80|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_ShieldRecoverTimeReduce
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 6
+      Data: 
+    - Name: IsPercent
+      Entry: 5
+      Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
     - Name: 
       Entry: 8
       Data: 
@@ -2215,13 +2721,13 @@ MonoBehaviour:
     - 5
     - 8
   - Icon: {fileID: 21300000, guid: fda083d8e658ad848b3b6cd85450dde5, type: 3}
-    Name: ShipLevelUp_EnergyTotalAdd
-    ModifyKey: 36
+    Name: ShipLevelUp_ExplodeDamage
+    ModifyKey: 41
     RarityValueMap:
-    - 20
-    - 30
-    - 40
-    - 50
+    - 1
+    - 2
+    - 4
+    - 6
   ShipLevelUpItemRarityMap:
   - Rarity: 0
     MinLevel: 1

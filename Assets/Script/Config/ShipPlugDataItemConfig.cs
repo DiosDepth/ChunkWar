@@ -34,11 +34,6 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
     public string EffectDesc;
 
     [FoldoutGroup("其他配置")]
-    [LabelText("效果描述")]
-    [LabelWidth(80)]
-    public bool EffectDescDamageParam = false;
-
-    [FoldoutGroup("其他配置")]
     [LabelText("TAG")]
     [LabelWidth(80)]
     [EnumToggleButtons]
@@ -59,6 +54,10 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
     [HideReferenceObjectPicker]
     public ModifyTriggerConfig[] ModifyTriggers = new ModifyTriggerConfig[0];
 
+
+    private const string EffectDesc_DamageParam = "#D#";
+    private const string EffectDesc_LuckParam = "#L#";
+
     public bool HasPlugTag(ShipPlugTag tag)
     {
         return PlugTags.HasFlag(tag);
@@ -66,25 +65,28 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
 
     public string GetEffectDesc()
     {
-        if (EffectDescDamageParam)
+        var rowContent = LocalizationManager.Instance.GetTextValue(EffectDesc);
+        if (string.IsNullOrEmpty(rowContent))
+            return rowContent;
+
+        if (rowContent.Contains(EffectDesc_DamageParam))
         {
+            ///替换修正伤害
             ///Param
             for (int i = 0; i < ModifyTriggers.Length; i++)
             {
-
                 var trigger = ModifyTriggers[i];
-                for (int j = 0; j < trigger.Effects.Length; i++)
+                for (int j = 0; j < trigger.Effects.Length; j++)
                 {
-                    var effect = trigger.Effects[i];
+                    var effect = trigger.Effects[j];
                     if (effect.EffectType == ModifyTriggerEffectType.CreateDamage)
                     {
                         MTEC_CreateDamage damage = effect as MTEC_CreateDamage;
                         var finalDamage = GameHelper.CalculatePlayerDamageWithModify(damage.Damage, damage.DamageModifyFrom, out bool critical);
 
-                        ///图标TODO
-                        var descRow = LocalizationManager.Instance.GetTextValue(EffectDesc);
                         var damageText = GetDamamgeValueDescText(damage.DamageModifyFrom, finalDamage, damage.Damage);
-                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, damageText);
+
+                        rowContent = rowContent.Replace(EffectDesc_DamageParam, damageText);
                     }
                     else if (effect.EffectType == ModifyTriggerEffectType.CreateExplode)
                     {
@@ -92,18 +94,28 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
                         var finalDamage = GameHelper.CalculatePlayerDamageWithModify(explde.ExplodeDamageBase, explde.DamageModifyFrom, out bool critical);
 
                         ///图标TODO
-                        var descRow = LocalizationManager.Instance.GetTextValue(EffectDesc);
                         var damageText = GetDamamgeValueDescText(explde.DamageModifyFrom, finalDamage, explde.ExplodeDamageBase);
-                        return LocalizationManager.Instance.ReplaceTextBySpecialValue(descRow, damageText);
+                        rowContent = rowContent.Replace(EffectDesc_DamageParam, damageText);
                     }
+
                 }
             }
-            return LocalizationManager.Instance.GetTextValue(EffectDesc);
         }
-        else
+        else if (rowContent.Contains(EffectDesc_LuckParam))
         {
-            return LocalizationManager.Instance.GetTextValue(EffectDesc);
+            for (int i = 0; i < ModifyTriggers.Length; i++)
+            {
+                var trigger = ModifyTriggers[i];
+                if (!trigger.UsePercent || !trigger.UseLuckModify)
+                    return rowContent;
+
+                var playerLuck = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Luck);
+                var finalRate = playerLuck * trigger.LuckModifyRate + trigger.Percent;
+                var rateText = GetLuckValueDescText(trigger.LuckModifyRate, finalRate, trigger.Percent);
+                rowContent = rowContent.Replace(EffectDesc_LuckParam, rateText);
+            }
         }
+        return rowContent;
     }
 
     private string GetDamamgeValueDescText(List<UnitPropertyModifyFrom> modifyFroms, int damage, int rowDamage)
@@ -123,7 +135,7 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
                 var proeprtyDisplayCfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(modifyFrom.PropertyKey);
                 if (proeprtyDisplayCfg != null)
                 {
-                    if (modifyFrom.Ratio == 1)
+                    if (modifyFrom.Ratio != 1)
                     {
                         sb.Append(string.Format("{0}%<sprite={1}>", modifyFrom.Ratio * 100, proeprtyDisplayCfg.TextSpriteIndex));
                     }
@@ -136,6 +148,29 @@ public class ShipPlugDataItemConfig : SerializedScriptableObject
             sb.Append("]");
         }
 
+        return sb.ToString();
+    }
+
+    private string GetLuckValueDescText(float luckRatio, float rate, float rowRate)
+    {
+        StringBuilder sb = new StringBuilder();
+        string color = GameHelper.GetColorCode(rate, rowRate, false);
+        ///图文混排
+        sb.Append(string.Format("<color={0}>{1}%</color> ", color, rate.ToString("F1")));
+        sb.Append("[");
+        var proeprtyDisplayCfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(PropertyModifyKey.Luck);
+        if (proeprtyDisplayCfg != null)
+        {
+            if (luckRatio != 1)
+            {
+                sb.Append(string.Format("{0}%<sprite={1}>", luckRatio * 100, proeprtyDisplayCfg.TextSpriteIndex));
+            }
+            else
+            {
+                sb.Append(string.Format("<sprite={0}>", proeprtyDisplayCfg.TextSpriteIndex));
+            }
+        }
+        sb.Append("]");
         return sb.ToString();
     }
 

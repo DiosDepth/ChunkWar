@@ -94,6 +94,10 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_AddUnitModifier(type));
             }
+            else if(type == ModifyTriggerEffectType.HealUnitHP)
+            {
+                result.Add(type.ToString(), new MTEC_HealUnitHP(type));
+            }
         }
 
         return result;
@@ -472,6 +476,17 @@ public class MTEC_GainDropWaste : ModifyTriggerEffectConfig
     [LabelWidth(40)]
     public int Value;
 
+    [HorizontalGroup("AA", 200)]
+    [LabelText("增加百分比")]
+    [LabelWidth(80)]
+    public bool GainPercent;
+
+    [HorizontalGroup("AA", 120)]
+    [LabelText("百分比")]
+    [LabelWidth(40)]
+    [ShowIf("GainPercent")]
+    public float PercentValue;
+
     public MTEC_GainDropWaste(ModifyTriggerEffectType type) : base(type)
     {
 
@@ -479,7 +494,14 @@ public class MTEC_GainDropWaste : ModifyTriggerEffectConfig
 
     public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
-        RogueManager.Instance.AddDropWasteCount(Value);
+        if (GainPercent)
+        {
+
+        }
+        else
+        {
+            RogueManager.Instance.AddDropWasteCount(Value);
+        }
     }
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
@@ -515,11 +537,12 @@ public enum PointTargetType
 {
     NONE,
     HitPoint,
+    RandomEnemyUnitPoint,
 }
 
 public class MTEC_CreateExplode : ModifyTriggerEffectConfig
 {
-    [HorizontalGroup("AA", 120)]
+    [HorizontalGroup("AA", 300)]
     [LabelText("点类型")]
     [LabelWidth(40)]
     public PointTargetType PointTarget;
@@ -559,13 +582,14 @@ public enum EffectDamageTargetType
     All,
     Target,
     Random,
+    TargetSortByMaxHP,
 }
 
 public class MTEC_CreateDamage : ModifyTriggerEffectConfig
 {
-    [HorizontalGroup("AA", 120)]
+    [HorizontalGroup("AA", 300)]
     [LabelText("目标类型")]
-    [LabelWidth(40)]
+    [LabelWidth(80)]
     public EffectDamageTargetType TargetType;
 
     [HorizontalGroup("AA", 120)]
@@ -573,9 +597,8 @@ public class MTEC_CreateDamage : ModifyTriggerEffectConfig
     [LabelWidth(60)]
     public int Damage;
 
-    [ShowIf("TargetType", EffectDamageTargetType.Random)]
     [HorizontalGroup("AA", 150)]
-    [LabelText("随机目标个数")]
+    [LabelText("目标个数")]
     [LabelWidth(80)]
     public int RandomTargetCount = 1;
 
@@ -623,6 +646,40 @@ public class MTEC_ModifyDamgeByTargetDistance : ModifyTriggerEffectConfig
     public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
         data.ModifyDamageByTargetDistance(this, parentUnitUID);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
+
+public class MTEC_HealUnitHP : ModifyTriggerEffectConfig
+{
+    public enum HealTargetType
+    {
+        Target,
+        AllPlayerUnit
+    }
+
+    [LabelText("目标")]
+    [LabelWidth(120)]
+    [HorizontalGroup("AA", 300)]
+    public HealTargetType TargetType;
+
+    [LabelText("治疗值")]
+    [LabelWidth(120)]
+    [HorizontalGroup("AA", 300)]
+    public float HealValue;
+
+    public MTEC_HealUnitHP(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.HealUnitHP(this, parentUnitUID);
     }
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)

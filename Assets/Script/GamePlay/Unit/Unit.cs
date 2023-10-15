@@ -101,6 +101,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 ///瘫痪恢复
                 AIManager.Instance.AddTargetUnit(this);
                 (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
+                LevelManager.Instance.PlayerUnitParalysis(UID, false); 
             }
         }
 
@@ -110,6 +111,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             OnEnterParalysisState();
             if (_owner is PlayerShip)
             {
+                LevelManager.Instance.PlayerUnitParalysis(UID, true);
                 ///移除目标选中
                 AIManager.Instance.RemoveTargetUnit(this);
                 if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
@@ -158,7 +160,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
-            unitSprite.color = Color.black;
         });
         
     }
@@ -176,7 +177,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     
         }
         SetUnitProcess(true);
-        unitSprite.color = Color.white;
     }
 
     protected virtual void OnDestroy()
@@ -206,7 +206,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
 
             SetUnitProcess(true);
-            unitSprite.color = Color.white;
         }
         GameManager.Instance.RegisterPauseable(this);
         ChangeUnitState(DamagableState.Normal);
@@ -283,6 +282,21 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             _spriteMat.DisableKeyword("OUTBASE_ON");
         }
         
+    }
+
+    /// <summary>
+    /// 治疗，增加HP
+    /// </summary>
+    /// <param name="value"></param>
+    public virtual void Heal(int value)
+    {
+        if (HpComponent == null)
+            return;
+
+        if (state == DamagableState.Destroyed || state == DamagableState.Paralysis)
+            return;
+
+        HpComponent.ChangeHP(value);
     }
 
     public virtual bool TakeDamage(DamageResultInfo info)

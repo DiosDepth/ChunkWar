@@ -47,6 +47,5 @@ MonoBehaviour:
     SpecialType: 1
     SpecialKeyParam: LoadPercent
   EffectDesc: ShipPlug_Effect_1032
-  EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

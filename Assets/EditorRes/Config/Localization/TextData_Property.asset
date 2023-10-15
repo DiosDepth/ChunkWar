@@ -315,3 +315,51 @@ MonoBehaviour:
     ChineseSimplified: "\u8230\u8239\u7ED3\u6784\u989D\u5916\u589E\u52A0\u503C\uFF0C\u6838\u5FC3\u7684\u8230\u8239\u7ED3\u6784\u5F52\u96F6\u65F6\uFF0C\u6E38\u620F\u7ED3\u675F"
     English: 
     Japanese: 
+  - TextID: PropertyName_ShieldDamage
+    ChineseSimplified: "\u5BF9\u62A4\u76FE\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_AirCraftHP
+    ChineseSimplified: "\u8230\u8F7D\u673A\u8840\u91CF"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_AirCraftSpeed
+    ChineseSimplified: "\u8230\u8F7D\u673A\u901F\u5EA6"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_HangerEnergyCostPercent
+    ChineseSimplified: "\u673A\u5E93\u80FD\u6E90\u6D88\u8017"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShopRefreshCount
+    ChineseSimplified: "\u63D2\u4EF6\u5237\u65B0\u6570\u91CF"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_LoadPunishRate
+    ChineseSimplified: "\u8D1F\u8F7D\u60E9\u7F5A\u6548\u679C"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_EnergyPunishRate
+    ChineseSimplified: "\u80FD\u6E90\u60E9\u7F5A\u6548\u679C"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_AirCraftDamage
+    ChineseSimplified: "\u8230\u8F7D\u673A\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_MissileHPPercent
+    ChineseSimplified: "\u5BFC\u5F39\u7ED3\u6784"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_Aircraft_ShieldRatio
+    ChineseSimplified: "\u8230\u8F7D\u673A\u62A4\u76FE\u8303\u56F4"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShieldRecoverTimeReduce
+    ChineseSimplified: "\u62A4\u76FE\u53D7\u51FB\u6062\u590D\u65F6\u957F"
+    English: 
+    Japanese: 
+  - TextID: PropertyName_ShieldRecoverValue
+    ChineseSimplified: "\u62A4\u76FE\u6062\u590D\u91CF"
+    English: 
+    Japanese: 

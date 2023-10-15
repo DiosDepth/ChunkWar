@@ -72,16 +72,16 @@ public class AIFactory : MonoBehaviour,IPoolable
 
     }
 
-    public async void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, UnityAction<AIShip> callback = null)
+    public async void StartSpawn(Vector2 referencepos, RectAISpawnSetting spawnsettings, int overrideHardlevelID = -1, UnityAction<AIShip> callback = null)
     {
         spawnShape = spawnsettings.spawnShape;
         aiSpawnSetting = spawnsettings;
         target = RogueManager.Instance.currentShip.transform;
         _shipconfig = DataManager.Instance.GetAIShipConfig(aiSpawnSetting.spawnUnitID);
-        await Spawn(referencepos, _shipconfig.Prefab.name, callback);
+        await Spawn(referencepos, _shipconfig.Prefab.name, callback, overrideHardlevelID);
     }
 
-    private async UniTask Spawn(Vector2 referencepos, string name, UnityAction<AIShip> callback)
+    private async UniTask Spawn(Vector2 referencepos, string name, UnityAction<AIShip> callback, int overrideHardlevelID = -1)
     {
         _rectanglematirx = GetRectangleMatrix();
         _spawnreferencedir = GetSpawnReferenceDir();
@@ -92,7 +92,7 @@ public class AIFactory : MonoBehaviour,IPoolable
         {
             //实例化所有的配置敌人ＡＩ
             await UniTask.Delay((int)aiSpawnSetting.spawnIntervalTime * 1000);
-            CreateEntity(_formposlist[i], name, callback);
+            CreateEntity(_formposlist[i], name, callback, overrideHardlevelID);
         }
 
         await UniTask.Delay(1200);
@@ -188,17 +188,24 @@ public class AIFactory : MonoBehaviour,IPoolable
         this.gameObject.SetActive(isactive);
     }
 
-    private async void CreateEntity(Vector2 position, string name, UnityAction<AIShip> callback)
+    private async void CreateEntity(Vector2 position, string name, UnityAction<AIShip> callback, int overrideHardlevelID = -1)
     {
         ///创建特效
         EffectManager.Instance.CreateEffect(EntitySpawnEffect, position);
         await UniTask.Delay(1000);
 
+        if (!RogueManager.Instance.IsLevelSpawnVaild())
+            return;
+
         PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + name, true, (obj) =>
         {
             obj.transform.position = position;
-            obj.transform.rotation = Quaternion.LookRotation(Vector3.forward,obj.transform.position.DirectionToXY(target.position));
+            if(target != null)
+            {
+                obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, obj.transform.position.DirectionToXY(target.position));
+            }
             var tempship = obj.GetComponent<AIShip>();
+            tempship.OverrideHardLevelID = overrideHardlevelID;
             tempship.Initialization();
             _shiplist.Add(tempship);
             callback?.Invoke(tempship);

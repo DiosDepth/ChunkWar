@@ -45,6 +45,12 @@ MonoBehaviour:
     - Name: Percent
       Entry: 4
       Data: 3
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
     - Name: Effects
       Entry: 7
       Data: 2|ModifyTriggerEffectConfig[], Assembly-CSharp
@@ -145,6 +151,5 @@ MonoBehaviour:
     SortingOrder: 0
   PropertyModify: []
   EffectDesc: ShipPlug_Effect_1060
-  EffectDescDamageParam: 0
-  ItemTags: 0
+  PlugTags: 0
   PropertyPercentModify: []

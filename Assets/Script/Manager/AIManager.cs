@@ -5,9 +5,7 @@ using System.Linq;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEditor.U2D.Common;
 using UnityEngine;
-using UnityEngine.U2D;
 using static GameHelper;
 
 public enum FindCondition
@@ -620,19 +618,22 @@ public class AIManager : Singleton<AIManager>, IPauseable
     //当Ship死亡时， 移除Ship的所有Unit
     public void RemoveReminedUnit(AIShip ship)
     {
-        for (int i = 0; i < ship.UnitList.Count; i++)
+        for (int i = ship.UnitList.Count - 1; i >=0; i--)
         {
-                RemoveSingleUnit(ship.UnitList[i]);
+            RemoveSingleUnit(ship.UnitList[i]);
         }
     }
 
     public void RemoveSingleUnit(Unit unit)
     {
-        int index = activeWeaponList.IndexOf(unit);
-        activeWeaponList.RemoveAt(index);
-        position.RemoveAt(index);
-        attackRange.RemoveAt(index);
-        targetCount.RemoveAt(index);
+        int index = aiActiveUnitList.IndexOf(unit);
+        if (index == -1)
+            return;
+
+        aiActiveUnitList.RemoveAt(index);
+        aiActiveUnitPos.RemoveAt(index);
+        aiActiveUnitAttackRange.RemoveAt(index);
+        aiActiveUnitMaxTargetsCount.RemoveAt(index);
     }
 
     public void AddBullet(Bullet bullet )
@@ -1317,6 +1318,21 @@ public class AIManager : Singleton<AIManager>, IPauseable
     public Unit GetUnitByUID(uint uid)
     {
         return activeWeaponList.Find(x => x.UID == uid);
+    }
+
+    public List<Unit> GetAIUnitsWithCondition(FindCondition condition, int count)
+    {
+        aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP);
+        var targetCount = Mathf.Min(count, aiActiveUnitList.Count);
+        if (condition == FindCondition.MaximumHP)
+        {
+            return aiActiveUnitList.Take(targetCount).ToList();
+        }
+        else if (condition == FindCondition.MinimumHP)
+        {
+            return aiActiveUnitList.Reverse<Unit>().Take(targetCount).ToList();
+        }
+        return new List<Unit>();
     }
 
     public Unit GetAIUnitWithCondition(FindCondition condition)

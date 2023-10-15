@@ -47,6 +47,9 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     public virtual void OnUpdateBattle()
     {
+        if (_timerModifiers.Count <= 0)
+            return;
+
         for (int i = _timerModifiers.Count - 1; i >= 0; i--) 
         {
             var modifier = _timerModifiers[i];
@@ -153,42 +156,51 @@ public abstract class ModifyTriggerData : IPropertyModify
         bool isCritial = false;
         var damage = GameHelper.CalculatePlayerDamageWithModify(config.ExplodeDamageBase, config.DamageModifyFrom, out isCritial);
         var explodeRange = GameHelper.CalculateExplodeRange(config.ExplodeRange);
+
+        Vector3 targetHitpoint = Vector3.zero;
         if (config.PointTarget == PointTargetType.HitPoint)
         {
             var data = this as MT_OnWeaponHitTarget;
             if (data == null || data.DamageInfo == null)
                 return;
 
-            var hitPoint = data.DamageInfo.HitPoint;
-            var allaiPos = AIManager.Instance.position;
-            var targetInfos = GameHelper.FindTargetsByPoint(hitPoint, explodeRange, allaiPos);
-            var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
-            
-            for(int i = 0; i < allUnits.Count; i++)
-            {
-                var unit = allUnits[i].reference;
-                if(unit != null)
-                {
-                    ///Create Damage
-                    DamageResultInfo info = new DamageResultInfo()
-                    {
-                        attackerUnit = null,
-                        Target = unit,
-                        Damage = damage,
-                        IsCritical = isCritial,
-                        DamageType = WeaponDamageType.NONE,
-                        IsPlayerAttack = true
-                    };
-                    (unit as IDamageble).TakeDamage(info);
-                }
-            }
-            createSuccess = true;
+            targetHitpoint = data.DamageInfo.HitPoint;
+           
+        }
+        else if(config.PointTarget == PointTargetType.RandomEnemyUnitPoint)
+        {
+            var randomEnemyUnit = AIManager.Instance.GetRandomAIUnitList(1);
+            if (randomEnemyUnit.Count <= 0)
+                return;
+
+            targetHitpoint = randomEnemyUnit[0].transform.position;
         }
 
-        if (createSuccess)
+        ///创造爆炸
+        var allaiPos = AIManager.Instance.aiActiveUnitPos;
+        var targetInfos = GameHelper.FindTargetsByPoint(targetHitpoint, explodeRange, allaiPos);
+        var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
+
+        for (int i = 0; i < allUnits.Count; i++)
         {
-            LevelManager.Instance.PlayerCreateExplode();
+            var unit = allUnits[i].reference;
+            if (unit != null)
+            {
+                ///Create Damage
+                DamageResultInfo info = new DamageResultInfo()
+                {
+                    attackerUnit = null,
+                    Target = unit,
+                    Damage = damage,
+                    IsCritical = isCritial,
+                    DamageType = WeaponDamageType.NONE,
+                    IsPlayerAttack = true
+                };
+                (unit as IDamageble).TakeDamage(info);
+            }
         }
+
+        LevelManager.Instance.PlayerCreateExplode();
     }
 
     public void CreateDamage(MTEC_CreateDamage config, uint parentUnitID)
@@ -260,6 +272,32 @@ public abstract class ModifyTriggerData : IPropertyModify
                 (unit as IDamageble).TakeDamage(info);
             }
         }
+        else if (config.TargetType == EffectDamageTargetType.TargetSortByMaxHP)
+        {
+            ///最大HP 排序X位
+            var targetUnits = AIManager.Instance.GetAIUnitsWithCondition(FindCondition.MaximumHP, config.RandomTargetCount);
+            if (targetUnits == null || targetUnits.Count <= 0)
+                return;
+
+            for (int i = 0; i < targetUnits.Count; i++)
+            {
+                var unit = targetUnits[i];
+                if (unit == null)
+                    continue;
+
+                DamageResultInfo info = new DamageResultInfo()
+                {
+                    attackerUnit = null,
+                    Target = unit,
+                    Damage = damage,
+                    IsCritical = isCritial,
+                    DamageType = WeaponDamageType.NONE,
+                    IsPlayerAttack = true
+                };
+
+                (unit as IDamageble).TakeDamage(info);
+            }
+        }
     }
 
     public void ModifyDamageByTargetDistance(MTEC_ModifyDamgeByTargetDistance cfg, uint targetUID)
@@ -281,6 +319,27 @@ public abstract class ModifyTriggerData : IPropertyModify
         damageData.Damage = Mathf.RoundToInt(damage);
     }
 
+    /// <summary>
+    /// 治疗Unit
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <param name="targetUID"></param>
+    public void HealUnitHP(MTEC_HealUnitHP cfg, uint targetUID)
+    {
+        if(cfg.TargetType == MTEC_HealUnitHP.HealTargetType.AllPlayerUnit)
+        {
+            var allPlayerUnits = RogueManager.Instance.currentShip.UnitList;
+            for(int i = 0; i < allPlayerUnits.Count; i++)
+            {
+                var target = allPlayerUnits[i];
+                if(target != null)
+                {
+                    target.Heal((int)cfg.HealValue);
+                }
+            }
+        }
+    }
+
     #endregion
 
     #region Condition
@@ -296,13 +355,23 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     protected virtual bool Trigger(uint parentUnitID = 0)
     {
-        if (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount)
+        if (Config.TriggerCount > 0 && (currentTriggerCount <= 0 && currentTriggerCount >= Config.TriggerCount))
             return false;
 
-        if (Config.UsePercent && !Utility.CalculateRate100(Config.Percent)) 
+        if (Config.UsePercent) 
         {
+            var rowPercent = Config.Percent;
+            if (Config.UseLuckModify)
+            {
+                ///使用幸运比例修正
+                var luckValue = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Luck);
+                var addPercent = luckValue * Config.LuckModifyRate;
+                rowPercent += addPercent;
+            }
+
             ///Percent not vaild
-            return false;
+            if (!Utility.CalculateRate100(rowPercent))
+                return false;
         }
 
         ///加成唯一并且正在生效
@@ -438,6 +507,96 @@ public class MT_OnEnterHarbor : ModifyTriggerData
 
     private void OnEnterHarbor()
     {
+        Trigger();
+    }
+}
+
+public class MT_OnEnterShop : ModifyTriggerData
+{
+    public MT_OnEnterShop(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        RogueManager.Instance.OnEnterShop += OnEnterShop;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        RogueManager.Instance.OnEnterShop -= OnEnterShop;
+    }
+
+    private void OnEnterShop()
+    {
+        Trigger();
+    }
+}
+
+public class MT_OnBuyShopItem : ModifyTriggerData
+{
+    private MTC_OnBuyShopItem _buyCfg;
+
+    public MT_OnBuyShopItem(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _buyCfg = cfg as MTC_OnBuyShopItem;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        RogueManager.Instance.OnBuyShopItem += OnBuyItem;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        RogueManager.Instance.OnBuyShopItem -= OnBuyItem;
+    }
+
+    private void OnBuyItem(int targetGoodsID)
+    {
+        if (_buyCfg.UseSpecialShopItemID)
+        {
+            if (targetGoodsID != _buyCfg.ShopItemID)
+                return;
+        }
+
+        Trigger();
+    }
+}
+
+public class MT_OnCollectPickable : ModifyTriggerData
+{
+    private MTC_OnCollectPickable _pickCfg;
+
+    public MT_OnCollectPickable(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _pickCfg = cfg as MTC_OnCollectPickable;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        LevelManager.Instance.OnCollectPickUp += OnCollectPickable;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        LevelManager.Instance.OnCollectPickUp -= OnCollectPickable;
+    }
+
+    private void OnCollectPickable(AvaliablePickUp type)
+    {
+        if (_pickCfg.PickUpType != type)
+        {
+            return;
+        }
+
         Trigger();
     }
 }

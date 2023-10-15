@@ -45,6 +45,12 @@ MonoBehaviour:
     - Name: Percent
       Entry: 4
       Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
     - Name: Effects
       Entry: 7
       Data: 2|ModifyTriggerEffectConfig[], Assembly-CSharp
@@ -88,6 +94,12 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: Percent
+      Entry: 4
+      Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
       Entry: 4
       Data: 0
     - Name: Effects
@@ -147,7 +159,6 @@ MonoBehaviour:
     SortingOrder: 0
   PropertyModify: []
   EffectDesc: 
-  EffectDescDamageParam: 0
   PlugTags: 0
   PropertyPercentModify:
   - ModifyKey: 38

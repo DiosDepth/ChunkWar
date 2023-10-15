@@ -37,6 +37,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("win", Win);
         AddGMFunctionToDic("Shop", EnterShop);
         AddGMFunctionToDic("createBattleLog", CreateBattleLog);
+        AddGMFunctionToDic("addPlug", AddPlug);
     }
 
     
@@ -70,6 +71,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var keyWords = strlst[0];
         keyWords.ToLower();
         strlst.RemoveAt(0);
+
         if (GMFunctionDic.ContainsKey(keyWords))
         {
             var func = GMFunctionDic[keyWords];
@@ -115,31 +117,31 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private bool Win(string[] content)
     {
-        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        CloseGMTalkPage();
         GameEvent.Trigger(EGameState.EGameState_GameOver);
         return true;
     }
 
     private bool EnterShop(string[] content)
     {
-        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        CloseGMTalkPage();
         RogueManager.Instance.EnterShop();
         return true;
     }
 
     private bool CreateBattleLog(string[] content)
     {
-        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        CloseGMTalkPage();
         RogueManager.Instance.CreateBattleLog();
         return true;
     }
 
     private bool EnterHarbor(string[] content)
     {
-        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        CloseGMTalkPage();
         if (LevelManager.Instance.currentLevel.levelName == AvaliableLevel.BattleLevel_001.ToString())
         {
-            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
+            RogueManager.Instance.OnWaveFinish();
             return true;
         }
         else
@@ -150,7 +152,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private bool AddEXP(string[] content)
     {
-        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        CloseGMTalkPage();
         if (content.Length != 1)
             return false;
         int value = 0;
@@ -159,9 +161,19 @@ public class GMTalkManager : Singleton<GMTalkManager>
         return true;
     }
 
+    private bool AddPlug(string[] content)
+    {
+        if (content.Length != 1)
+            return false;
+        int value = 0;
+        int.TryParse(content[0], out value);
+        RogueManager.Instance.AddNewShipPlug(value);
+        return true;
+    }
+
     private bool AddWaste(string[] content)
     {
-        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        CloseGMTalkPage();
         if (content.Length != 1)
             return false;
         int value = 0;
@@ -172,4 +184,29 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     #endregion
 
+    public void CloseGMTalkPage()
+    {
+        if (UIManager.Instance.GetGUIFromDic<GMTalkMainPage>("GMTalkMainPage") == null)
+            return;
+
+        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        InputDispatcher.Instance.ChangeInputMode("Player");
+        isShowGMTalkWindow = !isShowGMTalkWindow;
+    }
+
+    public void CreateEnemy(int shipID, int hardLevelID, int count)
+    {
+        if (!RogueManager.Instance.IsLevelSpawnVaild())
+            return;
+
+        WaveEnemySpawnConfig cfg = new WaveEnemySpawnConfig
+        {
+            AITypeID = shipID,
+            DurationDelta = 0,
+            LoopCount = 1,
+            TotalCount = count,
+            MaxRowCount = 2,
+        };
+        RogueManager.Instance.SpawnEntity(cfg, hardLevelID);
+    }
 }

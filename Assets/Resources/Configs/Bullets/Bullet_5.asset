@@ -38,7 +38,7 @@ MonoBehaviour:
     PosRandomY: 0
   ExplodeRange: 0
   MaxDistance: 35
-  Width: 0.1
+  Width: 0.2
   EmitTime: 0.2
   Duration: 0.5
   DeathTime: 0.05

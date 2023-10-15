@@ -122,6 +122,26 @@ public class ShopSlotItem : MonoBehaviour
         }
     }
 
+    public void RefreshLuckPercentProperty()
+    {
+        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
+        if (plugCfg == null)
+            return;
+
+        if (plugCfg.ModifyTriggers == null || plugCfg.ModifyTriggers.Length <= 0)
+            return;
+
+        for (int i = 0; i < plugCfg.ModifyTriggers.Length; i++)
+        {
+            var trigger = plugCfg.ModifyTriggers[i];
+            if (trigger.UsePercent && trigger.UseLuckModify)
+            {
+                SetEffectDesc(plugCfg.GetEffectDesc(), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
+                break;
+            }
+        }
+    }
+
     /// <summary>
     /// Ë¢ÐÂ»¨·Ñ
     /// </summary>
@@ -167,7 +187,7 @@ public class ShopSlotItem : MonoBehaviour
         disCountTrans.SafeSetActive(_goodsInfo.DiscountValue != 0);
         if(_goodsInfo.DiscountValue != 0)
         {
-            disCountTrans.Find("Value").SafeGetComponent<TextMeshProUGUI>().text = string.Format("{0}{1}", _goodsInfo.DiscountValue, LocalizationManager.Instance.GetTextValue(ShopGoods_DiscountText));
+            disCountTrans.Find("Value").SafeGetComponent<TextMeshProUGUI>().text = string.Format("{0}%{1}", _goodsInfo.DiscountValue, LocalizationManager.Instance.GetTextValue(ShopGoods_DiscountText));
         }
     }
 
