@@ -209,6 +209,7 @@ public class LevelTimerTrigger
         {
             Trigger();
             _triggerOnStart = true;
+            return;
         }
 
         if(_secondTimer >= _secondDelta)

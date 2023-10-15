@@ -1012,7 +1012,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CalculateHardLevelIndex();
         Timer.InitTimer(_tempWaveTime);
         Timer.StartTimer();
-       
+        AIManager.Instance.ProcessAI = true;
         OnWaveStateChange?.Invoke(true);
     }
 

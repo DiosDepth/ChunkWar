@@ -141,7 +141,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         UIManager.Instance.HiddenUI("GMTalkMainPage");
         if (LevelManager.Instance.currentLevel.levelName == AvaliableLevel.BattleLevel_001.ToString())
         {
-            GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
+            RogueManager.Instance.OnWaveFinish();
             return true;
         }
         else
