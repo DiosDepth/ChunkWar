@@ -215,10 +215,6 @@ public class LevelTimerTrigger
         if(_secondTimer >= _secondDelta)
         {
             Trigger();
-            if (!_isLoop && _currentLoopCount >= _totalloopCount)
-            {
-                IsNeedToRemove = true;
-            }
         }
     }
 
@@ -228,5 +224,10 @@ public class LevelTimerTrigger
         TriggerAction?.Invoke();
         _currentLoopCount++;
         _secondTimer = 0;
+
+        if (!_isLoop && _currentLoopCount >= _totalloopCount)
+        {
+            IsNeedToRemove = true;
+        }
     }
 }

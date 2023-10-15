@@ -73,6 +73,7 @@ public class WaveConfig
     /// <summary>
     /// 陨石生成稀有度权重
     /// </summary>
+    [FoldoutGroup("自动生成配置")]
     [LabelText("陨石生成配置")]
     public Dictionary<GoodsItemRarity, byte> MeteoriteGenerateRate_RarityMap = new Dictionary<GoodsItemRarity, byte>()
     {
@@ -81,6 +82,36 @@ public class WaveConfig
         { GoodsItemRarity.Tier3, 0 },
         { GoodsItemRarity.Tier4, 0 },
     };
+
+    [FoldoutGroup("自动生成配置")]
+    [HorizontalGroup("自动生成配置/A")]
+    [LabelText("远古飞船保底")]
+    [LabelWidth(100)]
+    public bool UseAncientUnitSpawnProtect = false;
+
+    [FoldoutGroup("自动生成配置")]
+    [HorizontalGroup("自动生成配置/A")]
+    [LabelText("远古飞船保底数")]
+    [LabelWidth(100)]
+    public int AncientUnitSpawnProtectedCount;
+
+    [FoldoutGroup("自动生成配置")]
+    [HorizontalGroup("自动生成配置/A")]
+    [LabelText("远古飞船最大数量")]
+    [LabelWidth(100)]
+    public int AncientUnitSpawnMax;
+
+    [FoldoutGroup("自动生成配置")]
+    [HorizontalGroup("自动生成配置/A")]
+    [LabelText("覆盖远古飞船间隔")]
+    [LabelWidth(100)]
+    public bool OverrideAncientUnitSpawnSoomthTimeDelta = false;
+
+    [FoldoutGroup("自动生成配置")]
+    [HorizontalGroup("自动生成配置/A")]
+    [LabelText("间隔覆盖")]
+    [LabelWidth(100)]
+    public int OverrideSpawnTime;
 
     private WaveEnemySpawnConfig AddNewWaveSpawn()
     {

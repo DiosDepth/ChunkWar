@@ -1459,4 +1459,4 @@ MonoBehaviour:
   MaxAngularVelocity: 1
   boidRadius: 1
   targetSerchingRadius: 30
-  DieAudio: Ship/ShipExplode_001
+  DieAudio: Ship/ShipExplode_002

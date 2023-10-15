@@ -249,6 +249,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: true
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 2
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 3
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: true
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -467,6 +482,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: true
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 3
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 4
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -577,6 +607,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -684,6 +729,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -791,6 +851,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -898,6 +973,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -1005,6 +1095,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -1122,6 +1227,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -1229,6 +1349,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -1336,6 +1471,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: UseAncientUnitSpawnProtect
+      Entry: 5
+      Data: false
+    - Name: AncientUnitSpawnProtectedCount
+      Entry: 3
+      Data: 0
+    - Name: AncientUnitSpawnMax
+      Entry: 3
+      Data: 0
+    - Name: OverrideAncientUnitSpawnSoomthTimeDelta
+      Entry: 5
+      Data: false
+    - Name: OverrideSpawnTime
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 

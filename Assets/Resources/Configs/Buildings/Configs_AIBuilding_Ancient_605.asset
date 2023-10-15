@@ -443,7 +443,7 @@ MonoBehaviour:
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 32
-  BaseHP: 400
+  BaseHP: 50
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0

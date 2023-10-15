@@ -55,10 +55,10 @@ MonoBehaviour:
       Data: 0
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: BaseWeight
       Entry: 3
-      Data: 40
+      Data: 100
     - Name: WeightAddPerEnterCount
       Entry: 4
       Data: 0
@@ -82,16 +82,16 @@ MonoBehaviour:
       Data: 3|ShopGoodsRarityConfig, Assembly-CSharp
     - Name: MinAppearEneterCount
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: BaseWeight
       Entry: 3
-      Data: 20
+      Data: 0
     - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 0
+      Data: 5
     - Name: WeightMax
       Entry: 4
       Data: 60
@@ -112,16 +112,16 @@ MonoBehaviour:
       Data: 4|ShopGoodsRarityConfig, Assembly-CSharp
     - Name: MinAppearEneterCount
       Entry: 3
-      Data: 0
+      Data: 4
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: BaseWeight
       Entry: 3
-      Data: 20
+      Data: 0
     - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 0
+      Data: 1.5
     - Name: WeightMax
       Entry: 4
       Data: 25
@@ -142,16 +142,16 @@ MonoBehaviour:
       Data: 5|ShopGoodsRarityConfig, Assembly-CSharp
     - Name: MinAppearEneterCount
       Entry: 3
-      Data: 0
+      Data: 8
     - Name: LuckModifyMinEnterCount
       Entry: 3
-      Data: 0
+      Data: 8
     - Name: BaseWeight
       Entry: 3
-      Data: 20
+      Data: 0
     - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 0
+      Data: 0.2
     - Name: WeightMax
       Entry: 4
       Data: 8
@@ -168,7 +168,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   RollCostIncreaceWaveParam: 0.5
-  RollCostWaveBase: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000000000000000000000000000000000000000000000
+  RollCostWaveBase: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000110000001400000017000000190000001d000000
   Goods:
   - GoodID: 1
     Weight: 20

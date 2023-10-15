@@ -1387,7 +1387,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 4
-      Data: 60
+      Data: 50
     - Name: 
       Entry: 8
       Data: 
@@ -1399,7 +1399,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 4
-      Data: 20
+      Data: 30
     - Name: 
       Entry: 8
       Data: 
@@ -1462,3 +1462,4 @@ MonoBehaviour:
   MaxAngularVelocity: 1
   boidRadius: 2
   targetSerchingRadius: 1
+  DieAudio: 

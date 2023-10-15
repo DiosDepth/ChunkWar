@@ -146,6 +146,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
+    /// 波次是否结束
+    /// </summary>
+    public bool WaveEnd
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
     /// 是否显示舰船升级界面
     /// </summary>
     public bool IsShowingShipLevelUp = false;
@@ -179,6 +188,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 当前刷新次数
     /// </summary>
     private int _currentRereollCount = 0;
+
+    /// <summary>
+    /// 当前生成远古飞船数量，用于保底
+    /// </summary>
+    private int _currentGenerateAncientUnitShipCount = 0;
+    private int _currentAncientUnitProtectRateAdd;
 
     private int _waveIndex;
     public int GetCurrentWaveIndex
@@ -322,6 +337,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         _currentRereollCount = 0;
         _shopRefreshTotalCount = 0;
+        _currentGenerateAncientUnitShipCount = 0;
+        _currentAncientUnitProtectRateAdd = 0;
         ClearAction();
     }
 
@@ -918,8 +935,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public bool IsLevelSpawnVaild()
     {
         bool result = true;
-        result &= GetTempWaveTime > 0;
-        result &= (InBattle && !InHarbor && !InShop);
+        result &= (InBattle && !InHarbor && !InShop && !WaveEnd);
         return result;
     }
 
@@ -968,6 +984,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public async void OnWaveFinish()
     {
+        WaveEnd = true;
         ///Reset TriggerDatas
         ResetAllPlugModifierTriggerDatas();
         ResetAllUnitModifierTriggerDatas();
@@ -1007,6 +1024,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public async void OnNewWaveStart()
     {
+        WaveEnd = false;
+        _currentGenerateAncientUnitShipCount = 0;
+        _currentAncientUnitProtectRateAdd = 0;
+
         _tempWaveTime = GetCurrentWaveTime();
         AddWaveTrigger();
         CalculateHardLevelIndex();
@@ -1065,8 +1086,18 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ancientTrigger1.BindChangeAction(CreateAncientUnitShip);
         Timer.AddTrigger(ancientTrigger1);
 
+        int ancientSmoothDeltaTime = 0;
+        if (waveCfg.OverrideAncientUnitSpawnSoomthTimeDelta)
+        {
+            ancientSmoothDeltaTime = waveCfg.OverrideSpawnTime;
+        }
+        else
+        {
+            ancientSmoothDeltaTime = _entitySpawnConfig.AncientUnitGenerate_Timer2;
+        }
+
         ///Generate Ancient Smooth
-        var ancientTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer2, _entitySpawnConfig.AncientUnitGenerate_Timer2, -1, "ancientGenerate_2");
+        var ancientTrigger2 = LevelTimerTrigger.CreateTrigger(ancientSmoothDeltaTime, ancientSmoothDeltaTime, -1, "ancientGenerate_2");
         ancientTrigger2.BindChangeAction(CreateAncientUnitShip_Smooth);
         Timer.AddTrigger(ancientTrigger2);
     }
@@ -1122,6 +1153,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         var rate = count / _entitySpawnConfig.AncientUnitGenerate_Rate2;
         bool generate = Utility.CalculateRate100(rate * 100);
+
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+
+        ///保底机制
+        if (!generate && waveCfg != null && waveCfg.UseAncientUnitSpawnProtect)
+        {
+            if(_currentGenerateAncientUnitShipCount < waveCfg.AncientUnitSpawnProtectedCount)
+            {
+                ///如果保底数小于生成数量，启用一次保底，每启用一次概率++
+                _currentAncientUnitProtectRateAdd += DataManager.Instance.battleCfg.EntitySpawnConfig.AncientUnit_ProtectRate_Add;
+                var newRate = rate * 100 + _currentAncientUnitProtectRateAdd;
+                generate = Utility.CalculateRate100(newRate);
+            }
+        }
+
         if (generate)
         {
             GenerateAncientUnit();
@@ -1219,6 +1265,16 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     private void GenerateAncientUnit()
     {
+        _currentAncientUnitProtectRateAdd = 0;
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        ///如果数量到达最大值，则暂停创生
+        if (_currentGenerateAncientUnitShipCount >= waveCfg.AncientUnitSpawnMax)
+            return;
+
+        _currentGenerateAncientUnitShipCount++;
         WaveEnemySpawnConfig cfg = new WaveEnemySpawnConfig
         {
             AITypeID = _entitySpawnConfig.AncientUnit_ShipID,

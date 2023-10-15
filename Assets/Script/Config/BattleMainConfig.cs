@@ -309,6 +309,7 @@ public class BattleSpecialEntitySpawnConfig
     public int AncientUnitGenerate_Timer2;
 
     public int AncientUnit_ShipID;
+    public int AncientUnit_ProtectRate_Add;
 
     public Dictionary<GoodsItemRarity, int> MeteoriteGenerate_TypeID_Map = new Dictionary<GoodsItemRarity, int>();
 

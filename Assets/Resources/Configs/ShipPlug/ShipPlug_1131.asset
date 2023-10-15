@@ -38,7 +38,7 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: 23dce401dc846c54888cbbed1aaa9ff9, type: 3}
     Name: ShipPlug_Name_1131
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
   PropertyModify:
   - ModifyKey: 4
