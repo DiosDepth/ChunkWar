@@ -245,12 +245,24 @@ public class SaveData
     public int GameTime;
     public int ModeID;
 
+    /* Plug Save */
+    public List<PlugRuntimeSaveData> PlugRuntimeSaves;
+
     public SaveData(int saveIndex)
     {
         this.SaveIndex = saveIndex;
         date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
     }
 }
+
+[System.Serializable]
+public class PlugRuntimeSaveData
+{
+    public uint UID;
+    public int ID;
+    public int GoodsID;
+}
+
 
 public class ShipSaveData
 {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+#if GMDEBUG
 public class GMTalkMainPage : GUIBasePanel
 {
 
@@ -13,6 +13,10 @@ public class GMTalkMainPage : GUIBasePanel
         GetGUIComponent<Button>("Shop").onClick.AddListener(JumpToShop);
         GetGUIComponent<Button>("Vectory").onClick.AddListener(Vectory);
         GetGUIComponent<Button>("Harbor").onClick.AddListener(EnterHarbor);
+        GetGUIComponent<Button>("SaveGame").onClick.AddListener(() =>
+        {
+            GMTalkManager.Instance.HandleGMTalkInputContent("saveGame");
+        });
         GetGUIComponent<Button>("CreateBattleLog").onClick.AddListener(() =>
         {
             GMTalkManager.Instance.HandleGMTalkInputContent("createBattleLog");
@@ -52,3 +56,4 @@ public class GMTalkMainPage : GUIBasePanel
         GMTalkManager.Instance.HandleGMTalkInputContent("harbor");
     }
 }
+#endif

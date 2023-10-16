@@ -432,16 +432,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void InitRogueBattle()
     {
-        InBattle = true;
-        MainPropertyData.Clear();
-        _currentShipPlugs.Clear();
-        AllCurrentShipPlugs.Clear();
-        globalModifySpecialDatas.Clear();
-        goodsItems.Clear();
-
-        ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
-        MainPropertyData.BindRowPropertyChangeAction(PropertyModifyKey.ShopFreeRollCount, OnShopFreeRollCountChange);
-        InitEnergyAndWreckageCommonBuff();
+        BattleReset();
+        
         InitWave();
         InitWreckageData();
         InitShopData();
@@ -481,6 +473,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SettleCampScore();
     }
 
+    private void BattleReset()
+    {
+        InBattle = true;
+        MainPropertyData.Clear();
+        _currentShipPlugs.Clear();
+        AllCurrentShipPlugs.Clear();
+        globalModifySpecialDatas.Clear();
+        goodsItems.Clear();
+
+        ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
+        MainPropertyData.BindRowPropertyChangeAction(PropertyModifyKey.ShopFreeRollCount, OnShopFreeRollCountChange);
+        InitEnergyAndWreckageCommonBuff();
+    }
+
     public override void Initialization()
     {
         base.Initialization();
@@ -500,6 +506,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <param name="info"></param>
     public void SetCurrentHardLevel(HardLevelInfo info)
     {
+        if (info == null)
+            return;
+
         CurrentHardLevel = info;
         ///Init PropertyDic
         var propertyDic = info.Cfg.ModifyDic;
@@ -2299,16 +2308,92 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     #region Save
 
-    private void CreateNewSaveData()
+    /// <summary>
+    /// ∂¡»°¥Êµµ
+    /// </summary>
+    /// <param name="sav"></param>
+    public void LoadSaveData(SaveData sav)
+    {
+        BattleReset();
+
+        ///Init HardLevel
+        var hardLevelData = GameManager.Instance.GetHardLevelInfoByID(sav.ModeID);
+        SetCurrentHardLevel(hardLevelData);
+
+        LoadPlugRuntimeSaves(sav.PlugRuntimeSaves);
+    }
+
+    public void CreateInLevelSaveData(string saveName = "", bool formatJson = false)
     {
         var newIndex = SaveLoadManager.Instance.GetSaveIndex();
-        SaveData sav = new SaveData(newIndex);
-        sav.SaveName = string.Format("NEW_SAVE_{0}", newIndex);
+        if (string.IsNullOrEmpty(saveName))
+        {
+            saveName =  string.Format("NEW_SAVE_{0}", newIndex);
+        }
+
+        _CreateNewSaveData(newIndex, saveName, formatJson);
+    }
+
+    private void _CreateNewSaveData(int index, string saveName, bool formatJson = false)
+    {
+        SaveData sav = new SaveData(index);
+        sav.SaveName = saveName;
         sav.ModeID = CurrentHardLevel.HardLevelID;
         sav.GameTime = 0;
-        SaveLoadManager.Save<SaveData>(sav, sav.SaveName);
+        sav.PlugRuntimeSaves = CreatePlugRuntimeSaveData();
+
+        ///Create
+        SaveLoadManager.Save<SaveData>(sav, sav.SaveName, formatJson);
         SaveLoadManager.Instance.AddSaveData(sav);
     }
+
+    private List<PlugRuntimeSaveData> CreatePlugRuntimeSaveData()
+    {
+        List<PlugRuntimeSaveData> savs = new List<PlugRuntimeSaveData>();
+        foreach(var plug in _currentShipPlugs.Values)
+        {
+            var sav = plug.CreateSaveData();
+            savs.Add(sav);
+        }
+        return savs;
+    }
+
+    private void LoadPlugRuntimeSaves(List<PlugRuntimeSaveData> savs)
+    {
+        if (savs == null || savs.Count <= 0)
+            return;
+
+        for(int i = 0; i < savs.Count; i++)
+        {
+            ShipPlugInfo info = ShipPlugInfo.CreateInfo(savs[i]);
+            if(info == null)
+            {
+                Debug.LogError("Plug Save Load Error ! ID = " + savs[i].ID);
+                continue;
+            }
+            AddPlug_Sav(info);
+        }
+    }
+
+    private void AddPlug_Sav(ShipPlugInfo info)
+    {
+        if (plugItemCountDic.ContainsKey(info.PlugID))
+        {
+            plugItemCountDic[info.PlugID]++;
+        }
+        else
+        {
+            plugItemCountDic.Add(info.PlugID, 1);
+        }
+
+        info.OnAdded();
+        if (!_currentShipPlugs.ContainsKey(info.UID))
+        {
+            _currentShipPlugs.Add(info.UID, info);
+            AllCurrentShipPlugs.Add(info);
+        }
+    }
+
     #endregion
 
     #region Log

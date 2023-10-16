@@ -5,7 +5,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using Sirenix.Serialization;
 
-
 /// <summary>
 /// Allows the save and load of objects in a specific folder and file.
 /// </summary>
@@ -214,7 +213,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     /// <param name="saveObject">Save object.</param>
     /// <param name="fileName">File name.</param>
     /// <param name="foldername">Foldername.</param>
-    public static void Save<T>(T saveObject, string fileName, string foldername = _defaultFolderName)
+    public static void Save<T>(T saveObject, string fileName, bool formatJson = false, string foldername = _defaultFolderName)
     {
         string savePath = DetermineSavePath(foldername);
         string saveFileName = DetermineSaveFileName(fileName);
@@ -223,6 +222,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         {
             Directory.CreateDirectory(savePath);
         }
+
         // we serialize and write our object into a file on disk
         var bytes = SerializationUtility.SerializeValue<T>(saveObject, DataFormat.Binary);
 
@@ -235,6 +235,27 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 
             fs.Seek(0, SeekOrigin.Begin);
         }
+
+#if GMDEBUG
+        if (formatJson)
+        {
+            ///Create JsonData
+            string newSaveName = fileName + ".json";
+            var targetPath = savePath + newSaveName;
+            if (File.Exists(targetPath))
+            {
+                File.Delete(targetPath);
+            }
+
+            FileInfo file = new FileInfo(targetPath);
+            StreamWriter sw = file.CreateText();
+            var jsons = JsonUtility.ToJson(saveObject, true);
+            sw.WriteLine(jsons);
+            sw.Close();
+            sw.Dispose();
+        }
+#endif
+
         Debug.Log(fileName + " has been saved in : " + savePath);
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if GMDEBUG
 public class GMTalkInputItemCmpt : MonoBehaviour
 {
     private InputField _filed;
@@ -27,3 +28,5 @@ public class GMTalkInputItemCmpt : MonoBehaviour
         GMTalkManager.Instance.HandleGMTalkInputContent(content);
     }
 }
+
+#endif

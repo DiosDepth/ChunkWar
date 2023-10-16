@@ -48,6 +48,38 @@ public class ShipPlugInfo : IPropertyModify
         return info;
     }
 
+    /// <summary>
+    /// Save Load
+    /// </summary>
+    /// <param name="sav"></param>
+    /// <returns></returns>
+    public static ShipPlugInfo CreateInfo(PlugRuntimeSaveData sav)
+    {
+        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(sav.ID);
+        if (plugCfg == null)
+            return null;
+
+        ShipPlugInfo info = new ShipPlugInfo();
+        info.PlugID = sav.ID;
+        info._cfg = plugCfg;
+        info.UID = sav.UID;
+        info.GoodsID = sav.GoodsID;
+        return info;
+    }
+
+    /// <summary>
+    /// ´æµµ
+    /// </summary>
+    /// <returns></returns>
+    public PlugRuntimeSaveData CreateSaveData()
+    {
+        PlugRuntimeSaveData sav = new PlugRuntimeSaveData();
+        sav.UID = UID;
+        sav.ID = PlugID;
+        sav.GoodsID = GoodsID;
+        return sav;
+    }
+
     public void OnBattleUpdate()
     {
         for (int i = 0; i < _triggerDatas.Count; i++) 

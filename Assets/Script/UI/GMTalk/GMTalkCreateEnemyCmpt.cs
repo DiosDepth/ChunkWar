@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if GMDEBUG
 public class GMTalkCreateEnemyCmpt : MonoBehaviour
 {
     private InputField _input;
@@ -90,3 +91,4 @@ public class GMTalkCreateEnemyCmpt : MonoBehaviour
         GMTalkManager.Instance.CloseGMTalkPage();
     }
 }
+#endif
