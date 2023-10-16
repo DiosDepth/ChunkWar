@@ -11,120 +11,19 @@ using UnityEngine;
 
 public class JobController : IPauseable
 {
-
-    public bool ProcessJobs;
-    public PlayerShip playerShip;
-    public IBoid playerIBoid;
-
-
-    // job data owner type == target
-    public AgentData activeTargetAgentData;
-    public UnitData activeTargetUnitData;
-
-    // job data owner type == self
-    public AgentData activeSelfAgentData;
-    public WeaponData activeSelfWeaponData;
-    public BuildingData activeSelfBuildingData;
-    public ProjectileData activeSelfProjectileData;
-
     public JobController()
     {
-        GameManager.Instance.RegisterPauseable(this);
-        Initialization();
+
     }
 
     ~ JobController()
     {
-        GameManager.Instance.UnRegisterPauseable(this);
-        DisposeJobData();
+
     }
 
     public virtual void Initialization()
     {
       
-        playerShip = RogueManager.Instance.currentShip;
-        playerIBoid = playerShip.GetComponent<IBoid>();
-        activeTargetAgentData = new AgentData();
-
-        activeTargetUnitData = new UnitData();
-
-        activeSelfAgentData = new AgentData();
-        activeSelfWeaponData = new WeaponData();
-        activeSelfBuildingData = new BuildingData();
-        activeSelfProjectileData = new ProjectileData();
-    }
-
-
-
-
-
-    public virtual void ClearJobData()
-    {
-        activeTargetAgentData.Clear();
-        activeTargetUnitData.Clear();
-        activeSelfAgentData.Clear();
-        activeSelfWeaponData.Clear();
-        activeSelfBuildingData.Clear();
-        activeSelfProjectileData.Clear();
-    }
-
-    public virtual void UnLoad()
-    {
-        GameManager.Instance.UnRegisterPauseable(this);
-
-        DisposeJobData();
-    }
-
-    public virtual void GameOver()
-    {
-        SetProcessJobs(false);
-
-        for (int i = 0; i < activeSelfWeaponData.activeWeaponList.Count; i++)
-        {
-            activeSelfWeaponData.activeWeaponList[i]?.GameOver();
-        }
-        for (int i = 0; i < activeSelfBuildingData.activeBuildingList.Count; i++)
-        {
-            activeSelfBuildingData.activeBuildingList[i]?.GameOver();
-        }
-        for (int i = 0; i < activeTargetUnitData.activeTargetUnitList.Count; i++)
-        {
-            activeTargetUnitData.activeTargetUnitList[i]?.GameOver();
-        }
-        for (int i = 0; i < activeSelfProjectileData.activeProjectileList.Count; i++)
-        {
-            activeSelfProjectileData.activeProjectileList[i]?.GameOver();
-        }
-
-        UnLoad();
-    }
-
-
-
-    public virtual void SetProcessJobs(bool isProcessJobs)
-    {
-        ProcessJobs = isProcessJobs;
-    }
-    public virtual void UpdateJobs()
-    {
-        if (GameManager.Instance.IsPauseGame()) { return; }
-        if (!ProcessJobs) { return; }
-        UpdateAdditionalWeapon(ref activeSelfWeaponData, ref activeTargetUnitData);
-        UpdateAdditionalBuilding();
-        UpdateProjectile();
-
-        //这里需要先更新子弹的信息，然后在吧死亡的子弹移除， 否则rv aibullet的静态数据长度无法操作
-        //虽然会浪费运算量。但是可以保证index不会错位
-        UpdateTargetData();
-    }
-
-    public virtual void LaterUpdateJobs()
-    {
-
-    }
-
-    public virtual void FixedUpdateJobs()
-    {
 
     }
 
@@ -136,22 +35,6 @@ public class JobController : IPauseable
     public virtual void UnPauseGame()
     {
         
-    }
-
-
-
-
-    public virtual void DisposeJobData()
-    {
-        activeSelfWeaponData.Dispose();
-        activeSelfBuildingData.Dispose();
-        activeTargetUnitData.Dispose();
-        activeSelfProjectileData.Dispose();
-    }
-
-    protected virtual void UpdateTargetData()
-    {
-        activeTargetUnitData.UpdateData();
     }
 
     public virtual void  UpdateAdditionalWeapon(ref WeaponData activeSelfWeaponData, ref UnitData activeTargetUnitData)
@@ -250,13 +133,13 @@ public class JobController : IPauseable
         activeSelfWeaponData.DisposeReturnValue();
 
     }
-    public virtual void UpdateAdditionalBuilding()
+    public virtual void UpdateAdditionalBuilding(ref BuildingData activeSelfBuildingData, ref UnitData activeTargetUnitData)
     {
         activeSelfBuildingData.UpdateData();
         activeSelfBuildingData.DisposeReturnValue();
     }
 
-    protected virtual void UpdateProjectile()
+    public virtual void UpdateProjectile(ref ProjectileData activeSelfProjectileData, ref UnitData activeTargetUnitData)
     {
         if (activeSelfProjectileData.activeProjectileList == null || activeSelfProjectileData.activeProjectileList.Count == 0)
         {
@@ -375,12 +258,12 @@ public class JobController : IPauseable
             }
         }
         //处理子弹伤害和死亡
-        HandleProjectileDamage();
+        HandleProjectileDamage(ref activeSelfProjectileData, ref activeTargetUnitData);
         activeSelfProjectileData.UpdateData();
-        HandleProjectileDeath();
+        HandleProjectileDeath(ref activeSelfProjectileData);
         activeSelfProjectileData.DisposeReturnValue();
     }
-    protected virtual void HandleProjectileDamage()
+    protected virtual void HandleProjectileDamage(ref ProjectileData activeSelfProjectileData, ref UnitData activeTargetUnitData)
     {
 
         if (activeSelfProjectileData.damageProjectileList.Count == 0)
@@ -438,7 +321,7 @@ public class JobController : IPauseable
         //damageProjectile_JobInfo.Dispose();
     }
 
-    protected virtual void HandleProjectileDeath()
+    protected virtual void HandleProjectileDeath(ref ProjectileData activeSelfProjectileData)
     {
         //最后一步 执行子弹死亡
         activeSelfProjectileData.deathProjectileList.Clear();

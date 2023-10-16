@@ -136,7 +136,7 @@ public class AgentData : IJobData
         boidAgentJobData = new NativeList<BoidJobData>(Allocator.Persistent);
         steeringControllerJobDataNList = new NativeList<SteeringControllerJobData>(Allocator.Persistent);
     }
-    public void Dispose()
+    public virtual void Dispose()
     {
         if (boidAgentJobData.IsCreated) { boidAgentJobData.Dispose(); }
         if (steeringControllerJobDataNList.IsCreated) { steeringControllerJobDataNList.Dispose(); }
@@ -145,7 +145,7 @@ public class AgentData : IJobData
         steeringControllerList.Clear();
     }
 
-    public void DisposeReturnValue()
+    public virtual void DisposeReturnValue()
     {
         if (rv_evade_steeringInfo.IsCreated) { rv_evade_steeringInfo.Dispose(); }
         if (rv_arrive_steeringInfo.IsCreated) { rv_arrive_steeringInfo.Dispose(); }
@@ -157,7 +157,7 @@ public class AgentData : IJobData
         if (rv_deltaMovement.IsCreated) { rv_deltaMovement.Dispose(); }
     }
 
-    public void UpdateData()
+    public virtual void UpdateData()
     {
         if (shipList.Count == 0) { return; }
         BoidJobData data;
@@ -172,7 +172,7 @@ public class AgentData : IJobData
 
     }
 
-    public void Add(BaseShip ship)
+    public virtual void Add(BaseShip ship)
     {
         if (shipList.Contains(ship))
         {
@@ -258,22 +258,22 @@ public class AgentData : IJobData
 
     }
 
-    public void Add(List<BaseShip> shiplist)
+    public virtual void Add(List<BaseShip> shiplist)
     {
-        for (int i = 0; i < shipList.Count; i++)
+        for (int i = 0; i < shiplist.Count; i++)
         {
-            Add(shipList[i]);
+            Add(shiplist[i]);
         }
     }
 
-    public void Remove(BaseShip ship)
+    public virtual void Remove(BaseShip ship)
     {
         if (!shipList.Contains(ship)) { return; }
         int index = shipList.IndexOf(ship);
         RemoveAt(index);
     }
 
-    public void RemoveAt(int index)
+    public virtual void RemoveAt(int index)
     {
         shipList.RemoveAt(index);
         boidAgentList.RemoveAt(index);
@@ -281,7 +281,7 @@ public class AgentData : IJobData
         boidAgentJobData.RemoveAt(index);
         steeringControllerJobDataNList.RemoveAt(index);
     }
-    public void Clear()
+    public virtual void Clear()
     {
         shipList.Clear();
         boidAgentList.Clear();
@@ -297,13 +297,13 @@ public class AgentData : IJobData
 public class WeaponData : IJobData
 {
 
-    public List<ShipAdditionalWeapon> activeWeaponList;
+    public List<AdditionalWeapon> activeWeaponList;
     public NativeList<WeaponJobData> activeWeaponJobData;
 
     public NativeArray<Weapon.WeaponTargetInfo> rv_weaponTargetsInfo;
     public WeaponData()
     {
-        activeWeaponList = new List<ShipAdditionalWeapon>();
+        activeWeaponList = new List<AdditionalWeapon>();
         activeWeaponJobData = new NativeList<WeaponJobData>(Allocator.Persistent);
     }
 
@@ -331,7 +331,7 @@ public class WeaponData : IJobData
         }
     }
 
-    public void Add(ShipAdditionalWeapon weapon)
+    public void Add(AdditionalWeapon weapon)
     {
         if (activeWeaponList.Contains(weapon)) { return; }
         activeWeaponList.Add(weapon);
@@ -342,7 +342,7 @@ public class WeaponData : IJobData
         activeWeaponJobData.Add(tempweaponjobdata);
     }
 
-    public void Remove(ShipAdditionalWeapon weapon)
+    public void Remove(AdditionalWeapon weapon)
     {
         if (!activeWeaponList.Contains(weapon)) { return; }
         int index = activeWeaponList.IndexOf(weapon);
@@ -434,39 +434,39 @@ public class BuildingData : IJobData
     }
 }
 
-public class DroneData : IJobData
+public class DroneData : AgentData
 {
-    public void Dispose()
+    public override void Dispose()
     {
-        throw new System.NotImplementedException();
+        base.Dispose();
     }
 
-    public void DisposeReturnValue()
+    public override void DisposeReturnValue()
     {
-        throw new System.NotImplementedException();
+        base.DisposeReturnValue();
     }
 
-    public void UpdateData()
+    public override void UpdateData()
     {
-        throw new System.NotImplementedException();
+        base.UpdateData();
     }
 
-    public void Add(BaseDrone drone)
-    {
-
-    }
-
-    public void Remove(BaseDrone drone)
+    public override void Add(BaseShip drone)
     {
 
     }
 
-    public void RemoveAt(int index)
+    public override void Remove(BaseShip drone)
     {
 
     }
 
-    public void Clear()
+    public override void RemoveAt(int index)
+    {
+
+    }
+
+    public override void Clear()
     {
 
     }

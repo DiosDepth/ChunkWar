@@ -22,7 +22,7 @@ public class ShipController : BaseController
     private float acceleration = 10;
     [ShowInInspector]
     private float maxRotateSpeed = 15;
-    private float boidRadius = 20f;
+
 
      [ShowInInspector]
     private float rotationAcceleration = 0.25f;
@@ -42,8 +42,6 @@ public class ShipController : BaseController
     public Vector2 PointInput { get { return _pointInput; } }
     protected Vector2 _pointInput;
 
-    protected Vector3 velocity;
-    protected Vector3 lastpos;
 
     protected ShipControlConfig _controlConfig;
     private LevelManager _levelMgr;

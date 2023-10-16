@@ -19,20 +19,7 @@ public class AIJobController : JobController
     {
         base.Initialization();
     }
-    public override void UpdateJobs()
-    {
-        base.UpdateJobs();
-    }
-    public override void FixedUpdateJobs()
-    {
-        base.FixedUpdateJobs();
-    }
 
-
-    public override void DisposeJobData()
-    {
-        base.DisposeJobData();
-    }
 
   
 }
