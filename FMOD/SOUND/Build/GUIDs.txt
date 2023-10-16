@@ -1,0 +1,20 @@
+{0483538b-d304-4d8a-ada8-79bef2f1da14} bank:/BattleAudio
+{f2016be8-9c21-4188-a67a-9c18fb3e3ebe} bank:/Master
+{6a1c4b3c-ed5a-0dca-2033-16e60acd3826} bank:/Master.strings
+{cdf59479-410c-4439-9d1c-dfb997f9fbe7} bank:/Ship
+{68b19990-ff33-4e9d-a6ef-60e0837ca31e} bank:/Weapon/Bullet
+{407af28c-d694-4f65-baa6-459d45240651} bus:/
+{742edb46-3a99-40d3-b46d-c587c1b4b1d3} bus:/Reverb
+{8a14fde2-b182-4866-bb1a-106d211e8488} event:/BGM/Stellar_Rust
+{78771487-7d8f-48db-ae10-72e40e9e8e6f} event:/Fire/10000_hit1
+{3d5c55f5-937e-4011-88e3-64e1cec946a5} event:/Fire/AIWeapon_Fire_103
+{07f655ea-63fa-4496-9785-cbe5d4be6e44} event:/Fire/Enemy_EnergyShoot_001
+{9e3ff5be-3b10-4dd3-a9e6-1001b9a03b29} event:/Fire/Ferrogun Fire Final01
+{5d0bf860-013e-458e-91ca-f9e51c290de6} event:/Fire/SQpreattack
+{30e25ee3-a16f-432f-a538-968f6c75e2c9} event:/Fire/br_burnout_oneshot_01
+{568b8200-b96d-4be0-954f-223610fd81ff} event:/Fire/missileExplode_001
+{8faa21df-8c3a-4f2b-932c-aecc039444b0} event:/Fire/missileLaunch_001
+{652e0497-99cc-4e9a-a317-e0f536728e9d} event:/Fire/plasmaflamer_1
+{6de205e2-7cb3-4806-b22c-1abe8413f298} event:/Fire/sunstormfire
+{547b7244-2bd2-4be0-8005-fe7691a70ec6} event:/Ship/ShipExplode_001
+{0d7c4abe-9371-4f40-8c4d-d02b1c74b512} event:/Ship/ShipExplode_002

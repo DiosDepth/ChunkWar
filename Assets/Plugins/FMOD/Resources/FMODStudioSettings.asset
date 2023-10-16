@@ -615,10 +615,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 0
-  HasPlatforms: 0
+  HasSourceProject: 1
+  HasPlatforms: 1
   sourceProjectPath: FMOD/SOUND/SOUND.fspro
-  sourceBankPath: Assets/Resources/SoundRes/Build/Desktop
+  sourceBankPath: FMOD/SOUND/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

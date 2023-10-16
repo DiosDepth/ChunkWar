@@ -27,6 +27,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 413
+--- !u!114 &-6664033336870626408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Bullet.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/SOUND/Build/Desktop/Bullet.bank
+  Name: Bullet
+  StudioPath: bank:/Weapon/Bullet
+  lastModified: 638330923742472138
+  FileSizes:
+  - Name: Desktop
+    Value: 145408
+  Exists: 1
 --- !u!114 &-6642397187122173245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,6 +74,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1166
+--- !u!114 &-6590946453055856424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/missileExplode_001
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/missileExplode_001
+  Guid:
+    Data1: 1451983360
+    Data2: 1273018733
+    Data3: 908218261
+    Data4: -8258288
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 95
+  Length: 1655
 --- !u!114 &-6462358094498768463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +128,53 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 150
   Length: 2034
+--- !u!114 &-5765093771530778643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Enemy_EnergyShoot_001
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Enemy_EnergyShoot_001
+  Guid:
+    Data1: 133584362
+    Data2: 1150706682
+    Data3: -439646825
+    Data4: 1148108500
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 1942
+--- !u!114 &-5715433262494519045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Ship.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/SOUND/Build/Desktop/Ship.bank
+  Name: Ship
+  StudioPath: bank:/Ship
+  lastModified: 638330923741952141
+  FileSizes:
+  - Name: Desktop
+    Value: 49280
+  Exists: 1
 --- !u!114 &-5095043776763629429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +192,26 @@ MonoBehaviour:
   StudioPath: bank:/BattleAudio
   lastModified: 638330844148096447
   FileSizes: []
+  Exists: 1
+--- !u!114 &-4955616768577139061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/SOUND/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638330923741512140
+  FileSizes:
+  - Name: Desktop
+    Value: 1036
   Exists: 1
 --- !u!114 &-4948338453216327207
 MonoBehaviour:
@@ -180,6 +294,53 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1528
+--- !u!114 &-4184298540943770787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/BattleAudio.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
+  Name: BattleAudio
+  StudioPath: bank:/BattleAudio
+  lastModified: 638330923741502139
+  FileSizes:
+  - Name: Desktop
+    Value: 3391296
+  Exists: 1
+--- !u!114 &-3371026166483339481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ship/ShipExplode_001
+  m_EditorClassIdentifier: 
+  Path: event:/Ship/ShipExplode_001
+  Guid:
+    Data1: 1417376324
+    Data2: 1272982482
+    Data3: 1996359040
+    Data4: -972118127
+  Banks:
+  - {fileID: -5715433262494519045}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 3406
 --- !u!114 &-3289839068403242954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +368,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 100
   Length: 3406
+--- !u!114 &-2580121350411573471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/br_burnout_oneshot_01
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/br_burnout_oneshot_01
+  Guid:
+    Data1: 820141795
+    Data2: 1127194991
+    Data3: -1885980507
+    Data4: -907905684
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1528
 --- !u!114 &-2174030684168006924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +433,33 @@ MonoBehaviour:
   lastModified: 638330844148106448
   FileSizes: []
   Exists: 1
+--- !u!114 &-1560445779294603956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/10000_hit1
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/10000_hit1
+  Guid:
+    Data1: 2021069959
+    Data2: 1222344079
+    Data3: -462286674
+    Data4: 1871617550
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1303298684361366301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +487,53 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 294376
+--- !u!114 &-1245673339572596721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/plasmaflamer_1
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/plasmaflamer_1
+  Guid:
+    Data1: 1697514647
+    Data2: 1318754764
+    Data3: -169863261
+    Data4: -1651609034
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 413
+--- !u!114 &-446295102006638599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638330923741522140
+  FileSizes:
+  - Name: Desktop
+    Value: 1510
+  Exists: 1
 --- !u!114 &-102575614981572863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,31 +592,31 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -2174030684168006924}
-  - {fileID: -5095043776763629429}
-  - {fileID: -102575614981572863}
-  - {fileID: -1806810894697462174}
-  - {fileID: 5275372267294087409}
+  - {fileID: -446295102006638599}
+  - {fileID: -4184298540943770787}
+  - {fileID: -6664033336870626408}
+  - {fileID: -4955616768577139061}
+  - {fileID: -5715433262494519045}
   EditorEvents:
-  - {fileID: -6987822416961858339}
-  - {fileID: -4260330626709139661}
-  - {fileID: 5932116681807520797}
-  - {fileID: -6642397187122173245}
-  - {fileID: -16343717228847713}
-  - {fileID: -4948338453216327207}
-  - {fileID: 1760214526661282929}
-  - {fileID: -1303298684361366301}
-  - {fileID: -4526521602577045453}
-  - {fileID: -6462358094498768463}
-  - {fileID: 3111698903559324271}
-  - {fileID: -3289839068403242954}
-  - {fileID: 8817005393438716050}
+  - {fileID: 5844563321534762348}
+  - {fileID: -6590946453055856424}
+  - {fileID: 2597051686671712693}
+  - {fileID: -1560445779294603956}
+  - {fileID: -1245673339572596721}
+  - {fileID: 6393470043760700543}
+  - {fileID: 7064539203002539850}
+  - {fileID: 7073162342289859550}
+  - {fileID: -2580121350411573471}
+  - {fileID: -5765093771530778643}
+  - {fileID: 8365938617815285686}
+  - {fileID: -3371026166483339481}
+  - {fileID: 8706977739052789715}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -1806810894697462174}
+  - {fileID: -4955616768577139061}
   StringsBanks:
-  - {fileID: -2174030684168006924}
-  cacheTime: 638330844148116449
+  - {fileID: -446295102006638599}
+  cacheTime: 638330923742472138
   cacheVersion: 131608
 --- !u!114 &1760214526661282929
 MonoBehaviour:
@@ -383,6 +645,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1742
+--- !u!114 &2597051686671712693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/SQpreattack
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/SQpreattack
+  Guid:
+    Data1: 1561065568
+    Data2: 1166934334
+    Data3: -436614511
+    Data4: -435345124
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1402
 --- !u!114 &3111698903559324271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +717,33 @@ MonoBehaviour:
   lastModified: 638330844148116449
   FileSizes: []
   Exists: 1
+--- !u!114 &5844563321534762348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BGM/Stellar_Rust
+  m_EditorClassIdentifier: 
+  Path: event:/BGM/Stellar_Rust
+  Guid:
+    Data1: -1978335774
+    Data2: 1214689666
+    Data3: 1829771963
+    Data4: -2004607455
+  Banks:
+  - {fileID: -4184298540943770787}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 294376
 --- !u!114 &5932116681807520797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,6 +771,141 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1402
+--- !u!114 &6393470043760700543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Ferrogun Fire Final01
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Ferrogun Fire Final01
+  Guid:
+    Data1: -1639975490
+    Data2: 1305688848
+    Data3: 17884841
+    Data4: 691773625
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1166
+--- !u!114 &7064539203002539850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/missileLaunch_001
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/missileLaunch_001
+  Guid:
+    Data1: -1884675617
+    Data2: 1328254010
+    Data3: -861000557
+    Data4: -1337682941
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1742
+--- !u!114 &7073162342289859550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Sunstormfire
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Sunstormfire
+  Guid:
+    Data1: 1843529186
+    Data2: 1208384691
+    Data3: -1105580878
+    Data4: -1728965756
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2603
+--- !u!114 &8365938617815285686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Fire_103
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Fire_103
+  Guid:
+    Data1: 1029461493
+    Data2: 1074893694
+    Data3: -513481848
+    Data4: -1522087474
+  Banks:
+  - {fileID: -6664033336870626408}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 150
+  Length: 2034
+--- !u!114 &8706977739052789715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ship/ShipExplode_002
+  m_EditorClassIdentifier: 
+  Path: event:/Ship/ShipExplode_002
+  Guid:
+    Data1: 226249406
+    Data2: 1329632113
+    Data3: 735071628
+    Data4: 313881628
+  Banks:
+  - {fileID: -5715433262494519045}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 2650
 --- !u!114 &8817005393438716050
 MonoBehaviour:
   m_ObjectHideFlags: 0
