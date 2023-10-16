@@ -54,30 +54,7 @@ public class JobController : IPauseable
         activeSelfProjectileData = new ProjectileData();
     }
 
-    public virtual void RegisterJobData(JobDataOwnerType type, BaseShip ship)
-    {
 
-    }
-    public virtual void RegisterJobData(JobDataOwnerType type, Unit unit)
-    {
-
-    }
-    public virtual void RegisterJobData(JobDataOwnerType type, Bullet bullet)
-    {
-
-    }
-    public virtual void UnRegisterJobData(JobDataOwnerType type,BaseShip ship)
-    {
-
-    }
-    public virtual void UnRegisterJobData(JobDataOwnerType type, Unit unit)
-    {
-
-    }
-    public virtual void UnRegisterJobData(JobDataOwnerType type, Bullet bullet)
-    {
-
-    }
 
 
 
@@ -132,7 +109,7 @@ public class JobController : IPauseable
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessJobs) { return; }
-        UpdateAdditionalWeapon();
+        UpdateAdditionalWeapon(ref activeSelfWeaponData, ref activeTargetUnitData);
         UpdateAdditionalBuilding();
         UpdateProjectile();
 
@@ -177,7 +154,7 @@ public class JobController : IPauseable
         activeTargetUnitData.UpdateData();
     }
 
-    public virtual void  UpdateAdditionalWeapon()
+    public virtual void  UpdateAdditionalWeapon(ref WeaponData activeSelfWeaponData, ref UnitData activeTargetUnitData)
     {
         if (activeSelfWeaponData.activeWeaponList == null || activeSelfWeaponData.activeWeaponList.Count == 0)
         {
@@ -270,7 +247,7 @@ public class JobController : IPauseable
         }
 
         activeSelfWeaponData.UpdateData();
-        activeSelfProjectileData.DisposeReturnValue();
+        activeSelfWeaponData.DisposeReturnValue();
 
     }
     public virtual void UpdateAdditionalBuilding()

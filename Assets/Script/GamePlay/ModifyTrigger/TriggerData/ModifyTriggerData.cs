@@ -177,7 +177,7 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
 
         ///¥¥‘Ï±¨’®
-        var allaiPos = AIManager.Instance.aiActiveUnitPos;
+        var allaiPos = AIManager.Instance.position;
         var targetInfos = GameHelper.FindTargetsByPoint(targetHitpoint, explodeRange, allaiPos);
         var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
 

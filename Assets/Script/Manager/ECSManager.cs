@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ECSManager : Singleton<ECSManager>
+public class ECSManager : Singleton<ECSManager>, IPauseable
 {
-    // job data owner type == target
+
+    public bool ProcessECS;
+    public PlayerShip playerShip;
+    public IBoid playerIBoid;
+
+    // job data owner type == AI
     public AgentData activeAIAgentData;
     public UnitData activeAIUnitData;
     public WeaponData activeAIWeaponData;
@@ -14,7 +19,7 @@ public class ECSManager : Singleton<ECSManager>
     public ProjectileData activeAIProjectileData;
 
 
-    // job data owner type == self
+    // job data owner type == Player
     public AgentData activePlayerAgentData;
     public UnitData activePlayerUnitData;
     public WeaponData activePlayerWeaponData;
@@ -28,6 +33,7 @@ public class ECSManager : Singleton<ECSManager>
     public override void Initialization()
     {
         base.Initialization();
+        GameManager.Instance.RegisterPauseable(this);
         playerJobController = new PlayerJobController();
         AIJobController = new AIJobController();
         MonoManager.Instance.AddUpdateListener(Update);
@@ -35,9 +41,43 @@ public class ECSManager : Singleton<ECSManager>
     }
 
 
+    public virtual void RegisterJobData(OwnerType type, BaseShip ship)
+    {
+
+    }
+    public virtual void RegisterJobData(OwnerType type, Unit unit)
+    {
+
+    }
+    public virtual void RegisterJobData(OwnerType type, Bullet bullet)
+    {
+
+    }
+    public virtual void UnRegisterJobData(OwnerType type, BaseShip ship)
+    {
+
+    }
+    public virtual void UnRegisterJobData(OwnerType type, Unit unit)
+    {
+
+    }
+    public virtual void UnRegisterJobData(OwnerType type, Bullet bullet)
+    {
+
+    }
+
+
     public virtual void Update()
     {
-        playerJobController.UpdateJobs();
+        if (GameManager.Instance.IsPauseGame()) { return; }
+
+        UpdateJobData();
+
+
+
+        playerJobController.UpdateAdditionalWeapon(ref activePlayerWeaponData, ref activeAIUnitData);
+        //UpdateAdditionalBuilding();
+        //UpdateProjectile();
         AIJobController.UpdateJobs();
     }
 
@@ -47,4 +87,24 @@ public class ECSManager : Singleton<ECSManager>
         AIJobController.FixedUpdateJobs();
     }
 
+    public virtual void UpdateJobData()
+    {
+
+    }
+
+
+    public virtual void SetProcessECS(bool isProcess)
+    {
+        ProcessECS = isProcess;
+    }
+
+    public void PauseGame()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void UnPauseGame()
+    {
+        throw new System.NotImplementedException();
+    }
 }

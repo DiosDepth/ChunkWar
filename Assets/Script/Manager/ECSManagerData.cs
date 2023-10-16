@@ -667,8 +667,3 @@ public struct BuildingJobData
 
 }
 
-public enum JobDataOwnerType
-{
-    Target,
-    Self,
-}

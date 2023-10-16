@@ -522,7 +522,6 @@ public class AIManager : Singleton<AIManager>, IPauseable
         {
             AddAI(shiplist[i]);
         }
-
     }
 
     public void RemoveAI(AIShip ship)
@@ -626,14 +625,14 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
     public void RemoveSingleUnit(Unit unit)
     {
-        int index = aiActiveUnitList.IndexOf(unit);
+        int index = activeWeaponList.IndexOf(unit);
         if (index == -1)
             return;
 
-        aiActiveUnitList.RemoveAt(index);
-        aiActiveUnitPos.RemoveAt(index);
-        aiActiveUnitAttackRange.RemoveAt(index);
-        aiActiveUnitMaxTargetsCount.RemoveAt(index);
+        activeWeaponList.RemoveAt(index);
+        position.RemoveAt(index);
+        attackRange.RemoveAt(index);
+        targetCount.RemoveAt(index);
     }
 
     public void AddBullet(Bullet bullet )
@@ -1322,15 +1321,15 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
     public List<Unit> GetAIUnitsWithCondition(FindCondition condition, int count)
     {
-        aiActiveUnitList.OrderBy(u => u.HpComponent.GetCurrentHP);
-        var targetCount = Mathf.Min(count, aiActiveUnitList.Count);
+        activeWeaponList.OrderBy(u => u.HpComponent.GetCurrentHP);
+        var targetCount = Mathf.Min(count, activeWeaponList.Count);
         if (condition == FindCondition.MaximumHP)
         {
-            return aiActiveUnitList.Take(targetCount).ToList();
+            return activeWeaponList.Take(targetCount).ToList();
         }
         else if (condition == FindCondition.MinimumHP)
         {
-            return aiActiveUnitList.Reverse<Unit>().Take(targetCount).ToList();
+            return activeWeaponList.Reverse<Unit>().Take(targetCount).ToList();
         }
         return new List<Unit>();
     }
