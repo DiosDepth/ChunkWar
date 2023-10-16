@@ -232,7 +232,7 @@ public class UnitBaseAttribute
     private void InitEnemyHardLevelItem()
     {
         var enemyShip = _parentUnit._owner as AIShip;
-        if(enemyShip.OverrideHardLevelID != -1)
+        if(enemyShip.OverrideHardLevelID <= 0)
         {
             _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
         }
