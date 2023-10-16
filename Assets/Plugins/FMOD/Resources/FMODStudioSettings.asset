@@ -626,9 +626,9 @@ MonoBehaviour:
   BankLoadType: 0
   AutomaticSampleLoading: 0
   EncryptionKey: 
-  ImportType: 1
-  TargetAssetPath: Resources/FMODBanks
-  TargetBankFolder: 
+  ImportType: 0
+  TargetAssetPath: Resources/FMODRes
+  TargetBankFolder: SoundRes
   EventLinkage: 0
   LoggingLevel: 2
   SpeakerModeSettings: []
