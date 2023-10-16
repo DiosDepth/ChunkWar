@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using UnityEngine.InputSystem;
 
+#if GMDEBUG
+
 public class GMTalkManager : Singleton<GMTalkManager>
 {
     private Dictionary<string, Func<string[], bool>> GMFunctionDic;
@@ -38,6 +40,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("Shop", EnterShop);
         AddGMFunctionToDic("createBattleLog", CreateBattleLog);
         AddGMFunctionToDic("addPlug", AddPlug);
+        AddGMFunctionToDic("saveGame", GM_SaveGame);
     }
 
     
@@ -182,6 +185,14 @@ public class GMTalkManager : Singleton<GMTalkManager>
         return true;
     }
 
+    private bool GM_SaveGame(string[] content)
+    {
+        var fileName = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
+        RogueManager.Instance.CreateInLevelSaveData(string.Format("GM_SAV_{0}", fileName), true);
+        CloseGMTalkPage();
+        return true;
+    }
+
     #endregion
 
     public void CloseGMTalkPage()
@@ -210,3 +221,4 @@ public class GMTalkManager : Singleton<GMTalkManager>
         RogueManager.Instance.SpawnEntity(cfg, hardLevelID);
     }
 }
+#endif

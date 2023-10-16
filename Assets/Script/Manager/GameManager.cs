@@ -82,10 +82,12 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
         this.EventStartListening<GameEvent>();
         this.EventStartListening<GameStateTransitionEvent>();
-
         LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
-        GMTalkManager.Instance.Initialization();
         SoundManager.Instance.Initialization();
+
+#if GMDEBUG
+        GMTalkManager.Instance.Initialization();
+#endif
     }
 
     public void OnEvent(GameEvent evt)
