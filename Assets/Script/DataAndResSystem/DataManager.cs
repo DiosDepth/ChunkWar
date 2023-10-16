@@ -23,6 +23,7 @@ public class DataManager : Singleton<DataManager>
     private Dictionary<int, ShipPlugDataItemConfig> _shipPlugDic = new Dictionary<int, ShipPlugDataItemConfig>();
     private Dictionary<int, PlayerShipConfig> _shipConfigDic = new Dictionary<int, PlayerShipConfig>();
     private Dictionary<int, AIShipConfig> _AIShipConfigDic = new Dictionary<int, AIShipConfig>();
+    private Dictionary<int, DroneConfig> _DroneConfigDic = new Dictionary<int, DroneConfig>();
     private Dictionary<int, AchievementItemConfig> _achievementDic = new Dictionary<int, AchievementItemConfig>();
     private Dictionary<int, LevelSpawnConfig> _levelPresetDic = new Dictionary<int, LevelSpawnConfig>();
     private Dictionary<int, CampConfig> _campConfigDic = new Dictionary<int, CampConfig>();
@@ -278,6 +279,14 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
+    public DroneConfig GetDroneConfig(int droneID)
+    {
+        DroneConfig result = null;
+        _DroneConfigDic.TryGetValue(droneID, out result);
+        Debug.Assert(result != null, "GetDroneConfig Null! ID= " + droneID);
+        return result;
+    }
+
     public List<AIShipConfig> GetAllAIShips(bool order = true)
     {
         var lst = _AIShipConfigDic.Values.ToList();
@@ -426,6 +435,7 @@ public class DataManager : Singleton<DataManager>
         var camps = Resources.LoadAll<CampConfig>(DataConfigPath.CampConfigRoot);
         var allBullets = Resources.LoadAll<BulletConfig>(DataConfigPath.BulletConfigRoot);
         var allPlugs = Resources.LoadAll<ShipPlugDataItemConfig>(DataConfigPath.ShipPlugConfigRoot);
+        var allDrones = Resources.LoadAll<DroneConfig>(DataConfigPath.DroneConfigRoot);
 
         if (builds != null && builds.Length > 0)
         {
@@ -469,7 +479,20 @@ public class DataManager : Singleton<DataManager>
             }
         }
 
-        if(achievement != null && achievement.Length > 0)
+        if (allDrones != null && allDrones.Length > 0)
+        {
+            for (int i = 0; i < allDrones.Length; i++)
+            {
+                if (_DroneConfigDic.ContainsKey(allDrones[i].ID))
+                {
+                    Debug.LogError("Find Same DroneID !" + allDrones[i].ID);
+                    continue;
+                }
+                _DroneConfigDic.Add(allDrones[i].ID, allDrones[i]);
+            }
+        }
+
+        if (achievement != null && achievement.Length > 0)
         {
             for (int i = 0; i < achievement.Length; i++) 
             {

@@ -1,52 +1,24 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
-public enum EnemyHPBillBoardType
-{
-    Boss_UI,
-    Elite_Scene,
-}
 
-public enum EnemyClassType
-{
-    Normal,
-    Elite,
-    Boss
-}
-
-[CreateAssetMenu(fileName = "Configs_AIShip_", menuName = "Configs/Unit/AIShipConfig")]
-public class AIShipConfig : BaseShipConfig
+/// <summary>
+/// 无人机配置
+/// </summary>
+[CreateAssetMenu(fileName = "Configs_Drone_", menuName = "Configs/Drones")]
+public class DroneConfig : BaseShipConfig
 {
 
-    [HideLabel]
-    [TitleGroup("属性配置", Alignment = TitleAlignments.Centered)]
-    [HorizontalGroup("属性配置/AA", 150)]
-    [BoxGroup("属性配置/AA/HP血条显示")]
-    public bool ShowHPBillboard = false;
-
-    [HideLabel]
-    [TitleGroup("属性配置", Alignment = TitleAlignments.Centered)]
-    [HorizontalGroup("属性配置/AA", 150)]
-    [BoxGroup("属性配置/AA/等级")]
-    public EnemyClassType ClassLevel;
-
-    [HideLabel]
-    [TitleGroup("属性配置", Alignment = TitleAlignments.Centered)]
-    [HorizontalGroup("属性配置/AA", 150)]
-    [BoxGroup("属性配置/AA/血条类型")]
-    [ShowIf("ShowHPBillboard")]
-    public EnemyHPBillBoardType BillboardType;
-
-    [HideLabel]
-    [TitleGroup("属性配置", Alignment = TitleAlignments.Centered)]
-    [HorizontalGroup("属性配置/AA", 150)]
-    [BoxGroup("属性配置/AA/基础攻击")]
-    public int AttackBase;
-
-    [LabelText("敌人难度等级")]
-    public int HardLevelGroupID;
+    [FoldoutGroup("无人机配置")]
+    [HorizontalGroup("无人机配置/A", 300)]
+    [LabelText("所有者")]
+    [LabelWidth(80)]
+    public OwnerType Owner;
 
     [FoldoutGroup("AI配置")]
     [HorizontalGroup("AI配置/A")]
@@ -87,6 +59,7 @@ public class AIShipConfig : BaseShipConfig
     [FoldoutGroup("效果配置")]
     [HorizontalGroup("效果配置/A")]
     public string DieAudio;
+
 
     [System.Obsolete]
     protected override void OnEnable()

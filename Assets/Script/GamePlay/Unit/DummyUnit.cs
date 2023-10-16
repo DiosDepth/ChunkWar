@@ -12,7 +12,7 @@ public class DummyUnit : Unit
 
         var unitconfig = DataManager.Instance.GetUnitConfig(0);
         _baseUnitConfig = unitconfig;
-        baseAttribute.InitProeprty(this, _baseUnitConfig, false);
+        baseAttribute.InitProeprty(this, _baseUnitConfig, OwnerShipType.NONE);
         Initialization(null, _baseUnitConfig);
     }
 

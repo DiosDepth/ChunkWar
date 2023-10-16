@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7144fbede2b43da40b425ccd0fad27b1, type: 3}
-  m_Name: Configs_Building_Reactor015
+  m_Script: {fileID: 11500000, guid: 49d9fbc63cc69dc47b27c4f50f32f64d, type: 3}
+  m_Name: Configs_DroneFactory_001
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -212,7 +212,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -404,85 +404,7 @@ MonoBehaviour:
       Data: 1|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 2|MTC_Timer, Assembly-CSharp
-    - Name: TriggerType
-      Entry: 3
-      Data: 6
-    - Name: TriggerCount
-      Entry: 3
-      Data: -1
-    - Name: SelfUnique
-      Entry: 5
-      Data: false
-    - Name: UsePercent
-      Entry: 5
-      Data: false
-    - Name: Percent
-      Entry: 4
       Data: 0
-    - Name: UseLuckModify
-      Entry: 5
-      Data: false
-    - Name: LuckModifyRate
-      Entry: 4
-      Data: 0
-    - Name: Effects
-      Entry: 7
-      Data: 3|ModifyTriggerEffectConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 4|MTEC_GainDropWaste, Assembly-CSharp
-    - Name: EffectType
-      Entry: 3
-      Data: 7
-    - Name: Conditions
-      Entry: 7
-      Data: 5|ModifyConditionConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Value
-      Entry: 3
-      Data: -1
-    - Name: GainPercent
-      Entry: 5
-      Data: false
-    - Name: PercentValue
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: TimerTriggerType
-      Entry: 3
-      Data: 0
-    - Name: SpecialType
-      Entry: 3
-      Data: 0
-    - Name: TimeParam
-      Entry: 4
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -491,7 +413,7 @@ MonoBehaviour:
       Data: 
     - Name: SlotEffects
       Entry: 7
-      Data: 6|UnitSlotEffectConfig[], Assembly-CSharp
+      Data: 2|UnitSlotEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -501,29 +423,29 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 1115
+  ID: 10100
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: Unit_Name_1115
+    Name: 
     Desc: 
-    Rarity: 1
+    Rarity: 0
     SortingOrder: 0
   Prefab: {fileID: 0}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
   GroupID: 0
-  redirection: 0
+  redirection: 1
   UnlockDefault: 1
   ProertyDescText: 
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 64
-  BaseHP: 100
+  ItemTags: 0
+  BaseHP: 0
   BaseEnergyCost: 0
-  BaseEnergyGenerate: 60
+  BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 0
   ParalysisResumeTime: 0
@@ -535,3 +457,6 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
+  MaxDroneCount: 0
+  DroneSpawnTime: 0
+  SearchingRadius: 0

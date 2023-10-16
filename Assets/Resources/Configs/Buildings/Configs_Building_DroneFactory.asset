@@ -452,6 +452,7 @@ MonoBehaviour:
   PropertyModify: []
   ShieldConfig:
     GenerateShield: 1
+    ShieldPrefabName: 
     ShieldHP: 350
     ShieldRecoverValue: 40
     ShieldRecoverTime: 3

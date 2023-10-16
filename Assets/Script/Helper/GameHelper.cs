@@ -159,6 +159,19 @@ public static class GameHelper
 
     #region Battle
 
+    public static OwnerShipType GetOwnerShipType(BaseShip ship)
+    {
+        if (ship is PlayerShip)
+            return OwnerShipType.PlayerShip;
+        else if (ship is AIShip)
+            return OwnerShipType.AIShip;
+        else if (ship is PlayerDrone)
+            return OwnerShipType.PlayerDrone;
+        else if (ship is AIDrone)
+            return OwnerShipType.AIDrone;
+        return OwnerShipType.NONE;
+    }
+
     /// <summary>
     /// 获取敌人当前hardLevel信息
     /// </summary>

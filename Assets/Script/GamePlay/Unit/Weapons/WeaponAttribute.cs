@@ -124,10 +124,19 @@ public class WeaponAttribute : UnitBaseAttribute
         int Damage = 0;
         bool isCritical = false;
         float ratio = 1;
-        if (isPlayerShip)
+        if (_ownerShipType == OwnerShipType.PlayerShip || _ownerShipType == OwnerShipType.AIDrone)
         {
             var damage = BaseDamage + BaseDamageModifyValue;
-            var damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.DamagePercent);
+            float damagePercent = 0;
+
+            if (_ownerShipType == OwnerShipType.PlayerShip)
+            {
+                damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.DamagePercent);
+            }
+            else if(_ownerShipType == OwnerShipType.PlayerDrone)
+            {
+                damagePercent = mainProperty.GetPropertyFinal(PropertyModifyKey.Aircraft_Damage);
+            }
             var unitDamagePercent = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitDamagePercentAdd);
 
             if (UseDamageRatio)
@@ -145,7 +154,7 @@ public class WeaponAttribute : UnitBaseAttribute
                 Damage = Mathf.RoundToInt(finalDamage);
             }
         }
-        else
+        else if(_ownerShipType == OwnerShipType.AIShip)
         {
             if (UseDamageRatio)
             {
@@ -168,15 +177,15 @@ public class WeaponAttribute : UnitBaseAttribute
         {
             Damage = Damage,
             IsCritical = isCritical,
-            IsPlayerAttack = _parentUnit._owner is PlayerShip,
+            IsPlayerAttack = _ownerShipType == OwnerShipType.PlayerDrone || _ownerShipType == OwnerShipType.PlayerShip,
             DamageType = DamageType,
             ShieldDamagePercent = ShieldDamagePercent
         };
     }
 
-    public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
+    public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, OwnerShipType ownerType)
     {
-        base.InitProeprty(parentUnit, cfg, isPlayerShip);
+        base.InitProeprty(parentUnit, cfg, ownerType);
 
         WeaponConfig _weaponCfg = cfg as WeaponConfig;
         if (_weaponCfg == null)
@@ -197,7 +206,7 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseDamageRatioMin = _weaponCfg.DamageRatioMin;
         BaseDamageRatioMax = _weaponCfg.DamageRatioMax;
 
-        if (isPlayerShip)
+        if (ownerType == OwnerShipType.PlayerShip || ownerType == OwnerShipType.AIDrone)
         {
             ///BindAction
             var baseDamageModify = _weaponCfg.DamageModifyFrom;
@@ -207,32 +216,42 @@ public class WeaponAttribute : UnitBaseAttribute
                 var modifyKey = baseDamageModify[i].PropertyKey;
                 mainProperty.BindPropertyChangeAction(modifyKey, CalculateBaseDamageModify);
             }
+
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageRangeMin, CalclculateDamageRatioMin);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
+
+            if (ownerType == OwnerShipType.PlayerShip)
+            {
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
+
+                CalculateWeaponRange();
+                CalculateMaxMagazineSize();
+                CalculateTransfixionCount();
+                CalculateTransfixionPercent();
+                CalculateReloadTime();
+                CalculateDamageDeltaTime();
+            }
+            else if(ownerType == OwnerShipType.PlayerDrone)
+            {
+
+            }
 
             CalculateBaseDamageModify();
-            CalculateWeaponRange();
             CalculateCriticalRatio();
-            CalculateReloadTime();
-            CalculateDamageDeltaTime();
-            CalculateMaxMagazineSize();
-            CalculateTransfixionCount();
-            CalculateTransfixionPercent();
             CalculateCriticalDamagePercent();
             CalculateShieldDamagePercent();
             CalclculateDamageRatioMin();
             CalclculateDamageRatioMax();
         }
-        else
+        else if (ownerType == OwnerShipType.AIShip) 
         {
             BaseDamageModifyValue = 0;
             CriticalRatio = 0;
@@ -260,12 +279,9 @@ public class WeaponAttribute : UnitBaseAttribute
     {
         base.Destroy();
 
-        if (isPlayerShip)
+        if (_ownerShipType == OwnerShipType.PlayerShip || _ownerShipType == OwnerShipType.PlayerDrone)
         {
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
@@ -274,6 +290,15 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMin, CalclculateDamageRatioMin);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
         }
+
+        if(_ownerShipType == OwnerShipType.PlayerShip)
+        {
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
+        }
+
+       
     }
 
     /// <summary>

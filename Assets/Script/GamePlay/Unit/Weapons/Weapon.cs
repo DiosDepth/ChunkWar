@@ -154,7 +154,7 @@ public class Weapon : Unit
         _baseUnitConfig = m_unitconfig;
         _weaponCfg = m_unitconfig as WeaponConfig;
         _owner = m_owner;
-        InitWeaponAttribute(m_owner is PlayerShip);
+        InitWeaponAttribute(GameHelper.GetOwnerShipType(_owner));
         base.Initialization(m_owner, m_unitconfig);
 
         weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
@@ -177,7 +177,7 @@ public class Weapon : Unit
     {
         this._weaponCfg = m_unitconfig as WeaponConfig;
         base.InitializationEditorUnit(ship, m_unitconfig);
-        InitWeaponAttribute(true);
+        InitWeaponAttribute(OwnerShipType.PlayerShip);
     }
 
 
@@ -931,9 +931,9 @@ public class Weapon : Unit
         return base.TakeDamage(info);
     }
 
-    public virtual void InitWeaponAttribute(bool isPlayerShip)
+    public virtual void InitWeaponAttribute(OwnerShipType type)
     {
-        weaponAttribute.InitProeprty(this, _weaponCfg, isPlayerShip);
+        weaponAttribute.InitProeprty(this, _weaponCfg, type);
         baseAttribute = weaponAttribute;
 
         if (weaponAttribute.MagazineBased)

@@ -9,6 +9,15 @@ public enum UnitType
     MainWeapons,
 }
 
+public enum OwnerShipType
+{
+    NONE,
+    AIShip,
+    AIDrone,
+    PlayerShip,
+    PlayerDrone
+}
+
 [System.Serializable]
 public class UnitBaseAttribute
 {
@@ -61,7 +70,7 @@ public class UnitBaseAttribute
     /// <summary>
     ///  «∑ÒÕÊº“Ω¢¥¨£¨”∞œÏ…À∫¶º∆À„
     /// </summary>
-    protected bool isPlayerShip;
+    protected OwnerShipType _ownerShipType;
 
 
     protected UnitPropertyData mainProperty;
@@ -69,9 +78,9 @@ public class UnitBaseAttribute
 
     protected EnemyHardLevelItem _hardLevelItem;
 
-    public virtual void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
+    public virtual void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, OwnerShipType ownerType)
     {
-        this.isPlayerShip = isPlayerShip;
+        this._ownerShipType = ownerType;
         this._parentUnit = parentUnit;
 
         mainProperty = RogueManager.Instance.MainPropertyData;
@@ -80,7 +89,7 @@ public class UnitBaseAttribute
         BaseEnergyGenerate = cfg.BaseEnergyGenerate;
         BaseParalysisRecoverTime = cfg.ParalysisResumeTime;
 
-        if (isPlayerShip)
+        if (_ownerShipType == OwnerShipType.PlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
 
@@ -100,6 +109,12 @@ public class UnitBaseAttribute
             CalculateEnergyCost();
             CalculateEnergyGenerate();
             CalculateUnitParalysis();
+        }
+        else if(_ownerShipType == OwnerShipType.PlayerDrone)
+        {
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Aircraft_HP, CalculateDroneHP);
+
+            CalculateDroneHP();
         }
         else
         {
@@ -121,7 +136,7 @@ public class UnitBaseAttribute
 
     public virtual void Destroy()
     {
-        if (isPlayerShip)
+        if (_ownerShipType == OwnerShipType.PlayerShip)
         {
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
@@ -129,7 +144,11 @@ public class UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldEnergyCostPercent, CalculateEnergyCost);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.UnitParalysisRecoverTimeRatio, CalculateUnitParalysis);
         }
-        else
+        else if(_ownerShipType == OwnerShipType.PlayerDrone)
+        {
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Aircraft_HP, CalculateDroneHP);
+        }
+        else if(_ownerShipType == OwnerShipType.AIShip)
         {
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
         }
@@ -138,6 +157,12 @@ public class UnitBaseAttribute
     private void CalculateHP()
     {
         var hp = mainProperty.GetPropertyFinal(PropertyModifyKey.HP);
+        HPMax = BaseHP + Mathf.RoundToInt(hp);
+    }
+
+    private void CalculateDroneHP()
+    {
+        var hp = mainProperty.GetPropertyFinal(PropertyModifyKey.Aircraft_HP);
         HPMax = BaseHP + Mathf.RoundToInt(hp);
     }
 

@@ -99,13 +99,13 @@ public class BaseShipConfig : BaseConfig
     [OnInspectorInit]
     protected override void InitData()
     {
-        base.InitData();
         if (Map == null)
         {
             Map = new int[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
         }
+        base.InitData();
     }
 
     [OnInspectorDispose]

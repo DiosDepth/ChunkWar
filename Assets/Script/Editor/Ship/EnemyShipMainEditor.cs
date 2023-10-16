@@ -31,6 +31,18 @@ public class EnemyShipMainEditor : OdinMenuEditorWindow
                 child.Name = string.Format("[{0}]_{1}", info.ID, LocalizationManager.Instance.GetTextValue(info.GeneralConfig.Name));
             });
         });
+
+        var menu2 = tree.AddAllAssetsAtPath("ÎÞÈË»ú", "Assets/Resources/Configs/Drones", typeof(DroneConfig), true, true);
+        menu2.ForEach(x =>
+        {
+            var childs = x.ChildMenuItems;
+            childs.ForEach(child =>
+            {
+                DroneConfig info = child.Value as DroneConfig;
+                child.Name = string.Format("[{0}]_{1}", info.ID, LocalizationManager.Instance.GetTextValue(info.GeneralConfig.Name));
+            });
+        });
+
         tree.SortMenuItemsByName();
         return tree;
     }

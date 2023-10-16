@@ -8,10 +8,9 @@ using UnityEngine.EventSystems;
 [System.Serializable]
 public class BuildingAttribute : UnitBaseAttribute
 {
-
-    public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, bool isPlayerShip)
+    public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, OwnerShipType shipType)
     {
-        base.InitProeprty(parentUnit, cfg, isPlayerShip);
+        base.InitProeprty(parentUnit, cfg, shipType);
     }
 
     public override void Destroy()
@@ -74,15 +73,15 @@ public class Building : Unit
         _baseUnitConfig = m_unitconfig;
         _buildingConfig = m_unitconfig as BuildingConfig;
         _owner = m_owner;
-        InitBuildingAttribute(m_owner is PlayerShip);
+        InitBuildingAttribute(GameHelper.GetOwnerShipType(_owner));
         base.Initialization(m_owner, m_unitconfig);
  
         InitBuildingComponent();
     }
 
-    public virtual void InitBuildingAttribute(bool isPlayerShip)
+    public virtual void InitBuildingAttribute(OwnerShipType type)
     {
-        buildingAttribute.InitProeprty(this, _buildingConfig, isPlayerShip);
+        buildingAttribute.InitProeprty(this, _buildingConfig, type);
         baseAttribute = buildingAttribute;
     }
 
@@ -100,7 +99,7 @@ public class Building : Unit
     #region Building Components
 
     /// <summary>
-    /// Ìí¼Ó½¨Öþ×é¼þ
+    /// ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="cmpt"></param>
     public void AddBuildingComponent(BaseBuildingComponent cmpt)
@@ -114,7 +113,7 @@ public class Building : Unit
     }
 
     /// <summary>
-    /// »ñÈ¡½¨Öþ×é¼þ
+    /// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
