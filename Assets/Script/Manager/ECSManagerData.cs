@@ -202,7 +202,7 @@ public class AgentData : IJobData
             controller.SetAIConfig((ship as AIShip).AIShipCfg);
         }
 
-        if (ship is Drone)
+        if (ship is BaseDrone)
         {
             //需要处理不同类型的shipconfig 
         }
@@ -451,12 +451,12 @@ public class DroneData : IJobData
         throw new System.NotImplementedException();
     }
 
-    public void Add(Drone drone)
+    public void Add(BaseDrone drone)
     {
 
     }
 
-    public void Remove(Drone drone)
+    public void Remove(BaseDrone drone)
     {
 
     }
