@@ -14,10 +14,8 @@ public class EvadeBehavior : SteeringBehavior
 
     public struct EvadeBehaviorJob : IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [ReadOnly] public NativeArray<float3> job_aiShipVel;
-        [ReadOnly] public NativeArray<float> job_maxPrediction;
-        [ReadOnly] public NativeArray<float> job_maxAcceleration;
+        [ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
         [ReadOnly] public float3 job_evadeTargetPos;
         [ReadOnly] public float3 job_evadeTargetVel;
 
@@ -35,11 +33,11 @@ public class EvadeBehavior : SteeringBehavior
             for (int i = startIndex; i < startIndex + count; i++)
             {
 
-                direction = job_evadeTargetPos - job_aiShipPos[i];
+                direction = job_evadeTargetPos - job_boidData[i].position;
                 distance = math.length(direction);
-                speed = math.length(job_aiShipVel[i]);
+                speed = math.length(job_boidData[i].velocity);
 
-                if(distance <= job_maxPrediction[i])
+                if(distance <= job_steeringControllerData[i].evade_maxPrediction)
                 {
                     //if (speed <= (distance / job_maxPrediction[i]))
                     //    prediction = job_maxPrediction[i];
@@ -49,9 +47,9 @@ public class EvadeBehavior : SteeringBehavior
                     //暂时使用Vector3.up 方向替代计算
 
                     //predictedPos = job_evadeTargetPos + job_evadeTargetVel * prediction;
-                    steering.linear = job_aiShipPos[i] - job_evadeTargetPos;
+                    steering.linear = job_boidData[i].position - job_evadeTargetPos;
                     steering.linear = math.normalize(steering.linear);
-                    steering.linear = steering.linear * job_maxAcceleration[i];
+                    steering.linear = steering.linear * job_steeringControllerData[i].maxAcceleration;
                     steering.angular = 0;
 
                     rv_steering[i] = steering;

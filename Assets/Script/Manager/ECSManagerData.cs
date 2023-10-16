@@ -119,6 +119,7 @@ public class AgentData : IJobData
     //并且增加return value的数量。每一个行为对应一个返回数据
     public NativeArray<SteeringBehaviorInfo> rv_evade_steeringInfo;
     public NativeArray<SteeringBehaviorInfo> rv_arrive_steeringInfo;
+    public NativeArray<bool> rv_arrive_isVelZero;
     public NativeArray<SteeringBehaviorInfo> rv_face_steeringInfo;
     public NativeArray<SteeringBehaviorInfo> rv_cohesion_steeringInfo;
     public NativeArray<SteeringBehaviorInfo> rv_separation_steeringInfo;
@@ -149,6 +150,7 @@ public class AgentData : IJobData
     {
         if (rv_evade_steeringInfo.IsCreated) { rv_evade_steeringInfo.Dispose(); }
         if (rv_arrive_steeringInfo.IsCreated) { rv_arrive_steeringInfo.Dispose(); }
+        if (rv_arrive_isVelZero.IsCreated) { rv_arrive_isVelZero.Dispose(); }
         if (rv_face_steeringInfo.IsCreated) { rv_face_steeringInfo.Dispose(); }
         if (rv_cohesion_steeringInfo.IsCreated) { rv_cohesion_steeringInfo.Dispose(); }
         if (rv_separation_steeringInfo.IsCreated) { rv_separation_steeringInfo.Dispose(); }
