@@ -144,8 +144,8 @@ public class WeaponAttribute : UnitBaseAttribute
                 ratio = UnityEngine.Random.Range(DamageRatioMin, DamageRatioMax);
             }
             var finalDamage = Mathf.Clamp(damage * (1 + (damagePercent + unitDamagePercent) / 100f) * ratio, 0, int.MaxValue);
-            bool critical = Utility.CalculateRate100(CriticalRatio);
-            if (critical)
+            isCritical = Utility.CalculateRate100(CriticalRatio);
+            if (isCritical)
             {
                 Damage = Mathf.RoundToInt(finalDamage * (1 + CriticalDamagePercent / 100f));
             }

@@ -75,6 +75,7 @@ public class Beamemit : Bullet
             //´´½¨ÉäÏß
             hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
 
+            int transfixionIndex = 0;
             if (hitlist != null && hitlist?.Length > 0)
             {
                 for (int i = 0; i < hitlist.Length; i++)
@@ -96,7 +97,7 @@ public class Beamemit : Bullet
                         {
                             var damage = (_owner as Weapon).weaponAttribute.GetDamage();
                             ///TODO Value
-                            damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, i));
+                            damage.Damage = Mathf.RoundToInt(damage.Damage * Mathf.Pow(tempFalloff, transfixionIndex));
                             damage.attackerUnit = _owner;
                             damage.HitPoint = hitlist[i].point;
                             var target = hitlist[i].collider.GetComponent<IDamageble>();
@@ -104,6 +105,7 @@ public class Beamemit : Bullet
                             {
                                 damage.Target = target;
                                 target.TakeDamage(damage);
+                                transfixionIndex++;
                             }
                         }
                     }
