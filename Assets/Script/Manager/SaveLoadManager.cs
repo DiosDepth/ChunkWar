@@ -12,6 +12,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 {
     private const string _baseFolderName = "/SaveData/";
     private const string _defaultFolderName = "PlayerSaveInfo";
+    private const string _GMSaveFoloderName = "GMSaveInfo";
 
     private const string globalSaveName = "GlobalSaveData";
 
@@ -72,6 +73,44 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         return newIndex;
     }
 
+
+#if GMDEBUG
+
+    public List<SaveData> LoadAllGMSaveData()
+    {
+        List<SaveData> result = new List<SaveData>();
+        string savePath = DetermineSavePath(_GMSaveFoloderName);
+        if (!Directory.Exists(savePath))
+        {
+            return result;
+        }
+
+        DirectoryInfo info = new DirectoryInfo(savePath);
+        FileInfo[] files = info.GetFiles();
+        for (int i = 0; i < files.Length; i++)
+        {
+            if (!files[i].Name.EndsWith(".json"))
+                continue;
+
+            try
+            {
+                var alltext = files[i].OpenText().ReadToEnd();
+                var savData = JsonUtility.FromJson<SaveData>(alltext);
+                if (savData != null)
+                {
+                    savData.SaveName = files[i].Name;
+                    result.Add(savData);
+                }
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+        return result;
+    }
+
+#endif
 
     /// <summary>
     /// 读取所有玩家存档
@@ -241,7 +280,14 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         {
             ///Create JsonData
             string newSaveName = fileName + ".json";
-            var targetPath = savePath + newSaveName;
+            string gmSavePath = DetermineSavePath(_GMSaveFoloderName);
+
+            if (!Directory.Exists(gmSavePath))
+            {
+                Directory.CreateDirectory(gmSavePath);
+            }
+
+            var targetPath = gmSavePath + newSaveName;
             if (File.Exists(targetPath))
             {
                 File.Delete(targetPath);

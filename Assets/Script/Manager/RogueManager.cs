@@ -358,15 +358,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     }
 
     /// <summary>
-    /// 舰船选择界面初始化
-    /// </summary>
-    public void InitShipSelection()
-    {
-        MainPropertyData = new UnitPropertyData();
-        InitDefaultProperty();
-    }
-
-    /// <summary>
     /// 更新战斗
     /// </summary>
     public void OnUpdateBattle()
@@ -433,7 +424,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public void InitRogueBattle()
     {
         BattleReset();
-        
+
+        ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
+
+        InitDefaultProperty();
         InitWave();
         InitWreckageData();
         InitShopData();
@@ -481,8 +475,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         AllCurrentShipPlugs.Clear();
         globalModifySpecialDatas.Clear();
         goodsItems.Clear();
-
-        ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
         MainPropertyData.BindRowPropertyChangeAction(PropertyModifyKey.ShopFreeRollCount, OnShopFreeRollCountChange);
         InitEnergyAndWreckageCommonBuff();
     }
@@ -490,6 +482,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public override void Initialization()
     {
         base.Initialization();
+        MainPropertyData = new UnitPropertyData();
         plugItemCountDic = new Dictionary<int, int>();
         BattleResult = new BattleResultInfo();
         goodsItems = new Dictionary<int, ShopGoodsInfo>();
@@ -967,9 +960,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Debug.Log("Update HardLevel , HardLevel = " + _currentHardLevelIndex);
     }
 
-    private void InitWave()
+    private void InitWave(int waveIndex = 1)
     {
-        _waveIndex = 1;
+        _waveIndex = waveIndex;
         _tempWaveTime = GetCurrentWaveTime();
         Timer = new LevelTimer();
         var totalTime = GetTempWaveTime;
@@ -2312,15 +2305,40 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 读取存档
     /// </summary>
     /// <param name="sav"></param>
-    public void LoadSaveData(SaveData sav)
+    public bool LoadSaveData(SaveData sav)
     {
+        InBattle = true;
+        bool result = true;
         BattleReset();
 
         ///Init HardLevel
         var hardLevelData = GameManager.Instance.GetHardLevelInfoByID(sav.ModeID);
         SetCurrentHardLevel(hardLevelData);
 
+        result &= LoadShipBaseData(sav.ShipID, sav.MainWeaponID);
+
+        if(sav.WaveIndex <= 0 || sav.WaveIndex > hardLevelData.WaveCount)
+        {
+            Debug.LogError("存档波次错误！ 波次ID =" + sav.WaveIndex);
+            result &= false;
+        }
+        ///Check Load Node
+        if (!result)
+            return result;
+        ///InitMap
+        ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
+        LoadPropertySave(sav);
+        ///恢复波次数据
+        InitWave(sav.WaveIndex);
+
         LoadPlugRuntimeSaves(sav.PlugRuntimeSaves);
+        LoadWreckageDataSave(sav.WasteCount);
+
+        ///EnterBattle
+        PlayCurrentHardLevelBGM();
+
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
+        return true;
     }
 
     public void CreateInLevelSaveData(string saveName = "", bool formatJson = false)
@@ -2339,8 +2357,17 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SaveData sav = new SaveData(index);
         sav.SaveName = saveName;
         sav.ModeID = CurrentHardLevel.HardLevelID;
+        sav.ShipID = currentShipSelection.itemconfig.ID;
+        sav.MainWeaponID = currentWeaponSelection.itemconfig.ID;
         sav.GameTime = 0;
+        sav.WaveIndex = GetCurrentWaveIndex;
+        sav.WasteCount = GetDropWasteCount;
+        sav.Currency = CurrentCurrency;
+        sav.ShipLevel = GetCurrentShipLevel;
+        sav.EXP = GetCurrentExp;
+
         sav.PlugRuntimeSaves = CreatePlugRuntimeSaveData();
+        sav.PropertyRowSav = MainPropertyData.CreatePropertyModifyRowSaveData();
 
         ///Create
         SaveLoadManager.Save<SaveData>(sav, sav.SaveName, formatJson);
@@ -2356,6 +2383,47 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             savs.Add(sav);
         }
         return savs;
+    }
+
+    /// <summary>
+    /// 加载ship数据
+    /// </summary>
+    private bool LoadShipBaseData(int shipID, int mainWeaponID)
+    {
+        var shipCfg = DataManager.Instance.GetShipConfig(shipID);
+        if (shipCfg == null)
+            return false;
+
+        var mainWeaponCfg = DataManager.Instance.GetUnitConfig(mainWeaponID);
+        if (mainWeaponCfg == null)
+            return false;
+
+        currentShipSelection = new InventoryItem(shipCfg);
+        currentWeaponSelection = new InventoryItem(mainWeaponCfg);
+
+        return true;
+    }
+
+    private void LoadWreckageDataSave(int wasteCount)
+    {
+        InitWreckageData();
+        AddDropWasteCount(wasteCount);
+    }
+
+    private void LoadPropertySave(SaveData sav)
+    {
+        var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
+        _shipLevel = new ChangeValue<byte>(sav.ShipLevel, 1, maxLevel);
+        _currentEXP = new ChangeValue<float>(0, sav.EXP, int.MaxValue);
+        CurrentRequireEXP = GameHelper.GetEXPRequireMaxCount(GetCurrentShipLevel);
+
+        _currentEXP.BindChangeAction(OnCurrrentEXPChange);
+        _shipLevel.BindChangeAction(OnShipLevelUp);
+
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.Luck, OnPlayerLuckChange);
+
+        ///Init MainProperty
+        MainPropertyData.LoadPropertyModifyRowSaveData(sav);
     }
 
     private void LoadPlugRuntimeSaves(List<PlugRuntimeSaveData> savs)

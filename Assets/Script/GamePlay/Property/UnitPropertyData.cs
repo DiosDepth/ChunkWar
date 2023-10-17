@@ -136,6 +136,35 @@ public class UnitPropertyData
         PropertyPool.Add(propertyKey, pool);
         return pool;
     }
+
+
+    #region Sav
+
+    public Dictionary<PropertyModifyKey, float> CreatePropertyModifyRowSaveData()
+    {
+        Dictionary<PropertyModifyKey, float> result = new Dictionary<PropertyModifyKey, float>();
+        foreach (var item in PropertyPool.Values)
+        {
+            if(item.RowValue != 0)
+            {
+                result.Add(item.PropertyKey, item.RowValue);
+            }
+        }
+        return result;
+    }
+
+    public void LoadPropertyModifyRowSaveData(SaveData sav)
+    {
+        if (sav.PropertyRowSav == null)
+            return;
+
+        foreach(var item in sav.PropertyRowSav)
+        {
+            AddPropertyModifyValue(item.Key, PropertyModifyType.Row, 0, item.Value);
+        }
+    }
+
+    #endregion
 }
 
 public class UnitPropertyPool
@@ -150,6 +179,11 @@ public class UnitPropertyPool
     /// 初始属性
     /// </summary>
     private ChangeValue<float> _propertyRow;
+
+    public float RowValue
+    {
+        get { return _propertyRow.Value; }
+    }
 
     /// <summary>
     /// 临时修正
@@ -430,4 +464,5 @@ public class UnitPropertyPool
         }
         return result;
     }
+
 }

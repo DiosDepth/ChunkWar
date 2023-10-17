@@ -237,16 +237,24 @@ public class GlobalSaveData
 public class SaveData 
 {
     public int SaveIndex;
-
-    public int newRecord;
     public string date;
 
     public string SaveName;
     public int GameTime;
     public int ModeID;
+    public int ShipID;
+    public int MainWeaponID;
+
+    public int WaveIndex;
+
+    public int Currency;
+    public int WasteCount;
+    public byte ShipLevel;
+    public float EXP;
 
     /* Plug Save */
     public List<PlugRuntimeSaveData> PlugRuntimeSaves;
+    public Dictionary<PropertyModifyKey, float> PropertyRowSav;
 
     public SaveData(int saveIndex)
     {
