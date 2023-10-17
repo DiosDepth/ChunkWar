@@ -17,17 +17,11 @@ public class CohesionBehavior : SteeringBehavior
 
     public struct CohesionBehaviorJob : IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float> job_viewAngle;
         [ReadOnly] public int job_shipcount;
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [ReadOnly] public NativeArray<float3> job_aiShipVel;
-
-       
-        [ReadOnly] public NativeArray<float3> job_aiShipPosInRange;
-
-        [ReadOnly] public NativeArray<int> job_InRangeLength;
-
-        [ReadOnly] public NativeArray<float> job_maxAcceleration;
+        [ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
+        [ReadOnly] public NativeArray<float3> job_searchingTargetPosFlatArray;
+        [ReadOnly] public NativeArray<int> job_searchingTargetCount;
 
         public NativeArray<SteeringBehaviorInfo> rv_Steerings;
 
@@ -43,13 +37,13 @@ public class CohesionBehavior : SteeringBehavior
 
                 countindex = 0;
                 centerOfMass = float3.zero;
-                for (int n = 0; n < job_InRangeLength[i]; n++)
+                for (int n = 0; n < job_searchingTargetCount[i]; n++)
                 {
 
-                    targetdir = job_aiShipPosInRange[i * job_shipcount + n] - job_aiShipPos[i];
-                    if( math.degrees( math.acos( math.dot(math.normalize(targetdir), math.normalize(job_aiShipVel[i])))) < job_viewAngle[i])
+                    targetdir = job_searchingTargetPosFlatArray[i * job_shipcount + n] - job_boidData[i].position;
+                    if( math.degrees( math.acos( math.dot(math.normalize(targetdir), math.normalize(job_boidData[i].velocity)))) < job_steeringControllerData[i].cohesion_viewAngle)
                     {
-                        centerOfMass += job_aiShipPosInRange[i * job_shipcount + n]; ;
+                        centerOfMass += job_searchingTargetPosFlatArray[i * job_shipcount + n]; ;
                         countindex++;
                     }
                 }
@@ -57,9 +51,9 @@ public class CohesionBehavior : SteeringBehavior
                 if(countindex > 0)
                 {
                     centerOfMass = centerOfMass / countindex;
-                    steering.linear = centerOfMass - job_aiShipPos[i];
+                    steering.linear = centerOfMass - job_boidData[i].position;
                     steering.linear = math.normalize(steering.linear);
-                    steering.linear *= job_maxAcceleration[i];
+                    steering.linear *= job_steeringControllerData[i].maxAcceleration;
                 }
 
                 rv_Steerings[i] = steering;

@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class JobController : IPauseable
 {
+
+    public SearchingTargetData searchingTargetData;
     public JobController()
     {
 
@@ -35,6 +37,217 @@ public class JobController : IPauseable
     public virtual void UnPauseGame()
     {
         
+    }
+
+    public virtual void UpdateAgentMovement(ref AgentData activeSelfAgentData, ref AgentData activeTargetAgentData, ref IBoid boidTarget)
+    {
+        if (activeSelfAgentData.shipList == null || activeSelfAgentData.shipList.Count == 0)
+        {
+            return;
+        }
+
+        JobHandle jobhandle_evadebehavior;
+        JobHandle jobhandle_arrivebehavior;
+        JobHandle jobhandle_facebehavior;
+        JobHandle jobhandle_behaviorTargets;
+        JobHandle jobhandle_cohesionbehavior;
+        JobHandle jobhandle_separationBehavior;
+        JobHandle jobhandle_alignmentBehavior;
+        JobHandle jobhandle_collisionAvoidanceBehavior;
+        //jobhandleList_AI = new NativeList<JobHandle>(Allocator.TempJob);
+
+        activeSelfAgentData.rv_evade_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_arrive_isVelZero = new NativeArray<bool>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_arrive_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_face_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_cohesion_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_separation_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_alignment_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_collisionavoidance_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+
+
+
+        EvadeBehavior.EvadeBehaviorJob evadeBehaviorJob = new EvadeBehavior.EvadeBehaviorJob
+        {
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+            job_evadeTargetPos = boidTarget.GetPosition(),
+            job_evadeTargetVel = boidTarget.GetVelocity(),
+
+            rv_steering = activeSelfAgentData.rv_evade_steeringInfo,
+
+        };
+        jobhandle_evadebehavior = evadeBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_evadebehavior.Complete();
+
+
+
+
+        ArriveBehavior.ArriveBehaviorJobs arriveBehaviorJobs = new ArriveBehavior.ArriveBehaviorJobs
+        {
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+
+            job_targetPos = boidTarget.GetPosition(),
+            job_targetRadius = boidTarget.GetRadius(),
+
+            rv_isVelZero = activeSelfAgentData.rv_arrive_isVelZero,
+            rv_Steerings = activeSelfAgentData.rv_arrive_steeringInfo,
+
+        };
+        jobhandle_arrivebehavior = arriveBehaviorJobs.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_arrivebehavior.Complete();
+
+        ////FaceBehavior Job
+        FaceBehavior.FaceBehaviorJob faceBehaviorJob = new FaceBehavior.FaceBehaviorJob
+        {
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+
+            job_targetPos = boidTarget.GetPosition(),
+            job_deltatime = Time.fixedDeltaTime,
+
+            rv_Steerings = activeSelfAgentData.rv_face_steeringInfo,
+        };
+        jobhandle_facebehavior = faceBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_facebehavior.Complete();
+
+        //NativeList<JobHandle> behaviorTargetsList = new NativeList<JobHandle>();
+
+        searchingTargetData.rv_searchingTargetsVelFlatArray = new NativeArray<float3>(activeSelfAgentData.shipList.Count * activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        searchingTargetData.rv_searchingTargetsPosFlatArray = new NativeArray<float3>(activeSelfAgentData.shipList.Count * activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        searchingTargetData.rv_searchingTargetsCount = new NativeArray<int>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+
+
+        SteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob calculateSteeringTargetsPosByRadiusJob = new SteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob
+        {
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+
+
+            job_threshold = 0.01f,
+
+
+            rv_findedTargetCountPreShip = searchingTargetData.rv_searchingTargetsCount,
+            rv_findedTargetVelPreShip = searchingTargetData.rv_searchingTargetsVelFlatArray,
+            rv_findedTargetsPosPreShip = searchingTargetData.rv_searchingTargetsPosFlatArray,
+        };
+        jobhandle_behaviorTargets = calculateSteeringTargetsPosByRadiusJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_behaviorTargets.Complete();
+
+
+        //Cohesion Job
+
+        CohesionBehavior.CohesionBehaviorJob cohesionBehaviorJob = new CohesionBehavior.CohesionBehaviorJob
+        {
+            job_shipcount = activeSelfAgentData.shipList.Count,
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+            job_searchingTargetPosFlatArray = searchingTargetData.rv_searchingTargetsPosFlatArray,
+            job_searchingTargetCount = searchingTargetData.rv_searchingTargetsCount,
+            rv_Steerings = activeSelfAgentData.rv_cohesion_steeringInfo,
+        };
+        jobhandle_cohesionbehavior = cohesionBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_cohesionbehavior.Complete();
+
+        //separation Job
+        SeparationBehavior.SeparationBehaviorJob separationBehaviorJob = new SeparationBehavior.SeparationBehaviorJob
+        {
+            job_shipcount = activeSelfAgentData.shipList.Count,
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+            job_searchingTargetPosFlatArray = searchingTargetData.rv_searchingTargetsPosFlatArray,
+            job_searchingTargetCount = searchingTargetData.rv_searchingTargetsCount,
+
+            rv_Steerings = activeSelfAgentData.rv_separation_steeringInfo,
+        };
+        jobhandle_separationBehavior = separationBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+
+        jobhandle_separationBehavior.Complete();
+
+        //Alignment Job
+        AlignmentBehavior.AlignmentBehaviorJob alignmentBehaviorJob = new AlignmentBehavior.AlignmentBehaviorJob
+        {
+            job_shipcount = activeSelfAgentData.shipList.Count,
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+            job_searchingTargetPosFlatArray = searchingTargetData.rv_searchingTargetsPosFlatArray,
+            job_searchingTargetVelFlatArray = searchingTargetData.rv_searchingTargetsVelFlatArray,
+            job_searchingTargetCount = searchingTargetData.rv_searchingTargetsCount,
+            rv_Steerings = activeSelfAgentData.rv_alignment_steeringInfo,
+        };
+
+        jobhandle_alignmentBehavior = alignmentBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_alignmentBehavior.Complete();
+
+
+
+
+        CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob collisionAvoidanceBehaviorJob = new CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob
+        {
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+            job_avoidenceData = activeTargetAgentData.boidAgentJobData,
+            rv_steering = activeSelfAgentData.rv_collisionavoidance_steeringInfo,
+        };
+
+        jobhandle_collisionAvoidanceBehavior = collisionAvoidanceBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_collisionAvoidanceBehavior.Complete();
+
+
+
+
+        activeSelfAgentData.rv_deltaMovement = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+
+        JobHandle jobhandle_deltamoveposjob;
+        SteeringBehaviorController.CalculateDeltaMovePosJob calculateDeltaMovePosJob = new SteeringBehaviorController.CalculateDeltaMovePosJob
+        {
+            job_boidData = activeSelfAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
+
+            job_evadeSteering = activeSelfAgentData.rv_evade_steeringInfo,
+
+
+            job_arriveSteering = activeSelfAgentData.rv_arrive_steeringInfo,
+            job_isVelZero = activeSelfAgentData.rv_arrive_isVelZero,
+
+            job_faceSteering = activeSelfAgentData.rv_face_steeringInfo,
+
+
+            job_alignmentSteering = activeSelfAgentData.rv_alignment_steeringInfo,
+
+
+            job_cohesionSteering = activeSelfAgentData.rv_cohesion_steeringInfo,
+
+
+            job_separationSteering = activeSelfAgentData.rv_separation_steeringInfo,
+
+
+            job_collisionAvoidanceSteering = activeSelfAgentData.rv_collisionavoidance_steeringInfo,
+
+
+            job_deltatime = Time.fixedDeltaTime,
+
+            rv_deltainfo = activeSelfAgentData.rv_deltaMovement,
+        };
+
+        jobhandle_deltamoveposjob = calculateDeltaMovePosJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
+        jobhandle_deltamoveposjob.Complete();
+
+
+        for (int i = 0; i < activeSelfAgentData.shipList.Count; i++)
+        {
+            activeSelfAgentData.steeringControllerList[i].UpdateIBoid();
+
+            activeSelfAgentData.steeringControllerList[i].Move(activeSelfAgentData.rv_deltaMovement[i].linear);
+            activeSelfAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfAgentData.rv_deltaMovement[i].angular);
+        }
+
+        boidTarget.UpdateIBoid();
+
+        activeSelfAgentData.DisposeReturnValue();
+        searchingTargetData.DisposeReturnValue();
+
     }
 
     public virtual void  UpdateAdditionalWeapon(ref WeaponData activeSelfWeaponData, ref UnitData activeTargetUnitData)

@@ -14,15 +14,11 @@ public class CollisionAvoidanceBehavior : SteeringBehavior
     [BurstCompile]
     public struct CollisionAvoidanceBehaviorJob : IJobParallelForBatch
     {
+        [ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
 
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [ReadOnly] public NativeArray<float3> job_aiShipVel;
-        [ReadOnly] public NativeArray<float> job_aiShipRadius;
-        [ReadOnly] public NativeArray<float> job_maxAcceleration;
-
-        [ReadOnly] public NativeArray<float3> job_avoidenceTargetPos;
-        [ReadOnly] public NativeArray<float3> job_avoidenceTargetVel;
-        [ReadOnly] public NativeArray<float> job_avoidenceTargetRadius;
+        [ReadOnly] public NativeArray<BoidJobData> job_avoidenceData;
+   
 
         public NativeArray<SteeringBehaviorInfo> rv_steering;
         private SteeringBehaviorInfo steering;
@@ -50,11 +46,11 @@ public class CollisionAvoidanceBehavior : SteeringBehavior
             for (int i = startIndex; i < startIndex + count; i++)
             {
                 shortestTime = float.PositiveInfinity;
-                for (int n = 0; n < job_avoidenceTargetPos.Length; n++)
+                for (int n = 0; n < job_avoidenceData.Length; n++)
                 {
 
-                    relativePos = job_aiShipPos[i] - job_avoidenceTargetPos[n];
-                    relativeVel = job_aiShipVel[i] - job_avoidenceTargetVel[n];
+                    relativePos = job_boidData[i].position - job_avoidenceData[n].position;
+                    relativeVel = job_boidData[i].velocity - job_avoidenceData[n].position;
                     relativeSpeed = math.length(relativeVel);
                     distance = math.length(relativePos);
 
@@ -67,18 +63,18 @@ public class CollisionAvoidanceBehavior : SteeringBehavior
                     separation = relativePos + relativeVel * timeToCollision;
                     minSeparation = math.length(separation);
 
-                    if (minSeparation > job_aiShipRadius[i] + job_avoidenceTargetRadius[n])
+                    if (minSeparation > job_boidData[i].boidRadius + job_avoidenceData[n].boidRadius)
                         continue;
 
                     if ((timeToCollision > 0) && (timeToCollision < shortestTime))
                     {
                         shortestTime = timeToCollision;
-                        firstTargetPos = job_avoidenceTargetPos[n];
+                        firstTargetPos = job_avoidenceData[n].position;
                         firstMinSeparation = minSeparation;
                         firstDistance = distance;
                         firstRelativePos = relativePos;
                         firstRelativeVel = relativeVel;
-                        firstRadius = job_avoidenceTargetRadius[n];
+                        firstRadius = job_avoidenceData[n].boidRadius;
                     }
                 }
 
@@ -90,13 +86,13 @@ public class CollisionAvoidanceBehavior : SteeringBehavior
                 }
                 else
                 {
-                    if (firstMinSeparation <= 0 || firstDistance < job_aiShipRadius[i] + firstRadius)
-                        steering.linear = job_aiShipPos[i] - firstTargetPos;
+                    if (firstMinSeparation <= 0 || firstDistance < job_boidData[i].boidRadius + firstRadius)
+                        steering.linear = job_boidData[i].position - firstTargetPos;
                     else
                         steering.linear = firstRelativePos + firstRelativeVel * shortestTime;
 
                     steering.linear = math.normalize(steering.linear);
-                    steering.linear *= steering.linear * job_maxAcceleration[i];
+                    steering.linear *= steering.linear * job_steeringControllerData[i].maxAcceleration;
 
                     rv_steering[i] = steering;
                 }

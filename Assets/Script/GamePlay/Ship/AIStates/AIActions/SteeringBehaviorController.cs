@@ -105,11 +105,13 @@ public class SteeringBehaviorController : BaseController
     [BurstCompile]
     public struct CalculateSteeringTargetsPosByRadiusJob : IJobParallelForBatch
     {
+
         //[ReadOnly] public NativeArray<float3> job_selfPos;
-        public float job_threshold;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_SerchingRadius;
+        [Unity.Collections.ReadOnly] public float job_threshold;
+        [Unity.Collections.ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipVel;
+       
         
 
         [NativeDisableContainerSafetyRestriction]
@@ -117,6 +119,7 @@ public class SteeringBehaviorController : BaseController
         [NativeDisableContainerSafetyRestriction]
         public NativeArray<float3> rv_findedTargetVelPreShip;
         public NativeArray<int> rv_findedTargetCountPreShip;
+       
         int index;
         float distance;
 
@@ -126,14 +129,14 @@ public class SteeringBehaviorController : BaseController
             for (int i = startIndex; i < startIndex + count; i++)
             {
                 index = 0;
-                for (int n = 0; n < job_aiShipPos.Length; n++)
+                for (int n = 0; n < job_boidData.Length; n++)
                 {
 
-                    distance = math.distance(job_aiShipPos[i], job_aiShipPos[n]);
-                    if (distance <= job_SerchingRadius[i] && distance > job_threshold)
+                    distance = math.distance(job_boidData[i].position, job_boidData[n].position);
+                    if (distance <= job_steeringControllerData[i].targetSerchingRadius && distance > job_threshold)
                     {
-                        rv_findedTargetsPosPreShip[i * job_aiShipPos.Length + n] = job_aiShipPos[n];
-                        rv_findedTargetVelPreShip[i * job_aiShipPos.Length + n] = job_aiShipPos[n];
+                        rv_findedTargetsPosPreShip[i * job_boidData.Length + n] = job_boidData[n].position;
+                        rv_findedTargetVelPreShip[i * job_boidData.Length + n] = job_boidData[n].position;
                         index++;
                     }
                 }
@@ -148,42 +151,17 @@ public class SteeringBehaviorController : BaseController
     [BurstCompile]
     public struct CalculateDeltaMovePosJob : IJobParallelForBatch
     {
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_aiShipMaxAcceleration;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_aiShipMaxVelocity;
-        [Unity.Collections.ReadOnly] public NativeArray<float> Job_aiShipDrag;
-        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipVelocity;
-        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipPos;
         [Unity.Collections.ReadOnly] public float job_deltatime;
-
-
+        [Unity.Collections.ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_evadeSteering;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_evadeWeight;
-        [Unity.Collections.ReadOnly] public NativeArray<bool> job_evadeIsActive;
-
         [Unity.Collections.ReadOnly] public NativeArray<bool> job_isVelZero;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_arriveSteering;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_arriveWeight;
-        [Unity.Collections.ReadOnly] public NativeArray<bool> job_arriveIsActive;
-
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_faceSteering;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_faceWeight;
-        [Unity.Collections.ReadOnly] public NativeArray<bool> job_faceIsActive;
-
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_cohesionSteering;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_cohesionWeight;
-        [Unity.Collections.ReadOnly] public NativeArray<bool> job_cohesionIsActive;
-
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_separationSteering;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_separationWeight;
-        [Unity.Collections.ReadOnly] public NativeArray<bool> job_separationIsActive;
-
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_alignmentSteering;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_alignmentWeight;
-        [Unity.Collections.ReadOnly] public NativeArray<bool> job_alignmentIsActive;
-
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_collisionAvoidanceSteering;
-        [Unity.Collections.ReadOnly] public NativeArray<float> job_collisionAvoidanceWeight;
-        [Unity.Collections.ReadOnly] public NativeArray<bool> job_collisonAvidanceIsActive;
 
         public NativeArray<SteeringBehaviorInfo> rv_deltainfo;
 
@@ -202,22 +180,22 @@ public class SteeringBehaviorController : BaseController
 
                 if (!job_isVelZero[i])
                 {
-                    if (job_arriveIsActive[i]) { accelaration += job_arriveSteering[i].linear * job_arriveWeight[i]; }
+                    if (job_steeringControllerData[i].arriveData.arrive_isActive) { accelaration += job_arriveSteering[i].linear * job_steeringControllerData[i].arriveData.arrive_weight; }
 
                 }
 
-                if (job_cohesionIsActive[i]) { accelaration += job_cohesionSteering[i].linear * job_cohesionWeight[i]; }
-                if (job_alignmentIsActive[i]) { accelaration += job_alignmentSteering[i].linear * job_alignmentWeight[i]; }
-                if (job_separationIsActive[i]) { accelaration += job_separationSteering[i].linear * job_separationWeight[i]; }
-                if (job_collisonAvidanceIsActive[i]) { accelaration += job_collisionAvoidanceSteering[i].linear * job_collisionAvoidanceWeight[i]; }
-                if (job_evadeIsActive[i]) { accelaration += job_evadeSteering[i].linear * job_evadeWeight[i]; }
+                if (job_steeringControllerData[i].cohesionData.cohesion_isActive) { accelaration += job_cohesionSteering[i].linear * job_steeringControllerData[i].cohesionData.cohesion_weight; }
+                if (job_steeringControllerData[i].alignmentData.alignment_isActive) { accelaration += job_alignmentSteering[i].linear * job_steeringControllerData[i].alignmentData.alignment_weight; }
+                if (job_steeringControllerData[i].separationData.separation_isActive) { accelaration += job_separationSteering[i].linear * job_steeringControllerData[i].separationData.separation_weight; }
+                if (job_steeringControllerData[i].collisionAvoidenceData.collisionavoidance_isActive) { accelaration += job_collisionAvoidanceSteering[i].linear * job_steeringControllerData[i].collisionAvoidenceData.collisionavoidance_weight; }
+                if (job_steeringControllerData[i].evadeData.evade_isActive) { accelaration += job_evadeSteering[i].linear * job_steeringControllerData[i].evadeData.evade_weight; }
 
-                angle += job_faceSteering[i].angular * job_faceWeight[i];
+                angle += job_faceSteering[i].angular * job_steeringControllerData[i].faceData.face_weight;
 
-                if (math.length(accelaration) > job_aiShipMaxAcceleration[i])
+                if (math.length(accelaration) > job_steeringControllerData[i].maxAcceleration)
                 {
                     accelaration = math.normalize(accelaration);
-                    accelaration *= job_aiShipMaxAcceleration[i];
+                    accelaration *= job_steeringControllerData[i].maxAcceleration;
                 }
 
                 if (math.length(job_evadeSteering[i].linear) == 0 && job_isVelZero[i])
@@ -226,7 +204,7 @@ public class SteeringBehaviorController : BaseController
                 }
                 else
                 {
-                    vel = job_aiShipVelocity[i];
+                    vel = job_boidData[i].velocity;
                 }
 
                 if (math.length(vel) <= 0.01f)
@@ -234,14 +212,14 @@ public class SteeringBehaviorController : BaseController
                     vel = 0;
                 }
 
-                deltamovement = vel + accelaration * 0.5f * job_deltatime * Job_aiShipDrag[i];
+                deltamovement = vel + accelaration * 0.5f * job_deltatime * job_steeringControllerData[i].drag;
 
-                if(math.length(deltamovement) >= job_aiShipMaxVelocity[i])
+                if(math.length(deltamovement) >= job_steeringControllerData[i].maxVelocity)
                 {
-                    deltamovement = math.normalize(deltamovement) * job_aiShipMaxVelocity[i];
+                    deltamovement = math.normalize(deltamovement) * job_steeringControllerData[i].maxVelocity;
                 }
 
-                deltamovement = job_aiShipPos[i] + deltamovement * job_deltatime;
+                deltamovement = job_boidData[i].position + deltamovement * job_deltatime;
 
                 deltainfo.linear = deltamovement;
 

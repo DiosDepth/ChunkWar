@@ -19,12 +19,10 @@ public class ArriveBehavior : SteeringBehavior
     [BurstCompile]
     public struct ArriveBehaviorJobs : IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [ReadOnly] public NativeArray<float3>  job_aiShipVel;
-        [ReadOnly] public NativeArray<float> job_aiShipRadius;
-        [ReadOnly] public NativeArray<float> job_arriveRadius;
-        [ReadOnly] public NativeArray<float> job_slowRadius;
-        [ReadOnly] public NativeArray<float> job_maxAcceleration;
+
+        [ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
+
 
         [ReadOnly] public float3 job_targetPos;
         [ReadOnly] public float job_targetRadius;
@@ -44,10 +42,10 @@ public class ArriveBehavior : SteeringBehavior
         {
             for (int i = startIndex; i < startIndex+ count; i++)
             {
-                direction = job_targetPos - job_aiShipPos[i];
+                direction = job_targetPos - job_boidData[i].position;
                 distance  = math.length(direction);
 
-                if (distance < job_arriveRadius[i])
+                if (distance < job_steeringControllerData[i].arrive_arriveRadius)
                 {
                     rv_isVelZero[i] = true;
                     steering.linear = float3.zero;
@@ -56,23 +54,23 @@ public class ArriveBehavior : SteeringBehavior
                     continue;
                 }
 
-                if (distance > job_slowRadius[i])
+                if (distance > job_steeringControllerData[i].arrive_slowRadius)
                 {
-                    speed = job_maxAcceleration[i];
+                    speed = job_steeringControllerData[i].maxAcceleration;
                 }
                 else
                 {
-                    speed = job_maxAcceleration[i] * (distance / (job_slowRadius[i]));
+                    speed = job_steeringControllerData[i].maxAcceleration * (distance / (job_steeringControllerData[i].arrive_slowRadius));
                 }
 
                 velocity = math.normalize(direction);
                 velocity *= speed;
 
-                steering.linear = velocity - job_aiShipVel[i];
-                if(math.length(steering.linear) > job_maxAcceleration[i])
+                steering.linear = velocity - job_boidData[i].velocity;
+                if(math.length(steering.linear) > job_steeringControllerData[i].maxAcceleration)
                 {
                     steering.linear = math.normalize(steering.linear);
-                    steering.linear *= job_maxAcceleration[i];
+                    steering.linear *= job_steeringControllerData[i].maxAcceleration;
                 }
 
                 steering.angular = 0;

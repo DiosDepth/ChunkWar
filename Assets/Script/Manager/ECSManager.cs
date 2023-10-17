@@ -173,7 +173,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessECS) { return; }
-        UpdateJobData();
+
 
         //update Player job 
         playerJobController.UpdateAdditionalWeapon(ref activePlayerWeaponData, ref activeAIUnitData);
@@ -182,19 +182,24 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
 
         //update AI job 
-        AIJobController.UpdateJobs();
+        AIJobController.UpdateAdditionalWeapon(ref activeAIWeaponData, ref activePlayerUnitData);
+        AIJobController.UpdateAdditionalBuilding(ref activeAIBuildingData, ref activePlayerUnitData);
+        AIJobController.UpdateProjectile(ref activeAIProjectileData, ref activePlayerUnitData);
+      
     }
 
     public virtual void FixedUpdate()
     {
-      
-        AIJobController.FixedUpdateJobs();
+        UpdateJobData();
+        AIJobController.UpdateAgentMovement(ref activeAIAgentData, ref activePlayerAgentData , ref playerIBoid);
     }
 
     public virtual void UpdateJobData()
     {
         activeAIAgentData.UpdateData();
         activeAIUnitData.UpdateData();
+
+
 
         activePlayerAgentData.UpdateData();
         activePlayerUnitData.UpdateData();

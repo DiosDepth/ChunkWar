@@ -17,14 +17,11 @@ public class SeparationBehavior : SteeringBehavior
     [BurstCompile]
     public struct SeparationBehaviorJob : IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
         [ReadOnly] public int job_shipcount;
-        [ReadOnly] public NativeArray<float> job_threshold;
-        [ReadOnly] public NativeArray<float> job_decayCoefficient;
-        [ReadOnly] public NativeArray<float> job_maxAcceleration;
-
-        [ReadOnly] public NativeArray<float3> job_aiShipPosInRange;
-        [ReadOnly] public NativeArray<int> job_InRangeLength;
+        [ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
+        [ReadOnly] public NativeArray<float3> job_searchingTargetPosFlatArray;
+        [ReadOnly] public NativeArray<int> job_searchingTargetCount;
 
 
 
@@ -40,14 +37,14 @@ public class SeparationBehavior : SteeringBehavior
             for (int i = startIndex; i < startIndex + count; i++)
             {
                 steering.linear = float3.zero;
-                for (int n = 0; n < job_InRangeLength[i]; n++)
+                for (int n = 0; n < job_searchingTargetCount[i]; n++)
                 {
-                    direction = job_aiShipPosInRange[i * job_shipcount + n] - job_aiShipPos[i];
+                    direction = job_searchingTargetPosFlatArray[i * job_shipcount + n] - job_boidData[i].position;
                     distance = math.length(direction);
 
-                    if(distance < job_threshold[i])
+                    if(distance < job_steeringControllerData[i].separation_threshold)
                     {
-                        strength = math.min(job_decayCoefficient[i] / (distance * distance), job_maxAcceleration[i]);
+                        strength = math.min(job_steeringControllerData[i].separation_decayCoefficient / (distance * distance), job_steeringControllerData[i].maxAcceleration);
                         steering.linear += strength * math.normalize(direction);
                     }
                 }

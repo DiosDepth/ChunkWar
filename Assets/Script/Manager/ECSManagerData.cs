@@ -98,12 +98,7 @@ public class AvoidenceCollisionData : IJobData
     }
 }
 
-public struct AvoidenceCollisionJobData
-{
-    public float3 avoidanceCollisionPos;
-    public float avoidanceCollisionRadius;
-    public float3 avoidanceCollisionVel;
-}
+
 
 public class AgentData : IJobData
 {
@@ -227,34 +222,35 @@ public class AgentData : IJobData
         steeringJobData.targetSerchingRadius = controller.targetSerchingRadius;
         steeringJobData.drag = controller.drag;
 
-        steeringJobData.evade_isActive = controller.isActiveEvade;
-        steeringJobData.evade_weight = controller.evadeBehaviorInfo.GetWeight();
-        steeringJobData.evade_maxPrediction = controller.evadeBehaviorInfo.maxPrediction;
 
-        steeringJobData.arrive_isActive = controller.isActiveArrive;
-        steeringJobData.arrive_weight = controller.arrivelBehaviorInfo.GetWeight();
-        steeringJobData.arrive_arriveRadius = controller.arrivelBehaviorInfo.arriveRadius;
-        steeringJobData.arrive_slowRadius = controller.arrivelBehaviorInfo.slowRadius;
+        steeringJobData.evadeData.evade_isActive = controller.isActiveEvade;
+        steeringJobData.evadeData.evade_weight = controller.evadeBehaviorInfo.GetWeight();
+        steeringJobData.evadeData.evade_maxPrediction = controller.evadeBehaviorInfo.maxPrediction;
 
-        steeringJobData.face_isActive = controller.isActiveFace;
-        steeringJobData.face_weight = controller.faceBehaviorInfo.GetWeight();
-        steeringJobData.face_targetRadius = controller.faceBehaviorInfo.facetargetRadius;
+        steeringJobData.arriveData.arrive_isActive = controller.isActiveArrive;
+        steeringJobData.arriveData.arrive_weight = controller.arrivelBehaviorInfo.GetWeight();
+        steeringJobData.arriveData.arrive_arriveRadius = controller.arrivelBehaviorInfo.arriveRadius;
+        steeringJobData.arriveData.arrive_slowRadius = controller.arrivelBehaviorInfo.slowRadius;
 
-        steeringJobData.cohesion_isActive = controller.isActiveCohesion;
-        steeringJobData.cohesion_weight = controller.cohesionBehaviorInfo.GetWeight();
-        steeringJobData.cohesion_viewAngle = controller.cohesionBehaviorInfo.viewAngle;
+        steeringJobData.faceData.face_isActive = controller.isActiveFace;
+        steeringJobData.faceData.face_weight = controller.faceBehaviorInfo.GetWeight();
+        steeringJobData.faceData.face_targetRadius = controller.faceBehaviorInfo.facetargetRadius;
 
-        steeringJobData.separation_isActive = controller.isActiveSeparation;
-        steeringJobData.separation_weight = controller.separationBehaviorInfo.GetWeight();
-        steeringJobData.separation_threshold = controller.separationBehaviorInfo.threshold;
-        steeringJobData.separation_decayCoefficient = controller.separationBehaviorInfo.decayCoefficient;
+        steeringJobData.cohesionData.cohesion_isActive = controller.isActiveCohesion;
+        steeringJobData.cohesionData.cohesion_weight = controller.cohesionBehaviorInfo.GetWeight();
+        steeringJobData.cohesionData.cohesion_viewAngle = controller.cohesionBehaviorInfo.viewAngle;
 
-        steeringJobData.alignment_isActive = controller.isActiveAligment;
-        steeringJobData.alignment_weight = controller.alignmentBehaviorInfo.GetWeight();
-        steeringJobData.alignment_alignDistance = controller.alignmentBehaviorInfo.alignDistance;
+        steeringJobData.separationData.separation_isActive = controller.isActiveSeparation;
+        steeringJobData.separationData.separation_weight = controller.separationBehaviorInfo.GetWeight();
+        steeringJobData.separationData.separation_threshold = controller.separationBehaviorInfo.threshold;
+        steeringJobData.separationData.separation_decayCoefficient = controller.separationBehaviorInfo.decayCoefficient;
 
-        steeringJobData.collisionavoidance_isActive = controller.isActiveCollisionAvoidance;
-        steeringJobData.collisionavoidance_weight = controller.collisionAvoidanceBehaviorInfo.GetWeight();
+        steeringJobData.alignmentData.alignment_isActive = controller.isActiveAligment;
+        steeringJobData.alignmentData.alignment_weight = controller.alignmentBehaviorInfo.GetWeight();
+        steeringJobData.alignmentData.alignment_alignDistance = controller.alignmentBehaviorInfo.alignDistance;
+
+        steeringJobData.collisionAvoidenceData.collisionavoidance_isActive = controller.isActiveCollisionAvoidance;
+        steeringJobData.collisionAvoidenceData.collisionavoidance_weight = controller.collisionAvoidanceBehaviorInfo.GetWeight();
 
         steeringControllerJobDataNList.Add(steeringJobData);
 
@@ -598,6 +594,33 @@ public class ProjectileData : IJobData
     }
 }
 
+public class SearchingTargetData : IJobData
+{
+    public NativeArray<float3> rv_searchingTargetsPosFlatArray;
+    public NativeArray<float3> rv_searchingTargetsVelFlatArray;
+    public NativeArray<int> rv_searchingTargetsCount;
+
+    public SearchingTargetData()
+    {
+
+    }
+    public void Dispose()
+    {
+        
+    }
+
+    public void DisposeReturnValue()
+    {
+        if (rv_searchingTargetsPosFlatArray.IsCreated) { rv_searchingTargetsPosFlatArray.Dispose(); }
+        if (rv_searchingTargetsVelFlatArray.IsCreated) { rv_searchingTargetsVelFlatArray.Dispose(); }
+        if (rv_searchingTargetsCount.IsCreated) { rv_searchingTargetsCount.Dispose(); }
+    }
+
+    public void UpdateData()
+    {
+       
+    }
+}
 
 public struct DroneJobData
 {
@@ -613,38 +636,67 @@ public struct SteeringControllerJobData
     public float targetSerchingRadius;
     public float drag;
 
+    public SteeringJobDataEvade evadeData;
+    public SteeringJobDataArrive arriveData;
+    public SteeringJobDataFace faceData;
+    public SteeringJobDataCohesion cohesionData;
+    public SteeringJobDataSeparation separationData;
+    public SteeringJobDataAlignment alignmentData;
+    public SteeringJobDataCollisionAvoidence collisionAvoidenceData;
+}
 
+public struct SteeringJobDataEvade
+{
     public bool evade_isActive;
     public float evade_weight;
     public float evade_maxPrediction;
+}
 
+public struct SteeringJobDataArrive
+{
     public bool arrive_isActive;
     public float arrive_weight;
     public float arrive_arriveRadius;
     public float arrive_slowRadius;
+}
 
+public struct SteeringJobDataFace
+{
     public bool face_isActive;
     public float face_weight;
     public float face_targetRadius;
+}
 
+public struct SteeringJobDataCohesion
+{
     public bool cohesion_isActive;
     public float cohesion_weight;
     public float cohesion_viewAngle;
-
+}
+public struct SteeringJobDataSeparation
+{
     public bool separation_isActive;
     public float separation_weight;
     public float separation_threshold;
     public float separation_decayCoefficient;
+}
 
-
+public struct SteeringJobDataAlignment
+{
     public bool alignment_isActive;
     public float alignment_weight;
     public float alignment_alignDistance;
+}
 
+public struct SteeringJobDataCollisionAvoidence
+{
     public bool collisionavoidance_isActive;
     public float collisionavoidance_weight;
-
 }
+
+
+
+
 
 public struct BoidJobData
 {
@@ -668,4 +720,12 @@ public struct BuildingJobData
     public int targetCount;
 
 }
+public struct AvoidenceCollisionJobData
+{
+    public float3 avoidanceCollisionPos;
+    public float avoidanceCollisionRadius;
+    public float3 avoidanceCollisionVel;
+}
+
+
 

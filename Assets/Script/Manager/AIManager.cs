@@ -447,10 +447,7 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.IsPauseGame()) { return; }
-        if (!ProcessAI) { return; }
-        UpdateMoveJobData();
-        UpdateAIMovement();
+                                                                                                                                                
     }
 
 
@@ -820,8 +817,8 @@ public class AIManager : Singleton<AIManager>, IPauseable
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
             job_aiShipVel = steeringBehaviorJob_aiShipVelocity,
             job_viewAngle = cohesion_viewAngle,
-            job_aiShipPosInRange = rv_serchingTargetsPosPerShip,
-            job_InRangeLength = rv_serchingTargetsCountPerShip,
+            job_searchingTargetPosFlatArray = rv_serchingTargetsPosPerShip,
+            job_searchingTargetCount = rv_serchingTargetsCountPerShip,
             job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
             job_shipcount = ShipCount,
 
@@ -838,8 +835,8 @@ public class AIManager : Singleton<AIManager>, IPauseable
             job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
             job_decayCoefficient = separation_decayCoefficient,
             job_threshold = separation_threshold,
-            job_aiShipPosInRange = rv_serchingTargetsPosPerShip,
-            job_InRangeLength = rv_serchingTargetsCountPerShip,
+            job_searchingTargetPosFlatArray = rv_serchingTargetsPosPerShip,
+            job_searchingTargetCount = rv_serchingTargetsCountPerShip,
             job_shipcount = ShipCount,
 
             rv_Steerings = rv_separation_steeringInfo,
@@ -854,9 +851,9 @@ public class AIManager : Singleton<AIManager>, IPauseable
             job_aiShipPos = steeringBehaviorJob_aiShipPos,
             job_maxAcceleration = aiSteeringBehaviorController_aiShipMaxAcceleration,
             job_alignDistance = alignment_alignDistance,
-            job_aiShipPosInRange = rv_serchingTargetsPosPerShip,
-            job_aiShipVelInRange = rv_serchingTargetsVelPerShip,
-            job_lengthInRange = rv_serchingTargetsCountPerShip,
+            job_searchingTargetPosFlatArray = rv_serchingTargetsPosPerShip,
+            job_searchingTargetVelFlatArray = rv_serchingTargetsVelPerShip,
+            job_searchingTargetCount = rv_serchingTargetsCountPerShip,
 
             job_shipcount = ShipCount,
 

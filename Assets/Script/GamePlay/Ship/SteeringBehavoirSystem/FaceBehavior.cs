@@ -15,13 +15,9 @@ public class FaceBehavior : SteeringBehavior
     [BurstCompile]
     public struct FaceBehaviorJob :IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
-        [ReadOnly] public NativeArray<float3> job_aiShipVel;
-        [ReadOnly] public NativeArray<float> job_aiShipRotationZ;
-        [ReadOnly] public NativeArray<float> job_facetagetRadius;
+        [ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
         [ReadOnly] public float3 job_targetPos;
-        [ReadOnly] public NativeArray<float> job_maxAngularAcceleration;
-        [ReadOnly] public NativeArray<float> job_maxAngularVelocity;
         [ReadOnly] public float job_deltatime;
 
         public NativeArray<SteeringBehaviorInfo> rv_Steerings;
@@ -51,7 +47,7 @@ public class FaceBehavior : SteeringBehavior
                 //    angle = math.degrees(math.atan2(job_aiShipVel[i].y, job_aiShipVel[i].x)) - 90;
                 //}
 
-                targetangle = math.degrees(math.atan2(job_targetPos.y - job_aiShipPos[i].y, job_targetPos.x - job_aiShipPos[i].x)) - 90;
+                targetangle = math.degrees(math.atan2(job_targetPos.y - job_boidData[i].position.y, job_targetPos.x - job_boidData[i].position.x)) - 90;
                 //steering.angular = targetangle;
 
                 //to 360
@@ -61,7 +57,7 @@ public class FaceBehavior : SteeringBehavior
                 }
 
 
-                fromangle = job_aiShipRotationZ[i];
+                fromangle = job_boidData[i].rotationZ;
 
                 //to 360
                 if (fromangle < 0)
@@ -72,7 +68,7 @@ public class FaceBehavior : SteeringBehavior
                 diff = (targetangle -fromangle) % 360;
                 diff = (2 * diff) % 360 - diff;
                 //get diff between tareget and from angle
-                diff = math.lerp(0, diff, math.clamp(job_maxAngularAcceleration[i] * job_deltatime, 0, 1));
+                diff = math.lerp(0, diff, math.clamp(job_steeringControllerData[i].maxAngularAcceleration * job_deltatime, 0, 1));
                 /// MAX TODO
 
                 resultangle = (fromangle + diff) % 360;

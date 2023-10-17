@@ -67,16 +67,14 @@ public class AlignmentBehavior : SteeringBehavior
     [BurstCompile]
     public struct AlignmentBehaviorJob : IJobParallelForBatch
     {
-        [ReadOnly] public NativeArray<float> job_alignDistance;
-        [ReadOnly] public NativeArray<float> job_maxAcceleration;
-        [ReadOnly] public NativeArray<float3> job_aiShipPos;
+
+
         [ReadOnly] public int job_shipcount;
-
-
-
-        [ReadOnly] public NativeArray<float3> job_aiShipPosInRange;
-        [ReadOnly] public NativeArray<float3> job_aiShipVelInRange;
-        [ReadOnly] public NativeArray<int> job_lengthInRange;
+        [ReadOnly] public NativeArray<BoidJobData> job_boidData;
+        [ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
+        [ReadOnly] public NativeArray<float3> job_searchingTargetPosFlatArray;
+        [ReadOnly] public NativeArray<float3> job_searchingTargetVelFlatArray;
+        [ReadOnly] public NativeArray<int> job_searchingTargetCount;
 
 
         public NativeArray<SteeringBehaviorInfo> rv_Steerings;
@@ -91,21 +89,21 @@ public class AlignmentBehavior : SteeringBehavior
             {
                 countindex = 0;
                 steering.linear = float3.zero;
-                for (int n = 0; n < job_lengthInRange[i]; n++)
+                for (int n = 0; n < job_searchingTargetCount[i]; n++)
                 {
-                    direction = job_aiShipPosInRange[i * job_shipcount + n] - job_aiShipPos[i];
-                    if( math.length(direction) <= job_alignDistance[i])
+                    direction = job_searchingTargetPosFlatArray[i * job_shipcount + n] - job_boidData[i].position;
+                    if( math.length(direction) <= job_steeringControllerData[i].alignment_alignDistance)
                     {
-                        steering.linear += job_aiShipVelInRange[i * job_shipcount + n];
+                        steering.linear += job_searchingTargetVelFlatArray[i * job_shipcount + n];
                         countindex++;
                     }
                 }
                 if(countindex > 0)
                 {
                     steering.linear = steering.linear / countindex;
-                    if (math.length(steering.linear) > job_maxAcceleration[i])
+                    if (math.length(steering.linear) > job_steeringControllerData[i].maxAcceleration)
                     {
-                        steering.linear = math.normalize(steering.linear) * job_maxAcceleration[i];
+                        steering.linear = math.normalize(steering.linear) * job_steeringControllerData[i].maxAcceleration;
                     }
                 }
 
