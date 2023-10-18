@@ -11,6 +11,7 @@ using static Weapon;
 
 public class ShipUnitManager:IPauseable
 {
+    /*
     public bool ProcessShip;
     public BaseShip targetShip;
     public List<ShipAdditionalWeapon> activeWeaponList;
@@ -29,7 +30,7 @@ public class ShipUnitManager:IPauseable
     public NativeList<float> activeWeaponAttackRangeList;
     public NativeList<float3> activeWeaponPosList;
     public NativeList<int> activeWeaponTargetCountList;
-    public NativeArray<Weapon.WeaponTargetInfo> rv_weaponTargetsInfo;
+    public NativeArray<Weapon.WeaponTargetJobData> rv_weaponTargetsInfo;
 
     public ShipUnitManager()
     {
@@ -132,7 +133,7 @@ public class ShipUnitManager:IPauseable
             targetstotalcount += activeWeaponList[i].maxTargetCount;
         }
 
-        rv_weaponTargetsInfo = new NativeArray<Weapon.WeaponTargetInfo>(targetstotalcount, Allocator.TempJob);
+        rv_weaponTargetsInfo = new NativeArray<Weapon.WeaponTargetJobData>(targetstotalcount, Allocator.TempJob);
 
         // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
         //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
@@ -585,7 +586,7 @@ public class ShipUnitManager:IPauseable
         //Dispose all job data
         DisposeAllJobData();
     }
-
+    */
     public void PauseGame()
     {
         

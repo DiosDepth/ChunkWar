@@ -3,23 +3,25 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using static GameHelper;
+
 
 public class UnitData : IJobData
 {
 
-    public List<Unit> activeTargetUnitList;
-    public NativeList<float3> activeTargetUnitPos;
+    public List<Unit> unitList;
+    public NativeList<float3> unitPos;
 
     public UnitData()
     {
-        activeTargetUnitList = new List<Unit>();
-        activeTargetUnitPos = new NativeList<float3>(Allocator.Persistent);
+        unitList = new List<Unit>();
+        unitPos = new NativeList<float3>(Allocator.Persistent);
     }
 
     public void Dispose()
     {
-        if (activeTargetUnitPos.IsCreated) { activeTargetUnitPos.Dispose(); }
-        activeTargetUnitList.Clear();
+        if (unitPos.IsCreated) { unitPos.Dispose(); }
+        unitList.Clear();
     }
 
     public void DisposeReturnValue()
@@ -29,10 +31,10 @@ public class UnitData : IJobData
 
     public void UpdateData()
     {
-        if (activeTargetUnitList.Count == 0) { return; }
-        for (int i = 0; i < activeTargetUnitList.Count; i++)
+        if (unitList.Count == 0) { return; }
+        for (int i = 0; i < unitList.Count; i++)
         {
-            activeTargetUnitPos[i] = activeTargetUnitList[i].transform.position;
+            unitPos[i] = unitList[i].transform.position;
         }
     }
 
@@ -47,28 +49,29 @@ public class UnitData : IJobData
 
     public void Add(Unit unit)
     {
-        if (activeTargetUnitList.Contains(unit)) { return; }
+        if (unitList.Contains(unit)) { return; }
         if (!unit.isActiveAndEnabled) { return; }
-        activeTargetUnitList.Add(unit);
-        activeTargetUnitPos.Add(unit.transform.position);
+        unitList.Add(unit);
+        unitPos.Add(unit.transform.position);
     }
 
     public void Remove(Unit unit)
     {
-        int index = activeTargetUnitList.IndexOf(unit);
+        if (!unitList.Contains(unit)) { return; }
+        int index = unitList.IndexOf(unit);
         RemoveAt(index);
     }
 
     public void RemoveAt(int index)
     {
-        activeTargetUnitList.RemoveAt(index);
-        activeTargetUnitPos.RemoveAt(index);
+        unitList.RemoveAt(index);
+        unitPos.RemoveAt(index);
     }
 
     public void Clear()
     {
-        activeTargetUnitList.Clear();
-        activeTargetUnitPos.Clear();
+        unitList.Clear();
+        unitPos.Clear();
     }
 
 
@@ -298,7 +301,7 @@ public class WeaponData : IJobData
     public List<AdditionalWeapon> activeWeaponList;
     public NativeList<WeaponJobData> activeWeaponJobData;
 
-    public NativeArray<Weapon.WeaponTargetInfo> rv_weaponTargetsInfo;
+    public NativeArray<Weapon.WeaponTargetJobData> rv_weaponTargetsInfo;
     public WeaponData()
     {
         activeWeaponList = new List<AdditionalWeapon>();
@@ -727,5 +730,19 @@ public struct AvoidenceCollisionJobData
     public float3 avoidanceCollisionVel;
 }
 
+
+public enum FindCondition
+{
+    MaximumHP,
+    MinimumHP,
+    ClosestDistance,
+    LongestDistance,
+}
+
+public struct UnitReferenceInfo
+{
+    public TargetInfo info;
+    public Unit reference;
+}
 
 

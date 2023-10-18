@@ -552,11 +552,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         if(currentShip != null)
         {
-            (currentShip.controller as ShipController).shipUnitManager.Unload();
+            ECSManager.Instance.UnLoad();
+            //(currentShip.controller as ShipController).shipUnitManager.Unload();
             GameObject.Destroy(currentShip.container.gameObject);
             currentShip = null;
         }
-
     }
 
     /// <summary>
@@ -1012,7 +1012,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.PauseAndSetZero();
         ///Í£Ö¹Íæ¼ÒÒÆ¶¯
         currentShip.controller.SetControllerUpdate(false);
-        AIManager.Instance.ProcessAI = false;
+        ECSManager.Instance.SetProcessECS(false);
+        //AIManager.Instance.ProcessAI = false;
         LevelManager.Instance.CollectAllPickUps();
 
         await UniTask.Delay(2000);
@@ -1040,7 +1041,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CalculateHardLevelIndex();
         Timer.InitTimer(_tempWaveTime);
         Timer.StartTimer();
-        AIManager.Instance.ProcessAI = true;
+        ECSManager.Instance.SetProcessECS(true);
+        //AIManager.Instance.ProcessAI = true;
         OnWaveStateChange?.Invoke(true);
     }
 
@@ -1321,7 +1323,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
             aIFactory.StartSpawn(spawnpoint, spawnSetting, overrideHardLevelID, (ship) =>
             {
-                AIManager.Instance.AddAI(ship);
+                ECSManager.Instance.RegisterJobData(OwnerType.AI, ship);
+                //AIManager.Instance.AddAI(ship);
             });
         });
     }

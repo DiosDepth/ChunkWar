@@ -8,7 +8,7 @@ public class ShipController : BaseController
 {
 
     public PlayerShip targetShip;
-    public ShipUnitManager shipUnitManager;
+    //public ShipUnitManager shipUnitManager;
 
 
     // Start is called before the first frame update
@@ -61,22 +61,22 @@ public class ShipController : BaseController
         targetShip = GetComponent<PlayerShip>();
         InitShipControlData();
         BindPropertyChangeAction();
-        InitUnitManagerData();
+        //InitUnitManagerData();
         InputDispatcher.Instance.Action_GamePlay_Move += HandleMovementInput;
         InputDispatcher.Instance.Action_GamePlay_Point += HandlePointInput;
         InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
 
     }
 
-    public virtual void InitUnitManagerData()
-    {
-        if(shipUnitManager == null)
-        {
-            shipUnitManager = new ShipUnitManager();
-            shipUnitManager.Initialization(targetShip);
-        }
+    //public virtual void InitUnitManagerData()
+    //{
+    //    if(shipUnitManager == null)
+    //    {
+    //        shipUnitManager = new ShipUnitManager();
+    //        shipUnitManager.Initialization(targetShip);
+    //    }
      
-    }
+    //}
 
     // Update is called once per frame
     protected override void Update()
@@ -91,7 +91,7 @@ public class ShipController : BaseController
         //other wise using Ship Controller Update to process weapon (cus ship controller need to listen player input in every frame)
 
         targetShip.mainWeapon.ProcessWeapon();
-        shipUnitManager?.Update();
+        //shipUnitManager?.Update();
 
     }
 
@@ -293,7 +293,7 @@ public class ShipController : BaseController
     {
         base.GameOver();
         targetShip.GameOver();
-        shipUnitManager.GameOver();
+        //shipUnitManager.GameOver();
     }
 
     #region Private

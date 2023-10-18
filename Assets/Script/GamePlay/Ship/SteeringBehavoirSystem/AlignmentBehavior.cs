@@ -92,7 +92,7 @@ public class AlignmentBehavior : SteeringBehavior
                 for (int n = 0; n < job_searchingTargetCount[i]; n++)
                 {
                     direction = job_searchingTargetPosFlatArray[i * job_shipcount + n] - job_boidData[i].position;
-                    if( math.length(direction) <= job_steeringControllerData[i].alignment_alignDistance)
+                    if( math.length(direction) <= job_steeringControllerData[i].alignmentData.alignment_alignDistance)
                     {
                         steering.linear += job_searchingTargetVelFlatArray[i * job_shipcount + n];
                         countindex++;

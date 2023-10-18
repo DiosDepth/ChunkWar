@@ -66,7 +66,7 @@ public class PropertyModifySpecialData
             {
                 case "EnemyCount":
                     LevelManager.Instance.OnEnemyCountChange += OnEnemyCountChange;
-                    var currentEnemyCount = AIManager.Instance.ShipCount;
+                    var currentEnemyCount = ECSManager.Instance.CurrentAIAgentCount;
                     OnEnemyCountChange(currentEnemyCount);
                     break;
             }

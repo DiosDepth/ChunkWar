@@ -169,7 +169,7 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
         else if(config.PointTarget == PointTargetType.RandomEnemyUnitPoint)
         {
-            var randomEnemyUnit = AIManager.Instance.GetRandomAIUnitList(1);
+            var randomEnemyUnit = ECSManager.Instance.GetRandomUnitList(OwnerType.AI, 1);
             if (randomEnemyUnit.Count <= 0)
                 return;
 
@@ -177,9 +177,9 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
 
         ///创造爆炸
-        var allaiPos = AIManager.Instance.position;
+        var allaiPos = ECSManager.Instance.activeAIUnitData.unitPos;
         var targetInfos = GameHelper.FindTargetsByPoint(targetHitpoint, explodeRange, allaiPos);
-        var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
+        var allUnits = ECSManager.Instance.GetActiveUnitReferenceByTargetInfo(OwnerType.AI, targetInfos);
 
         for (int i = 0; i < allUnits.Count; i++)
         {
@@ -211,7 +211,8 @@ public abstract class ModifyTriggerData : IPropertyModify
         
         if (config.TargetType == EffectDamageTargetType.Target)
         {
-            var targetUnit = AIManager.Instance.GetUnitByUID(parentUnitID);
+        
+            var targetUnit = ECSManager.Instance.GetUnitByUID(OwnerType.AI, parentUnitID);
             if (targetUnit == null)
                 return;
 
@@ -229,7 +230,7 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
         else if(config.TargetType == EffectDamageTargetType.All)
         {
-            var allUnit = AIManager.Instance.activeWeaponList;
+            var allUnit = ECSManager.Instance.activeAIUnitData.unitList;
             for(int i = 0; i < allUnit.Count; i++)
             {
                 var unit = allUnit[i];
@@ -252,8 +253,8 @@ public abstract class ModifyTriggerData : IPropertyModify
         else if (config.TargetType == EffectDamageTargetType.Random)
         {
             ///随机敌人
-            var randomUnit = AIManager.Instance.GetRandomAIUnitList(config.RandomTargetCount);
-            for(int i = 0; i < randomUnit.Count; i++)
+            var randomUnit = ECSManager.Instance.GetRandomUnitList(OwnerType.AI, config.RandomTargetCount);
+            for (int i = 0; i < randomUnit.Count; i++)
             {
                 var unit = randomUnit[i];
                 if (unit == null)
@@ -275,7 +276,8 @@ public abstract class ModifyTriggerData : IPropertyModify
         else if (config.TargetType == EffectDamageTargetType.TargetSortByMaxHP)
         {
             ///最大HP 排序X位
-            var targetUnits = AIManager.Instance.GetAIUnitsWithCondition(FindCondition.MaximumHP, config.RandomTargetCount);
+            var targetUnits = ECSManager.Instance.GetUnitsWithCondition(OwnerType.AI, FindCondition.MaximumHP, config.RandomTargetCount);
+            //var targetUnits = AIManager.Instance.GetAIUnitsWithCondition(FindCondition.MaximumHP, config.RandomTargetCount);
             if (targetUnits == null || targetUnits.Count <= 0)
                 return;
 

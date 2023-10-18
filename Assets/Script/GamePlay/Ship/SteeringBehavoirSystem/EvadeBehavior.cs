@@ -37,7 +37,7 @@ public class EvadeBehavior : SteeringBehavior
                 distance = math.length(direction);
                 speed = math.length(job_boidData[i].velocity);
 
-                if(distance <= job_steeringControllerData[i].evade_maxPrediction)
+                if(distance <= job_steeringControllerData[i].evadeData.evade_maxPrediction)
                 {
                     //if (speed <= (distance / job_maxPrediction[i]))
                     //    prediction = job_maxPrediction[i];

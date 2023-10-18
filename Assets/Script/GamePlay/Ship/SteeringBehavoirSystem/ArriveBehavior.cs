@@ -45,7 +45,7 @@ public class ArriveBehavior : SteeringBehavior
                 direction = job_targetPos - job_boidData[i].position;
                 distance  = math.length(direction);
 
-                if (distance < job_steeringControllerData[i].arrive_arriveRadius)
+                if (distance < job_steeringControllerData[i].arriveData.arrive_arriveRadius)
                 {
                     rv_isVelZero[i] = true;
                     steering.linear = float3.zero;
@@ -54,13 +54,13 @@ public class ArriveBehavior : SteeringBehavior
                     continue;
                 }
 
-                if (distance > job_steeringControllerData[i].arrive_slowRadius)
+                if (distance > job_steeringControllerData[i].arriveData.arrive_slowRadius)
                 {
                     speed = job_steeringControllerData[i].maxAcceleration;
                 }
                 else
                 {
-                    speed = job_steeringControllerData[i].maxAcceleration * (distance / (job_steeringControllerData[i].arrive_slowRadius));
+                    speed = job_steeringControllerData[i].maxAcceleration * (distance / (job_steeringControllerData[i].arriveData.arrive_slowRadius));
                 }
 
                 velocity = math.normalize(direction);

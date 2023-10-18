@@ -63,7 +63,7 @@ public class MT_OnShieldBroken : ModifyTriggerData
 
     private void OnShieldBroken(uint targetUID)
     {
-        var unit = AIManager.Instance.GetUnitByUID(targetUID);
+        var unit = ECSManager.Instance.GetUnitByUID(OwnerType.AI, targetUID);
         if (unit == null)
             return;
 

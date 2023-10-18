@@ -81,11 +81,13 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         SetUpdate(true);
         if(ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
         {
-            AIManager.Instance.AddBullet(this);
+            ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
+            //AIManager.Instance.AddBullet(this);
         }
         if(ownertype == OwnerType.Player && (_owner is ShipMainWeapon || _owner is ShipAdditionalWeapon))
         {
-            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
+            ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
+            //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
         }
         if (_owner is Weapon)
         {
@@ -242,11 +244,13 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 
         if (ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
         {
-            AIManager.Instance.RemoveBullet(this);
+            ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
+            //AIManager.Instance.RemoveBullet(this);
         }
         if (ownertype == OwnerType.Player && (_owner is ShipMainWeapon || _owner is ShipAdditionalWeapon))
         {
-            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveBullet(this);
+            ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
+            //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveBullet(this);
         }
 
         if(hasIndicator)

@@ -179,7 +179,7 @@ public class EGameState_GamePrepare : GameState
                 RogueManager.Instance.currentShip.LoadRuntimeData(RogueManager.Instance.ShipMapData);
                 RogueManager.Instance.currentShip.gameObject.SetActive(true);
                 //在初始化Ship之前先准备好Aimanager，会把对应的信息放入
-                AIManager.Instance.Initialization();
+                ECSManager.Instance.Initialization();
                 RogueManager.Instance.currentShip.Initialization();
 
                 //初始化摄影机
@@ -330,7 +330,8 @@ public class EGameState_GameOver : GameState
 
         InputDispatcher.Instance.ChangeInputMode("UI");
         LevelManager.Instance.GameOver();
-        AIManager.Instance.GameOver();
+        ECSManager.Instance.GameOver();
+        //AIManager.Instance.GameOver();
         RogueManager.Instance.RogueBattleOver();
         UIManager.Instance.ShowUI<GameOver>("GameOver", E_UI_Layer.Mid, GameManager.Instance, (panel) => 
         {
@@ -377,7 +378,8 @@ public class EGameState_GameHarbor : GameState
             LevelManager.Instance.needServicing = true;
             RogueManager.Instance.currentShip.SaveRuntimeData();
         }
-        AIManager.Instance.GameOver();
+        ECSManager.Instance.GameOver();
+        //AIManager.Instance.GameOver();
         LevelManager.Instance.UnloadCurrentLevel();
         
         GameEvent.Trigger(EGameState.EGameState_GamePrepare);

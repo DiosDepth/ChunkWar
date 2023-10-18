@@ -42,9 +42,9 @@ public class SeparationBehavior : SteeringBehavior
                     direction = job_searchingTargetPosFlatArray[i * job_shipcount + n] - job_boidData[i].position;
                     distance = math.length(direction);
 
-                    if(distance < job_steeringControllerData[i].separation_threshold)
+                    if(distance < job_steeringControllerData[i].separationData.separation_threshold)
                     {
-                        strength = math.min(job_steeringControllerData[i].separation_decayCoefficient / (distance * distance), job_steeringControllerData[i].maxAcceleration);
+                        strength = math.min(job_steeringControllerData[i].separationData.separation_decayCoefficient / (distance * distance), job_steeringControllerData[i].maxAcceleration);
                         steering.linear += strength * math.normalize(direction);
                     }
                 }

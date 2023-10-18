@@ -41,7 +41,7 @@ public class CohesionBehavior : SteeringBehavior
                 {
 
                     targetdir = job_searchingTargetPosFlatArray[i * job_shipcount + n] - job_boidData[i].position;
-                    if( math.degrees( math.acos( math.dot(math.normalize(targetdir), math.normalize(job_boidData[i].velocity)))) < job_steeringControllerData[i].cohesion_viewAngle)
+                    if( math.degrees( math.acos( math.dot(math.normalize(targetdir), math.normalize(job_boidData[i].velocity)))) < job_steeringControllerData[i].cohesionData.cohesion_viewAngle)
                     {
                         centerOfMass += job_searchingTargetPosFlatArray[i * job_shipcount + n]; ;
                         countindex++;

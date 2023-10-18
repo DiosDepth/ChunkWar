@@ -137,14 +137,14 @@ public class Weapon : Unit
     public Action<float> OnReloadCDUpdate;
     public Action<int> OnMagazineChange;
 
-    public struct WeaponTargetInfo : IComparable<WeaponTargetInfo>
+    public struct WeaponTargetJobData : IComparable<WeaponTargetJobData>
     {
         public int targetIndex;
         public float distanceToTarget;
         public float3 targetPos;
         public float3 targetDirection;
 
-        public int CompareTo(WeaponTargetInfo other)
+        public int CompareTo(WeaponTargetJobData other)
         {
             return distanceToTarget.CompareTo(other.distanceToTarget);
         }
@@ -211,15 +211,15 @@ public class Weapon : Unit
         //这里返回的时对应的target在list中的index
 
         [NativeDisableContainerSafetyRestriction]
-        public NativeArray<WeaponTargetInfo> rv_targetsInfo;
-        WeaponTargetInfo tempinfo;
+        public NativeArray<WeaponTargetJobData> rv_targetsInfo;
+        WeaponTargetJobData tempinfo;
         int index;
         public void Execute(int startIndex, int count)
         {
-            NativeList<WeaponTargetInfo> tempinfolist; 
+            NativeList<WeaponTargetJobData> tempinfolist; 
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                tempinfolist  = new NativeList<WeaponTargetInfo>(Allocator.Temp);
+                tempinfolist  = new NativeList<WeaponTargetJobData>(Allocator.Temp);
                 //找到所有在范围内的target
                 for (int n = 0; n < job_targetsPos.Length; n++)
                 {

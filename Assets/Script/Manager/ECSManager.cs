@@ -1,14 +1,18 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GameHelper;
 
 public class ECSManager : Singleton<ECSManager>, IPauseable
 {
 
     public bool ProcessECS;
 
-
+    public int CurrentAIAgentCount { get { return activeAIAgentData.shipList.Count; } }
     // job data owner type == AI
     public AgentData activeAIAgentData;
     public UnitData activeAIUnitData;
@@ -18,6 +22,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public ProjectileData activeAIProjectileData;
 
 
+    public int CurrentPlayerAgentCount { get { return activePlayerAgentData.shipList.Count; } }
     // job data owner type == Player
     public PlayerShip playerShip;
     public IBoid playerIBoid;
@@ -37,13 +42,30 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         GameManager.Instance.RegisterPauseable(this);
         playerJobController = new PlayerJobController();
         AIJobController = new AIJobController();
+        activeAIAgentData = new AgentData();
+        activeAIUnitData = new UnitData();
+        activeAIWeaponData = new WeaponData();
+        activeAIBuildingData = new BuildingData();
+        activeAIDroneData = new DroneData();
+        activeAIProjectileData = new ProjectileData();
+
+
+        activePlayerAgentData = new AgentData();
+        activePlayerUnitData = new UnitData();
+        activePlayerWeaponData = new WeaponData();
+        activePlayerBuildingData = new BuildingData();
+        activePlayerDroneData = new DroneData();
+        activePlayerProjectileData = new ProjectileData();
+
         MonoManager.Instance.AddUpdateListener(Update);
         MonoManager.Instance.AddFixedUpdateListener(FixedUpdate);
+
     }
 
 
     public virtual void RegisterJobData(OwnerType type, BaseShip ship)
     {
+
         switch (type)
         {
             case OwnerType.Player:
@@ -58,10 +80,13 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 if(ship is AIShip)
                 {
                     activeAIAgentData.Add(ship);
+              
                 }
               
                 break;
         }
+
+        OnShipCountChange(type);
     }
     public virtual void RegisterJobData(OwnerType type, Unit unit)
     {
@@ -116,12 +141,37 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         switch (type)
         {
             case OwnerType.Player:
+                for (int i = 0; i < ship.UnitList.Count; i++)
+                {
+                    activePlayerUnitData.Remove(ship.UnitList[i]);
+                    if (ship.UnitList[i] is AdditionalWeapon)
+                    {
+                        activePlayerWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                    }
+                    if (ship.UnitList[i] is Building)
+                    {
+                        activePlayerBuildingData.Remove(ship.UnitList[i] as Building);
+                    }
+                }
                 activePlayerAgentData.Remove(ship);
                 break;
             case OwnerType.AI:
+                for (int i = 0; i < ship.UnitList.Count; i++)
+                {
+                    activeAIUnitData.Remove(ship.UnitList[i]);
+                    if (ship.UnitList[i] is AdditionalWeapon)
+                    {
+                        activeAIWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                    }
+                    if (ship.UnitList[i] is Building)
+                    {
+                        activeAIBuildingData.Remove(ship.UnitList[i] as Building);
+                    }
+                }
                 activeAIAgentData.Remove(ship);
                 break;
         }
+        OnShipCountChange(type);
     }
     public virtual void UnRegisterJobData(OwnerType type, Unit unit)
     {
@@ -136,6 +186,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 {
                     activePlayerBuildingData.Remove(unit as Building);
                 }
+                activePlayerUnitData.Remove(unit);
                 break;
             case OwnerType.AI:
                 if (unit is AdditionalWeapon)
@@ -146,6 +197,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 {
                     activeAIBuildingData.Remove(unit as Building);
                 }
+                activeAIUnitData.Remove(unit);
                 break;
         }
     }
@@ -190,6 +242,8 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
     public virtual void FixedUpdate()
     {
+        if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!ProcessECS) { return; }
         UpdateJobData();
         AIJobController.UpdateAgentMovement(ref activeAIAgentData, ref activePlayerAgentData , ref playerIBoid);
     }
@@ -291,5 +345,198 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public void UnPauseGame()
     {
         throw new System.NotImplementedException();
+    }
+
+
+
+    public List<Unit> GetRandomUnitList(OwnerType type, int count)
+    {
+        List<Unit> randomlist = new List<Unit>();
+        System.Random rnd = new System.Random();
+        int randIndex;
+
+        if(type == OwnerType.Player)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                randIndex = rnd.Next(activePlayerUnitData.unitList.Count);
+                if (!randomlist.Contains(activePlayerUnitData.unitList[randIndex]))
+                {
+                    randomlist.Add(activePlayerUnitData.unitList[randIndex]);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < count; i++)
+            {
+                randIndex = rnd.Next(activeAIUnitData.unitList.Count);
+                if (!randomlist.Contains(activeAIUnitData.unitList[randIndex]))
+                {
+                    randomlist.Add(activeAIUnitData.unitList[randIndex]);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+        }
+
+        return randomlist;
+    }
+
+    public Unit GetUnitByUID(OwnerType type,  uint uid)
+    {
+        if(type == OwnerType.Player)
+        {
+            return activePlayerUnitData.unitList.Find(x => x.UID == uid);
+        }
+        else
+        {
+            return activeAIUnitData.unitList.Find(x => x.UID == uid);
+        }
+    }
+
+    public List<Unit> GetUnitsWithCondition(OwnerType type, FindCondition condition, int count)
+    {
+        if(type == OwnerType.Player)
+        {
+            activePlayerUnitData.unitList.OrderBy(u => u.HpComponent.GetCurrentHP);
+            var targetCount = Mathf.Min(count, activePlayerUnitData.unitList.Count);
+            if (condition == FindCondition.MaximumHP)
+            {
+                return activePlayerUnitData.unitList.Take(targetCount).ToList();
+            }
+            else if (condition == FindCondition.MinimumHP)
+            {
+                return activePlayerUnitData.unitList.Reverse<Unit>().Take(targetCount).ToList();
+            }
+        }
+        else
+        {
+            activeAIUnitData.unitList.OrderBy(u => u.HpComponent.GetCurrentHP);
+            var targetCount = Mathf.Min(count, activeAIUnitData.unitList.Count);
+            if (condition == FindCondition.MaximumHP)
+            {
+                return activeAIUnitData.unitList.Take(targetCount).ToList();
+            }
+            else if (condition == FindCondition.MinimumHP)
+            {
+                return activeAIUnitData.unitList.Reverse<Unit>().Take(targetCount).ToList();
+            }
+        }
+
+        return new List<Unit>();
+    }
+
+    public Unit GetUnitWithCondition(OwnerType type, FindCondition condition)
+    {
+        Unit unit;
+        if(type == OwnerType.Player)
+        {
+            if (condition == FindCondition.MaximumHP)
+            {
+                unit = activePlayerUnitData.unitList.OrderBy(u => u.HpComponent.GetCurrentHP).Last();
+                return unit;
+            }
+            if (condition == FindCondition.MinimumHP)
+            {
+                unit = activePlayerUnitData.unitList.OrderBy(u => u.HpComponent.GetCurrentHP).First();
+                return unit;
+            }
+        }
+        else
+        {
+            if (condition == FindCondition.MaximumHP)
+            {
+                unit = activeAIUnitData.unitList.OrderBy(u => u.HpComponent.GetCurrentHP).Last();
+                return unit;
+            }
+            if (condition == FindCondition.MinimumHP)
+            {
+                unit = activeAIUnitData.unitList.OrderBy(u => u.HpComponent.GetCurrentHP).First();
+                return unit;
+            }
+        }
+
+
+        return null;
+    }
+
+    public Unit GetAIUnitWithCondition(OwnerType type, FindCondition condition, Vector3 referencePos)
+    {
+        Unit unit;
+        if(type == OwnerType.Player)
+        {
+            if (condition == FindCondition.ClosestDistance)
+            {
+                unit = activePlayerUnitData.unitList.OrderBy(u => math.distance(u.transform.position, referencePos)).First();
+                return unit;
+            }
+            if (condition == FindCondition.LongestDistance)
+            {
+                unit = activePlayerUnitData.unitList.OrderBy(u => math.distance(u.transform.position, referencePos)).Last();
+                return unit;
+            }
+        }
+        else
+        {
+            if (condition == FindCondition.ClosestDistance)
+            {
+                unit = activeAIUnitData.unitList.OrderBy(u => math.distance(u.transform.position, referencePos)).First();
+                return unit;
+            }
+            if (condition == FindCondition.LongestDistance)
+            {
+                unit = activeAIUnitData.unitList.OrderBy(u => math.distance(u.transform.position, referencePos)).Last();
+                return unit;
+            }
+        }
+
+
+        return null;
+    }
+
+    public virtual List<UnitReferenceInfo> GetActiveUnitReferenceByTargetInfo(OwnerType type,  TargetInfo[] info)
+    {
+        List<UnitReferenceInfo> result = new List<UnitReferenceInfo>();
+        UnitReferenceInfo tempinfo;
+        if (type == OwnerType.Player)
+        {
+            for (int i = 0; i < info.Length; i++)
+            {
+                tempinfo.info = info[i];
+                tempinfo.reference = activePlayerUnitData.unitList[info[i].index];
+                result.Add(tempinfo);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < info.Length; i++)
+            {
+                tempinfo.info = info[i];
+                tempinfo.reference = activeAIUnitData.unitList[info[i].index];
+                result.Add(tempinfo);
+            }
+        }
+        return result;
+    }
+
+
+    private void OnShipCountChange(OwnerType type)
+    {
+        if(type == OwnerType.Player)
+        {
+
+        }
+        else
+        {
+            LevelManager.Instance.EnemyShipCountChange(activeAIAgentData.shipList.Count);
+        }
+        
     }
 }

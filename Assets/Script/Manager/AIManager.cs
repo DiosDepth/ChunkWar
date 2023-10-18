@@ -8,22 +8,11 @@ using Unity.Mathematics;
 using UnityEngine;
 using static GameHelper;
 
-public enum FindCondition
-{
-    MaximumHP,
-    MinimumHP,
-    ClosestDistance,
-    LongestDistance,
-}
 
-public struct UnitReferenceInfo
-{
-    public TargetInfo info;
-    public Unit reference;
-}
 
 public class AIManager : Singleton<AIManager>, IPauseable
 {
+    /*
     public const int MaxAICount = 300;
     public bool ProcessAI = false;
     public int ShipCount { get { return aiShipList.Count; } }
@@ -1364,7 +1353,12 @@ public class AIManager : Singleton<AIManager>, IPauseable
 
         return null;
     }
-
+        private void OnEnemyCountChange()
+    {
+        LevelManager.Instance.EnemyShipCountChange(ShipCount);
+    }
+    */
+      
     public void PauseGame()
     {
         
@@ -1375,8 +1369,6 @@ public class AIManager : Singleton<AIManager>, IPauseable
         
     }
 
-    private void OnEnemyCountChange()
-    {
-        LevelManager.Instance.EnemyShipCountChange(ShipCount);
-    }
+
+  
 }

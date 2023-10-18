@@ -99,8 +99,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             if(_owner is PlayerShip)
             {
                 ///瘫痪恢复
-                AIManager.Instance.AddTargetUnit(this);
-                (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
+                ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
+               // AIManager.Instance.AddTargetUnit(this);
+                //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
                 LevelManager.Instance.PlayerUnitParalysis(UID, false); 
             }
         }
@@ -113,11 +114,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             {
                 LevelManager.Instance.PlayerUnitParalysis(UID, true);
                 ///移除目标选中
-                AIManager.Instance.RemoveTargetUnit(this);
-                if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
-                {
-                    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
-                }
+                ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
+                //AIManager.Instance.RemoveTargetUnit(this);
+                //if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
+                //{
+                //    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
+                //}
             }
         }
     }
@@ -136,17 +138,20 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         {
             if (_owner is AIShip)
             {
-                AIManager.Instance.RemoveSingleUnit(this);
+                ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
+                //AIManager.Instance.RemoveSingleUnit(this);
             }
 
             if (_owner is PlayerShip)
             {
-                AIManager.Instance.RemoveTargetUnit(this);
+
+                //AIManager.Instance.RemoveTargetUnit(this);
                 RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
-                if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
-                {
-                    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
-                }
+                ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
+                //if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
+                //{
+                //    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
+                //}
             }
         }
         this.gameObject.SetActive(false);
@@ -168,12 +173,14 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         if (_owner is AIShip)
         {
-            AIManager.Instance.AddSingleUnit(this);
+            ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
+            //AIManager.Instance.AddSingleUnit(this);
         }
         if (_owner is PlayerShip)
         {
-            AIManager.Instance.AddTargetUnit(this);
-            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
+            ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
+            //AIManager.Instance.AddTargetUnit(this);
+            //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
     
         }
         SetUnitProcess(true);
@@ -197,13 +204,15 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
         if (_owner is AIShip)
         {
-            AIManager.Instance.AddSingleUnit(this);
+            ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
+            //AIManager.Instance.AddSingleUnit(this);
 
         }
         if (_owner is PlayerShip)
         {
-            AIManager.Instance.AddTargetUnit(this);
-            (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
+            ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
+            //AIManager.Instance.AddTargetUnit(this);
+            //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
 
             SetUnitProcess(true);
         }

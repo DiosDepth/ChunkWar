@@ -52,8 +52,8 @@ public class AIShip : BaseShip,IPoolable
         {
             SoundManager.Instance.PlayBattleSound(AIShipCfg.DieAudio, transform);
         }
-
-        AIManager.Instance.RemoveAI(this);
+        ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
+        //AIManager.Instance.RemoveAI(this);
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
             vfx.transform.position = this.transform.position;

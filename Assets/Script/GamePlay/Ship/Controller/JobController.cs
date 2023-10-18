@@ -264,7 +264,7 @@ public class JobController : IPauseable
             targetstotalcount += activeSelfWeaponData.activeWeaponList[i].maxTargetCount;
         }
 
-        activeSelfWeaponData.rv_weaponTargetsInfo = new NativeArray<Weapon.WeaponTargetInfo>(targetstotalcount, Allocator.TempJob);
+        activeSelfWeaponData.rv_weaponTargetsInfo = new NativeArray<Weapon.WeaponTargetJobData>(targetstotalcount, Allocator.TempJob);
 
         // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
         //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
@@ -273,7 +273,7 @@ public class JobController : IPauseable
         Weapon.FindMutipleWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleWeaponTargetsJob
         {
             job_weaponJobData = activeSelfWeaponData.activeWeaponJobData,
-            job_targetsPos = activeTargetUnitData.activeTargetUnitPos,
+            job_targetsPos = activeTargetUnitData.unitPos,
 
             rv_targetsInfo = activeSelfWeaponData.rv_weaponTargetsInfo,
 
@@ -313,7 +313,7 @@ public class JobController : IPauseable
                     for (int n = 0; n < activeSelfWeaponData.activeWeaponJobData[i].targetCount; n++)
                     {
                         targetindex = activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetIndex;
-                        if (targetindex == -1 || activeTargetUnitData.activeTargetUnitList == null || activeTargetUnitData.activeTargetUnitList.Count == 0)
+                        if (targetindex == -1 || activeTargetUnitData.unitList == null || activeTargetUnitData.unitList.Count == 0)
                         {
                             break;
                         }
@@ -321,7 +321,7 @@ public class JobController : IPauseable
                         {
                             weapon.targetList.Add(new WeaponTargetInfo
                                 (
-                                    activeTargetUnitData.activeTargetUnitList[targetindex].gameObject,
+                                    activeTargetUnitData.unitList[targetindex].gameObject,
                                     activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetIndex,
                                     activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].distanceToTarget,
                                     activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetDirection
@@ -484,7 +484,7 @@ public class JobController : IPauseable
             return;
         }
 
-        activeSelfProjectileData.rv_damageProjectileTargetIndex = new NativeArray<int>(activeSelfProjectileData.damageProjectileList.Count * activeTargetUnitData.activeTargetUnitList.Count, Allocator.TempJob);
+        activeSelfProjectileData.rv_damageProjectileTargetIndex = new NativeArray<int>(activeSelfProjectileData.damageProjectileList.Count * activeTargetUnitData.unitList.Count, Allocator.TempJob);
         activeSelfProjectileData.rv_damageProjectileTargetCount = new NativeArray<int>(activeSelfProjectileData.damageProjectileList.Count, Allocator.TempJob);
         JobHandle jobHandle;
 
@@ -493,8 +493,8 @@ public class JobController : IPauseable
         Bullet.FindBulletDamageTargetJob findBulletDamageTargetJob = new Bullet.FindBulletDamageTargetJob
         {
             job_JobInfo = activeSelfProjectileData.damageProjectileJobData,
-            job_targesTotalCount = activeTargetUnitData.activeTargetUnitList.Count,
-            job_targetsPos = activeTargetUnitData.activeTargetUnitPos,
+            job_targesTotalCount = activeTargetUnitData.unitList.Count,
+            job_targetsPos = activeTargetUnitData.unitPos,
 
             rv_findedTargetsCount = activeSelfProjectileData.rv_damageProjectileTargetCount,
             rv_findedTargetIndex = activeSelfProjectileData.rv_damageProjectileTargetIndex,
@@ -513,12 +513,12 @@ public class JobController : IPauseable
             //设置对应子弹的prepareDamageTargetList，用来在后面实际Apply Damage做准备
             for (int n = 0; n < activeSelfProjectileData.rv_damageProjectileTargetCount[i]; n++)
             {
-                damagetargetindex = activeSelfProjectileData.rv_damageProjectileTargetIndex[i * activeTargetUnitData.activeTargetUnitList.Count + n];
-                if (damagetargetindex < 0 || damagetargetindex >= activeTargetUnitData.activeTargetUnitList.Count)
+                damagetargetindex = activeSelfProjectileData.rv_damageProjectileTargetIndex[i * activeTargetUnitData.unitList.Count + n];
+                if (damagetargetindex < 0 || damagetargetindex >= activeTargetUnitData.unitList.Count)
                 {
                     continue;
                 }
-                damageble = activeTargetUnitData.activeTargetUnitList[damagetargetindex].GetComponent<IDamageble>();
+                damageble = activeTargetUnitData.unitList[damagetargetindex].GetComponent<IDamageble>();
                 if (damageble != null && activeSelfProjectileData.damageProjectileList[i] != null)
                 {
                     if (!activeSelfProjectileData.damageProjectileList[i].prepareDamageTargetList.Contains(damageble))
