@@ -2618,6 +2618,7 @@ MonoBehaviour:
   RogueShop_Origin_RefreshNum: 6
   HarborMapTempUnitSlotCount: 6
   ShipLevelUp_GrowthItem_Count: 4
+  BattleOption_ColliderRaidus: 15
   HardLevelDeltaSeconds: 120
   ShipMaxLevel: 50
   TransfixionDamage_Base: 60

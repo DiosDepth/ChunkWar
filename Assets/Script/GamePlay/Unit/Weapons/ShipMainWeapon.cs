@@ -198,21 +198,6 @@ public class ShipMainWeapon : Weapon
             }
         }
     }
-
-
-
-    public override void Start()
-    {
-        base.Start();
-
-    }
-
-    public override void Update()
-    {
-        base.Update();
-
-    }
-
     protected override void OnDestroy()
     {
         if (activeWeaponPosList.IsCreated) { activeWeaponPosList.Dispose(); }

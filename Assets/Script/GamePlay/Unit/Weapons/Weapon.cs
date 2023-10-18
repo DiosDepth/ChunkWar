@@ -180,21 +180,6 @@ public class Weapon : Unit
         InitWeaponAttribute(OwnerShipType.PlayerShip);
     }
 
-
-
-    public override void Start()
-    {
-        base.Start();
-
-    }
-
-    public override void Update()
-    {
-        base.Update();
-        
-        //ProcessWeapon();
-    }
-
     protected override void OnDestroy()
     {
         weaponAttribute?.Destroy();

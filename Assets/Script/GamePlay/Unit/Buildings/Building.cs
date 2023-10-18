@@ -41,25 +41,14 @@ public class Building : Unit
 
     public BuildingAttribute buildingAttribute;
 
-    public override void Start()
+
+    public override bool OnUpdateBattle()
     {
-        base.Start();
-    }
+        if (!base.OnUpdateBattle())
+            return false;
 
-    // Update is called once per frame
-    public override void Update()
-    {
-    
-        base.Update();
-   
-    }
-
-
-
-    public virtual void BuildingUpdate()
-    {
-        if (GameManager.Instance.IsPauseGame()) { return; }
         UpdateBuildingComponents();
+        return true;
     }
 
     protected override void OnDestroy()

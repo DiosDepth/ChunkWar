@@ -81,10 +81,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         }
     }
 
-    public virtual void Start() { }
-
-    public virtual void Update() { }
-
     /// <summary>
     /// ¸ü¸ÄState
     /// </summary>
@@ -225,8 +221,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// <summary>
     /// Update Only Player Units
     /// </summary>
-    public void OnUpdateBattle()
+    public virtual bool OnUpdateBattle()
     {
+        if (GameManager.Instance.IsPauseGame()) { return false; }
+
         if (_isParalysising)
         {
             _paralysisTimer += Time.deltaTime;
@@ -234,7 +232,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             {
                 OnParalysisStateFinish();
             }
-            return;
+            return false;
         }
 
         if (state == DamagableState.Normal)
@@ -245,6 +243,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 _modifyTriggerDatas[i].OnUpdateBattle();
             }
         }
+        return true;
     }
 
     /// <summary>
