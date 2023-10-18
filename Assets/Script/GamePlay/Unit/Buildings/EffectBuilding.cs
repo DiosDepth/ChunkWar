@@ -56,7 +56,8 @@ public class EffectBuilding : Building
         var targetInfos = GameHelper.FindTargetsByPoint(transform.position, _effectCfg.EffectRadius, allaiPos);
         var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
 
-
+        if (allUnits.Count <= 0)
+            return;
 
     }
 
