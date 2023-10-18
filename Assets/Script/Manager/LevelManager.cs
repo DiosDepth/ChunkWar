@@ -116,6 +116,20 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         }
     }
     private static GameObject _AIPool;
+
+    public static Transform PickUpPool
+    {
+        get
+        {
+            if (_PickUpPool == null)
+            {
+                _PickUpPool = new GameObject("PickUpPool");
+            }
+            return _PickUpPool.transform;
+        }
+    }
+    private static GameObject _PickUpPool;
+
     #region Actions
 
     /* 飞船死亡 */
@@ -478,7 +492,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     #region Battle Misc
 
     private static string Harbor_Teleport_Path = "Prefab/PickUps/HarborTeleportPickup";
-    private static string Shop_Teleport_Path = "Prefab/PickUps/ShopTeleportPickup";
+    private static string Shop_Teleport_Path = "Prefab/PickUps/ShopTeleportTrigger";
 
     /// <summary>
     /// 是否战斗场景
@@ -516,7 +530,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         PoolManager.Instance.GetObjectSync(Harbor_Teleport_Path, true, (obj)=> 
         {
             obj.transform.position = targetPos;
-        });
+        }, PickUpPool);
     }
 
     public void CreateShopPickUp()
@@ -527,8 +541,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         PoolManager.Instance.GetObjectSync(Shop_Teleport_Path, true, (obj) =>
         {
             obj.transform.position = targetPos;
-            obj.transform.SafeGetComponent<ShopTeleport>().Initialization();
-        });
+            obj.transform.SafeGetComponent<ShopTeleport>().Init();
+        }, PickUpPool);
         RogueEvent.Trigger(RogueEventType.ShopTeleportSpawn);
     }
 

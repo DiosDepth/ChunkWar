@@ -3,29 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopTeleport : PickableItem
+public class ShopTeleport : TriggerOptionItem
 {
     private bool _hasEnterShop = false;
 
-    public override void Initialization()
+    private const string BattleOption_EnterShop = "BattleOption_EnterShop";
+
+    protected override void Awake()
     {
-        base.Initialization();
-        _hasEnterShop = false;
+        base.Awake();
+    }
+
+    public override void Init()
+    {
+        base.Init();
+        Option = new BattleOptionItem()
+        {
+            OptionName = LocalizationManager.Instance.GetTextValue(BattleOption_EnterShop),
+            OptionSprite = OptionSprite
+        };
         DelayDestroy();
     }
 
-    public override void PickUp(GameObject picker)
+    protected override void OnTrigger()
     {
-        base.PickUp(picker);
-        _hasEnterShop = true;
-        Debug.Log("Enter Shop");
-        RogueManager.Instance.EnterShop();
-        AfterPickUp(picker);  
-    }
-
-    protected override void AfterPickUp(GameObject picker)
-    {
-        base.AfterPickUp(picker);
+        base.OnTrigger();
+        OnEnterShop();
     }
 
     private async void DelayDestroy()
@@ -44,6 +47,16 @@ public class ShopTeleport : PickableItem
         if (!Vaild())
             return;
 
+        PoolableDestroy();
+    }
+
+    private void OnEnterShop()
+    {
+        if (_hasEnterShop)
+            return;
+
+        _hasEnterShop = true;
+        RogueManager.Instance.EnterShop();
         PoolableDestroy();
     }
 

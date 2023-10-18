@@ -423,3 +423,7 @@ MonoBehaviour:
     ChineseSimplified: OFF
     English: 
     Japanese: 
+  - TextID: BattleOption_EnterShop
+    ChineseSimplified: "\u661F\u9645\u5546\u8239"
+    English: 
+    Japanese: 

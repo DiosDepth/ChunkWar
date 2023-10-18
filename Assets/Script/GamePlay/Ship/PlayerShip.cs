@@ -37,7 +37,8 @@ public class PlayerShip : BaseShip
     
     public ShipMainWeapon mainWeapon;
 
-    public CircleCollider2D pickupCollider;
+    private CircleCollider2D pickupCollider;
+    private CircleCollider2D optionCollider;
 
     protected ChunkPartMapInfo[,] ShipMapInfo = new ChunkPartMapInfo[GameGlobalConfig.ShipMaxSize, GameGlobalConfig.ShipMaxSize];
     protected List<UnitInfo> UnitInfoList = new List<UnitInfo>();
@@ -592,11 +593,19 @@ public class PlayerShip : BaseShip
         {
             collision.GetComponentInParent<PickableItem>().PickUp(this.gameObject);
         }
+
+        if(collision.tag == "TriggerItem")
+        {
+            collision.GetComponentInParent<TriggerOptionItem>().OnEnter();
+        }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-
+        if (collision.tag == "TriggerItem")
+        {
+            collision.GetComponentInParent<TriggerOptionItem>().OnExit();
+        }
     }
 
     private void InitPickUpRange()
@@ -609,6 +618,15 @@ public class PlayerShip : BaseShip
         pickupCollider = obj.AddComponent<CircleCollider2D>();
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.SuckerRange, CalculateNewSuckerRange);
         CalculateNewSuckerRange();
+
+        ///Init Option Collider
+        GameObject obj2 = new GameObject("OptionCollider");
+        obj2.transform.SetParent(this.transform);
+        obj2.tag = "TriggerItem";
+        obj2.layer = LayerMask.NameToLayer("LevelTrigger");
+        obj2.transform.localPosition = Vector3.zero;
+        optionCollider = obj2.AddComponent<CircleCollider2D>();
+        optionCollider.radius = DataManager.Instance.battleCfg.BattleOption_ColliderRaidus;
     }
 
     /// <summary>

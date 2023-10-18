@@ -84,11 +84,6 @@ public class DroneFactory : Building
         baseAttribute = FactoryAttribute;
     }
 
-    public override void Update()
-    {
-        base.Update();
-    }
-
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -114,10 +109,12 @@ public class DroneFactory : Building
         base.GameOver();
     }
 
-
-    public override void BuildingUpdate()
+    public override bool OnUpdateBattle()
     {
-        base.BuildingUpdate();
+        if (!base.OnUpdateBattle())
+            return false;
+
+        return true;
     }
 
     public virtual void SpawnDrone()

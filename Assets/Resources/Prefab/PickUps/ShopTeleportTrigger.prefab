@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7120652881020514682}
   - component: {fileID: -5637335547717354860}
-  m_Layer: 14
-  m_Name: ShopTeleportPickup
-  m_TagString: PickUps
+  m_Layer: 16
+  m_Name: ShopTeleportTrigger
+  m_TagString: TriggerItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,15 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89c80e3f80138c4fb6cbf6f360e4fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 1274314703757555511}
-  trigger: {fileID: 8822171429785856819}
-  itemType: 0
-  disableOnPick: 1
-  pickedItem:
-    RefUID: 0
-    iscountless: 0
-    count: 0
-    itemconfig: {fileID: 0}
+  OptionSprite: {fileID: 21300000, guid: b9d92f6949eeeed4593d96a94c1edf97, type: 3}
 --- !u!1 &1965891023306217747
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,10 +56,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2647212802200567467}
-  - component: {fileID: 8822171429785856819}
-  m_Layer: 14
+  - component: {fileID: 2191072275801423575}
+  m_Layer: 16
   m_Name: Trigger
-  m_TagString: PickUps
+  m_TagString: TriggerItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,8 +79,8 @@ Transform:
   m_Father: {fileID: 7120652881020514682}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &8822171429785856819
-CircleCollider2D:
+--- !u!61 &2191072275801423575
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -101,8 +93,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Size: {x: 10, y: 12}
+  m_EdgeRadius: 0
 --- !u!1 &6554370255867181568
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,9 +115,9 @@ GameObject:
   m_Component:
   - component: {fileID: 609202034885141024}
   - component: {fileID: 1274314703757555511}
-  m_Layer: 14
+  m_Layer: 16
   m_Name: Sprite
-  m_TagString: PickUps
+  m_TagString: TriggerItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,8 +178,8 @@ SpriteRenderer:
   m_SortingLayerID: -1205307937
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -51309725, guid: 74b224093dad379428d33094465f785b, type: 3}
-  m_Color: {r: 0, g: 0.9381461, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7247d7f119551224c9d9d9b4121ec620, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

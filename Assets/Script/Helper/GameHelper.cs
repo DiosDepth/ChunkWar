@@ -1014,4 +1014,20 @@ public static class GameHelper
             }
         }
     }
+
+    #region Animtor
+
+    public static float GetAnimatorClipLength(Animator anim, string clipName)
+    {
+        float length = 0;
+        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+        foreach(var clip in clips)
+        {
+            if (clip.name.Equals(clipName))
+                return clip.length;
+        }
+        return length;
+    }
+
+    #endregion
 }

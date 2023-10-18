@@ -96,6 +96,7 @@ public class BattleMainConfig : SerializedScriptableObject
     public byte RogueShop_Origin_RefreshNum = 4;
     public byte HarborMapTempUnitSlotCount = 6;
     public byte ShipLevelUp_GrowthItem_Count = 4;
+    public float BattleOption_ColliderRaidus = 5;
 
     /// <summary>
     /// hardLevel√øX√Î‘ˆº”1

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ public class AIShip : BaseShip,IPoolable
     {
         base.Death(info);
         DestroyAIShipBillBoard();
+        ResetAllAnimation();
         LevelManager.Instance.pickupList.AddRange(Drop());
         if (!string.IsNullOrEmpty(AIShipCfg.DieAudio))
         {
@@ -116,6 +118,9 @@ public class AIShip : BaseShip,IPoolable
             }
         }
         InitAIShipBillBoard();
+
+        ///Do Spawn
+        DoSpawnEffect();
     }
 
     public void PoolableReset()
@@ -170,4 +175,25 @@ public class AIShip : BaseShip,IPoolable
     {
         base.UnPauseGame();
     }
+
+    #region Anim
+
+    protected const string AnimTrigger_Spawn = "Spawn";
+
+    private async void DoSpawnEffect()
+    {
+        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        SetAnimatorTrigger(AnimTrigger_Spawn);
+        var length = GameHelper.GetAnimatorClipLength(_spriteAnimator, "EnemyShip_Spawn");
+        await UniTask.Delay((int)(length * 1000));
+        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+    }
+
+    private void ResetAllAnimation()
+    {
+        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);
+    }
+
+    #endregion
 }

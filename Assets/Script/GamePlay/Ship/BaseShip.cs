@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,6 +56,7 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
     public StateMachine<ShipMovementState> movementState;
     public StateMachine<ShipConditionState> conditionState;
 
+
     public Chunk[,] ChunkMap { set { _chunkMap = value; } get { return _chunkMap; } }
 
     protected Chunk[,] _chunkMap;
@@ -71,11 +73,16 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
 
     protected BaseShipConfig baseShipCfg;
 
+    protected Animator _spriteAnimator;
+    protected Material _spriteMat;
+
     public virtual void Initialization()
     {
         GameManager.Instance.RegisterPauseable(this);
         controller = this.GetComponent<BaseController>();
-        if(controller == null)
+        _spriteAnimator = transform.Find("Sprite").SafeGetComponent<Animator>();
+        _spriteMat = transform.Find("Sprite").SafeGetComponent<SpriteRenderer>().material;
+        if (controller == null)
         {
             Debug.LogError(this.gameObject.name + " missing controller component");
         }
@@ -320,4 +327,20 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
     {
 
     }
+
+    #region Anim
+
+    protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
+
+    public void SetAnimatorTrigger(string trigger)
+    {
+        _spriteAnimator.SetTrigger(trigger);
+    }
+
+    public void ResetAnimatorTrigger(string trigger)
+    {
+        _spriteAnimator.ResetTrigger(trigger);
+    }
+
+    #endregion
 }

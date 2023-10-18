@@ -6,10 +6,8 @@ using UnityEngine.UIElements;
 public class DummyUnit : Unit
 {
 
-    public override void Start()
+    public  void Start()
     {
-        base.Start();
-
         var unitconfig = DataManager.Instance.GetUnitConfig(0);
         _baseUnitConfig = unitconfig;
         baseAttribute.InitProeprty(this, _baseUnitConfig, OwnerShipType.NONE);

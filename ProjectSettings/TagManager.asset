@@ -9,6 +9,7 @@ TagManager:
   - FX
   - AI
   - HarborTeleport
+  - TriggerItem
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - DeadZone
   - PickUps
   - Space
-  - 
+  - LevelTrigger
   - 
   - 
   - 
