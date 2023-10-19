@@ -347,6 +347,19 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
     }
 
+    public void AddAISpawn(MTEC_AddAISpawn cfg)
+    {
+        if (cfg.SpawnCfgList == null || cfg.SpawnCfgList.Count <= 0)
+            return;
+
+        RogueManager.Instance.AddExtraAIFactory(cfg.SpawnCfgList, UID.ToString());
+    }
+
+    public void RemoveAISpawn(MTEC_AddAISpawn cfg)
+    {
+        RogueManager.Instance.RemoveExtraAIFactory(cfg.SpawnCfgList, UID.ToString());
+    }
+
     #endregion
 
     #region Condition
@@ -462,6 +475,12 @@ public class MT_OnAdd : ModifyTriggerData
     {
         base.OnTriggerAdd();
         Trigger();
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        UnEffectTrigger();
     }
 }
 

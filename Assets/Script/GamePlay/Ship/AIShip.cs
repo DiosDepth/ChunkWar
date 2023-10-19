@@ -33,23 +33,16 @@ public class AIShip : BaseShip,IPoolable, IDropable
         base.OnDestroy();
     }
 
-    public void OnUpdate()
-    {
-
-    }
-
     protected override void Death(UnitDeathInfo info)
     {
         base.Death(info);
-        DestroyAIShipBillBoard();
-        ResetAllAnimation();
+        OnRemove();
         LevelManager.Instance.pickupList.AddRange(Drop());
         if (!string.IsNullOrEmpty(AIShipCfg.DieAudio))
         {
             SoundManager.Instance.PlayBattleSound(AIShipCfg.DieAudio, transform);
         }
         ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-        //AIManager.Instance.RemoveAI(this);
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
             vfx.transform.position = this.transform.position;
@@ -57,6 +50,17 @@ public class AIShip : BaseShip,IPoolable, IDropable
             vfx.GetComponent<ParticleController>().PlayVFX();
             PoolableDestroy();
         });
+    }
+
+    protected virtual void OnRemove()
+    {
+        DestroyAIShipBillBoard();
+        ResetAllAnimation();
+        ///Set All Units
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].SetDisable();
+        }
     }
 
     public override void InitProperty()
@@ -117,12 +121,11 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
     public void PoolableReset()
     {
-        
+        OnRemove();
     }
 
     public void PoolableDestroy()
     {
-        
         PoolableReset();
         PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }

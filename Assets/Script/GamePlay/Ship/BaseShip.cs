@@ -170,21 +170,8 @@ public class BaseShip : MonoBehaviour, IPauseable
     {
         GameManager.Instance.UnRegisterPauseable(this);
         conditionState.ChangeState(ShipConditionState.Death);
-        ///Set All Units
-        for (int i = 0; i < _unitList.Count; i++) 
-        {
-            _unitList[i].SetDisable();
-        }
-
         ShipStateEvent.Trigger(this, info, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
     }
-
-    public virtual void Ability()
-    {
-
-    }
-
-
 
     public virtual void InitProperty()
     {

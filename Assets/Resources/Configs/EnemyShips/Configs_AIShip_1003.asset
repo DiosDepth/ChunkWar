@@ -1385,6 +1385,130 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Skills
+      Entry: 7
+      Data: 3|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|MTC_OnAdd, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 7
+    - Name: TriggerCount
+      Entry: 3
+      Data: 1
+    - Name: SelfUnique
+      Entry: 5
+      Data: false
+    - Name: UsePercent
+      Entry: 5
+      Data: false
+    - Name: Percent
+      Entry: 4
+      Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 5|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 6|MTEC_AddAISpawn, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 16
+    - Name: Conditions
+      Entry: 7
+      Data: 7|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpawnCfgList
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 9|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 0
+    - Name: AITypeID
+      Entry: 3
+      Data: 7
+    - Name: DurationDelta
+      Entry: 3
+      Data: 3
+    - Name: LoopCount
+      Entry: 3
+      Data: -1
+    - Name: StartTime
+      Entry: 3
+      Data: 0
+    - Name: TotalCount
+      Entry: 3
+      Data: 4
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 0
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0.2
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: UseShipSpawnNode
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 1003
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: f304256ed59161149b4b4a834e11cb32, type: 3}

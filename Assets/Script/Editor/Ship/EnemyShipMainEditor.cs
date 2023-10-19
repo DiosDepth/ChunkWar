@@ -44,6 +44,7 @@ public class EnemyShipMainEditor : OdinMenuEditorWindow
         });
 
         tree.SortMenuItemsByName();
+        DataManager.Instance.LoadAIShipConfig_Editor();
         return tree;
     }
 }

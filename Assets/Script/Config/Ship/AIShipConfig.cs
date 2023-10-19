@@ -94,6 +94,13 @@ public class AIShipConfig : BaseShipConfig
     [FoldoutGroup("掉落配置")]
     public Dictionary<GoodsItemRarity, ShopGoodsRarityConfig> WreckageRarityCfg = new Dictionary<GoodsItemRarity, ShopGoodsRarityConfig>();
 
+    [LabelText("单位特殊技能")]
+    [DisableContextMenu(DisableForMember = true, DisableForCollectionElements = true)]
+    [ValueDropdown("GetTriggerLst", DrawDropdownForListElements = false)]
+    [HideReferenceObjectPicker]
+    public ModifyTriggerConfig[] Skills = new ModifyTriggerConfig[0];
+
+
     [System.Obsolete]
     protected override void OnEnable()
     {
@@ -111,6 +118,11 @@ public class AIShipConfig : BaseShipConfig
     {
         base.InitData();
 
+    }
+
+    private ValueDropdownList<ModifyTriggerConfig> GetTriggerLst()
+    {
+        return ModifyTriggerConfig.GetModifyTriggerList();
     }
 
 #endif

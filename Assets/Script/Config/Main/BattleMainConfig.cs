@@ -89,6 +89,7 @@ public enum ModifyTriggerEffectType
     ModifyDamgeByTargetDistance,
     AddUnitModifier,
     HealUnitHP,
+    AddAISpawn,
 }
 
 public class BattleMainConfig : SerializedScriptableObject
