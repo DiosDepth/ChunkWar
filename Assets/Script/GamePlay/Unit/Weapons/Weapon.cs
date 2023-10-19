@@ -920,17 +920,6 @@ public class Weapon : Unit
     {
         weaponAttribute.InitProeprty(this, _weaponCfg, type);
         baseAttribute = weaponAttribute;
-
-        if (weaponAttribute.MagazineBased)
-        {
-            magazine = 0;
-            //magazine = weaponAttribute.MaxMagazineSize;
-        }
-        else
-        {
-            ///Fix Value
-            magazine = 1;
-        }
         scatter = _weaponCfg.Scatter;
         _beforeDelayCounter = weaponAttribute.BeforeDelay;
         _betweenDelayCounter = weaponAttribute.FireCD;

@@ -52,10 +52,9 @@ public class EffectBuilding : Building
     /// </summary>
     private void TriggerEffect()
     {
-        var allaiPos = AIManager.Instance.position;
+        var allaiPos = ECSManager.Instance.activeAIUnitData.unitPos; 
         var targetInfos = GameHelper.FindTargetsByPoint(transform.position, _effectCfg.EffectRadius, allaiPos);
-        var allUnits = AIManager.Instance.GetActiveUnitReferenceByTargetInfo(targetInfos);
-
+        var allUnits = ECSManager.Instance.GetActiveUnitReferenceByTargetInfo(OwnerType.AI, targetInfos);  
         if (allUnits.Count <= 0)
             return;
 

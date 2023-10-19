@@ -19,6 +19,20 @@ public class AIAdditionalWeapon : AdditionalWeapon
         base.Initialization(m_owner, m_unitconfig);
     }
 
+    public override void InitWeaponAttribute(OwnerShipType type)
+    {
+        if (weaponAttribute.MagazineBased)
+        {
+            magazine = 0;
+            //magazine = weaponAttribute.MaxMagazineSize;
+        }
+        else
+        {
+            ///Fix Value
+            magazine = 1;
+        }
+        base.InitWeaponAttribute(type);
+    }
     public override void Death(UnitDeathInfo info)
     {
         base.Death(info);

@@ -12,7 +12,22 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
     public bool ProcessECS;
 
-    public int CurrentAIAgentCount { get { return activeAIAgentData.shipList.Count; } }
+    public int CurrentAIAgentCount
+    {
+        get
+        {
+            if(activeAIAgentData == null || activeAIAgentData.shipList == null)
+            {
+                return 0;
+            }
+            else
+            {
+                    return activeAIAgentData.shipList.Count;
+                
+            }
+            
+        } 
+    }
     // job data owner type == AI
     public AgentData activeAIAgentData;
     public UnitData activeAIUnitData;
@@ -22,7 +37,21 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public ProjectileData activeAIProjectileData;
 
 
-    public int CurrentPlayerAgentCount { get { return activePlayerAgentData.shipList.Count; } }
+    public int CurrentPlayerAgentCount 
+    { 
+        get
+        {
+            if (activePlayerAgentData == null || activePlayerAgentData.shipList == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return activePlayerAgentData.shipList.Count;
+
+            }
+        } 
+    }
     // job data owner type == Player
     public PlayerShip playerShip;
     public IBoid playerIBoid;

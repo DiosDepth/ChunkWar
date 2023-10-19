@@ -228,6 +228,20 @@ public class ShipMainWeapon : Weapon
         rv_weaponTargetsInfoQue = new NativeQueue<WeaponTargetJobData>(Allocator.Persistent);
     }
 
+    public override void InitWeaponAttribute(OwnerShipType type)
+    {
+        if (weaponAttribute.MagazineBased)
+        {
+            //magazine = 0;
+            magazine = weaponAttribute.MaxMagazineSize;
+        }
+        else
+        {
+            ///Fix Value
+            magazine = 1;
+        }
+        base.InitWeaponAttribute(type);
+    }
     public override void ProcessWeapon()
     {
         if (aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional)
