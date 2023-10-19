@@ -176,6 +176,18 @@ public class UIManager : Singleton<UIManager>
 
     }
 
+    public void CreatePoolerUI<T>(string m_uiname, Transform parent, UnityAction<T> callback = null) where T : GUIBasePanel
+    {
+        PoolManager.Instance.GetObjectAsync(resPoolUIPath + m_uiname, true, (obj) =>
+        {
+            obj.transform.SetParent(parent, false);
+            obj.transform.localScale = Vector3.one;
+
+            T panel = obj.GetComponent<T>();
+            callback?.Invoke(panel);
+        });
+    }
+
     public void BackPoolerUI(string m_uiname, GameObject m_backobj)
     {
         PoolManager.Instance.BackObject(resPoolUIPath + m_uiname, m_backobj);

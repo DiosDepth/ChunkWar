@@ -133,30 +133,6 @@ public static class GameHelper
         }
     }
 
-    /// <summary>
-    /// 获取敌人掉落稀有度
-    /// </summary>
-    /// <param name="cfg"></param>
-    /// <returns></returns>
-    public static GoodsItemRarity GetEnemyShipDropUnitRarity(BaseShipConfig cfg)
-    {
-        List<TempDropRandomItem> ranItems = new List<TempDropRandomItem>();
-        var rarityDic = cfg.UnitDropRate;
-        foreach(var item in rarityDic)
-        {
-            ///Luck & HardLevel modify TODO
-            TempDropRandomItem temp = new TempDropRandomItem
-            {
-                Rarity = item.Key,
-                Weight = (int)item.Value
-            };
-            ranItems.Add(temp);
-        }
-
-        var ranResult = Utility.GetRandomList<TempDropRandomItem>(ranItems, 1);
-        return ranResult[0].Rarity;
-    }
-
     #region Battle
 
     public static OwnerShipType GetOwnerShipType(BaseShip ship)

@@ -79,6 +79,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     protected Material _spriteMat;
     protected Animator _animator;
+    protected Transform _uiCanvas;
+    private UnitSceneHPSlider _sceneHPSlider;
 
     public virtual void Awake()
     {
@@ -87,6 +89,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             _spriteMat = unitSprite.material;
             _animator = unitSprite.transform.SafeGetComponent<Animator>();
         }
+        _uiCanvas = transform.Find("UICanvas");
+        _uiCanvas.SafeSetActive(false);
     }
 
     /// <summary>
@@ -159,10 +163,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             }
         }
         this.gameObject.SetActive(false);
-        SetUnitProcess(false);
         ///Remove Owner
         _owner.RemoveUnit(this);
-        
+        SetDisable();
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
             
@@ -171,6 +174,16 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             vfx.GetComponent<ParticleController>().PlayVFX();
         });
         
+    }
+
+    /// <summary>
+    /// 整船死亡时调用
+    /// </summary>
+    public virtual void SetDisable()
+    {
+        RemoveHPBar();
+        SetUnitProcess(false);
+        HpComponent.Clear();
     }
 
     public virtual void Restore()
@@ -661,6 +674,36 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         _animator.ResetTrigger(trigger);
     }
 
+
+    #endregion
+
+    #region UIDisplay
+
+    public void RegisterHPBar()
+    {
+        if (_uiCanvas == null)
+            return;
+
+        _uiCanvas.SafeSetActive(true);
+
+        UIManager.Instance.CreatePoolerUI<UnitSceneHPSlider>("UnitHPSlider", _uiCanvas, (panel) =>
+        {
+            panel.transform.localPosition = new Vector3(0, _baseUnitConfig.HPBarOffsetY, 0);
+            var rect = panel.transform.SafeGetComponent<RectTransform>();
+            rect.SetRectWidthAndHeight(_baseUnitConfig.HPBarWidth, _baseUnitConfig.HPBarHeight);
+            panel.SetUpSlider(this);
+            _sceneHPSlider = panel;
+        });
+    }
+
+    private void RemoveHPBar()
+    {
+        if (_sceneHPSlider == null)
+            return;
+
+        _sceneHPSlider.PoolableDestroy();
+        _sceneHPSlider = null;
+    }
 
     #endregion
 }

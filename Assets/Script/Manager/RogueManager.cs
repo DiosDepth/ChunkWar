@@ -1650,7 +1650,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var tier2Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier2);
         var tier3Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier3);
         var tier4Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier4);
-        var tier1Rate = 100 - tier2Rate - tier3Rate - tier4Rate;
+        var tier1Rate = 1000 - tier2Rate - tier3Rate - tier4Rate;
         
         List<GeneralRarityRandomItem> rarityItems = new List<GeneralRarityRandomItem>();
         rarityItems.Add(new GeneralRarityRandomItem(GoodsItemRarity.Tier2, tier2Rate));
@@ -1789,15 +1789,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         if (!rarityMap.ContainsKey(rarity))
             return 0;
 
-        ///TODO
-        var playerLuck = 0;
-
         var rarityCfg = rarityMap[rarity];
         if (enterCount < rarityCfg.MinAppearEneterCount)
             return 0;
 
-        var waveIndexDelta = enterCount - rarityCfg.LuckModifyMinEnterCount;
-        return rarityCfg.WeightAddPerEnterCount * waveIndexDelta + rarityCfg.BaseWeight * (1 + playerLuck / 100f);
+        ///LuckModify
+        float luckRate = 1;
+        if(enterCount >= rarityCfg.LuckModifyMinEnterCount)
+        {
+            var playerLuck = MainPropertyData.GetPropertyFinal(PropertyModifyKey.Luck);
+            luckRate = (1 + playerLuck / 100f);
+        }
+
+        var result = rarityCfg.WeightAddPerEnterCount * enterCount + rarityCfg.BaseWeight * luckRate;
+        result = Mathf.Clamp(result, 0, rarityCfg.WeightMax);
+        return Mathf.RoundToInt(result * 10);
     }
 
     private void InitAllGoodsItems()

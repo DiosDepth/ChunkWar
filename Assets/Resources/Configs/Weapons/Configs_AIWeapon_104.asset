@@ -450,6 +450,9 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
+  HPBarOffsetY: 0
+  HPBarHeight: 0.5
+  HPBarWidth: 4
   DamageBase: 24
   EnemyAttackModify: 0.5
   UseDamageRatio: 0

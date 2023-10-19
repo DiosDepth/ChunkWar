@@ -1359,10 +1359,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: UnitDropRate
+    - Name: WreckageRarityCfg
       Entry: 7
-      Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
+      Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[ShopGoodsRarityConfig,
+        Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
@@ -1376,66 +1376,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: AIShipEffects
-      Entry: 7
-      Data: 3|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1456,10 +1396,6 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
-  DropList:
-  - pickuptype: 1
-    count: 1
-    dropRate: 80
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
@@ -1472,3 +1408,7 @@ MonoBehaviour:
   boidRadius: 1
   targetSerchingRadius: 30
   DieAudio: Ship/ShipExplode_001
+  DropList:
+  - pickuptype: 1
+    count: 1
+    dropRate: 80

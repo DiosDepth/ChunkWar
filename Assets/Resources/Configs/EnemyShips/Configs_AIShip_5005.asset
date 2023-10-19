@@ -1359,10 +1359,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: UnitDropRate
+    - Name: WreckageRarityCfg
       Entry: 7
-      Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
+      Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[ShopGoodsRarityConfig,
+        Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
@@ -1386,8 +1386,26 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: $v
+      Entry: 7
+      Data: 3|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearEneterCount
+      Entry: 3
+      Data: 0
+    - Name: LuckModifyMinEnterCount
+      Entry: 3
+      Data: 1
+    - Name: BaseWeight
+      Entry: 3
+      Data: 100
+    - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 50
+      Data: 0
+    - Name: WeightMax
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1398,8 +1416,26 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: $v
+      Entry: 7
+      Data: 4|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearEneterCount
+      Entry: 3
+      Data: 0
+    - Name: LuckModifyMinEnterCount
+      Entry: 3
+      Data: 1
+    - Name: BaseWeight
+      Entry: 3
+      Data: 0
+    - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 30
+      Data: 5.2
+    - Name: WeightMax
+      Entry: 4
+      Data: 60
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1410,8 +1446,26 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: $v
+      Entry: 7
+      Data: 5|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearEneterCount
+      Entry: 3
+      Data: 3
+    - Name: LuckModifyMinEnterCount
+      Entry: 3
+      Data: 2
+    - Name: BaseWeight
+      Entry: 3
+      Data: 0
+    - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 15.5
+      Data: 2.5
+    - Name: WeightMax
+      Entry: 4
+      Data: 25
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1422,8 +1476,26 @@ MonoBehaviour:
       Entry: 3
       Data: 3
     - Name: $v
+      Entry: 7
+      Data: 6|ShopGoodsRarityConfig, Assembly-CSharp
+    - Name: MinAppearEneterCount
+      Entry: 3
+      Data: 5
+    - Name: LuckModifyMinEnterCount
+      Entry: 3
+      Data: 4
+    - Name: BaseWeight
+      Entry: 3
+      Data: 0
+    - Name: WeightAddPerEnterCount
       Entry: 4
-      Data: 4.5
+      Data: 1
+    - Name: WeightMax
+      Entry: 4
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1444,13 +1516,6 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
-  DropList:
-  - pickuptype: 1
-    count: 5
-    dropRate: 100
-  - pickuptype: 3
-    count: 1
-    dropRate: 100
   ShowHPBillboard: 0
   ClassLevel: 0
   BillboardType: 0
@@ -1463,3 +1528,10 @@ MonoBehaviour:
   boidRadius: 2
   targetSerchingRadius: 1
   DieAudio: 
+  DropList:
+  - pickuptype: 1
+    count: 5
+    dropRate: 100
+  - pickuptype: 3
+    count: 1
+    dropRate: 100

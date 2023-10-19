@@ -88,6 +88,12 @@ public class AIShipConfig : BaseShipConfig
     [HorizontalGroup("Ğ§¹ûÅäÖÃ/A")]
     public string DieAudio;
 
+    [FoldoutGroup("µôÂäÅäÖÃ")]
+    public List<DropInfo> DropList = new List<DropInfo>();
+
+    [FoldoutGroup("µôÂäÅäÖÃ")]
+    public Dictionary<GoodsItemRarity, ShopGoodsRarityConfig> WreckageRarityCfg = new Dictionary<GoodsItemRarity, ShopGoodsRarityConfig>();
+
     [System.Obsolete]
     protected override void OnEnable()
     {

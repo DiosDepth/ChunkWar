@@ -450,6 +450,7 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
+  ShowHPBar: 0
   ShieldConfig:
     GenerateShield: 1
     ShieldPrefabName: 
