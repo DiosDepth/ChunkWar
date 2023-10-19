@@ -15,7 +15,7 @@ public class JobController : IPauseable
     public SearchingTargetData searchingTargetData;
     public JobController()
     {
-
+        Initialization();
     }
 
     ~ JobController()
@@ -25,7 +25,7 @@ public class JobController : IPauseable
 
     public virtual void Initialization()
     {
-      
+        searchingTargetData = new SearchingTargetData();
 
     }
 
@@ -123,7 +123,6 @@ public class JobController : IPauseable
         {
             job_boidData = activeSelfAgentData.boidAgentJobData,
             job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
-
 
             job_threshold = 0.01f,
 

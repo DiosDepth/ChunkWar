@@ -69,7 +69,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     {
         base.Initialization();
         GameManager.Instance.RegisterPauseable(this);
-        playerJobController = new PlayerJobController();
+
         AIJobController = new AIJobController();
         activeAIAgentData = new AgentData();
         activeAIUnitData = new UnitData();
@@ -78,13 +78,14 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activeAIDroneData = new DroneData();
         activeAIProjectileData = new ProjectileData();
 
-
+        playerJobController = new PlayerJobController();
         activePlayerAgentData = new AgentData();
         activePlayerUnitData = new UnitData();
         activePlayerWeaponData = new WeaponData();
         activePlayerBuildingData = new BuildingData();
         activePlayerDroneData = new DroneData();
         activePlayerProjectileData = new ProjectileData();
+
 
         MonoManager.Instance.AddUpdateListener(Update);
         MonoManager.Instance.AddFixedUpdateListener(FixedUpdate);
@@ -274,7 +275,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessECS) { return; }
         UpdateJobData();
-        AIJobController.UpdateAgentMovement(ref activeAIAgentData, ref activePlayerAgentData , ref playerIBoid);
+        AIJobController.UpdateAgentMovement(ref activeAIAgentData, ref activePlayerAgentData, ref playerIBoid);
     }
 
     public virtual void UpdateJobData()

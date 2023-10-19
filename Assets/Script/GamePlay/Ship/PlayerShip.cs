@@ -140,7 +140,7 @@ public class PlayerShip : BaseShip
         CreateShip();
         InitShipClass();
         ActiveShipUnit();
-
+        ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
     }
 
     protected override void OnDestroy()

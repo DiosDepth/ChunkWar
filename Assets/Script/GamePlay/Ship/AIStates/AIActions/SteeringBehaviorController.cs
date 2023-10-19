@@ -110,7 +110,7 @@ public class SteeringBehaviorController : BaseController
         [Unity.Collections.ReadOnly] public float job_threshold;
         [Unity.Collections.ReadOnly] public NativeArray<BoidJobData> job_boidData;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
-        [Unity.Collections.ReadOnly] public NativeArray<float3> job_aiShipPos;
+
        
         
 

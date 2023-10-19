@@ -221,7 +221,7 @@ public class AgentData : IJobData
         //add steering controller job data
         SteeringControllerJobData steeringJobData = new SteeringControllerJobData();
         steeringJobData.maxAcceleration = controller.maxAcceleration;
-        steeringJobData.maxAngularVelocity = controller.maxVelocity;
+        steeringJobData.maxVelocity = controller.maxVelocity;
         steeringJobData.maxAngularAcceleration = controller.maxAngularAcceleration;
         steeringJobData.maxAngularVelocity = controller.maxAngularVelocity;
         steeringJobData.targetSerchingRadius = controller.targetSerchingRadius;
