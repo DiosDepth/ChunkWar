@@ -501,6 +501,32 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         return null;
     }
 
+    /// <summary>
+    /// 获取AI飞船所有Units,只要有一个unit在飞船内，该飞船所有的unit都会计入
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    public virtual List<Unit> GetAIShipAllActiveUnitByTargetsInfo(TargetInfo[] info)
+    {
+        List<Unit> result = new List<Unit>();
+        for (int i = 0; i < info.Length; i++)
+        {
+            var target = activeAIUnitData.unitList[info[i].index];
+
+            var shipUnits = target._owner.UnitList;
+            for (int j = 0; j < shipUnits.Count; j++) 
+            {
+                var targetUnit = shipUnits[j];
+                if(targetUnit.isActiveAndEnabled && !result.Contains(targetUnit))
+                {
+                    result.Add(targetUnit);
+                }
+            }
+        }
+        return result;
+    }
+
     public virtual List<UnitReferenceInfo> GetActiveUnitReferenceByTargetInfo(OwnerType type,  TargetInfo[] info)
     {
         List<UnitReferenceInfo> result = new List<UnitReferenceInfo>();

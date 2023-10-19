@@ -373,11 +373,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         {
             AllCurrentShipPlugs[i].OnBattleUpdate();
         }
-
-        for (int i = 0; i < AllShipUnits.Count; i++) 
-        {
-            AllShipUnits[i].OnUpdateBattle();
-        }
     }
 
     /// <summary>

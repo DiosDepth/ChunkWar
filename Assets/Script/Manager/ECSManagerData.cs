@@ -34,7 +34,9 @@ public class UnitData : IJobData
         if (unitList.Count == 0) { return; }
         for (int i = 0; i < unitList.Count; i++)
         {
-            unitPos[i] = unitList[i].transform.position;
+            var unit = unitList[i];
+            unit.OnUpdateBattle();
+            unitPos[i] = unit.transform.position;
         }
     }
 

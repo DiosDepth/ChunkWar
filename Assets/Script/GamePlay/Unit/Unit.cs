@@ -240,8 +240,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public virtual bool OnUpdateBattle()
     {
-        if (GameManager.Instance.IsPauseGame()) { return false; }
-
         if (_isParalysising)
         {
             _paralysisTimer += Time.deltaTime;
@@ -466,6 +464,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         data.OnTriggerAdd();
         _modifyTriggerDatas.Add(data);
+    }
+
+    public ModifyTriggerData GetModifierTriggerByUID(uint uid)
+    {
+        return _modifyTriggerDatas.Find(x => x.UID == uid);
     }
 
     /// <summary>
