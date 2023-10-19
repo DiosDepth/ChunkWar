@@ -38,6 +38,25 @@ public class ModifyUIDManager : Singleton<ModifyUIDManager>
         return uid;
     }
 
+    public IPropertyModify GetModifyInterface(uint uid)
+    {
+        if (_modifyDic.ContainsKey(uid))
+            return _modifyDic[uid];
+
+        return null;
+    }
+
+    public PropertyModifyCategory GetCategoryByUID(uint uid)
+    {
+        foreach(PropertyModifyCategory cate in System.Enum.GetValues(typeof(PropertyModifyCategory)))
+        {
+            var sep = GetSep(cate);
+            if (uid >= sep[0] && uid < sep[1])
+                return cate;
+        }
+        return PropertyModifyCategory.ModifyTrigger;
+    }
+
     public void RemoveUID(uint uid)
     {
         _modifyDic.Remove(uid);
@@ -56,5 +75,7 @@ public interface IPropertyModify
 {
     public uint UID { get; set; }
     public PropertyModifyCategory Category { get; }
+
+    public string GetName { get;  }
 
 }

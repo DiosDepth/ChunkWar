@@ -52,12 +52,46 @@ public class EffectBuilding : Building
     /// </summary>
     private void TriggerEffect()
     {
-        var allaiPos = ECSManager.Instance.activeAIUnitData.unitPos; 
+        var allaiPos = ECSManager.Instance.activeAIUnitData.unitPos;
         var targetInfos = GameHelper.FindTargetsByPoint(transform.position, _effectCfg.EffectRadius, allaiPos);
-        var allUnits = ECSManager.Instance.GetActiveUnitReferenceByTargetInfo(OwnerType.AI, targetInfos);  
+        var allUnits = ECSManager.Instance.GetAIShipAllActiveUnitByTargetsInfo(targetInfos);
+
         if (allUnits.Count <= 0)
             return;
 
+        for (int i = 0; i < allUnits.Count; i++) 
+        {
+            ///ÒÆ³ý×ÔÉí
+            var unit = allUnits[i];
+            if (_owner.UnitList.Contains(unit))
+                continue;
+
+            ///Add Time Modifier
+            var existData = unit.GetModifierTriggerByUID(UID);
+            if(existData == null)
+            {
+                ///Create New
+                MTC_OnAdd newCfg = new MTC_OnAdd(ModifyTriggerType.OnAdd);
+                var newData = newCfg.Create(newCfg, UID);
+                unit.AddNewModifyEffectData(newData);
+                AddUnitTimerModifier(newData, _effectCfg.Modifiers);
+            }
+            else
+            {
+                AddUnitTimerModifier(existData, _effectCfg.Modifiers);
+            }
+        }
+    }
+
+    private void AddUnitTimerModifier(ModifyTriggerData data, MTEC_AddUnitTimerModifier[] cfgs)
+    {
+        if (cfgs == null || cfgs.Length <= 0)
+            return;
+
+        for(int i = 0; i < cfgs.Length; i++)
+        {
+            data.AddTimerModifier_Unit(cfgs[i], UID);
+        }
     }
 
 }

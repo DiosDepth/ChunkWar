@@ -60,7 +60,7 @@ public enum ModifyTriggerType
     OnPlayerWeaponFire,
     OnPlayerShipParry,
     OnShieldBroken,
-    OnPlayerCoreUnitTakeDamage,
+    OnPlayerUnitTakeDamage,
     OnPlayerCreateExplode,
     OnBuyShopItem,
     OnCollectPickable,

@@ -26,24 +26,18 @@ public class AIShip : BaseShip,IPoolable
     protected override void Awake()
     {
         base.Awake();
-
-    }
-    // Start is called before the first frame update
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
     }
+
+    public void OnUpdate()
+    {
+
+    }
+
     protected override void Death(UnitDeathInfo info)
     {
         base.Death(info);
@@ -118,7 +112,6 @@ public class AIShip : BaseShip,IPoolable
             }
         }
         InitAIShipBillBoard();
-
         ///Do Spawn
         DoSpawnEffect();
     }
@@ -184,6 +177,15 @@ public class AIShip : BaseShip,IPoolable
     {
         _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_Spawn);
+        ///UnitSpawn
+        for (int i = 0; i < _unitList.Count; i++) 
+        {
+            if (_unitList[i].isActiveAndEnabled)
+            {
+                _unitList[i].DoSpawnEffect();
+            }
+        }
+
         var length = GameHelper.GetAnimatorClipLength(_spriteAnimator, "EnemyShip_Spawn");
         await UniTask.Delay((int)(length * 1000));
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     public uint UID { get; set; }
 
     public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipUnit; } }
+
+    public string GetName
+    {
+        get { return LocalizationManager.Instance.GetTextValue(_baseUnitConfig.GeneralConfig.Name); }
+    }
 
 
     [SerializeField]
@@ -71,13 +77,15 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public GeneralHPComponet HpComponent;
 
-    private Material _spriteMat;
+    protected Material _spriteMat;
+    protected Animator _animator;
 
     public virtual void Awake()
     {
         if(unitSprite != null)
         {
             _spriteMat = unitSprite.material;
+            _animator = unitSprite.transform.SafeGetComponent<Animator>();
         }
     }
 
@@ -232,8 +240,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public virtual bool OnUpdateBattle()
     {
-        if (GameManager.Instance.IsPauseGame()) { return false; }
-
         if (_isParalysising)
         {
             _paralysisTimer += Time.deltaTime;
@@ -367,10 +373,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                     panel.SetPlayerTakeDamageText(Mathf.Abs(info.Damage), rowScreenPos);
                     panel.Show();
                 });
-                if (IsCoreUnit)
-                {
-                    LevelManager.Instance.PlayerCoreUnitTakeDamage(info);
-                }
+                LevelManager.Instance.PlayerUnitTakeDamage(info);
             }
         }
 
@@ -461,6 +464,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         data.OnTriggerAdd();
         _modifyTriggerDatas.Add(data);
+    }
+
+    public ModifyTriggerData GetModifierTriggerByUID(uint uid)
+    {
+        return _modifyTriggerDatas.Find(x => x.UID == uid);
     }
 
     /// <summary>
@@ -621,5 +629,39 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         return null;
     }
+
+    #region Anim
+
+    protected const string AnimTrigger_Spawn = "Spawn";
+
+    public async void DoSpawnEffect()
+    {
+        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        SetAnimatorTrigger(AnimTrigger_Spawn);
+        var length = GameHelper.GetAnimatorClipLength(_animator, "EnemyShip_Spawn");
+        await UniTask.Delay((int)(length * 1000));
+        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+    }
+
+    private void ResetAllAnimation()
+    {
+        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _animator.ResetTrigger(AnimTrigger_Spawn);
+    }
+
+    protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
+
+    private void SetAnimatorTrigger(string trigger)
+    {
+        _animator.SetTrigger(trigger);
+    }
+
+    private void ResetAnimatorTrigger(string trigger)
+    {
+        _animator.ResetTrigger(trigger);
+    }
+
+
+    #endregion
 }
 

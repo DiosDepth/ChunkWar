@@ -10,6 +10,11 @@ public class ShipPlugInfo : IPropertyModify
 {
     public int PlugID;
     public uint UID { get; set; }
+    
+    public string GetName
+    {
+        get { return LocalizationManager.Instance.GetTextValue(_cfg.GeneralConfig.Name); }
+    }
 
     public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipPlug; } }
 

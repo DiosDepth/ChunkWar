@@ -137,9 +137,9 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnShieldBroken(type));
             }
-            else if (type == ModifyTriggerType.OnPlayerCoreUnitTakeDamage)
+            else if (type == ModifyTriggerType.OnPlayerUnitTakeDamage)
             {
-                result.Add(type.ToString(), new MTC_OnPlayerCoreUnitTakeDamage(type));
+                result.Add(type.ToString(), new MTC_OnPlayerUnitTakeDamage(type));
             }
             else if (type == ModifyTriggerType.OnPlayerCreateExplode)
             {
@@ -600,8 +600,13 @@ public class MTC_OnShieldBroken : ModifyTriggerConfig
     }
 }
 
-public class MTC_OnPlayerCoreUnitTakeDamage : ModifyTriggerConfig
+public class MTC_OnPlayerUnitTakeDamage : ModifyTriggerConfig
 {
+    [HorizontalGroup("AD", 120)]
+    [LabelText("ÊÇ·ñºËÐÄ")]
+    [LabelWidth(50)]
+    public bool IsCoreUnit = false;
+
     [HorizontalGroup("AD", 120)]
     [LabelText("Öµ")]
     [LabelWidth(50)]
@@ -623,14 +628,14 @@ public class MTC_OnPlayerCoreUnitTakeDamage : ModifyTriggerConfig
     [ShowIf("ModifyFinalDamage")]
     public float DamageAddPercent;
 
-    public MTC_OnPlayerCoreUnitTakeDamage(ModifyTriggerType type) : base(type)
+    public MTC_OnPlayerUnitTakeDamage(ModifyTriggerType type) : base(type)
     {
 
     }
 
     public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
     {
-        return new MT_PlayerCoreUnitTakeDamage(this, uid);
+        return new MT_PlayerUnitTakeDamage(this, uid);
     }
 }
 

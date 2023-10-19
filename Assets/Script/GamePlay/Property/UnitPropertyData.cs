@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum PropertyModifyType
 {
@@ -18,6 +19,10 @@ public enum PropertyModifyType
 public class UnitPropertyData 
 {
     private Dictionary<PropertyModifyKey, UnitPropertyPool> PropertyPool = new Dictionary<PropertyModifyKey, UnitPropertyPool>();
+    public List<UnitPropertyPool> GetAllPool()
+    {
+        return PropertyPool.Values.ToList();
+    }
 
     public void Clear()
     {

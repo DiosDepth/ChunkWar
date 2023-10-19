@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine.Events;
 using Cysharp.Threading.Tasks;
+#if GMDEBUG
+using GM_Observer;
+#endif
 
 public struct RogueEvent
 {
@@ -263,6 +266,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     private bool autoEnterHarbor = true;
 
+#if GMDEBUG
+    public BattleObserver GM_Observer;
+#endif
+
     #region Action 
 
     /* 负载百分比变化 */
@@ -366,11 +373,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         {
             AllCurrentShipPlugs[i].OnBattleUpdate();
         }
-
-        for (int i = 0; i < AllShipUnits.Count; i++) 
-        {
-            AllShipUnits[i].OnUpdateBattle();
-        }
     }
 
     /// <summary>
@@ -436,6 +438,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///InitPlugs
         InitShipPlugs();
         InitOriginShipUnit();
+
+#if GMDEBUG
+        CreateBattleObserver();
+#endif
     }
 
     public void PlayCurrentHardLevelBGM()
@@ -2341,6 +2347,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         PlayCurrentHardLevelBGM();
 
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
+
+#if GMDEBUG
+        CreateBattleObserver();
+#endif
+
         return true;
     }
 
@@ -2495,6 +2506,25 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
 
     #endregion
+
+#if GMDEBUG
+    private void CreateBattleObserver()
+    {
+        if(GM_Observer == null)
+        {
+            var obj = new GameObject();
+            obj.name = "Battle_Observer";
+            var cmpt = obj.AddComponent<BattleObserver>();
+            cmpt.Refresh();
+            GM_Observer = cmpt;
+        }
+        else
+        {
+            GM_Observer.Refresh();
+        }
+    }
+#endif
+
 }
 
 public class BattleResultInfo

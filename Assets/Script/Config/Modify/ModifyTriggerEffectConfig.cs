@@ -687,3 +687,21 @@ public class MTEC_HealUnitHP : ModifyTriggerEffectConfig
 
     }
 }
+
+public class MTEC_CreateEnemy : ModifyTriggerEffectConfig
+{
+    public MTEC_CreateEnemy(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
+    }
+}
