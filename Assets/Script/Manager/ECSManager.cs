@@ -369,15 +369,13 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     }
     public void PauseGame()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void UnPauseGame()
     {
-        throw new System.NotImplementedException();
+
     }
-
-
 
     public List<Unit> GetRandomUnitList(OwnerType type, int count)
     {
