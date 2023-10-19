@@ -697,6 +697,7 @@ public class MTEC_AddAISpawn : ModifyTriggerEffectConfig
     public List<WaveEnemySpawnConfig> SpawnCfgList = new List<WaveEnemySpawnConfig>();
 
     [LabelText("位置使用创生AI船Node")]
+    [LabelWidth(200)]
     public bool UseShipSpawnNode = false;
 
     public MTEC_AddAISpawn(ModifyTriggerEffectType type) : base(type)

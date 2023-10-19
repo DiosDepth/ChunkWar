@@ -352,7 +352,15 @@ public abstract class ModifyTriggerData : IPropertyModify
         if (cfg.SpawnCfgList == null || cfg.SpawnCfgList.Count <= 0)
             return;
 
-        RogueManager.Instance.AddExtraAIFactory(cfg.SpawnCfgList, UID.ToString());
+        if (cfg.UseShipSpawnNode)
+        {
+            var ownerShip = ModifyUIDManager.Instance.GetModifyInterface(UID) as AISkillShip;
+            RogueManager.Instance.AddExtraAIFactory(cfg.SpawnCfgList, UID.ToString(), ownerShip);
+        }
+        else
+        {
+            RogueManager.Instance.AddExtraAIFactory(cfg.SpawnCfgList, UID.ToString());
+        }
     }
 
     public void RemoveAISpawn(MTEC_AddAISpawn cfg)

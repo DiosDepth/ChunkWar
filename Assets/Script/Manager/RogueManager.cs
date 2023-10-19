@@ -187,7 +187,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public List<Unit> AllShipUnits = new List<Unit>();
 
     private BattleSpecialEntitySpawnConfig _entitySpawnConfig;
-    private List<WaveEnemySpawnConfig> _extraSpawnConfig = new List<WaveEnemySpawnConfig>();
+    private List<ExtraSpawnInfo> _extraSpawnConfig = new List<ExtraSpawnInfo>();
 
     /// <summary>
     /// 当前刷新次数
@@ -1317,11 +1317,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private void CreateExtraFactory(int ID)
     {
-        var cfg = _extraSpawnConfig.FindAll(x => x.ID == ID).FirstOrDefault();
-        if (cfg == null)
+        var info = _extraSpawnConfig.FindAll(x => x.ID == ID).FirstOrDefault();
+        if (info == null)
             return;
 
-        SpawnEntity(cfg);
+        ///GetRandomNode
+        if(info.ownerShip != null)
+        {
+            var trans = info.ownerShip.GetRandomAttachPoint();
+            SpawnEntity(info.Cfg, -1, trans);
+        }
+        else
+        {
+            SpawnEntity(info.Cfg, -1);
+        }
     }
 
     /// <summary>
@@ -1329,7 +1338,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     /// <param name="cfg"></param>
     /// <param name="key"></param>
-    public void AddExtraAIFactory(List<WaveEnemySpawnConfig> spawns, string key)
+    public void AddExtraAIFactory(List<WaveEnemySpawnConfig> spawns, string key, AISkillShip owner = null)
     {
         for (int i = 0; i < spawns.Count; i++)
         {
@@ -1337,7 +1346,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             var trigger = LevelTimerTrigger.CreateTrigger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount, key);
             trigger.BindChangeAction(CreateExtraFactory, cfg.ID);
             Timer.AddTrigger(trigger);
-            _extraSpawnConfig.Add(cfg);
+            ExtraSpawnInfo info = new ExtraSpawnInfo
+            {
+                Cfg = cfg,
+                ID = cfg.ID,
+                ownerShip = owner
+            };
+
+            _extraSpawnConfig.Add(info);
         }
     }
 
@@ -1350,17 +1366,26 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         for (int i = 0; i < spawns.Count; i++) 
         {
-            _extraSpawnConfig.Remove(spawns[i]);
+            RemoveExtraSpawnData(spawns[i].ID);
         }
         Timer.RemoveTriggersByKey(key);
     }
 
-    public void SpawnEntity(WaveEnemySpawnConfig cfg, int overrideHardLevelID = -1)
+    public void SpawnEntity(WaveEnemySpawnConfig cfg, int overrideHardLevelID = -1, Transform overrideSpawnPoint = null)
     {
         if (cfg == null || currentShip == null)
             return;
 
-        Vector2 spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
+        Vector2 spawnpoint = Vector2.zero;
+        if (overrideSpawnPoint != null)
+        {
+            spawnpoint = overrideSpawnPoint.position;
+        }
+        else
+        {
+            spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
+        }
+
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
         {
             AIFactory aIFactory = obj.GetComponent<AIFactory>();
@@ -1409,6 +1434,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         return totalScore;
     }
  
+    private void RemoveExtraSpawnData(int index)
+    {
+        for(int i = _extraSpawnConfig.Count - 1; i >= 0; i--)
+        {
+            if (_extraSpawnConfig[i].ID == index)
+                _extraSpawnConfig.RemoveAt(i);
+        }
+    }
+
     #endregion
 
     #region Property

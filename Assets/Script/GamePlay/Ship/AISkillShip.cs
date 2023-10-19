@@ -34,6 +34,17 @@ public class AISkillShip : AIShip, IPropertyModify
         InitAIShipSkill();
     }
 
+    public Transform GetRandomAttachPoint()
+    {
+        var trans = transform.Find("AttachPoints");
+        if (trans == null)
+            return null;
+
+        var childCount = trans.childCount;
+        var index = UnityEngine.Random.Range(0, childCount);
+        return trans.GetChild(index);
+    }
+
     private void Update()
     {
         if (GameManager.Instance.IsPauseGame())

@@ -1490,7 +1490,7 @@ MonoBehaviour:
       Data: 
     - Name: UseShipSpawnNode
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 8
       Data: 

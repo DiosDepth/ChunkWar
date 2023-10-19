@@ -11,6 +11,14 @@ public enum Shape
     Line,
     Arch,
 }
+
+public class ExtraSpawnInfo
+{
+    public int ID;
+    public WaveEnemySpawnConfig Cfg;
+    public AISkillShip ownerShip;
+}
+
 [System.Serializable]
 public class RectAISpawnSetting
 {
