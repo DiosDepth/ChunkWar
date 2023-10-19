@@ -14,6 +14,11 @@ public abstract class ModifyTriggerData : IPropertyModify
         }
     }
 
+    public string GetName
+    {
+        get { return string.Empty; }
+    }
+
     protected int currentTriggerCount;
 
     /// <summary>

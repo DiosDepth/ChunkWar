@@ -8,6 +8,14 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
 
     public uint UID { get; set; }
 
+    public string GetName
+    {
+        get
+        {
+            return LocalizationManager.Instance.GetTextValue(UnitConfig.GeneralConfig.Name);
+        }
+    }
+
     public WreckageDropItemConfig _cfg;
 
     public int Weight

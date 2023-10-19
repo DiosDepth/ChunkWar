@@ -1433,6 +1433,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: AIShipEffects
+      Entry: 7
+      Data: 3|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 1
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 6b6b0a918a27b064b8d9ebe6edbe2663, type: 3}

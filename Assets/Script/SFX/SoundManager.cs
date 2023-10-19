@@ -53,6 +53,14 @@ public class SoundManager : Singleton<SoundManager>
         RuntimeManager.PlayOneShot(evtParam, trans.position);
     }
 
+    public void Play2DSound(string eventName)
+    {
+        if (string.IsNullOrEmpty(eventName))
+            return;
+        var evtParam = "event:/" + eventName;
+        RuntimeManager.PlayOneShot(evtParam);
+    }
+
     public void LoadBanks()
     {
         var bankFiles = Resources.LoadAll<TextAsset>(DataConfigPath.AudioBankRoot);

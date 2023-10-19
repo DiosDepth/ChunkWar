@@ -92,6 +92,7 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
         }
 
     }
+
     /// <summary>
     /// 获取所有武器
     /// </summary>
@@ -135,17 +136,6 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
         {
             conditionState = new StateMachine<ShipConditionState>(this.gameObject, false, false);
         }
-    }
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        
     }
 
     protected virtual void OnDestroy()

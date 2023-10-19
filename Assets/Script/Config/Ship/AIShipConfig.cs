@@ -106,5 +106,6 @@ public class AIShipConfig : BaseShipConfig
         base.InitData();
 
     }
+
 #endif
 }

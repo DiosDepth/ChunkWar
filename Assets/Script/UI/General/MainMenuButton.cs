@@ -69,6 +69,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
         }
         
         LeanTween.moveLocalX(gameObject, -18, 0.1f);
+        SoundManager.Instance.Play2DSound("UI/ui_button_mouseover");
     }
 
     public void OnHoverExit()

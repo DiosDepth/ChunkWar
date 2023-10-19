@@ -157,7 +157,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /* 玩家闪避 */
     public UnityAction<Unit> OnPlayerShipParry;
     /* 玩家核心受到伤害 */
-    public UnityAction<DamageResultInfo> OnPlayerCoreUnitTakeDamage;
+    public UnityAction<DamageResultInfo> OnPlayerUnitTakeDamage;
     /* 玩家制造爆炸 */
     public UnityAction OnPlayerCreateExplode;
     /* 拾取物件 */
@@ -220,7 +220,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         OnPlayerWeaponReload = null;
         OnPlayerWeaponFire = null;
         OnPlayerShipParry = null;
-        OnPlayerCoreUnitTakeDamage = null;
+        OnPlayerUnitTakeDamage = null;
         OnPlayerCreateExplode = null;
         OnCollectPickUp = null;
         OnPlayerUnitParalysis = null;
@@ -484,9 +484,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         OnCoreHPPercentChange?.Invoke(percent, oldValue, newValue);
     }
 
-    public void PlayerCoreUnitTakeDamage(DamageResultInfo damage)
+    public void PlayerUnitTakeDamage(DamageResultInfo damage)
     {
-        OnPlayerCoreUnitTakeDamage?.Invoke(damage);
+        OnPlayerUnitTakeDamage?.Invoke(damage);
     }
 
     #region Battle Misc
