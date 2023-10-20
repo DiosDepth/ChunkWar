@@ -102,6 +102,10 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_AddAISpawn(type));
             }
+            else if(type == ModifyTriggerEffectType.ActiveEnemyExtraUnitGroup)
+            {
+                result.Add(type.ToString(), new MTEC_ActiveEnemyUnitGroup(type));
+            }
         }
 
         return result;
@@ -692,6 +696,17 @@ public class MTEC_HealUnitHP : ModifyTriggerEffectConfig
     }
 }
 
+[System.Serializable]
+public class AttachPointConfig
+{
+    [LabelWidth(200)]
+    public bool RandomNode;
+
+    [HideIf("RandomNode")]
+    [LabelWidth(200)]
+    public string NodeName;
+}
+
 public class MTEC_AddAISpawn : ModifyTriggerEffectConfig
 {
     public List<WaveEnemySpawnConfig> SpawnCfgList = new List<WaveEnemySpawnConfig>();
@@ -699,6 +714,10 @@ public class MTEC_AddAISpawn : ModifyTriggerEffectConfig
     [LabelText("位置使用创生AI船Node")]
     [LabelWidth(200)]
     public bool UseShipSpawnNode = false;
+
+    [ShowIf("UseShipSpawnNode")]
+    [HideReferenceObjectPicker]
+    public AttachPointConfig PointCfg;
 
     public MTEC_AddAISpawn(ModifyTriggerEffectType type) : base(type)
     {
@@ -713,5 +732,26 @@ public class MTEC_AddAISpawn : ModifyTriggerEffectConfig
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
     {
         data.RemoveAISpawn(this);
+    }
+}
+
+public class MTEC_ActiveEnemyUnitGroup : ModifyTriggerEffectConfig
+{
+    [LabelWidth(200)]
+    public string UnitGroupName;
+
+    public MTEC_ActiveEnemyUnitGroup(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.ActiveEnemyUnitGroup(this);
+    }
+
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+
     }
 }

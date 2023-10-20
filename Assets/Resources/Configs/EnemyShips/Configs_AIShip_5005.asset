@@ -1505,6 +1505,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Skills
+      Entry: 7
+      Data: 7|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 5005
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 6cc21df3007a2eb4aae2860d6224bf08, type: 3}

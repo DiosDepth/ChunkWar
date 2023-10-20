@@ -90,6 +90,7 @@ public enum ModifyTriggerEffectType
     AddUnitModifier,
     HealUnitHP,
     AddAISpawn,
+    ActiveEnemyExtraUnitGroup
 }
 
 public class BattleMainConfig : SerializedScriptableObject

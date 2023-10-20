@@ -19,6 +19,8 @@ public class UnitSceneHPSlider : GUIBasePanel, IPoolable
         private set;
     }
 
+    private Transform parentTrans;
+
     protected override void Awake()
     {
         _fill_01 = transform.Find("Fill_1").SafeGetComponent<Image>();
@@ -27,6 +29,7 @@ public class UnitSceneHPSlider : GUIBasePanel, IPoolable
 
     private void Update()
     {
+        UpdateRotatio();
         if (!_startLerp)
             return;
 
@@ -49,6 +52,7 @@ public class UnitSceneHPSlider : GUIBasePanel, IPoolable
         var cmpt = unit.HpComponent;
         cmpt.OnHpChangeAction += OnUpdateSlider;
         OnUpdateSlider(cmpt.GetCurrentHP, cmpt.MaxHP, cmpt.HPPercent);
+        parentTrans = unit._owner.transform;
     }
 
     private void OnUpdateSlider(int currentHP, int MaxHP, float hpPercent)
@@ -72,6 +76,15 @@ public class UnitSceneHPSlider : GUIBasePanel, IPoolable
 
     public void PoolableSetActive(bool isactive = true)
     {
+
+    }
+
+    private void UpdateRotatio()
+    {
+        if (parentTrans == null)
+            return;
+
+        transform.rotation = new Quaternion(0, 0, -parentTrans.rotation.z, 0);
 
     }
 }

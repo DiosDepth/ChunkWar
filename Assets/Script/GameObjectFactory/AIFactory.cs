@@ -17,6 +17,7 @@ public class ExtraSpawnInfo
     public int ID;
     public WaveEnemySpawnConfig Cfg;
     public AISkillShip ownerShip;
+    public AttachPointConfig PointCfg;
 }
 
 [System.Serializable]

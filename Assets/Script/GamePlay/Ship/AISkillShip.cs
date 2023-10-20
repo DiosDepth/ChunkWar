@@ -26,12 +26,15 @@ public class AISkillShip : AIShip, IPropertyModify
         }
     }
 
+    public Transform[] ExtraUnitGroup = new Transform[0];
+
     private List<ModifyTriggerData> _skillDatas = new List<ModifyTriggerData>();
 
     public override void Initialization()
     {
         base.Initialization();
         InitAIShipSkill();
+        InitExtraUnitGroups();
     }
 
     public Transform GetRandomAttachPoint()
@@ -43,6 +46,20 @@ public class AISkillShip : AIShip, IPropertyModify
         var childCount = trans.childCount;
         var index = UnityEngine.Random.Range(0, childCount);
         return trans.GetChild(index);
+    }
+
+    public Transform GetAttachPoint(string name)
+    {
+        var trans = transform.Find("AttachPoints");
+        if (trans == null)
+            return null;
+
+        foreach(Transform t in trans)
+        {
+            if (string.Compare(t.name, name) == 0)
+                return t;
+        }
+        return null;
     }
 
     private void Update()
@@ -95,4 +112,71 @@ public class AISkillShip : AIShip, IPropertyModify
             _skillDatas[i].OnTriggerRemove();
         }
     }
+
+    #region Extra Units
+
+    private void InitExtraUnitGroups()
+    {
+        for (int i = 0; i < ExtraUnitGroup.Length; i++) 
+        {
+            ExtraUnitGroup[i].SafeSetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// 激活额外units
+    /// </summary>
+    /// <param name="name"></param>
+    public void ActiveExtraUnits(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            return;
+
+        var parent = GetExtraUnitGroup(name);
+        if(parent != null)
+        {
+            parent.SafeSetActive(true);
+            var allUnits = parent.GetComponentsInChildren<Unit>();
+            for (int i = 0; i < allUnits.Length; i++) 
+            {
+                AddExtraUnit(allUnits[i]);
+            }
+        }
+    }
+
+    private Transform GetExtraUnitGroup(string name)
+    {
+        for (int i = 0; i < ExtraUnitGroup.Length; i++)
+        {
+            if (string.Compare(name, ExtraUnitGroup[i].name) == 0)
+            {
+                return ExtraUnitGroup[i];
+            }
+        }
+        return null;
+    }
+
+    private void AddExtraUnit(Unit unit)
+    {
+        var unitconfig = DataManager.Instance.GetUnitConfig(unit.UnitID);
+        unit.gameObject.SetActive(true);
+
+        unit.Initialization(this, unitconfig);
+        unit.SetUnitProcess(true);
+        _unitList.Add(unit);
+        if (unit.IsCoreUnit)
+        {
+            CoreUnits.Add(unit);
+        }
+        ///Do Spawn
+        unit.DoSpawnEffect();
+
+        if (AIShipCfg.BillboardType == EnemyHPBillBoardType.Elite_Scene)
+        {
+            ///注册Unit的血条显示
+            unit.RegisterHPBar();
+        }
+    }
+
+    #endregion
 }

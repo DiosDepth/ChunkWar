@@ -1322,10 +1322,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             return;
 
         ///GetRandomNode
-        if(info.ownerShip != null)
+        if(info.ownerShip != null && info.PointCfg != null)
         {
-            var trans = info.ownerShip.GetRandomAttachPoint();
-            SpawnEntity(info.Cfg, -1, trans);
+            var pointCfg = info.PointCfg;
+
+            Transform attachPoint = null;
+            if (pointCfg.RandomNode)
+            {
+                attachPoint = info.ownerShip.GetRandomAttachPoint();
+            }
+            else
+            {
+                attachPoint = info.ownerShip.GetAttachPoint(pointCfg.NodeName);
+            }
+
+            SpawnEntity(info.Cfg, -1, attachPoint);
         }
         else
         {
@@ -1338,7 +1349,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     /// <param name="cfg"></param>
     /// <param name="key"></param>
-    public void AddExtraAIFactory(List<WaveEnemySpawnConfig> spawns, string key, AISkillShip owner = null)
+    public void AddExtraAIFactory(List<WaveEnemySpawnConfig> spawns, string key, AISkillShip owner = null, AttachPointConfig pointCfg = null)
     {
         for (int i = 0; i < spawns.Count; i++)
         {
@@ -1350,7 +1361,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             {
                 Cfg = cfg,
                 ID = cfg.ID,
-                ownerShip = owner
+                ownerShip = owner,
+                PointCfg = pointCfg
             };
 
             _extraSpawnConfig.Add(info);

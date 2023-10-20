@@ -1491,6 +1491,18 @@ MonoBehaviour:
     - Name: UseShipSpawnNode
       Entry: 5
       Data: true
+    - Name: PointCfg
+      Entry: 7
+      Data: 10|AttachPointConfig, Assembly-CSharp
+    - Name: RandomNode
+      Entry: 5
+      Data: true
+    - Name: NodeName
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
