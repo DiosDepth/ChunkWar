@@ -16,6 +16,8 @@ public class AIShip : BaseShip,IPoolable, IDropable
     /// </summary>
     public int OverrideHardLevelID = -1;
 
+    private bool _isShowingOutLine = false;
+
     public override void Initialization()
     {
         base.Initialization();
@@ -122,6 +124,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     public void PoolableReset()
     {
         OnRemove();
+        _isShowingOutLine = false;
     }
 
     public void PoolableDestroy()
@@ -336,6 +339,27 @@ public class AIShip : BaseShip,IPoolable, IDropable
     protected const string AnimTrigger_Spawn = "Spawn";
     protected const string AnimTrigger_DeSpawn = "DeSpawn";
 
+    /// <summary>
+    /// 强化描边
+    /// </summary>
+    public void ShowEnhanceOutline()
+    {
+        if (_isShowingOutLine)
+            return;
+
+        _isShowingOutLine = true;
+        _spriteMat.EnableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+    }
+
+    /// <summary>
+    /// 去除强化描边
+    /// </summary>
+    public void HideEnhanceOutLine()
+    {
+        _spriteMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+        _isShowingOutLine = false;
+    }
+
     private async void DoSpawnEffect()
     {
         _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
@@ -378,6 +402,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     private void ResetAllAnimation()
     {
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _spriteMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
         _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);
     }
 

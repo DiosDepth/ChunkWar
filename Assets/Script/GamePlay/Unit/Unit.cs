@@ -281,7 +281,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// <summary>
     /// 处理OnRemove 属性 & 机制
     /// </summary>
-    public void OnRemove()
+    public virtual void OnRemove()
     {
         ResetAllAnimation();
         baseAttribute.Destroy();

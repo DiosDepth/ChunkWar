@@ -226,6 +226,7 @@ public class BaseShip : MonoBehaviour, IPauseable
     #region Anim
 
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
+    protected const string Mat_Shader_ProeprtyKey_OUTBASE_ON = "OUTBASE_ON";
 
     public void SetAnimatorTrigger(string trigger)
     {

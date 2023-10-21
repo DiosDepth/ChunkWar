@@ -535,14 +535,22 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     /// <param name="type"></param>
     /// <param name="info"></param>
     /// <returns></returns>
-    public virtual List<Unit> GetAIShipAllActiveUnitByTargetsInfo(TargetInfo[] info)
+    public virtual List<Unit> GetAIShipAllActiveUnitByTargetsInfo(TargetInfo[] info, out List<AIShip> outShips)
     {
         List<Unit> result = new List<Unit>();
+        outShips = new List<AIShip>();
         for (int i = 0; i < info.Length; i++)
         {
             var target = activeAIUnitData.unitList[info[i].index];
 
-            var shipUnits = target._owner.UnitList;
+            var ownerShip = target._owner;
+            var shipUnits = ownerShip.UnitList;
+
+            if (!outShips.Contains(ownerShip))
+            {
+                outShips.Add(ownerShip as AIShip);
+            }
+
             for (int j = 0; j < shipUnits.Count; j++) 
             {
                 var targetUnit = shipUnits[j];

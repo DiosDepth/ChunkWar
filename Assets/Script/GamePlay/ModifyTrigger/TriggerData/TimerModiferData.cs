@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /*
  * ¼ÆÊ±Modifer
@@ -22,6 +23,8 @@ public abstract class TimerModiferData
     private bool useDuration;
 
     protected ModifyTriggerData _parentTrigger;
+
+    public abstract TimerModifierStackConfig StackCfg { get; }
 
     public TimerModiferData(ModifyTriggerData parent, float totalTime, bool useDuration, uint uid)
     {
@@ -48,6 +51,11 @@ public abstract class TimerModiferData
         }
     }
 
+    public void RefreshDuration()
+    {
+        _timer = 0;
+    }
+
     public void OnUpdate()
     {
         if (!useDuration)
@@ -67,6 +75,14 @@ public abstract class TimerModiferData
 public class TimerModiferData_Global : TimerModiferData
 {
     private MTEC_AddGlobalTimerModifier _cfg;
+
+    public override TimerModifierStackConfig StackCfg
+    {
+        get
+        {
+            return _cfg.StackConfig;
+        }
+    }
 
     public TimerModiferData_Global(ModifyTriggerData parent, MTEC_AddGlobalTimerModifier cfg, uint uid) : base(parent, cfg.DurationTime, cfg.UseDuration, uid)
     {
@@ -103,26 +119,35 @@ public class TimerModiferData_Unit : TimerModiferData
 {
     private MTEC_AddUnitTimerModifier _cfg;
 
-    public uint TargetUnitUID;
+    public Unit TargetUnit;
 
-    public TimerModiferData_Unit(ModifyTriggerData parent, MTEC_AddUnitTimerModifier cfg, uint uid, uint targetUnitID) : base(parent, cfg.DurationTime, cfg.UseDuration, uid)
+    public Action<Unit> OnRemoveAction;
+
+    public override TimerModifierStackConfig StackCfg
+    {
+        get
+        {
+            return _cfg.StackConfig;
+        }
+    }
+
+    public TimerModiferData_Unit(ModifyTriggerData parent, MTEC_AddUnitTimerModifier cfg, uint uid, Unit targetUnit) : base(parent, cfg.DurationTime, cfg.UseDuration, uid)
     {
         this._cfg = cfg;
-        this.TargetUnitUID = targetUnitID;
+        this.TargetUnit = targetUnit;
     }
 
     public override void OnAdded()
     {
         base.OnAdded();
-        var targetUnit = RogueManager.Instance.GetPlayerShipUnit(TargetUnitUID);
-        if (targetUnit == null)
+        if (TargetUnit == null)
             return;
 
         if (_cfg.ModifyMap != null)
         {
             foreach (var item in _cfg.ModifyMap)
             {
-                targetUnit.LocalPropetyData.AddPropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID, item.Value);
+                TargetUnit.LocalPropetyData.AddPropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID, item.Value);
             }
         }
     }
@@ -130,16 +155,16 @@ public class TimerModiferData_Unit : TimerModiferData
     public override void OnRemove()
     {
         base.OnRemove();
-        var targetUnit = RogueManager.Instance.GetPlayerShipUnit(TargetUnitUID);
-        if (targetUnit == null)
+        if (TargetUnit == null)
             return;
 
         if (_cfg.ModifyMap != null)
         {
             foreach (var item in _cfg.ModifyMap)
             {
-                targetUnit.LocalPropetyData.RemovePropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID);
+                TargetUnit.LocalPropetyData.RemovePropertyModifyValue(item.Key, LocalPropertyModifyType.Modify, UID);
             }
         }
+        OnRemoveAction?.Invoke(TargetUnit);
     }
 }

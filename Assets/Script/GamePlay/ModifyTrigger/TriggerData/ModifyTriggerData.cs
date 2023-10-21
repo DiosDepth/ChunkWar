@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class ModifyTriggerData : IPropertyModify
 {
@@ -83,11 +84,81 @@ public abstract class ModifyTriggerData : IPropertyModify
         _timerModifiers.Add(modifer);
     }
 
+    public void AddTimerModifier_Unit(MTEC_AddUnitTimerModifier config, Unit parentUnit, Action<Unit> removeCallback = null)
+    {
+        if (config.StackConfig.GlobalUnique)
+        {
+            var modifier = GetTimerModifierDataByUniqueName(config.StackConfig.UniqueKey);
+            if (modifier != null && !modifier.IsNeedToRemove)
+            {
+                var stackType = config.StackConfig.StackType;
+                if (stackType == TimerModifierStackType.RefreshTime)
+                {
+                    modifier.RefreshDuration();
+                }
+            }
+            else
+            {
+                AddNewTimeModifierData_Unit(config, parentUnit, removeCallback);
+            }
+        }
+        else
+        {
+            AddNewTimeModifierData_Unit(config, parentUnit, removeCallback);
+        }
+    }
+
+    /// <summary>
+    /// 仅用于玩家
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="parentUnitUID"></param>
     public void AddTimerModifier_Unit(MTEC_AddUnitTimerModifier config, uint parentUnitUID)
     {
-        TimerModiferData_Unit modifier = new TimerModiferData_Unit(this, config, UID, parentUnitUID);
+        var targetUnit = RogueManager.Instance.GetPlayerShipUnit(parentUnitUID);
+        if (targetUnit == null)
+            return;
+
+        if (config.StackConfig.GlobalUnique)
+        {
+            var modifier = GetTimerModifierDataByUniqueName(config.StackConfig.UniqueKey);
+            if(modifier != null && !modifier.IsNeedToRemove)
+            {
+                var stackType = config.StackConfig.StackType;
+                if (stackType == TimerModifierStackType.RefreshTime)
+                {
+                    modifier.RefreshDuration();
+                }
+            }
+            else
+            {
+                AddNewTimeModifierData_Unit(config, targetUnit);
+            }
+        }
+        else
+        {
+            AddNewTimeModifierData_Unit(config, targetUnit);
+        }
+    }
+
+    private void AddNewTimeModifierData_Unit(MTEC_AddUnitTimerModifier config, Unit parentUnit, Action<Unit> removeCallback = null)
+    {
+        TimerModiferData_Unit modifier = new TimerModiferData_Unit(this, config, UID, parentUnit);
+        modifier.OnRemoveAction = removeCallback;
         modifier.OnAdded();
         _timerModifiers.Add(modifier);
+    }
+
+
+    private TimerModiferData_Unit GetTimerModifierDataByUniqueName(string uniqueKey)
+    {
+        for (int i = 0; i < _timerModifiers.Count; i++) 
+        {
+            var stackCfg = _timerModifiers[i].StackCfg;
+            if (string.Compare(stackCfg.UniqueKey, uniqueKey) == 0)
+                return _timerModifiers[i] as TimerModiferData_Unit;
+        }
+        return null;
     }
 
     public void AddModifier_Unit(MTEC_AddUnitModifier config, uint parentUnitUID)
@@ -126,8 +197,12 @@ public abstract class ModifyTriggerData : IPropertyModify
         for (int i = _timerModifiers.Count - 1; i >= 0; i--)
         {
             var modifier = _timerModifiers[i];
-            if (modifier is TimerModiferData_Unit && (modifier as TimerModiferData_Unit).TargetUnitUID == parentUnitUID) 
+            if (modifier is TimerModiferData_Unit) 
             {
+                var targetUnit = (modifier as TimerModiferData_Unit).TargetUnit;
+                if (targetUnit == null || targetUnit.UID != parentUnitUID)
+                    return;
+
                 modifier.OnRemove();
                 _timerModifiers.RemoveAt(i);
                 break;

@@ -393,6 +393,10 @@ public class MTEC_SetUnitPropertyValue : ModifyTriggerEffectConfig
 /// </summary>
 public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
 {
+    [HideReferenceObjectPicker]
+    [LabelText("叠加规则")]
+    public TimerModifierStackConfig StackConfig;
+
     [DictionaryDrawerSettings()]
     public Dictionary<PropertyModifyKey, float> ModifyMap = new Dictionary<PropertyModifyKey, float>();
 
@@ -423,8 +427,27 @@ public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
     }
 }
 
+public enum TimerModifierStackType
+{
+    RefreshTime,
+}
+
+[System.Serializable]
+public class TimerModifierStackConfig
+{
+    public bool GlobalUnique = false;
+
+    public string UniqueKey;
+
+    public TimerModifierStackType StackType;
+
+}
+
 public class MTEC_AddUnitTimerModifier : ModifyTriggerEffectConfig
 {
+    [HideReferenceObjectPicker]
+    [LabelText("叠加规则")]
+    public TimerModifierStackConfig StackConfig;
 
     [DictionaryDrawerSettings()]
     public Dictionary<UnitPropertyModifyKey, float> ModifyMap = new Dictionary<UnitPropertyModifyKey, float>();
