@@ -340,6 +340,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         GameManager.Instance.UnRegisterPauseable(this);
         MonoManager.Instance.RemoveUpdateListener(Update);
         MonoManager.Instance.RemoveFixedUpdateListener(FixedUpdate);
+        ClearJobData();
         DisposeJobData();
     }
 
