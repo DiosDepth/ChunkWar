@@ -160,7 +160,7 @@ public class BaseShip : MonoBehaviour, IPauseable
     /// <summary>
     /// 设置所有部件状态
     /// </summary>
-    public async void ForeceSetAllUnitState(DamagableState state, float time = -1)
+    public async void ForeceSetAllUnitState(DamagableState state, float time = -1, bool playimmortalEffect = false)
     {
         for(int i = 0; i < _unitList.Count; i++)
         {

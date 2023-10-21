@@ -1622,6 +1622,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         {
             panel.Initialization();
         });
+        ///设置玩家无敌时长
+        var time = DataManager.Instance.battleCfg.ShopExit_Player_Immortal_Time;
+        if(currentShip != null)
+        {
+            currentShip.ForeceSetAllUnitState(DamagableState.Immortal, time);
+        }
     }
 
     public ShopGoodsInfo GetShopGoodsInfo(int goodsID)

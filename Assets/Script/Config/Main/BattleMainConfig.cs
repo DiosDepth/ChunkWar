@@ -99,6 +99,7 @@ public class BattleMainConfig : SerializedScriptableObject
     public byte HarborMapTempUnitSlotCount = 6;
     public byte ShipLevelUp_GrowthItem_Count = 4;
     public float BattleOption_ColliderRaidus = 5;
+    public float ShopExit_Player_Immortal_Time = 1.2f;
 
     /// <summary>
     /// hardLevel√øX√Î‘ˆº”1
