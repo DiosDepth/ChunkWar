@@ -411,6 +411,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         isLevelUpdate = false;
         CameraManager.Instance.SetCameraUpdate(false);
+
+        _bulletPool.transform.Pool_BackAllChilds();
     }
 
     public void LevelReset()

@@ -112,7 +112,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
             unit.Initialization(this, unitconfig);
             unit.SetUnitProcess(true);
-            if (unit.IsCoreUnit)
+            if (unit.IsCoreUnit && !CoreUnits.Contains(unit))
             {
                 CoreUnits.Add(unit);
             }
@@ -124,6 +124,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     public void PoolableReset()
     {
         OnRemove();
+        CoreUnits.Clear();
         _isShowingOutLine = false;
     }
 

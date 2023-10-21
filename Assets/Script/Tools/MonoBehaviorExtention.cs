@@ -311,4 +311,14 @@ public static class MonoBehaviorExtention
         }
     }
 
+
+    public static void Pool_BackAllChilds(this Transform trans)
+    {
+        var childCount = trans.childCount;
+        for (int i = childCount - 1; i >= 0; i--)
+        {
+            var child = trans.GetChild(i);
+            child.GetComponent<IPoolable>()?.PoolableDestroy();
+        }
+    }
 }

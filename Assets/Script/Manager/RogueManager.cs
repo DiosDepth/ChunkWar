@@ -1029,7 +1029,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///Í£Ö¹Íæ¼ÒÒÆ¶¯
         currentShip.controller.SetControllerUpdate(false);
         ECSManager.Instance.SetProcessECS(false);
+        LeanTween.cancelAll();
         ECSManager.Instance.GameOverProjectile();
+        LevelManager.Instance.GameOver();
         await UniTask.Delay(500);
 
         LevelManager.Instance.CollectAllPickUps();
