@@ -1030,6 +1030,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         currentShip.controller.SetControllerUpdate(false);
         ECSManager.Instance.SetProcessECS(false);
         ECSManager.Instance.GameOverProjectile();
+        await UniTask.Delay(500);
+
         LevelManager.Instance.CollectAllPickUps();
         LevelManager.Instance.DoAllShipDespawn();
 
