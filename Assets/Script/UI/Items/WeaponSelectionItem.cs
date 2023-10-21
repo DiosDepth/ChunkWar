@@ -71,6 +71,7 @@ public class WeaponSelectionItem : EnhancedScrollerCellView, IHoverUIItem
 
     public void OnHoverEnter()
     {
+        SoundManager.Instance.PlayUISound("UI_Click_Hover");
         selected?.Invoke(this);
     }
 

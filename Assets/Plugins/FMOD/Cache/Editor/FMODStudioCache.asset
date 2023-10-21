@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7668685509587410364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/ui_Click_Hover
+  m_EditorClassIdentifier: 
+  Path: event:/UI/ui_Click_Hover
+  Guid:
+    Data1: -1123151810
+    Data2: 1150346806
+    Data3: 2050329991
+    Data4: -1049056848
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-6987822416961858339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,26 +54,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 413
---- !u!114 &-6664033336870626408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Bullet.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/SOUND/Build/Desktop/Bullet.bank
-  Name: Bullet
-  StudioPath: bank:/Weapon/Bullet
-  lastModified: 638330923742472138
-  FileSizes:
-  - Name: Desktop
-    Value: 145408
-  Exists: 1
 --- !u!114 &-6642397187122173245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +100,7 @@ MonoBehaviour:
     Data3: 908218261
     Data4: -8258288
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -147,7 +154,7 @@ MonoBehaviour:
     Data3: -439646825
     Data4: 1148108500
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -155,26 +162,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 100
   Length: 1942
---- !u!114 &-5715433262494519045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Ship.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/SOUND/Build/Desktop/Ship.bank
-  Name: Ship
-  StudioPath: bank:/Ship
-  lastModified: 638330923741952141
-  FileSizes:
-  - Name: Desktop
-    Value: 49280
-  Exists: 1
 --- !u!114 &-5095043776763629429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,26 +179,6 @@ MonoBehaviour:
   StudioPath: bank:/BattleAudio
   lastModified: 638330844148096447
   FileSizes: []
-  Exists: 1
---- !u!114 &-4955616768577139061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/SOUND/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638330923741512140
-  FileSizes:
-  - Name: Desktop
-    Value: 1036
   Exists: 1
 --- !u!114 &-4948338453216327207
 MonoBehaviour:
@@ -240,6 +207,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 95
   Length: 1655
+--- !u!114 &-4932126327731624034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/unit_Build
+  m_EditorClassIdentifier: 
+  Path: event:/UI/unit_Build
+  Guid:
+    Data1: 911232430
+    Data2: 1197419671
+    Data3: -671944813
+    Data4: 1028198472
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4883550673050051952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/beam_hit_01
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/beam_hit_01
+  Guid:
+    Data1: -210012002
+    Data2: 1280612971
+    Data3: -1242351972
+    Data4: 804431049
+  Banks:
+  - {fileID: 5518491900420790000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2201
 --- !u!114 &-4526521602577045453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,26 +315,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1528
---- !u!114 &-4184298540943770787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/BattleAudio.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/SOUND/Build/Desktop/BattleAudio.bank
-  Name: BattleAudio
-  StudioPath: bank:/BattleAudio
-  lastModified: 638330923741502139
-  FileSizes:
-  - Name: Desktop
-    Value: 3391296
-  Exists: 1
 --- !u!114 &-3371026166483339481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +334,7 @@ MonoBehaviour:
     Data3: 1996359040
     Data4: -972118127
   Banks:
-  - {fileID: -5715433262494519045}
+  - {fileID: 1288176805813493146}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -387,7 +388,7 @@ MonoBehaviour:
     Data3: -1885980507
     Data4: -907905684
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -452,7 +453,7 @@ MonoBehaviour:
     Data3: -462286674
     Data4: 1871617550
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -506,7 +507,7 @@ MonoBehaviour:
     Data3: -169863261
     Data4: -1651609034
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -514,26 +515,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 413
---- !u!114 &-446295102006638599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/SOUND/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638330923741522140
-  FileSizes:
-  - Name: Desktop
-    Value: 1510
-  Exists: 1
 --- !u!114 &-102575614981572863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,11 +573,12 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -446295102006638599}
-  - {fileID: -4184298540943770787}
-  - {fileID: -6664033336870626408}
-  - {fileID: -4955616768577139061}
-  - {fileID: -5715433262494519045}
+  - {fileID: 1227211710014248362}
+  - {fileID: 629929198641315281}
+  - {fileID: 5518491900420790000}
+  - {fileID: 7608658188462933578}
+  - {fileID: 1288176805813493146}
+  - {fileID: 4887846075754875004}
   EditorEvents:
   - {fileID: 5844563321534762348}
   - {fileID: -6590946453055856424}
@@ -611,13 +593,103 @@ MonoBehaviour:
   - {fileID: 8365938617815285686}
   - {fileID: -3371026166483339481}
   - {fileID: 8706977739052789715}
+  - {fileID: -4883550673050051952}
+  - {fileID: 530705294194346898}
+  - {fileID: 5084095035335514901}
+  - {fileID: 3718202569096509507}
+  - {fileID: -7668685509587410364}
+  - {fileID: 4491097787471366735}
+  - {fileID: -4932126327731624034}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -4955616768577139061}
+  - {fileID: 7608658188462933578}
   StringsBanks:
-  - {fileID: -446295102006638599}
-  cacheTime: 638330923742472138
+  - {fileID: 1227211710014248362}
+  cacheTime: 638335207194182918
   cacheVersion: 131608
+--- !u!114 &530705294194346898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/ui_button_mouseover
+  m_EditorClassIdentifier: 
+  Path: event:/UI/ui_button_mouseover
+  Guid:
+    Data1: 627884572
+    Data2: 1290660005
+    Data3: -2065407307
+    Data4: -1106124124
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &629929198641315281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/BattleAudio.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/SoundRes/Desktop/BattleAudio.bank
+  Name: BattleAudio
+  StudioPath: bank:/BattleAudio
+  lastModified: 638335196749953404
+  FileSizes: []
+  Exists: 1
+--- !u!114 &1227211710014248362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/SoundRes/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638335207193502888
+  FileSizes:
+  - Name: 
+    Value: 1914
+  Exists: 1
+--- !u!114 &1288176805813493146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Ship.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/SoundRes/Desktop/Ship.bank
+  Name: Ship
+  StudioPath: bank:/Ship
+  lastModified: 638335196750120470
+  FileSizes: []
+  Exists: 1
 --- !u!114 &1760214526661282929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,7 +736,7 @@ MonoBehaviour:
     Data3: -436614511
     Data4: -435345124
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -699,6 +771,105 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3718202569096509507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/ui_button_pressed
+  m_EditorClassIdentifier: 
+  Path: event:/UI/ui_button_pressed
+  Guid:
+    Data1: 682783664
+    Data2: 1218010750
+    Data3: 2056487583
+    Data4: -1129907589
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4491097787471366735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/unit_UnBuild
+  m_EditorClassIdentifier: 
+  Path: event:/UI/unit_UnBuild
+  Guid:
+    Data1: 1069823619
+    Data2: 1156546244
+    Data3: -1415599206
+    Data4: 1180522293
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4887846075754875004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/UI.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/SoundRes/Desktop/UI.bank
+  Name: UI
+  StudioPath: bank:/UI
+  lastModified: 638335207194182918
+  FileSizes: []
+  Exists: 1
+--- !u!114 &5084095035335514901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/survey_result_01
+  m_EditorClassIdentifier: 
+  Path: event:/UI/survey_result_01
+  Guid:
+    Data1: 635169062
+    Data2: 1209715333
+    Data3: 508126084
+    Data4: 906716086
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5275372267294087409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +886,24 @@ MonoBehaviour:
   Name: Ship
   StudioPath: bank:/Ship
   lastModified: 638330844148116449
+  FileSizes: []
+  Exists: 1
+--- !u!114 &5518491900420790000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Bullet.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/SoundRes/Desktop/Bullet.bank
+  Name: Bullet
+  StudioPath: bank:/Weapon/Bullet
+  lastModified: 638335196750496603
   FileSizes: []
   Exists: 1
 --- !u!114 &5844563321534762348
@@ -736,7 +925,7 @@ MonoBehaviour:
     Data3: 1829771963
     Data4: -2004607455
   Banks:
-  - {fileID: -4184298540943770787}
+  - {fileID: 629929198641315281}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -790,7 +979,7 @@ MonoBehaviour:
     Data3: 17884841
     Data4: 691773625
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -817,7 +1006,7 @@ MonoBehaviour:
     Data3: -861000557
     Data4: -1337682941
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -844,7 +1033,7 @@ MonoBehaviour:
     Data3: -1105580878
     Data4: -1728965756
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -852,6 +1041,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2603
+--- !u!114 &7608658188462933578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/SoundRes/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638335207193492882
+  FileSizes: []
+  Exists: 1
 --- !u!114 &8365938617815285686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,7 +1078,7 @@ MonoBehaviour:
     Data3: -513481848
     Data4: -1522087474
   Banks:
-  - {fileID: -6664033336870626408}
+  - {fileID: 5518491900420790000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -898,7 +1105,7 @@ MonoBehaviour:
     Data3: 735071628
     Data4: 313881628
   Banks:
-  - {fileID: -5715433262494519045}
+  - {fileID: 1288176805813493146}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
