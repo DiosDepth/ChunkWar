@@ -2,6 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+#if GMDEBUG
+using GM_Observer;
+#endif
 
 public enum LocalPropertyModifyType
 {
@@ -13,6 +17,11 @@ public enum LocalPropertyModifyType
 public class UnitLocalPropertyData 
 {
     private Dictionary<UnitPropertyModifyKey, UnitLocalPropertyPool> PropertyPool = new Dictionary<UnitPropertyModifyKey, UnitLocalPropertyPool>();
+
+    public List<UnitLocalPropertyPool> GetAllPools()
+    {
+        return PropertyPool.Values.ToList();
+    }
 
     public void Clear()
     {
@@ -325,4 +334,35 @@ public class UnitLocalPropertyPool
         }
         return true;
     }
+
+#if GMDEBUG
+
+    public UnitLocalPropertyObserverData CreateData()
+    {
+        UnitLocalPropertyObserverData data = new UnitLocalPropertyObserverData();
+        
+        foreach(KeyValuePair<uint, float> item in _propertyTable_Modify)
+        {
+            UnitLocalPropertyObserverData.LocalData d = new UnitLocalPropertyObserverData.LocalData
+            {
+                Key = item.Key,
+                Value = item.Value
+            };
+            data.NormalModify.Add(d);
+        }
+
+        foreach (KeyValuePair<uint, float> item in _propertyTable_SlotEffectModify)
+        {
+            UnitLocalPropertyObserverData.LocalData d = new UnitLocalPropertyObserverData.LocalData
+            {
+                Key = item.Key,
+                Value = item.Value
+            };
+            data.SlotModify.Add(d);
+        }
+
+        return data;
+    }
+
+#endif
 }

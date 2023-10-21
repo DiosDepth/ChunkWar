@@ -81,7 +81,7 @@ MonoBehaviour:
       Data: 5
     - Name: TotalCount
       Entry: 3
-      Data: 4
+      Data: 3
     - Name: MaxRowCount
       Entry: 3
       Data: 2
@@ -108,7 +108,7 @@ MonoBehaviour:
       Data: 7
     - Name: DurationDelta
       Entry: 3
-      Data: 5
+      Data: 3
     - Name: LoopCount
       Entry: 3
       Data: 5
@@ -117,7 +117,7 @@ MonoBehaviour:
       Data: 10
     - Name: TotalCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
       Data: 1
@@ -153,7 +153,7 @@ MonoBehaviour:
       Data: 2
     - Name: TotalCount
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
       Data: 2
@@ -536,7 +536,79 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 19|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1
+    - Name: AITypeID
+      Entry: 3
+      Data: 7
+    - Name: DurationDelta
+      Entry: 3
+      Data: 10
+    - Name: LoopCount
+      Entry: 3
+      Data: 5
+    - Name: StartTime
+      Entry: 3
+      Data: 1
+    - Name: TotalCount
+      Entry: 3
+      Data: 5
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 3
+    - Name: SpawnShpe
+      Entry: 3
       Data: 0
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0.2
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 1.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 20|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 2
+    - Name: AITypeID
+      Entry: 3
+      Data: 101
+    - Name: DurationDelta
+      Entry: 3
+      Data: 5
+    - Name: LoopCount
+      Entry: 3
+      Data: -1
+    - Name: StartTime
+      Entry: 3
+      Data: 3
+    - Name: TotalCount
+      Entry: 3
+      Data: 1
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 0
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -545,7 +617,7 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 19|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 21|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
@@ -561,7 +633,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 90
     - Name: 
       Entry: 8
       Data: 
@@ -573,7 +645,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -609,13 +681,13 @@ MonoBehaviour:
       Data: 
     - Name: UseAncientUnitSpawnProtect
       Entry: 5
-      Data: false
+      Data: true
     - Name: AncientUnitSpawnProtectedCount
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: AncientUnitSpawnMax
       Entry: 3
-      Data: 0
+      Data: 4
     - Name: OverrideAncientUnitSpawnSoomthTimeDelta
       Entry: 5
       Data: false
@@ -627,7 +699,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 20|WaveConfig, Assembly-CSharp
+      Data: 22|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 4
@@ -636,7 +708,7 @@ MonoBehaviour:
       Data: 90
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 21|System.UInt16[], mscorlib
+      Data: 23|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -654,7 +726,7 @@ MonoBehaviour:
       Data: 0
     - Name: SpawnConfig
       Entry: 7
-      Data: 22|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 24|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -667,7 +739,7 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 23|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 25|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
@@ -749,7 +821,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 24|WaveConfig, Assembly-CSharp
+      Data: 26|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 5
@@ -758,7 +830,7 @@ MonoBehaviour:
       Data: 120
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 25|System.UInt16[], mscorlib
+      Data: 27|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -776,7 +848,7 @@ MonoBehaviour:
       Data: 0
     - Name: SpawnConfig
       Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 28|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -789,7 +861,7 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 27|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 29|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
@@ -871,7 +943,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 28|WaveConfig, Assembly-CSharp
+      Data: 30|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 6
@@ -880,7 +952,7 @@ MonoBehaviour:
       Data: 150
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 29|System.UInt16[], mscorlib
+      Data: 31|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -898,7 +970,7 @@ MonoBehaviour:
       Data: 0
     - Name: SpawnConfig
       Entry: 7
-      Data: 30|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 32|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -911,7 +983,7 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 31|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 33|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
@@ -993,7 +1065,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 32|WaveConfig, Assembly-CSharp
+      Data: 34|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 7
@@ -1002,7 +1074,7 @@ MonoBehaviour:
       Data: 180
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 33|System.UInt16[], mscorlib
+      Data: 35|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1020,7 +1092,7 @@ MonoBehaviour:
       Data: 0
     - Name: SpawnConfig
       Entry: 7
-      Data: 34|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 36|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1033,7 +1105,7 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 35|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 37|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
@@ -1115,7 +1187,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 36|WaveConfig, Assembly-CSharp
+      Data: 38|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 8
@@ -1124,7 +1196,7 @@ MonoBehaviour:
       Data: 210
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 37|System.UInt16[], mscorlib
+      Data: 39|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1142,7 +1214,7 @@ MonoBehaviour:
       Data: 0
     - Name: SpawnConfig
       Entry: 7
-      Data: 38|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 40|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1155,11 +1227,11 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 39|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 41|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 40|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
+      Data: 42|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1247,7 +1319,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 41|WaveConfig, Assembly-CSharp
+      Data: 43|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 9
@@ -1256,7 +1328,7 @@ MonoBehaviour:
       Data: 240
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 42|System.UInt16[], mscorlib
+      Data: 44|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1274,7 +1346,7 @@ MonoBehaviour:
       Data: 0
     - Name: SpawnConfig
       Entry: 7
-      Data: 43|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 45|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1287,11 +1359,11 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 44|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 46|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 40
+      Data: 42
     - Name: 
       Entry: 12
       Data: 4
@@ -1369,7 +1441,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 45|WaveConfig, Assembly-CSharp
+      Data: 47|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 10
@@ -1378,7 +1450,7 @@ MonoBehaviour:
       Data: 240
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 46|System.UInt16[], mscorlib
+      Data: 48|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -1396,7 +1468,7 @@ MonoBehaviour:
       Data: 0
     - Name: SpawnConfig
       Entry: 7
-      Data: 47|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 49|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1409,11 +1481,11 @@ MonoBehaviour:
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 48|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 50|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 40
+      Data: 42
     - Name: 
       Entry: 12
       Data: 4

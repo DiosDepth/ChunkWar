@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem.XInput;
+#if GMDEBUG
+using GM_Observer;
+#endif
 
 public enum InventoryEventType
 {
@@ -86,6 +88,10 @@ public class PlayerShip : BaseShip
     {
         base.Awake();
         shipMapCenter = transform.Find("ShipMapCenter");
+
+#if GMDEBUG
+        gameObject.AddComponent<PlayerShipObserver>();
+#endif
     }
 
     public void LoadRuntimeData(ShipMapData data)
