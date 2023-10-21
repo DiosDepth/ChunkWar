@@ -33,7 +33,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public UnitData activeAIUnitData;
     public WeaponData activeAIWeaponData;
     public BuildingData activeAIBuildingData;
-    public DroneData activeAIDroneData;
+    public DroneData activeAIDroneAgentData;
     public ProjectileData activeAIProjectileData;
 
 
@@ -59,7 +59,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public UnitData activePlayerUnitData;
     public WeaponData activePlayerWeaponData;
     public BuildingData activePlayerBuildingData;
-    public DroneData activePlayerDroneData;
+    public DroneData activePlayerDroneAgentData;
     public ProjectileData activePlayerProjectileData;
 
 
@@ -75,7 +75,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activeAIUnitData = new UnitData();
         activeAIWeaponData = new WeaponData();
         activeAIBuildingData = new BuildingData();
-        activeAIDroneData = new DroneData();
+        activeAIDroneAgentData = new DroneData();
         activeAIProjectileData = new ProjectileData();
 
         playerJobController = new PlayerJobController();
@@ -83,7 +83,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activePlayerUnitData = new UnitData();
         activePlayerWeaponData = new WeaponData();
         activePlayerBuildingData = new BuildingData();
-        activePlayerDroneData = new DroneData();
+        activePlayerDroneAgentData = new DroneData();
         activePlayerProjectileData = new ProjectileData();
 
 
@@ -103,6 +103,11 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 {
                     playerShip = ship as PlayerShip;
                     playerIBoid = (ship as PlayerShip).GetComponent<IBoid>();
+                }
+
+                if(ship is PlayerDrone)
+                {
+                    activePlayerDroneAgentData.Add(ship);
                 }
 
                 break;
@@ -302,14 +307,14 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activeAIUnitData.Dispose();
         activeAIWeaponData.Dispose();
         activeAIBuildingData.Dispose();
-        activeAIDroneData.Dispose();
+        activeAIDroneAgentData.Dispose();
         activeAIProjectileData.Dispose();
 
         activePlayerAgentData.Dispose();
         activePlayerUnitData.Dispose();
         activePlayerWeaponData.Dispose();
         activePlayerBuildingData.Dispose();
-        activePlayerDroneData.Dispose();
+        activePlayerDroneAgentData.Dispose();
         activePlayerProjectileData.Dispose();
     }
 
@@ -319,14 +324,14 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activeAIUnitData.Clear();
         activeAIWeaponData.Clear();
         activeAIBuildingData.Clear();
-        activeAIDroneData.Clear();
+        activeAIDroneAgentData.Clear();
         activeAIProjectileData.Clear();
 
         activePlayerAgentData.Clear();
         activePlayerUnitData.Clear();
         activePlayerWeaponData.Clear();
         activePlayerBuildingData.Clear();
-        activePlayerDroneData.Clear();
+        activePlayerDroneAgentData.Clear();
         activePlayerProjectileData.Clear();
 }
 
@@ -338,10 +343,22 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         DisposeJobData();
     }
 
-    public virtual void GameOver()
-    {
-        SetProcessECS(false);
 
+
+    public virtual void GameOverProjectile()
+    {
+        for (int i = 0; i < activeAIProjectileData.activeProjectileList.Count; i++)
+        {
+            activeAIProjectileData.activeProjectileList[i]?.GameOver();
+        }
+        for (int i = 0; i < activePlayerProjectileData.activeProjectileList.Count; i++)
+        {
+            activePlayerProjectileData.activeProjectileList[i]?.GameOver();
+        }
+    }
+
+    public virtual void GameOverAgent()
+    {
         for (int i = 0; i < activeAIAgentData.shipList.Count; i++)
         {
             for (int n = 0; n < activeAIAgentData.shipList[i].UnitList.Count; n++)
@@ -349,10 +366,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 activeAIAgentData.shipList[i].UnitList[n]?.GameOver();
             }
         }
-        for (int i = 0; i < activeAIProjectileData.activeProjectileList.Count; i++)
-        {
-            activeAIProjectileData.activeProjectileList[i]?.GameOver();
-        }
+
 
         for (int i = 0; i < activePlayerAgentData.shipList.Count; i++)
         {
@@ -361,20 +375,25 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 activePlayerAgentData.shipList[i].UnitList[n]?.GameOver();
             }
         }
-        for (int i = 0; i < activePlayerProjectileData.activeProjectileList.Count; i++)
-        {
-            activePlayerProjectileData.activeProjectileList[i]?.GameOver();
-        }
+    }
+
+
+
+    public virtual void GameOver()
+    {
+        SetProcessECS(false);
+        GameOverProjectile();
+        GameOverAgent();
         UnLoad();
     }
     public void PauseGame()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void UnPauseGame()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
 

@@ -1319,19 +1319,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Vector2 spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
         {
-            AIFactory aIFactory = obj.GetComponent<AIFactory>();
+            AIShipSpawnAgent aIFactory = obj.GetComponent<AIShipSpawnAgent>();
             aIFactory.PoolableSetActive(true);
             aIFactory.Initialization();
-            RectAISpawnSetting spawnSetting = new RectAISpawnSetting(cfg.AITypeID, cfg.TotalCount, cfg.MaxRowCount);
+            aIFactory.transform.position = spawnpoint;
+
+            RectSpawnSetting spawnSetting = new RectSpawnSetting(cfg.TotalCount, cfg.MaxRowCount);
             spawnSetting.spawnIntervalTime = cfg.SpawnIntervalTime;
             spawnSetting.sizeInterval = new Vector2(cfg.SpawnSizeInterval, cfg.SpawnSizeInterval);
-            spawnSetting.spawnShape = cfg.SpawnShpe;
 
-            aIFactory.StartSpawn(spawnpoint, spawnSetting, overrideHardLevelID, (ship) =>
+            AIShipSpawnInfo aishipspawninfo = new AIShipSpawnInfo(cfg.AITypeID, spawnpoint, RogueManager.Instance.currentShip.transform, overrideHardLevelID, spawnSetting, (baseship) => 
             {
-                ECSManager.Instance.RegisterJobData(OwnerType.AI, ship);
-                //AIManager.Instance.AddAI(ship);
+                ECSManager.Instance.RegisterJobData(OwnerType.AI, baseship);
             });
+            aIFactory.StartSpawn(aishipspawninfo);
         });
     }
 

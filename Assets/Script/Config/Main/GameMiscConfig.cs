@@ -99,7 +99,11 @@ public enum ShipClassType
     /// <summary>
     /// 战列舰
     /// </summary>
-    Battleship
+    Battleship,
+    /// <summary>
+    /// 无人机
+    /// </summary>
+    Drone
 }
 
 public class BattleMiscRefreshConfig

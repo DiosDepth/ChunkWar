@@ -86,7 +86,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public bool needServicing = false;
     
     
-    private AIFactory _lastAIfactory;
+    private AIShipSpawnAgent _lastAIfactory;
 
     public List<PickableItem> pickupList = new List<PickableItem>();
 

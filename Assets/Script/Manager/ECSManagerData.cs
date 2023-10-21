@@ -439,6 +439,7 @@ public class BuildingData : IJobData
 
 public class DroneData : AgentData
 {
+
     public override void Dispose()
     {
         base.Dispose();
@@ -456,22 +457,22 @@ public class DroneData : AgentData
 
     public override void Add(BaseShip drone)
     {
-
+        base.Add(drone);
     }
 
     public override void Remove(BaseShip drone)
     {
-
+        base.Remove(drone);
     }
 
     public override void RemoveAt(int index)
     {
-
+        base.RemoveAt(index);
     }
 
     public override void Clear()
     {
-
+        base.Clear();
     }
 }
 

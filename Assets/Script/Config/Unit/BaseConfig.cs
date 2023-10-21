@@ -158,6 +158,14 @@ public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
         return -1;
     }
 
+    public virtual string GetPrefabName()
+    {
+        if(Prefab == null)
+        {
+            return string.Empty;
+        }
+        return Prefab.name;
+    }
 }
 
 

@@ -20,39 +20,39 @@ public class DroneConfig : BaseShipConfig
     [LabelWidth(80)]
     public OwnerType Owner;
 
-    [FoldoutGroup("AI配置")]
-    [HorizontalGroup("AI配置/A")]
-    [BoxGroup("AI配置/A/最大速度")]
+    [FoldoutGroup("行为配置")]
+    [HorizontalGroup("行为配置/A")]
+    [BoxGroup("行为配置/A/最大速度")]
     [HideLabel]
     public float MaxVelocity;
 
-    [FoldoutGroup("AI配置")]
-    [HorizontalGroup("AI配置/A")]
-    [BoxGroup("AI配置/A/最大加速度")]
+    [FoldoutGroup("行为配置")]
+    [HorizontalGroup("行为配置/A")]
+    [BoxGroup("行为配置/A/最大加速度")]
     [HideLabel]
     public float MaxAcceleration;
 
-    [FoldoutGroup("AI配置")]
-    [HorizontalGroup("AI配置/A")]
-    [BoxGroup("AI配置/A/最大转速度")]
+    [FoldoutGroup("行为配置")]
+    [HorizontalGroup("行为配置/A")]
+    [BoxGroup("行为配置/A/最大转速度")]
     [HideLabel]
     public float MaxAngularAcceleration = 3f;
 
-    [FoldoutGroup("AI配置")]
-    [HorizontalGroup("AI配置/A")]
-    [BoxGroup("AI配置/A/最大旋转速度")]
+    [FoldoutGroup("行为配置")]
+    [HorizontalGroup("行为配置/A")]
+    [BoxGroup("行为配置/A/最大旋转速度")]
     [HideLabel]
     public float MaxAngularVelocity = 1f;
 
-    [FoldoutGroup("AI配置")]
-    [HorizontalGroup("AI配置/A")]
-    [BoxGroup("AI配置/A/半径大小")]
+    [FoldoutGroup("行为配置")]
+    [HorizontalGroup("行为配置/A")]
+    [BoxGroup("行为配置/A/半径大小")]
     [HideLabel]
     public float boidRadius = 1f;
 
-    [FoldoutGroup("AI配置")]
-    [HorizontalGroup("AI配置/A")]
-    [BoxGroup("AI配置/A/搜索半径")]
+    [FoldoutGroup("行为配置")]
+    [HorizontalGroup("行为配置/A")]
+    [BoxGroup("行为配置/A/搜索半径")]
     [HideLabel]
     public float targetSerchingRadius = 15f;
 

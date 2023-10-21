@@ -189,7 +189,7 @@ public class WaveEnemySpawnConfig
     [HorizontalGroup("队形与数量配置/CC", 160)]
     [LabelText("队形")]
     [LabelWidth(50)]
-    public Shape SpawnShpe = Shape.Rectangle;
+    public SpawnShape SpawnShpe = SpawnShape.Rectangle;
 
     [FoldoutGroup("队形与数量配置")]
     [HorizontalGroup("队形与数量配置/CC", 160)]

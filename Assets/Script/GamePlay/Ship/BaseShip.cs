@@ -71,7 +71,7 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
     [ListDrawerSettings(DraggableItems = true)]
     protected List<Unit> _unitList = new List<Unit>();
 
-    protected BaseShipConfig baseShipCfg;
+    protected BaseShipConfig baseDroneCfg;
 
     protected Animator _spriteAnimator;
     protected Material _spriteMat;
@@ -188,13 +188,13 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
     public virtual List<PickableItem> Drop()
     {
         List<PickableItem> itemlist = new List<PickableItem>() ;
-        if(baseShipCfg.DropList?.Count <= 0)
+        if(baseDroneCfg.DropList?.Count <= 0)
         {
             return null;
         }
-        for (int i = 0; i < baseShipCfg.DropList.Count; i++)
+        for (int i = 0; i < baseDroneCfg.DropList.Count; i++)
         {
-            var dropInfo = baseShipCfg.DropList[i];
+            var dropInfo = baseDroneCfg.DropList[i];
             var dropRate = GameHelper.CalculateDropRate(dropInfo.dropRate);
             bool isDrop = Utility.RandomResultWithOne(0, dropRate);
             if (!isDrop)
@@ -223,7 +223,7 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
     /// <returns></returns>
     private PickableItem HandleWreckageDropPickUp(DropInfo info)
     {
-        var dropRateCfg = baseShipCfg.UnitDropRate;
+        var dropRateCfg = baseDroneCfg.UnitDropRate;
         List<GeneralRarityRandomItem> randomLst = new List<GeneralRarityRandomItem>();
         foreach(var item in dropRateCfg)
         {
@@ -295,7 +295,7 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
 
     private Vector2 GetDropPosition()
     {
-        float MaxSize = Mathf.Max(baseShipCfg.MapSize.Lager(), 2);
+        float MaxSize = Mathf.Max(baseDroneCfg.MapSize.Lager(), 2);
         Vector2 shipPos = transform.position.ToVector2();
         return MathExtensionTools.GetRadomPosFromOutRange(0.5f, MaxSize, shipPos);
     }

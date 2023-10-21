@@ -97,11 +97,15 @@ public class SteeringBehaviorController : BaseController
     {
         rb = GetComponent<Rigidbody2D>();
         //steerings = GetComponents<SteeringBehavior>();
+
+    }
+
+    public override void Initialization()
+    {
+        base.Initialization();
         rb.drag = drag;
         lastpos = transform.position;
     }
-
-
     [BurstCompile]
     public struct CalculateSteeringTargetsPosByRadiusJob : IJobParallelForBatch
     {

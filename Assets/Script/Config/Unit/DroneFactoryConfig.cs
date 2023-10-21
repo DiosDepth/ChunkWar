@@ -8,6 +8,12 @@ public class DroneFactoryConfig : BuildingConfig
 {
     [FoldoutGroup("机库配置")]
     [HorizontalGroup("机库配置/A", 250)]
+    [BoxGroup("机库配置/A/无人机ID")]
+    [HideLabel]
+    public int ID;
+
+    [FoldoutGroup("机库配置")]
+    [HorizontalGroup("机库配置/A", 250)]
     [BoxGroup("机库配置/A/最大数量")]
     [HideLabel]
     public byte MaxDroneCount;

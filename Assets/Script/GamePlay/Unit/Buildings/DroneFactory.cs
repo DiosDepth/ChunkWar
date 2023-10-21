@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 
+[System.Serializable]
 public class DroneFactoryAttribute : BuildingAttribute
 {
     public float SpawnTime
@@ -27,6 +29,7 @@ public class DroneFactoryAttribute : BuildingAttribute
     private float DroneSearchingRadiusBase;
     private float DroneMaxCountBase;
 
+    private List<BaseDrone> drones;
     public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, OwnerShipType ownerType)
     {
         base.InitProeprty(parentUnit, cfg, ownerType);
@@ -69,7 +72,14 @@ public class DroneFactory : Building
 {
     protected DroneFactoryConfig _factoryCfg;
 
+    public Transform launchPoint;
     public DroneFactoryAttribute FactoryAttribute;
+
+    public List<BaseDrone> DroneList
+    {
+        get { return _droneList; }
+    }
+    protected List<BaseDrone> _droneList;
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
@@ -119,10 +129,18 @@ public class DroneFactory : Building
 
     public virtual void SpawnDrone()
     {
+        Vector2 spawnpoint = launchPoint.position.ToVector2();
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
+        {
+            ShipSpawnAgent spawnAgent = obj.GetComponent<ShipSpawnAgent>();
+            spawnAgent.PoolableSetActive(true);
+            spawnAgent.Initialization();
 
-    }
-
-
-
-
+            ShipSpawnInfo spawninfo = new ShipSpawnInfo(_factoryCfg.ID, spawnpoint, null, (baseship) =>
+            {
+                ECSManager.Instance.RegisterJobData(OwnerType.Player, baseship);
+            });
+            spawnAgent.StartSpawn(spawninfo);
+        });
+    } 
 }

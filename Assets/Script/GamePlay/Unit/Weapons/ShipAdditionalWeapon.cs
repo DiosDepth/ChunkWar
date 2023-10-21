@@ -7,6 +7,7 @@ public class ShipAdditionalWeapon : AdditionalWeapon
 
     public override void InitWeaponAttribute(OwnerShipType type)
     {
+        base.InitWeaponAttribute(type);
         if (weaponAttribute.MagazineBased)
         {
             //magazine = 0;
@@ -17,6 +18,6 @@ public class ShipAdditionalWeapon : AdditionalWeapon
             ///Fix Value
             magazine = 1;
         }
-        base.InitWeaponAttribute(type);
+     
     }
 }

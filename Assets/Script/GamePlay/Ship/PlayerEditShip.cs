@@ -9,7 +9,7 @@ public class PlayerEditShip : PlayerShip
     {
         var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
         playerShipCfg = shipCfg;
-        baseShipCfg = shipCfg;
+        baseDroneCfg = shipCfg;
     }
 
     public override void CreateShip()

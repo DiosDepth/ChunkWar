@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4406040576677717453}
   - component: {fileID: 4384573615577313368}
-  - component: {fileID: 5871560425289866413}
+  - component: {fileID: 2935746258981864120}
   m_Layer: 7
   m_Name: PlayerBaseDroneFactory
   m_TagString: Player
@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 607207124867787956}
+  - {fileID: 2674080615540615774}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,8 +50,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &5871560425289866413
+  m_Radius: 1
+--- !u!114 &2935746258981864120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,22 +60,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1256306023736974604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a586b26a38a383499a385fb53ef49b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 1587f7d0879617648a203066bda29c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 0
-  state: 0
-  IsRestoreable: 0
+  UnitID: 1003
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
-  maxTargetCount: 3
+  maxTargetCount: 4
   unitSprite: {fileID: 5550522709308718741}
   rotationRoot: {fileID: 0}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}
   occupiedCoords: []
-  currentEvolvePoints: 0
+  effectSlotCoords: []
+  lauchePoint:
+  - {fileID: 2674080615540615774}
 --- !u!1 &2786514761976378446
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,3 +177,34 @@ MonoBehaviour:
   normalStrength: 5
   normalSmoothing: 1
   computingNormal: 0
+--- !u!1 &4585070249746508674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2674080615540615774}
+  m_Layer: 7
+  m_Name: lauchePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2674080615540615774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585070249746508674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4406040576677717453}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

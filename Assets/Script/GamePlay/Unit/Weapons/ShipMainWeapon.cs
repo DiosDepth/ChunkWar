@@ -230,6 +230,7 @@ public class ShipMainWeapon : Weapon
 
     public override void InitWeaponAttribute(OwnerShipType type)
     {
+        base.InitWeaponAttribute(type);
         if (weaponAttribute.MagazineBased)
         {
             //magazine = 0;
@@ -240,7 +241,7 @@ public class ShipMainWeapon : Weapon
             ///Fix Value
             magazine = 1;
         }
-        base.InitWeaponAttribute(type);
+
     }
     public override void ProcessWeapon()
     {
