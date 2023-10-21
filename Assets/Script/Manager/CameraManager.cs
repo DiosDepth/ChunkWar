@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 
 public class CameraManager : Singleton<CameraManager>
 {
@@ -17,12 +18,16 @@ public class CameraManager : Singleton<CameraManager>
     private Camera _currentCamera;
     private CinemachineBrain _currentCameraBrain;
     private CinemachineVirtualCamera _currentVCamera;
+    private CinemachineBasicMultiChannelPerlin _shakeNoise;
+
     private string _resPath = "Prefab/CameraPrefab/";
     private string _mainCameraName = "MainCamera";
     private string _inGameCMvcamName = "InGameCMvcam";
 
 
     private float _refvel;
+    private bool _isShaking = false;
+    private float shakeDuration = 0.5f;
 
     public CameraManager()
     {
@@ -44,7 +49,32 @@ public class CameraManager : Singleton<CameraManager>
         MonoManager.Instance.DontDestroyOnLoad(_currentVCamera);
         MonoManager.Instance.AddUpdateListener(UpdateOrthSizeByDistance);
     }
-    
+
+    /// <summary>
+    /// 相机震动
+    /// </summary>
+    /// <param name="cfg"></param>
+    public async void ShakeBattleCamera(CameraShakeConfig cfg)
+    {
+        if (_isShaking)
+            return;
+
+        _isShaking = true;
+        var Amplitude = UnityEngine.Random.Range(cfg.Amplitude.x, cfg.Amplitude.y);
+        var frequency = UnityEngine.Random.Range(cfg.Frequency.x, cfg.Frequency.y);
+
+        _shakeNoise.m_AmplitudeGain = Amplitude;
+        _shakeNoise.m_FrequencyGain = frequency;
+
+        await UniTask.Delay((int)(cfg.Duration * 1000));
+        ///Reset
+        if (_currentVCamera == null || _shakeNoise == null)
+            return;
+
+        _shakeNoise.m_AmplitudeGain = 0;
+        _shakeNoise.m_FrequencyGain = 0;
+        _isShaking = false;
+    }
 
     public void SetReferencePoint(Transform reftrs)
     {
@@ -69,6 +99,7 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         vcamDic[_inGameCMvcamName] = vcam;
+        _shakeNoise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         return vcam;
     }
 

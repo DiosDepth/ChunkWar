@@ -11,6 +11,8 @@ public class MT_Timer : ModifyTriggerData
 
     private bool _requireUpdate = false;
 
+    private int addTime;
+
     public MT_Timer(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
     {
         _timerCfg = cfg as MTC_Timer;
@@ -19,6 +21,7 @@ public class MT_Timer : ModifyTriggerData
     public override void OnTriggerAdd()
     {
         base.OnTriggerAdd();
+        addTime = RogueManager.Instance.Timer.TotalSeconds;
         if (_timerCfg.TimerTriggerType == MTC_Timer.TimerType.OnceTime)
         {
             RogueManager.Instance.Timer.OnTimeSecondUpdate += OnSpecialTimeUpdate;
@@ -63,6 +66,14 @@ public class MT_Timer : ModifyTriggerData
         {
             var totalSecond = RogueManager.Instance.Timer.TotalSeconds;
             if(totalSecond >= _timerCfg.TimeParam && currentTriggerCount == 0)
+            {
+                Trigger();
+            }
+        }
+        else
+        {
+            var totalSecond = RogueManager.Instance.Timer.TotalSeconds;
+            if(totalSecond >= _timerCfg.TimeParam + addTime && currentTriggerCount == 0)
             {
                 Trigger();
             }

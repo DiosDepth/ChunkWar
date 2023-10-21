@@ -98,6 +98,14 @@ public abstract class ModifyTriggerEffectConfig
             {
                 result.Add(type.ToString(), new MTEC_HealUnitHP(type));
             }
+            else if(type == ModifyTriggerEffectType.AddAISpawn)
+            {
+                result.Add(type.ToString(), new MTEC_AddAISpawn(type));
+            }
+            else if(type == ModifyTriggerEffectType.ActiveEnemyExtraUnitGroup)
+            {
+                result.Add(type.ToString(), new MTEC_ActiveEnemyUnitGroup(type));
+            }
         }
 
         return result;
@@ -385,6 +393,10 @@ public class MTEC_SetUnitPropertyValue : ModifyTriggerEffectConfig
 /// </summary>
 public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
 {
+    [HideReferenceObjectPicker]
+    [LabelText("叠加规则")]
+    public TimerModifierStackConfig StackConfig;
+
     [DictionaryDrawerSettings()]
     public Dictionary<PropertyModifyKey, float> ModifyMap = new Dictionary<PropertyModifyKey, float>();
 
@@ -415,8 +427,27 @@ public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
     }
 }
 
+public enum TimerModifierStackType
+{
+    RefreshTime,
+}
+
+[System.Serializable]
+public class TimerModifierStackConfig
+{
+    public bool GlobalUnique = false;
+
+    public string UniqueKey;
+
+    public TimerModifierStackType StackType;
+
+}
+
 public class MTEC_AddUnitTimerModifier : ModifyTriggerEffectConfig
 {
+    [HideReferenceObjectPicker]
+    [LabelText("叠加规则")]
+    public TimerModifierStackConfig StackConfig;
 
     [DictionaryDrawerSettings()]
     public Dictionary<UnitPropertyModifyKey, float> ModifyMap = new Dictionary<UnitPropertyModifyKey, float>();
@@ -688,16 +719,58 @@ public class MTEC_HealUnitHP : ModifyTriggerEffectConfig
     }
 }
 
-public class MTEC_CreateEnemy : ModifyTriggerEffectConfig
+[System.Serializable]
+public class AttachPointConfig
 {
-    public MTEC_CreateEnemy(ModifyTriggerEffectType type) : base(type)
+    [LabelWidth(200)]
+    public bool RandomNode;
+
+    [HideIf("RandomNode")]
+    [LabelWidth(200)]
+    public string NodeName;
+}
+
+public class MTEC_AddAISpawn : ModifyTriggerEffectConfig
+{
+    public List<WaveEnemySpawnConfig> SpawnCfgList = new List<WaveEnemySpawnConfig>();
+
+    [LabelText("位置使用创生AI船Node")]
+    [LabelWidth(200)]
+    public bool UseShipSpawnNode = false;
+
+    [ShowIf("UseShipSpawnNode")]
+    [HideReferenceObjectPicker]
+    public AttachPointConfig PointCfg;
+
+    public MTEC_AddAISpawn(ModifyTriggerEffectType type) : base(type)
     {
 
     }
 
     public override void Excute(ModifyTriggerData data, uint parentUnitUID)
     {
+        data.AddAISpawn(this);
+    }
 
+    public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.RemoveAISpawn(this);
+    }
+}
+
+public class MTEC_ActiveEnemyUnitGroup : ModifyTriggerEffectConfig
+{
+    [LabelWidth(200)]
+    public string UnitGroupName;
+
+    public MTEC_ActiveEnemyUnitGroup(ModifyTriggerEffectType type) : base(type)
+    {
+
+    }
+
+    public override void Excute(ModifyTriggerData data, uint parentUnitUID)
+    {
+        data.ActiveEnemyUnitGroup(this);
     }
 
     public override void UnExcute(ModifyTriggerData data, uint parentUnitUID)

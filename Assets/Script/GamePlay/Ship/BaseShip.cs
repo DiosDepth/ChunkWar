@@ -45,7 +45,7 @@ public struct ShipStateEvent
 }
 
 [ShowOdinSerializedPropertiesInInspector]
-public class BaseShip : MonoBehaviour, IDropable, IPauseable
+public class BaseShip : MonoBehaviour, IPauseable
 {
 
     public BaseController controller;
@@ -108,7 +108,7 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
     /// 移除Unit
     /// </summary>
     /// <param name="unit"></param>
-    public void RemoveUnit(Unit unit)
+    public virtual void RemoveUnit(Unit unit)
     {
         _unitList.Remove(unit);
     }
@@ -157,6 +157,33 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
 
     }
 
+    /// <summary>
+    /// 设置所有部件状态
+    /// </summary>
+    public async void ForeceSetAllUnitState(DamagableState state, float time = -1, bool playimmortalEffect = false)
+    {
+        for(int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].ChangeUnitState(state);
+        }
+
+        if (time > 0) 
+        {
+            await UniTask.Delay((int)(time * 1000));
+            if (gameObject == null)
+                return;
+
+            for (int i = 0; i < _unitList.Count; i++)
+            {
+                var unit = _unitList[i];
+                if (unit == null)
+                    continue;
+
+                _unitList[i].ChangeUnitState(DamagableState.Normal);
+            }
+        }
+    }
+
     public void CheckDeath(Unit coreUnit, UnitDeathInfo info)
     {
         CoreUnits.Remove(coreUnit);
@@ -173,131 +200,9 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
         ShipStateEvent.Trigger(this, info, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
     }
 
-    public virtual void Ability()
-    {
-
-    }
-
-
-
     public virtual void InitProperty()
     {
 
-    }
-
-    public virtual List<PickableItem> Drop()
-    {
-        List<PickableItem> itemlist = new List<PickableItem>() ;
-        if(baseDroneCfg.DropList?.Count <= 0)
-        {
-            return null;
-        }
-        for (int i = 0; i < baseDroneCfg.DropList.Count; i++)
-        {
-            var dropInfo = baseDroneCfg.DropList[i];
-            var dropRate = GameHelper.CalculateDropRate(dropInfo.dropRate);
-            bool isDrop = Utility.RandomResultWithOne(0, dropRate);
-            if (!isDrop)
-                continue;
-
-            if (dropInfo.pickuptype == AvaliablePickUp.WastePickup)
-            {
-                itemlist.AddRange(HandleWasteDropPickUp(dropInfo));
-            }
-            else if (dropInfo.pickuptype == AvaliablePickUp.Wreckage)
-            {
-                var wreckageDrop = HandleWreckageDropPickUp(dropInfo);
-                if(wreckageDrop != null)
-                {
-                    itemlist.Add(wreckageDrop);
-                }
-            }
-        }
-        return itemlist;
-    }
-
-    /// <summary>
-    /// 装备残骸掉落
-    /// </summary>
-    /// <param name="info"></param>
-    /// <returns></returns>
-    private PickableItem HandleWreckageDropPickUp(DropInfo info)
-    {
-        var dropRateCfg = baseDroneCfg.UnitDropRate;
-        List<GeneralRarityRandomItem> randomLst = new List<GeneralRarityRandomItem>();
-        foreach(var item in dropRateCfg)
-        {
-            GeneralRarityRandomItem random = new GeneralRarityRandomItem
-            {
-                Rarity = item.Key,
-                Weight = (int)item.Value * 10
-            };
-            randomLst.Add(random);
-        }
-
-        var randomResult = Utility.GetRandomList<GeneralRarityRandomItem>(randomLst, 1);
-        if(randomResult.Count == 1)
-        {
-            var result = randomResult[0];
-
-            var pickUpData = DataManager.Instance.GetWreckagePickUpData(result.Rarity);
-            if (pickUpData == null)
-                return null;
-
-            PickUpWreckage item = null;
-
-            PoolManager.Instance.GetObjectSync(pickUpData.PrefabPath, true, (obj) =>
-            {
-                obj.transform.position = GetDropPosition();
-                item = obj.GetComponent<PickUpWreckage>();
-                item.DropRarity = pickUpData.Rarity;
-                item.EXPAdd = pickUpData.EXPAdd;
-            });
-            return item;
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// 处理残骸掉落
-    /// </summary>
-    /// <param name="info"></param>
-    /// <returns></returns>
-    private List<PickableItem> HandleWasteDropPickUp(DropInfo info)
-    {
-        List<PickableItem> outLst = new List<PickableItem>();
-
-        ///Calculate DropCount
-        var dropCountAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyDropCountPercent);
-        var dropRatio = Mathf.Clamp(dropCountAdd / 100f + 1, 0, float.MaxValue);
-        float dropCount = info.count * dropRatio;
-        var dropResult = GameHelper.GeneratePickUpdata(dropCount);
-
-        foreach(var result in dropResult)
-        {
-            int count = result.Value;
-            var data = result.Key;
-            ///Drop
-            for (int i = 0; i < count; i++) 
-            {
-                PoolManager.Instance.GetObjectSync(data.PrefabPath, true, (obj) =>
-                {
-                    obj.transform.position = GetDropPosition();
-                    PickUpWaste item = obj.GetComponent<PickUpWaste>();
-                    item.WasteGain = data.CountRef;
-                    item.EXPGain = data.EXPAdd;
-                    outLst.Add(item);
-                });
-            }
-        }
-        return outLst;
-    }
-
-    private Vector2 GetDropPosition()
-    {
-        float MaxSize = Mathf.Max(baseDroneCfg.MapSize.Lager(), 2);
-        Vector2 shipPos = transform.position.ToVector2();
-        return MathExtensionTools.GetRadomPosFromOutRange(0.5f, MaxSize, shipPos);
     }
 
     public virtual void GameOver()
@@ -321,6 +226,7 @@ public class BaseShip : MonoBehaviour, IDropable, IPauseable
     #region Anim
 
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
+    protected const string Mat_Shader_ProeprtyKey_OUTBASE_ON = "OUTBASE_ON";
 
     public void SetAnimatorTrigger(string trigger)
     {

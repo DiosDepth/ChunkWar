@@ -1359,10 +1359,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: UnitDropRate
+    - Name: WreckageRarityCfg
       Entry: 7
-      Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
+      Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[ShopGoodsRarityConfig,
+        Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
@@ -1378,52 +1378,70 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 0
     - Name: 
-      Entry: 7
+      Entry: 13
       Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 4
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
+    - Name: Skills
       Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
+      Data: 3|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
       Data: 1
-    - Name: $v
+    - Name: 
+      Entry: 7
+      Data: 4|MTC_Timer, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 6
+    - Name: TriggerCount
+      Entry: 3
+      Data: 0
+    - Name: SelfUnique
+      Entry: 5
+      Data: false
+    - Name: UsePercent
+      Entry: 5
+      Data: false
+    - Name: Percent
       Entry: 4
       Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 5|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 6|MTEC_ActiveEnemyUnitGroup, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 17
+    - Name: Conditions
+      Entry: 7
+      Data: 7|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 4
-      Data: 0
+    - Name: UnitGroupName
+      Entry: 1
+      Data: ExtraUnitGroup
     - Name: 
       Entry: 8
       Data: 
@@ -1433,12 +1451,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: AIShipEffects
-      Entry: 7
-      Data: 3|ModifyTriggerConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
+    - Name: TimerTriggerType
+      Entry: 3
+      Data: 1
+    - Name: SpecialType
+      Entry: 3
       Data: 0
+    - Name: TimeParam
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -1456,13 +1480,9 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 4
-  DropList:
-  - pickuptype: 1
-    count: 5
-    dropRate: 100
   ShowHPBillboard: 1
   ClassLevel: 2
-  BillboardType: 0
+  BillboardType: 1
   AttackBase: 30
   HardLevelGroupID: 1
   MaxVelocity: 10
@@ -1472,3 +1492,7 @@ MonoBehaviour:
   boidRadius: 15
   targetSerchingRadius: 50
   DieAudio: 
+  DropList:
+  - pickuptype: 1
+    count: 5
+    dropRate: 100

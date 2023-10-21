@@ -8,6 +8,7 @@ public enum PropertyModifyCategory
     ModifyTrigger,
     Wreckage,
     ShipUnit,
+    AIShipSkill,
 }
 
 public class ModifyUIDManager : Singleton<ModifyUIDManager>

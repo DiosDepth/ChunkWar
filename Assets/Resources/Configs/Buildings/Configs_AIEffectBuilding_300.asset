@@ -447,13 +447,28 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: StackConfig
+      Entry: 7
+      Data: 6|TimerModifierStackConfig, Assembly-CSharp
+    - Name: GlobalUnique
+      Entry: 5
+      Data: true
+    - Name: UniqueKey
+      Entry: 1
+      Data: AI_Effect_001
+    - Name: StackType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: ModifyMap
       Entry: 7
-      Data: 6|System.Collections.Generic.Dictionary`2[[UnitPropertyModifyKey, Assembly-CSharp],[System.Single,
+      Data: 7|System.Collections.Generic.Dictionary`2[[UnitPropertyModifyKey, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 7|System.Collections.Generic.EnumEqualityComparer`1[[UnitPropertyModifyKey,
+      Data: 8|System.Collections.Generic.EnumEqualityComparer`1[[UnitPropertyModifyKey,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -466,7 +481,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 4
+      Data: 30
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -478,7 +505,7 @@ MonoBehaviour:
       Data: true
     - Name: DurationTime
       Entry: 4
-      Data: 0
+      Data: 15
     - Name: 
       Entry: 8
       Data: 
@@ -495,26 +522,29 @@ MonoBehaviour:
     Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 2474850222585545391, guid: 7e9178b06dd9a11478c57b6bc209f9d1, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
   GroupID: 0
-  redirection: 1
-  UnlockDefault: 1
+  redirection: 0
+  UnlockDefault: 0
   ProertyDescText: 
   EditBrushSprite: {fileID: 0}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 0
-  BaseHP: 0
+  ItemTags: 32
+  BaseHP: 80
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
+  HPBarOffsetY: 0
+  HPBarHeight: 0.4
+  HPBarWidth: 3
   ShieldConfig:
     GenerateShield: 0
     ShieldPrefabName: 
@@ -522,5 +552,6 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
-  EffectRadius: 0
-  TriggerInterval: 0
+  EffectRadius: 25
+  TriggerInterval: 20
+  FirstSpawnCD: 5

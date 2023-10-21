@@ -31,6 +31,13 @@ public class MT_OnWeaponHitTarget : ModifyTriggerData
         if (!damageInfo.IsPlayerAttack)
             return;
 
+        if (_hitCfg.CheckCurrentFireWeapon)
+        {
+            var fireUID = damageInfo.attackerUnit.UID;
+            if (OwnerUID != fireUID)
+                return;
+        }
+
         if ((_hitCfg.DamageTypeBool == BoolType.True && damageInfo.DamageType != _hitCfg.DamageType) ||
             (_hitCfg.DamageTypeBool == BoolType.False && damageInfo.DamageType == _hitCfg.DamageType))
             return;

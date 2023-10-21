@@ -13,6 +13,7 @@ public class FloatingText : GUIBasePanel,IPoolable
 
     private static float _defaultTextSize = 16;
     private TextMeshProUGUI _text;
+    private RectTransform m_rect;
 
     private static float RandomPosOffset_X = 15;
     private static float RandomPosOffset_Y = 15;
@@ -27,6 +28,7 @@ public class FloatingText : GUIBasePanel,IPoolable
     {
         base.Initialization();
         _text = transform.Find("uiGroup/Textinfo").SafeGetComponent<TextMeshProUGUI>();
+        m_rect = transform.SafeGetComponent<RectTransform>();
     }
 
     public override void Show()
@@ -99,6 +101,7 @@ public class FloatingText : GUIBasePanel,IPoolable
         var offsetX = UnityEngine.Random.Range(-RandomPosOffset_X, RandomPosOffset_X);
         var offsetY = UnityEngine.Random.Range(-RandomPosOffset_Y, RandomPosOffset_Y);
         rowPos = new Vector2(rowPos.x + offsetX, rowPos.y + offsetY);
-        transform.position = rowPos;
+
+        m_rect.anchoredPosition = rowPos;
     }
 }

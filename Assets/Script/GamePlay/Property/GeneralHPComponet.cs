@@ -48,6 +48,11 @@ public class GeneralHPComponet
         MaxHP = maxHP;
     }
 
+    public void Clear()
+    {
+        OnHpChangeAction = null;
+    }
+
     public void RecoverHPToMax()
     {
         _currentHP.Set(MaxHP);
@@ -62,7 +67,7 @@ public class GeneralHPComponet
     {
         var newValue = GetCurrentHP + value;
         _currentHP.Set(newValue);
-
+        OnHpChangeAction?.Invoke(_currentHP.Value, MaxHP, HPPercent);
         return newValue <= 0;
     }
 

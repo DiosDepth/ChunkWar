@@ -72,6 +72,7 @@ public class ShipSelectionItemCmpt : EnhancedScrollerCellView, IHoverUIItem
     {
         RogueManager.Instance.SetTempShipSelectionPreview((int)ItemUID);
         GeneralUIEvent.Trigger(UIEventType.ShipSelectionChange, ItemUID);
+        SoundManager.Instance.PlayUISound("UI_Click_Hover");
         selected?.Invoke(this);
     }
 

@@ -79,6 +79,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     protected Material _spriteMat;
     protected Animator _animator;
+    protected Transform _uiCanvas;
+    private UnitSceneHPSlider _sceneHPSlider;
 
     public virtual void Awake()
     {
@@ -87,6 +89,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             _spriteMat = unitSprite.material;
             _animator = unitSprite.transform.SafeGetComponent<Animator>();
         }
+        _uiCanvas = transform.Find("UICanvas");
+        _uiCanvas.SafeSetActive(false);
     }
 
     /// <summary>
@@ -104,7 +108,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             {
                 ///瘫痪恢复
                 ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
-               // AIManager.Instance.AddTargetUnit(this);
                 //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
                 LevelManager.Instance.PlayerUnitParalysis(UID, false); 
             }
@@ -119,7 +122,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 LevelManager.Instance.PlayerUnitParalysis(UID, true);
                 ///移除目标选中
                 ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
-                //AIManager.Instance.RemoveTargetUnit(this);
                 //if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
                 //{
                 //    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
@@ -143,13 +145,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             if (_owner is AIShip)
             {
                 ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-                //AIManager.Instance.RemoveSingleUnit(this);
             }
 
             if (_owner is PlayerShip)
             {
 
-                //AIManager.Instance.RemoveTargetUnit(this);
                 RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
                 ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
                 //if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
@@ -159,10 +159,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             }
         }
         this.gameObject.SetActive(false);
-        SetUnitProcess(false);
         ///Remove Owner
         _owner.RemoveUnit(this);
-        
+        SetDisable();
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
         {
             
@@ -171,6 +170,17 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             vfx.GetComponent<ParticleController>().PlayVFX();
         });
         
+    }
+
+    /// <summary>
+    /// 整船死亡时调用
+    /// </summary>
+    public virtual void SetDisable()
+    {
+        RemoveHPBar();
+        SetUnitProcess(false);
+        HpComponent.Clear();
+        OnRemove();
     }
 
     public virtual void Restore()
@@ -209,13 +219,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (_owner is AIShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
-            //AIManager.Instance.AddSingleUnit(this);
 
         }
         if (_owner is PlayerShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
-            //AIManager.Instance.AddTargetUnit(this);
             //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
 
             SetUnitProcess(true);
@@ -273,8 +281,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// <summary>
     /// 处理OnRemove 属性 & 机制
     /// </summary>
-    public void OnRemove()
+    public virtual void OnRemove()
     {
+        ResetAllAnimation();
         baseAttribute.Destroy();
         _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
         _modifySpecialDatas.ForEach(x => x.OnRemove());
@@ -318,12 +327,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (HpComponent == null)
             return false;
         //已经死亡或者瘫痪的不会收到更多伤害
-        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis || state == DamagableState.Immortal)
+        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis)
         {
             return false;
         }
 
-        var rowScreenPos = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
+        var rowScreenPos = UIManager.Instance.GetUIposBWorldPosition(transform.position);
         if (_owner is AIShip)
         {
             int Damage = info.Damage;
@@ -380,22 +389,26 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         LevelManager.Instance.UnitHitFinish(info);
         if (info.IsHit)
         {
-            bool isDie = HpComponent.ChangeHP(-info.Damage);
-            ///HP为0
-            if (isDie)
+            bool isDie = false;
+            if (state != DamagableState.Immortal)
             {
-                if (_baseUnitConfig.ParalysisResume)
+                isDie = HpComponent.ChangeHP(-info.Damage);
+                ///HP为0
+                if (isDie)
                 {
-                    ///瘫痪恢复
-                    ChangeUnitState(DamagableState.Paralysis);
-                }
-                else
-                {
-                    UnitDeathInfo deathInfo = new UnitDeathInfo
+                    if (_baseUnitConfig.ParalysisResume)
                     {
-                        isCriticalKill = info.IsCritical
-                    };
-                    Death(deathInfo);
+                        ///瘫痪恢复
+                        ChangeUnitState(DamagableState.Paralysis);
+                    }
+                    else
+                    {
+                        UnitDeathInfo deathInfo = new UnitDeathInfo
+                        {
+                            isCriticalKill = info.IsCritical
+                        };
+                        Death(deathInfo);
+                    }
                 }
             }
             return isDie;
@@ -529,6 +542,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 ModifyTriggerData data = triggers[i].Create(triggers[i], 0);
                 var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, data);
                 data.UID = uid;
+                data.OwnerUID = targetUnit.UID;
                 data.FromUnitSlotEffect = true;
                 targetUnit.AddNewModifyEffectData(data);
             }
@@ -594,11 +608,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         {
             for (int i = 0; i < triggers.Length; i++)
             {
-                var triggerData = triggers[i].Create(triggers[i], UID);
+                var triggerData = triggers[i].Create(triggers[i], 0);
                 if (triggerData != null)
                 {
                     var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
                     triggerData.UID = uid;
+                    triggerData.OwnerUID = UID;
                     triggerData.OnTriggerAdd();
                     _modifyTriggerDatas.Add(triggerData);
                 }
@@ -633,6 +648,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     #region Anim
 
     protected const string AnimTrigger_Spawn = "Spawn";
+    protected const string AnimTrigger_DeSpawn = "DeSpawn";
 
     public async void DoSpawnEffect()
     {
@@ -643,10 +659,17 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
     }
 
+    public void DoDeSpawnEffect()
+    {
+        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        SetAnimatorTrigger(AnimTrigger_DeSpawn);
+    }
+
     private void ResetAllAnimation()
     {
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _animator.ResetTrigger(AnimTrigger_Spawn);
+        _animator.ResetTrigger(AnimTrigger_DeSpawn);
     }
 
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
@@ -656,11 +679,35 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         _animator.SetTrigger(trigger);
     }
 
-    private void ResetAnimatorTrigger(string trigger)
+    #endregion
+
+    #region UIDisplay
+
+    public void RegisterHPBar()
     {
-        _animator.ResetTrigger(trigger);
+        if (_uiCanvas == null)
+            return;
+
+        _uiCanvas.SafeSetActive(true);
+
+        UIManager.Instance.CreatePoolerUI<UnitSceneHPSlider>("UnitHPSlider", _uiCanvas, (panel) =>
+        {
+            panel.transform.localPosition = new Vector3(0, _baseUnitConfig.HPBarOffsetY, 0);
+            var rect = panel.transform.SafeGetComponent<RectTransform>();
+            rect.SetRectWidthAndHeight(_baseUnitConfig.HPBarWidth, _baseUnitConfig.HPBarHeight);
+            panel.SetUpSlider(this);
+            _sceneHPSlider = panel;
+        });
     }
 
+    private void RemoveHPBar()
+    {
+        if (_sceneHPSlider == null)
+            return;
+
+        _sceneHPSlider.PoolableDestroy();
+        _sceneHPSlider = null;
+    }
 
     #endregion
 }

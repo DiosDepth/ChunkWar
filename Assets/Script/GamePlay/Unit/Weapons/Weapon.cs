@@ -603,7 +603,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
-                    _lastbullet.SetUp(_bulletdata);
+                    _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -630,7 +630,7 @@ public class Weapon : Unit
                     {
                         obj.transform.SetTransform(trs);
                         _lastbullet = obj.GetComponent<Bullet>();
-                        _lastbullet.SetUp(_bulletdata);
+                        _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
                         _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                         _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                         _lastbullet.SetFirePoint(trs.gameObject);
@@ -658,7 +658,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
-                    _lastbullet.SetUp(_bulletdata);
+                    _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -683,7 +683,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
-                    _lastbullet.SetUp(_bulletdata);
+                    _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -715,7 +715,7 @@ public class Weapon : Unit
                 {
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
-                    _lastbullet.SetUp(_bulletdata);
+                    _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
                     _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
@@ -977,6 +977,24 @@ public class Weapon : Unit
         data.DamageCreateTotal = statistics.DamageCreateTotal;
         data.DamageTakeTotal = statistics.DamageTakeTotal;
         return data;
+    }
+
+    /// <summary>
+    /// 子弹命中效果
+    /// </summary>
+    private void OnBulletHitAction()
+    {
+        if (_weaponCfg == null)
+            return;
+
+        if(_weaponCfg.HitShakeCfg != null)
+        {
+            var cfg = _weaponCfg.HitShakeCfg;
+            if (cfg.CameraShake)
+            {
+                CameraManager.Instance.ShakeBattleCamera(cfg);
+            }
+        }
     }
 
 #if UNITY_EDITOR

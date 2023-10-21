@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System;
 
 public enum ProjectileMovementType
 {
@@ -133,9 +133,9 @@ public class Projectile : Bullet, IDamageble
         }
     }
 
-    public override void SetUp(BulletConfig cfg)
+    public override void SetUp(BulletConfig cfg, Action hitAction = null)
     {
-        base.SetUp(cfg);
+        base.SetUp(cfg, hitAction);
         _projectileCfg = cfg as BulletProjectileConfig;
         lifeTime = _projectileCfg.LifeTime;
         maxSpeed = _projectileCfg.MaxSpeed;
@@ -474,6 +474,7 @@ public class Projectile : Bullet, IDamageble
         if (succ)
         {
             SoundManager.Instance.PlayBattleSound(_projectileCfg.HitAudio, transform);
+            OnHitEffect();
         }
         return succ;
     }

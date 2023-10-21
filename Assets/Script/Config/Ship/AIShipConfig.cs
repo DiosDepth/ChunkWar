@@ -45,8 +45,16 @@ public class AIShipConfig : BaseShipConfig
     [BoxGroup("属性配置/AA/基础攻击")]
     public int AttackBase;
 
-    [LabelText("敌人难度等级")]
+
+    [HorizontalGroup("属性配置/AA", 150)]
+    [BoxGroup("属性配置/AA/难度等级")]
+    [HideLabel]
     public int HardLevelGroupID;
+
+    [HorizontalGroup("属性配置/AA", 150)]
+    [BoxGroup("属性配置/AA/数量可以修正")]
+    [HideLabel]
+    public bool EnemyCountModify;
 
     [FoldoutGroup("AI配置")]
     [HorizontalGroup("AI配置/A")]
@@ -88,6 +96,19 @@ public class AIShipConfig : BaseShipConfig
     [HorizontalGroup("效果配置/A")]
     public string DieAudio;
 
+    [FoldoutGroup("掉落配置")]
+    public List<DropInfo> DropList = new List<DropInfo>();
+
+    [FoldoutGroup("掉落配置")]
+    public Dictionary<GoodsItemRarity, ShopGoodsRarityConfig> WreckageRarityCfg = new Dictionary<GoodsItemRarity, ShopGoodsRarityConfig>();
+
+    [LabelText("单位特殊技能")]
+    [DisableContextMenu(DisableForMember = true, DisableForCollectionElements = true)]
+    [ValueDropdown("GetTriggerLst", DrawDropdownForListElements = false)]
+    [HideReferenceObjectPicker]
+    public ModifyTriggerConfig[] Skills = new ModifyTriggerConfig[0];
+
+
     [System.Obsolete]
     protected override void OnEnable()
     {
@@ -105,6 +126,11 @@ public class AIShipConfig : BaseShipConfig
     {
         base.InitData();
 
+    }
+
+    private ValueDropdownList<ModifyTriggerConfig> GetTriggerLst()
+    {
+        return ModifyTriggerConfig.GetModifyTriggerList();
     }
 
 #endif

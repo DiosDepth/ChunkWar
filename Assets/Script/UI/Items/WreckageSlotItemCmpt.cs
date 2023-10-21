@@ -28,6 +28,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
     private TextMeshProUGUI _wasteValueText;
     private TextMeshProUGUI _wasteLoadValueText;
+    private TextMeshProUGUI _wasteSellTotalText;
 
     private RectTransform _detailContentRect;
     private ScrollRect _detailScroll;
@@ -59,10 +60,12 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
         _wasteValueText = _wasteCanvas.transform.Find("Count/Value").SafeGetComponent<TextMeshProUGUI>();
         _wasteLoadValueText = _wasteCanvas.transform.Find("Load/Value").SafeGetComponent<TextMeshProUGUI>();
+        _wasteSellTotalText = _wasteCanvas.transform.Find("SellAll/Value").SafeGetComponent<TextMeshProUGUI>();
 
         transform.Find("BG").SafeGetComponent<Button>().onClick.AddListener(OnBtnClick);
         transform.Find("Content/Sell").SafeGetComponent<Button>().onClick.AddListener(OnSellBtnClick);
         transform.Find("WasteContent/WasteSell").SafeGetComponent<Button>().onClick.AddListener(OnWasteSellClick);
+        transform.Find("WasteContent/SellAll").SafeGetComponent<Button>().onClick.AddListener(OnWasteSellAllClick);
     }
 
     public void SetDataGrid(int dataIndex, SelectableItemBase item, SelectedDelegate selected)
@@ -114,8 +117,11 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     private void SetUpWaste()
     {
         _rarityBG.sprite = GameHelper.GetRarityBG_Big(GoodsItemRarity.Tier1);
-        _wasteValueText.text = RogueManager.Instance.GetDropWasteCount.ToString();
+        var totalCount = RogueManager.Instance.GetDropWasteCount;
+        _wasteValueText.text = totalCount.ToString();
         _wasteLoadValueText.text = string.Format("{0:F1}", RogueManager.Instance.GetDropWasteLoad);
+        
+        _wasteSellTotalText.text = GameHelper.CalculateWasteSellPrice(totalCount).ToString();
     }
 
     private async void SetUp(WreckageItemInfo info)
@@ -263,5 +269,10 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
         {
             panel.Initialization();
         });
+    }
+
+    private void OnWasteSellAllClick()
+    {
+        RogueManager.Instance.SellAllWaste();
     }
 }

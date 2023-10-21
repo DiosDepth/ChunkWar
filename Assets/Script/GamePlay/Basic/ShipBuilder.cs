@@ -403,6 +403,7 @@ public class ShipBuilder : MonoBehaviour
         {
             editorShip.RemoveEdtiorUnit(_currentHoverUnit, true);
             _currentHoverUnit = null;
+            SoundManager.Instance.PlayUISound("Unit_UnBuild");
         }
     }
 
@@ -422,8 +423,8 @@ public class ShipBuilder : MonoBehaviour
         editorShip.RemoveEdtiorUnit(_currentHoverUnit);
         ///Create New Wreckage
         RogueManager.Instance.CreateAndAddNewWreckageInfo(_currentHoverUnit.UnitID);
-
         _currentHoverUnit = null;
+        SoundManager.Instance.PlayUISound("Unit_UnBuild");
     }
 
     #endregion
@@ -458,6 +459,7 @@ public class ShipBuilder : MonoBehaviour
         currentInventoryItem = null;
         editorBrush.gameObject.SetActive(false);
         RogueEvent.Trigger(RogueEventType.WreckageAddToShip);
+        SoundManager.Instance.PlayUISound("Unit_Build");
     }
 
     /// <summary>

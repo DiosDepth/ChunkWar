@@ -12,6 +12,9 @@ public class EffectBuilding : Building
 
     private float _effectTimer;
     private float _triggerInterval;
+    private float _firstSpawnInterval;
+
+    private int _triggerCount = 0;
 
     public override void InitBuildingAttribute(OwnerShipType type)
     {
@@ -23,13 +26,14 @@ public class EffectBuilding : Building
     {
         _effectCfg = m_unitconfig as EffectBuildingConfig;
         _triggerInterval = _effectCfg.TriggerInterval;
+        _firstSpawnInterval = _effectCfg.FirstSpawnCD;
 
         base.Initialization(m_owner, m_unitconfig);
     }
 
     public override bool OnUpdateBattle()
     {
-        if (base.OnUpdateBattle())
+        if (!base.OnUpdateBattle())
             return false;
 
         UpdateEffectTrigger();
@@ -37,13 +41,35 @@ public class EffectBuilding : Building
         return true;
     }
 
+    public override void OnRemove()
+    {
+        base.OnRemove();
+        _triggerCount = 0;
+        _effectTimer = 0;
+    }
+
     private void UpdateEffectTrigger()
     {
         _effectTimer += Time.deltaTime;
-        if(_effectTimer >= _triggerInterval)
+
+        if(_triggerCount == 0)
         {
-            TriggerEffect();
-            _effectTimer = 0;
+            ///CheckFirstSpawn
+            if(_effectTimer >= _firstSpawnInterval)
+            {
+                TriggerEffect();
+                _triggerCount++;
+                _effectTimer = 0;
+            }
+        }
+        else
+        {
+            if (_effectTimer >= _triggerInterval)
+            {
+                TriggerEffect();
+                _triggerCount++;
+                _effectTimer = 0;
+            }
         }
     }
 
@@ -52,9 +78,10 @@ public class EffectBuilding : Building
     /// </summary>
     private void TriggerEffect()
     {
+        List<AIShip> aiShips;
         var allaiPos = ECSManager.Instance.activeAIUnitData.unitPos;
         var targetInfos = GameHelper.FindTargetsByPoint(transform.position, _effectCfg.EffectRadius, allaiPos);
-        var allUnits = ECSManager.Instance.GetAIShipAllActiveUnitByTargetsInfo(targetInfos);
+        var allUnits = ECSManager.Instance.GetAIShipAllActiveUnitByTargetsInfo(targetInfos, out aiShips);
 
         if (allUnits.Count <= 0)
             return;
@@ -74,24 +101,43 @@ public class EffectBuilding : Building
                 MTC_OnAdd newCfg = new MTC_OnAdd(ModifyTriggerType.OnAdd);
                 var newData = newCfg.Create(newCfg, UID);
                 unit.AddNewModifyEffectData(newData);
-                AddUnitTimerModifier(newData, _effectCfg.Modifiers);
+                AddUnitTimerModifier(newData, _effectCfg.Modifiers, unit);
             }
             else
             {
-                AddUnitTimerModifier(existData, _effectCfg.Modifiers);
+                AddUnitTimerModifier(existData, _effectCfg.Modifiers, unit);
+            }
+        }
+
+        ///HighLight
+        for(int i = 0; i < aiShips.Count; i++)
+        {
+            var targetShip = aiShips[i];
+            if(targetShip != null && targetShip != _owner)
+            {
+                targetShip.ShowEnhanceOutline();
             }
         }
     }
 
-    private void AddUnitTimerModifier(ModifyTriggerData data, MTEC_AddUnitTimerModifier[] cfgs)
+    private void AddUnitTimerModifier(ModifyTriggerData data, MTEC_AddUnitTimerModifier[] cfgs, Unit targetUnit)
     {
         if (cfgs == null || cfgs.Length <= 0)
             return;
 
         for(int i = 0; i < cfgs.Length; i++)
         {
-            data.AddTimerModifier_Unit(cfgs[i], UID);
+            data.AddTimerModifier_Unit(cfgs[i], targetUnit, OnUnitEffectRemove);
         }
+    }
+
+    private void OnUnitEffectRemove(Unit targetUnit)
+    {
+        if (targetUnit == null && targetUnit._owner is AIShip)
+            return;
+
+        ///待观察，可能不同步
+        (targetUnit._owner as AIShip).HideEnhanceOutLine();
     }
 
 }

@@ -60,6 +60,13 @@ public class SoundManager : Singleton<SoundManager>
         var evtParam = "event:/" + eventName;
         RuntimeManager.PlayOneShot(evtParam);
     }
+    public void PlayUISound(string eventName)
+    {
+        if (string.IsNullOrEmpty(eventName))
+            return;
+        var evtParam = "event:/UI/" + eventName;
+        RuntimeManager.PlayOneShot(evtParam);
+    }
 
     public void LoadBanks()
     {

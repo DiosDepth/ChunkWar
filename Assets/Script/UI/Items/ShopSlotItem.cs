@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ShopSlotItem : MonoBehaviour
+public class ShopSlotItem : MonoBehaviour, IPoolable
 {
     private int itemTypeID;
 
@@ -322,5 +322,21 @@ public class ShopSlotItem : MonoBehaviour
             _tagRoot.transform.SafeSetActive(true);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_tagRoot);
         }
+    }
+
+    public void PoolableReset()
+    {
+
+    }
+
+    public void PoolableDestroy()
+    {
+        PoolableReset();
+        PoolManager.Instance.BackObject(transform.name, gameObject);
+    }
+
+    public void PoolableSetActive(bool isactive = true)
+    {
+
     }
 }

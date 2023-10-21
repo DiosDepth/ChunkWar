@@ -23,6 +23,9 @@ public class ShipHUDMessagePanel : MonoBehaviour
         var anim = _topCanvas.transform.SafeGetComponent<Animation>();
         anim.Play();
         await UniTask.Delay(2000);
-        _topCanvas.alpha = 0;
+        if(_topCanvas != null)
+        {
+            _topCanvas.alpha = 0;
+        }
     }
 }

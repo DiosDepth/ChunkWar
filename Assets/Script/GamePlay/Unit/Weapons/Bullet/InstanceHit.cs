@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class InstanceHit : Bullet
 {
@@ -23,9 +24,9 @@ public class InstanceHit : Bullet
 
     private BulletInstanceHitConfig _instanceHitCfg;
 
-    public override void SetUp(BulletConfig cfg)
+    public override void SetUp(BulletConfig cfg, Action hitAction = null)
     {
-        base.SetUp(cfg);
+        base.SetUp(cfg, hitAction);
         _instanceHitCfg = cfg as BulletInstanceHitConfig;
 
         width = _instanceHitCfg.Width;
@@ -124,6 +125,7 @@ public class InstanceHit : Bullet
 
         hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
 
+        bool hittarget = false;
         if (hitlist != null && hitlist?.Length > 0)
         {
             for (int i = 0; i < hitlist.Length; i++)
@@ -145,9 +147,6 @@ public class InstanceHit : Bullet
 
                     }).setOnComplete(() =>
                     {
-
-
-                        PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
                         //产生伤害
                         if (_owner is Weapon)
                         {
@@ -162,6 +161,9 @@ public class InstanceHit : Bullet
                                 damage.Target = target;
                                 target.TakeDamage(damage);
                             }
+
+                            PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
+                            hittarget = true;
                         }
 
                         //延迟激光然后销毁激光
@@ -194,6 +196,11 @@ public class InstanceHit : Bullet
                 }
             }
  
+        }
+
+        if (hittarget)
+        {
+            OnHitEffect();
         }
 
         LeanTween.value(0, maxDistance, emittime).setOnUpdate((value) =>

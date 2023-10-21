@@ -65,3 +65,6 @@ TagManager:
   - name: VFX
     uniqueID: 3168972551
     locked: 0
+  - name: SceneUI
+    uniqueID: 3307415549
+    locked: 0

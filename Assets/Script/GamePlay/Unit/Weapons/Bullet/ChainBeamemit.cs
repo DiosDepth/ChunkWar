@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ChainBeamemit : Bullet
 {
@@ -19,9 +20,6 @@ public class ChainBeamemit : Bullet
 
     public LineRenderer beamline;
 
-
-
-    private Coroutine startEmitCoroutine;
     private RaycastHit2D[] hitlist;
     private RaycastHit2D hit;
     private Collider2D[] overlaplist;
@@ -34,9 +32,9 @@ public class ChainBeamemit : Bullet
 
     private BulletChainBeamConfig _chainBeamCfg;
 
-    public override void SetUp(BulletConfig cfg)
+    public override void SetUp(BulletConfig cfg, Action hitAction = null)
     {
-        base.SetUp(cfg);
+        base.SetUp(cfg, hitAction);
         _chainBeamCfg = cfg as BulletChainBeamConfig;
         maxDistance = _chainBeamCfg.MaxDistance;
         width = _chainBeamCfg.Width;
@@ -151,6 +149,7 @@ public class ChainBeamemit : Bullet
                     }
                 }
                 _isChained = true;
+                OnHitEffect();
             }
 
             LeanTween.delayedCall(duration, () =>

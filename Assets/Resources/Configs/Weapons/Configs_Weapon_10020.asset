@@ -404,7 +404,119 @@ MonoBehaviour:
       Data: 1|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|MTC_OnWeaponHitTarget, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 14
+    - Name: TriggerCount
+      Entry: 3
+      Data: -1
+    - Name: SelfUnique
+      Entry: 5
+      Data: false
+    - Name: UsePercent
+      Entry: 5
+      Data: false
+    - Name: Percent
+      Entry: 4
       Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 3|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|MTEC_CreateExplode, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 10
+    - Name: Conditions
+      Entry: 7
+      Data: 5|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PointTarget
+      Entry: 3
+      Data: 1
+    - Name: ExplodeRange
+      Entry: 3
+      Data: 5
+    - Name: ExplodeDamageBase
+      Entry: 3
+      Data: 50
+    - Name: DamageModifyFrom
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[UnitPropertyModifyFrom, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 7|UnitPropertyModifyFrom, Assembly-CSharp
+    - Name: PropertyKey
+      Entry: 3
+      Data: 15
+    - Name: Ratio
+      Entry: 4
+      Data: 0.75
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: DamageTypeBool
+      Entry: 3
+      Data: 0
+    - Name: DamageType
+      Entry: 3
+      Data: 0
+    - Name: CriticalBool
+      Entry: 3
+      Data: 2
+    - Name: CheckCurrentFireWeapon
+      Entry: 5
+      Data: true
+    - Name: ModifyFinalDamage
+      Entry: 5
+      Data: false
+    - Name: DamageAddPercent
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -413,7 +525,7 @@ MonoBehaviour:
       Data: 
     - Name: SlotEffects
       Entry: 7
-      Data: 2|UnitSlotEffectConfig[], Assembly-CSharp
+      Data: 8|UnitSlotEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -447,10 +559,13 @@ MonoBehaviour:
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 8
   PropertyModify: []
-  DamageBase: 50
+  HPBarOffsetY: 0
+  HPBarHeight: 0.4
+  HPBarWidth: 3
+  DamageBase: 150
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
@@ -459,15 +574,17 @@ MonoBehaviour:
   BaseRange: 600
   BaseCriticalRate: 10
   CriticalDamage: 150
-  TotalDamageCount: 24
+  TotalDamageCount: 6
   ShootPerCount: 2
-  CD: 6
-  FireCD: 0.1
+  CD: 5
+  FireCD: 0.5
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
+  DamageModifyFrom:
+  - PropertyKey: 15
+    Ratio: 2
   FireAudioClip: 
   FireEffect:
     EffectName: 

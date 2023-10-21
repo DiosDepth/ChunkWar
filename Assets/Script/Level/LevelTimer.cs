@@ -98,6 +98,17 @@ public class LevelTimer
         _triggers.Clear();
     }
 
+    public void RemoveTriggersByKey(string key)
+    {
+        for(int i = _triggers.Count - 1; i >= 0; i--)
+        {
+            if (_triggers[i].TriggerName == key)
+            {
+                _triggers[i].IsNeedToRemove = true;
+            }
+        }
+    }
+
     private void UpdateTrigger()
     {
         for (int i = _triggers.Count - 1; i >= 0; i--) 
@@ -157,7 +168,7 @@ public class LevelTimerTrigger
     public bool IsNeedToRemove
     {
         get;
-        private set;
+        set;
     }
 
     private bool _triggerOnStart = false;

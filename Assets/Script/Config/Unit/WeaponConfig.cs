@@ -10,6 +10,32 @@ public enum WeaponDamageType
     NONE,
 }
 
+[System.Serializable]
+public class CameraShakeConfig
+{
+    [HorizontalGroup("Z", 200)]
+    [LabelText("震动")]
+    [LabelWidth(80)]
+    public bool CameraShake;
+
+    [HorizontalGroup("Z", 200)]
+    [LabelText("时长")]
+    [LabelWidth(80)]
+    public float Duration = 0.4f;
+
+    [HorizontalGroup("Z", 350)]
+    [LabelText("频率")]
+    [LabelWidth(50)]
+    [MinMaxSlider(0, 5)]
+    public Vector2 Frequency = new Vector2(1, 1.5f);
+
+    [HorizontalGroup("Z", 350)]
+    [LabelText("震幅")]
+    [LabelWidth(50)]
+    [MinMaxSlider(0, 6)]
+    public Vector2 Amplitude = new Vector2(2, 2.5f);
+}
+
 [CreateAssetMenu(fileName = "Configs_Weapon_", menuName = "Configs/Unit/WeaponConfig")]
 public class WeaponConfig : BaseUnitConfig
 {
@@ -132,5 +158,9 @@ public class WeaponConfig : BaseUnitConfig
     [LabelText("开火特效")]
     [LabelWidth(100)]
     public GeneralEffectConfig FireEffect;
+
+    [FoldoutGroup("效果配置")]
+    [LabelText("命中相机震动")]
+    public CameraShakeConfig HitShakeCfg;
 }
 

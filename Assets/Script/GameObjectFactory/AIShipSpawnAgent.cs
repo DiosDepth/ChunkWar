@@ -7,7 +7,13 @@ using UnityEngine.Events;
 
 
 
-
+public class ExtraSpawnInfo
+{
+    public int ID;
+    public WaveEnemySpawnConfig Cfg;
+    public AISkillShip ownerShip;
+    public AttachPointConfig PointCfg;
+}
 
 
 public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable

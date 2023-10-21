@@ -147,7 +147,7 @@ public class WeaponAttribute : UnitBaseAttribute
             isCritical = Utility.CalculateRate100(CriticalRatio);
             if (isCritical)
             {
-                Damage = Mathf.RoundToInt(finalDamage * (1 + CriticalDamagePercent / 100f));
+                Damage = Mathf.RoundToInt(finalDamage * (CriticalDamagePercent / 100f));
             }
             else
             {

@@ -15,6 +15,8 @@ public class GMTalkManager : Singleton<GMTalkManager>
     private bool isShowGMTalkWindow = false;
     private bool _isCmdSuccess;
 
+    private Dictionary<int, bool> toggleValueCache = new Dictionary<int, bool>();
+
     public override void Initialization()
     {
         base.Initialization();
@@ -41,6 +43,31 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("createBattleLog", CreateBattleLog);
         AddGMFunctionToDic("addPlug", AddPlug);
         AddGMFunctionToDic("saveGame", GM_SaveGame);
+        AddGMFunctionToDic("EnemyImmortal", AllAIShip_Immortal);
+        AddGMFunctionToDic("PlayerImmortal", PlayerShip_Immortal);
+        AddGMFunctionToDic("EnemyUnImmortal", AllAIShip_UnImmortal);
+        AddGMFunctionToDic("PlayerUnImmortal", PlayerShip_UnImmortal);
+    }
+
+    public void AddToggleStorage(int key, bool value)
+    {
+        if (toggleValueCache.ContainsKey(key))
+        {
+            toggleValueCache[key] = value;
+        }
+        else
+        {
+            toggleValueCache.Add(key, value);
+        }
+    }
+
+    public bool GetToggleCacheValue(int key)
+    {
+        if (toggleValueCache.ContainsKey(key))
+        {
+            return toggleValueCache[key];
+        }
+        return false;
     }
 
     
@@ -48,21 +75,26 @@ public class GMTalkManager : Singleton<GMTalkManager>
     {
         if(Keyboard.current.backquoteKey.wasPressedThisFrame)
         {
-            if(isShowGMTalkWindow)
-            {
-                UIManager.Instance.ShowUI<GMTalkMainPage>("GMTalkMainPage", E_UI_Layer.System, this, (panel) => 
-                {
-                    panel.Initialization();
-                    InputDispatcher.Instance.ChangeInputMode("UI");
-                });
-            }
-            else
-            {
-                UIManager.Instance.HiddenUI("GMTalkMainPage");
-                InputDispatcher.Instance.ChangeInputMode("Player");
-            }
-            isShowGMTalkWindow = !isShowGMTalkWindow;
+            SwicthGMPage();
         }
+    }
+
+    public void SwicthGMPage()
+    {
+        if (isShowGMTalkWindow)
+        {
+            UIManager.Instance.ShowUI<GMTalkMainPage>("GMTalkMainPage", E_UI_Layer.System, this, (panel) =>
+            {
+                panel.Initialization();
+                InputDispatcher.Instance.ChangeInputMode("UI");
+            });
+        }
+        else
+        {
+            UIManager.Instance.HiddenUI("GMTalkMainPage");
+            InputDispatcher.Instance.ChangeInputMode("Player");
+        }
+        isShowGMTalkWindow = !isShowGMTalkWindow;
     }
     
     public void HandleGMTalkInputContent(string content)
@@ -190,6 +222,53 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var fileName = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
         RogueManager.Instance.CreateInLevelSaveData(string.Format("GM_SAV_{0}", fileName), true);
         CloseGMTalkPage();
+        return true;
+    }
+
+    /// <summary>
+    /// 所有敌人无敌
+    /// </summary>
+    /// <param name="content"></param>
+    /// <returns></returns>
+    private bool AllAIShip_Immortal(string[] content)
+    {
+        var allAIShip = ECSManager.Instance.activeAIAgentData.shipList;
+        for(int i = 0; i < allAIShip.Count; i++)
+        {
+            allAIShip[i].ForeceSetAllUnitState(DamagableState.Immortal);
+        }
+
+        return true;
+    }
+
+    private bool AllAIShip_UnImmortal(string[] content)
+    {
+        var allAIShip = ECSManager.Instance.activeAIAgentData.shipList;
+        for (int i = 0; i < allAIShip.Count; i++)
+        {
+            allAIShip[i].ForeceSetAllUnitState(DamagableState.Normal);
+        }
+
+        return true;
+    }
+
+    private bool PlayerShip_Immortal(string[] content)
+    {
+        var playerShip = RogueManager.Instance.currentShip;
+        if(playerShip != null)
+        {
+            playerShip.ForeceSetAllUnitState(DamagableState.Immortal);
+        }
+        return true;
+    }
+
+    private bool PlayerShip_UnImmortal(string[] content)
+    {
+        var playerShip = RogueManager.Instance.currentShip;
+        if (playerShip != null)
+        {
+            playerShip.ForeceSetAllUnitState(DamagableState.Normal);
+        }
         return true;
     }
 

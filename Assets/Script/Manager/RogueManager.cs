@@ -187,6 +187,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public List<Unit> AllShipUnits = new List<Unit>();
 
     private BattleSpecialEntitySpawnConfig _entitySpawnConfig;
+    private List<ExtraSpawnInfo> _extraSpawnConfig = new List<ExtraSpawnInfo>();
+
     /// <summary>
     /// 当前刷新次数
     /// </summary>
@@ -345,6 +347,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CurrentWreckageItems.Clear();
         _allShipLevelUpItems.Clear();
         CurrentShipLevelUpItems.Clear();
+        _extraSpawnConfig.Clear();
 
         _currentRereollCount = 0;
         _shopRefreshTotalCount = 0;
@@ -481,6 +484,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         AllCurrentShipPlugs.Clear();
         globalModifySpecialDatas.Clear();
         goodsItems.Clear();
+        _extraSpawnConfig.Clear();
         MainPropertyData.BindRowPropertyChangeAction(PropertyModifyKey.ShopFreeRollCount, OnShopFreeRollCountChange);
         InitEnergyAndWreckageCommonBuff();
     }
@@ -721,6 +725,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _dropWasteCount.Set(newCount);
         OnWasteCountChange?.Invoke(newCount);
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
+    }
+
+    public void SellAllWaste()
+    {
+        SellWaste(GetDropWasteCount);
     }
 
     public WreckageItemInfo GetCurrentWreckageByUID(uint uid)
@@ -1015,12 +1024,13 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             LevelManager.Instance.CreateHarborPickUp();
         }
 
+        _extraSpawnConfig.Clear();
         Timer.PauseAndSetZero();
         ///停止玩家移动
         currentShip.controller.SetControllerUpdate(false);
         ECSManager.Instance.SetProcessECS(false);
-        //AIManager.Instance.ProcessAI = false;
         LevelManager.Instance.CollectAllPickUps();
+        LevelManager.Instance.DoAllShipDespawn();
 
         await UniTask.Delay(2000);
         _waveIndex++;
@@ -1311,12 +1321,89 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SpawnEntity(cfg);
     }
 
-    public void SpawnEntity(WaveEnemySpawnConfig cfg, int overrideHardLevelID = -1)
+    private void CreateExtraFactory(int ID)
+    {
+        var info = _extraSpawnConfig.FindAll(x => x.ID == ID).FirstOrDefault();
+        if (info == null)
+            return;
+
+        ///GetRandomNode
+        if(info.ownerShip != null && info.PointCfg != null)
+        {
+            var pointCfg = info.PointCfg;
+
+            Transform attachPoint = null;
+            if (pointCfg.RandomNode)
+            {
+                attachPoint = info.ownerShip.GetRandomAttachPoint();
+            }
+            else
+            {
+                attachPoint = info.ownerShip.GetAttachPoint(pointCfg.NodeName);
+            }
+
+            SpawnEntity(info.Cfg, -1, attachPoint);
+        }
+        else
+        {
+            SpawnEntity(info.Cfg, -1);
+        }
+    }
+
+    /// <summary>
+    /// 增加额外AI创生器
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <param name="key"></param>
+    public void AddExtraAIFactory(List<WaveEnemySpawnConfig> spawns, string key, AISkillShip owner = null, AttachPointConfig pointCfg = null)
+    {
+        for (int i = 0; i < spawns.Count; i++)
+        {
+            var cfg = spawns[i];
+            var trigger = LevelTimerTrigger.CreateTrigger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount, key);
+            trigger.BindChangeAction(CreateExtraFactory, cfg.ID);
+            Timer.AddTrigger(trigger);
+            ExtraSpawnInfo info = new ExtraSpawnInfo
+            {
+                Cfg = cfg,
+                ID = cfg.ID,
+                ownerShip = owner,
+                PointCfg = pointCfg
+            };
+
+            _extraSpawnConfig.Add(info);
+        }
+    }
+
+    /// <summary>
+    /// 移除额外AI创生器
+    /// </summary>
+    /// <param name="cfg"></param>
+    /// <param name="key"></param>
+    public void RemoveExtraAIFactory(List<WaveEnemySpawnConfig> spawns, string key)
+    {
+        for (int i = 0; i < spawns.Count; i++) 
+        {
+            RemoveExtraSpawnData(spawns[i].ID);
+        }
+        Timer.RemoveTriggersByKey(key);
+    }
+
+    public void SpawnEntity(WaveEnemySpawnConfig cfg, int overrideHardLevelID = -1, Transform overrideSpawnPoint = null)
     {
         if (cfg == null || currentShip == null)
             return;
 
-        Vector2 spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
+        Vector2 spawnpoint = Vector2.zero;
+        if (overrideSpawnPoint != null)
+        {
+            spawnpoint = overrideSpawnPoint.position;
+        }
+        else
+        {
+            spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
+        }
+
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
         {
             AIShipSpawnAgent aIFactory = obj.GetComponent<AIShipSpawnAgent>();
@@ -1367,6 +1454,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         return totalScore;
     }
  
+    private void RemoveExtraSpawnData(int index)
+    {
+        for(int i = _extraSpawnConfig.Count - 1; i >= 0; i--)
+        {
+            if (_extraSpawnConfig[i].ID == index)
+                _extraSpawnConfig.RemoveAt(i);
+        }
+    }
+
     #endregion
 
     #region Property
@@ -1528,6 +1624,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         {
             panel.Initialization();
         });
+        ///设置玩家无敌时长
+        var time = DataManager.Instance.battleCfg.ShopExit_Player_Immortal_Time;
+        if(currentShip != null)
+        {
+            currentShip.ForeceSetAllUnitState(DamagableState.Immortal, time);
+        }
     }
 
     public ShopGoodsInfo GetShopGoodsInfo(int goodsID)
@@ -1651,7 +1753,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var tier2Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier2);
         var tier3Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier3);
         var tier4Rate = GetWeightByRarityAndEnterCount(enterCount, GoodsItemRarity.Tier4);
-        var tier1Rate = 100 - tier2Rate - tier3Rate - tier4Rate;
+        var tier1Rate = 1000 - tier2Rate - tier3Rate - tier4Rate;
         
         List<GeneralRarityRandomItem> rarityItems = new List<GeneralRarityRandomItem>();
         rarityItems.Add(new GeneralRarityRandomItem(GoodsItemRarity.Tier2, tier2Rate));
@@ -1790,15 +1892,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         if (!rarityMap.ContainsKey(rarity))
             return 0;
 
-        ///TODO
-        var playerLuck = 0;
-
         var rarityCfg = rarityMap[rarity];
         if (enterCount < rarityCfg.MinAppearEneterCount)
             return 0;
 
-        var waveIndexDelta = enterCount - rarityCfg.LuckModifyMinEnterCount;
-        return rarityCfg.WeightAddPerEnterCount * waveIndexDelta + rarityCfg.BaseWeight * (1 + playerLuck / 100f);
+        ///LuckModify
+        float luckRate = 1;
+        if(enterCount >= rarityCfg.LuckModifyMinEnterCount)
+        {
+            var playerLuck = MainPropertyData.GetPropertyFinal(PropertyModifyKey.Luck);
+            luckRate = (1 + playerLuck / 100f);
+        }
+
+        var result = rarityCfg.WeightAddPerEnterCount * enterCount + rarityCfg.BaseWeight * luckRate;
+        result = Mathf.Clamp(result, 0, rarityCfg.WeightMax);
+        return Mathf.RoundToInt(result * 10);
     }
 
     private void InitAllGoodsItems()
@@ -1823,7 +1931,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private byte GetCurrentShopRefreshCount()
     {
         var refreshCount = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShopRefreshCount);
-        return (byte)Mathf.Clamp(refreshCount, 1, 6);
+        return (byte)Mathf.Clamp(refreshCount, 1, GameGlobalConfig.ShopGoods_MaxCount);
     }
 
     /// <summary>

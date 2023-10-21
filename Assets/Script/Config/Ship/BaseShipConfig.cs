@@ -20,19 +20,6 @@ public class BaseShipConfig : BaseConfig
 {
     public ShipClassType ShipClass;
 
-    public List<DropInfo> DropList;
-
-    /// <summary>
-    /// Unit掉落稀有度权重
-    /// </summary>
-    public Dictionary<GoodsItemRarity, float> UnitDropRate = new Dictionary<GoodsItemRarity, float>
-    {
-        { GoodsItemRarity.Tier1, 0 },
-        { GoodsItemRarity.Tier2, 0 },
-        { GoodsItemRarity.Tier3, 0 },
-        { GoodsItemRarity.Tier4, 0 }
-    };
-
     [System.Obsolete]
     protected override void OnEnable()
     {

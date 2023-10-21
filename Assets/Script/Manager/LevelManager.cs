@@ -519,6 +519,15 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         }
     }
 
+    public void DoAllShipDespawn()
+    {
+        var allEnemyShip = ECSManager.Instance.activeAIAgentData.shipList;
+        for(int i = 0; i < allEnemyShip.Count; i++)
+        {
+            (allEnemyShip[i] as AIShip).DoDeSpawnEffect();
+        }
+    }
+
     /// <summary>
     /// 创建太空站
     /// </summary>

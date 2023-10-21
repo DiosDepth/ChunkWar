@@ -130,12 +130,12 @@ public class ShopGoodsRarityConfig
 {
     [HorizontalGroup("A1")]
     [LabelWidth(80)]
-    [LabelText("最小出现店次")]
+    [LabelText("最小出现")]
     public byte MinAppearEneterCount;
 
     [HorizontalGroup("A1")]
     [LabelWidth(120)]
-    [LabelText("幸运有效最小店次")]
+    [LabelText("幸运有效最小")]
     public byte LuckModifyMinEnterCount;
 
     [HorizontalGroup("A1")]

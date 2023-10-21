@@ -19,6 +19,12 @@ public class EffectBuildingConfig : BuildingConfig
     public float TriggerInterval;
 
     [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/A", 250)]
+    [BoxGroup("效果配置/A/初始间隔")]
+    [HideLabel]
+    public float FirstSpawnCD;
+
+    [FoldoutGroup("效果配置")]
     [ListDrawerSettings(CustomAddFunction = "AddModifier")]
     [HideReferenceObjectPicker]
     public MTEC_AddUnitTimerModifier[] Modifiers = new MTEC_AddUnitTimerModifier[0];

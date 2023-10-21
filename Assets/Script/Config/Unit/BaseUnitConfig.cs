@@ -152,6 +152,24 @@ public class BaseUnitConfig : BaseConfig
     [HideReferenceObjectPicker]
     public UnitSlotEffectConfig[] SlotEffects = new UnitSlotEffectConfig[0];
 
+    [FoldoutGroup("UI设置")]
+    [LabelText("血条偏移Y")]
+    [LabelWidth(80)]
+    [HorizontalGroup("UI设置/A", 250)]
+    public float HPBarOffsetY  = 0;
+
+    [FoldoutGroup("UI设置")]
+    [LabelText("血条高度")]
+    [LabelWidth(80)]
+    [HorizontalGroup("UI设置/A", 250)]
+    public float HPBarHeight = 0.4f;
+
+    [FoldoutGroup("UI设置")]
+    [LabelText("血条宽度")]
+    [LabelWidth(80)]
+    [HorizontalGroup("UI设置/A", 250)]
+    public float HPBarWidth = 3f;
+
     [System.Obsolete]
     protected override void OnEnable()
     {

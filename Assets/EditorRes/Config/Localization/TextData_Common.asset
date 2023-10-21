@@ -184,7 +184,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: ShipLevelUp_Range
-    ChineseSimplified: "\u9AD8\u6548\u7D22\u654C"
+    ChineseSimplified: "\u589E\u5E45\u96F7\u8FBE"
     English: 
     Japanese: 
   - TextID: ShipLevelUp_AttackSpeed
@@ -284,7 +284,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: Enemy_Name_104
-    ChineseSimplified: "\u5C4F\u536B\u2160\u578B"
+    ChineseSimplified: "\u62E6\u622A\u8005\u2163\u578B"
     English: 
     Japanese: 
   - TextID: Enemy_Name_2000
@@ -321,5 +321,37 @@ MonoBehaviour:
     Japanese: 
   - TextID: HardLevelName_Test
     ChineseSimplified: "\u6D4B\u8BD5\u6A21\u5F0F"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_501
+    ChineseSimplified: "\u5384\u6D1B\u65AF\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_502
+    ChineseSimplified: "\u822A\u6BCD\u2160\u578B"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_503
+    ChineseSimplified: "\u53F0\u98CE\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_504
+    ChineseSimplified: "\u8981\u585E"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_1000
+    ChineseSimplified: "\u9707\u6151\u8005"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_1001
+    ChineseSimplified: "\u6B66\u85CF"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_1002
+    ChineseSimplified: "\u542F\u793A\u5F55\u7EA7"
+    English: 
+    Japanese: 
+  - TextID: Enemy_Name_1003
+    ChineseSimplified: "\u8702\u738B"
     English: 
     Japanese: 
