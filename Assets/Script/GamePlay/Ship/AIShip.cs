@@ -334,6 +334,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     #region Anim
 
     protected const string AnimTrigger_Spawn = "Spawn";
+    protected const string AnimTrigger_DeSpawn = "DeSpawn";
 
     private async void DoSpawnEffect()
     {
@@ -354,6 +355,24 @@ public class AIShip : BaseShip,IPoolable, IDropable
         ///Spawn Effect Finish
 
         InitAIShipBillBoard();
+    }
+
+    /// <summary>
+    /// ÏûÊ§¶¯»­
+    /// </summary>
+    public void DoDeSpawnEffect()
+    {
+        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        SetAnimatorTrigger(AnimTrigger_DeSpawn);
+
+        ///UnitDeSpawn
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            if (_unitList[i].isActiveAndEnabled)
+            {
+                _unitList[i].DoDeSpawnEffect();
+            }
+        }
     }
 
     private void ResetAllAnimation()

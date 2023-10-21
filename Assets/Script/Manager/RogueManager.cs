@@ -1025,6 +1025,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         currentShip.controller.SetControllerUpdate(false);
         ECSManager.Instance.SetProcessECS(false);
         LevelManager.Instance.CollectAllPickUps();
+        LevelManager.Instance.DoAllShipDespawn();
 
         await UniTask.Delay(2000);
         _waveIndex++;

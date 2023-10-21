@@ -184,6 +184,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         RemoveHPBar();
         SetUnitProcess(false);
         HpComponent.Clear();
+        OnRemove();
     }
 
     public virtual void Restore()
@@ -288,6 +289,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public void OnRemove()
     {
+        ResetAllAnimation();
         baseAttribute.Destroy();
         _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
         _modifySpecialDatas.ForEach(x => x.OnRemove());
@@ -646,6 +648,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     #region Anim
 
     protected const string AnimTrigger_Spawn = "Spawn";
+    protected const string AnimTrigger_DeSpawn = "DeSpawn";
 
     public async void DoSpawnEffect()
     {
@@ -656,10 +659,17 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
     }
 
+    public void DoDeSpawnEffect()
+    {
+        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        SetAnimatorTrigger(AnimTrigger_DeSpawn);
+    }
+
     private void ResetAllAnimation()
     {
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _animator.ResetTrigger(AnimTrigger_Spawn);
+        _animator.ResetTrigger(AnimTrigger_DeSpawn);
     }
 
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
@@ -668,12 +678,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         _animator.SetTrigger(trigger);
     }
-
-    private void ResetAnimatorTrigger(string trigger)
-    {
-        _animator.ResetTrigger(trigger);
-    }
-
 
     #endregion
 

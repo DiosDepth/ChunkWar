@@ -174,7 +174,7 @@ Material:
     - _HandDrawnSpeed: 5
     - _HitEffectBlend: 0
     - _HitEffectGlow: 5.6
-    - _HologramBlend: 0.194
+    - _HologramBlend: 0
     - _HologramMaxAlpha: 1
     - _HologramMinAlpha: 0
     - _HologramStripesAmount: 0.204

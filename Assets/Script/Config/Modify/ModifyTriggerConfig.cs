@@ -684,7 +684,7 @@ public class MTC_OnCollectPickable : ModifyTriggerConfig
 
     public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
     {
-        return new MT_OnBuyShopItem(this, uid);
+        return new MT_OnCollectPickable(this, uid);
     }
 }
 
