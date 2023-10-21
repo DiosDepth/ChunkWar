@@ -134,7 +134,7 @@ public class PlayerShip : BaseShip
         
         var shipCfg = RogueManager.Instance.currentShipSelection.itemconfig as PlayerShipConfig;
         playerShipCfg = shipCfg;
-        baseDroneCfg = shipCfg;
+        baseShipCfg = shipCfg;
         base.Initialization();
         ///Init ShipClass
         CreateShip();

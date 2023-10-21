@@ -40,7 +40,7 @@ public class BaseDrone : BaseShip, IPoolable
         base.Death(info);
         //DestroyAIShipBillBoard();
         ResetAllAnimation();
-        LevelManager.Instance.pickupList.AddRange(Drop());
+        //LevelManager.Instance.pickupList.AddRange(Drop());
         if (!string.IsNullOrEmpty(_droneCfg.DieAudio))
         {
             SoundManager.Instance.PlayBattleSound(_droneCfg.DieAudio, transform);
@@ -66,7 +66,7 @@ public class BaseDrone : BaseShip, IPoolable
 
         DroneConfig droneCfg = DataManager.Instance.GetDroneConfig(DroneID);
         _droneCfg = droneCfg;
-        baseDroneCfg = droneCfg;
+        baseShipCfg = droneCfg;
         ownerType = droneCfg.Owner;
         Vector2Int pos;
         InitAttribute();

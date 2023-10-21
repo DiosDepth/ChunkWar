@@ -71,7 +71,7 @@ public class BaseShip : MonoBehaviour, IPauseable
     [ListDrawerSettings(DraggableItems = true)]
     protected List<Unit> _unitList = new List<Unit>();
 
-    protected BaseShipConfig baseDroneCfg;
+    protected BaseShipConfig baseShipCfg;
 
     protected Animator _spriteAnimator;
     protected Material _spriteMat;
