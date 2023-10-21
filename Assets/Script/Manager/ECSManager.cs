@@ -361,10 +361,12 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     {
         for (int i = 0; i < activeAIAgentData.shipList.Count; i++)
         {
-            for (int n = 0; n < activeAIAgentData.shipList[i].UnitList.Count; n++)
+            var ship = activeAIAgentData.shipList[i];
+            for (int n = 0; n < ship.UnitList.Count; n++)
             {
-                activeAIAgentData.shipList[i].UnitList[n]?.GameOver();
+                ship.UnitList[n]?.GameOver();
             }
+            ship.GameOver();
         }
 
 

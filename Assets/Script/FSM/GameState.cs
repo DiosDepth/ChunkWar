@@ -378,8 +378,6 @@ public class EGameState_GameHarbor : GameState
             LevelManager.Instance.needServicing = true;
             RogueManager.Instance.currentShip.SaveRuntimeData();
         }
-        ECSManager.Instance.GameOver();
-        //AIManager.Instance.GameOver();
         LevelManager.Instance.UnloadCurrentLevel();
         
         GameEvent.Trigger(EGameState.EGameState_GamePrepare);

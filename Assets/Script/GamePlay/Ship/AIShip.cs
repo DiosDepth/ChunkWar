@@ -175,6 +175,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     public override void GameOver()
     {
         base.GameOver();
+        PoolableDestroy();
     }
     public override void PauseGame()
     {

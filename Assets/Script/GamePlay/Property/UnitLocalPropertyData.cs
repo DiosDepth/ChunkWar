@@ -340,8 +340,9 @@ public class UnitLocalPropertyPool
     public UnitLocalPropertyObserverData CreateData()
     {
         UnitLocalPropertyObserverData data = new UnitLocalPropertyObserverData();
-        
-        foreach(KeyValuePair<uint, float> item in _propertyTable_Modify)
+
+        data.Type = PropertyKey;
+        foreach (KeyValuePair<uint, float> item in _propertyTable_Modify)
         {
             UnitLocalPropertyObserverData.LocalData d = new UnitLocalPropertyObserverData.LocalData
             {

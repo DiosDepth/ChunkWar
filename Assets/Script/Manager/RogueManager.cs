@@ -1029,10 +1029,13 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///Í£Ö¹Íæ¼ÒÒÆ¶¯
         currentShip.controller.SetControllerUpdate(false);
         ECSManager.Instance.SetProcessECS(false);
+        ECSManager.Instance.GameOverProjectile();
         LevelManager.Instance.CollectAllPickUps();
         LevelManager.Instance.DoAllShipDespawn();
 
         await UniTask.Delay(2000);
+        ECSManager.Instance.GameOverAgent();
+        ECSManager.Instance.UnLoad();
         _waveIndex++;
         if (autoEnterHarbor)
         {
