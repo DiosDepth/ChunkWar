@@ -1,13 +1,12 @@
 
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System;
 
 
 public enum BulletType
@@ -74,6 +73,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     protected int transfixionCount;
     protected BulletConfig _bulletCfg;
 
+    private Action onHitAction;
 
     public virtual void Initialization()
     {
@@ -95,9 +95,10 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         }
     }
 
-    public virtual void SetUp(BulletConfig cfg)
+    public virtual void SetUp(BulletConfig cfg, Action hitAction = null)
     {
         this._bulletCfg = cfg;
+        onHitAction = hitAction;
     }
 
     public struct FindBulletDamageTargetJob : IJobParallelForBatch
@@ -273,6 +274,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public virtual void PoolableReset()
     {
         SetUpdate(false);
+        onHitAction = null;
         _isApplyDamageAtThisFrame = false;
         prepareDamageTargetList.Clear();
         initialTarget = null;
@@ -325,6 +327,14 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         var damage = (_owner as Weapon).weaponAttribute.GetDamage();
         damageble.TakeDamage(damage);
         damagedTargetList.Add(damageble);
+    }
+
+    /// <summary>
+    /// 命中的效果，例如屏幕震动，如果同时命中多个目标或者爆炸，只触发一次
+    /// </summary>
+    protected virtual void OnHitEffect()
+    {
+        onHitAction?.Invoke();
     }
 
     public virtual void GameOver()

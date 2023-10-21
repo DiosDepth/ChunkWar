@@ -63,6 +63,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     private PointerEventData pointerEventData;
+    private Camera m_uiCamera;
 
     private List<RaycastResult> raycastResultsList = new List<RaycastResult>();
     //public PlayerHUD playerHUD;
@@ -72,6 +73,7 @@ public class UIManager : Singleton<UIManager>
         Initialization();
         GameObject obj = ResManager.Instance.Load<GameObject>(resGUIPath + "Canvas");
         canvas = obj.transform;
+        m_uiCamera = obj.transform.Find("UICamera").SafeGetComponent<Camera>();
         GameObject.DontDestroyOnLoad(obj);
         obj = ResManager.Instance.Load<GameObject>(resGUIPath + "EventSystem");
         GameObject.DontDestroyOnLoad(obj);
@@ -337,13 +339,12 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public static Vector2 GetUIposBWorldPosition(Vector3 pos)
+    public Vector2 GetUIposBWorldPosition(Vector3 pos)
     {
-        var camera = CameraManager.Instance.mainCamera;
-        Vector2 screenPos = camera.WorldToScreenPoint(pos);
-        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
-        screenPos -= screenSize / 2;//将屏幕坐标变换为以屏幕中心为原点
-        return screenPos;
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(pos);
+        Vector2 outPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(top, screenPos, m_uiCamera, out outPos);
+        return outPos;
     }
 
     public Vector2 GetUIPosByMousePos()

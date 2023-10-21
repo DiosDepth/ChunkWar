@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 
 
@@ -28,9 +28,9 @@ public class Beamemit : Bullet
 
     private BulletBeamConfig _beamCfg;
 
-    public override void SetUp(BulletConfig cfg)
+    public override void SetUp(BulletConfig cfg, Action hitAction = null)
     {
-        base.SetUp(cfg);
+        base.SetUp(cfg, hitAction);
         _beamCfg = cfg as BulletBeamConfig;
         maxDistance = _beamCfg.MaxDistance;
         width = _beamCfg.Width;
@@ -75,6 +75,7 @@ public class Beamemit : Bullet
             //创建射线
             hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
 
+            bool hitTarget = false;
             int transfixionIndex = 0;
             if (hitlist != null && hitlist?.Length > 0)
             {
@@ -90,6 +91,7 @@ public class Beamemit : Bullet
                         if (i > transfixionCount)
                             return;
 
+                        hitTarget = true;
                         PlayVFX(_bulletCfg.HitEffect, hitlist[i].point);
 
                         //产生伤害
@@ -111,6 +113,12 @@ public class Beamemit : Bullet
                     }
                 }
             }
+
+            if (hitTarget)
+            {
+                OnHitEffect();
+            }
+
             //延迟激光然后销毁激光
             LeanTween.delayedCall(duration, () =>
             {

@@ -70,7 +70,7 @@ public class BattleOptionItemUI : GUIBasePanel, IPoolable
         if (_ship == null)
             return;
 
-        var uiPos = UIManager.GetUIposBWorldPosition(_ship.position);
+        var uiPos = UIManager.Instance.GetUIposBWorldPosition(_ship.position);
         transform.localPosition = uiPos;
     }
 }

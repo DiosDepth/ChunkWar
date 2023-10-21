@@ -244,7 +244,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     /// <param name="unit"></param>
     private void OnHoverUnitDisplay(Unit unit)
     {
-        var pos = UIManager.GetUIposBWorldPosition(unit.transform.position);
+        var pos = UIManager.Instance.GetUIposBWorldPosition(unit.transform.position);
         var offset = new Vector2(unit._baseUnitConfig.CorsorOffsetX, unit._baseUnitConfig.CorsorOffsetY);
         UIManager.Instance.CreatePoolerUI<BuildSelectHoverCmpt>("BuildSelectHover", true, E_UI_Layer.Top, null, (panel) =>
         {

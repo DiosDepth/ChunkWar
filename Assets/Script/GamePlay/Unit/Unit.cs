@@ -332,7 +332,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             return false;
         }
 
-        var rowScreenPos = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
+        var rowScreenPos = UIManager.Instance.GetUIposBWorldPosition(transform.position);
         if (_owner is AIShip)
         {
             int Damage = info.Damage;
