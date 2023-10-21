@@ -1413,6 +1413,7 @@ MonoBehaviour:
   BillboardType: 0
   AttackBase: 4
   HardLevelGroupID: 1
+  EnemyCountModify: 1
   MaxVelocity: 15
   MaxAcceleration: 3
   MaxAngularAcceleration: 3

@@ -45,8 +45,16 @@ public class AIShipConfig : BaseShipConfig
     [BoxGroup("属性配置/AA/基础攻击")]
     public int AttackBase;
 
-    [LabelText("敌人难度等级")]
+
+    [HorizontalGroup("属性配置/AA", 150)]
+    [BoxGroup("属性配置/AA/难度等级")]
+    [HideLabel]
     public int HardLevelGroupID;
+
+    [HorizontalGroup("属性配置/AA", 150)]
+    [BoxGroup("属性配置/AA/数量可以修正")]
+    [HideLabel]
+    public bool EnemyCountModify;
 
     [FoldoutGroup("AI配置")]
     [HorizontalGroup("AI配置/A")]

@@ -41,6 +41,7 @@ public static class GameGlobalConfig
     public const byte Ship_MaxLevel = 99;
     public const byte MeteoriteGenerate_MaxCount = 100;
     public const byte AncientUnit_Generate_MaxCount = 30;
+    public const byte AIShipFactory_SpawnMaxCount = 30;
 
     public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;

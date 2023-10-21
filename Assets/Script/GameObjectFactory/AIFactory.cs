@@ -76,6 +76,33 @@ public class AIFactory : MonoBehaviour,IPoolable
 
     private const string EntitySpawnEffect = "Battle/Enemy_SpawnEffect";
 
+    /// <summary>
+    /// 创建数量
+    /// </summary>
+    private int spawnCount;
+    private void CalculateSpawnCount()
+    {
+        if (_shipconfig.EnemyCountModify)
+        {
+            var enemyCountModify = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyCount);
+            var tempCount = aiSpawnSetting.totalCount * (1 + enemyCountModify / 100f);
+            int countRow = Mathf.CeilToInt(tempCount);
+
+            if(tempCount - countRow > 0)
+            {
+                bool addOne = Utility.CalculateRate100((tempCount - countRow) * 100);
+                if (addOne)
+                    countRow += 1;
+            }
+
+            spawnCount = Mathf.Min(countRow, GameGlobalConfig.AIShipFactory_SpawnMaxCount);
+        }
+        else
+        {
+            spawnCount = aiSpawnSetting.totalCount;
+        }
+    }
+
     public virtual void Initialization()
     {
 
@@ -87,6 +114,7 @@ public class AIFactory : MonoBehaviour,IPoolable
         aiSpawnSetting = spawnsettings;
         target = RogueManager.Instance.currentShip.transform;
         _shipconfig = DataManager.Instance.GetAIShipConfig(aiSpawnSetting.spawnUnitID);
+        CalculateSpawnCount();
         await Spawn(referencepos, _shipconfig.Prefab.name, callback, overrideHardlevelID);
     }
 
@@ -125,7 +153,7 @@ public class AIFactory : MonoBehaviour,IPoolable
     {
         Vector2Int tempmatrix = Vector2Int.zero;
         tempmatrix.x = aiSpawnSetting.maxRowCount;
-        tempmatrix.y = Mathf.CeilToInt( (float)aiSpawnSetting.totalCount / (float)aiSpawnSetting.maxRowCount);
+        tempmatrix.y = Mathf.CeilToInt( spawnCount / (float)aiSpawnSetting.maxRowCount);
         return tempmatrix;
     }
 
@@ -166,7 +194,7 @@ public class AIFactory : MonoBehaviour,IPoolable
                     //左乘矩阵
                     pos = matrix4X4 * pos;
                     _formposlist.Add(pos + referencepos.ToVector3());
-                    if(_formposlist.Count == aiSpawnSetting.totalCount)
+                    if(_formposlist.Count == spawnCount)
                     {
                         break;
                     }
