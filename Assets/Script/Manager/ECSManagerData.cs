@@ -73,7 +73,8 @@ public class UnitData : IJobData
     public void Clear()
     {
         unitList.Clear();
-        unitPos.Clear();
+        if (unitPos.IsCreated) { unitPos.Clear(); }
+
     }
 
 
@@ -289,8 +290,12 @@ public class AgentData : IJobData
         shipList.Clear();
         boidAgentList.Clear();
         steeringControllerList.Clear();
-        boidAgentJobData.Clear();
-        steeringControllerJobDataNList.Clear();
+        if (boidAgentJobData.IsCreated)
+        {
+            boidAgentJobData.Clear();
+        }
+        if (steeringControllerJobDataNList.IsCreated) { steeringControllerJobDataNList.Clear(); }
+
     }
 
 }
@@ -361,7 +366,8 @@ public class WeaponData : IJobData
     public void Clear()
     {
         activeWeaponList.Clear();
-        activeWeaponJobData.Clear();
+        if (activeWeaponJobData.IsCreated) { activeWeaponJobData.Clear(); }
+      
 
     }
 
@@ -432,7 +438,8 @@ public class BuildingData : IJobData
     public void Clear()
     {
         activeBuildingList.Clear();
-        activeBuildingJobData.Clear();
+        if (activeBuildingJobData.IsCreated) { activeBuildingJobData.Clear(); }
+       
 
     }
 }
@@ -596,7 +603,9 @@ public class ProjectileData : IJobData
     public void Clear()
     {
         activeProjectileList.Clear();
-        activeProjectileJobData.Clear();
+        if (activeProjectileJobData.IsCreated) { activeProjectileJobData.Clear(); }
+        if(damageProjectileJobData.IsCreated) { damageProjectileJobData.Clear(); }
+        
     }
 }
 
