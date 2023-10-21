@@ -108,7 +108,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             {
                 ///瘫痪恢复
                 ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
-               // AIManager.Instance.AddTargetUnit(this);
                 //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
                 LevelManager.Instance.PlayerUnitParalysis(UID, false); 
             }
@@ -123,7 +122,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 LevelManager.Instance.PlayerUnitParalysis(UID, true);
                 ///移除目标选中
                 ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
-                //AIManager.Instance.RemoveTargetUnit(this);
                 //if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
                 //{
                 //    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
@@ -147,13 +145,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             if (_owner is AIShip)
             {
                 ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-                //AIManager.Instance.RemoveSingleUnit(this);
             }
 
             if (_owner is PlayerShip)
             {
 
-                //AIManager.Instance.RemoveTargetUnit(this);
                 RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
                 ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
                 //if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
@@ -223,13 +219,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (_owner is AIShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
-            //AIManager.Instance.AddSingleUnit(this);
 
         }
         if (_owner is PlayerShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
-            //AIManager.Instance.AddTargetUnit(this);
             //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
 
             SetUnitProcess(true);
@@ -333,7 +327,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (HpComponent == null)
             return false;
         //已经死亡或者瘫痪的不会收到更多伤害
-        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis || state == DamagableState.Immortal)
+        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis)
         {
             return false;
         }
@@ -395,22 +389,26 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         LevelManager.Instance.UnitHitFinish(info);
         if (info.IsHit)
         {
-            bool isDie = HpComponent.ChangeHP(-info.Damage);
-            ///HP为0
-            if (isDie)
+            bool isDie = false;
+            if (state != DamagableState.Immortal)
             {
-                if (_baseUnitConfig.ParalysisResume)
+                isDie = HpComponent.ChangeHP(-info.Damage);
+                ///HP为0
+                if (isDie)
                 {
-                    ///瘫痪恢复
-                    ChangeUnitState(DamagableState.Paralysis);
-                }
-                else
-                {
-                    UnitDeathInfo deathInfo = new UnitDeathInfo
+                    if (_baseUnitConfig.ParalysisResume)
                     {
-                        isCriticalKill = info.IsCritical
-                    };
-                    Death(deathInfo);
+                        ///瘫痪恢复
+                        ChangeUnitState(DamagableState.Paralysis);
+                    }
+                    else
+                    {
+                        UnitDeathInfo deathInfo = new UnitDeathInfo
+                        {
+                            isCriticalKill = info.IsCritical
+                        };
+                        Death(deathInfo);
+                    }
                 }
             }
             return isDie;

@@ -153,9 +153,6 @@ public class PlayerShip : BaseShip
 
     }
 
-
-
-
     public override void CreateShip()
     {
         InitProperty();
@@ -245,8 +242,6 @@ public class PlayerShip : BaseShip
             _unitList[i].SetUnitProcess(true);
         }
     }
-
-
 
     protected override void Death(UnitDeathInfo info)
     {
@@ -484,14 +479,9 @@ public class PlayerShip : BaseShip
             }
         }
 
-
-
-
-
-
     }
 
-    public void RemoveUnit(Unit m_unit)
+    public override void RemoveUnit(Unit m_unit)
     {
         if (!UnitList.Contains(m_unit)) { return; }
 

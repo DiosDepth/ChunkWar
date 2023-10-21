@@ -108,7 +108,7 @@ public class BaseShip : MonoBehaviour, IPauseable
     /// 移除Unit
     /// </summary>
     /// <param name="unit"></param>
-    public void RemoveUnit(Unit unit)
+    public virtual void RemoveUnit(Unit unit)
     {
         _unitList.Remove(unit);
     }
@@ -155,6 +155,33 @@ public class BaseShip : MonoBehaviour, IPauseable
     public virtual void ResetShip()
     {
 
+    }
+
+    /// <summary>
+    /// 设置所有部件状态
+    /// </summary>
+    public async void ForeceSetAllUnitState(DamagableState state, float time = -1)
+    {
+        for(int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].ChangeUnitState(state);
+        }
+
+        if (time > 0) 
+        {
+            await UniTask.Delay((int)(time * 1000));
+            if (gameObject == null)
+                return;
+
+            for (int i = 0; i < _unitList.Count; i++)
+            {
+                var unit = _unitList[i];
+                if (unit == null)
+                    continue;
+
+                _unitList[i].ChangeUnitState(DamagableState.Normal);
+            }
+        }
     }
 
     public void CheckDeath(Unit coreUnit, UnitDeathInfo info)

@@ -15,6 +15,9 @@ public enum DamagableState
     /// 完全销毁
     /// </summary>
     Destroyed,
+    /// <summary>
+    /// 会受到伤害，并且会跳字、统计，但是不会实际扣血
+    /// </summary>
     Immortal,
 }
 public class Chunk : IDamageble

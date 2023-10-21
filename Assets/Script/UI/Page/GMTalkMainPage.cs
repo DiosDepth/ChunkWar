@@ -21,6 +21,7 @@ public class GMTalkMainPage : GUIBasePanel
         {
             GMTalkManager.Instance.HandleGMTalkInputContent("createBattleLog");
         });
+
     }
 
 
@@ -38,7 +39,7 @@ public class GMTalkMainPage : GUIBasePanel
 
     private void ClosePage()
     {
-        UIManager.Instance.HiddenUI("GMTalkMainPage");
+        GMTalkManager.Instance.SwicthGMPage();
     }
 
     private void JumpToShop()
