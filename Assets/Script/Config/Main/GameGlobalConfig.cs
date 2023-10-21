@@ -36,6 +36,7 @@ public static class GameGlobalConfig
     /// 舰船速度最大比例
     /// </summary>
     public const float ShipSpeedModify_Protected_MaxSpeed = 10;
+    public const byte ShopGoods_MaxCount = 5;
 
     public const byte Ship_MaxLevel = 99;
     public const byte MeteoriteGenerate_MaxCount = 100;

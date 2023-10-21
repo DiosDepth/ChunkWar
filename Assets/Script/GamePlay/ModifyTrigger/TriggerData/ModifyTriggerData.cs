@@ -6,6 +6,8 @@ public abstract class ModifyTriggerData : IPropertyModify
 {
     public ModifyTriggerConfig Config;
     public uint UID { get; set; }
+
+    public uint OwnerUID { get; set; }
     public PropertyModifyCategory Category
     {
         get

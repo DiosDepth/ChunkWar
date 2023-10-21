@@ -544,6 +544,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 ModifyTriggerData data = triggers[i].Create(triggers[i], 0);
                 var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, data);
                 data.UID = uid;
+                data.OwnerUID = targetUnit.UID;
                 data.FromUnitSlotEffect = true;
                 targetUnit.AddNewModifyEffectData(data);
             }
@@ -609,11 +610,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         {
             for (int i = 0; i < triggers.Length; i++)
             {
-                var triggerData = triggers[i].Create(triggers[i], UID);
+                var triggerData = triggers[i].Create(triggers[i], 0);
                 if (triggerData != null)
                 {
                     var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
                     triggerData.UID = uid;
+                    triggerData.OwnerUID = UID;
                     triggerData.OnTriggerAdd();
                     _modifyTriggerDatas.Add(triggerData);
                 }

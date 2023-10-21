@@ -496,6 +496,11 @@ public class MTC_OnWeaponHitTarget : ModifyTriggerConfig
     [LabelWidth(50)]
     public BoolType CriticalBool = BoolType.All;
 
+    [HorizontalGroup("AB", 120)]
+    [LabelText("当前武器")]
+    [LabelWidth(50)]
+    public bool CheckCurrentFireWeapon = false;
+
     [HorizontalGroup("AD", 150)]
     [LabelText("修正最终伤害")]
     [LabelWidth(80)]

@@ -727,6 +727,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
     }
 
+    public void SellAllWaste()
+    {
+        SellWaste(GetDropWasteCount);
+    }
+
     public WreckageItemInfo GetCurrentWreckageByUID(uint uid)
     {
         if (CurrentWreckageItems.ContainsKey(uid))
@@ -1918,7 +1923,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private byte GetCurrentShopRefreshCount()
     {
         var refreshCount = MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShopRefreshCount);
-        return (byte)Mathf.Clamp(refreshCount, 1, 6);
+        return (byte)Mathf.Clamp(refreshCount, 1, GameGlobalConfig.ShopGoods_MaxCount);
     }
 
     /// <summary>

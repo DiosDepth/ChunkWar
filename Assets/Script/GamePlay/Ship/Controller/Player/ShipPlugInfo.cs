@@ -142,11 +142,12 @@ public class ShipPlugInfo : IPropertyModify
         {
             for (int i = 0; i < triggers.Length; i++) 
             {
-                var triggerData = triggers[i].Create(triggers[i], UID);
+                var triggerData = triggers[i].Create(triggers[i], 0);
                 if(triggerData != null)
                 {
                     var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ModifyTrigger, triggerData);
                     triggerData.UID = uid;
+                    triggerData.OwnerUID = UID;
                     triggerData.OnTriggerAdd();
                     _triggerDatas.Add(triggerData);
                 }

@@ -23,9 +23,11 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
 
     private const string PropertyBtnSwitch_Main = "ShipMainProperty_Btn_Text";
     private const string PropertyBtnSwitch_Sub = "ShipSubProperty_Btn_Text";
-    private const string ShipGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
+    private const string ShopGoodsItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopSlotItem";
+    private const string ShopWasteItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShopWasteSlotItem";
     private const string ShipPlugGridItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipPlugGroupItem";
     private List<ShopSlotItem> allShopSlotItems = new List<ShopSlotItem>();
+    private ShopWasteSlotItem _wasteSlotItem;
 
     private GeneralScrollerGirdItemController _plugGridController;
 
@@ -102,6 +104,10 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
             case RogueEventType.HideHoverUnitDisplay:
                 OnHideHoverUnitDisplay((Unit)evt.param[0]);
                 break;
+
+            case RogueEventType.WasteCountChange:
+                RefreshWasteContent();
+                break;
         }
     }
 
@@ -157,13 +163,13 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
             return;
         }
 
-        if(allShopItems.Count != allShopSlotItems.Count)
+        if (allShopItems.Count != allShopSlotItems.Count)
         {
             ClearAllShopSlotItems();
             var index = 0;
             for (int i = 0; i < allShopItems.Count; i++)
             {
-                PoolManager.Instance.GetObjectAsync(ShipGoodsItem_PrefabPath, true, (obj) =>
+                PoolManager.Instance.GetObjectAsync(ShopGoodsItem_PrefabPath, true, (obj) =>
                 {
                     var cmpt = obj.GetComponent<ShopSlotItem>();
                     cmpt.SetUp(allShopItems[index]);
@@ -180,12 +186,33 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
                 cmpt.SetUp(allShopItems[i]);
             }
         }
+
+        ///SetUpWaste
+        SetUpWasteSlot();
     }
 
     private void ClearAllShopSlotItems()
     {
-        _shopContentRoot.Pool_BackAllChilds(ShipGoodsItem_PrefabPath);
+        _shopContentRoot.Pool_BackAllChilds(ShopGoodsItem_PrefabPath);
         allShopSlotItems.Clear();
+        _wasteSlotItem = null;
+    }
+
+    /// <summary>
+    /// …Ë÷√≤–∫°≥ˆ €
+    /// </summary>
+    private void SetUpWasteSlot()
+    {
+        if (RogueManager.Instance.GetDropWasteCount > 0)
+        {
+            PoolManager.Instance.GetObjectSync(ShopWasteItem_PrefabPath, true, (obj) =>
+            {
+                var cmpt = obj.transform.SafeGetComponent<ShopWasteSlotItem>();
+                cmpt.SetUpWaste();
+                _wasteSlotItem = cmpt;
+                cmpt.transform.SetAsFirstSibling();
+            }, _shopContentRoot);
+        }
     }
 
     private void RefreshEnergySlider()
@@ -217,6 +244,18 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         for (int i = 0; i < allShopSlotItems.Count; i++) 
         {
             allShopSlotItems[i].RefreshCost();
+        }
+    }
+
+    private void RefreshWasteContent()
+    {
+        if (RogueManager.Instance.GetDropWasteCount <= 0 && _wasteSlotItem != null)
+        {
+            _wasteSlotItem.PoolableDestroy();
+        }
+        else if(_wasteSlotItem != null)
+        {
+            _wasteSlotItem.SetUpWaste();
         }
     }
 

@@ -196,7 +196,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: WreckageSlotItem_WasteSell
-    ChineseSimplified: "\u51FA\u552E\u6B8B\u9AB8"
+    ChineseSimplified: "\u6279\u91CF\u51FA\u552E"
     English: 
     Japanese: 
   - TextID: WasteSellDialog_Title
@@ -425,5 +425,9 @@ MonoBehaviour:
     Japanese: 
   - TextID: BattleOption_EnterShop
     ChineseSimplified: "\u661F\u9645\u5546\u8239"
+    English: 
+    Japanese: 
+  - TextID: WreckageSlotItem_WasteSellTotal
+    ChineseSimplified: "\u5168\u90E8\u51FA\u552E"
     English: 
     Japanese: 

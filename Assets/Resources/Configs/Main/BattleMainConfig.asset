@@ -2615,7 +2615,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  RogueShop_Origin_RefreshNum: 6
+  RogueShop_Origin_RefreshNum: 4
   HarborMapTempUnitSlotCount: 6
   ShipLevelUp_GrowthItem_Count: 4
   BattleOption_ColliderRaidus: 15
