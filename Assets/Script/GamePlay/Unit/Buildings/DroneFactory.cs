@@ -1,12 +1,14 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.WSA;
 
 [System.Serializable]
 public class DroneFactoryAttribute : BuildingAttribute
 {
-    public float SpawnTime
+    public float RepairTime
     {
         get;
         protected set;
@@ -24,6 +26,7 @@ public class DroneFactoryAttribute : BuildingAttribute
         protected set;
     }
 
+    
 
     private float DroneSpawnTimeBase;
     private float DroneSearchingRadiusBase;
@@ -47,7 +50,7 @@ public class DroneFactoryAttribute : BuildingAttribute
         }
         else if(_ownerShipType == OwnerShipType.AIShip)
         {
-            SpawnTime = DroneSpawnTimeBase;
+            RepairTime = DroneSpawnTimeBase;
         }
     }
 
@@ -63,7 +66,7 @@ public class DroneFactoryAttribute : BuildingAttribute
     private void CalculateSpawnTime()
     {
         var cd = GameHelper.CalculatePlayerWeaponCD(DroneSpawnTimeBase);
-        SpawnTime = cd;
+        RepairTime = cd;
     }
 }
 
@@ -71,27 +74,42 @@ public class DroneFactoryAttribute : BuildingAttribute
 public class DroneFactory : Building
 {
     protected DroneFactoryConfig _factoryCfg;
+    public DroneFactoryAttribute factoryAttribute;
 
     public Transform launchPoint;
-    public DroneFactoryAttribute FactoryAttribute;
+    public Transform launchedGroup;
+    public Transform repairingGroup;
+    public Transform apronGroup;
+    public float launchIntervalTime = 1;
+
+
+
 
     public List<BaseDrone> DroneList
     {
-        get { return _droneList; }
+        get { return _launchedList; }
     }
-    protected List<BaseDrone> _droneList;
+    protected List<BaseDrone> _launchedList = new List<BaseDrone>();
+    protected Queue<BaseDrone> _apronQueue = new Queue<BaseDrone>();
+    protected Queue<BaseDrone> _repairQueue = new Queue<BaseDrone>();
+    
 
+    private float _repairTimeCounter;
+    private bool _isRepairing = false;
+    private BaseDrone _repairingDrone;
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _factoryCfg = m_unitconfig as DroneFactoryConfig;
+        InitialFactorDrones();
         base.Initialization(m_owner, m_unitconfig);
     }
 
     public override void InitBuildingAttribute(OwnerShipType type)
     {
-        FactoryAttribute.InitProeprty(this, _factoryCfg, type);
-        buildingAttribute = FactoryAttribute;
-        baseAttribute = FactoryAttribute;
+        factoryAttribute.InitProeprty(this, _factoryCfg, type);
+        buildingAttribute = factoryAttribute;
+        baseAttribute = factoryAttribute;
+        _repairTimeCounter = factoryAttribute.RepairTime;
     }
 
     protected override void OnDestroy()
@@ -116,6 +134,21 @@ public class DroneFactory : Building
 
     public override void GameOver()
     {
+
+        for (int i = 0; i < _apronQueue.Count; i++)
+        {
+            _apronQueue.Dequeue().GameOver();
+        }
+        for (int i = 0; i < _repairQueue.Count; i++)
+        {
+            _repairQueue.Dequeue().GameOver();
+        }
+
+        for (int i = 0; i < _launchedList.Count; i++)
+        {
+            _launchedList[i].GameOver();
+        }
+        _launchedList.Clear();
         base.GameOver();
     }
 
@@ -127,20 +160,120 @@ public class DroneFactory : Building
         return true;
     }
 
-    public virtual void SpawnDrone()
+    public override void BuildingReady()
+    {
+
+    }
+
+    public override void BuildingStart()
+    {
+
+        _repairTimeCounter = factoryAttribute.RepairTime;
+    
+
+    }
+
+    public override void BuildingActive()
+    {
+        //launch if find target
+        if (targetList != null && targetList.Count != 0)
+        {
+            LaunchDrone();
+        }
+       
+
+        //Restore if any drone is destroed
+    }
+
+    public override void BuildingEnd()
+    {
+
+    }
+
+    public override void BuildingRecover()
+    {
+
+    }
+
+    public async virtual  void LaunchDrone()
+    {
+        if(_apronQueue == null || _apronQueue.Count == 0) { return; }
+
+        BaseDrone drone;
+        _apronQueue.TryDequeue(out drone);
+        if(drone == null)
+        {
+            return;
+        }
+        _launchedList.Add(drone);
+        drone.transform.position = launchPoint.transform.position;
+        drone.transform.SetParent(launchedGroup);
+        drone.Launch();
+        ECSManager.Instance.RegisterJobData(OwnerType.Player, drone);
+        await UniTask.Delay((int)launchIntervalTime * 1000);
+    }
+
+    public virtual void Landing(BaseDrone drone)
+    {
+        if (_apronQueue.Contains(drone)) { return; }
+        _apronQueue.Enqueue(drone);
+        if(_launchedList.Contains(drone))
+            _launchedList.Remove(drone);
+        drone.transform.position = launchPoint.transform.position;
+        drone.transform.SetParent(apronGroup);
+        ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
+    }
+
+    public virtual void Crash(BaseDrone drone)
+    {
+        if (_repairQueue.Contains(drone)) { return; }
+        _repairQueue.Enqueue(drone);
+        if (_launchedList.Contains(drone))
+            _launchedList.Remove(drone);
+        drone.transform.SetParent(repairingGroup);
+        ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
+    }
+    public virtual void RepairDrone()
+    {
+        if(_repairQueue == null || _repairQueue.Count == 0) { return; }
+   
+        if(!_isRepairing)
+        {
+            _repairQueue.TryDequeue(out _repairingDrone);
+            _isRepairing = true;
+        }
+        if(_repairingDrone == null) { return; }
+        _repairTimeCounter -= Time.deltaTime;
+        if(_repairTimeCounter <= 0)
+        {
+            _repairingDrone.Repair();
+            _repairingDrone.transform.SetParent(apronGroup);
+        }
+
+
+    }
+    public virtual void InitialFactorDrones()
     {
         Vector2 spawnpoint = launchPoint.position.ToVector2();
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
+
+
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.PlayerDroneSpawnAgentPath, true, (obj) =>
         {
             ShipSpawnAgent spawnAgent = obj.GetComponent<ShipSpawnAgent>();
             spawnAgent.PoolableSetActive(true);
             spawnAgent.Initialization();
 
-            ShipSpawnInfo spawninfo = new ShipSpawnInfo(_factoryCfg.ID, spawnpoint, null, (baseship) =>
+            DroneSpawnInfo spawninfo = new DroneSpawnInfo(_factoryCfg.DroneID, spawnpoint, null, (baseship) =>
             {
-                ECSManager.Instance.RegisterJobData(OwnerType.Player, baseship);
+                (baseship as BaseDrone).SetOwnerFactory(this);
+                (baseship as BaseDrone).Landing();
             });
-            spawnAgent.StartSpawn(spawninfo);
+
+            for (int i = 0; i < factoryAttribute.MaxCount; i++)
+            {
+                spawnAgent.StartSpawn(spawninfo);
+            }
+         
         });
     } 
 }

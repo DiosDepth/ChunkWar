@@ -10,7 +10,7 @@ public class DroneFactoryConfig : BuildingConfig
     [HorizontalGroup("机库配置/A", 250)]
     [BoxGroup("机库配置/A/无人机ID")]
     [HideLabel]
-    public int ID;
+    public int DroneID;
 
     [FoldoutGroup("机库配置")]
     [HorizontalGroup("机库配置/A", 250)]

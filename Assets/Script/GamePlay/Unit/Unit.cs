@@ -1,8 +1,23 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
+
+public struct UnitTargetJobData : IComparable<UnitTargetJobData>
+{
+    public int targetIndex;
+    public float distanceToTarget;
+    public float3 targetPos;
+    public float3 targetDirection;
+
+    public int CompareTo(UnitTargetJobData other)
+    {
+        return distanceToTarget.CompareTo(other.distanceToTarget);
+    }
+}
 public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 {
     public int UnitID;
@@ -20,7 +35,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
 
     [SerializeField]
-    public DamagableState state
+    public DamagableState damageState
     {
         get;
         private set;
@@ -28,7 +43,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public bool IsCoreUnit = false;
     public string deathVFXName = "ExplodeVFX";
-    public List<WeaponTargetInfo> targetList = new List<WeaponTargetInfo>();
+    public List<UnitTargetInfo> targetList = new List<UnitTargetInfo>();
     public int maxTargetCount = 3;
 
     public SpriteRenderer unitSprite;
@@ -99,10 +114,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// <param name="target"></param>
     public virtual void ChangeUnitState(DamagableState target)
     {
-        if (state == target)
+        if (damageState == target)
             return;
 
-        if(state == DamagableState.Paralysis && target == DamagableState.Normal)
+        if(damageState == DamagableState.Paralysis && target == DamagableState.Normal)
         {
             if(_owner is PlayerShip)
             {
@@ -113,7 +128,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             }
         }
 
-        state = target;
+        damageState = target;
         if (target == DamagableState.Paralysis)
         {
             OnEnterParalysisState();
@@ -197,6 +212,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
     
         }
+        ChangeUnitState(DamagableState.Normal);
+        HpComponent.RecoverHPToMax();
         SetUnitProcess(true);
     }
 
@@ -258,7 +275,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             return false;
         }
 
-        if (state == DamagableState.Normal)
+        if (damageState == DamagableState.Normal)
         {
             ///UpdateTrigger
             for (int i = 0; i < _modifyTriggerDatas.Count; i++)
@@ -287,6 +304,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         baseAttribute.Destroy();
         _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
         _modifySpecialDatas.ForEach(x => x.OnRemove());
+        targetList.Clear();
     }
 
     public void OutLineHighlight(bool highlight)
@@ -316,7 +334,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (HpComponent == null)
             return;
 
-        if (state == DamagableState.Destroyed || state == DamagableState.Paralysis)
+        if (damageState == DamagableState.Destroyed || damageState == DamagableState.Paralysis)
             return;
 
         HpComponent.ChangeHP(value);
@@ -327,7 +345,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (HpComponent == null)
             return false;
         //已经死亡或者瘫痪的不会收到更多伤害
-        if(state == DamagableState.Destroyed || state == DamagableState.Paralysis)
+        if(damageState == DamagableState.Destroyed || damageState == DamagableState.Paralysis)
         {
             return false;
         }
@@ -390,7 +408,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (info.IsHit)
         {
             bool isDie = false;
-            if (state != DamagableState.Immortal)
+            if (damageState != DamagableState.Immortal)
             {
                 isDie = HpComponent.ChangeHP(-info.Damage);
                 ///HP为0
@@ -676,6 +694,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     private void SetAnimatorTrigger(string trigger)
     {
+        if(_animator == null) { return; }
         _animator.SetTrigger(trigger);
     }
 

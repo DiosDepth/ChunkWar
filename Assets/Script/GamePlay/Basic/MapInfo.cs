@@ -24,7 +24,7 @@ public class UnitInfo : MapInfo
     {
         UID = m_unit.UID;
         UnitID = m_unit.UnitID;
-        state = m_unit.state;
+        state = m_unit.damageState;
         direction = m_unit.direction;
         pivot = m_unit.pivot;
         occupiedCoords = m_unit.occupiedCoords;

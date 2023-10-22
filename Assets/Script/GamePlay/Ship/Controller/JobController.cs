@@ -263,13 +263,13 @@ public class JobController : IPauseable
             targetstotalcount += activeSelfWeaponData.activeWeaponList[i].maxTargetCount;
         }
 
-        activeSelfWeaponData.rv_weaponTargetsInfo = new NativeArray<Weapon.WeaponTargetJobData>(targetstotalcount, Allocator.TempJob);
+        activeSelfWeaponData.rv_weaponTargetsInfo = new NativeArray<UnitTargetJobData>(targetstotalcount, Allocator.TempJob);
 
         // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
         //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
 
 
-        Weapon.FindMutipleWeaponTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleWeaponTargetsJob
+        Weapon.FindMutipleUnitTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleUnitTargetsJob
         {
             job_weaponJobData = activeSelfWeaponData.activeWeaponJobData,
             job_targetsPos = activeTargetUnitData.unitPos,
@@ -306,7 +306,7 @@ public class JobController : IPauseable
                 weapon = activeSelfWeaponData.activeWeaponList[i] as AdditionalWeapon;
 
                 //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
-                if (weapon.weaponstate.CurrentState != WeaponState.Firing && weapon.weaponstate.CurrentState != WeaponState.BetweenDelay)
+                if (weapon.weaponState.CurrentState != WeaponState.Firing && weapon.weaponState.CurrentState != WeaponState.BetweenDelay)
                 {
                     weapon.targetList.Clear();
                     for (int n = 0; n < activeSelfWeaponData.activeWeaponJobData[i].targetCount; n++)
@@ -318,7 +318,7 @@ public class JobController : IPauseable
                         }
                         else
                         {
-                            weapon.targetList.Add(new WeaponTargetInfo
+                            weapon.targetList.Add(new UnitTargetInfo
                                 (
                                     activeTargetUnitData.unitList[targetindex].gameObject,
                                     activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetIndex,
@@ -343,10 +343,100 @@ public class JobController : IPauseable
 
         activeSelfWeaponData.UpdateData();
         activeSelfWeaponData.DisposeReturnValue();
-
     }
+
     public virtual void UpdateAdditionalBuilding(ref BuildingData activeSelfBuildingData, ref UnitData activeTargetUnitData)
     {
+        if (activeSelfBuildingData.activeBuildingList == null || activeSelfBuildingData.activeBuildingList.Count == 0)
+        {
+            return;
+        }
+        Building building;
+
+        int targetstotalcount = 0;
+        for (int i = 0; i < activeSelfBuildingData.activeBuildingList.Count; i++)
+        {
+            targetstotalcount += activeSelfBuildingData.activeBuildingList[i].maxTargetCount;
+        }
+
+        activeSelfBuildingData.rv_buildingTargetsInfo = new NativeArray<UnitTargetJobData>(targetstotalcount, Allocator.TempJob);
+
+        // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
+        //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
+
+
+        Weapon.FindMutipleUnitTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleUnitTargetsJob
+        {
+            job_weaponJobData = activeSelfBuildingData.activeBuildingJobData,
+            job_targetsPos = activeTargetUnitData.unitPos,
+
+            rv_targetsInfo = activeSelfBuildingData.rv_buildingTargetsInfo,
+
+        };
+
+        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(activeSelfBuildingData.activeBuildingList.Count, 2);
+
+
+        jobHandle.Complete();
+        //执行Job 并且等待结果。
+
+
+
+        int startindex;
+        int targetindex;
+        for (int i = 0; i < activeSelfBuildingData.activeBuildingList.Count; i++)
+        {
+            //获取Flat Array中的startindex 为后续的拆分做准备
+            //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
+
+            if (activeSelfBuildingData.activeBuildingList[i] is AdditionalWeapon)
+            {
+
+                startindex = 0;
+                for (int c = 0; c < i; c++)
+                {
+                    startindex += activeSelfBuildingData.activeBuildingJobData[c].targetCount;
+                }
+
+
+                building = activeSelfBuildingData.activeBuildingList[i] as Building;
+
+                //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
+                building.targetList.Clear();
+                for (int n = 0; n < activeSelfBuildingData.activeBuildingJobData[i].targetCount; n++)
+                {
+                    targetindex = activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetIndex;
+                    if (targetindex == -1 || activeTargetUnitData.unitList == null || activeTargetUnitData.unitList.Count == 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        building.targetList.Add(new UnitTargetInfo
+                            (
+                                activeTargetUnitData.unitList[targetindex].gameObject,
+                                activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetIndex,
+                                activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].distanceToTarget,
+                                activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetDirection
+                            ));
+                    }
+                }
+                
+                if (building.targetList != null && building.targetList.Count != 0)
+                {
+                    building.BuildingOn();
+                }
+                else
+                {
+                    building.BuildingOFF();
+                }
+
+                building.ProcessBuilding();
+            }
+        }
+
+        activeSelfBuildingData.UpdateData();
+        activeSelfBuildingData.DisposeReturnValue();
         activeSelfBuildingData.UpdateData();
         activeSelfBuildingData.DisposeReturnValue();
     }
@@ -550,7 +640,7 @@ public class JobController : IPauseable
         }
     }
 
-    public virtual void UpdateDrone()
+    public virtual void UpdateDroneAgentMovement(ref DroneData activeSelfDroneAgentData, ref AgentData activeTargetAgentData)
     {
 
     }

@@ -103,6 +103,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 {
                     playerShip = ship as PlayerShip;
                     playerIBoid = (ship as PlayerShip).GetComponent<IBoid>();
+                    
                 }
 
                 if(ship is PlayerDrone)
@@ -176,34 +177,77 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         switch (type)
         {
             case OwnerType.Player:
-                for (int i = 0; i < ship.UnitList.Count; i++)
+
+                if(ship is BaseDrone)
                 {
-                    activePlayerUnitData.Remove(ship.UnitList[i]);
-                    if (ship.UnitList[i] is AdditionalWeapon)
+                    for (int i = 0; i < ship.UnitList.Count; i++)
                     {
-                        activePlayerWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                        activePlayerUnitData.Remove(ship.UnitList[i]);
+                        if (ship.UnitList[i] is AdditionalWeapon)
+                        {
+                            activePlayerWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                        }
+                        if (ship.UnitList[i] is Building)
+                        {
+                            activePlayerBuildingData.Remove(ship.UnitList[i] as Building);
+
+                        }
                     }
-                    if (ship.UnitList[i] is Building)
-                    {
-                        activePlayerBuildingData.Remove(ship.UnitList[i] as Building);
-                    }
+                    activePlayerDroneAgentData.Remove(ship);
                 }
-                activePlayerAgentData.Remove(ship);
+                else
+                {
+                    for (int i = 0; i < ship.UnitList.Count; i++)
+                    {
+                        activePlayerUnitData.Remove(ship.UnitList[i]);
+                        if (ship.UnitList[i] is AdditionalWeapon)
+                        {
+                            activePlayerWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                        }
+                        if (ship.UnitList[i] is Building)
+                        {
+                            activePlayerBuildingData.Remove(ship.UnitList[i] as Building);
+                        }
+                    }
+                    activePlayerAgentData.Remove(ship);
+                }
                 break;
             case OwnerType.AI:
-                for (int i = 0; i < ship.UnitList.Count; i++)
+                if(ship is BaseDrone)
                 {
-                    activeAIUnitData.Remove(ship.UnitList[i]);
-                    if (ship.UnitList[i] is AdditionalWeapon)
+                    for (int i = 0; i < ship.UnitList.Count; i++)
                     {
-                        activeAIWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                        activeAIUnitData.Remove(ship.UnitList[i]);
+                        if (ship.UnitList[i] is AdditionalWeapon)
+                        {
+                            activeAIWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                        }
+                        if (ship.UnitList[i] is Building)
+                        {
+                            activeAIBuildingData.Remove(ship.UnitList[i] as Building);
+
+                        }
                     }
-                    if (ship.UnitList[i] is Building)
-                    {
-                        activeAIBuildingData.Remove(ship.UnitList[i] as Building);
-                    }
+                    activeAIDroneAgentData.Remove(ship);
                 }
-                activeAIAgentData.Remove(ship);
+                else
+                {
+                    for (int i = 0; i < ship.UnitList.Count; i++)
+                    {
+                        activeAIUnitData.Remove(ship.UnitList[i]);
+                        if (ship.UnitList[i] is AdditionalWeapon)
+                        {
+                            activeAIWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                        }
+                        if (ship.UnitList[i] is Building)
+                        {
+                            activeAIBuildingData.Remove(ship.UnitList[i] as Building);
+
+                        }
+                    }
+                    activeAIAgentData.Remove(ship);
+                }
+
                 break;
         }
         OnShipCountChange(type);
@@ -280,7 +324,9 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessECS) { return; }
         UpdateJobData();
+        playerJobController.UpdateDroneAgentMovement(ref activePlayerDroneAgentData, ref activeAIAgentData);
         AIJobController.UpdateAgentMovement(ref activeAIAgentData, ref activePlayerAgentData, ref playerIBoid);
+
     }
 
     public virtual void UpdateJobData()

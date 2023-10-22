@@ -995,6 +995,7 @@ public static class GameHelper
 
     public static float GetAnimatorClipLength(Animator anim, string clipName)
     {
+        if(anim == null) { return -1; }
         float length = 0;
         AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
         foreach(var clip in clips)

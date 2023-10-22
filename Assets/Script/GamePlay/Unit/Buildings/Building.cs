@@ -19,27 +19,26 @@ public class BuildingAttribute : UnitBaseAttribute
     }
 }
 
+public enum BuildingState
+{
+    Ready,
+    Start,
+    Active,
+    End,
+    Recover,
+}
+
 public class Building : Unit
 {
-
-    public struct BuildingTargetInfo : IComparable<BuildingTargetInfo>
-    {
-        public int targetIndex;
-        public float distanceToTarget;
-        public float3 targetPos;
-        public float3 targetDirection;
-
-        public int CompareTo(BuildingTargetInfo other)
-        {
-            return distanceToTarget.CompareTo(other.distanceToTarget);
-        }
-    }
-
+    public StateMachine<BuildingState> buildingState;
     private List<BaseBuildingComponent> _buildingComponents = new List<BaseBuildingComponent>();
 
     protected BuildingConfig _buildingConfig;
 
     public BuildingAttribute buildingAttribute;
+
+
+    protected bool _isBuildingOn = false;   
 
 
     public override bool OnUpdateBattle()
@@ -72,6 +71,69 @@ public class Building : Unit
     {
         buildingAttribute.InitProeprty(this, _buildingConfig, type);
         baseAttribute = buildingAttribute;
+    }
+
+    public virtual void BuildingOn()
+    {
+        _isBuildingOn = true;
+    }
+
+
+    public virtual void BuildingOFF()
+    {
+        _isBuildingOn = false;
+    }
+
+
+    public virtual void ProcessBuilding()
+    {
+        if (GameManager.Instance.IsPauseGame()) { return; }
+        if (!_isProcess) { return; }
+
+        switch (buildingState.CurrentState)
+        {
+            case BuildingState.Ready:
+                BuildingReady();
+                break;
+            case BuildingState.Start:
+                BuildingStart();
+                break;
+            case BuildingState.Active:
+                BuildingActive();
+                break;
+            case BuildingState.End:
+                BuildingEnd();
+                break;
+            case BuildingState.Recover:
+                BuildingRecover();
+                break;
+        }
+    }
+
+    public virtual void BuildingReady()
+    {
+        if (!_isBuildingOn) { return; }
+        buildingState.ChangeState(BuildingState.Start);
+    }
+
+    public virtual void BuildingStart()
+    {
+
+    }
+
+    public virtual void BuildingActive()
+    {
+
+    }
+
+    public virtual void BuildingEnd()
+    {
+
+    }
+
+    public virtual void BuildingRecover()
+    {
+
     }
 
     public override bool TakeDamage(DamageResultInfo info)

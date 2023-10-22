@@ -54,24 +54,24 @@ public enum WeaponTargetMode
 }
 
 /// <summary>
-/// 这里的index指的是，当前的target在Ai manager.targetActiveUnitList中的位置
+/// 这里的index指的是，当前的target 在ECSManager中 ActiveUnit的位置
 /// distance 和 direction都是当前的weapon 对于target位置来说的
 /// </summary>
-public class WeaponTargetInfo
+public class UnitTargetInfo
 {
     public GameObject target;
     public int index;
     public float distance;
     public Vector3 direction;
 
-    public WeaponTargetInfo()
+    public UnitTargetInfo()
     {
         target = null;
         index = -1;
         distance = 0;
         direction = Vector3.zero;
     }
-    public WeaponTargetInfo(GameObject m_target, int m_index, float m_distance, Vector3 m_direction )
+    public UnitTargetInfo(GameObject m_target, int m_index, float m_distance, Vector3 m_direction )
     {
         target = m_target;
         index = m_index;
@@ -83,7 +83,7 @@ public class WeaponTargetInfo
 public class Weapon : Unit
 {
     public WeaponControlType weaponmode;
-    public StateMachine<WeaponState> weaponstate;
+    public StateMachine<WeaponState> weaponState;
     public WeaponFireMode firemode;
     public WeaponAimingType aimingtype= WeaponAimingType.Directional;
 
@@ -137,18 +137,7 @@ public class Weapon : Unit
     public Action<float> OnReloadCDUpdate;
     public Action<int> OnMagazineChange;
 
-    public struct WeaponTargetJobData : IComparable<WeaponTargetJobData>
-    {
-        public int targetIndex;
-        public float distanceToTarget;
-        public float3 targetPos;
-        public float3 targetDirection;
 
-        public int CompareTo(WeaponTargetJobData other)
-        {
-            return distanceToTarget.CompareTo(other.distanceToTarget);
-        }
-    }
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _baseUnitConfig = m_unitconfig;
@@ -157,7 +146,7 @@ public class Weapon : Unit
         InitWeaponAttribute(GameHelper.GetOwnerShipType(_owner));
         base.Initialization(m_owner, m_unitconfig);
 
-        weaponstate = new StateMachine<WeaponState>(this.gameObject, false, false);
+        weaponState = new StateMachine<WeaponState>(this.gameObject, false, false);
         _bulletdata = DataManager.Instance.GetBulletConfigByType(bulletName);
         if (_bulletdata == null)
         {
@@ -189,27 +178,27 @@ public class Weapon : Unit
 
 
     [BurstCompile]
-    public struct FindMutipleWeaponTargetsJob : IJobParallelForBatch
+    public struct FindMutipleUnitTargetsJob : IJobParallelForBatch
     {
-        [Unity.Collections.ReadOnly] public NativeArray<WeaponJobData> job_weaponJobData;
+        [Unity.Collections.ReadOnly] public NativeArray<UnitJobData> job_weaponJobData;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
 
         [NativeDisableContainerSafetyRestriction]
-        public NativeArray<WeaponTargetJobData> rv_targetsInfo;
-        WeaponTargetJobData tempinfo;
+        public NativeArray<UnitTargetJobData> rv_targetsInfo;
+        UnitTargetJobData tempinfo;
         int index;
         public void Execute(int startIndex, int count)
         {
-            NativeList<WeaponTargetJobData> tempinfolist; 
+            NativeList<UnitTargetJobData> tempinfolist; 
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                tempinfolist  = new NativeList<WeaponTargetJobData>(Allocator.Temp);
+                tempinfolist  = new NativeList<UnitTargetJobData>(Allocator.Temp);
                 //找到所有在范围内的target
                 for (int n = 0; n < job_targetsPos.Length; n++)
                 {
                     var targetPos = job_targetsPos[n];
-                    if (math.distance(job_weaponJobData[i].position, targetPos) <= job_weaponJobData[i].attackRange)
+                    if (math.distance(job_weaponJobData[i].position, targetPos) <= job_weaponJobData[i].range)
                     {
                         tempinfo.targetPos = targetPos;
                         tempinfo.targetIndex = n;
@@ -315,7 +304,7 @@ public class Weapon : Unit
         if (!_isProcess) { return; }
          
         HandleOtherWeaponRotation();
-        switch (weaponstate.CurrentState)
+        switch (weaponState.CurrentState)
         {
             case WeaponState.Ready:
                 WeaponReady();
@@ -376,7 +365,7 @@ public class Weapon : Unit
 
         //Debug.Log(this.gameObject + " : WeaponReady");
 
-        weaponstate.ChangeState(WeaponState.Start);
+        weaponState.ChangeState(WeaponState.Start);
         
     }
 
@@ -386,7 +375,7 @@ public class Weapon : Unit
     
         if (magazine <= 0 && weaponAttribute.MagazineBased)
         {
-            weaponstate.ChangeState(WeaponState.End);
+            weaponState.ChangeState(WeaponState.End);
         }
         //Debug.Log(this.gameObject + " : WeaponStart");
         _beforeDelayCounter = weaponAttribute.BeforeDelay;
@@ -395,7 +384,7 @@ public class Weapon : Unit
         _chargeCounter = weaponAttribute.ChargeTime;
         _reloadCounter = weaponAttribute.ReloadTime;
 
-        weaponstate.ChangeState(WeaponState.BeforeDelay);
+        weaponState.ChangeState(WeaponState.BeforeDelay);
     }
     public virtual void WeaponBeforeDelay()
     {
@@ -413,7 +402,7 @@ public class Weapon : Unit
         {
             if(magazine <=0 )
             {
-                weaponstate.ChangeState(WeaponState.End);
+                weaponState.ChangeState(WeaponState.End);
                 return;
                 //ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
             }
@@ -424,7 +413,7 @@ public class Weapon : Unit
             RefreshValidTarget();
             if (targetList == null || targetList.Count == 0)
             {
-                weaponstate.ChangeState(WeaponState.End);
+                weaponState.ChangeState(WeaponState.End);
                 return;
             }
         }
@@ -433,13 +422,13 @@ public class Weapon : Unit
         {
             _firepointindex = 0;
         }
-        weaponstate.ChangeState(WeaponState.Firing);
+        weaponState.ChangeState(WeaponState.Firing);
     }
 
     public virtual void WeaponFiring()
     {
         DoFire();
-        weaponstate.ChangeState(WeaponState.Fired);
+        weaponState.ChangeState(WeaponState.Fired);
     }
 
     public virtual void DoFire()
@@ -745,7 +734,7 @@ public class Weapon : Unit
             }
             else
             {
-                weaponstate.ChangeState(WeaponState.AfterDelay);
+                weaponState.ChangeState(WeaponState.AfterDelay);
             }
  
         }
@@ -758,11 +747,11 @@ public class Weapon : Unit
         if (_chargeCounter < 0)
         {
             _chargeCounter = weaponAttribute.ChargeTime;
-            weaponstate.ChangeState(WeaponState.Charged);
+            weaponState.ChangeState(WeaponState.Charged);
         }
         if(_isWeaponOn)
         {
-            weaponstate.ChangeState(WeaponState.Start);
+            weaponState.ChangeState(WeaponState.Start);
         }
     }
 
@@ -774,7 +763,7 @@ public class Weapon : Unit
         _isChargeFire = true;
         if(_isWeaponOn)
         {
-            weaponstate.ChangeState(WeaponState.Start);
+            weaponState.ChangeState(WeaponState.Start);
         }
     }
 
@@ -788,25 +777,25 @@ public class Weapon : Unit
             case WeaponControlType.Autonomy:
                 if (_isWeaponOn)
                 {
-                    weaponstate.ChangeState(WeaponState.BetweenDelay);
+                    weaponState.ChangeState(WeaponState.BetweenDelay);
                 }
                 else
                 {
-                    weaponstate.ChangeState(WeaponState.AfterDelay);
+                    weaponState.ChangeState(WeaponState.AfterDelay);
                 }
                 break;
             case WeaponControlType.SemiAuto:
                 if (_isWeaponOn)
                 {
-                    weaponstate.ChangeState(WeaponState.BetweenDelay);
+                    weaponState.ChangeState(WeaponState.BetweenDelay);
                 }
                 else
                 {
-                    weaponstate.ChangeState(WeaponState.AfterDelay);
+                    weaponState.ChangeState(WeaponState.AfterDelay);
                 }
                 break;
             case WeaponControlType.Manual:
-                weaponstate.ChangeState(WeaponState.AfterDelay);
+                weaponState.ChangeState(WeaponState.AfterDelay);
                 break;
         }
     }
@@ -818,7 +807,7 @@ public class Weapon : Unit
         if (_afterDelayCounter < 0)
         {
             _afterDelayCounter = weaponAttribute.AfterDelay;
-            weaponstate.ChangeState(WeaponState.End);
+            weaponState.ChangeState(WeaponState.End);
         }
 
     }
@@ -838,7 +827,7 @@ public class Weapon : Unit
             _betweenDelayCounter = weaponAttribute.FireCD;
             if (magazine <= 0 && weaponAttribute.MagazineBased)
             {
-                weaponstate.ChangeState(WeaponState.Reload);
+                weaponState.ChangeState(WeaponState.Reload);
                 if(_owner is PlayerShip)
                 {
                     ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDStart, UID);
@@ -848,7 +837,7 @@ public class Weapon : Unit
             }
             else
             {
-                weaponstate.ChangeState(WeaponState.Recover);
+                weaponState.ChangeState(WeaponState.Recover);
             }
         }
 
@@ -870,21 +859,21 @@ public class Weapon : Unit
             {
                 if (weaponmode == WeaponControlType.Autonomy)
                 {
-                    weaponstate.ChangeState(WeaponState.Start);
+                    weaponState.ChangeState(WeaponState.Start);
                 }
                 if (weaponmode == WeaponControlType.Manual)
                 {
-                    weaponstate.ChangeState(WeaponState.Recover);
+                    weaponState.ChangeState(WeaponState.Recover);
                 }
                 if (weaponmode == WeaponControlType.SemiAuto)
                 {
-                    weaponstate.ChangeState(WeaponState.Start);
+                    weaponState.ChangeState(WeaponState.Start);
                 }
 
             }
             else
             {
-                weaponstate.ChangeState(WeaponState.Recover);
+                weaponState.ChangeState(WeaponState.Recover);
                 if(_owner is PlayerShip)
                 {
                     ShipPropertyEvent.Trigger(ShipPropertyEventType.ReloadCDEnd, UID);
@@ -898,7 +887,7 @@ public class Weapon : Unit
         //Debug.Log(this.gameObject + " : WeaponRecover");
         _isChargeFire = false;
         WeaponOff();
-        weaponstate.ChangeState(WeaponState.Ready);
+        weaponState.ChangeState(WeaponState.Ready);
     }
 
     public override void Death(UnitDeathInfo info)

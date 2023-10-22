@@ -19,11 +19,11 @@ public class ShipMainWeapon : Weapon
     public NativeList<float> activeWeaponAttackRangeList;
     public NativeList<float3> activeWeaponPosList;
     public NativeList<int> activeWeaponTargetCountList;
-    public NativeQueue<Weapon.WeaponTargetJobData> rv_weaponTargetsInfoQue;
+    public NativeQueue<UnitTargetJobData> rv_weaponTargetsInfoQue;
 
 
 
-    protected List<Weapon.WeaponTargetJobData> targetListcandidator = new List<WeaponTargetJobData>();
+    protected List<UnitTargetJobData> targetListcandidator = new List<UnitTargetJobData>();
     public virtual void HandleShipMainWeapon(InputAction.CallbackContext context)
     {
         if(weaponmode  == WeaponControlType.Autonomy)
@@ -36,7 +36,7 @@ public class ShipMainWeapon : Weapon
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
-                    weaponstate.ChangeState(WeaponState.Charging);
+                    weaponState.ChangeState(WeaponState.Charging);
                     break;
 
                 case InputActionPhase.Canceled:
@@ -85,7 +85,7 @@ public class ShipMainWeapon : Weapon
             return;
         }
 
-        Weapon.WeaponTargetJobData[] slice = new WeaponTargetJobData[rv_weaponTargetsInfoQue.Count];
+        UnitTargetJobData[] slice = new UnitTargetJobData[rv_weaponTargetsInfoQue.Count];
 
         //slice the searching targets result
         int c = rv_weaponTargetsInfoQue.Count;
@@ -103,12 +103,12 @@ public class ShipMainWeapon : Weapon
         {
             if (firemode == WeaponFireMode.Linked)
             {
-                WeaponTargetInfo info;
+                UnitTargetInfo info;
                 while(targetList.Count < maxTargetCount)
                 {
                     for (int i = 0; i < slice.Length; i++)
                     {
-                        info = new WeaponTargetInfo
+                        info = new UnitTargetInfo
                             (
                                 ECSManager.Instance.activeAIUnitData.unitList[slice[i].targetIndex].gameObject,
                             
@@ -134,7 +134,7 @@ public class ShipMainWeapon : Weapon
                 {
 
                     index = i % iterateIndex;
-                    targetList.Add(new WeaponTargetInfo
+                    targetList.Add(new UnitTargetInfo
                     (
                         ECSManager.Instance.activeAIUnitData.unitList[slice[index].targetIndex].gameObject,
                         //AIManager.Instance.activeWeaponList[slice[index].targetIndex].gameObject,
@@ -178,11 +178,11 @@ public class ShipMainWeapon : Weapon
         //这里返回的时对应的target在list中的index
 
 
-        public NativeQueue<WeaponTargetJobData>.ParallelWriter rv_targetsInfo;
+        public NativeQueue<UnitTargetJobData>.ParallelWriter rv_targetsInfo;
         //public NativeArray<int> rv_validIndex;
        // [NativeDisableParallelForRestriction]
        // public NativeArray<RV_WeaponTargetInfo> rv_targetsInfo;
-        WeaponTargetJobData tempinfo;
+        UnitTargetJobData tempinfo;
         int index;
         public void Execute(int startIndex, int count)
         {
@@ -225,7 +225,7 @@ public class ShipMainWeapon : Weapon
         activeWeaponPosList = new NativeList<float3>(Allocator.Persistent);
         activeWeaponAttackRangeList = new NativeList<float>(Allocator.Persistent);
         activeWeaponTargetCountList = new NativeList<int>(Allocator.Persistent);
-        rv_weaponTargetsInfoQue = new NativeQueue<WeaponTargetJobData>(Allocator.Persistent);
+        rv_weaponTargetsInfoQue = new NativeQueue<UnitTargetJobData>(Allocator.Persistent);
     }
 
     public override void InitWeaponAttribute(OwnerShipType type)

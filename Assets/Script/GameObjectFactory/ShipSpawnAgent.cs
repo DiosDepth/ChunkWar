@@ -182,12 +182,13 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
 
     public virtual void PoolableReset()
     {
-        
+        _shipconfig = null;
+
     }
 
     public virtual void PoolableSetActive(bool isactive = true)
     {
-       
+        this.gameObject.SetActive(isactive);
     }
 
     public virtual void Initialization()
@@ -228,7 +229,21 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
         if (!RogueManager.Instance.IsLevelSpawnVaild())
             return;
 
-        PoolManager.Instance.GetObjectSync(GameGlobalConfig.AIShipPath + spawnInfo.shipConfig.GetPrefabName(), true, (obj) =>
+        string path = string.Empty;
+        if( spawnInfo is AIShipSpawnInfo)
+        {
+            path = GameGlobalConfig.AIShipPath + spawnInfo.shipConfig.GetPrefabName();
+        }
+        if(spawnInfo is DroneSpawnInfo)
+        {
+            path = GameGlobalConfig.DroneShipPath + spawnInfo.shipConfig.GetPrefabName();
+        }
+        if(path == string.Empty)
+        {
+            Debug.LogError("CreateEntity path is empty");
+            return;
+        }
+        PoolManager.Instance.GetObjectSync(path, true, (obj) =>
         {
             obj.transform.position = spawnInfo.referencePos;
             if (spawnInfo.referenceTarget != null)
@@ -238,6 +253,6 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
             var tempship = obj.GetComponent<BaseShip>();
             tempship.Initialization();
             spawnInfo.action.Invoke(tempship);
-        }, LevelManager.AIPool);
+        },null);
     }
 }

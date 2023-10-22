@@ -72,21 +72,20 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
         return _spawnreferencedir;
     }
 
-    public void PoolableReset()
+    public override void PoolableReset()
     {
-        _shipconfig = null;
+        base.PoolableReset();
         _shiplist.Clear();
     }
 
-    public void PoolableDestroy()
+    public override void PoolableDestroy()
     {
-        PoolableReset();
-        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+        base.PoolableDestroy();
     }
 
-    public void PoolableSetActive(bool isactive = true)
+    public override void PoolableSetActive(bool isactive = true)
     {
-        this.gameObject.SetActive(isactive);
+        base.PoolableSetActive(isactive);
     }
 
     private async UniTask CreateEntity(AIShipSpawnInfo aispawninfo, Vector2 pos)

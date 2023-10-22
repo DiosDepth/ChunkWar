@@ -1407,7 +1407,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
         }
 
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIFactoryPath, true, (obj) =>
+        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIShipSpawnAgentPath, true, (obj) =>
         {
             AIShipSpawnAgent aIFactory = obj.GetComponent<AIShipSpawnAgent>();
             aIFactory.PoolableSetActive(true);
@@ -2076,7 +2076,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for(int i = 0; i < AllShipUnits.Count; i++)
         {
             var unit = AllShipUnits[i];
-            if(unit.state == DamagableState.Normal && unit.HpComponent.HPPercent < 100)
+            if(unit.damageState == DamagableState.Normal && unit.HpComponent.HPPercent < 100)
             {
                 unit.HpComponent.ChangeHP(Mathf.RoundToInt(recoverHP));
             }

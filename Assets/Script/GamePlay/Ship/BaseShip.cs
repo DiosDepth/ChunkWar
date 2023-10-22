@@ -184,7 +184,7 @@ public class BaseShip : MonoBehaviour, IPauseable
         }
     }
 
-    public void CheckDeath(Unit coreUnit, UnitDeathInfo info)
+    public virtual void CheckDeath(Unit coreUnit, UnitDeathInfo info)
     {
         CoreUnits.Remove(coreUnit);
         if(CoreUnits.Count <= 0)
@@ -226,11 +226,13 @@ public class BaseShip : MonoBehaviour, IPauseable
 
     public void SetAnimatorTrigger(string trigger)
     {
+        if(_spriteAnimator == null) { return; }
         _spriteAnimator.SetTrigger(trigger);
     }
 
     public void ResetAnimatorTrigger(string trigger)
     {
+        if (_spriteAnimator == null) { return; }
         _spriteAnimator.ResetTrigger(trigger);
     }
 

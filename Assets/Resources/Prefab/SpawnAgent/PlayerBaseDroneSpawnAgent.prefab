@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2062091589948933902}
-  - component: {fileID: 6920703657714154217}
+  - component: {fileID: -8540022981120334884}
   m_Layer: 0
-  m_Name: AIFactory
+  m_Name: PlayerBaseDroneSpawnAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6920703657714154217
+--- !u!114 &-8540022981120334884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2062091589948933900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece5e271f19e41d40bde23f3d58a5027, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fe4b763ef6e3854f910956fc367ac7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnInfo:

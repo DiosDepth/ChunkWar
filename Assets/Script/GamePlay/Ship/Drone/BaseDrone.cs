@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,52 +8,57 @@ using UnityEngine;
 
 public enum DroneState
 {
-    Ready,
-    Patrol,
-    Launched,
-    Battle,
-    Return,
-    Destroy,
-    Restore,
+    Ready = 0,
+    Patrol = 1,
+    Launched = 2,
+    Battle = 3,
+    Return = 4,
+    Landed = 5,
+    Destroy = 6,
+    Restore = 9,
 }
 
 public class BaseDrone : BaseShip, IPoolable
 {
+
     protected DroneConfig _droneCfg;
     public DroneAttribute droneAttribute;
-    public StateMachine<DroneState> state;
+    public StateMachine<DroneState> baseDroneState;
     public int DroneID;
+
     public OwnerType ownerType
     {
         get;
         private set;
     }
 
+    protected DroneFactory _ownerFactory;
     public override void Initialization()
     {
         base.Initialization();
-        state = new StateMachine<DroneState>(this.gameObject,false,false);
+        baseDroneState = new StateMachine<DroneState>(this.gameObject,false,false);
+        baseDroneState.ChangeState(DroneState.Ready);
         CreateShip();
     }
 
+    public virtual void SetOwnerFactory(DroneFactory factory)
+    {
+        _ownerFactory = factory;
+    }
     protected override void Death(UnitDeathInfo info)
     {
         base.Death(info);
-        //DestroyAIShipBillBoard();
-        ResetAllAnimation();
-        //LevelManager.Instance.pickupList.AddRange(Drop());
         if (!string.IsNullOrEmpty(_droneCfg.DieAudio))
         {
             SoundManager.Instance.PlayBattleSound(_droneCfg.DieAudio, transform);
         }
-        ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-        //AIManager.Instance.RemoveAI(this);
+        //ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
         {
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
-            PoolableDestroy();
+           // PoolableDestroy();
         });
     }
 
@@ -104,20 +110,68 @@ public class BaseDrone : BaseShip, IPoolable
             }
         }
 
-        DoSpawnEffect();
+        //DoSpawnEffect();
     }
 
+    public override void GameOver()
+    {
+        base.GameOver();
+        PoolableDestroy();
+    }
     public void PoolableReset()
     {
-
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].SetDisable();
+        }
+        _ownerFactory = null;
     }
 
     public void PoolableDestroy()
     {
-
         PoolableReset();
         PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
+    
+    public virtual void Launch()
+    {
+
+        PoolableSetActive(true);
+    }
+    public virtual void Landing()
+    {
+        _ownerFactory.Landing(this);
+        PoolableSetActive(false);
+    }
+    public virtual void Crash(UnitDeathInfo info)
+    {
+        Death(info);
+
+        _ownerFactory.Crash(this);
+        PoolableSetActive(false);
+
+
+    }
+    public virtual void Repair()
+    {
+        baseDroneState.ChangeState(DroneState.Ready);
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            _unitList[i].Restore();
+        }
+        PoolableSetActive(false);
+    }
+
+
+    public override void CheckDeath(Unit coreUnit, UnitDeathInfo info)
+    {
+        CoreUnits.Remove(coreUnit);
+        if (CoreUnits.Count <= 0)
+        {
+            Crash(info);
+        }
+    }
+
 
     public void PoolableSetActive(bool isactive = true)
     {
@@ -148,7 +202,7 @@ public class BaseDrone : BaseShip, IPoolable
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
     }
 
-    private void ResetAllAnimation()
+    protected virtual void ResetAllAnimation()
     {
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);

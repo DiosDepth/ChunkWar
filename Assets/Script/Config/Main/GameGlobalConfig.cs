@@ -48,7 +48,9 @@ public static class GameGlobalConfig
     public const string VFXPath = "Prefab/VFX/";
     public const string SFXPath = "Prefab/SFX/";
     public const string AIShipPath = "Prefab/Ship/AI/";
-    public const string AIFactoryPath = "Prefab/GameplayPrefab/AIFactory";
+    public const string DroneShipPath = "Prefab/Ship/Drones/";
+    public const string AIShipSpawnAgentPath = "Prefab/SpawnAgent/AIShipSpawnAgent";
+    public const string PlayerDroneSpawnAgentPath = "Prefab/SpawnAgent/PlayerBaseDroneSpawnAgent";
     public const string ShieldPath = "Prefab/Unit/Items/";
 
 }

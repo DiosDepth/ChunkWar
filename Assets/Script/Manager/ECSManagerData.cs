@@ -306,13 +306,13 @@ public class WeaponData : IJobData
 {
 
     public List<AdditionalWeapon> activeWeaponList;
-    public NativeList<WeaponJobData> activeWeaponJobData;
+    public NativeList<UnitJobData> activeWeaponJobData;
 
-    public NativeArray<Weapon.WeaponTargetJobData> rv_weaponTargetsInfo;
+    public NativeArray<UnitTargetJobData> rv_weaponTargetsInfo;
     public WeaponData()
     {
         activeWeaponList = new List<AdditionalWeapon>();
-        activeWeaponJobData = new NativeList<WeaponJobData>(Allocator.Persistent);
+        activeWeaponJobData = new NativeList<UnitJobData>(Allocator.Persistent);
     }
 
     public void Dispose()
@@ -329,10 +329,10 @@ public class WeaponData : IJobData
     public void UpdateData()
     {
         if (activeWeaponList.Count == 0) { return; }
-        WeaponJobData tempweaponjobdata;
+        UnitJobData tempweaponjobdata;
         for (int i = 0; i < activeWeaponList.Count; i++)
         {
-            tempweaponjobdata.attackRange = activeWeaponList[i].weaponAttribute.WeaponRange;
+            tempweaponjobdata.range = activeWeaponList[i].weaponAttribute.WeaponRange;
             tempweaponjobdata.position = activeWeaponList[i].transform.position;
             tempweaponjobdata.targetCount = activeWeaponList[i].maxTargetCount;
             activeWeaponJobData[i] = tempweaponjobdata;
@@ -343,8 +343,8 @@ public class WeaponData : IJobData
     {
         if (activeWeaponList.Contains(weapon)) { return; }
         activeWeaponList.Add(weapon);
-        WeaponJobData tempweaponjobdata;
-        tempweaponjobdata.attackRange = weapon.weaponAttribute.WeaponRange;
+        UnitJobData tempweaponjobdata;
+        tempweaponjobdata.range = weapon.weaponAttribute.WeaponRange;
         tempweaponjobdata.position = weapon.transform.position;
         tempweaponjobdata.targetCount = weapon.maxTargetCount;
         activeWeaponJobData.Add(tempweaponjobdata);
@@ -376,14 +376,14 @@ public class WeaponData : IJobData
 public class BuildingData : IJobData
 {
     public List<Building> activeBuildingList;
-    public NativeList<BuildingJobData> activeBuildingJobData;
+    public NativeList<UnitJobData> activeBuildingJobData;
 
-    public NativeArray<Building.BuildingTargetInfo> rv_buildingTargetsInfo;
+    public NativeArray<UnitTargetJobData> rv_buildingTargetsInfo;
 
     public BuildingData()
     {
         activeBuildingList = new List<Building>();
-        activeBuildingJobData = new NativeList<BuildingJobData>(Allocator.Persistent);
+        activeBuildingJobData = new NativeList<UnitJobData>(Allocator.Persistent);
     }
 
     public void Dispose()
@@ -400,10 +400,10 @@ public class BuildingData : IJobData
     public void UpdateData()
     {
         if (activeBuildingList.Count == 0) { return; }
-        BuildingJobData buildingJobData;
+        UnitJobData buildingJobData;
         for (int i = 0; i < activeBuildingList.Count; i++)
         {
-            buildingJobData.attackRange = activeBuildingList[i].buildingAttribute.WeaponRange;
+            buildingJobData.range = activeBuildingList[i].buildingAttribute.WeaponRange;
             buildingJobData.position = activeBuildingList[i].transform.position;
             buildingJobData.targetCount = activeBuildingList[i].maxTargetCount;
             activeBuildingJobData[i] = buildingJobData;
@@ -415,8 +415,8 @@ public class BuildingData : IJobData
     {
         if (activeBuildingList.Contains(building)) { return; }
         activeBuildingList.Add(building);
-        BuildingJobData tempbuildingjobdata;
-        tempbuildingjobdata.attackRange = building.buildingAttribute.WeaponRange;
+        UnitJobData tempbuildingjobdata;
+        tempbuildingjobdata.range = building.buildingAttribute.WeaponRange;
         tempbuildingjobdata.position = building.transform.position;
         tempbuildingjobdata.targetCount = building.maxTargetCount;
         activeBuildingJobData.Add(tempbuildingjobdata);
@@ -721,20 +721,13 @@ public struct BoidJobData
     public float boidRadius;
 }
 
-public struct WeaponJobData
+public struct UnitJobData
 {
-    public float attackRange;
+    public float range;
     public float3 position;
     public int targetCount;
 }
 
-public struct BuildingJobData
-{
-    public float attackRange;
-    public float3 position;
-    public int targetCount;
-
-}
 public struct AvoidenceCollisionJobData
 {
     public float3 avoidanceCollisionPos;

@@ -104,7 +104,7 @@ MonoBehaviour:
   controller: {fileID: 7663720787589469471}
   deathVFXName: ExplodeVFX
   CoreUnits: []
-  DroneID: 0
+  DroneID: 1
 --- !u!114 &7663720787589469471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUpdate: 0
-  rb: {fileID: 0}
+  rb: {fileID: 2036907068945415827}
   collider: {fileID: 0}
   boidRadius: 1
   maxAcceleration: 10
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 3431155977748982856}
   - component: {fileID: 4295464997389306757}
   m_Layer: 6
-  m_Name: Sprit
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +236,7 @@ SpriteRenderer:
   m_SortingLayerID: -689723199
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6b6b0a918a27b064b8d9ebe6edbe2663, type: 3}
+  m_Sprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -401,4 +401,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.62
