@@ -73,6 +73,7 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
 
     private void OnButtonClick()
     {
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Confirm);
         var currentSelectShip = RogueManager.Instance.currentShipSelection;
         if (currentSelectShip == null)
             return;
@@ -105,6 +106,7 @@ public class HardLevelModeItemCmpt : EnhancedScrollerCellView, IHoverUIItem
     {
         SelectedChanged(false);
         LeanTween.moveLocalY(gameObject, 0, 0.1f);
+        SoundManager.Instance.PlayUISound(SoundEventStr.Mouse_PointOver_2);
     }
 
     private void SetUpProperty(Dictionary<HardLevelModifyType, float> dic)

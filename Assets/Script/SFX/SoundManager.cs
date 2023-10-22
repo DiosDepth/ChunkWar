@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using Cysharp.Threading.Tasks;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -33,7 +34,7 @@ public class SoundManager : Singleton<SoundManager>
     /// <param name="volume"></param>
     public void PlayBGM(string bgmEvent, float volume = 1f)
     {
-        m_currentBGM = "event:/" + bgmEvent;
+        m_currentBGM = "event:/BGM/" + bgmEvent;
         m_BGMVolume = volume;
         RefreshBGMEvent();
     }
@@ -45,11 +46,17 @@ public class SoundManager : Singleton<SoundManager>
 
     #endregion
 
-    public void PlayBattleSound(string eventName, Transform trans)
+    public async void PlayBattleSound(string eventName, Transform trans, float randomDelay = 0f)
     {
         if (string.IsNullOrEmpty(eventName))
             return;
         var evtParam = "event:/" + eventName;
+
+        if (randomDelay > 0) 
+        {
+            var delayTime = UnityEngine.Random.Range(0, randomDelay);
+            await UniTask.Delay((int)(delayTime * 1000));
+        }
         RuntimeManager.PlayOneShot(evtParam, trans.position);
     }
 
@@ -60,11 +67,16 @@ public class SoundManager : Singleton<SoundManager>
         var evtParam = "event:/" + eventName;
         RuntimeManager.PlayOneShot(evtParam);
     }
-    public void PlayUISound(string eventName)
+    public async void PlayUISound(string eventName, float delayTime = 0f)
     {
         if (string.IsNullOrEmpty(eventName))
             return;
         var evtParam = "event:/UI/" + eventName;
+        if(delayTime > 0)
+        {
+            await UniTask.Delay((int)(delayTime * 1000));
+        }
+
         RuntimeManager.PlayOneShot(evtParam);
     }
 
@@ -95,7 +107,6 @@ public class SoundManager : Singleton<SoundManager>
 
         SetBGMVolume(m_BGMVolume);
         BGMEventInstance.start();
-
         ///Lerp Volume TOOD
     }
 

@@ -307,6 +307,8 @@ public static class MonoBehaviorExtention
         for (int i = childCount - 1; i >= 0; i--) 
         {
             var child = trans.GetChild(i);
+            if (string.Compare(child.name, key) != 0)
+                return;
             PoolManager.Instance.BackObject(key, child.gameObject);
         }
     }

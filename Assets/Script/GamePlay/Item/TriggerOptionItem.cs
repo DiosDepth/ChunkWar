@@ -71,7 +71,7 @@ public class TriggerOptionItem : MonoBehaviour, IPoolable
         PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
 
-    public void PoolableReset()
+    public virtual void PoolableReset()
     {
         trigger.enabled = false;
         InputDispatcher.Instance.Action_GamePlay_Interact -= HandlePressInput;

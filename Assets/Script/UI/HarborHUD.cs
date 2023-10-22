@@ -57,6 +57,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         GetGUIComponent<Button>("ChangePos").onClick.AddListener(OnUnitSelect_ChangePostionClick);
         _unitSelectOption.Active(null, false);
         RefreshGeneral();
+        SoundManager.Instance.PlayUISound("Harbor_Enter");
     }
 
     public override void Hidden()
@@ -73,6 +74,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
     public void OnLaunchBtnPressed()
     {
         GameStateTransitionEvent.Trigger(EGameState.EGameState_GameHarbor);
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Launch_ButtonClick);
     }
 
     public void OnEvent(RogueEvent evt)

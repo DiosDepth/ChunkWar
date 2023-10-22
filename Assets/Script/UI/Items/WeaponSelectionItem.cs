@@ -29,6 +29,7 @@ public class WeaponSelectionItem : EnhancedScrollerCellView, IHoverUIItem
         if (unitCfg == null)
             return;
 
+        SoundManager.Instance.PlayUISound(SoundEventStr.Button_Click_2);
         InventoryItem weaponItem = new InventoryItem(unitCfg);
         RogueManager.Instance.currentWeaponSelection = weaponItem;
 
@@ -71,12 +72,11 @@ public class WeaponSelectionItem : EnhancedScrollerCellView, IHoverUIItem
 
     public void OnHoverEnter()
     {
-        SoundManager.Instance.PlayUISound("UI_Click_Hover");
         selected?.Invoke(this);
     }
 
     public void OnHoverExit()
     {
-
+        SoundManager.Instance.PlayUISound(SoundEventStr.Mouse_PointOver_2);
     }
 }

@@ -266,4 +266,4 @@ MonoBehaviour:
       Entry: 8
       Data: 
   LevelPresetID: 3
-  BGMEvent: BGM/Stellar_Rust
+  BGMEvent: BattleBGM_1

@@ -73,6 +73,7 @@ public class EGameState_MainMenu : GameState
          {
              panel.Initialization();
          });
+        SoundManager.Instance.PlayBGM("MainBGM");
     }
 
     public override void OnUpdate()

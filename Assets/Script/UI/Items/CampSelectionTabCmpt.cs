@@ -34,6 +34,7 @@ public class CampSelectionTabCmpt : MonoBehaviour, IPoolable
     {
         GeneralUIEvent.Trigger(UIEventType.ShipSelection_CampSelect, CampID);
         OnSelected(true);
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Confirm);
     }
 
     public void PoolableReset()

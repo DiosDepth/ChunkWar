@@ -561,6 +561,7 @@ public class ShipBuilder : MonoBehaviour
         _isDisplayingHoverUnit = true;
         _currentHoverUnit = targetUnit;
         RogueEvent.Trigger(RogueEventType.HoverUnitDisplay, targetUnit);
+        SoundManager.Instance.PlayUISound(SoundEventStr.Mouse_PointOver_2);
     }
 
     private void ResetHoverUnit()
