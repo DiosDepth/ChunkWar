@@ -161,19 +161,31 @@ public class DroneFactory : Building
 
     public override void BuildingReady()
     {
-
+        if (!_isBuildingOn) { return; }
+        buildingState.ChangeState(BuildingState.Start);
     }
 
     public override void BuildingStart()
     {
-
         _repairTimeCounter = factoryAttribute.RepairTime;
-    
-
+        buildingState.ChangeState(BuildingState.Active);
+ 
     }
 
     public override void BuildingActive()
     {
+        if (damageState == DamagableState.Destroyed)
+        {
+            buildingState.ChangeState(BuildingState.End);
+            return;
+        }
+
+        if (!_isBuildingOn) 
+        {
+            buildingState.ChangeState(BuildingState.Ready);
+            return;
+        }
+
         //launch if find target
         if (targetList != null && targetList.Count != 0)
         {
@@ -182,16 +194,19 @@ public class DroneFactory : Building
         //Restore if any drone is crashed
         RepairDrone();
         
+
     }
 
     public override void BuildingEnd()
     {
-
+        BuildingOFF();
+        //recover if it is recoverable unit
     }
 
     public override void BuildingRecover()
     {
-
+        Restore();
+        buildingState.ChangeState(BuildingState.Ready);
     }
 
     public async virtual  void LaunchDrone()
@@ -247,6 +262,7 @@ public class DroneFactory : Building
         {
             _repairingDrone.Repair();
             _repairingDrone.transform.SetParent(apronGroup);
+            _repairTimeCounter = factoryAttribute.RepairTime;
         }
 
 
