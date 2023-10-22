@@ -31,6 +31,11 @@ MonoBehaviour:
   HitEffect:
     EffectName: 
     RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
   MaxDistance: 100
   Width: 0.15
   EmiteTime: 0.1

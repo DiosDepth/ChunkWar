@@ -659,13 +659,13 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
     }
 
-    public void DoDeSpawnEffect()
+    public virtual void DoDeSpawnEffect()
     {
         _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_DeSpawn);
     }
 
-    private void ResetAllAnimation()
+    protected virtual void ResetAllAnimation()
     {
         _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _animator.ResetTrigger(AnimTrigger_Spawn);

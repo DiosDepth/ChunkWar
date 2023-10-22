@@ -23,4 +23,9 @@ public class BaseBuildingComponent
     /// 移除使用，玩家为出售等操作、敌人则为直接销毁
     /// </summary>
     public virtual void OnRemove() { }
+
+    /// <summary>
+    /// 移除效果
+    /// </summary>
+    public virtual void DeSpawn() { }
 }

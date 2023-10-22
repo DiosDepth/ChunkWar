@@ -104,10 +104,12 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
 
     public void PoolableReset()
     {
+        _hoverItem = null;
     }
 
     public void PoolableDestroy()
     {
+        PoolableReset();
         PoolManager.Instance.BackObject(gameObject.name, gameObject);
     }
 

@@ -85,6 +85,12 @@ public class Building : Unit
         RemoveAllBuildingComponents();
     }
 
+    public override void DoDeSpawnEffect()
+    {
+        base.DoDeSpawnEffect();
+        DeSpawnAllBuildingComponents();
+    }
+
     #region Building Components
 
     /// <summary>
@@ -140,6 +146,17 @@ public class Building : Unit
         for (int i = 0; i < _buildingComponents.Count; i++)
         {
             _buildingComponents[i].OnRemove();
+        }
+    }
+
+    private void DeSpawnAllBuildingComponents()
+    {
+        if (_buildingComponents.Count <= 0)
+            return;
+
+        for (int i = 0; i < _buildingComponents.Count; i++)
+        {
+            _buildingComponents[i].DeSpawn();
         }
     }
 

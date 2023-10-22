@@ -57,6 +57,10 @@ public class SoundManager : Singleton<SoundManager>
             var delayTime = UnityEngine.Random.Range(0, randomDelay);
             await UniTask.Delay((int)(delayTime * 1000));
         }
+
+        if (trans == null)
+            return;
+
         RuntimeManager.PlayOneShot(evtParam, trans.position);
     }
 

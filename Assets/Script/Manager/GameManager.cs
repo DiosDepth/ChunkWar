@@ -140,7 +140,9 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         LevelManager.Instance.UnloadCurrentLevel();
         RogueManager.Instance.Clear();
         LevelManager.Instance.Clear();
+        ECSManager.Instance.UnLoad();
         AchievementManager.Instance.ClearRuntimeData();
+        PoolManager.Instance.RecycleAndClearAll();
     }
 
     public bool IsPauseGame()

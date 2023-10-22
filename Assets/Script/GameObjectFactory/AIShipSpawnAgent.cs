@@ -18,14 +18,8 @@ public class ExtraSpawnInfo
 
 public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
 {
-
-
-
     private List<AIShip> _shiplist = new List<AIShip>();
     private Vector2 _spawnreferencedir;
-
-
-   
 
     public override void Initialization()
     {
@@ -72,19 +66,20 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
         return _spawnreferencedir;
     }
 
-    public void PoolableReset()
+    public override void PoolableReset()
     {
+        base.PoolableReset();
         _shipconfig = null;
         _shiplist.Clear();
     }
 
-    public void PoolableDestroy()
+    public override void PoolableDestroy()
     {
         PoolableReset();
         PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
 
-    public void PoolableSetActive(bool isactive = true)
+    public override void PoolableSetActive(bool isactive = true)
     {
         this.gameObject.SetActive(isactive);
     }

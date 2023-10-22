@@ -1034,10 +1034,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         LeanTween.cancelAll();
         ECSManager.Instance.GameOverProjectile();
         LevelManager.Instance.GameOver();
-        SoundManager.Instance.PlayUISound("Wave_Finish");
         await UniTask.Delay(500);
-
+        
         LevelManager.Instance.CollectAllPickUps();
+        await UniTask.Delay(1000);
+        await UniTask.WaitUntil(() => !IsShowingShipLevelUp);
+        SoundManager.Instance.PlayUISound("Wave_Finish");
         LevelManager.Instance.DoAllShipDespawn();
 
         await UniTask.Delay(3000);

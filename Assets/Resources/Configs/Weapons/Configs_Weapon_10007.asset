@@ -473,7 +473,7 @@ MonoBehaviour:
   DamageModifyFrom:
   - PropertyKey: 15
     Ratio: 0.8
-  FireAudioClip: 
+  FireAudioClip: Fire/plasmaflamer_1
   FireEffect:
     EffectName: Fire/Eff_FireSimple
     RandomScale: 0
@@ -482,3 +482,8 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
+  HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}

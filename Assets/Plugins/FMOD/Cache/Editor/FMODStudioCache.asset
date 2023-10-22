@@ -376,8 +376,8 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
+  MaxDistance: 90
+  Length: 1172
 --- !u!114 &-5095043776763629429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,7 +756,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 50
   Length: 0
 --- !u!114 &-1303298684361366301
 MonoBehaviour:
@@ -946,7 +946,7 @@ MonoBehaviour:
   - {fileID: 7608658188462933578}
   StringsBanks:
   - {fileID: 1227211710014248362}
-  cacheTime: 638335750544500748
+  cacheTime: 638335842254656057
   cacheVersion: 131608
 --- !u!114 &629929198641315281
 MonoBehaviour:
@@ -1326,7 +1326,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638335720036030954
+  lastModified: 638335842254656057
   FileSizes: []
   Exists: 1
 --- !u!114 &5521309929055001432
