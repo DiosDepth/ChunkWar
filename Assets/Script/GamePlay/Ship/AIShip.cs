@@ -126,6 +126,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
         OnRemove();
         CoreUnits.Clear();
         _isShowingOutLine = false;
+        _render.material = _sharedMat;
     }
 
     public void PoolableDestroy()
@@ -350,7 +351,8 @@ public class AIShip : BaseShip,IPoolable, IDropable
             return;
 
         _isShowingOutLine = true;
-        _spriteMat.EnableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+        _render.material = _appearMat;
+        _appearMat.EnableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
     }
 
     /// <summary>
@@ -358,13 +360,15 @@ public class AIShip : BaseShip,IPoolable, IDropable
     /// </summary>
     public void HideEnhanceOutLine()
     {
-        _spriteMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+        _appearMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
         _isShowingOutLine = false;
+        _render.material = _sharedMat;
     }
 
     private async void DoSpawnEffect()
     {
-        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _render.material = _appearMat;
+        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_Spawn);
         ///UnitSpawn
         for (int i = 0; i < _unitList.Count; i++) 
@@ -377,9 +381,9 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
         var length = GameHelper.GetAnimatorClipLength(_spriteAnimator, "EnemyShip_Spawn");
         await UniTask.Delay((int)(length * 1000));
-        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         ///Spawn Effect Finish
-
+        _render.material = _sharedMat;
         InitAIShipBillBoard();
     }
 
@@ -388,7 +392,8 @@ public class AIShip : BaseShip,IPoolable, IDropable
     /// </summary>
     public void DoDeSpawnEffect()
     {
-        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _render.material = _appearMat;
+        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_DeSpawn);
 
         ///UnitDeSpawn
@@ -403,8 +408,8 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
     private void ResetAllAnimation()
     {
-        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
-        _spriteMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
         _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);
     }
 

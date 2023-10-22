@@ -74,14 +74,14 @@ public class BaseShip : MonoBehaviour, IPauseable
     protected BaseShipConfig baseShipCfg;
 
     protected Animator _spriteAnimator;
-    protected Material _spriteMat;
+    protected Material _sharedMat;
+    protected static Material _appearMat;
+    protected SpriteRenderer _render;
 
     public virtual void Initialization()
     {
         GameManager.Instance.RegisterPauseable(this);
         controller = this.GetComponent<BaseController>();
-        _spriteAnimator = transform.Find("Sprite").SafeGetComponent<Animator>();
-        _spriteMat = transform.Find("Sprite").SafeGetComponent<SpriteRenderer>().material;
         if (controller == null)
         {
             Debug.LogError(this.gameObject.name + " missing controller component");
@@ -126,6 +126,14 @@ public class BaseShip : MonoBehaviour, IPauseable
 
     protected virtual void Awake()
     {
+        _spriteAnimator = transform.Find("Sprite").SafeGetComponent<Animator>();
+        _render = transform.Find("Sprite").SafeGetComponent<SpriteRenderer>();
+        _sharedMat = _render.sharedMaterial;
+        if (_appearMat == null)
+        {
+            _appearMat = Instantiate(_sharedMat);
+        }
+
         CoreUnits = new List<Unit>();
         buildingsParent = transform.Find("Buildings").gameObject;
         if (movementState == null)
