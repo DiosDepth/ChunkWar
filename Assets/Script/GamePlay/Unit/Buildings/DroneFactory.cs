@@ -180,9 +180,9 @@ public class DroneFactory : Building
         {
             LaunchDrone();
         }
-       
-
-        //Restore if any drone is destroed
+        //Restore if any drone is crashed
+        RepairDrone();
+        
     }
 
     public override void BuildingEnd()
