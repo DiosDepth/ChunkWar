@@ -100,7 +100,7 @@ MonoBehaviour:
     m_Bits: 128
   firePoint:
   - {fileID: 5501148320213267861}
-  scatter: 5
+  scatter: 2
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0

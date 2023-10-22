@@ -1431,7 +1431,7 @@ MonoBehaviour:
   ShipHardLevels: 010000000200000003000000040000000f270000
   ShipOriginPlugs: 
   OriginUnits:
-  - UnitID: 10100
-    PosX: 3
-    PosY: 3
+  - UnitID: 10000
+    PosX: 0
+    PosY: 5
   ShipEditorSprite: {fileID: 21300000, guid: 86a2c55f5f905db46a989de3c16ed7ef, type: 3}
