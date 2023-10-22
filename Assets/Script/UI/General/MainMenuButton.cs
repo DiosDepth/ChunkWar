@@ -165,8 +165,7 @@ public class MainMenuButton : MonoBehaviour, IHoverUIItem
         else if (Type == MainMenuButtonType.MainMenu)
         {
             UIManager.Instance.HiddenUI("Pause");
-            LevelManager.Instance.UnloadCurrentLevel();
-            PoolManager.Instance.RecycleAndClearAll();
+            GameManager.Instance.ClearBattle();
 
             GameStateTransitionEvent.Trigger(EGameState.EGameState_MainMenu);
         }

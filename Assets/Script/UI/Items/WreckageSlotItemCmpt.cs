@@ -234,7 +234,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
     {
         _item.Selected = true;
         selected?.Invoke(this);
-
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Confirm);
         if (ItemUID == 0)
         {
             return;

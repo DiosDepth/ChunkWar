@@ -44,6 +44,7 @@ public class Pause : GUIBasePanel
     {
         ClearSlot();
         base.Hidden();
+        GameManager.Instance.UnPauseGame();
     }
 
     private async void InitContent()

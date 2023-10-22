@@ -124,7 +124,7 @@ MonoBehaviour:
   effectSlotCoords: []
   weaponmode: 0
   firemode: 0
-  aimingtype: 2
+  aimingtype: 1
   bulletName: BaseInstanceHit_Player
   targetmode: 0
   mask:
@@ -180,6 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 30283576541635495}
   - component: {fileID: 8113757006542053505}
+  - component: {fileID: 5216305316177437084}
   m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
@@ -241,7 +242,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1205307937
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 6e3b92e4f9d5c36489c0ec8655e6cfa2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -254,6 +255,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5216305316177437084
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133459280409676957}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6b6c48c0269e1264796ae98ce5f3fc50, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8364843252387233737
 GameObject:
   m_ObjectHideFlags: 0

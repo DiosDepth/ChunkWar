@@ -989,6 +989,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.AddTrigger(trigger);
         CalculateHardLevelIndex();
         AddWaveTrigger();
+
+        SoundManager.Instance.PlayUISound("Wave_Start", 0.5f);
     }
 
 
@@ -1029,11 +1031,18 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///Í£Ö¹Íæ¼ÒÒÆ¶¯
         currentShip.controller.SetControllerUpdate(false);
         ECSManager.Instance.SetProcessECS(false);
+        LeanTween.cancelAll();
         ECSManager.Instance.GameOverProjectile();
+        LevelManager.Instance.GameOver();
+        await UniTask.Delay(500);
+        
         LevelManager.Instance.CollectAllPickUps();
+        await UniTask.Delay(1000);
+        await UniTask.WaitUntil(() => !IsShowingShipLevelUp);
+        SoundManager.Instance.PlayUISound("Wave_Finish");
         LevelManager.Instance.DoAllShipDespawn();
 
-        await UniTask.Delay(2000);
+        await UniTask.Delay(3000);
         ECSManager.Instance.GameOverAgent();
         ECSManager.Instance.UnLoad();
         _waveIndex++;
@@ -1061,8 +1070,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.InitTimer(_tempWaveTime);
         Timer.StartTimer();
         ECSManager.Instance.SetProcessECS(true);
-        //AIManager.Instance.ProcessAI = true;
         OnWaveStateChange?.Invoke(true);
+
+        SoundManager.Instance.PlayUISound("Wave_Start", 0.5f);
     }
 
     private bool IsFinalWave()

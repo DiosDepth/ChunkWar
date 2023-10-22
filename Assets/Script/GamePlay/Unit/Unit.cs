@@ -92,7 +92,8 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     /// </summary>
     public GeneralHPComponet HpComponent;
 
-    protected Material _spriteMat;
+    protected Material _sharedMat;
+    protected static Material _appearMat;
     protected Animator _animator;
     protected Transform _uiCanvas;
     private UnitSceneHPSlider _sceneHPSlider;
@@ -101,7 +102,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         if(unitSprite != null)
         {
-            _spriteMat = unitSprite.material;
+            _sharedMat = unitSprite.sharedMaterial;
+            if(_appearMat == null)
+            {
+                _appearMat = Instantiate(_sharedMat);
+            }
             _animator = unitSprite.transform.SafeGetComponent<Animator>();
         }
         _uiCanvas = transform.Find("UICanvas");
@@ -247,6 +252,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         }
         GameManager.Instance.RegisterPauseable(this);
         ChangeUnitState(DamagableState.Normal);
+        unitSprite.material = _sharedMat;
     }
 
     /// <summary>
@@ -309,18 +315,17 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public void OutLineHighlight(bool highlight)
     {
-        if (_spriteMat == null)
-            return;
-
         if (highlight)
         {
+            unitSprite.material = _appearMat;
             var color = GameHelper.GetRarityColor(_baseUnitConfig.GeneralConfig.Rarity);
-            _spriteMat.EnableKeyword("OUTBASE_ON");
-            _spriteMat.SetColor("_OutlineColor", color);
+            _appearMat.EnableKeyword("OUTBASE_ON");
+            _appearMat.SetColor("_OutlineColor", color);
         }
         else
         {
-            _spriteMat.DisableKeyword("OUTBASE_ON");
+            _appearMat.DisableKeyword("OUTBASE_ON");
+            unitSprite.material = _sharedMat;
         }
         
     }
@@ -670,22 +675,25 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public async void DoSpawnEffect()
     {
-        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        unitSprite.material = _appearMat;
+        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_Spawn);
         var length = GameHelper.GetAnimatorClipLength(_animator, "EnemyShip_Spawn");
         await UniTask.Delay((int)(length * 1000));
-        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        unitSprite.material = _sharedMat;
     }
 
-    public void DoDeSpawnEffect()
+    public virtual void DoDeSpawnEffect()
     {
-        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        unitSprite.material = _appearMat;
+        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_DeSpawn);
     }
 
-    private void ResetAllAnimation()
+    protected virtual void ResetAllAnimation()
     {
-        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _animator.ResetTrigger(AnimTrigger_Spawn);
         _animator.ResetTrigger(AnimTrigger_DeSpawn);
     }

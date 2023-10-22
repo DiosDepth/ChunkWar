@@ -32,6 +32,7 @@ public class ShipLevelUpSelectItem : MonoBehaviour, IPoolable, IHoverUIItem
         this._levelItem = item;
         _icon.sprite = item.Config.Icon;
         _nameText.text = LocalizationManager.Instance.GetTextValue(item.Config.Name);
+        _nameText.color = GameHelper.GetRarityColor(item.Rarity);
         _propertyCmpt.SetUp(item.Config.ModifyKey, item.GetModifyValue(), false);
         transform.Find("Frame").SafeGetComponent<Image>().sprite = GameHelper.GetShipLevelUpRarityFrameSprite(item.Rarity);
         transform.Find("Content/Icon/Rarity").SafeGetComponent<Image>().sprite = GameHelper.GetRarityBGSprite(item.Rarity);
@@ -40,6 +41,7 @@ public class ShipLevelUpSelectItem : MonoBehaviour, IPoolable, IHoverUIItem
     private void OnClick()
     {
         RogueManager.Instance.SelectShipLevelUpItem(_levelItem);
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Confirm);
         onClickAction?.Invoke();
     }
 
@@ -63,6 +65,7 @@ public class ShipLevelUpSelectItem : MonoBehaviour, IPoolable, IHoverUIItem
     {
         _hoverObj.SafeSetActive(true);
         LeanTween.moveLocalY(gameObject, 30, 0.1f);
+        SoundManager.Instance.PlayUISound(SoundEventStr.Mouse_PointOver_2);
     }
 
     public void OnHoverExit()

@@ -225,6 +225,16 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         _currentShieldHP.UnBindChangeAction(callback);
     }
 
+    public override void DeSpawn()
+    {
+        base.DeSpawn();
+        if (monoShield != null)
+        {
+            monoShield.OnRemove();
+            monoShield = null;
+        }
+    }
+
     /// <summary>
     /// »¤¶Ü»Ø¸´
     /// </summary>

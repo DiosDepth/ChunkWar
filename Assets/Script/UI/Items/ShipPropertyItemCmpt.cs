@@ -104,10 +104,12 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
 
     public void PoolableReset()
     {
+        _hoverItem = null;
     }
 
     public void PoolableDestroy()
     {
+        PoolableReset();
         PoolManager.Instance.BackObject(gameObject.name, gameObject);
     }
 
@@ -118,6 +120,7 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
 
     public void OnHoverEnter()
     {
+        SoundManager.Instance.PlayUISound(SoundEventStr.Mouse_PointOver_2);
         _hoverTrans.SafeSetActive(true);
         UIManager.Instance.CreatePoolerUI<PropertyHoverItem>("PropertyHoverItem", true, E_UI_Layer.Top, null, (panel) =>
         {

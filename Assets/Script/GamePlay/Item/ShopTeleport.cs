@@ -22,6 +22,8 @@ public class ShopTeleport : TriggerOptionItem
             OptionName = LocalizationManager.Instance.GetTextValue(BattleOption_EnterShop),
             OptionSprite = OptionSprite
         };
+        _hasEnterShop = false;
+        SoundManager.Instance.PlayBattleSound("Ship/Shop_Appear", transform);
         DelayDestroy();
     }
 

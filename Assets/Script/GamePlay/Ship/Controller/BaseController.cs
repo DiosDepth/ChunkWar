@@ -24,6 +24,16 @@ public class BaseController : MonoBehaviour, IPauseable, IBoid
     {
         GameManager.Instance.RegisterPauseable(this);
     }
+
+    void Awake()
+    {
+        if (rb == null)
+            rb = transform.SafeGetComponent<Rigidbody2D>();
+
+        if (collider == null)
+            collider = transform.SafeGetComponent<Collider2D>();
+    }
+
     protected virtual void Start()
     {
         

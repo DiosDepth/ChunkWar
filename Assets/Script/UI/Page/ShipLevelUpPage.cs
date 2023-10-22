@@ -43,6 +43,8 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
         SwitchPropertyGroup();
         RefreshRerollCost();
         RefreshCurrencyText();
+        SoundManager.Instance.PlayUISound("Ship_LevelUP");
+        SoundManager.Instance.SetBGMVolume(0.5f);
     }
 
     public override void Initialization(params object[] param)
@@ -57,6 +59,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     {
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
+        SoundManager.Instance.SetBGMVolume(1f);
     }
 
     public void OnEvent(ShipPropertyEvent evt)
@@ -145,6 +148,7 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
         RogueManager.Instance.RefreshShipLevelUpItems(true);
         ShowShipLevelUpItem();
         RefreshRerollCost();
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Reroll);
     }
 
     private void SwitchPropertyGroup()

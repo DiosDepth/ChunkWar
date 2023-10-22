@@ -18,14 +18,8 @@ public class ExtraSpawnInfo
 
 public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
 {
-
-
-
     private List<AIShip> _shiplist = new List<AIShip>();
     private Vector2 _spawnreferencedir;
-
-
-   
 
     public override void Initialization()
     {
@@ -92,6 +86,7 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
     {
         ///创建特效
         EffectManager.Instance.CreateEffect(EntitySpawnEffect, pos);
+        SoundManager.Instance.PlayBattleSound("Ship/Ship_SpawnEffect", transform, 0.5f);
         await UniTask.Delay(1000);
 
         if (!RogueManager.Instance.IsLevelSpawnVaild())

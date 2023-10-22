@@ -11,11 +11,17 @@ namespace GM_Observer
         [ReadOnly]
         public List<UnitProperty_ObserverData> PropertyDatas = new List<UnitProperty_ObserverData>();
 
+        public int WaveHardLevelIndex;
+
+        private RogueManager _rogueMgr;
 
         [Button("Ë¢ÐÂ")]
+        [OnInspectorInit]
         public void Refresh()
         {
+            _rogueMgr = RogueManager.Instance;
             RefreshMainProperty();
+            WaveHardLevelIndex = _rogueMgr.GetHardLevelValueIndex;
         }
 
         private void RefreshMainProperty()
@@ -30,8 +36,6 @@ namespace GM_Observer
             }
         }
     }
-
-#endif
 
     [System.Serializable]
     public class UnitProperty_ObserverData
@@ -72,6 +76,10 @@ namespace GM_Observer
             return string.Empty;
         }
     }
+
+
+#endif
+
 
 }
 

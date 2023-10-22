@@ -58,6 +58,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         GetGUIComponent<Button>("PropertyBtn").onClick.AddListener(OnShipPropertySwitchClick);
         InitShopContent();
         RefreshGeneral();
+        SoundManager.Instance.PlayUISound("Shop_Enter");
     }
 
     public override void Hidden( )
@@ -74,6 +75,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     public void OnLaunchBtnPressed()
     {
         RogueManager.Instance.ExitShop();
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Launch_ButtonClick);
     }
 
     public void OnEvent(RogueEvent evt)
@@ -155,6 +157,9 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
 
     private void InitShopContent()
     {
+        ///SetUpWaste
+        SetUpWasteSlot();
+
         var allShopItems = RogueManager.Instance.CurrentRogueShopItems;
        
         if (allShopItems == null || allShopItems.Count <= 0)
@@ -187,15 +192,16 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
             }
         }
 
-        ///SetUpWaste
-        SetUpWasteSlot();
+        if(_wasteSlotItem != null)
+        {
+            _wasteSlotItem.transform.SetAsFirstSibling();
+        }
     }
 
     private void ClearAllShopSlotItems()
     {
         _shopContentRoot.Pool_BackAllChilds(ShopGoodsItem_PrefabPath);
         allShopSlotItems.Clear();
-        _wasteSlotItem = null;
     }
 
     /// <summary>
@@ -203,6 +209,11 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     /// </summary>
     private void SetUpWasteSlot()
     {
+        if(_wasteSlotItem != null)
+        {
+            _wasteSlotItem.PoolableDestroy();
+        }
+
         if (RogueManager.Instance.GetDropWasteCount > 0)
         {
             PoolManager.Instance.GetObjectSync(ShopWasteItem_PrefabPath, true, (obj) =>
@@ -210,7 +221,6 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
                 var cmpt = obj.transform.SafeGetComponent<ShopWasteSlotItem>();
                 cmpt.SetUpWaste();
                 _wasteSlotItem = cmpt;
-                cmpt.transform.SetAsFirstSibling();
             }, _shopContentRoot);
         }
     }
@@ -268,6 +278,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     private void OnRerollBtnClick()
     {
         RogueManager.Instance.RefreshShop(true);
+        SoundManager.Instance.PlayUISound(SoundEventStr.UI_Reroll);
     }
 
     /// <summary>

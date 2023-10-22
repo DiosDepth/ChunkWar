@@ -339,7 +339,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 
     public virtual void GameOver()
     {
-
+        PoolableDestroy();
     }
 
     public virtual void PauseGame()

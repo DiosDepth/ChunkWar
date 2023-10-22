@@ -186,7 +186,7 @@ public class BaseDrone : BaseShip, IPoolable
     protected const string AnimTrigger_Spawn = "Spawn";
     private async void DoSpawnEffect()
     {
-        _spriteMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_Spawn);
         ///UnitSpawn
         for (int i = 0; i < _unitList.Count; i++)
@@ -199,12 +199,12 @@ public class BaseDrone : BaseShip, IPoolable
 
         var length = GameHelper.GetAnimatorClipLength(_spriteAnimator, "EnemyShip_Spawn");
         await UniTask.Delay((int)(length * 1000));
-        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
     }
 
     protected virtual void ResetAllAnimation()
     {
-        _spriteMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);
     }
 }

@@ -18,7 +18,7 @@ public class PickUpWaste : PickableItem
     public override void PickUp(GameObject picker)
     {
         base.PickUp(picker);
-
+        SoundManager.Instance.PlayBattleSound("Ship/Waste_Pick", picker.transform);
 
         tweenUID = LeanTween.value(0, 1, 0.75f).setOnUpdate((alpha) =>
         {

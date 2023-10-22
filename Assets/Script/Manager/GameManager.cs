@@ -76,6 +76,35 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     }
 
     protected bool _isGamePaused;
+
+    public static string GetGameVersionString
+    {
+        get
+        {
+            return string.Format("{0}.{1}", GameVersion.ToString("f1"), InternalVersion);
+        }
+    }
+
+    /// <summary>
+    /// 主版本号
+    /// </summary>
+    public static float GameVersion
+    {
+        get { return m_gameVersion; }
+    }
+
+    private static float m_gameVersion = 0.1f;
+
+    /// <summary>
+    /// 内部版本号
+    /// </summary>
+    public static int InternalVersion
+    {
+        get { return m_InternalVersion; }
+    }
+    private static int m_InternalVersion = 0;
+
+
     public GameManager()
     {
         Application.targetFrameRate = 120;
@@ -140,7 +169,9 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         LevelManager.Instance.UnloadCurrentLevel();
         RogueManager.Instance.Clear();
         LevelManager.Instance.Clear();
+        ECSManager.Instance.UnLoad();
         AchievementManager.Instance.ClearRuntimeData();
+        PoolManager.Instance.RecycleAndClearAll();
     }
 
     public bool IsPauseGame()
