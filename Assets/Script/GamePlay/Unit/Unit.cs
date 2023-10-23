@@ -313,6 +313,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         ResetAllAnimation();
         baseAttribute.Destroy();
+        LocalPropetyData.Clear();
         _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
         _modifySpecialDatas.ForEach(x => x.OnRemove());
         targetList.Clear();
@@ -358,6 +359,15 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if(damageState == DamagableState.Destroyed || damageState == DamagableState.Paralysis)
         {
             return false;
+        }
+
+        ///Calculate DamageReduce
+        var damageReduceRatio = LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitDamageTakeReducePercent);
+        if (damageReduceRatio != 0)
+        {
+            damageReduceRatio = Mathf.Clamp(damageReduceRatio, float.MaxValue, 1);
+            var newDamage = info.Damage * (1 - damageReduceRatio / 100f);
+            info.Damage = Mathf.RoundToInt(newDamage);
         }
 
         var rowScreenPos = UIManager.Instance.GetUIposBWorldPosition(transform.position);

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7144fbede2b43da40b425ccd0fad27b1, type: 3}
-  m_Name: Configs_AIBuilding_Shield_510
+  m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
+  m_Name: Configs_AIWeapon_109
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,17 +423,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 510
+  ID: 109
   GeneralConfig:
-    IconSprite: {fileID: 0}
-    Name: Unit_Name_1151
+    IconSprite: {fileID: 21300000, guid: e4626a1b2a3b5234a8ea3d84ad767f3a, type: 3}
+    Name: 
     Desc: 
-    Rarity: 1
+    Rarity: 2
     SortingOrder: 0
-  Prefab: {fileID: 2474850222585545391, guid: 30327be8f63c0634b9f771203c8d66b6, type: 3}
+  Prefab: {fileID: 4947179278027536233, guid: 4f762d4c1bf4a294da7315a84633e93b, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  unitType: 0
+  unitType: 1
   GroupID: 0
   redirection: 0
   UnlockDefault: 0
@@ -442,8 +442,8 @@ MonoBehaviour:
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 2
-  BaseHP: 40
+  ItemTags: 4
+  BaseHP: 450
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -453,10 +453,35 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  ShieldConfig:
-    GenerateShield: 1
-    ShieldPrefabName: EnemyShield_001
-    ShieldHP: 200
-    ShieldRecoverValue: 5
-    ShieldRecoverTime: 5
-    ShieldBaseRatio: 8
+  DamageBase: 24
+  EnemyAttackModify: 0.5
+  UseDamageRatio: 0
+  DamageRatioMin: 0.8
+  DamageRatioMax: 1.2
+  DamageType: 1
+  BaseRange: 300
+  BaseCriticalRate: 0
+  CriticalDamage: 100
+  TotalDamageCount: 6
+  ShootPerCount: 1
+  CD: 5
+  FireCD: 0.35
+  ShieldTransfixion: 1
+  ShieldDamage: 100
+  BaseTransfixion: 2
+  Scatter: 0
+  DamageModifyFrom: []
+  FireAudioClip: Fire/Enemy_EnergyShoot_001
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}

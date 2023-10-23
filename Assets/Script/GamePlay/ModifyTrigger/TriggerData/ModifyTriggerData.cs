@@ -92,9 +92,22 @@ public abstract class ModifyTriggerData : IPropertyModify
             if (modifier != null && !modifier.IsNeedToRemove)
             {
                 var stackType = config.StackConfig.StackType;
-                if (stackType == TimerModifierStackType.RefreshTime)
+                ///根据优先级覆盖，如果优先级高于目标，则移除老的，增加一个新的
+                if(config.StackConfig.StackOrder > modifier.StackCfg.StackOrder)
                 {
-                    modifier.RefreshDuration();
+                    modifier.ForceSetRemove();
+                    AddNewTimeModifierData_Unit(config, parentUnit, removeCallback);
+                }
+                else if(config.StackConfig.StackOrder == modifier.StackCfg.StackOrder)
+                {
+                    if (stackType == TimerModifierStackType.RefreshTime)
+                    {
+                        modifier.RefreshDuration();
+                    }
+                }
+                else
+                {
+                    //DO NOTHING
                 }
             }
             else

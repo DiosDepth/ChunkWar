@@ -230,4 +230,5 @@ public enum UnitPropertyModifyKey
     UnitEnergyCostPercent,
     UnitEnergyGenerateValue,
     UnitDamagePercentAdd,
+    UnitDamageTakeReducePercent,
 }

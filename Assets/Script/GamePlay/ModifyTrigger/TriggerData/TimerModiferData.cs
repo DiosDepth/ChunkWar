@@ -51,6 +51,11 @@ public abstract class TimerModiferData
         }
     }
 
+    public void ForceSetRemove()
+    {
+        isNeedToRemove = true;
+    }
+
     public void RefreshDuration()
     {
         _timer = 0;

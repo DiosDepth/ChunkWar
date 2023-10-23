@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_1003
+  m_Name: Configs_AIShip_1000
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1390,48 +1390,6 @@ MonoBehaviour:
       Data: 3|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 4|MTC_OnAdd, Assembly-CSharp
-    - Name: TriggerType
-      Entry: 3
-      Data: 7
-    - Name: TriggerCount
-      Entry: 3
-      Data: 1
-    - Name: SelfUnique
-      Entry: 5
-      Data: false
-    - Name: UsePercent
-      Entry: 5
-      Data: false
-    - Name: Percent
-      Entry: 4
-      Data: 0
-    - Name: UseLuckModify
-      Entry: 5
-      Data: false
-    - Name: LuckModifyRate
-      Entry: 4
-      Data: 0
-    - Name: Effects
-      Entry: 7
-      Data: 5|ModifyTriggerEffectConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 6|MTEC_AddAISpawn, Assembly-CSharp
-    - Name: EffectType
-      Entry: 3
-      Data: 16
-    - Name: Conditions
-      Entry: 7
-      Data: 7|ModifyConditionConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
       Data: 0
     - Name: 
       Entry: 13
@@ -1439,111 +1397,29 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: SpawnCfgList
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 9|WaveEnemySpawnConfig, Assembly-CSharp
-    - Name: ID
-      Entry: 3
-      Data: 0
-    - Name: AITypeID
-      Entry: 3
-      Data: 7
-    - Name: DurationDelta
-      Entry: 3
-      Data: 3
-    - Name: LoopCount
-      Entry: 3
-      Data: -1
-    - Name: StartTime
-      Entry: 3
-      Data: 0
-    - Name: TotalCount
-      Entry: 3
-      Data: 4
-    - Name: MaxRowCount
-      Entry: 3
-      Data: 2
-    - Name: SpawnShpe
-      Entry: 3
-      Data: 0
-    - Name: SpawnIntervalTime
-      Entry: 4
-      Data: 0.2
-    - Name: SpawnSizeInterval
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: UseShipSpawnNode
-      Entry: 5
-      Data: true
-    - Name: PointCfg
-      Entry: 7
-      Data: 10|AttachPointConfig, Assembly-CSharp
-    - Name: RandomNode
-      Entry: 5
-      Data: true
-    - Name: NodeName
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  ID: 1003
+  ID: 1000
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: f304256ed59161149b4b4a834e11cb32, type: 3}
-    Name: Enemy_Name_1003
+    IconSprite: {fileID: 21300000, guid: 5ab3e8f7f44f29a4188b9b19520b36fd, type: 3}
+    Name: Enemy_Name_1000
     Desc: 
     Rarity: 3
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: be35c5d7556e63a43b9f0ff21de4e5a7, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: 7f024dfe9b728914f8acea49e989854d, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  ShipClass: 4
-  ShowHPBillboard: 1
-  ClassLevel: 2
+  ShipClass: 3
+  ShowHPBillboard: 0
+  ClassLevel: 0
   BillboardType: 1
   AttackBase: 30
   HardLevelGroupID: 1
   EnemyCountModify: 0
-  MaxVelocity: 10
+  MaxVelocity: 5
   MaxAcceleration: 1
-  MaxAngularAcceleration: 3
+  MaxAngularAcceleration: 2
   MaxAngularVelocity: 1
   boidRadius: 15
-  targetSerchingRadius: 50
+  targetSerchingRadius: 80
   DieAudio: 
   DropList:
   - pickuptype: 1

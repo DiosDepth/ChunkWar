@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7144fbede2b43da40b425ccd0fad27b1, type: 3}
-  m_Name: Configs_AIBuilding_Shield_510
+  m_Name: Configs_AIBuilding_Shield_512
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 510
+  ID: 512
   GeneralConfig:
     IconSprite: {fileID: 0}
     Name: Unit_Name_1151
     Desc: 
     Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 2474850222585545391, guid: 30327be8f63c0634b9f771203c8d66b6, type: 3}
+  Prefab: {fileID: 2474850222585545391, guid: 5927c78c0e30daa43b8d7c78c955e743, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
@@ -443,7 +443,7 @@ MonoBehaviour:
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 2
-  BaseHP: 40
+  BaseHP: 600
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -456,7 +456,7 @@ MonoBehaviour:
   ShieldConfig:
     GenerateShield: 1
     ShieldPrefabName: EnemyShield_001
-    ShieldHP: 200
-    ShieldRecoverValue: 5
-    ShieldRecoverTime: 5
-    ShieldBaseRatio: 8
+    ShieldHP: 2300
+    ShieldRecoverValue: 50
+    ShieldRecoverTime: 8
+    ShieldBaseRatio: 22

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7144fbede2b43da40b425ccd0fad27b1, type: 3}
-  m_Name: Configs_AIBuilding_Shield_510
+  m_Script: {fileID: 11500000, guid: e216183cfcddca14ebb21f768952a594, type: 3}
+  m_Name: Configs_AIEffectBuilding_301
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -212,7 +212,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -423,14 +423,121 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 510
+    - Name: Modifiers
+      Entry: 7
+      Data: 3|MTEC_AddUnitTimerModifier[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|MTEC_AddUnitTimerModifier, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 9
+    - Name: Conditions
+      Entry: 7
+      Data: 5|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: StackConfig
+      Entry: 7
+      Data: 6|TimerModifierStackConfig, Assembly-CSharp
+    - Name: GlobalUnique
+      Entry: 5
+      Data: true
+    - Name: UniqueKey
+      Entry: 1
+      Data: AI_Effect_001
+    - Name: StackType
+      Entry: 3
+      Data: 0
+    - Name: StackOrder
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyMap
+      Entry: 7
+      Data: 7|System.Collections.Generic.Dictionary`2[[UnitPropertyModifyKey, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 8|System.Collections.Generic.EnumEqualityComparer`1[[UnitPropertyModifyKey,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 4
+      Data: 50
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 4
+      Data: 25
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: UseDuration
+      Entry: 5
+      Data: true
+    - Name: DurationTime
+      Entry: 4
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  ID: 301
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: Unit_Name_1151
+    Name: 
     Desc: 
-    Rarity: 1
+    Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 2474850222585545391, guid: 30327be8f63c0634b9f771203c8d66b6, type: 3}
+  Prefab: {fileID: 2474850222585545391, guid: 95253d1c8e46dd64883df906646d004a, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
@@ -442,8 +549,8 @@ MonoBehaviour:
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 2
-  BaseHP: 40
+  ItemTags: 32
+  BaseHP: 80
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -454,9 +561,12 @@ MonoBehaviour:
   HPBarHeight: 0.4
   HPBarWidth: 3
   ShieldConfig:
-    GenerateShield: 1
-    ShieldPrefabName: EnemyShield_001
-    ShieldHP: 200
-    ShieldRecoverValue: 5
-    ShieldRecoverTime: 5
-    ShieldBaseRatio: 8
+    GenerateShield: 0
+    ShieldPrefabName: 
+    ShieldHP: 0
+    ShieldRecoverValue: 0
+    ShieldRecoverTime: 0
+    ShieldBaseRatio: 0
+  EffectRadius: 25
+  TriggerInterval: 20
+  FirstSpawnCD: 5

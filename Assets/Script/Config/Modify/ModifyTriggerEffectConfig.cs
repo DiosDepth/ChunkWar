@@ -441,6 +441,9 @@ public class TimerModifierStackConfig
 
     public TimerModifierStackType StackType;
 
+    [LabelText("∏≤∏«”≈œ»º∂")]
+    public int StackOrder;
+
 }
 
 public class MTEC_AddUnitTimerModifier : ModifyTriggerEffectConfig
