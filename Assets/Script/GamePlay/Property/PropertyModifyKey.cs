@@ -6,6 +6,9 @@ using UnityEngine;
 public enum PropertyModifyKey 
 {
     NONE,
+    /// <summary>
+    /// 血量，百分比
+    /// </summary>
     HP,
     /// <summary>
     /// 最终伤害百分比

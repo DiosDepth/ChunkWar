@@ -121,7 +121,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
             var hardLevel = GameHelper.GetEnemyHardLevelItem(parentAI.AIShipCfg.HardLevelGroupID);
             if(hardLevel != null)
             {
-                MaxShieldHP = _shieldHPBase + hardLevel.ShieldAdd;
+                MaxShieldHP = Mathf.RoundToInt(_shieldHPBase * (1 + hardLevel.ShieldHPPercentAdd / 100f));
             }
             else
             {

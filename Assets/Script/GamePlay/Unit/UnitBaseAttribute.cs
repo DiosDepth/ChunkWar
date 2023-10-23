@@ -156,8 +156,7 @@ public class UnitBaseAttribute
 
     private void CalculateHP()
     {
-        var hp = mainProperty.GetPropertyFinal(PropertyModifyKey.HP);
-        HPMax = BaseHP + Mathf.RoundToInt(hp);
+        HPMax = GameHelper.CalculateHP(BaseHP);
     }
 
     private void CalculateDroneHP()
@@ -216,8 +215,8 @@ public class UnitBaseAttribute
     private void CalculateEnemyHP()
     {
         var hpPercent = mainProperty.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
-        int hardLevelHPAdd = _hardLevelItem != null ? _hardLevelItem.HPAdd : 0;
-        HPMax = Mathf.RoundToInt((BaseHP + hardLevelHPAdd) * (1 + hpPercent));
+        float totalPercent = _hardLevelItem != null ? hpPercent + _hardLevelItem.HPpercentAdd : hpPercent;
+        HPMax = Mathf.RoundToInt(BaseHP * (1 + totalPercent / 100f));
     }
 
     protected void RefreshShipEnergy()

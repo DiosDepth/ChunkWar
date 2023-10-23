@@ -968,7 +968,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private void CalculateHardLevelIndex(int paramInt = 0)
     {
         var currentSecond = Timer.TotalSeconds;
-        var secondsLevel = Mathf.RoundToInt(currentSecond / (float)(2 * 60));
+        var secondsLevel = Mathf.RoundToInt(currentSecond / GameGlobalConfig.HardLevelMultiple_TimeDelta);
 
         var multiple = GameGlobalConfig.HardLevelWaveIndexMultiple;
         _currentHardLevelIndex = multiple * (GetCurrentWaveIndex) + secondsLevel;

@@ -946,7 +946,7 @@ MonoBehaviour:
       Data: 8
     - Name: IsPercent
       Entry: 5
-      Data: false
+      Data: true
     - Name: ReverseColor
       Entry: 5
       Data: false
