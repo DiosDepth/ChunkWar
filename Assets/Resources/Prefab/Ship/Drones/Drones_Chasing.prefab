@@ -131,13 +131,13 @@ MonoBehaviour:
     target: {fileID: 0}
     weight: 1
     maxPrediction: 2
-  isActiveArrive: 0
+  isActiveArrive: 1
   arrivelBehaviorInfo:
     target: {fileID: 0}
     weight: 1
     arriveRadius: 1.5
     slowRadius: 5
-  isActiveFace: 0
+  isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
     weight: 1
@@ -158,11 +158,11 @@ MonoBehaviour:
     target: {fileID: 0}
     weight: 1
     alignDistance: 8
-  isActiveCollisionAvoidance: 0
+  isActiveCollisionAvoidance: 1
   collisionAvoidanceBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-  drag: 1
+  drag: 2
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +234,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -689723199
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

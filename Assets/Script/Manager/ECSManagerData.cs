@@ -80,38 +80,110 @@ public class UnitData : IJobData
 
 }
 
-public class AvoidenceCollisionData : IJobData
+public class IBoidData : IJobData
 {
-    public NativeList<AvoidenceCollisionJobData> avoidenceCollisionList;
+    public List<BaseShip> shipList;
+    public List<IBoid> boidAgentList;
+    public NativeList<BoidJobData> boidAgentJobData;
 
-    public AvoidenceCollisionData()
+    public IBoidData()
+    {
+        shipList = new List<BaseShip>();
+        boidAgentList = new List<IBoid>();
+        boidAgentJobData = new NativeList<BoidJobData>(Allocator.Persistent);
+    }
+    public virtual void Dispose()
+    {
+        if (boidAgentJobData.IsCreated) { boidAgentJobData.Dispose(); }
+        shipList.Clear();
+        boidAgentList.Clear();
+    }
+
+    public virtual void DisposeReturnValue()
     {
 
     }
-    public void Dispose()
+
+    public virtual void UpdateData()
     {
+        if (shipList.Count == 0) { return; }
+        BoidJobData data;
+        for (int i = 0; i < shipList.Count; i++)
+        {
+            boidAgentList[i].UpdateIBoid();
+            data.position = boidAgentList[i].GetPosition();
+            data.velocity = boidAgentList[i].GetVelocity();
+            data.rotationZ = boidAgentList[i].GetRotationZ();
+            data.boidRadius = boidAgentList[i].GetRadius();
+            boidAgentJobData[i] = data;
+        }
+    }
+
+    public virtual void Add(BaseShip ship)
+    {
+        if (shipList.Contains(ship))
+        {
+            return;
+        }
+        shipList.Add(ship);
+
+        //add boid agent
+        IBoid boid = ship.GetComponent<IBoid>();
+        if (boid == null)
+        {
+            Debug.LogError("ship doesn't implement IBoid");
+            return;
+        }
+        boidAgentList.Add(boid);
+
+        // add boid agent job data
+        BoidJobData boidData = new BoidJobData();
+        boidData.position = boid.GetPosition();
+        boidData.velocity = boid.GetVelocity();
+        boidData.rotationZ = boid.GetRotationZ();
+        boidData.boidRadius = boid.GetRadius();
+        boidAgentJobData.Add(boidData);
 
     }
 
-    public void DisposeReturnValue()
+    public virtual void Add(List<BaseShip> shiplist)
     {
-
+        for (int i = 0; i < shiplist.Count; i++)
+        {
+            Add(shiplist[i]);
+        }
     }
 
-    public void UpdateData()
+    public virtual void Remove(BaseShip ship)
     {
+        if (!shipList.Contains(ship)) { return; }
+        int index = shipList.IndexOf(ship);
+        RemoveAt(index);
+    }
 
+    public virtual void RemoveAt(int index)
+    {
+        shipList.RemoveAt(index);
+        boidAgentList.RemoveAt(index);
+        boidAgentJobData.RemoveAt(index);
+    }
+    public virtual void Clear()
+    {
+        shipList.Clear();
+        boidAgentList.Clear();
+        if (boidAgentJobData.IsCreated)
+        {
+            boidAgentJobData.Clear();
+        }
     }
 }
 
 
 
-public class AgentData : IJobData
+
+public class AgentData : IBoidData
 {
-    public List<BaseShip> shipList;
-    public List<IBoid> boidAgentList;
     public List<SteeringBehaviorController> steeringControllerList;
-    public NativeList<BoidJobData> boidAgentJobData;
 
     //如果Agent有新的行为，需要增加SteeringControllerData的数据
     public NativeList<SteeringControllerJobData> steeringControllerJobDataNList;
@@ -138,7 +210,7 @@ public class AgentData : IJobData
         boidAgentJobData = new NativeList<BoidJobData>(Allocator.Persistent);
         steeringControllerJobDataNList = new NativeList<SteeringControllerJobData>(Allocator.Persistent);
     }
-    public virtual void Dispose()
+    public override void Dispose()
     {
         if (boidAgentJobData.IsCreated) { boidAgentJobData.Dispose(); }
         if (steeringControllerJobDataNList.IsCreated) { steeringControllerJobDataNList.Dispose(); }
@@ -147,7 +219,7 @@ public class AgentData : IJobData
         steeringControllerList.Clear();
     }
 
-    public virtual void DisposeReturnValue()
+    public override void DisposeReturnValue()
     {
         if (rv_evade_steeringInfo.IsCreated) { rv_evade_steeringInfo.Dispose(); }
         if (rv_arrive_steeringInfo.IsCreated) { rv_arrive_steeringInfo.Dispose(); }
@@ -160,12 +232,14 @@ public class AgentData : IJobData
         if (rv_deltaMovement.IsCreated) { rv_deltaMovement.Dispose(); }
     }
 
-    public virtual void UpdateData()
+    public override void UpdateData()
     {
         if (shipList.Count == 0) { return; }
         BoidJobData data;
+
         for (int i = 0; i < shipList.Count; i++)
         {
+            boidAgentList[i].UpdateIBoid();
             data.position = boidAgentList[i].GetPosition();
             data.velocity = boidAgentList[i].GetVelocity();
             data.rotationZ = boidAgentList[i].GetRotationZ();
@@ -175,7 +249,7 @@ public class AgentData : IJobData
 
     }
 
-    public virtual void Add(BaseShip ship)
+    public override void Add(BaseShip ship)
     {
         if (shipList.Contains(ship))
         {
@@ -207,6 +281,7 @@ public class AgentData : IJobData
 
         if (ship is BaseDrone)
         {
+            controller.SetDroneConfig((ship as BaseDrone).droneCfg);
             //需要处理不同类型的shipconfig 
         }
         steeringControllerList.Add(controller);
@@ -262,7 +337,7 @@ public class AgentData : IJobData
 
     }
 
-    public virtual void Add(List<BaseShip> shiplist)
+    public override void Add(List<BaseShip> shiplist)
     {
         for (int i = 0; i < shiplist.Count; i++)
         {
@@ -270,14 +345,14 @@ public class AgentData : IJobData
         }
     }
 
-    public virtual void Remove(BaseShip ship)
+    public override void Remove(BaseShip ship)
     {
         if (!shipList.Contains(ship)) { return; }
         int index = shipList.IndexOf(ship);
         RemoveAt(index);
     }
 
-    public virtual void RemoveAt(int index)
+    public override void RemoveAt(int index)
     {
         shipList.RemoveAt(index);
         boidAgentList.RemoveAt(index);
@@ -285,7 +360,7 @@ public class AgentData : IJobData
         boidAgentJobData.RemoveAt(index);
         steeringControllerJobDataNList.RemoveAt(index);
     }
-    public virtual void Clear()
+    public override void Clear()
     {
         shipList.Clear();
         boidAgentList.Clear();
@@ -295,9 +370,7 @@ public class AgentData : IJobData
             boidAgentJobData.Clear();
         }
         if (steeringControllerJobDataNList.IsCreated) { steeringControllerJobDataNList.Clear(); }
-
     }
-
 }
 
 
@@ -446,9 +519,21 @@ public class BuildingData : IJobData
 
 public class DroneData : AgentData
 {
+    public List<BaseShip> targetShipList;
+    public List<IBoid> targetBoidAgentList;
+    public NativeList<BoidJobData> targetBoidAgentJobData;
 
+
+    public DroneData()
+    {
+        targetShipList = new List<BaseShip>();
+        targetBoidAgentList = new List<IBoid>();
+        targetBoidAgentJobData = new NativeList<BoidJobData>(Allocator.Persistent);
+    }
     public override void Dispose()
     {
+        if (targetBoidAgentJobData.IsCreated) { targetBoidAgentJobData.Dispose(); }
+        targetBoidAgentList.Clear();
         base.Dispose();
     }
 
@@ -460,26 +545,64 @@ public class DroneData : AgentData
     public override void UpdateData()
     {
         base.UpdateData();
+        if (targetShipList.Count == 0) { return; }
+        BoidJobData data;
+
+        for (int i = 0; i < targetShipList.Count; i++)
+        {
+            targetBoidAgentList[i].UpdateIBoid();
+            data.position = targetBoidAgentList[i].GetPosition();
+            data.velocity = targetBoidAgentList[i].GetVelocity();
+            data.rotationZ = targetBoidAgentList[i].GetRotationZ();
+            data.boidRadius = targetBoidAgentList[i].GetRadius();
+            targetBoidAgentJobData[i] = data;
+        }
+
     }
 
     public override void Add(BaseShip drone)
     {
         base.Add(drone);
+        targetShipList.Add(drone.GetFirstTarget());
+        IBoid boid = drone.GetFirstTarget().GetComponent<IBoid>();
+        if (boid == null)
+        {
+            Debug.LogError("ship doesn't implement IBoid");
+            return;
+        }
+        targetBoidAgentList.Add(boid);
+        // add boid agent job data
+        BoidJobData boidData = new BoidJobData();
+        boidData.position = boid.GetPosition();
+        boidData.velocity = boid.GetVelocity();
+        boidData.rotationZ = boid.GetRotationZ();
+        boidData.boidRadius = boid.GetRadius();
+        targetBoidAgentJobData.Add(boidData);
     }
 
     public override void Remove(BaseShip drone)
     {
         base.Remove(drone);
+        if (!shipList.Contains(drone)) { return; }
+        int index = shipList.IndexOf(drone);
+        RemoveAt(index);
+       
     }
 
     public override void RemoveAt(int index)
     {
-        base.RemoveAt(index);
+        targetShipList.RemoveAt(index);
+        targetBoidAgentList.RemoveAt(index);
+        targetBoidAgentJobData.RemoveAt(index);
     }
 
     public override void Clear()
     {
         base.Clear();
+        if (targetBoidAgentJobData.IsCreated) { targetBoidAgentJobData.Clear(); }
+        targetBoidAgentList.Clear();
+        targetBoidAgentList.Clear();
+
     }
 }
 

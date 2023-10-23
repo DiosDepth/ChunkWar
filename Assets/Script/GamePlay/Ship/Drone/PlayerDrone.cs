@@ -13,9 +13,9 @@ public class PlayerDrone : BaseDrone
         //DestroyAIShipBillBoard();
         ResetAllAnimation();
         //LevelManager.Instance.pickupList.AddRange(Drop());
-        if (!string.IsNullOrEmpty(_droneCfg.DieAudio))
+        if (!string.IsNullOrEmpty(droneCfg.DieAudio))
         {
-            SoundManager.Instance.PlayBattleSound(_droneCfg.DieAudio, transform);
+            SoundManager.Instance.PlayBattleSound(droneCfg.DieAudio, transform);
         }
         ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
         //AIManager.Instance.RemoveAI(this);

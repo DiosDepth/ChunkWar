@@ -26,16 +26,16 @@ public class DummyUnit : Unit
 
 
         }
-        if (_owner is PlayerShip)
+        if (_owner is PlayerShip || _owner is BaseDrone)
         {
             //AIManager.Instance.AddTargetUnit(this);
             ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
             //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
 
-
             SetUnitProcess(true);
             unitSprite.color = Color.white;
         }
+
         GameManager.Instance.RegisterPauseable(this);
     }
 

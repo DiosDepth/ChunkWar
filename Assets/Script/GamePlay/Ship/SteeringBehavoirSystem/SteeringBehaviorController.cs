@@ -78,7 +78,17 @@ public class SteeringBehaviorController : BaseController
     
 
 
-    public void SetAIConfig(AIShipConfig cfg)
+    public virtual void SetAIConfig(AIShipConfig cfg)
+    {
+        boidRadius = cfg.boidRadius;
+        maxAcceleration = cfg.MaxAcceleration;
+        maxAngularAcceleration = cfg.MaxAngularAcceleration;
+        maxVelocity = cfg.MaxVelocity;
+        maxAngularVelocity = cfg.MaxAngularVelocity;
+        targetSerchingRadius = cfg.targetSerchingRadius;
+    }
+
+    public virtual void SetDroneConfig(DroneConfig cfg)
     {
         boidRadius = cfg.boidRadius;
         maxAcceleration = cfg.MaxAcceleration;
@@ -89,11 +99,10 @@ public class SteeringBehaviorController : BaseController
     }
 
 
-
     // Start is called before the first frame update
 
 
-    protected void Start()
+    protected override void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         //steerings = GetComponents<SteeringBehavior>();
@@ -109,14 +118,10 @@ public class SteeringBehaviorController : BaseController
     [BurstCompile]
     public struct CalculateSteeringTargetsPosByRadiusJob : IJobParallelForBatch
     {
-
         //[ReadOnly] public NativeArray<float3> job_selfPos;
         [Unity.Collections.ReadOnly] public float job_threshold;
         [Unity.Collections.ReadOnly] public NativeArray<BoidJobData> job_boidData;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringControllerJobData> job_steeringControllerData;
-
-       
-        
 
         [NativeDisableContainerSafetyRestriction]
         public NativeArray<float3> rv_findedTargetsPosPreShip;
@@ -126,7 +131,6 @@ public class SteeringBehaviorController : BaseController
        
         int index;
         float distance;
-
 
         public void Execute(int startIndex, int count)
         {

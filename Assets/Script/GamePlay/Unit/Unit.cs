@@ -124,7 +124,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
         if(damageState == DamagableState.Paralysis && target == DamagableState.Normal)
         {
-            if(_owner is PlayerShip)
+            if(_owner is PlayerShip || _owner is BaseDrone)
             {
                 ///Ì±»¾»Ö¸´
                 ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
@@ -210,7 +210,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
             //AIManager.Instance.AddSingleUnit(this);
         }
-        if (_owner is PlayerShip)
+        if (_owner is PlayerShip || _owner is BaseDrone)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
             //AIManager.Instance.AddTargetUnit(this);
@@ -243,7 +243,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
 
         }
-        if (_owner is PlayerShip)
+        if (_owner is PlayerShip || _owner is BaseDrone)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
             //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);

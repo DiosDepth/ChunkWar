@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -39,7 +41,7 @@ public class JobController : IPauseable
         
     }
 
-    public virtual void UpdateAgentMovement(ref AgentData activeSelfAgentData, ref AgentData activeTargetAgentData, ref IBoid boidTarget)
+    public virtual void UpdateAgentMovement(ref AgentData activeSelfAgentData, IBoidData activeTargetAgentData)
     {
         if (activeSelfAgentData.shipList == null || activeSelfAgentData.shipList.Count == 0)
         {
@@ -66,13 +68,12 @@ public class JobController : IPauseable
         activeSelfAgentData.rv_collisionavoidance_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
 
 
-
         EvadeBehavior.EvadeBehaviorJob evadeBehaviorJob = new EvadeBehavior.EvadeBehaviorJob
         {
             job_boidData = activeSelfAgentData.boidAgentJobData,
             job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
-            job_evadeTargetPos = boidTarget.GetPosition(),
-            job_evadeTargetVel = boidTarget.GetVelocity(),
+            job_evadeTargetPos = activeTargetAgentData.boidAgentJobData[0].position,
+            job_evadeTargetVel = activeTargetAgentData.boidAgentJobData[0].velocity,
 
             rv_steering = activeSelfAgentData.rv_evade_steeringInfo,
 
@@ -80,16 +81,13 @@ public class JobController : IPauseable
         jobhandle_evadebehavior = evadeBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
         jobhandle_evadebehavior.Complete();
 
-
-
-
         ArriveBehavior.ArriveBehaviorJobs arriveBehaviorJobs = new ArriveBehavior.ArriveBehaviorJobs
         {
             job_boidData = activeSelfAgentData.boidAgentJobData,
             job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
 
-            job_targetPos = boidTarget.GetPosition(),
-            job_targetRadius = boidTarget.GetRadius(),
+            job_targetPos = activeTargetAgentData.boidAgentJobData[0].position,
+            job_targetRadius = activeTargetAgentData.boidAgentJobData[0].boidRadius,
 
             rv_isVelZero = activeSelfAgentData.rv_arrive_isVelZero,
             rv_Steerings = activeSelfAgentData.rv_arrive_steeringInfo,
@@ -104,13 +102,15 @@ public class JobController : IPauseable
             job_boidData = activeSelfAgentData.boidAgentJobData,
             job_steeringControllerData = activeSelfAgentData.steeringControllerJobDataNList,
 
-            job_targetPos = boidTarget.GetPosition(),
+            job_targetPos = activeTargetAgentData.boidAgentJobData[0].position,
             job_deltatime = Time.fixedDeltaTime,
 
             rv_Steerings = activeSelfAgentData.rv_face_steeringInfo,
         };
         jobhandle_facebehavior = faceBehaviorJob.ScheduleBatch(activeSelfAgentData.shipList.Count, 2);
         jobhandle_facebehavior.Complete();
+
+
 
         //NativeList<JobHandle> behaviorTargetsList = new NativeList<JobHandle>();
 
@@ -242,7 +242,6 @@ public class JobController : IPauseable
             activeSelfAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfAgentData.rv_deltaMovement[i].angular);
         }
 
-        boidTarget.UpdateIBoid();
 
         activeSelfAgentData.DisposeReturnValue();
         searchingTargetData.DisposeReturnValue();
@@ -341,6 +340,36 @@ public class JobController : IPauseable
             }
         }
 
+        activeSelfWeaponData.UpdateData();
+        activeSelfWeaponData.DisposeReturnValue();
+    }
+
+
+    public virtual void UpdateAdditionalWeapon(ref WeaponData activeSelfWeaponData)
+    {
+        if (activeSelfWeaponData.activeWeaponList == null || activeSelfWeaponData.activeWeaponList.Count == 0)
+        {
+            return;
+        }
+        AdditionalWeapon weapon;
+
+        int startindex;
+        int targetindex;
+        for (int i = 0; i < activeSelfWeaponData.activeWeaponList.Count; i++)
+        {
+            weapon = activeSelfWeaponData.activeWeaponList[i] as AdditionalWeapon;
+            if (weapon.targetList != null && weapon.targetList.Count != 0)
+            {
+                weapon.WeaponOn();
+            }
+            else
+            {
+                weapon.WeaponOff();
+            }
+
+            weapon.ProcessWeapon();
+            
+        }
         activeSelfWeaponData.UpdateData();
         activeSelfWeaponData.DisposeReturnValue();
     }
@@ -640,8 +669,207 @@ public class JobController : IPauseable
         }
     }
 
-    public virtual void UpdateDroneAgentMovement(ref DroneData activeSelfDroneAgentData, ref AgentData activeTargetAgentData)
+    public virtual void UpdateDroneAgentMovement(ref DroneData activeSelfDroneAgentData, IBoidData activeTargetAgentData)
     {
+        if (activeSelfDroneAgentData.shipList == null || activeSelfDroneAgentData.shipList.Count == 0)
+        {
+            return;
+        }
 
+        JobHandle jobhandle_evadebehavior;
+        JobHandle jobhandle_arrivebehavior;
+        JobHandle jobhandle_facebehavior;
+        JobHandle jobhandle_behaviorTargets;
+        JobHandle jobhandle_cohesionbehavior;
+        JobHandle jobhandle_separationBehavior;
+        JobHandle jobhandle_alignmentBehavior;
+        JobHandle jobhandle_collisionAvoidanceBehavior;
+        //jobhandleList_AI = new NativeList<JobHandle>(Allocator.TempJob);
+
+        activeSelfDroneAgentData.rv_evade_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_arrive_isVelZero = new NativeArray<bool>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_arrive_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_face_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_cohesion_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_separation_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_alignment_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_collisionavoidance_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+
+
+
+
+        EvadeBehavior.EvadeBehaviorJob_OneOnOne evadeBehaviorJob_oneonone = new EvadeBehavior.EvadeBehaviorJob_OneOnOne
+        {
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_evadeTargetBoidData = activeSelfDroneAgentData.targetBoidAgentJobData,
+
+            rv_steering = activeSelfDroneAgentData.rv_evade_steeringInfo,
+
+        };
+        jobhandle_evadebehavior = evadeBehaviorJob_oneonone.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_evadebehavior.Complete();
+
+
+        ArriveBehavior.ArriveBehaviorJobs_OneOnOne arriveBehaviorJobs_oneonone = new ArriveBehavior.ArriveBehaviorJobs_OneOnOne
+        {
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_arriveTargetBoidData = activeSelfDroneAgentData.targetBoidAgentJobData,
+
+            rv_isVelZero = activeSelfDroneAgentData.rv_arrive_isVelZero,
+            rv_Steerings = activeSelfDroneAgentData.rv_arrive_steeringInfo,
+
+        };
+        jobhandle_arrivebehavior = arriveBehaviorJobs_oneonone.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_arrivebehavior.Complete();
+
+
+        ////FaceBehavior Job
+        FaceBehavior.FaceBehaviorJob_OneOnOne faceBehaviorJob_oneonone = new FaceBehavior.FaceBehaviorJob_OneOnOne
+        {
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_targetBoidData = activeSelfDroneAgentData.targetBoidAgentJobData,
+            job_deltatime = Time.fixedDeltaTime,
+
+            rv_Steerings = activeSelfDroneAgentData.rv_face_steeringInfo,
+        };
+        jobhandle_facebehavior = faceBehaviorJob_oneonone.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_facebehavior.Complete();
+
+        //NativeList<JobHandle> behaviorTargetsList = new NativeList<JobHandle>();
+
+        searchingTargetData.rv_searchingTargetsVelFlatArray = new NativeArray<float3>(activeSelfDroneAgentData.shipList.Count * activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        searchingTargetData.rv_searchingTargetsPosFlatArray = new NativeArray<float3>(activeSelfDroneAgentData.shipList.Count * activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        searchingTargetData.rv_searchingTargetsCount = new NativeArray<int>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+
+
+        SteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob calculateSteeringTargetsPosByRadiusJob = new SteeringBehaviorController.CalculateSteeringTargetsPosByRadiusJob
+        {
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+
+            job_threshold = 0.01f,
+
+
+            rv_findedTargetCountPreShip = searchingTargetData.rv_searchingTargetsCount,
+            rv_findedTargetVelPreShip = searchingTargetData.rv_searchingTargetsVelFlatArray,
+            rv_findedTargetsPosPreShip = searchingTargetData.rv_searchingTargetsPosFlatArray,
+        };
+        jobhandle_behaviorTargets = calculateSteeringTargetsPosByRadiusJob.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_behaviorTargets.Complete();
+
+
+        //Cohesion Job
+
+        CohesionBehavior.CohesionBehaviorJob cohesionBehaviorJob = new CohesionBehavior.CohesionBehaviorJob
+        {
+            job_shipcount = activeSelfDroneAgentData.shipList.Count,
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_searchingTargetPosFlatArray = searchingTargetData.rv_searchingTargetsPosFlatArray,
+            job_searchingTargetCount = searchingTargetData.rv_searchingTargetsCount,
+            rv_Steerings = activeSelfDroneAgentData.rv_cohesion_steeringInfo,
+        };
+        jobhandle_cohesionbehavior = cohesionBehaviorJob.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_cohesionbehavior.Complete();
+
+        //separation Job
+        SeparationBehavior.SeparationBehaviorJob separationBehaviorJob = new SeparationBehavior.SeparationBehaviorJob
+        {
+            job_shipcount = activeSelfDroneAgentData.shipList.Count,
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_searchingTargetPosFlatArray = searchingTargetData.rv_searchingTargetsPosFlatArray,
+            job_searchingTargetCount = searchingTargetData.rv_searchingTargetsCount,
+
+            rv_Steerings = activeSelfDroneAgentData.rv_separation_steeringInfo,
+        };
+        jobhandle_separationBehavior = separationBehaviorJob.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+
+        jobhandle_separationBehavior.Complete();
+
+        //Alignment Job
+        AlignmentBehavior.AlignmentBehaviorJob alignmentBehaviorJob = new AlignmentBehavior.AlignmentBehaviorJob
+        {
+            job_shipcount = activeSelfDroneAgentData.shipList.Count,
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_searchingTargetPosFlatArray = searchingTargetData.rv_searchingTargetsPosFlatArray,
+            job_searchingTargetVelFlatArray = searchingTargetData.rv_searchingTargetsVelFlatArray,
+            job_searchingTargetCount = searchingTargetData.rv_searchingTargetsCount,
+            rv_Steerings = activeSelfDroneAgentData.rv_alignment_steeringInfo,
+        };
+
+        jobhandle_alignmentBehavior = alignmentBehaviorJob.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_alignmentBehavior.Complete();
+
+
+
+
+        CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob collisionAvoidanceBehaviorJob = new CollisionAvoidanceBehavior.CollisionAvoidanceBehaviorJob
+        {
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_avoidenceData = activeTargetAgentData.boidAgentJobData,
+            rv_steering = activeSelfDroneAgentData.rv_collisionavoidance_steeringInfo,
+        };
+
+        jobhandle_collisionAvoidanceBehavior = collisionAvoidanceBehaviorJob.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_collisionAvoidanceBehavior.Complete();
+
+
+
+
+        activeSelfDroneAgentData.rv_deltaMovement = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+
+        JobHandle jobhandle_deltamoveposjob;
+        SteeringBehaviorController.CalculateDeltaMovePosJob calculateDeltaMovePosJob = new SteeringBehaviorController.CalculateDeltaMovePosJob
+        {
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+
+            job_evadeSteering = activeSelfDroneAgentData.rv_evade_steeringInfo,
+
+
+            job_arriveSteering = activeSelfDroneAgentData.rv_arrive_steeringInfo,
+            job_isVelZero = activeSelfDroneAgentData.rv_arrive_isVelZero,
+
+            job_faceSteering = activeSelfDroneAgentData.rv_face_steeringInfo,
+
+
+            job_alignmentSteering = activeSelfDroneAgentData.rv_alignment_steeringInfo,
+
+
+            job_cohesionSteering = activeSelfDroneAgentData.rv_cohesion_steeringInfo,
+
+
+            job_separationSteering = activeSelfDroneAgentData.rv_separation_steeringInfo,
+
+
+            job_collisionAvoidanceSteering = activeSelfDroneAgentData.rv_collisionavoidance_steeringInfo,
+
+
+            job_deltatime = Time.fixedDeltaTime,
+
+            rv_deltainfo = activeSelfDroneAgentData.rv_deltaMovement,
+        };
+
+        jobhandle_deltamoveposjob = calculateDeltaMovePosJob.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobhandle_deltamoveposjob.Complete();
+
+
+        for (int i = 0; i < activeSelfDroneAgentData.shipList.Count; i++)
+        {
+            activeSelfDroneAgentData.steeringControllerList[i].UpdateIBoid();
+
+            activeSelfDroneAgentData.steeringControllerList[i].Move(activeSelfDroneAgentData.rv_deltaMovement[i].linear);
+            activeSelfDroneAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfDroneAgentData.rv_deltaMovement[i].angular);
+        }
+
+
+        activeSelfDroneAgentData.DisposeReturnValue();
+        searchingTargetData.DisposeReturnValue();
     }
 }

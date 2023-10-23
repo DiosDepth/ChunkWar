@@ -21,9 +21,10 @@ public enum DroneState
 public class BaseDrone : BaseShip, IPoolable
 {
 
-    protected DroneConfig _droneCfg;
+    public DroneConfig droneCfg;
     public DroneAttribute droneAttribute;
     public StateMachine<DroneState> baseDroneState;
+
     public int DroneID;
 
     public OwnerType ownerType
@@ -48,9 +49,9 @@ public class BaseDrone : BaseShip, IPoolable
     protected override void Death(UnitDeathInfo info)
     {
         base.Death(info);
-        if (!string.IsNullOrEmpty(_droneCfg.DieAudio))
+        if (!string.IsNullOrEmpty(droneCfg.DieAudio))
         {
-            SoundManager.Instance.PlayBattleSound(_droneCfg.DieAudio, transform);
+            SoundManager.Instance.PlayBattleSound(droneCfg.DieAudio, transform);
         }
         //ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
@@ -71,7 +72,7 @@ public class BaseDrone : BaseShip, IPoolable
         _unitList = new List<Unit>();
 
         DroneConfig droneCfg = DataManager.Instance.GetDroneConfig(DroneID);
-        _droneCfg = droneCfg;
+        this.droneCfg = droneCfg;
         baseShipCfg = droneCfg;
         ownerType = droneCfg.Owner;
         Vector2Int pos;
@@ -180,7 +181,7 @@ public class BaseDrone : BaseShip, IPoolable
 
     private void InitAttribute()
     {
-        droneAttribute.InitProeprty(this, _droneCfg);
+        droneAttribute.InitProeprty(this, droneCfg);
     }
 
     protected const string AnimTrigger_Spawn = "Spawn";
