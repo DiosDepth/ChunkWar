@@ -147,7 +147,7 @@ public class Building : Unit
         RemoveAllBuildingComponents();
     }
 
-    public override void DoDeSpawnEffect()
+    protected override void _DoDeSpawnEffect()
     {
         base.DoDeSpawnEffect();
         DeSpawnAllBuildingComponents();

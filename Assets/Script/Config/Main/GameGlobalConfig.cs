@@ -21,6 +21,7 @@ public static class GameGlobalConfig
     public const int UnitMaxSize = 11;
 
     public const int HardLevelWaveIndexMultiple = 1000;
+    public const int HardLevelMultiple_TimeDelta = 30;
 
     /// <summary>
     ///  map size base on center of building max size

@@ -1537,6 +1537,7 @@ MonoBehaviour:
   BillboardType: 1
   AttackBase: 30
   HardLevelGroupID: 1
+  EnemyCountModify: 0
   MaxVelocity: 10
   MaxAcceleration: 1
   MaxAngularAcceleration: 3

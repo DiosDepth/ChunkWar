@@ -968,7 +968,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private void CalculateHardLevelIndex(int paramInt = 0)
     {
         var currentSecond = Timer.TotalSeconds;
-        var secondsLevel = Mathf.RoundToInt(currentSecond / (float)(2 * 60));
+        var secondsLevel = Mathf.RoundToInt(currentSecond / GameGlobalConfig.HardLevelMultiple_TimeDelta);
 
         var multiple = GameGlobalConfig.HardLevelWaveIndexMultiple;
         _currentHardLevelIndex = multiple * (GetCurrentWaveIndex) + secondsLevel;
@@ -984,7 +984,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.InitTimer(totalTime);
 
         var hardLevelDelta = DataManager.Instance.battleCfg.HardLevelDeltaSeconds;
-        var trigger = LevelTimerTrigger.CreateTrigger(0, hardLevelDelta, -1, "HardLevelUpdate");
+        var trigger = LevelTimerTrigger.CreateTrigger(0, hardLevelDelta, -1, -1, "HardLevelUpdate");
         trigger.BindChangeAction(CalculateHardLevelIndex);
         Timer.AddTrigger(trigger);
         CalculateHardLevelIndex();
@@ -1087,7 +1087,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GenerateEnemyAIFactory();
         GenerateShopCreateTimer();
         ///增加船体值自动恢复Trigger
-        var recoverTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, "UnitHPRecover");
+        var recoverTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, -1, "UnitHPRecover");
         recoverTrigger.BindChangeAction(OnUpdateUnitHPRecover);
         Timer.AddTrigger(recoverTrigger);
     }
@@ -1109,18 +1109,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             trigger.BindChangeAction(CreateFactory, cfg.ID);
             Timer.AddTrigger(trigger);
         }
+
+        var currentWaveTime = GetCurrentWaveTime();
+
         ///Generate Meteorite Common
-        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, "MeteoriteGenerate_1");
+        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime,  "MeteoriteGenerate_1");
         MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
         Timer.AddTrigger(MeteoriteTrigger1);
 
         ///Generate Meteorite Smooth
-        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, "MeteoriteGenerate_2");
+        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime,  "MeteoriteGenerate_2");
         MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
         Timer.AddTrigger(MeteoriteTrigger2);
 
         ///Generate Ancient Common
-        var ancientTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer1, _entitySpawnConfig.AncientUnitGenerate_Timer1, -1, "ancientGenerate_1");
+        var ancientTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer1, _entitySpawnConfig.AncientUnitGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.AncientUnitGenerate_EndTime, "ancientGenerate_1");
         ancientTrigger1.BindChangeAction(CreateAncientUnitShip);
         Timer.AddTrigger(ancientTrigger1);
 
@@ -1135,7 +1138,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
 
         ///Generate Ancient Smooth
-        var ancientTrigger2 = LevelTimerTrigger.CreateTrigger(ancientSmoothDeltaTime, ancientSmoothDeltaTime, -1, "ancientGenerate_2");
+        var ancientTrigger2 = LevelTimerTrigger.CreateTrigger(ancientSmoothDeltaTime, ancientSmoothDeltaTime, -1, currentWaveTime - _entitySpawnConfig.AncientUnitGenerate_EndTime, "ancientGenerate_2");
         ancientTrigger2.BindChangeAction(CreateAncientUnitShip_Smooth);
         Timer.AddTrigger(ancientTrigger2);
     }
@@ -1373,7 +1376,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for (int i = 0; i < spawns.Count; i++)
         {
             var cfg = spawns[i];
-            var trigger = LevelTimerTrigger.CreateTrigger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount, key);
+            var trigger = LevelTimerTrigger.CreateTrigger(cfg.StartTime, cfg.DurationDelta, cfg.LoopCount, -1, key);
             trigger.BindChangeAction(CreateExtraFactory, cfg.ID);
             Timer.AddTrigger(trigger);
             ExtraSpawnInfo info = new ExtraSpawnInfo

@@ -459,6 +459,9 @@ MonoBehaviour:
     - Name: StackType
       Entry: 3
       Data: 0
+    - Name: StackOrder
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 

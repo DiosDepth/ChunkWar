@@ -210,9 +210,10 @@ public class Projectile : Bullet, IDamageble
             ///计算敌人导弹血量
             var aiShip = _owner._owner as AIShip;
             var hardLevelItem =  GameHelper.GetEnemyHardLevelItem(aiShip.AIShipCfg.HardLevelGroupID);
-            var hpadd = hardLevelItem.MissileHPAdd;
             var hpRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EnemyHPPercent);
-            targetHP = Mathf.RoundToInt((MissileHPBase + hpadd) * (1 + hpRatio / 100f));
+            hpRatio += hardLevelItem.MissileHPPercentAdd;
+
+            targetHP = Mathf.RoundToInt(MissileHPBase * (1 + hpRatio / 100f));
             targetHP = Mathf.Max(0, targetHP);
         }
         HpComponent = new GeneralHPComponet(targetHP, targetHP);

@@ -74,18 +74,18 @@ public class LevelData : DataInfo
 public class EnemyHardLevelItem : DataInfo
 {
     public int GroupID;
-    public int ATKAdd;
-    public int HPAdd;
-    public int ShieldAdd;
-    public int MissileHPAdd;
+    public float ATKPercentAdd;
+    public float HPpercentAdd;
+    public float ShieldHPPercentAdd;
+    public float MissileHPPercentAdd;
 
     public override void Initialization(string[] row)
     {
         int.TryParse(row[0], out ID);
         int.TryParse(row[1], out GroupID);
-        int.TryParse(row[2], out ATKAdd);
-        int.TryParse(row[3], out HPAdd);
-        int.TryParse(row[4], out ShieldAdd);
+        float.TryParse(row[2], out ATKPercentAdd);
+        float.TryParse(row[3], out HPpercentAdd);
+        float.TryParse(row[4], out ShieldHPPercentAdd);
     }
 }
 

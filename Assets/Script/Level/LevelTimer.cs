@@ -140,6 +140,11 @@ public class LevelTimerTrigger
     private int _startSecond;
 
     /// <summary>
+    /// 结束时间
+    /// </summary>
+    private int _endSecond;
+
+    /// <summary>
     /// 总共间隔
     /// </summary>
     private int _secondDelta;
@@ -173,18 +178,19 @@ public class LevelTimerTrigger
 
     private bool _triggerOnStart = false;
 
-    public static LevelTimerTrigger CreateTrigger(int startSecond, int secondDelta, int loopCount, string TriggerName = null)
+    public static LevelTimerTrigger CreateTrigger(int startSecond, int secondDelta, int loopCount, int endTime = -1, string TriggerName = null)
     {
-        LevelTimerTrigger trigger = new LevelTimerTrigger(startSecond, secondDelta, loopCount);
+        LevelTimerTrigger trigger = new LevelTimerTrigger(startSecond, endTime, secondDelta, loopCount);
         trigger.TriggerName = TriggerName;
         trigger.IsNeedToRemove = false;
         return trigger;
     }
 
-    private LevelTimerTrigger(int startSecond, int secondDelta, int loopCount)
+    private LevelTimerTrigger(int startSecond, int endSecond, int secondDelta, int loopCount)
     {
         _startSecond = startSecond;
         _secondDelta = secondDelta;
+        _endSecond = endSecond;
         _isLoop = loopCount <= 0;
         _totalloopCount = loopCount;
         _currentLoopCount = 0;
@@ -214,6 +220,9 @@ public class LevelTimerTrigger
         _secondTimer++;
 
         if (_startSecond > currentSecond)
+            return;
+
+        if (_endSecond != -1 && _endSecond < currentSecond)
             return;
 
         if (!_triggerOnStart)

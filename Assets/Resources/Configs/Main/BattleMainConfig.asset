@@ -78,6 +78,9 @@ MonoBehaviour:
     - Name: MeteoriteGenerate_Timer2
       Entry: 3
       Data: 5
+    - Name: MeteoriteGenerate_EndTime
+      Entry: 3
+      Data: 10
     - Name: AncientUnitGenerate_Rate1
       Entry: 4
       Data: 0.1
@@ -90,6 +93,9 @@ MonoBehaviour:
     - Name: AncientUnitGenerate_Timer2
       Entry: 3
       Data: 7
+    - Name: AncientUnitGenerate_EndTime
+      Entry: 3
+      Data: 12
     - Name: AncientUnit_ShipID
       Entry: 3
       Data: 5005
@@ -940,7 +946,7 @@ MonoBehaviour:
       Data: 8
     - Name: IsPercent
       Entry: 5
-      Data: false
+      Data: true
     - Name: ReverseColor
       Entry: 5
       Data: false
@@ -2619,6 +2625,7 @@ MonoBehaviour:
   HarborMapTempUnitSlotCount: 6
   ShipLevelUp_GrowthItem_Count: 4
   BattleOption_ColliderRaidus: 15
+  ShopExit_Player_Immortal_Time: 1.2
   HardLevelDeltaSeconds: 120
   ShipMaxLevel: 50
   TransfixionDamage_Base: 60

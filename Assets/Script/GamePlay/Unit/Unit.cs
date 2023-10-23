@@ -41,6 +41,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         private set;
     }
 
+    /// <summary>
+    /// 不可见unit,优化性能
+    /// </summary>
+    public bool IsInvisiableUnit = false;
+
     public bool IsCoreUnit = false;
     public string deathVFXName = "ExplodeVFX";
     public List<UnitTargetInfo> targetList = new List<UnitTargetInfo>();
@@ -100,7 +105,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     public virtual void Awake()
     {
-        if(unitSprite != null)
+        if(unitSprite != null && !IsInvisiableUnit)
         {
             _sharedMat = unitSprite.sharedMaterial;
             if(_appearMat == null)
@@ -308,6 +313,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         ResetAllAnimation();
         baseAttribute.Destroy();
+        LocalPropetyData.Clear();
         _modifyTriggerDatas.ForEach(x => x.OnTriggerRemove());
         _modifySpecialDatas.ForEach(x => x.OnRemove());
         targetList.Clear();
@@ -353,6 +359,15 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if(damageState == DamagableState.Destroyed || damageState == DamagableState.Paralysis)
         {
             return false;
+        }
+
+        ///Calculate DamageReduce
+        var damageReduceRatio = LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitDamageTakeReducePercent);
+        if (damageReduceRatio != 0)
+        {
+            damageReduceRatio = Mathf.Clamp(damageReduceRatio, float.MaxValue, 1);
+            var newDamage = info.Damage * (1 - damageReduceRatio / 100f);
+            info.Damage = Mathf.RoundToInt(newDamage);
         }
 
         var rowScreenPos = UIManager.Instance.GetUIposBWorldPosition(transform.position);
@@ -673,7 +688,15 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     protected const string AnimTrigger_Spawn = "Spawn";
     protected const string AnimTrigger_DeSpawn = "DeSpawn";
 
-    public async void DoSpawnEffect()
+    public void DoSpawnEffect()
+    {
+        if (IsInvisiableUnit)
+            return;
+
+        _DoSpawnEffect();
+    }
+
+    protected async void _DoSpawnEffect()
     {
         unitSprite.material = _appearMat;
         _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
@@ -684,7 +707,15 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         unitSprite.material = _sharedMat;
     }
 
-    public virtual void DoDeSpawnEffect()
+    public void DoDeSpawnEffect()
+    {
+        if (IsInvisiableUnit)
+            return;
+
+        _DoDeSpawnEffect();
+    }
+
+    protected virtual void _DoDeSpawnEffect()
     {
         unitSprite.material = _appearMat;
         _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
@@ -693,6 +724,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     protected virtual void ResetAllAnimation()
     {
+        if (IsInvisiableUnit)
+            return;
+
         _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _animator.ResetTrigger(AnimTrigger_Spawn);
         _animator.ResetTrigger(AnimTrigger_DeSpawn);

@@ -715,6 +715,13 @@ public static class GameHelper
         }
     }
 
+    public static int CalculateHP(int rowHP)
+    {
+        var hpRatio = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.HP) / 100f + 1;
+        hpRatio = Mathf.Max(-1, hpRatio);
+        return Mathf.Max(1, Mathf.RoundToInt(rowHP * hpRatio));
+    }
+
     /// <summary>
     /// 获取Unit出售价格
     /// </summary>
@@ -751,8 +758,7 @@ public static class GameHelper
         }
         else if (type == UI_WeaponUnitPropertyType.HP)
         {
-            var hprow = propertyData.GetPropertyFinal(PropertyModifyKey.HP);
-            int hp = Mathf.CeilToInt(hprow + cfg.BaseHP);
+            var hp = CalculateHP(cfg.BaseHP);
             string color = GetColorCode(hp, cfg.BaseHP, false);
 
             return string.Format("<color={0}>{1}</color>", color, hp);
