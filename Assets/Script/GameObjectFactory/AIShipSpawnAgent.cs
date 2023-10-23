@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,14 +26,14 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
 
     }
 
-    public override async void StartSpawn(ShipSpawnInfo m_spawninfo)
+    public override void StartSpawn(ShipSpawnInfo m_spawninfo)
     {
         spawnInfo = m_spawninfo;
         AIShipSpawnInfo aispawninfo = m_spawninfo as AIShipSpawnInfo;
-        await Spawn(aispawninfo);
+        Spawn(aispawninfo);
     }
 
-    private async UniTask Spawn(AIShipSpawnInfo m_aispawninfo)
+    private async void Spawn(AIShipSpawnInfo m_aispawninfo)
     {
         _spawnreferencedir = GetSpawnReferenceDir();
 
@@ -44,12 +44,17 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
         for (int i = 0; i < shapeposlist.Count; i++)
         {
             //实例化所有的配置敌人ＡＩ
-            await UniTask.Delay((int)m_aispawninfo.shapeSetting.spawnIntervalTime * 1000);
+            CancellationTokenSource cts = new CancellationTokenSource();
+            ctkLst.Add(cts);
+            await UniTask.Delay((int)m_aispawninfo.shapeSetting.spawnIntervalTime * 1000, cancellationToken : cts.Token);
             tasklist.Add(CreateEntity(m_aispawninfo, shapeposlist[i]));
         }
 
         await UniTask.WhenAll(tasklist);
-        await UniTask.Delay(1000);
+
+        CancellationTokenSource cts2 = new CancellationTokenSource();
+        ctkLst.Add(cts2);
+        await UniTask.Delay(1000, cancellationToken: cts2.Token);
         Debug.Log(string.Format("Create Enemy Success! UnitID = {0} , Count = {1}", m_aispawninfo.ID, _shiplist.Count));
         PoolableDestroy();
     }

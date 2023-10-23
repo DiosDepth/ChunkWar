@@ -320,7 +320,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
                     item.WasteGain = data.CountRef;
                     item.EXPGain = data.EXPAdd;
                     outLst.Add(item);
-                });
+                }, LevelManager.PickUpPool);
             }
         }
         return outLst;
@@ -406,8 +406,9 @@ public class AIShip : BaseShip,IPoolable, IDropable
         }
     }
 
-    private void ResetAllAnimation()
+    protected override void ResetAllAnimation()
     {
+        base.ResetAllAnimation();
         _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         _appearMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
         _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);

@@ -232,6 +232,11 @@ public class BaseShip : MonoBehaviour, IPauseable
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
     protected const string Mat_Shader_ProeprtyKey_OUTBASE_ON = "OUTBASE_ON";
 
+    protected virtual void ResetAllAnimation()
+    {
+
+    }
+
     public void SetAnimatorTrigger(string trigger)
     {
         if(_spriteAnimator == null) { return; }

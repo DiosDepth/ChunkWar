@@ -332,7 +332,6 @@ public class EGameState_GameOver : GameState
         InputDispatcher.Instance.ChangeInputMode("UI");
         LevelManager.Instance.GameOver();
         ECSManager.Instance.GameOver();
-        //AIManager.Instance.GameOver();
         RogueManager.Instance.RogueBattleOver();
         UIManager.Instance.ShowUI<GameOver>("GameOver", E_UI_Layer.Mid, GameManager.Instance, (panel) => 
         {

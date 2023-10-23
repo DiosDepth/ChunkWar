@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -171,7 +172,7 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
     protected const string EntitySpawnEffect = "Battle/Enemy_SpawnEffect";
     public ShipSpawnInfo spawnInfo;
 
-    
+    protected List<CancellationTokenSource> ctkLst = new List<CancellationTokenSource>();
 
     protected BaseShipConfig _shipconfig;
     public virtual void PoolableDestroy()
@@ -183,7 +184,11 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
     public virtual void PoolableReset()
     {
         _shipconfig = null;
-
+        for (int i = 0; i < ctkLst.Count; i++) 
+        {
+            ctkLst[i].Cancel();
+        }
+        ctkLst.Clear();
     }
 
     public virtual void PoolableSetActive(bool isactive = true)
@@ -197,10 +202,9 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
     }
 
 
-    public virtual async void StartSpawn(ShipSpawnInfo m_spawnInfo)
+    public virtual void StartSpawn(ShipSpawnInfo m_spawnInfo)
     {
         spawnInfo = m_spawnInfo;
-        await Spawn(spawnInfo);
     }
 
     private async UniTask Spawn(ShipSpawnInfo spawnInfo)
@@ -209,9 +213,9 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
         //await UniTask.Delay((int)aiSpawnSetting.spawnIntervalTime * 1000);
         CreateEntity(spawnInfo);
 
-
-        await UniTask.Delay(1000);
-        //Debug.Log(string.Format("Create Enemy Success! UnitID = {0} , Count = {1}", aiSpawnSetting.spawnUnitID, _shiplist.Count));
+        CancellationTokenSource ctk = new CancellationTokenSource();
+        ctkLst.Add(ctk);
+        await UniTask.Delay(1000, cancellationToken: ctk.Token);
         PoolableDestroy();
     }
 

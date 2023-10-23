@@ -306,11 +306,13 @@ public class BattleSpecialEntitySpawnConfig
     /// </summary>
     public float MeteoriteGenerate_Rate2;
     public int MeteoriteGenerate_Timer2;
+    public int MeteoriteGenerate_EndTime;
 
     public float AncientUnitGenerate_Rate1;
     public int AncientUnitGenerate_Timer1;
     public float AncientUnitGenerate_Rate2;
     public int AncientUnitGenerate_Timer2;
+    public int AncientUnitGenerate_EndTime;
 
     public int AncientUnit_ShipID;
     public int AncientUnit_ProtectRate_Add;
