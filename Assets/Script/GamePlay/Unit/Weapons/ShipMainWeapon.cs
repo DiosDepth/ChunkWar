@@ -67,7 +67,7 @@ public class ShipMainWeapon : Weapon
         rv_weaponTargetsInfoQue.Clear();
         FindMainWeaponTargetsInRangeJob findMainWeaponTargetsInRangeJob = new FindMainWeaponTargetsInRangeJob
         {
-            job_attackRange = weaponAttribute.WeaponRange,
+            job_attackRange = weaponAttribute.BaseRange,
             job_selfPos = transform.position,
             job_targetsPos = ECSManager.Instance.activeAIUnitData.unitPos,
             rv_targetsInfo = rv_weaponTargetsInfoQue.AsParallelWriter(),

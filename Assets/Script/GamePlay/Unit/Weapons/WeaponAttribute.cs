@@ -195,7 +195,7 @@ public class WeaponAttribute : UnitBaseAttribute
         DamageType = _weaponCfg.DamageType;
         BaseDamage = _weaponCfg.DamageBase;
         BaseCritical = _weaponCfg.BaseCriticalRate;
-        BaseWeaponRange = _weaponCfg.BaseRange;
+
         BaseReloadCD = _weaponCfg.CD;
         BaseFireCD = _weaponCfg.FireCD;
         BaseCriticalDamagePercent = _weaponCfg.CriticalDamage;
@@ -258,7 +258,7 @@ public class WeaponAttribute : UnitBaseAttribute
             FireCD = BaseFireCD;
             ReloadTime = BaseReloadCD;
             MaxMagazineSize = BaseMaxMagazineSize;
-            WeaponRange = BaseWeaponRange / 10f;
+            BaseRange = BaseWeaponRange / 10f;
             Transfixion = BaseTransfixion;
             TransfixionReduce = BaseTransfixionDamage;
             EnemyWeaponATKPercent = _weaponCfg.EnemyAttackModify;
@@ -330,7 +330,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private void CalculateWeaponRange()
     {
         var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponRange);
-        WeaponRange = Mathf.Clamp((BaseWeaponRange + weaponRange) / 10f, 0, float.MaxValue);
+        BaseRange = Mathf.Clamp((BaseWeaponRange + weaponRange) / 10f, 0, float.MaxValue);
     }
 
     private void CalculateReloadTime()

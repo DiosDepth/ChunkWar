@@ -26,7 +26,7 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
 
     }
 
-    public override void StartSpawn(ShipSpawnInfo m_spawninfo)
+    public  override void StartSpawn(ShipSpawnInfo m_spawninfo)
     {
         spawnInfo = m_spawninfo;
         AIShipSpawnInfo aispawninfo = m_spawninfo as AIShipSpawnInfo;

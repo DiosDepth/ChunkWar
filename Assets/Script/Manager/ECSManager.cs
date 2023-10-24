@@ -163,7 +163,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 }
                 if (unit is Building)
                 {
-                    activePlayerBuildingData.Add(unit as Building);
+                    activeAIBuildingData.Add(unit as Building);
                 }
 
                 break;
@@ -333,7 +333,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
     public virtual void Update()
     {
-        if (GameManager.Instance.IsPauseGame()) { return; }
+         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessECS) { return; }
 
 
@@ -534,6 +534,18 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         else
         {
             return activeAIUnitData.unitList.Find(x => x.UID == uid);
+        }
+    }
+
+    public int GetBuildingIndex(OwnerType type, Building building)
+    {
+        if(type == OwnerType.Player)
+        {
+            return activePlayerBuildingData.activeBuildingList.IndexOf(building);
+        }
+        else
+        {
+            return activeAIBuildingData.activeBuildingList.IndexOf(building);
         }
     }
 

@@ -69,7 +69,21 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     private List<PropertyModifySpecialData> _modifySpecialDatas = new List<PropertyModifySpecialData>();
 
-
+    public OwnerType GetOwnerType
+    {
+        get
+        {
+            if(_owner is AIShip)
+            {
+                return OwnerType.AI;
+            }
+            if(_owner is PlayerShip)
+            {
+                return OwnerType.Player;
+            }
+            return OwnerType.None;
+        }
+    }
     public BaseShip _owner
     {
         get;

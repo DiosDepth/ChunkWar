@@ -78,6 +78,8 @@ public class UnitTargetInfo
         distance = m_distance;
         direction = m_direction;
     }
+
+
 }
 
 public class Weapon : Unit
@@ -180,7 +182,7 @@ public class Weapon : Unit
     [BurstCompile]
     public struct FindMutipleUnitTargetsJob : IJobParallelForBatch
     {
-        [Unity.Collections.ReadOnly] public NativeArray<UnitJobData> job_weaponJobData;
+        [Unity.Collections.ReadOnly] public NativeArray<UnitJobData> job_unitJobData;
         [Unity.Collections.ReadOnly] public NativeArray<float3> job_targetsPos;
         //这里返回的时对应的target在list中的index
 
@@ -198,12 +200,12 @@ public class Weapon : Unit
                 for (int n = 0; n < job_targetsPos.Length; n++)
                 {
                     var targetPos = job_targetsPos[n];
-                    if (math.distance(job_weaponJobData[i].position, targetPos) <= job_weaponJobData[i].range)
+                    if (math.distance(job_unitJobData[i].position, targetPos) <= job_unitJobData[i].range)
                     {
                         tempinfo.targetPos = targetPos;
                         tempinfo.targetIndex = n;
-                        tempinfo.targetDirection = math.normalize(targetPos - job_weaponJobData[i].position);
-                        tempinfo.distanceToTarget = math.distance(targetPos, job_weaponJobData[i].position);
+                        tempinfo.targetDirection = math.normalize(targetPos - job_unitJobData[i].position);
+                        tempinfo.distanceToTarget = math.distance(targetPos, job_unitJobData[i].position);
                         tempinfolist.Add(tempinfo);
                     }
                 }
@@ -211,7 +213,7 @@ public class Weapon : Unit
                 index = 0;
                 for (int c = 0; c < i; c++)
                 {
-                    index += job_weaponJobData[c].targetCount;
+                    index += job_unitJobData[c].targetCount;
                 }
 
                
@@ -220,7 +222,7 @@ public class Weapon : Unit
                     //全部找完了之后进行排序
                     tempinfolist.Sort();
                     //排序之后按照最大目标数量进行结果装填
-                    for (int s = 0; s < job_weaponJobData[i].targetCount; s++)
+                    for (int s = 0; s < job_unitJobData[i].targetCount; s++)
                     {
                         //当前的index不大于 临时目标列表的长度
                         if (s <= tempinfolist.Length - 1)
@@ -235,7 +237,7 @@ public class Weapon : Unit
                 }
                 else
                 {
-                    for (int s = 0; s < job_weaponJobData[i].targetCount; s++)
+                    for (int s = 0; s < job_unitJobData[i].targetCount; s++)
                     {
                         tempinfo.targetIndex = -1;
                         rv_targetsInfo[index + s] = tempinfo;
@@ -285,7 +287,7 @@ public class Weapon : Unit
     {
         targetList.RemoveAll(x => x == null 
         || x.target.activeInHierarchy == false 
-        || x.distance > weaponAttribute.WeaponRange);
+        || x.distance > weaponAttribute.BaseRange);
 
         if(targetList.Count != 0)
         {

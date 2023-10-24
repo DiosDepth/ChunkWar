@@ -170,6 +170,13 @@ public class BaseUnitConfig : BaseConfig
     [HorizontalGroup("UI设置/A", 250)]
     public float HPBarWidth = 3f;
 
+
+    [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/ZZ", 200)]
+    [LabelText("基础范围")]
+    [LabelWidth(80)]
+    public int BaseRange;
+
     [System.Obsolete]
     protected override void OnEnable()
     {

@@ -202,9 +202,10 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
     }
 
 
-    public virtual void StartSpawn(ShipSpawnInfo m_spawnInfo)
+    public  virtual  void StartSpawn(ShipSpawnInfo m_spawnInfo)
     {
         spawnInfo = m_spawnInfo;
+         Spawn(spawnInfo);
     }
 
     private async UniTask Spawn(ShipSpawnInfo spawnInfo)

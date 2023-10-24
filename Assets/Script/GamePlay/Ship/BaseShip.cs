@@ -7,6 +7,7 @@ using UnityEngine;
 
 public enum OwnerType
 {
+    None,
     Player,
     AI,
 }
@@ -99,6 +100,27 @@ public class BaseShip : MonoBehaviour, IPauseable
         if (_unitList[0].targetList.Count == 0) { return null; }
 
         return _unitList[0].targetList[0].target.GetComponent<BaseShip>();
+    }
+
+    public void SetFirstTarget(UnitTargetInfo unitinfo)
+    {
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+         
+           if( _unitList[i].targetList.Count == 0)
+            {
+                _unitList[i].targetList.Add(unitinfo);
+            }
+            if (_unitList[i].targetList[0] == unitinfo)
+            {
+                continue;
+            }   
+            else
+            {
+                _unitList[i].targetList[0] = unitinfo;
+            }
+
+        }
     }
     /// <summary>
     /// 获取所有武器

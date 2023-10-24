@@ -37,7 +37,7 @@ public class DroneFactoryAttribute : BuildingAttribute
         base.InitProeprty(parentUnit, cfg, ownerType);
         var _droneCfg = cfg as DroneFactoryConfig;
         DroneSpawnTimeBase = _droneCfg.DroneSpawnTime;
-        DroneSearchingRadiusBase = _droneCfg.SearchingRadius;
+        DroneSearchingRadiusBase = _droneCfg.BaseRange;
         DroneMaxCountBase = _droneCfg.MaxDroneCount;
 
         SearchingRadius = DroneSearchingRadiusBase;
@@ -80,7 +80,7 @@ public class DroneFactory : Building
     public Transform repairingGroup;
     public Transform apronGroup;
     public float launchIntervalTime = 1;
-
+    public float callbackThreshold = 0.1f;
 
 
 
@@ -96,6 +96,7 @@ public class DroneFactory : Building
     private float _repairTimeCounter;
     private bool _isRepairing = false;
     private BaseDrone _repairingDrone;
+    private int _allocateTargetCount = 0 ;
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         _factoryCfg = m_unitconfig as DroneFactoryConfig;
@@ -109,6 +110,7 @@ public class DroneFactory : Building
         buildingAttribute = factoryAttribute;
         baseAttribute = factoryAttribute;
         _repairTimeCounter = factoryAttribute.RepairTime;
+        _allocateTargetCount = 0;
     }
 
     protected override void OnDestroy()
@@ -123,6 +125,7 @@ public class DroneFactory : Building
 
     public override void Restore()
     {
+        _allocateTargetCount = 0;
         base.Restore();
     }
 
@@ -186,20 +189,51 @@ public class DroneFactory : Building
             return;
         }
 
+        //allocate target to drone;
+        //Clear targetList
+        targetList.RemoveAll(t => t.target.activeInHierarchy == false);
+        if (targetList.Count == 0)
+        {
+            buildingState.ChangeState(BuildingState.End);
+            return;
+        }
+
+
+        if(_launchedList.Count != 0)
+        {
+            for (int i = 0; i < _launchedList.Count; i++)
+            {
+                _allocateTargetCount = _allocateTargetCount % targetList.Count;
+                if (_launchedList[i].GetFirstTarget().isActiveAndEnabled)
+                {
+                    continue;
+                }
+                _launchedList[i].SetFirstTarget(targetList[_allocateTargetCount]);
+                _allocateTargetCount++;
+            }
+        }
+
+
         //launch if find target
         if (targetList != null && targetList.Count != 0)
         {
             LaunchDrone();
         }
+
+
         //Restore if any drone is crashed
         RepairDrone();
         
-
     }
 
     public override void BuildingEnd()
     {
         BuildingOFF();
+        CallBackAllDrone();
+        if(_launchedList.Count == 0)
+        {
+            buildingState.ChangeState(BuildingState.Recover);
+        }
         //recover if it is recoverable unit
     }
 
@@ -222,9 +256,33 @@ public class DroneFactory : Building
         _launchedList.Add(drone);
         drone.transform.position = launchPoint.transform.position;
         drone.transform.SetParent(launchedGroup);
+
+
+        drone.SetFirstTarget(targetList[0]);
+      
+        //allocate target to drone
+
         drone.Launch();
         ECSManager.Instance.RegisterJobData(OwnerType.Player, drone);
         await UniTask.Delay((int)launchIntervalTime * 1000);
+    }
+
+    public virtual void CallBackAllDrone()
+    {
+        UnitTargetInfo backtargetinfo = new UnitTargetInfo(this.gameObject, ECSManager.Instance.GetBuildingIndex(GetOwnerType, this), 0, Vector3.zero);
+        List<BaseDrone> backlist = new List<BaseDrone>();
+        for (int i = 0; i < _launchedList.Count; i++)
+        {
+            _launchedList[i].SetFirstTarget(backtargetinfo);
+            if (_launchedList[i].transform.position.DistanceXY(this.transform.position) <= callbackThreshold)
+            {
+                backlist.Add(_launchedList[i]);
+            }
+        }
+        for (int i = 0; i < backlist.Count; i++)
+        {
+            Landing(backlist[i]);
+        }
     }
 
     public virtual void Landing(BaseDrone drone)

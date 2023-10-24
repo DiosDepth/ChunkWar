@@ -138,6 +138,21 @@ public static class MathExtensionTools
         return pos;
     }
 
+    public static T GetRandomItem<T>(this List<T> self) where T : class
+    { 
+        int rad = UnityEngine.Random.Range(0, self.Count);
+        T item = self[rad];
+        self.RemoveAt(rad);
+        return item;
+    }
+
+    public static T PeekRandomItem<T>(this List<T> self) where T : class
+    {
+        int rad = UnityEngine.Random.Range(0, self.Count);
+        return self[rad]; 
+    }
+
+
     public static float Lager(this Vector2 self)
     {
         if(self.x > self.y)

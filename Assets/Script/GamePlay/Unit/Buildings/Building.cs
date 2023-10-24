@@ -62,6 +62,8 @@ public class Building : Unit
         _buildingConfig = m_unitconfig as BuildingConfig;
         _owner = m_owner;
         InitBuildingAttribute(GameHelper.GetOwnerShipType(_owner));
+        buildingState = new StateMachine<BuildingState>(this.gameObject,false,false);
+        buildingState.ChangeState(BuildingState.Ready);
         base.Initialization(m_owner, m_unitconfig);
  
         InitBuildingComponent();

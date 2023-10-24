@@ -77,11 +77,6 @@ public class WeaponConfig : BaseUnitConfig
     [LabelWidth(80)]
     public WeaponDamageType DamageType;
 
-    [FoldoutGroup("»ù´¡ÊôÐÔ")]
-    [HorizontalGroup("»ù´¡ÊôÐÔ/B", 200)]
-    [LabelText("»ù´¡·¶Î§")]
-    [LabelWidth(80)]
-    public int BaseRange;
 
     [FoldoutGroup("»ù´¡ÊôÐÔ")]
     [HorizontalGroup("»ù´¡ÊôÐÔ/B", 200)]

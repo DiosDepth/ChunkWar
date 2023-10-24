@@ -63,9 +63,9 @@ public class UnitBaseAttribute
     private float BaseParalysisRecoverTime;
 
     /// <summary>
-    /// ÎäÆ÷Éä³Ì
+    /// ÎäÆ÷Éä³ÌºÍ½¨ÖşË÷µĞ·¶Î§
     /// </summary>
-    public float WeaponRange { get; protected set; }
+    public float BaseRange { get; protected set; }
 
     /// <summary>
     /// ÊÇ·ñÍæ¼Ò½¢´¬£¬Ó°ÏìÉËº¦¼ÆËã
@@ -88,7 +88,7 @@ public class UnitBaseAttribute
         BaseEnergyCost = cfg.BaseEnergyCost;
         BaseEnergyGenerate = cfg.BaseEnergyGenerate;
         BaseParalysisRecoverTime = cfg.ParalysisResumeTime;
-
+        BaseRange = cfg.BaseRange;
         if (_ownerShipType == OwnerShipType.PlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);

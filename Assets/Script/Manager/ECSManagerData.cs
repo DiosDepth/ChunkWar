@@ -405,7 +405,7 @@ public class WeaponData : IJobData
         UnitJobData tempweaponjobdata;
         for (int i = 0; i < activeWeaponList.Count; i++)
         {
-            tempweaponjobdata.range = activeWeaponList[i].weaponAttribute.WeaponRange;
+            tempweaponjobdata.range = activeWeaponList[i].weaponAttribute.BaseRange;
             tempweaponjobdata.position = activeWeaponList[i].transform.position;
             tempweaponjobdata.targetCount = activeWeaponList[i].maxTargetCount;
             activeWeaponJobData[i] = tempweaponjobdata;
@@ -417,7 +417,7 @@ public class WeaponData : IJobData
         if (activeWeaponList.Contains(weapon)) { return; }
         activeWeaponList.Add(weapon);
         UnitJobData tempweaponjobdata;
-        tempweaponjobdata.range = weapon.weaponAttribute.WeaponRange;
+        tempweaponjobdata.range = weapon.weaponAttribute.BaseRange;
         tempweaponjobdata.position = weapon.transform.position;
         tempweaponjobdata.targetCount = weapon.maxTargetCount;
         activeWeaponJobData.Add(tempweaponjobdata);
@@ -476,7 +476,7 @@ public class BuildingData : IJobData
         UnitJobData buildingJobData;
         for (int i = 0; i < activeBuildingList.Count; i++)
         {
-            buildingJobData.range = activeBuildingList[i].buildingAttribute.WeaponRange;
+            buildingJobData.range = activeBuildingList[i].buildingAttribute.BaseRange;
             buildingJobData.position = activeBuildingList[i].transform.position;
             buildingJobData.targetCount = activeBuildingList[i].maxTargetCount;
             activeBuildingJobData[i] = buildingJobData;
@@ -489,7 +489,7 @@ public class BuildingData : IJobData
         if (activeBuildingList.Contains(building)) { return; }
         activeBuildingList.Add(building);
         UnitJobData tempbuildingjobdata;
-        tempbuildingjobdata.range = building.buildingAttribute.WeaponRange;
+        tempbuildingjobdata.range = building.buildingAttribute.BaseRange;
         tempbuildingjobdata.position = building.transform.position;
         tempbuildingjobdata.targetCount = building.maxTargetCount;
         activeBuildingJobData.Add(tempbuildingjobdata);
@@ -678,7 +678,7 @@ public class ProjectileData : IJobData
 
         if ((projectile.Owner as Weapon).aimingtype == WeaponAimingType.Directional)
         {
-            initialtargetpos = projectile.transform.position + projectile.transform.up * projectile.Owner.baseAttribute.WeaponRange;
+            initialtargetpos = projectile.transform.position + projectile.transform.up * projectile.Owner.baseAttribute.BaseRange;
         }
         else
         {

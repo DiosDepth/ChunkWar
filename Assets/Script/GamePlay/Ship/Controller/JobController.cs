@@ -270,7 +270,7 @@ public class JobController : IPauseable
 
         Weapon.FindMutipleUnitTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleUnitTargetsJob
         {
-            job_weaponJobData = activeSelfWeaponData.activeWeaponJobData,
+            job_unitJobData = activeSelfWeaponData.activeWeaponJobData,
             job_targetsPos = activeTargetUnitData.unitPos,
 
             rv_targetsInfo = activeSelfWeaponData.rv_weaponTargetsInfo,
@@ -396,7 +396,7 @@ public class JobController : IPauseable
 
         Weapon.FindMutipleUnitTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleUnitTargetsJob
         {
-            job_weaponJobData = activeSelfBuildingData.activeBuildingJobData,
+            job_unitJobData = activeSelfBuildingData.activeBuildingJobData,
             job_targetsPos = activeTargetUnitData.unitPos,
 
             rv_targetsInfo = activeSelfBuildingData.rv_buildingTargetsInfo,
@@ -418,7 +418,7 @@ public class JobController : IPauseable
             //获取Flat Array中的startindex 为后续的拆分做准备
             //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
 
-            if (activeSelfBuildingData.activeBuildingList[i] is AdditionalWeapon)
+            if (activeSelfBuildingData.activeBuildingList[i] is Building)
             {
 
                 startindex = 0;
@@ -430,26 +430,29 @@ public class JobController : IPauseable
 
                 building = activeSelfBuildingData.activeBuildingList[i] as Building;
 
-                //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
-                building.targetList.Clear();
-                for (int n = 0; n < activeSelfBuildingData.activeBuildingJobData[i].targetCount; n++)
+                if(building.buildingState.CurrentState  == BuildingState.Ready )
                 {
-                    targetindex = activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetIndex;
-                    if (targetindex == -1 || activeTargetUnitData.unitList == null || activeTargetUnitData.unitList.Count == 0)
+                    building.targetList.Clear();
+                    for (int n = 0; n < activeSelfBuildingData.activeBuildingJobData[i].targetCount; n++)
                     {
-                        break;
-                    }
-                    else
-                    {
-                        building.targetList.Add(new UnitTargetInfo
-                            (
-                                activeTargetUnitData.unitList[targetindex].gameObject,
-                                activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetIndex,
-                                activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].distanceToTarget,
-                                activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetDirection
-                            ));
+                        targetindex = activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetIndex;
+                        if (targetindex == -1 || activeTargetUnitData.unitList == null || activeTargetUnitData.unitList.Count == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            building.targetList.Add(new UnitTargetInfo
+                                (
+                                    activeTargetUnitData.unitList[targetindex].gameObject,
+                                    activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetIndex,
+                                    activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].distanceToTarget,
+                                    activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetDirection
+                                ));
+                        }
                     }
                 }
+              
                 
                 if (building.targetList != null && building.targetList.Count != 0)
                 {
