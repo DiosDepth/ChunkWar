@@ -1420,6 +1420,8 @@ MonoBehaviour:
   MaxAngularVelocity: 1
   boidRadius: 1
   targetSerchingRadius: 1
+  ArrivalRadius: 35
+  SlotRadius: 5
   DieAudio: Ship/ShipExplode_002
   DropList:
   - pickuptype: 1

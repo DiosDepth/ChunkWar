@@ -1420,6 +1420,8 @@ MonoBehaviour:
   MaxAngularVelocity: 1
   boidRadius: 2
   targetSerchingRadius: 15
+  ArrivalRadius: 25
+  SlotRadius: 5
   DieAudio: 
   DropList:
   - pickuptype: 1

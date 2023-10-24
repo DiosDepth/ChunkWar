@@ -1685,7 +1685,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private void GainShopItem(ShopGoodsInfo info)
     {
-        AddNewShipPlug(info._cfg.TypeID, info.GoodsID);
+        if (info.IsWreckage)
+        {
+            AddInLevelDrop(info.Rarity);
+        }
+        else
+        {
+            AddNewShipPlug(info._cfg.TypeID, info.GoodsID);
+        }
     }
     
     /// <summary>
@@ -1935,6 +1942,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             {
                 var goodsInfo = ShopGoodsInfo.CreateGoods(goodsCfg.GoodID);
                 goodsItems.Add(goodsInfo.GoodsID, goodsInfo);
+            }
+        }
+
+        ///Init Wreckage Shop Item
+        var wreckageItems = DataManager.Instance.shopCfg.WreckageShopBuyItemCfg;
+        if(wreckageItems != null && wreckageItems.Count > 0)
+        {
+            for(int i = 0; i < wreckageItems.Count; i++)
+            {
+                if (!goodsItems.ContainsKey(wreckageItems[i].GetGoodsID()))
+                {
+                    var goodsInfo = ShopGoodsInfo.CreateWreckageGoods(wreckageItems[i]);
+                    goodsItems.Add(goodsInfo.GoodsID, goodsInfo);
+                }
             }
         }
     }

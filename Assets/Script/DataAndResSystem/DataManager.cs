@@ -312,6 +312,12 @@ public class DataManager : Singleton<DataManager>
         return result;
     }
 
+    public WreckageShopBuyItemConfig GetWreckageShopBuyItemConfig(GoodsItemRarity rarity)
+    {
+        var lst = shopCfg.WreckageShopBuyItemCfg;
+        return lst.Find(x => x.Rarity == rarity);
+    }
+
     public ShipPlugDataItemConfig GetShipPlugItemConfig(int id)
     {
         ShipPlugDataItemConfig result = null;

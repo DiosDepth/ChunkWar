@@ -92,6 +92,18 @@ public class AIShipConfig : BaseShipConfig
     [HideLabel]
     public float targetSerchingRadius = 15f;
 
+    [FoldoutGroup("AI配置")]
+    [HorizontalGroup("AI配置/A")]
+    [BoxGroup("AI配置/A/到达玩家最小距离")]
+    [HideLabel]
+    public float ArrivalRadius = 15f;
+
+    [FoldoutGroup("AI配置")]
+    [HorizontalGroup("AI配置/A")]
+    [BoxGroup("AI配置/A/到达减速距离")]
+    [HideLabel]
+    public float SlotRadius = 5f;
+
     [FoldoutGroup("效果配置")]
     [HorizontalGroup("效果配置/A")]
     public string DieAudio;

@@ -41,6 +41,9 @@ public class ShopMainConfig : SerializedScriptableObject
     [DictionaryDrawerSettings(DisplayMode =  DictionaryDisplayOptions.Foldout)]
     public Dictionary<GoodsItemRarity, ShopGoodsRarityConfig> RarityMap = new Dictionary<GoodsItemRarity, ShopGoodsRarityConfig>();
 
+    [LabelText("装备包商店刷新")]
+    [HideReferenceObjectPicker]
+    public List<WreckageShopBuyItemConfig> WreckageShopBuyItemCfg = new List<WreckageShopBuyItemConfig>();
 }
 
 public enum GoodsItemRarity
@@ -68,6 +71,31 @@ public class WreckageDropItemConfig
     [TableColumnWidth(150, false)]
     public int LoadCost;
 
+}
+
+[System.Serializable]
+public class WreckageShopBuyItemConfig
+{
+    public byte WeightBase;
+    public GoodsItemRarity Rarity;
+    public int CostBase;
+    public GeneralItemConfig ItemConfig;
+
+    public int GetGoodsID()
+    {
+        switch (Rarity)
+        {
+            case GoodsItemRarity.Tier1:
+                return 100000;
+            case GoodsItemRarity.Tier2:
+                return 100001;
+            case GoodsItemRarity.Tier3:
+                return 100002;
+            case GoodsItemRarity.Tier4:
+                return 100004;
+        }
+        return -1;
+    }
 }
 
 [System.Serializable]

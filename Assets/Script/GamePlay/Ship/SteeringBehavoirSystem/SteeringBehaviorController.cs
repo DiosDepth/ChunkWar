@@ -96,6 +96,8 @@ public class SteeringBehaviorController : BaseController
         maxVelocity = cfg.MaxVelocity;
         maxAngularVelocity = cfg.MaxAngularVelocity;
         targetSerchingRadius = cfg.targetSerchingRadius;
+        arrivelBehaviorInfo.arriveRadius = cfg.ArrivalRadius;
+        arrivelBehaviorInfo.slowRadius = cfg.SlotRadius;
     }
 
 

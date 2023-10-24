@@ -946,3 +946,20 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+  WreckageShopBuyItemCfg:
+  - WeightBase: 20
+    Rarity: 0
+    CostBase: 15
+    MaxBuyCount: -1
+  - WeightBase: 20
+    Rarity: 1
+    CostBase: 45
+    MaxBuyCount: 0
+  - WeightBase: 15
+    Rarity: 2
+    CostBase: 90
+    MaxBuyCount: 0
+  - WeightBase: 10
+    Rarity: 3
+    CostBase: 135
+    MaxBuyCount: 0
