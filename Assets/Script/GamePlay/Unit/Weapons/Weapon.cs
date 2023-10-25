@@ -231,7 +231,7 @@ public class Weapon : Unit
                         }
                         else
                         {
-                            rv_targetsInfo[index + s] = tempinfolist[s - tempinfolist.Length];
+                            rv_targetsInfo[index + s] = tempinfolist[s % tempinfolist.Length];
                         }
                     }
                 }
