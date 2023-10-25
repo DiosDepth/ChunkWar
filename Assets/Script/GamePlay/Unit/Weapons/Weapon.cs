@@ -179,7 +179,7 @@ public class Weapon : Unit
 
 
 
-    [BurstCompile]
+
     public struct FindMutipleUnitTargetsJob : IJobParallelForBatch
     {
         [Unity.Collections.ReadOnly] public NativeArray<UnitJobData> job_unitJobData;

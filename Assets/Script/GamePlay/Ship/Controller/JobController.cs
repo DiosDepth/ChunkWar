@@ -403,7 +403,7 @@ public class JobController : IPauseable
 
         };
 
-        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(activeSelfBuildingData.activeBuildingList.Count, 2);
+        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(activeSelfBuildingData.activeBuildingList.Count, 1);
 
 
         jobHandle.Complete();

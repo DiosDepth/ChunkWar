@@ -96,10 +96,13 @@ public class BaseShip : MonoBehaviour, IPauseable
 
     public BaseShip GetFirstTarget()
     {
-        if(_unitList.Count == 0) { return null; }
+        if (_unitList.Count == 0) { return null; }
         if (_unitList[0].targetList.Count == 0) { return null; }
 
-        return _unitList[0].targetList[0].target.GetComponent<BaseShip>();
+        BaseShip baseship;
+        baseship = _unitList[0].targetList[0].target.GetComponent<Unit>()._owner;
+
+        return baseship;
     }
 
     public void SetFirstTarget(UnitTargetInfo unitinfo)

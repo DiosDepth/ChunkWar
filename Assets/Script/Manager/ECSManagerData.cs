@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using UnityEngine;
 using static GameHelper;
@@ -381,6 +382,7 @@ public class WeaponData : IJobData
     public List<AdditionalWeapon> activeWeaponList;
     public NativeList<UnitJobData> activeWeaponJobData;
 
+    [NativeDisableContainerSafetyRestriction]
     public NativeArray<UnitTargetJobData> rv_weaponTargetsInfo;
     public WeaponData()
     {
@@ -451,6 +453,7 @@ public class BuildingData : IJobData
     public List<Building> activeBuildingList;
     public NativeList<UnitJobData> activeBuildingJobData;
 
+    [NativeDisableContainerSafetyRestriction]
     public NativeArray<UnitTargetJobData> rv_buildingTargetsInfo;
 
     public BuildingData()
