@@ -1544,7 +1544,12 @@ MonoBehaviour:
   MaxAngularVelocity: 1
   boidRadius: 15
   targetSerchingRadius: 50
+  ArrivalRadius: 15
+  SlotRadius: 5
   DieAudio: 
+  AppearChangeCameraOrthographicSize: 0
+  CameraTargetOrthographicSize: 40
+  AppearWaning: 0
   DropList:
   - pickuptype: 1
     count: 5

@@ -161,10 +161,6 @@ public class BaseShip : MonoBehaviour, IPauseable
         _spriteAnimator = transform.Find("Sprite").SafeGetComponent<Animator>();
         _render = transform.Find("Sprite").SafeGetComponent<SpriteRenderer>();
         _sharedMat = _render.sharedMaterial;
-        if (_appearMat == null)
-        {
-            _appearMat = Instantiate(_sharedMat);
-        }
 
         CoreUnits = new List<Unit>();
         buildingsParent = transform.Find("Buildings").gameObject;
@@ -261,8 +257,8 @@ public class BaseShip : MonoBehaviour, IPauseable
 
     #region Anim
 
-    protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
-    protected const string Mat_Shader_ProeprtyKey_OUTBASE_ON = "OUTBASE_ON";
+    protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "_HologramBlend";
+    protected const string Mat_Shader_ProeprtyKey_OUTBASE_ON = "_OutlineAlpha";
 
     protected virtual void ResetAllAnimation()
     {

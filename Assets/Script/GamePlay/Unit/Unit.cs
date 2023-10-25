@@ -122,10 +122,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if(unitSprite != null && !IsInvisiableUnit)
         {
             _sharedMat = unitSprite.sharedMaterial;
-            if(_appearMat == null)
-            {
-                _appearMat = Instantiate(_sharedMat);
-            }
             _animator = unitSprite.transform.SafeGetComponent<Animator>();
         }
         _uiCanvas = transform.Find("UICanvas");
@@ -260,7 +256,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (_owner is AIShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
-
+            if (_appearMat == null)
+            {
+                _appearMat = Instantiate(_sharedMat);
+            }
         }
         if (_owner is PlayerShip || _owner is BaseDrone)
         {
@@ -407,7 +406,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
                 }
             }
             LevelManager.Instance.UnitBeforeHit(info);
-            UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
+            UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Bot, this.gameObject, (panel) =>
             {
                 panel.Initialization();
                 panel.SetText(Mathf.Abs(Damage), critical, rowScreenPos);
@@ -428,7 +427,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             else
             {
                 ///Show Player TakeDamage
-                UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
+                UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Bot, this.gameObject, (panel) =>
                 {
                     panel.Initialization();
                     panel.SetPlayerTakeDamageText(Mathf.Abs(info.Damage), rowScreenPos);
@@ -713,11 +712,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     protected async void _DoSpawnEffect()
     {
         unitSprite.material = _appearMat;
-        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_Spawn);
         var length = GameHelper.GetAnimatorClipLength(_animator, "EnemyShip_Spawn");
         await UniTask.Delay((int)(length * 1000));
-        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
         unitSprite.material = _sharedMat;
     }
 
@@ -732,7 +730,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     protected virtual void _DoDeSpawnEffect()
     {
         unitSprite.material = _appearMat;
-        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_DeSpawn);
     }
 
@@ -741,12 +738,12 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if (IsInvisiableUnit)
             return;
 
-        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
         _animator.ResetTrigger(AnimTrigger_Spawn);
         _animator.ResetTrigger(AnimTrigger_DeSpawn);
     }
 
-    protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "HOLOGRAM_ON";
+    protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "_HologramBlend";
 
     private void SetAnimatorTrigger(string trigger)
     {

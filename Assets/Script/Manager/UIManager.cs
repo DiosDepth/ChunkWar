@@ -184,7 +184,6 @@ public class UIManager : Singleton<UIManager>
         {
             obj.transform.SetParent(parent, false);
             obj.transform.localScale = Vector3.one;
-
             T panel = obj.GetComponent<T>();
             callback?.Invoke(panel);
         });

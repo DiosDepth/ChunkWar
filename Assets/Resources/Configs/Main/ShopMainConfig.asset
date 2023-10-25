@@ -950,16 +950,36 @@ MonoBehaviour:
   - WeightBase: 20
     Rarity: 0
     CostBase: 15
-    MaxBuyCount: -1
+    ItemConfig:
+      IconSprite: {fileID: 21300000, guid: d68216b0686d16d428cc0014b0f1eee4, type: 3}
+      Name: WrekageSellItem_Name_Tier1
+      Desc: WrekageSellItem_Desc_Tier1
+      Rarity: 0
+      SortingOrder: 0
   - WeightBase: 20
     Rarity: 1
     CostBase: 45
-    MaxBuyCount: 0
+    ItemConfig:
+      IconSprite: {fileID: 21300000, guid: 5904993738f5d59418ff4ae4c77eea0d, type: 3}
+      Name: WrekageSellItem_Name_Tier2
+      Desc: WrekageSellItem_Desc_Tier2
+      Rarity: 1
+      SortingOrder: 0
   - WeightBase: 15
     Rarity: 2
     CostBase: 90
-    MaxBuyCount: 0
+    ItemConfig:
+      IconSprite: {fileID: 21300000, guid: 9475fa9bd363ff04584662b033e9268d, type: 3}
+      Name: WrekageSellItem_Name_Tier3
+      Desc: WrekageSellItem_Desc_Tier3
+      Rarity: 2
+      SortingOrder: 0
   - WeightBase: 10
     Rarity: 3
     CostBase: 135
-    MaxBuyCount: 0
+    ItemConfig:
+      IconSprite: {fileID: 21300000, guid: 5cc348cc97694c446bd1d18e1b09d568, type: 3}
+      Name: WrekageSellItem_Name_Tier4
+      Desc: WrekageSellItem_Desc_Tier4
+      Rarity: 3
+      SortingOrder: 0

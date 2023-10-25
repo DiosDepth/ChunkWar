@@ -45,7 +45,7 @@ public class TriggerOptionItem : MonoBehaviour, IPoolable
             return;
 
         InputDispatcher.Instance.Action_GamePlay_Interact += HandlePressInput;
-        UIManager.Instance.CreatePoolerUI<BattleOptionItemUI>("BattleOptionItem", true, E_UI_Layer.Top, this, (panel) =>
+        UIManager.Instance.CreatePoolerUI<BattleOptionItemUI>("BattleOptionItem", true, E_UI_Layer.Bot, this, (panel) =>
         {
             panel.Initialization(Option);
             itemUI = panel;

@@ -28,6 +28,10 @@ public class AIShip : BaseShip,IPoolable, IDropable
     protected override void Awake()
     {
         base.Awake();
+        if (_appearMat == null)
+        {
+            _appearMat = Instantiate(_sharedMat);
+        }
     }
 
     protected override void OnDestroy()
@@ -62,6 +66,11 @@ public class AIShip : BaseShip,IPoolable, IDropable
         for (int i = 0; i < _unitList.Count; i++)
         {
             _unitList[i].SetDisable();
+        }
+
+        if (AIShipCfg.AppearChangeCameraOrthographicSize)
+        {
+            CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize, 2f);
         }
     }
 
@@ -119,6 +128,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
         }
         ///Do Spawn
         DoSpawnEffect();
+        SpawnSpecial();
     }
 
     public void PoolableReset()
@@ -187,6 +197,30 @@ public class AIShip : BaseShip,IPoolable, IDropable
     public override void UnPauseGame()
     {
         base.UnPauseGame();
+    }
+
+    /// <summary>
+    /// 出生特殊效果
+    /// </summary>
+    private void SpawnSpecial()
+    {
+        if (AIShipCfg.AppearChangeCameraOrthographicSize)
+        {
+            CameraManager.Instance.SetOrthographicSize(AIShipCfg.CameraTargetOrthographicSize, 2f);
+        }
+
+        if (AIShipCfg.AppearWarning)
+        {
+            UIManager.Instance.CreatePoolerUI<EnemyWarningLabel>("EnemyWarningLabel", true, E_UI_Layer.Bot, null, (panel) =>
+            {
+                panel.SetUp(LocalizationManager.Instance.GetTextValue(AIShipCfg.AppearWarningText));
+            });
+
+            if (!string.IsNullOrEmpty(AIShipCfg.AppearWarningAudio))
+            {
+                SoundManager.Instance.PlayUISound(AIShipCfg.AppearWarningAudio);
+            }
+        }
     }
 
     #region Drop
@@ -352,7 +386,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
         _isShowingOutLine = true;
         _render.material = _appearMat;
-        _appearMat.EnableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+        _appearMat.SetFloat(Mat_Shader_ProeprtyKey_OUTBASE_ON, 1);
     }
 
     /// <summary>
@@ -360,7 +394,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     /// </summary>
     public void HideEnhanceOutLine()
     {
-        _appearMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+        _appearMat.SetFloat(Mat_Shader_ProeprtyKey_OUTBASE_ON, 0);
         _isShowingOutLine = false;
         _render.material = _sharedMat;
     }
@@ -368,7 +402,6 @@ public class AIShip : BaseShip,IPoolable, IDropable
     private async void DoSpawnEffect()
     {
         _render.material = _appearMat;
-        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_Spawn);
         ///UnitSpawn
         for (int i = 0; i < _unitList.Count; i++) 
@@ -381,7 +414,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
         var length = GameHelper.GetAnimatorClipLength(_spriteAnimator, "EnemyShip_Spawn");
         await UniTask.Delay((int)(length * 1000));
-        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
         ///Spawn Effect Finish
         _render.material = _sharedMat;
         InitAIShipBillBoard();
@@ -393,7 +426,6 @@ public class AIShip : BaseShip,IPoolable, IDropable
     public void DoDeSpawnEffect()
     {
         _render.material = _appearMat;
-        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
         SetAnimatorTrigger(AnimTrigger_DeSpawn);
 
         ///UnitDeSpawn
@@ -409,8 +441,8 @@ public class AIShip : BaseShip,IPoolable, IDropable
     protected override void ResetAllAnimation()
     {
         base.ResetAllAnimation();
-        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
-        _appearMat.DisableKeyword(Mat_Shader_ProeprtyKey_OUTBASE_ON);
+        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
+        _appearMat.SetFloat(Mat_Shader_ProeprtyKey_OUTBASE_ON, 0);
         _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);
     }
 

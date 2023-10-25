@@ -1634,7 +1634,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GameManager.Instance.UnPauseGame();
         InputDispatcher.Instance.ChangeInputMode("Player");
         CameraManager.Instance.SetFollowPlayerShip();
-        CameraManager.Instance.SetOrthographicSize(40);
+        CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize);
         UIManager.Instance.HiddenUI("ShopHUD");
         UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, this, (panel) =>
         {

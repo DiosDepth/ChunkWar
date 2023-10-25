@@ -1413,13 +1413,19 @@ MonoBehaviour:
   BillboardType: 0
   AttackBase: 5
   HardLevelGroupID: 1
+  EnemyCountModify: 0
   MaxVelocity: 0
   MaxAcceleration: 0
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 15
   targetSerchingRadius: 15
+  ArrivalRadius: 15
+  SlotRadius: 5
   DieAudio: 
+  AppearChangeCameraOrthographicSize: 0
+  CameraTargetOrthographicSize: 40
+  AppearWaning: 0
   DropList:
   - pickuptype: 1
     count: 5
