@@ -1040,7 +1040,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         await UniTask.Delay(1000);
         await UniTask.WaitUntil(() => !IsShowingShipLevelUp);
         SoundManager.Instance.PlayUISound("Wave_Finish");
-        LevelManager.Instance.DoAllShipDespawn();
+        LevelManager.Instance.DoAllDespawn();
 
         await UniTask.Delay(3000);
         ECSManager.Instance.GameOverAgent();

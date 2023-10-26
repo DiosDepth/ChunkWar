@@ -23,6 +23,10 @@ public class TriggerOptionItem : MonoBehaviour, IPoolable
     protected BattleOptionItem Option;
     private BattleOptionItemUI itemUI;
 
+    protected const string AnimTrigger_Spawn = "Spawn";
+    protected const string AnimTrigger_DeSpawn = "DeSpawn";
+    protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "_HologramBlend";
+
     protected virtual void Awake()
     {
         trigger = transform.Find("Trigger").SafeGetComponent<Collider2D>();

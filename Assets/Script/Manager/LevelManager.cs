@@ -129,6 +129,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         }
     }
     private static GameObject _PickUpPool;
+    private ShopTeleport _shopTeleport;
 
     #region Actions
 
@@ -391,17 +392,18 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
     public void LevelActive()
     {
-
         isLevelUpdate = true;
     }
 
     public void UnloadCurrentLevel( )
     {
         if(currentLevel == null) { return; }
+
+        LeanTween.cancelAll();
         isLevelUpdate = false;
         currentLevel.Unload();
         GameObject.Destroy(currentLevel.gameObject);
-        LeanTween.cancelAll();
+        _shopTeleport = null;
         currentLevel = null;
     }
 
@@ -411,9 +413,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         isLevelUpdate = false;
         CameraManager.Instance.SetCameraUpdate(false);
-
         _bulletPool.transform.Pool_BackAllChilds();
         _PickUpPool.transform.Pool_BackAllChilds();
+        _shopTeleport.PoolableDestroy();
     }
 
     public void LevelReset()
@@ -522,12 +524,17 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         }
     }
 
-    public void DoAllShipDespawn()
+    public void DoAllDespawn()
     {
         var allEnemyShip = ECSManager.Instance.activeAIAgentData.shipList;
         for(int i = 0; i < allEnemyShip.Count; i++)
         {
             (allEnemyShip[i] as AIShip).DoDeSpawnEffect();
+        }
+
+        if(_shopTeleport != null)
+        {
+            _shopTeleport.DoDeSpawnEffect();
         }
     }
 
@@ -553,8 +560,10 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         PoolManager.Instance.GetObjectSync(Shop_Teleport_Path, true, (obj) =>
         {
             obj.transform.position = targetPos;
-            obj.transform.SafeGetComponent<ShopTeleport>().Init();
-        }, PickUpPool);
+            var cmpt = obj.transform.SafeGetComponent<ShopTeleport>();
+            cmpt.Init();
+            _shopTeleport = cmpt;
+        });
         RogueEvent.Trigger(RogueEventType.ShopTeleportSpawn);
     }
 
