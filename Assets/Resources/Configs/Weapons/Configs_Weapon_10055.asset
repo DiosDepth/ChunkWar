@@ -450,13 +450,16 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
+  HPBarOffsetY: 0
+  HPBarHeight: 0.4
+  HPBarWidth: 3
+  BaseRange: 250
   DamageBase: 50
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
   DamageType: 0
-  BaseRange: 250
   BaseCriticalRate: 5
   CriticalDamage: 125
   TotalDamageCount: 12
@@ -477,3 +480,8 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
+  HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}

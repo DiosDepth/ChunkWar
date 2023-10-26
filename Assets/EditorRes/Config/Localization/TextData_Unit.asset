@@ -145,6 +145,14 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: Weapon_Name_10030
-    ChineseSimplified: "\u5C0F\u578B\u7535\u78C1\u70AE"
+    ChineseSimplified: "\u5C0F\u578B\u7535\u78C1\u70AET1"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10031
+    ChineseSimplified: "\u5C0F\u578B\u7535\u78C1\u70AET2"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10032
+    ChineseSimplified: "\u5C0F\u578B\u7535\u78C1\u70AET3"
     English: 
     Japanese: 

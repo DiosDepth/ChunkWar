@@ -428,7 +428,7 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: c48ec6a6e900dd649898218959643c73, type: 3}
     Name: Weapon_Name_10060
     Desc: Weapon_Desc_10060
-    Rarity: 0
+    Rarity: 2
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: e5b6598b775b55b43930713cf29b4fd5, type: 3}
   m_FlattendMapLayout: 
@@ -450,13 +450,16 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
+  HPBarOffsetY: 0
+  HPBarHeight: 0.4
+  HPBarWidth: 3
+  BaseRange: 600
   DamageBase: 50
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
   DamageType: 0
-  BaseRange: 1000
   BaseCriticalRate: 10
   CriticalDamage: 125
   TotalDamageCount: 24
@@ -466,6 +469,19 @@ MonoBehaviour:
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
+  Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}
