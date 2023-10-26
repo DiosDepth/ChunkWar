@@ -23,11 +23,12 @@ public class PropertyHoverItem : GUIBasePanel, IPoolable
     {
         base.Initialization(param);
         PropertyDisplayConfig cfg = (PropertyDisplayConfig)param[0];
+        PropertyModifyKey key = (PropertyModifyKey)param[1];
         if (cfg == null)
             return;
 
         _nameText.text = LocalizationManager.Instance.GetTextValue(cfg.NameText);
-        _descText.text = LocalizationManager.Instance.GetTextValue(cfg.DescText);
+        _descText.text = GameHelper.GetPropertyHoverDesc(key, cfg);
 
         _enable = true;
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform.Find("Content").SafeGetComponent<RectTransform>());

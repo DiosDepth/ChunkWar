@@ -1083,8 +1083,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_PhysicsDamage
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_PhysicsDamage
     - Name: Icon
       Entry: 10
       Data: 12
@@ -1119,8 +1119,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_EnergyDamage
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_EnergyDamage
     - Name: Icon
       Entry: 10
       Data: 13

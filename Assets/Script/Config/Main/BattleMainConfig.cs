@@ -226,6 +226,7 @@ public class PropertyDisplayConfig
     public bool IsPercent;
     public bool ReverseColor = false;
     public int TextSpriteIndex = -1;
+
 }
 
 [System.Serializable]

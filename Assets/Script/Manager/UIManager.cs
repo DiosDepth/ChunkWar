@@ -66,6 +66,7 @@ public class UIManager : Singleton<UIManager>
     private Camera m_uiCamera;
 
     private List<RaycastResult> raycastResultsList = new List<RaycastResult>();
+
     //public PlayerHUD playerHUD;
     // Start is called before the first frame update
     public UIManager()
@@ -280,6 +281,25 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
+    /// <summary>
+    /// 清除所有HoverUI
+    /// </summary>
+    public void ClearAllHoverUI()
+    {
+        List<string> removelist = new List<string>();
+        foreach (KeyValuePair<string, GUIBasePanel> kv in panelDic)
+        {
+            if(kv.Value is IUIHoverPanel)
+            {
+                removelist.Add(kv.Key);
+            }
+        }
+
+        for (int i = 0; i < removelist.Count; i++)
+        {
+            HiddenUI(removelist[i]);
+        }
+    }
 
     public void HiddenAllUI()
     {

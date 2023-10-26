@@ -4,6 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface IUIHoverPanel
+{
+
+}
+
 public class UnitDetailHover : DetailHoverItemBase
 {
     private TextMeshProUGUI _energyCostText;

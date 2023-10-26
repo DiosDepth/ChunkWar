@@ -133,6 +133,34 @@ public static class GameHelper
         }
     }
 
+    /// <summary>
+    /// 获取属性详情显示
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    public static string GetPropertyHoverDesc(PropertyModifyKey key, PropertyDisplayConfig cfg)
+    {
+        var rowDesc = LocalizationManager.Instance.GetTextValue(cfg.DescText);
+
+        if (rowDesc.Contains("#V#"))
+        {
+            rowDesc = rowDesc.Replace("#V#", GetPropertyHoverValue(key, cfg));
+        }
+
+        return rowDesc;
+    }
+
+    private static string GetPropertyHoverValue(PropertyModifyKey key, PropertyDisplayConfig cfg)
+    {
+        var value = RogueManager.Instance.MainPropertyData.GetPropertyFinal(key);
+        string mark = value >= 0 ? "+" : "-";
+        string content = cfg.IsPercent ? mark + value.ToString("f0") + "%" : mark + value.ToString("f0");
+        var colorCode = GetColorCode_PropertyHover(value, 0, cfg.ReverseColor);
+
+        return string.Format("<color={0}>{1}</color>", colorCode, content);
+    }
+
     #region Battle
 
     public static OwnerShipType GetOwnerShipType(BaseShip ship)
@@ -894,6 +922,18 @@ public static class GameHelper
             return Color_White_Code;
 
         if(value1 > value2)
+        {
+            return reverse ? Color_Red_Code : Color_Blue_Code;
+        }
+        else
+        {
+            return reverse ? Color_Blue_Code : Color_Red_Code;
+        }
+    }
+
+    public static string GetColorCode_PropertyHover(float value1, float value2, bool reverse)
+    {
+        if (value1 >= value2)
         {
             return reverse ? Color_Red_Code : Color_Blue_Code;
         }

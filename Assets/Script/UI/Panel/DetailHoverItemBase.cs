@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DetailHoverItemBase : GUIBasePanel, IPoolable
+public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
 {
     private CanvasGroup _mainCanvas;
     protected RectTransform _contentRect;

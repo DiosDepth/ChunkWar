@@ -49,10 +49,16 @@ public class ShopTeleport : TriggerOptionItem
         m_sprite.material = _sharedMat;
     }
 
-    public void DoDeSpawnEffect()
+    public async void DoDeSpawnEffect(bool destroy = false)
     {
+        var length = GameHelper.GetAnimatorClipLength(_animator, "ShopTeleportTrigger_DeSpawn");
+        await UniTask.Delay((int)(length * 1000));
         m_sprite.material = _appearMat;
         _animator.SetTrigger(AnimTrigger_DeSpawn);
+        if (destroy)
+        {
+            PoolableDestroy();
+        }
     }
 
     public override void PoolableReset()
@@ -85,11 +91,7 @@ public class ShopTeleport : TriggerOptionItem
         if (!Vaild())
             return;
 
-        DoDeSpawnEffect();
-        var length = GameHelper.GetAnimatorClipLength(_animator, "ShopTeleportTrigger_DeSpawn");
-        await UniTask.Delay((int)(length * 1000));
-
-        PoolableDestroy();
+        DoDeSpawnEffect(true);
     }
 
     private void OnEnterShop()
