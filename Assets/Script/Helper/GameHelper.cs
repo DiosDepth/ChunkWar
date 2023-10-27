@@ -750,6 +750,13 @@ public static class GameHelper
         return Mathf.Max(1, Mathf.RoundToInt(rowHP * hpRatio));
     }
 
+    public static int CalculateDamageCount(int rowCount)
+    {
+        var add = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageCount);
+        add += rowCount;
+        return (int)Mathf.Clamp(add, 1, GameGlobalConfig.DamageCount_ProtectMax);
+    }
+
     /// <summary>
     /// 获取Unit出售价格
     /// </summary>
@@ -805,7 +812,7 @@ public static class GameHelper
         }
         else if (type == UI_WeaponUnitPropertyType.Damage)
         {
-            var damageCount = cfg.TotalDamageCount;
+            var damageCount = CalculateDamageCount(cfg.TotalDamageCount);
             var damage = CalculteWeaponDamage(cfg);
             string color = GetColorCode(damage, cfg.DamageBase, false);
 

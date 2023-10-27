@@ -293,8 +293,19 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         if(pickedItem is PickUpWaste)
         {
             var gold = pickedItem as PickUpWaste;
-            RogueManager.Instance.AddDropWasteCount(gold.WasteGain);
-            RogueManager.Instance.AddEXP(gold.EXPGain);
+
+            var doubleRate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Double_WasteRate);
+            int wasteGain = gold.WasteGain;
+            float expGain = gold.EXPGain;
+            bool doubue = Utility.CalculateRate100(doubleRate);
+            if (doubue)
+            {
+                wasteGain *= 2;
+                expGain *= 2;
+            }
+
+            RogueManager.Instance.AddDropWasteCount(wasteGain);
+            RogueManager.Instance.AddEXP(expGain);
             CollectPickUp(AvaliablePickUp.WastePickup);
         }
         else if (pickedItem is PickUpWreckage)

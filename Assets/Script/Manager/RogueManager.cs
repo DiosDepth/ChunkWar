@@ -351,6 +351,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CurrentShipLevelUpItems.Clear();
         _extraSpawnConfig.Clear();
         _eliteSpawnWaves.Clear();
+        _alreadySpawnedEliteIDs.Clear();
 
         _currentRereollCount = 0;
         _shopRefreshTotalCount = 0;
@@ -2564,6 +2565,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///Check Load Node
         if (!result)
             return result;
+
+        _eliteSpawnWaves = sav.EliteSpawnWaves;
+        _alreadySpawnedEliteIDs = sav.AlreadySpawnedEliteIDs;
+
         ///InitMap
         ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
         LoadPropertySave(sav);
@@ -2609,6 +2614,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         sav.Currency = CurrentCurrency;
         sav.ShipLevel = GetCurrentShipLevel;
         sav.EXP = GetCurrentExp;
+        sav.EliteSpawnWaves = _eliteSpawnWaves;
+        sav.AlreadySpawnedEliteIDs = _alreadySpawnedEliteIDs;
 
         sav.PlugRuntimeSaves = CreatePlugRuntimeSaveData();
         sav.PropertyRowSav = MainPropertyData.CreatePropertyModifyRowSaveData();

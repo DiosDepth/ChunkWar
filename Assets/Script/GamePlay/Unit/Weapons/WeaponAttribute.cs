@@ -114,6 +114,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private float BaseDamageRatioMin;
     private float BaseDamageRatioMax;
     private float EnemyWeaponATKPercent;
+    private bool CanModifyDamageCount;
 
     /// <summary>
     /// Œ‰∆˜…À∫¶
@@ -195,6 +196,7 @@ public class WeaponAttribute : UnitBaseAttribute
         DamageType = _weaponCfg.DamageType;
         BaseDamage = _weaponCfg.DamageBase;
         BaseCritical = _weaponCfg.BaseCriticalRate;
+        CanModifyDamageCount = _weaponCfg.CanModifyDamageCount;
 
         BaseReloadCD = _weaponCfg.CD;
         BaseFireCD = _weaponCfg.FireCD;
@@ -231,6 +233,7 @@ public class WeaponAttribute : UnitBaseAttribute
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageCount, CalculateDamageCount);
 
                 CalculateRange();
                 CalculateMaxMagazineSize();
@@ -238,6 +241,7 @@ public class WeaponAttribute : UnitBaseAttribute
                 CalculateTransfixionPercent();
                 CalculateReloadTime();
                 CalculateDamageDeltaTime();
+                CalculateMaxMagazineSize();
             }
             else if(ownerType == OwnerShipType.PlayerDrone)
             {
@@ -289,6 +293,7 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMin, CalclculateDamageRatioMin);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
+
         }
 
         if(_ownerShipType == OwnerShipType.PlayerShip)
@@ -388,5 +393,17 @@ public class WeaponAttribute : UnitBaseAttribute
         var modify = mainProperty.GetPropertyFinal(PropertyModifyKey.DamageRangeMax);
         var newValue = modify / 100f + BaseDamageRatioMax;
         DamageRatioMax = Mathf.Clamp(newValue, DamageRatioMin, float.MaxValue);
+    }
+
+    private void CalculateDamageCount()
+    {
+        if (!CanModifyDamageCount)
+        {
+            MaxMagazineSize = BaseMaxMagazineSize;
+        }
+        else
+        {
+            MaxMagazineSize = GameHelper.CalculateDamageCount(BaseMaxMagazineSize);
+        }
     }
 }

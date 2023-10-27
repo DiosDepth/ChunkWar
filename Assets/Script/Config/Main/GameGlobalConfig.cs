@@ -40,6 +40,10 @@ public static class GameGlobalConfig
     /// </summary>
     public const float ShipSpeedModify_Protected_MaxSpeed = 10;
     public const byte ShopGoods_MaxCount = 5;
+    /// <summary>
+    /// 最大伤害数量
+    /// </summary>
+    public const byte DamageCount_ProtectMax = 99;
 
     public const byte Ship_MaxLevel = 99;
     public const byte MeteoriteGenerate_MaxCount = 100;

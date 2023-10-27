@@ -103,6 +103,12 @@ public class WeaponConfig : BaseUnitConfig
     public byte ShootPerCount;
 
     [FoldoutGroup("基础属性")]
+    [HorizontalGroup("基础属性/B", 200)]
+    [LabelText("可修正伤害数")]
+    [LabelWidth(80)]
+    public bool CanModifyDamageCount = false;
+
+    [FoldoutGroup("基础属性")]
     [HorizontalGroup("基础属性/C", 200)]
     [LabelText("装填CD")]
     [LabelWidth(80)]
