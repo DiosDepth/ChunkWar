@@ -1549,7 +1549,9 @@ MonoBehaviour:
   DieAudio: 
   AppearChangeCameraOrthographicSize: 0
   CameraTargetOrthographicSize: 40
-  AppearWaning: 0
+  AppearWarning: 0
+  AppearWarningText: 
+  AppearWarningAudio: 
   DropList:
   - pickuptype: 1
     count: 5

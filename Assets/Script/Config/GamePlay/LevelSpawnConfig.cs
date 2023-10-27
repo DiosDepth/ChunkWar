@@ -9,11 +9,40 @@ using UnityEngine;
 
 public class LevelSpawnConfig : SerializedScriptableObject
 {
+    [System.Serializable]
+    public class EliteRandomSpawnConfig
+    {
+        [LabelText("波次ID")]
+        public int WaveIndex;
+        [LabelText("过滤精英ID")]
+        public int[] ExceptEliteIDs = new int[0];
+        [LabelText("生成时间列表")]
+        public ushort[] EliteSpawnTimeList = new ushort[0];
+    }
+
     [LabelText("关卡预设ID")]
     [ReadOnly]
     public int LevelPresetID;
 
     public string BGMEvent;
+
+    [FoldoutGroup("特殊敌人随机生成")]
+    [HorizontalGroup("特殊敌人随机生成/A", 300)]
+    [LabelText("启用生成")]
+    [LabelWidth(100)]
+    public bool EnableSpecialEnemySpawn = false;
+
+    [FoldoutGroup("特殊敌人随机生成")]
+    [HorizontalGroup("特殊敌人随机生成/A")]
+    [LabelText("精英累计生成的波次数")]
+    [LabelWidth(150)]
+    public byte TotalSpawnWaveCount = 0;
+
+    [FoldoutGroup("特殊敌人随机生成")]
+    [HorizontalGroup("特殊敌人随机生成/C")]
+    [LabelText("生成配置")]
+    [LabelWidth(100)]
+    public List<EliteRandomSpawnConfig> EliteRandomSpawnCfg = new List<EliteRandomSpawnConfig>();
 
     [ListDrawerSettings(CustomAddFunction = "AddNewWave", NumberOfItemsPerPage = 3)]
     [Title("波次信息配置", TitleAlignment = TitleAlignments.Centered)]
@@ -23,6 +52,11 @@ public class LevelSpawnConfig : SerializedScriptableObject
     private WaveConfig AddNewWave()
     {
         return new WaveConfig();
+    }
+
+    public EliteRandomSpawnConfig GetEliteSpawnConfig(int waveIndex)
+    {
+        return EliteRandomSpawnCfg.Find(x => x.WaveIndex == waveIndex);
     }
 
 #if UNITY_EDITOR
@@ -225,3 +259,4 @@ public class WaveEnemySpawnConfig
     }
 #endif
 }
+

@@ -296,6 +296,15 @@ public class DataManager : Singleton<DataManager>
         return lst;
     }
 
+    /// <summary>
+    /// 获取所有精英AI船
+    /// </summary>
+    /// <returns></returns>
+    public List<int> GetAllAIEliteIDs()
+    {
+        return _AIShipConfigDic.Values.Where(x => x.ClassLevel == EnemyClassType.Elite).Select(x => x.ID).ToList();
+    }
+
     public ShopGoodsItemConfig GetShopGoodsCfg(int goodsID)
     {
         ShopGoodsItemConfig result = null;
