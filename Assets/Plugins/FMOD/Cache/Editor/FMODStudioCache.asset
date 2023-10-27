@@ -504,6 +504,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4745774452199491325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/shipSpawn_Warning
+  m_EditorClassIdentifier: 
+  Path: event:/UI/shipSpawn_Warning
+  Guid:
+    Data1: 1156243805
+    Data2: 1155665425
+    Data3: 49582488
+    Data4: 886857293
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4526521602577045453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,12 +968,13 @@ MonoBehaviour:
   - {fileID: 3573297084082961665}
   - {fileID: -6480248171132154116}
   - {fileID: -4907778600340958788}
+  - {fileID: -4745774452199491325}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7608658188462933578}
   StringsBanks:
   - {fileID: 1227211710014248362}
-  cacheTime: 638335842254656057
+  cacheTime: 638339571257822970
   cacheVersion: 131608
 --- !u!114 &629929198641315281
 MonoBehaviour:
@@ -981,10 +1009,10 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638335750543529490
+  lastModified: 638339571257802972
   FileSizes:
   - Name: 
-    Value: 2706
+    Value: 2762
   Exists: 1
 --- !u!114 &1288176805813493146
 MonoBehaviour:
@@ -1263,7 +1291,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/UI
-  lastModified: 638335750544500748
+  lastModified: 638339571257822970
   FileSizes: []
   Exists: 1
 --- !u!114 &5084095035335514901
@@ -1506,7 +1534,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638335750543519497
+  lastModified: 638338693603874636
   FileSizes: []
   Exists: 1
 --- !u!114 &8280454677774467645

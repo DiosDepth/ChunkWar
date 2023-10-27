@@ -450,13 +450,16 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
+  HPBarOffsetY: 0
+  HPBarHeight: 0.4
+  HPBarWidth: 3
+  BaseRange: 400
   DamageBase: 50
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
   DamageType: 0
-  BaseRange: 400
   BaseCriticalRate: 5
   CriticalDamage: 150
   TotalDamageCount: 24
@@ -466,6 +469,19 @@ MonoBehaviour:
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
-  TransfixionReduce: 0
+  Scatter: 0
   DamageModifyFrom: []
   FireAudioClip: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}

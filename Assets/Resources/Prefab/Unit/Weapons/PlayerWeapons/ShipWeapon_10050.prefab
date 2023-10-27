@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 10050
+  IsInvisiableUnit: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
   maxTargetCount: 1
@@ -61,7 +62,7 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 0
   aimingtype: 1
-  bulletType: 10
+  bulletName: BaseBullet_AI
   targetmode: 1
   mask:
     serializedVersion: 2
@@ -208,7 +209,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1205307937
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 41c53f60186cbea4daaee62313688904, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

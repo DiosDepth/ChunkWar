@@ -12,7 +12,6 @@ public class CameraManager : Singleton<CameraManager>
     private Dictionary<string, CinemachineVirtualCamera> vcamDic = new Dictionary<string, CinemachineVirtualCamera>();
 
     public float minCameraOrthSize = 10;
-    public Transform referencePoint;
 
     private bool isCameraUpdate;
     private Camera _currentCamera;
@@ -47,7 +46,6 @@ public class CameraManager : Singleton<CameraManager>
 
         MonoManager.Instance.DontDestroyOnLoad(_currentCamera);
         MonoManager.Instance.DontDestroyOnLoad(_currentVCamera);
-        MonoManager.Instance.AddUpdateListener(UpdateOrthSizeByDistance);
     }
 
     /// <summary>
@@ -76,10 +74,6 @@ public class CameraManager : Singleton<CameraManager>
         _isShaking = false;
     }
 
-    public void SetReferencePoint(Transform reftrs)
-    {
-        referencePoint = reftrs;
-    }
     public void SetCameraUpdate(bool isupdate)
     {
         isCameraUpdate = isupdate;
@@ -114,9 +108,23 @@ public class CameraManager : Singleton<CameraManager>
         vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = 0;
     }
 
-    public void SetOrthographicSize(int size)
+    public void SetOrthographicSize(int size, float duration = 0f)
     {
-        vcam.m_Lens.OrthographicSize = size;
+        if(duration <= 0f)
+        {
+            _currentVCamera.m_Lens.OrthographicSize = size;
+            return;
+        }
+
+        var currentSize = _currentVCamera.m_Lens.OrthographicSize;
+        LeanTween.value(_currentVCamera.gameObject, currentSize, size, duration).setOnUpdate(
+            (value) =>
+            {
+                _currentVCamera.m_Lens.OrthographicSize = value;
+            }).setOnComplete(() =>
+            {
+                _currentVCamera.m_Lens.OrthographicSize = size;
+            });
     }
 
     public void ResetMainCamera()
@@ -180,13 +188,4 @@ public class CameraManager : Singleton<CameraManager>
         vcam.ForceCameraPosition(pos, Quaternion.identity);
     }
 
-    public void UpdateOrthSizeByDistance()
-    {
-        if(isCameraUpdate)
-        {
-           float size= Mathf.Max(minCameraOrthSize, Mathf.Abs(_currentVCamera.Follow.position.y - referencePoint.position.y));
-            _currentVCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_currentVCamera.m_Lens.OrthographicSize, size, ref _refvel, 0.5f);
-        }
-      
-    }
 }

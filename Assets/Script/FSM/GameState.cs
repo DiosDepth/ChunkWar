@@ -186,7 +186,7 @@ public class EGameState_GamePrepare : GameState
                 //初始化摄影机
                 CameraManager.Instance.SetFollowPlayerShip();
                 CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
-                CameraManager.Instance.SetOrthographicSize(40);
+                CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize);
                 GameEvent.Trigger(EGameState.EGameState_GameStart);
             });
         }

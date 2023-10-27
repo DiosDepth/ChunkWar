@@ -186,6 +186,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private Dictionary<uint, Unit> _currentShipUnits = new Dictionary<uint, Unit>();
     public List<Unit> AllShipUnits = new List<Unit>();
 
+    private List<int> _eliteSpawnWaves = new List<int>();
+    private List<int> _alreadySpawnedEliteIDs = new List<int>();
     private BattleSpecialEntitySpawnConfig _entitySpawnConfig;
     private List<ExtraSpawnInfo> _extraSpawnConfig = new List<ExtraSpawnInfo>();
 
@@ -348,6 +350,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _allShipLevelUpItems.Clear();
         CurrentShipLevelUpItems.Clear();
         _extraSpawnConfig.Clear();
+        _eliteSpawnWaves.Clear();
 
         _currentRereollCount = 0;
         _shopRefreshTotalCount = 0;
@@ -434,6 +437,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         InitDefaultProperty();
         InitWave();
+        InitRandomEliteSpawn();
         InitWreckageData();
         InitShopData();
         InitAllGoodsItems();
@@ -993,7 +997,23 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SoundManager.Instance.PlayUISound("Wave_Start", 0.5f);
     }
 
+    /// <summary>
+    /// 随机精英生成分布
+    /// </summary>
+    private void InitRandomEliteSpawn()
+    {
+        if (!CurrentHardLevel.SpawnConfig.EnableSpecialEnemySpawn)
+            return;
 
+        ///Elite Spawn
+        var spawnCount = CurrentHardLevel.SpawnConfig.TotalSpawnWaveCount;
+        var spawnCfg = CurrentHardLevel.SpawnConfig.EliteRandomSpawnCfg;
+
+        List<int> waveIndexs = spawnCfg.Select(x => x.WaveIndex).ToList();
+        System.Random rand = new System.Random();
+        var targetWaves = waveIndexs.OrderBy(index => rand.Next()).Take(spawnCount).ToList();
+        _eliteSpawnWaves = targetWaves;
+    }
 
     private int GetCurrentWaveTime()
     {
@@ -1040,7 +1060,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         await UniTask.Delay(1000);
         await UniTask.WaitUntil(() => !IsShowingShipLevelUp);
         SoundManager.Instance.PlayUISound("Wave_Finish");
-        LevelManager.Instance.DoAllShipDespawn();
+        LevelManager.Instance.DoAllDespawn();
 
         await UniTask.Delay(3000);
         ECSManager.Instance.GameOverAgent();
@@ -1109,6 +1129,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             trigger.BindChangeAction(CreateFactory, cfg.ID);
             Timer.AddTrigger(trigger);
         }
+        ///创建精英生成器
+        GenerateEliteSpawnTrigger();
 
         var currentWaveTime = GetCurrentWaveTime();
 
@@ -1141,6 +1163,28 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var ancientTrigger2 = LevelTimerTrigger.CreateTrigger(ancientSmoothDeltaTime, ancientSmoothDeltaTime, -1, currentWaveTime - _entitySpawnConfig.AncientUnitGenerate_EndTime, "ancientGenerate_2");
         ancientTrigger2.BindChangeAction(CreateAncientUnitShip_Smooth);
         Timer.AddTrigger(ancientTrigger2);
+    }
+
+    private void GenerateEliteSpawnTrigger()
+    {
+        if (!_eliteSpawnWaves.Contains(GetCurrentWaveIndex))
+            return;
+
+        var eliteSpawnCfg = CurrentHardLevel.SpawnConfig.GetEliteSpawnConfig(GetCurrentWaveIndex);
+        if (eliteSpawnCfg == null)
+            return;
+
+        var spawnLst = eliteSpawnCfg.EliteSpawnTimeList;
+        if (spawnLst != null && spawnLst.Length > 0) 
+        {
+            ///Create Timer
+            for (int i = 0; i < spawnLst.Length; i++)
+            {
+                var trigger = LevelTimerTrigger.CreateTrigger(spawnLst[i], 0, 1, -1);
+                trigger.BindChangeAction(CreateElite);
+                Timer.AddTrigger(trigger);
+            }
+        }
     }
 
     private void GenerateShopCreateTimer()
@@ -1325,6 +1369,46 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             MaxRowCount = 1,
         };
         SpawnEntity(cfg);
+    }
+
+    /// <summary>
+    /// 创建精英
+    /// </summary>
+    private void CreateElite()
+    {
+        ///重复优化
+        var allEliteLst = DataManager.Instance.GetAllAIEliteIDs();
+        var vaildList = allEliteLst.FindAll(x => !_alreadySpawnedEliteIDs.Contains(x));
+        int outID = -1;
+
+        System.Random ran = new System.Random();
+        if(vaildList.Count <= 0)
+        {
+            ///重置一遍
+            _alreadySpawnedEliteIDs.Clear();
+            outID = allEliteLst[ran.Next(0, allEliteLst.Count)];
+            _alreadySpawnedEliteIDs.Add(outID);
+        }
+        else
+        {
+            outID = vaildList[ran.Next(0, vaildList.Count)];
+            _alreadySpawnedEliteIDs.Add(outID);
+        }
+
+        if (outID == -1)
+            return;
+
+        ///Create Elite
+        WaveEnemySpawnConfig tempCfg = new WaveEnemySpawnConfig
+        {
+            AITypeID = outID,
+            DurationDelta = 0,
+            LoopCount = 1,
+            TotalCount = 1,
+            MaxRowCount = 1,
+        };
+
+        SpawnEntity(tempCfg);
     }
 
     private void CreateFactory(int ID)
@@ -1634,7 +1718,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GameManager.Instance.UnPauseGame();
         InputDispatcher.Instance.ChangeInputMode("Player");
         CameraManager.Instance.SetFollowPlayerShip();
-        CameraManager.Instance.SetOrthographicSize(40);
+        CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize);
         UIManager.Instance.HiddenUI("ShopHUD");
         UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, this, (panel) =>
         {
@@ -1685,7 +1769,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private void GainShopItem(ShopGoodsInfo info)
     {
-        AddNewShipPlug(info._cfg.TypeID, info.GoodsID);
+        if (info.IsWreckage)
+        {
+            AddInLevelDrop(info.Rarity);
+        }
+        else
+        {
+            AddNewShipPlug(info._cfg.TypeID, info.GoodsID);
+        }
     }
     
     /// <summary>
@@ -1935,6 +2026,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             {
                 var goodsInfo = ShopGoodsInfo.CreateGoods(goodsCfg.GoodID);
                 goodsItems.Add(goodsInfo.GoodsID, goodsInfo);
+            }
+        }
+
+        ///Init Wreckage Shop Item
+        var wreckageItems = DataManager.Instance.shopCfg.WreckageShopBuyItemCfg;
+        if(wreckageItems != null && wreckageItems.Count > 0)
+        {
+            for(int i = 0; i < wreckageItems.Count; i++)
+            {
+                if (!goodsItems.ContainsKey(wreckageItems[i].GetGoodsID()))
+                {
+                    var goodsInfo = ShopGoodsInfo.CreateWreckageGoods(wreckageItems[i]);
+                    goodsItems.Add(goodsInfo.GoodsID, goodsInfo);
+                }
             }
         }
     }

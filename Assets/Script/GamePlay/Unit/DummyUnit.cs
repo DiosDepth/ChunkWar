@@ -69,7 +69,7 @@ public class DummyUnit : Unit
         ///只有敌人才显示伤害数字
         ///这里需要显示对应的漂浮文字
         var rowPos = CameraManager.Instance.mainCamera.WorldToScreenPoint(transform.position);
-        UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Top, this.gameObject, (panel) =>
+        UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Bot, this.gameObject, (panel) =>
         {
             panel.Initialization();
             panel.SetText(Mathf.Abs(Damage), critical, rowPos);

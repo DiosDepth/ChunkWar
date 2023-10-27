@@ -431,3 +431,7 @@ MonoBehaviour:
     ChineseSimplified: "\u5168\u90E8\u51FA\u552E"
     English: 
     Japanese: 
+  - TextID: EnemyAppear_Content_Elite
+    ChineseSimplified: "\u5F3A\u654C\u51FA\u73B0"
+    English: 
+    Japanese: 

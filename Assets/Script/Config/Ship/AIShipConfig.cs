@@ -92,9 +92,56 @@ public class AIShipConfig : BaseShipConfig
     [HideLabel]
     public float targetSerchingRadius = 15f;
 
+    [FoldoutGroup("AI配置")]
+    [HorizontalGroup("AI配置/A")]
+    [BoxGroup("AI配置/A/到达玩家最小距离")]
+    [HideLabel]
+    public float ArrivalRadius = 15f;
+
+    [FoldoutGroup("AI配置")]
+    [HorizontalGroup("AI配置/A")]
+    [BoxGroup("AI配置/A/到达减速距离")]
+    [HideLabel]
+    public float SlotRadius = 5f;
+
     [FoldoutGroup("效果配置")]
     [HorizontalGroup("效果配置/A")]
+    [LabelText("死亡音效")]
+    [LabelWidth(100)]
     public string DieAudio;
+
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/A")]
+    [LabelText("改变OrthographicSize")]
+    [LabelWidth(150)]
+    public bool AppearChangeCameraOrthographicSize = false;
+
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/A")]
+    [LabelText("改变FOV")]
+    [LabelWidth(100)]
+    public int CameraTargetOrthographicSize = 40;
+
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/B")]
+    [LabelText("出现警告")]
+    [LabelWidth(100)]
+    public bool AppearWarning = false;
+
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/B")]
+    [LabelText("警告文本")]
+    [LabelWidth(100)]
+    [ShowIf("AppearWarning")]
+    public string AppearWarningText;
+
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/B")]
+    [LabelText("警告音效")]
+    [LabelWidth(100)]
+    [ShowIf("AppearWarning")]
+    public string AppearWarningAudio;
+
 
     [FoldoutGroup("掉落配置")]
     public List<DropInfo> DropList = new List<DropInfo>();

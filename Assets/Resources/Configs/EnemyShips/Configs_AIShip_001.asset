@@ -1420,7 +1420,14 @@ MonoBehaviour:
   MaxAngularVelocity: 1
   boidRadius: 1
   targetSerchingRadius: 30
+  ArrivalRadius: 15
+  SlotRadius: 5
   DieAudio: Ship/ShipExplode_001
+  AppearChangeCameraOrthographicSize: 0
+  CameraTargetOrthographicSize: 40
+  AppearWarning: 0
+  AppearWarningText: 
+  AppearWarningAudio: 
   DropList:
   - pickuptype: 1
     count: 1

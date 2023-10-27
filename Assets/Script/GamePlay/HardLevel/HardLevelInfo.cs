@@ -8,13 +8,17 @@ public class HardLevelInfo
     public int HardLevelID;
     public HardLevelConfig Cfg;
 
-    private LevelSpawnConfig _spawnConfig;
+    public LevelSpawnConfig SpawnConfig
+    {
+        get;
+        private set;
+    }
 
     public string BGMEventName
     {
         get
         {
-            return _spawnConfig.BGMEvent;
+            return SpawnConfig.BGMEvent;
         }
     }
 
@@ -66,13 +70,13 @@ public class HardLevelInfo
     {
         get
         {
-            return _spawnConfig.WaveConfig.Count;
+            return SpawnConfig.WaveConfig.Count;
         }
     }
 
     public HardLevelInfo(HardLevelConfig cfg)
     {
-        _spawnConfig = DataManager.Instance.GetLevelSpawnConfig(cfg.LevelPresetID);
+        SpawnConfig = DataManager.Instance.GetLevelSpawnConfig(cfg.LevelPresetID);
         HardLevelID = cfg.HardLevelID;
         Cfg = cfg;
     }
@@ -83,14 +87,14 @@ public class HardLevelInfo
         if (hardLevelCfg == null)
             return;
 
-        _spawnConfig = DataManager.Instance.GetLevelSpawnConfig(hardLevelCfg.LevelPresetID);
+        SpawnConfig = DataManager.Instance.GetLevelSpawnConfig(hardLevelCfg.LevelPresetID);
         HardLevelID = hardLevelID;
         Cfg = hardLevelCfg;
     }
 
     public WaveConfig GetWaveConfig(int waveIndex)
     {
-        var waveConfigs = _spawnConfig.WaveConfig;
+        var waveConfigs = SpawnConfig.WaveConfig;
 
         return waveConfigs.Find(x => x.WaveIndex == waveIndex);
     }

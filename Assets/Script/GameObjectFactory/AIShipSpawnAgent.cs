@@ -44,13 +44,9 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
         for (int i = 0; i < shapeposlist.Count; i++)
         {
             //实例化所有的配置敌人ＡＩ
-            CancellationTokenSource cts = new CancellationTokenSource();
-            ctkLst.Add(cts);
-            await UniTask.Delay((int)m_aispawninfo.shapeSetting.spawnIntervalTime * 1000, cancellationToken : cts.Token);
+            await UniTask.Delay((int)m_aispawninfo.shapeSetting.spawnIntervalTime * 1000);
             tasklist.Add(CreateEntity(m_aispawninfo, shapeposlist[i]));
         }
-
-        await UniTask.WhenAll(tasklist);
 
         CancellationTokenSource cts2 = new CancellationTokenSource();
         ctkLst.Add(cts2);

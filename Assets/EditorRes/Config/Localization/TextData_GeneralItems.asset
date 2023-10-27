@@ -881,3 +881,35 @@ MonoBehaviour:
     ChineseSimplified: "\u56DE\u6536\u5206\u6790"
     English: 
     Japanese: 
+  - TextID: WrekageSellItem_Name_Tier1
+    ChineseSimplified: "\u88C5\u5907\u6B8B\u9AB8T1"
+    English: 
+    Japanese: 
+  - TextID: WrekageSellItem_Name_Tier2
+    ChineseSimplified: "\u88C5\u5907\u6B8B\u9AB8T2"
+    English: 
+    Japanese: 
+  - TextID: WrekageSellItem_Name_Tier3
+    ChineseSimplified: "\u88C5\u5907\u6B8B\u9AB8T3"
+    English: 
+    Japanese: 
+  - TextID: WrekageSellItem_Name_Tier4
+    ChineseSimplified: "\u88C5\u5907\u6B8B\u9AB8T4"
+    English: 
+    Japanese: 
+  - TextID: WrekageSellItem_Desc_Tier1
+    ChineseSimplified: "\u8FDB\u5165\u6E2F\u53E3\u65F6\uFF0C\u53EF\u4EE5\u83B7\u5F97\u7B49\u7EA71\u7684\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 
+  - TextID: WrekageSellItem_Desc_Tier2
+    ChineseSimplified: "\u8FDB\u5165\u6E2F\u53E3\u65F6\uFF0C\u53EF\u4EE5\u83B7\u5F97\u7B49\u7EA72\u7684\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 
+  - TextID: WrekageSellItem_Desc_Tier3
+    ChineseSimplified: "\u8FDB\u5165\u6E2F\u53E3\u65F6\uFF0C\u53EF\u4EE5\u83B7\u5F97\u7B49\u7EA73\u7684\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 
+  - TextID: WrekageSellItem_Desc_Tier4
+    ChineseSimplified: "\u8FDB\u5165\u6E2F\u53E3\u65F6\uFF0C\u53EF\u4EE5\u83B7\u5F97\u7B49\u7EA74\u7684\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 

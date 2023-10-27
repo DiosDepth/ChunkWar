@@ -8,10 +8,21 @@ public class ShopTeleport : TriggerOptionItem
     private bool _hasEnterShop = false;
 
     private const string BattleOption_EnterShop = "BattleOption_EnterShop";
+    private SpriteRenderer m_sprite;
+    protected Material _sharedMat;
+    protected static Material _appearMat;
+    protected Animator _animator;
 
     protected override void Awake()
     {
         base.Awake();
+        m_sprite = transform.Find("Sprite").SafeGetComponent<SpriteRenderer>();
+        _animator = m_sprite.transform.SafeGetComponent<Animator>();
+        _sharedMat = m_sprite.sharedMaterial;
+        if(_appearMat == null)
+        {
+            _appearMat = Instantiate(_sharedMat);
+        }
     }
 
     public override void Init()
@@ -24,7 +35,38 @@ public class ShopTeleport : TriggerOptionItem
         };
         _hasEnterShop = false;
         SoundManager.Instance.PlayBattleSound("Ship/Shop_Appear", transform);
+        DoSpawnEffect();
         DelayDestroy();
+    }
+
+    private async void DoSpawnEffect()
+    {
+        m_sprite.material = _appearMat;
+        _animator.SetTrigger(AnimTrigger_Spawn);
+        var length = GameHelper.GetAnimatorClipLength(_animator, "ShopTeleportTrigger_Spawn");
+        await UniTask.Delay((int)(length * 1000));
+        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
+        m_sprite.material = _sharedMat;
+    }
+
+    public async void DoDeSpawnEffect(bool destroy = false)
+    {
+        var length = GameHelper.GetAnimatorClipLength(_animator, "ShopTeleportTrigger_DeSpawn");
+        await UniTask.Delay((int)(length * 1000));
+        m_sprite.material = _appearMat;
+        _animator.SetTrigger(AnimTrigger_DeSpawn);
+        if (destroy)
+        {
+            PoolableDestroy();
+        }
+    }
+
+    public override void PoolableReset()
+    {
+        base.PoolableReset();
+        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
+        _animator.ResetTrigger(AnimTrigger_Spawn);
+        _animator.ResetTrigger(AnimTrigger_DeSpawn);
     }
 
     protected override void OnTrigger()
@@ -49,7 +91,7 @@ public class ShopTeleport : TriggerOptionItem
         if (!Vaild())
             return;
 
-        PoolableDestroy();
+        DoDeSpawnEffect(true);
     }
 
     private void OnEnterShop()

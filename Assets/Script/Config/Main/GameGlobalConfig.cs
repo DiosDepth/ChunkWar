@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class GameGlobalConfig
 {
+    public const int CameraDefault_OrthographicSize = 40;
+
     /// <summary>
     /// max ship size 
     /// </summary>

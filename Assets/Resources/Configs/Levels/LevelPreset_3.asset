@@ -267,3 +267,18 @@ MonoBehaviour:
       Data: 
   LevelPresetID: 3
   BGMEvent: BattleBGM_1
+  EnableSpecialEnemySpawn: 1
+  TotalSpawnWaveCount: 3
+  EliteRandomSpawnCfg:
+  - WaveIndex: 6
+    ExceptEliteIDs: 
+    EliteSpawnTimeList: 05003200
+  - WaveIndex: 7
+    ExceptEliteIDs: 
+    EliteSpawnTimeList: 
+  - WaveIndex: 8
+    ExceptEliteIDs: 
+    EliteSpawnTimeList: 
+  - WaveIndex: 9
+    ExceptEliteIDs: 
+    EliteSpawnTimeList: 

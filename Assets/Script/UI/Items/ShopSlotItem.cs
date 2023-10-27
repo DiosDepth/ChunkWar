@@ -67,19 +67,33 @@ public class ShopSlotItem : MonoBehaviour, IPoolable
         if (info == null)
             return;
 
-        itemTypeID = info._cfg.TypeID;
-        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
-        if (plugCfg == null)
-            return;
+        if (info.IsWreckage)
+        {
+            var wreckageCfg = DataManager.Instance.GetWreckageShopBuyItemConfig(info.Rarity);
+            if (wreckageCfg == null)
+                return;
 
-        _rarityBG.sprite = GameHelper.GetRarityBG_Big(plugCfg.GeneralConfig.Rarity);
-        _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
-        SetEffectDesc(info.GetEffectDesc(), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
+            _rarityBG.sprite = GameHelper.GetRarityBG_Big(wreckageCfg.ItemConfig.Rarity);
+            _nameText.color = GameHelper.GetRarityColor(wreckageCfg.ItemConfig.Rarity);
+            _nameText.text = LocalizationManager.Instance.GetTextValue(wreckageCfg.ItemConfig.Name);
+            _icon.sprite = wreckageCfg.ItemConfig.IconSprite;
+        }
+        else
+        {
+            itemTypeID = info._cfg.TypeID;
+            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
+            if (plugCfg == null)
+                return;
+
+            _rarityBG.sprite = GameHelper.GetRarityBG_Big(plugCfg.GeneralConfig.Rarity);
+            _nameText.color = GameHelper.GetRarityColor(plugCfg.GeneralConfig.Rarity);
+            SetEffectDesc(info.GetEffectDesc(), LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Desc));
+            _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
+            _icon.sprite = plugCfg.GeneralConfig.IconSprite;
+        }
+
         SetUpProperty();
         SetUpBuyLimit(_goodsInfo);
-        _nameText.text = LocalizationManager.Instance.GetTextValue(plugCfg.GeneralConfig.Name);
-        _icon.sprite = plugCfg.GeneralConfig.IconSprite;
-
         SetUpDiscount();
         RefreshCost();
         //SetUpTag(plugCfg);
@@ -124,6 +138,9 @@ public class ShopSlotItem : MonoBehaviour, IPoolable
 
     public void RefreshLuckPercentProperty()
     {
+        if (_goodsInfo.IsWreckage)
+            return;
+
         var plugCfg = DataManager.Instance.GetShipPlugItemConfig(itemTypeID);
         if (plugCfg == null)
             return;
@@ -252,14 +269,20 @@ public class ShopSlotItem : MonoBehaviour, IPoolable
 
     private void SetUpProperty()
     {
-        var plugCfg = DataManager.Instance.GetShipPlugItemConfig(_goodsInfo._cfg.TypeID);
-        PropertyModifyRoot.Pool_BackAllChilds(ShopPropertyItem_PrefabPath);
-        if (plugCfg != null)
+        if (_goodsInfo.IsWreckage)
         {
-            SetUpPropertyCmpt(plugCfg.PropertyModify, false);
-            SetUpPropertyCmpt(plugCfg.PropertyPercentModify, true);
+            PropertyModifyRoot.Pool_BackAllChilds(ShopPropertyItem_PrefabPath);
         }
-
+        else
+        {
+            var plugCfg = DataManager.Instance.GetShipPlugItemConfig(_goodsInfo._cfg.TypeID);
+            PropertyModifyRoot.Pool_BackAllChilds(ShopPropertyItem_PrefabPath);
+            if (plugCfg != null)
+            {
+                SetUpPropertyCmpt(plugCfg.PropertyModify, false);
+                SetUpPropertyCmpt(plugCfg.PropertyPercentModify, true);
+            }
+        }
         var rect = PropertyModifyRoot.GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }

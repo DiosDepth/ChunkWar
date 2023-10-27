@@ -156,7 +156,7 @@ public class AchievementManager : Singleton<AchievementManager>
             _isShowingAchievement = true;
             var achievement = _achievementUIQueue.Dequeue();
             AchievementUI m_ui = null;
-            UIManager.Instance.CreatePoolerUI<AchievementUI>("AchievementUI", true, E_UI_Layer.Top, null, (panel) =>
+            UIManager.Instance.CreatePoolerUI<AchievementUI>("AchievementUI", true, E_UI_Layer.Bot, null, (panel) =>
             {
                 m_ui = panel;
                 panel.SetUp(achievement);

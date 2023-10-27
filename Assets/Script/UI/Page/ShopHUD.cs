@@ -178,6 +178,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
                 {
                     var cmpt = obj.GetComponent<ShopSlotItem>();
                     cmpt.SetUp(allShopItems[index]);
+                    cmpt.transform.localScale = Vector3.one;
                     allShopSlotItems.Add(cmpt);
                     index++;
                 }, _shopContentRoot);

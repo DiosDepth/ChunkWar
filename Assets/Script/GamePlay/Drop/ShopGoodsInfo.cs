@@ -31,6 +31,15 @@ public class ShopGoodsInfo : RandomObject
     }
 
     /// <summary>
+    /// 是否残骸包
+    /// </summary>
+    public bool IsWreckage
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
     /// 打折比例
     /// </summary>
     public byte DiscountValue
@@ -115,6 +124,7 @@ public class ShopGoodsInfo : RandomObject
         info._cfg = cfg;
         info.Weight = cfg.Weight;
         info.DiscountValue = 0;
+        info.IsWreckage = false;
 
         var plugCfg = DataManager.Instance.GetShipPlugItemConfig(cfg.TypeID);
         if (plugCfg != null)
@@ -122,6 +132,25 @@ public class ShopGoodsInfo : RandomObject
             info.Rarity = plugCfg.GeneralConfig.Rarity;
         }
 
+        return info;
+    }
+
+    public static ShopGoodsInfo CreateWreckageGoods(WreckageShopBuyItemConfig cfg)
+    {
+        ShopGoodsInfo info = new ShopGoodsInfo();
+        info.Weight = cfg.WeightBase;
+        info.DiscountValue = 0;
+        info.GoodsID = cfg.GetGoodsID();
+        info._cfg = new ShopGoodsItemConfig()
+        {
+            CostBase = cfg.CostBase,
+            GoodID = cfg.GetGoodsID(),
+            MaxBuyCount = -1,
+            TypeID = 0,
+            Weight = cfg.WeightBase
+        };
+        info.IsWreckage = true;
+        info.Rarity = cfg.Rarity;
         return info;
     }
 

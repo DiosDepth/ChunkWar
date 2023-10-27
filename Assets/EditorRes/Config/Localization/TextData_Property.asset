@@ -312,7 +312,7 @@ MonoBehaviour:
     English: 
     Japanese: 
   - TextID: PropertyDesc_ShipHP
-    ChineseSimplified: "\u8230\u8239\u7ED3\u6784\u989D\u5916\u589E\u52A0\u503C\uFF0C\u6838\u5FC3\u7684\u8230\u8239\u7ED3\u6784\u5F52\u96F6\u65F6\uFF0C\u6E38\u620F\u7ED3\u675F"
+    ChineseSimplified: "\u5F71\u54CD\u8230\u8239\u6240\u6709\u88C5\u5907\u7684\u7ED3\u6784\u767E\u5206\u6BD4\uFF0C\u7ED3\u6784\u4E3A0\u65F6\uFF0C\u88C5\u5907\u4F1A\u9677\u5165\u762B\u75EA\u72B6\u6001\uFF0C\u6838\u5FC3\u7ED3\u6784\u4E3A0\u65F6\uFF0C\u6E38\u620F\u7ED3\u675F"
     English: 
     Japanese: 
   - TextID: PropertyName_ShieldDamage
@@ -361,5 +361,13 @@ MonoBehaviour:
     Japanese: 
   - TextID: PropertyName_ShieldRecoverValue
     ChineseSimplified: "\u62A4\u76FE\u6062\u590D\u91CF"
+    English: 
+    Japanese: 
+  - TextID: PropertyDesc_EnergyDamage
+    ChineseSimplified: "\u52A8\u80FD\u7C7B\u578B\u4F24\u5BB3#V#"
+    English: 
+    Japanese: 
+  - TextID: PropertyDesc_PhysicsDamage
+    ChineseSimplified: "\u52A8\u80FD\u7C7B\u578B\u4F24\u5BB3#V#"
     English: 
     Japanese: 

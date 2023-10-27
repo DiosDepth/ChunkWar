@@ -125,7 +125,7 @@ public class ShipPropertyItemCmpt : MonoBehaviour, IPoolable, IHoverUIItem
         UIManager.Instance.CreatePoolerUI<PropertyHoverItem>("PropertyHoverItem", true, E_UI_Layer.Top, null, (panel) =>
         {
             var cfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(PropertyKey);
-            panel.Initialization(cfg);
+            panel.Initialization(cfg, PropertyKey);
             _hoverItem = panel;
         });
     }
