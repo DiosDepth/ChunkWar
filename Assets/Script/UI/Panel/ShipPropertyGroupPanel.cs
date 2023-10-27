@@ -23,7 +23,7 @@ public class ShipPropertyGroupPanel : MonoBehaviour
          PropertyModifyKey.PhysicsDamage,
          PropertyModifyKey.EnergyDamage,
          PropertyModifyKey.Command,
-         PropertyModifyKey.WeaponRange,
+         PropertyModifyKey.Range,
          PropertyModifyKey.ShieldHP,
          PropertyModifyKey.ShieldArmor,
          PropertyModifyKey.Luck,

@@ -294,6 +294,6 @@ public class InstanceHit : Bullet
 
     private void InitMaxDistance()
     {
-        maxDistance = (_owner as Weapon).weaponAttribute.BaseRange;
+        maxDistance = (_owner as Weapon).weaponAttribute.Range;
     }
 }

@@ -819,7 +819,7 @@ public static class GameHelper
         }
         else if (type == UI_WeaponUnitPropertyType.Range)
         {
-            var rangerow = propertyData.GetPropertyFinal(PropertyModifyKey.WeaponRange);
+            var rangerow = propertyData.GetPropertyFinal(PropertyModifyKey.Range);
             int range = Mathf.RoundToInt(rangerow + cfg.BaseRange);
             string color = GetColorCode(range, cfg.BaseRange, false);
 

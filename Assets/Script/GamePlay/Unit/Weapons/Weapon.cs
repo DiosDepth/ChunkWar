@@ -287,7 +287,7 @@ public class Weapon : Unit
     {
         targetList.RemoveAll(x => x == null 
         || x.target.activeInHierarchy == false 
-        || x.distance > weaponAttribute.BaseRange);
+        || x.distance > weaponAttribute.Range);
 
         if(targetList.Count != 0)
         {

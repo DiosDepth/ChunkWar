@@ -283,7 +283,7 @@ public class ShipController : BaseController
         base.SetVelocity(m_vect);
 
     }
-    public override void UpdateIBoid()
+    public override void UpdateBoid()
     {
         velocity = (transform.position - lastpos) / Time.deltaTime;
         lastpos = transform.position;

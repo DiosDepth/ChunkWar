@@ -168,7 +168,7 @@ public class Projectile : Bullet, IDamageble
                     Vector3 initialtargetpos;
                     if((Owner as Weapon).aimingtype == WeaponAimingType.Directional)
                     {
-                        initialtargetpos = transform.position + transform.up * Owner.baseAttribute.BaseRange;
+                        initialtargetpos = transform.position + transform.up * Owner.baseAttribute.Range;
                     }
                     else
                     {

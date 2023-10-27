@@ -18,7 +18,7 @@ public class BaseController : MonoBehaviour, IPauseable, IBoid
     protected float _deltaAcceleration;
 
     protected Vector3 velocity;
-    protected Vector3 lastpos;
+    public Vector3 lastpos;
 
     public virtual void Initialization()
     {
@@ -139,9 +139,9 @@ public class BaseController : MonoBehaviour, IPauseable, IBoid
         velocity = m_vect;
 
     }
-    public virtual void UpdateIBoid()
+    public virtual void UpdateBoid()
     {
-        velocity = (transform.position - lastpos) / Time.fixedDeltaTime;
+        //velocity = (transform.position - lastpos) / Time.fixedDeltaTime;
         lastpos = transform.position;
     }
     public virtual void PauseGame()

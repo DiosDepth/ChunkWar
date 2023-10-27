@@ -46,7 +46,7 @@ public class ChainBeamemit : Bullet
     {
         PoolableSetActive();
         duration = (_owner as Weapon).weaponAttribute.FireCD;
-        maxDistance = (_owner as Weapon).weaponAttribute.BaseRange;
+        maxDistance = (_owner as Weapon).weaponAttribute.Range;
 
         switch ((_owner as Weapon).aimingtype)
         {
@@ -231,7 +231,7 @@ public class ChainBeamemit : Bullet
         beamline.SetPosition(1, Vector3.zero);
         beamline.SetPosition(0, Vector3.zero);
         hit = new RaycastHit2D();
-        maxDistance = (_owner as Weapon).weaponAttribute.BaseRange;
+        maxDistance = (_owner as Weapon).weaponAttribute.Range;
         _tempRaytFrequenceStamp = float.MinValue;
         _isChained = false;
 

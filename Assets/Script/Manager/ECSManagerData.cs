@@ -111,7 +111,7 @@ public class IBoidData : IJobData
         BoidJobData data;
         for (int i = 0; i < shipList.Count; i++)
         {
-            boidAgentList[i].UpdateIBoid();
+         
             data.position = boidAgentList[i].GetPosition();
             data.velocity = boidAgentList[i].GetVelocity();
             data.rotationZ = boidAgentList[i].GetRotationZ();
@@ -240,7 +240,6 @@ public class AgentData : IBoidData
 
         for (int i = 0; i < shipList.Count; i++)
         {
-            boidAgentList[i].UpdateIBoid();
             data.position = boidAgentList[i].GetPosition();
             data.velocity = boidAgentList[i].GetVelocity();
             data.rotationZ = boidAgentList[i].GetRotationZ();
@@ -407,7 +406,7 @@ public class WeaponData : IJobData
         UnitJobData tempweaponjobdata;
         for (int i = 0; i < activeWeaponList.Count; i++)
         {
-            tempweaponjobdata.range = activeWeaponList[i].weaponAttribute.BaseRange;
+            tempweaponjobdata.range = activeWeaponList[i].weaponAttribute.Range;
             tempweaponjobdata.position = activeWeaponList[i].transform.position;
             tempweaponjobdata.targetCount = activeWeaponList[i].maxTargetCount;
             activeWeaponJobData[i] = tempweaponjobdata;
@@ -419,7 +418,7 @@ public class WeaponData : IJobData
         if (activeWeaponList.Contains(weapon)) { return; }
         activeWeaponList.Add(weapon);
         UnitJobData tempweaponjobdata;
-        tempweaponjobdata.range = weapon.weaponAttribute.BaseRange;
+        tempweaponjobdata.range = weapon.weaponAttribute.Range;
         tempweaponjobdata.position = weapon.transform.position;
         tempweaponjobdata.targetCount = weapon.maxTargetCount;
         activeWeaponJobData.Add(tempweaponjobdata);
@@ -479,7 +478,7 @@ public class BuildingData : IJobData
         UnitJobData buildingJobData;
         for (int i = 0; i < activeBuildingList.Count; i++)
         {
-            buildingJobData.range = activeBuildingList[i].buildingAttribute.BaseRange;
+            buildingJobData.range = activeBuildingList[i].buildingAttribute.Range;
             buildingJobData.position = activeBuildingList[i].transform.position;
             buildingJobData.targetCount = activeBuildingList[i].maxTargetCount;
             activeBuildingJobData[i] = buildingJobData;
@@ -492,7 +491,7 @@ public class BuildingData : IJobData
         if (activeBuildingList.Contains(building)) { return; }
         activeBuildingList.Add(building);
         UnitJobData tempbuildingjobdata;
-        tempbuildingjobdata.range = building.buildingAttribute.BaseRange;
+        tempbuildingjobdata.range = building.buildingAttribute.Range;
         tempbuildingjobdata.position = building.transform.position;
         tempbuildingjobdata.targetCount = building.maxTargetCount;
         activeBuildingJobData.Add(tempbuildingjobdata);
@@ -553,7 +552,7 @@ public class DroneData : AgentData
 
         for (int i = 0; i < targetShipList.Count; i++)
         {
-            targetBoidAgentList[i].UpdateIBoid();
+            
             data.position = targetBoidAgentList[i].GetPosition();
             data.velocity = targetBoidAgentList[i].GetVelocity();
             data.rotationZ = targetBoidAgentList[i].GetRotationZ();
@@ -681,7 +680,7 @@ public class ProjectileData : IJobData
 
         if ((projectile.Owner as Weapon).aimingtype == WeaponAimingType.Directional)
         {
-            initialtargetpos = projectile.transform.position + projectile.transform.up * projectile.Owner.baseAttribute.BaseRange;
+            initialtargetpos = projectile.transform.position + projectile.transform.up * projectile.Owner.baseAttribute.Range;
         }
         else
         {

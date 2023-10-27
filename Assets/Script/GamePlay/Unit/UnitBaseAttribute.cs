@@ -65,8 +65,8 @@ public class UnitBaseAttribute
     /// <summary>
     /// ÎäÆ÷Éä³ÌºÍ½¨ÖþË÷µÐ·¶Î§
     /// </summary>
-    public float BaseRange { get; protected set; }
-
+    public float Range { get; protected set; }
+    private float BaseRange;
     /// <summary>
     /// ÊÇ·ñÍæ¼Ò½¢´¬£¬Ó°ÏìÉËº¦¼ÆËã
     /// </summary>
@@ -89,10 +89,11 @@ public class UnitBaseAttribute
         BaseEnergyGenerate = cfg.BaseEnergyGenerate;
         BaseParalysisRecoverTime = cfg.ParalysisResumeTime;
         BaseRange = cfg.BaseRange;
+
         if (_ownerShipType == OwnerShipType.PlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.HP, CalculateHP);
-
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
             if (BaseEnergyCost != 0)
             {
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponEnergyCostPercent, CalculateEnergyCost);
@@ -106,6 +107,7 @@ public class UnitBaseAttribute
             }
 
             CalculateHP();
+            CalculateRange();
             CalculateEnergyCost();
             CalculateEnergyGenerate();
             CalculateUnitParalysis();
@@ -113,11 +115,12 @@ public class UnitBaseAttribute
         else if(_ownerShipType == OwnerShipType.PlayerDrone)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Aircraft_HP, CalculateDroneHP);
-
+            //mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
             CalculateDroneHP();
         }
         else
         {
+            Range = BaseRange / 10;
             //unit with no owner ,that means this is a dispersed unit;
             if (_parentUnit._owner == null)
             {
@@ -226,6 +229,11 @@ public class UnitBaseAttribute
         {
             playerShip.RefreshShipEnergy();
         }
+    }
+    protected void CalculateRange()
+    {
+        var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.Range);
+        Range = Mathf.Clamp((BaseRange + weaponRange) / 10f, 0, float.MaxValue);
     }
 
     private void InitEnemyHardLevelItem()

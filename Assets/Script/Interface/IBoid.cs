@@ -11,5 +11,5 @@ public interface IBoid
     float GetRotationZ();
     void SetVelocity( Vector3 m_vect);
 
-    void UpdateIBoid();
+    void UpdateBoid();
 }

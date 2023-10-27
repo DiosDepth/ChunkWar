@@ -236,7 +236,7 @@ public class JobController : IPauseable
 
         for (int i = 0; i < activeSelfAgentData.shipList.Count; i++)
         {
-            activeSelfAgentData.steeringControllerList[i].UpdateIBoid();
+            activeSelfAgentData.steeringControllerList[i].UpdateBoid();
 
             activeSelfAgentData.steeringControllerList[i].Move(activeSelfAgentData.rv_deltaMovement[i].linear);
             activeSelfAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfAgentData.rv_deltaMovement[i].angular);
@@ -865,7 +865,7 @@ public class JobController : IPauseable
 
         for (int i = 0; i < activeSelfDroneAgentData.shipList.Count; i++)
         {
-            activeSelfDroneAgentData.steeringControllerList[i].UpdateIBoid();
+            activeSelfDroneAgentData.steeringControllerList[i].UpdateBoid();
 
             activeSelfDroneAgentData.steeringControllerList[i].Move(activeSelfDroneAgentData.rv_deltaMovement[i].linear);
             activeSelfDroneAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfDroneAgentData.rv_deltaMovement[i].angular);

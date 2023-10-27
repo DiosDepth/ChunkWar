@@ -25,7 +25,7 @@ public enum PropertyModifyKey
     /// <summary>
     /// 武器范围
     /// </summary>
-    WeaponRange,
+    Range,
     /// <summary>
     /// 商店刷新数量
     /// </summary>

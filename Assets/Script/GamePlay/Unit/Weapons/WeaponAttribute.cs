@@ -103,7 +103,7 @@ public class WeaponAttribute : UnitBaseAttribute
     private List<UnitPropertyModifyFrom> modifyFrom;
     private bool UseDamageRatio;
     private float BaseCritical;
-    private float BaseWeaponRange;
+ 
     private float BaseReloadCD;
     private float BaseFireCD;
     private float BaseCriticalDamagePercent;
@@ -225,14 +225,14 @@ public class WeaponAttribute : UnitBaseAttribute
 
             if (ownerType == OwnerShipType.PlayerShip)
             {
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+                mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
 
-                CalculateWeaponRange();
+                CalculateRange();
                 CalculateMaxMagazineSize();
                 CalculateTransfixionCount();
                 CalculateTransfixionPercent();
@@ -258,7 +258,7 @@ public class WeaponAttribute : UnitBaseAttribute
             FireCD = BaseFireCD;
             ReloadTime = BaseReloadCD;
             MaxMagazineSize = BaseMaxMagazineSize;
-            BaseRange = BaseWeaponRange / 10f;
+
             Transfixion = BaseTransfixion;
             TransfixionReduce = BaseTransfixionDamage;
             EnemyWeaponATKPercent = _weaponCfg.EnemyAttackModify;
@@ -293,7 +293,7 @@ public class WeaponAttribute : UnitBaseAttribute
 
         if(_ownerShipType == OwnerShipType.PlayerShip)
         {
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.WeaponRange, CalculateWeaponRange);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
         }
@@ -327,11 +327,6 @@ public class WeaponAttribute : UnitBaseAttribute
         CriticalRatio = criticalRatio + BaseCritical;
     }
 
-    private void CalculateWeaponRange()
-    {
-        var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.WeaponRange);
-        BaseRange = Mathf.Clamp((BaseWeaponRange + weaponRange) / 10f, 0, float.MaxValue);
-    }
 
     private void CalculateReloadTime()
     {

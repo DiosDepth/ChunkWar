@@ -350,7 +350,8 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         AIJobController.UpdateAdditionalWeapon(ref activeAIDroneWeaponData);
         AIJobController.UpdateAdditionalBuilding(ref activeAIBuildingData, ref activePlayerUnitData);
         AIJobController.UpdateProjectile(ref activeAIProjectileData, ref activePlayerUnitData);
-      
+
+
     }
 
     public virtual void FixedUpdate()
@@ -358,6 +359,8 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!ProcessECS) { return; }
         UpdateJobData();
+
+
         playerJobController.UpdateDroneAgentMovement(ref activePlayerDroneAgentData, activeAIAgentData);
         AIJobController.UpdateAgentMovement(ref activeAIAgentData,  activePlayerBoidData);
 
