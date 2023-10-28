@@ -188,6 +188,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private List<int> _eliteSpawnWaves = new List<int>();
     private List<int> _alreadySpawnedEliteIDs = new List<int>();
+    private List<int> _spawnBossTempLst = new List<int>();
     private BattleSpecialEntitySpawnConfig _entitySpawnConfig;
     private List<ExtraSpawnInfo> _extraSpawnConfig = new List<ExtraSpawnInfo>();
 
@@ -351,6 +352,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CurrentShipLevelUpItems.Clear();
         _extraSpawnConfig.Clear();
         _eliteSpawnWaves.Clear();
+        _alreadySpawnedEliteIDs.Clear();
+        _spawnBossTempLst.Clear();
 
         _currentRereollCount = 0;
         _shopRefreshTotalCount = 0;
@@ -943,7 +946,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     #endregion
 
     
-    #region Wave & HardLevel
+    #region Wave & HardLevel & Spawn
 
     private int _currentHardLevelIndex;
     /// <summary>
@@ -993,6 +996,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.AddTrigger(trigger);
         CalculateHardLevelIndex();
         AddWaveTrigger();
+
+        if (IsFinalWave())
+        {
+            LevelManager.Instance.Action_OnShipDie += CheckLevelWinByBoss;
+        }
 
         SoundManager.Instance.PlayUISound("Wave_Start", 0.5f);
     }
@@ -1083,6 +1091,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         WaveEnd = false;
         _currentGenerateAncientUnitShipCount = 0;
         _currentAncientUnitProtectRateAdd = 0;
+        LevelManager.Instance.SpawnSector.RefreshAndClear();
 
         _tempWaveTime = GetCurrentWaveTime();
         AddWaveTrigger();
@@ -1101,15 +1110,66 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         return GetCurrentWaveIndex >= waveCount;
     }
 
+    /// <summary>
+    /// 判断关卡完成根据BOSS状态
+    /// </summary>
+    private void CheckLevelWinByBoss(BaseShip targetShip, UnitDeathInfo info)
+    {
+        if (_spawnBossTempLst.Contains(targetShip.ShipID))
+        {
+            _spawnBossTempLst.Remove(targetShip.ShipID);
+        }
+
+        if (_spawnBossTempLst.Count <= 0)
+        {
+            ///SettleWin
+            SetBattleSuccess();
+            GameEvent.Trigger(EGameState.EGameState_GameOver);
+        }
+    }
+
     private void AddWaveTrigger()
     {
         Timer.RemoveAllTrigger();
         GenerateEnemyAIFactory();
         GenerateShopCreateTimer();
+        GenerateAISpawnSectorTrigger();
         ///增加船体值自动恢复Trigger
         var recoverTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, -1, "UnitHPRecover");
         recoverTrigger.BindChangeAction(OnUpdateUnitHPRecover);
         Timer.AddTrigger(recoverTrigger);
+    }
+
+    /// <summary>
+    /// AI生成扇区触发器
+    /// </summary>
+    private void GenerateAISpawnSectorTrigger()
+    {
+        ///刷新整体强度缓存
+        var threadTrigger = LevelTimerTrigger.CreateTrigger(0, GameGlobalConfig.SectorThread_UpdateSecond, -1, -1, "SectorThreadUpdate");
+        threadTrigger.BindChangeAction(UpdateSectorThread);
+        Timer.AddTrigger(threadTrigger);
+
+        ///波次更新扇区相邻随机权重
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        if (waveCfg.SectorAdjacentUpdateTime == null || waveCfg.SectorAdjacentWeightValue == null)
+            return;
+
+        if(waveCfg.SectorAdjacentWeightValue.Length != waveCfg.SectorAdjacentUpdateTime.Length)
+        {
+            Debug.LogError("扇区配置数据长度不匹配！WaveIndex = " + GetCurrentWaveIndex);
+            return;
+        }
+
+        for (int i = 0; i < waveCfg.SectorAdjacentUpdateTime.Length; i++)  
+        {
+            var trigger = LevelTimerTrigger.CreateTrigger(waveCfg.SectorAdjacentUpdateTime[i], 0, 1);
+            trigger.BindChangeAction(UpdateSectorAdjacentWeight, waveCfg.SectorAdjacentWeightValue[i]);
+            Timer.AddTrigger(trigger);
+        }
     }
 
     /// <summary>
@@ -1131,6 +1191,13 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
         ///创建精英生成器
         GenerateEliteSpawnTrigger();
+
+        ///如果为最后一波，创建BOSS
+        if (IsFinalWave())
+        {
+            _spawnBossTempLst.Clear();
+            GenerateBossSpawnTrigger();
+        }
 
         var currentWaveTime = GetCurrentWaveTime();
 
@@ -1182,6 +1249,49 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             {
                 var trigger = LevelTimerTrigger.CreateTrigger(spawnLst[i], 0, 1, -1);
                 trigger.BindChangeAction(CreateElite);
+                Timer.AddTrigger(trigger);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 生成BOSS触发器
+    /// </summary>
+    private void GenerateBossSpawnTrigger()
+    {
+        var spawnCfg = CurrentHardLevel.SpawnConfig.BossConfig;
+        System.Random ran = new System.Random();
+        if (spawnCfg.RandomOne)
+        {
+            ///Generate One
+            var allBoss = DataManager.Instance.GetAllBossIDs();
+            if (allBoss.Count <= 0)
+                return;
+
+            var outID = allBoss[ran.Next(0, allBoss.Count)];
+            var trigger = LevelTimerTrigger.CreateTrigger(spawnCfg.OneSpawnStartTime, 0, 1, -1);
+            trigger.BindChangeAction(CreateBoss, outID);
+            Timer.AddTrigger(trigger);
+            _spawnBossTempLst.Add(outID);
+        }
+        else
+        {
+            if (spawnCfg.BOSSSpawnIDs == null || spawnCfg.BOSSSpawnTimeList == null)
+                return;
+
+            if(spawnCfg.BOSSSpawnIDs.Length != spawnCfg.BOSSSpawnTimeList.Length)
+            {
+                Debug.LogError("BOSS创建参数不匹配！");
+                return;
+            }
+
+            for(int i = 0; i < spawnCfg.BOSSSpawnIDs.Length; i++)
+            {
+                var id = spawnCfg.BOSSSpawnIDs[i];
+                var time = spawnCfg.BOSSSpawnTimeList[i];
+                _spawnBossTempLst.Add(id);
+                var trigger = LevelTimerTrigger.CreateTrigger(time, 0, 1, -1);
+                trigger.BindChangeAction(CreateBoss, id);
                 Timer.AddTrigger(trigger);
             }
         }
@@ -1411,6 +1521,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         SpawnEntity(tempCfg);
     }
 
+    private void CreateBoss(int id)
+    {
+        ///Create Boss
+        WaveEnemySpawnConfig tempCfg = new WaveEnemySpawnConfig
+        {
+            AITypeID = id,
+            DurationDelta = 0,
+            LoopCount = 1,
+            TotalCount = 1,
+            MaxRowCount = 1,
+        };
+        SpawnEntity(tempCfg);
+    }
+
     private void CreateFactory(int ID)
     {
         var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
@@ -1501,7 +1625,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
         else
         {
-            spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
+            if (cfg.OverrideDistanceMax)
+            {
+                spawnpoint = LevelManager.Instance.SpawnSector.GetAIShipSpawnPosition(cfg.DistanceMax);
+            }
+            else
+            {
+                spawnpoint = LevelManager.Instance.SpawnSector.GetAIShipSpawnPosition();
+            }
+        }
+
+        if(spawnpoint == Vector2.positiveInfinity)
+        {
+            Debug.LogError("舰船出生点错误！");
+            return;
         }
 
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIShipSpawnAgentPath, true, (obj) =>
@@ -1561,6 +1698,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             if (_extraSpawnConfig[i].ID == index)
                 _extraSpawnConfig.RemoveAt(i);
         }
+    }
+
+    /// <summary>
+    /// 更新扇区随机权重
+    /// </summary>
+    /// <param name="weight"></param>
+    private void UpdateSectorAdjacentWeight(int weight)
+    {
+        LevelManager.Instance.SpawnSector.SetGlobalAdjacentSectorWeight(weight);
+    }
+
+    private void UpdateSectorThread()
+    {
+        LevelManager.Instance.SpawnSector.RefreshSectorThreadCache();
     }
 
     #endregion
@@ -2564,6 +2715,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///Check Load Node
         if (!result)
             return result;
+
+        _eliteSpawnWaves = sav.EliteSpawnWaves;
+        _alreadySpawnedEliteIDs = sav.AlreadySpawnedEliteIDs;
+
         ///InitMap
         ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
         LoadPropertySave(sav);
@@ -2609,6 +2764,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         sav.Currency = CurrentCurrency;
         sav.ShipLevel = GetCurrentShipLevel;
         sav.EXP = GetCurrentExp;
+        sav.EliteSpawnWaves = _eliteSpawnWaves;
+        sav.AlreadySpawnedEliteIDs = _alreadySpawnedEliteIDs;
 
         sav.PlugRuntimeSaves = CreatePlugRuntimeSaveData();
         sav.PropertyRowSav = MainPropertyData.CreatePropertyModifyRowSaveData();

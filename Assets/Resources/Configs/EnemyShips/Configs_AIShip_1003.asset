@@ -1536,7 +1536,8 @@ MonoBehaviour:
   ClassLevel: 2
   BillboardType: 1
   AttackBase: 30
-  HardLevelGroupID: 1
+  HardLevelGroupID: 20
+  SectorThreadValue: 0
   EnemyCountModify: 0
   MaxVelocity: 10
   MaxAcceleration: 1
@@ -1547,11 +1548,11 @@ MonoBehaviour:
   ArrivalRadius: 15
   SlotRadius: 5
   DieAudio: 
-  AppearChangeCameraOrthographicSize: 0
-  CameraTargetOrthographicSize: 40
-  AppearWarning: 0
-  AppearWarningText: 
-  AppearWarningAudio: 
+  AppearChangeCameraOrthographicSize: 1
+  CameraTargetOrthographicSize: 50
+  AppearWarning: 1
+  AppearWarningText: EnemyAppear_Content_Elite
+  AppearWarningAudio: ShipSpawn_Warning
   DropList:
   - pickuptype: 1
     count: 5

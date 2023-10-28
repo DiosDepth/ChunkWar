@@ -13,7 +13,8 @@ public enum EnemyClassType
 {
     Normal,
     Elite,
-    Boss
+    Boss,
+    Meteorite
 }
 
 [CreateAssetMenu(fileName = "Configs_AIShip_", menuName = "Configs/EnemyShips")]
@@ -50,6 +51,11 @@ public class AIShipConfig : BaseShipConfig
     [BoxGroup("属性配置/AA/难度等级")]
     [HideLabel]
     public int HardLevelGroupID;
+
+    [HorizontalGroup("属性配置/AA", 150)]
+    [BoxGroup("属性配置/AA/扇区强度参数")]
+    [HideLabel]
+    public float SectorThreadValue;
 
     [HorizontalGroup("属性配置/AA", 150)]
     [BoxGroup("属性配置/AA/数量可以修正")]

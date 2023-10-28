@@ -40,11 +40,21 @@ public static class GameGlobalConfig
     /// </summary>
     public const float ShipSpeedModify_Protected_MaxSpeed = 10;
     public const byte ShopGoods_MaxCount = 5;
+    /// <summary>
+    /// 最大伤害数量
+    /// </summary>
+    public const byte DamageCount_ProtectMax = 99;
 
     public const byte Ship_MaxLevel = 99;
     public const byte MeteoriteGenerate_MaxCount = 100;
     public const byte AncientUnit_Generate_MaxCount = 30;
     public const byte AIShipFactory_SpawnMaxCount = 30;
+    public const byte LevelSector_Count = 18;
+    /// <summary>
+    /// 相邻扇区Index
+    /// </summary>
+    public const byte LevelSector_AdjacentCount = 2;
+    public const byte SectorThread_UpdateSecond = 3;
 
     public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;

@@ -397,13 +397,25 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             {
                 var enemyShip = _owner as AIShip;
                 var enemyClass = enemyShip.AIShipCfg.ClassLevel;
+                float damageAddition = 0;
                 if(enemyClass == EnemyClassType.Elite || enemyClass == EnemyClassType.Boss)
                 {
-                    var damageAddition = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EliteBossDamage);
+                    ///对精英BOSS额外伤害
+                    damageAddition = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.EliteBossDamage);
+                }
+                else if(enemyClass == EnemyClassType.Meteorite)
+                {
+                    ///对陨石额外伤害
+                    damageAddition = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Meteorite_To_Damage);
+                }
+
+                if(damageAddition != 0)
+                {
                     var newDamage = info.Damage * (1 + damageAddition / 100f);
                     newDamage = Mathf.Clamp(newDamage, 0, float.MaxValue);
                     info.Damage = Mathf.RoundToInt(newDamage);
                 }
+               
             }
             LevelManager.Instance.UnitBeforeHit(info);
             UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Bot, this.gameObject, (panel) =>

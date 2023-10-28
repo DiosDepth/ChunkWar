@@ -84,10 +84,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public LevelEntity currentLevel;
 
     public bool needServicing = false;
-    
-    
-    private AIShipSpawnAgent _lastAIfactory;
+    public LevelSpawnSector SpawnSector;
 
+    private AIShipSpawnAgent _lastAIfactory;
     public List<PickableItem> pickupList = new List<PickableItem>();
 
 
@@ -210,6 +209,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         base.Initialization();
         _refreshMiscConfig = DataManager.Instance.gameMiscCfg.RefreshConfig;
+        SpawnSector = new LevelSpawnSector();
+        SpawnSector.Init();
     }
 
     public void Clear()
@@ -217,6 +218,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         pickupList.Clear();
         needServicing = false;
         isLevelUpdate = false;
+        SpawnSector.RefreshAndClear();
         ClearActions();
     }
 
@@ -306,8 +308,19 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         if(pickedItem is PickUpWaste)
         {
             var gold = pickedItem as PickUpWaste;
-            RogueManager.Instance.AddDropWasteCount(gold.WasteGain);
-            RogueManager.Instance.AddEXP(gold.EXPGain);
+
+            var doubleRate = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Double_WasteRate);
+            int wasteGain = gold.WasteGain;
+            float expGain = gold.EXPGain;
+            bool doubue = Utility.CalculateRate100(doubleRate);
+            if (doubue)
+            {
+                wasteGain *= 2;
+                expGain *= 2;
+            }
+
+            RogueManager.Instance.AddDropWasteCount(wasteGain);
+            RogueManager.Instance.AddEXP(expGain);
             CollectPickUp(AvaliablePickUp.WastePickup);
         }
         else if (pickedItem is PickUpWreckage)
@@ -653,6 +666,12 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         OnPlayerUnitParalysis?.Invoke(targetUnitID, isEnter);
     }
+
+    #endregion
+
+    #region Spawn
+
+
 
     #endregion
 }

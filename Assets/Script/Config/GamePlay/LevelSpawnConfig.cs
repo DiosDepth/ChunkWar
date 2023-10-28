@@ -20,6 +20,24 @@ public class LevelSpawnConfig : SerializedScriptableObject
         public ushort[] EliteSpawnTimeList = new ushort[0];
     }
 
+    [System.Serializable]
+    public class BossSpawnConfig
+    {
+        [LabelText("随机生成一个")]
+        [LabelWidth(150)]
+        public bool RandomOne = true;
+
+        [LabelText("随机一个创建时间")]
+        [LabelWidth(150)]
+        public ushort OneSpawnStartTime;
+
+        [LabelText("时间列表")]
+        public ushort[] BOSSSpawnTimeList = new ushort[0];
+
+        [LabelText("顺序BOSSID列表")]
+        public int[] BOSSSpawnIDs = new int[0];
+    }
+
     [LabelText("关卡预设ID")]
     [ReadOnly]
     public int LevelPresetID;
@@ -28,7 +46,7 @@ public class LevelSpawnConfig : SerializedScriptableObject
 
     [FoldoutGroup("特殊敌人随机生成")]
     [HorizontalGroup("特殊敌人随机生成/A", 300)]
-    [LabelText("启用生成")]
+    [LabelText("启用精英生成")]
     [LabelWidth(100)]
     public bool EnableSpecialEnemySpawn = false;
 
@@ -39,10 +57,14 @@ public class LevelSpawnConfig : SerializedScriptableObject
     public byte TotalSpawnWaveCount = 0;
 
     [FoldoutGroup("特殊敌人随机生成")]
-    [HorizontalGroup("特殊敌人随机生成/C")]
-    [LabelText("生成配置")]
+    [LabelText("精英生成配置")]
     [LabelWidth(100)]
     public List<EliteRandomSpawnConfig> EliteRandomSpawnCfg = new List<EliteRandomSpawnConfig>();
+
+    [FoldoutGroup("特殊敌人随机生成")]
+    [LabelText("BOSS生成配置")]
+    [LabelWidth(100)]
+    public BossSpawnConfig BossConfig;
 
     [ListDrawerSettings(CustomAddFunction = "AddNewWave", NumberOfItemsPerPage = 3)]
     [Title("波次信息配置", TitleAlignment = TitleAlignments.Centered)]
@@ -103,6 +125,14 @@ public class WaveConfig
     [ListDrawerSettings(CustomAddFunction = "AddNewWaveSpawn")]
     [OnCollectionChanged("OnAddedWave")]
     public List<WaveEnemySpawnConfig> SpawnConfig = new List<WaveEnemySpawnConfig>();
+
+    [FoldoutGroup("扇区权重配置")]
+    [LabelText("扇区权重更新时间表")]
+    public int[] SectorAdjacentUpdateTime = new int[1] { 0 };
+
+    [FoldoutGroup("扇区权重配置")]
+    [LabelText("扇区权重更新值")]
+    public byte[] SectorAdjacentWeightValue = new byte[1] { 0 };
 
     /// <summary>
     /// 陨石生成稀有度权重
@@ -238,6 +268,19 @@ public class WaveEnemySpawnConfig
     [LabelWidth(80)]
     [MinValue(0)]
     public float SpawnSizeInterval = 0.8f;
+
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
+    [LabelText("覆盖最大距离")]
+    [LabelWidth(80)]
+    public bool OverrideDistanceMax = false;
+
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
+    [LabelText("最大距离")]
+    [LabelWidth(80)]
+    [ShowIf("OverrideDistanceMax")]
+    public float DistanceMax = 45;
 
     private void OnTypeIDChange()
     {

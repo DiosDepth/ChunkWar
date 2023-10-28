@@ -453,17 +453,18 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
+  BaseRange: 220
   DamageBase: 15
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
   DamageRatioMax: 1.1
   DamageType: 0
-  BaseRange: 220
   BaseCriticalRate: 5
   CriticalDamage: 150
   TotalDamageCount: 20
   ShootPerCount: 4
+  CanModifyDamageCount: 1
   CD: 2
   FireCD: 0.1
   ShieldTransfixion: 0

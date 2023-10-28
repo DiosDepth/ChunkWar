@@ -22,21 +22,35 @@ public class ShipPropertyGroupPanel : MonoBehaviour
          PropertyModifyKey.CriticalDamagePercentAdd,
          PropertyModifyKey.PhysicsDamage,
          PropertyModifyKey.EnergyDamage,
+         PropertyModifyKey.Explode_Damage,
          PropertyModifyKey.Command,
+         PropertyModifyKey.UnitHPRecoverValue,
          PropertyModifyKey.Range,
          PropertyModifyKey.ShieldHP,
          PropertyModifyKey.ShieldArmor,
          PropertyModifyKey.Luck,
-         PropertyModifyKey.ShipParry
-
     };
 
     private static List<PropertyModifyKey> SubPropertyList = new List<PropertyModifyKey>
     {
-         PropertyModifyKey.Explode_Damage,
+         PropertyModifyKey.EXPAddPercent,
          PropertyModifyKey.Explode_Range,
+         PropertyModifyKey.EnemyDropCountPercent,
+         PropertyModifyKey.EnemyCount,
+         PropertyModifyKey.EnemySpeed,
+         PropertyModifyKey.Transfixion,
+         PropertyModifyKey.TransfixionDamagePercent,
          PropertyModifyKey.TOTAL_ENERGY,       ///×ÜºÍ
-         PropertyModifyKey.TOTAL_LOAD
+         PropertyModifyKey.TOTAL_LOAD,
+         PropertyModifyKey.ShieldRatioAdd,
+         PropertyModifyKey.ShieldDamageAdd,
+         PropertyModifyKey.ShopCostPercent,
+         PropertyModifyKey.SellPrice,
+         PropertyModifyKey.EliteBossDamage,
+         PropertyModifyKey.SuckerRange,
+         PropertyModifyKey.Aircraft_Damage,
+         PropertyModifyKey.Aircraft_HP,
+         PropertyModifyKey.Aircraft_Speed
     };
 
     /// <summary>

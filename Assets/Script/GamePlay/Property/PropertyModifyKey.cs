@@ -176,9 +176,9 @@ public enum PropertyModifyKey
     /// </summary>
     MissileHPPercent,
     /// <summary>
-    /// 导弹数量
+    /// 伤害数量
     /// </summary>
-    MissileCount,
+    DamageCount,
     /// <summary>
     /// 装备能源消耗
     /// </summary>
@@ -188,9 +188,9 @@ public enum PropertyModifyKey
     /// </summary>
     EnergyPunishRate,
     /// <summary>
-    /// 实弹数量
+    /// 自动拾取比例
     /// </summary>
-    PhysicalCount,
+    AutoPickRate,
     /// <summary>
     /// 伤害范围下限
     /// </summary>
@@ -217,6 +217,14 @@ public enum PropertyModifyKey
     /// </summary>
     Hangar_EnergyCostPercent,
     ShopFreeRollCount,
+    /// <summary>
+    /// 双倍拾取概率
+    /// </summary>
+    Double_WasteRate,
+    /// <summary>
+    /// 对陨石的伤害
+    /// </summary>
+    Meteorite_To_Damage,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }

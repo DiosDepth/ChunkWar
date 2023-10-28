@@ -147,7 +147,18 @@ public static class GameHelper
         {
             rowDesc = rowDesc.Replace("#V#", GetPropertyHoverValue(key, cfg));
         }
-
+        else if (rowDesc.Contains("#V1#"))
+        {
+            rowDesc = rowDesc.Replace("#V1#", GetPropertyHoverValue_DamageReduce(true));
+        }
+        else if (rowDesc.Contains("#V2#"))
+        {
+            rowDesc = rowDesc.Replace("#V2#", GetPropertyHoverValue_DamageReduce(false));
+        }
+        else if (rowDesc.Contains("#V3"))
+        {
+            rowDesc = rowDesc.Replace("#V3#", GetPropertyHoverValue_TransfixtionDamage());
+        }
         return rowDesc;
     }
 
@@ -159,6 +170,35 @@ public static class GameHelper
         var colorCode = GetColorCode_PropertyHover(value, 0, cfg.ReverseColor);
 
         return string.Format("<color={0}>{1}</color>", colorCode, content);
+    }
+
+    private static string GetPropertyHoverValue_DamageReduce(bool isshipArmor)
+    {
+        var value = CalculateArmorReducePercent(isshipArmor);
+
+        if(value >= 1)
+        {
+            value -= 1;
+        }
+        else
+        {
+            value = 1 - value;
+        }
+
+        string targetValue = string.Format("{0:F1}%", value * 100);
+        string mark = value > 0 ? "+" : "-";
+        var colorCode = GetColorCode_PropertyHover(value, 0, true);
+        return string.Format("<color={0}>{1}{2}</color>", colorCode, mark, targetValue);
+    }
+
+    private static string GetPropertyHoverValue_TransfixtionDamage()
+    {
+        var reducemax = DataManager.Instance.battleCfg.TransfixionDamage_Max;
+        var delta = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.TransfixionDamagePercent);
+        var newValue = DataManager.Instance.battleCfg.TransfixionDamage_Base - delta;
+        newValue = Mathf.Clamp(newValue, 0, reducemax);
+
+        return string.Format("<color={0}>-{1}</color>", Color_Red_Code, string.Format("{0:F1}%", newValue));
     }
 
     #region Battle
@@ -629,19 +669,7 @@ public static class GameHelper
 
         if (!isParry)
         {
-            var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
-            var armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
-            armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
-            float DamageTake = 0;
-            if(armor >= 0)
-            {
-                DamageTake = 1 / (float)(1 + armor / armorParam);
-            }
-            else
-            {
-                DamageTake = 1 + 1 / (float)(1 + Mathf.Abs(armor) / armorParam);
-            }
-            
+            var DamageTake = CalculateArmorReducePercent(true);
             info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
         }
     }
@@ -652,19 +680,7 @@ public static class GameHelper
     /// <param name="info"></param>
     public static void ResolvePlayerShieldDamage(DamageResultInfo info)
     {
-        var armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldArmor);
-        var armorParam = DataManager.Instance.battleCfg.PlayerShip_ShieldDamageReduce_Param;
-        armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
-
-        float DamageTake = 0;
-        if(armor >= 0)
-        {
-            DamageTake = 1 / (float)(1 + armor / armorParam);
-        }
-        else
-        {
-            DamageTake = 1 + 1 / (float)(1 + Mathf.Abs(armor) / armorParam);
-        }
+        var DamageTake = CalculateArmorReducePercent(false);
         info.Damage = Mathf.RoundToInt(info.Damage * DamageTake);
         ///护盾最低无视伤害
         var ignoreDamage = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldIgnoreMinDamage);
@@ -673,6 +689,34 @@ public static class GameHelper
 
         info.Damage = info.Damage > ignoreDamage ? info.Damage : 0;
 
+    }
+
+    private static float CalculateArmorReducePercent(bool isShipArmor)
+    {
+        float armor = 0;
+        float armorParam = 0;
+
+        if (isShipArmor)
+        {
+            armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShipArmor);
+            armorParam = DataManager.Instance.battleCfg.PlayerShip_ArmorDamageReduce_Param;
+        }
+        else
+        {
+            armor = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldArmor);
+            armorParam = DataManager.Instance.battleCfg.PlayerShip_ShieldDamageReduce_Param;
+        }
+        armorParam = Mathf.Clamp(armorParam, 1, float.MaxValue);
+        float DamageTake = 0;
+        if (armor >= 0)
+        {
+            DamageTake = 1 / (float)(1 + armor / armorParam);
+        }
+        else
+        {
+            DamageTake = 1 + 1 / (float)(1 + Mathf.Abs(armor) / armorParam);
+        }
+        return DamageTake;
     }
 
     /// <summary>
@@ -750,6 +794,13 @@ public static class GameHelper
         return Mathf.Max(1, Mathf.RoundToInt(rowHP * hpRatio));
     }
 
+    public static int CalculateDamageCount(int rowCount)
+    {
+        var add = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageCount);
+        add += rowCount;
+        return (int)Mathf.Clamp(add, 1, GameGlobalConfig.DamageCount_ProtectMax);
+    }
+
     /// <summary>
     /// 获取Unit出售价格
     /// </summary>
@@ -805,7 +856,7 @@ public static class GameHelper
         }
         else if (type == UI_WeaponUnitPropertyType.Damage)
         {
-            var damageCount = cfg.TotalDamageCount;
+            var damageCount = CalculateDamageCount(cfg.TotalDamageCount);
             var damage = CalculteWeaponDamage(cfg);
             string color = GetColorCode(damage, cfg.DamageBase, false);
 

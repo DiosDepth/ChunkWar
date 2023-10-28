@@ -252,6 +252,9 @@ public class SaveData
     public byte ShipLevel;
     public float EXP;
 
+    public List<int> EliteSpawnWaves;
+    public List<int> AlreadySpawnedEliteIDs;
+
     /* Plug Save */
     public List<PlugRuntimeSaveData> PlugRuntimeSaves;
     public Dictionary<PropertyModifyKey, float> PropertyRowSav;

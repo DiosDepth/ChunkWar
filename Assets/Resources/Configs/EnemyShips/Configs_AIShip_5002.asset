@@ -1385,6 +1385,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Skills
+      Entry: 7
+      Data: 3|ModifyTriggerConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 5002
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: bc775a84530fdd047a0841481a6f622a, type: 3}
@@ -1397,17 +1409,26 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
   ShowHPBillboard: 0
-  ClassLevel: 0
+  ClassLevel: 3
   BillboardType: 0
   AttackBase: 25
   HardLevelGroupID: 1
+  SectorThreadValue: 0
+  EnemyCountModify: 0
   MaxVelocity: 15
   MaxAcceleration: 2
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 1.5
   targetSerchingRadius: 15
+  ArrivalRadius: 15
+  SlotRadius: 5
   DieAudio: 
+  AppearChangeCameraOrthographicSize: 0
+  CameraTargetOrthographicSize: 40
+  AppearWarning: 0
+  AppearWarningText: 
+  AppearWarningAudio: 
   DropList:
   - pickuptype: 1
     count: 15
