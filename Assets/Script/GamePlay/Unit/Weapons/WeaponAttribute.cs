@@ -363,7 +363,7 @@ public class WeaponAttribute : UnitBaseAttribute
     {
         var reducemax = DataManager.Instance.battleCfg.TransfixionDamage_Max;
         var delta = mainProperty.GetPropertyFinal(PropertyModifyKey.TransfixionDamagePercent);
-        var newValue = delta + BaseTransfixionDamage;
+        var newValue =  BaseTransfixionDamage - delta;
         TransfixionReduce = Mathf.Clamp(newValue, 0, reducemax);
     }
 

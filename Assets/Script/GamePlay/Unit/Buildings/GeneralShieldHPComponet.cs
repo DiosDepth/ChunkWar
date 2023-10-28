@@ -280,7 +280,10 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
     private void CalculateMaxShieldHP()
     {
         var shieldAdd = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldHP);
-        var newValue = Mathf.Clamp(shieldAdd + _shieldHPBase, 0, int.MaxValue); 
+        var targetPercent = shieldAdd / 100f + 1;
+        targetPercent = Mathf.Clamp(targetPercent, -1, float.MaxValue);
+
+        var newValue = _shieldHPBase * targetPercent;
         MaxShieldHP = Mathf.CeilToInt(newValue);
         SetShieldMaxHP(MaxShieldHP);
     }

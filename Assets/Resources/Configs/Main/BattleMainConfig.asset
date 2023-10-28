@@ -759,8 +759,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_DamagePercent
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_DamagePercent
     - Name: Icon
       Entry: 10
       Data: 3
@@ -831,8 +831,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_Critical
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_Critical
     - Name: Icon
       Entry: 10
       Data: 5
@@ -970,13 +970,13 @@ MonoBehaviour:
       Data: 35|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
-      Data: PropertyName_WeaponRange
+      Data: PropertyName_Range
     - Name: ModifyPercentNameText
       Entry: 1
-      Data: MP_PropertyName_WeaponRange
+      Data: MP_PropertyName_Range
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_Range
     - Name: Icon
       Entry: 10
       Data: 9
@@ -1011,8 +1011,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_Luck
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_Luck
     - Name: Icon
       Entry: 10
       Data: 10
@@ -1047,8 +1047,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_SuckerRange
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_SuckerRange
     - Name: Icon
       Entry: 10
       Data: 11
@@ -1191,8 +1191,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_CriticalDamagePercentAdd
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_CriticalDamagePercentAdd
     - Name: Icon
       Entry: 10
       Data: 15
@@ -1227,14 +1227,14 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_ShieldHP
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ShieldHP
     - Name: Icon
       Entry: 10
       Data: 16
     - Name: IsPercent
       Entry: 5
-      Data: false
+      Data: true
     - Name: ReverseColor
       Entry: 5
       Data: false
@@ -1263,8 +1263,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_ShipArmor
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ShipArmor
     - Name: Icon
       Entry: 10
       Data: 17
@@ -1515,8 +1515,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_ShieldArmor
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ShieldArmor
     - Name: Icon
       Entry: 10
       Data: 24
@@ -1587,8 +1587,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_Transfixion
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_Transfixion
     - Name: Icon
       Entry: 10
       Data: 26
@@ -1623,8 +1623,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_TransfixionDamage
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_TransfixionDamage
     - Name: Icon
       Entry: 10
       Data: 27
@@ -1803,8 +1803,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_EXPAddPercent
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_EXPAddPercent
     - Name: Icon
       Entry: 10
       Data: 32
@@ -2235,8 +2235,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ShieldDamage
     - Name: Icon
       Entry: 10
       Data: 35
