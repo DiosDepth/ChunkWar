@@ -39,7 +39,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
         base.OnDestroy();
     }
 
-    protected override void Death(UnitDeathInfo info)
+    public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
         OnRemove();

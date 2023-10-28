@@ -117,6 +117,19 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     }
     private static GameObject _AIPool;
 
+    public static Transform DronePool
+    {
+        get
+        {
+            if (_dronePool == null)
+            {
+                _dronePool = new GameObject("DronePool");
+            }
+            return _dronePool.transform;
+        }
+    }
+    private static GameObject _dronePool;
+
     public static Transform PickUpPool
     {
         get
@@ -415,7 +428,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         CameraManager.Instance.SetCameraUpdate(false);
         _bulletPool.transform.Pool_BackAllChilds();
         _PickUpPool.transform.Pool_BackAllChilds();
-        _shopTeleport.PoolableDestroy();
+        _shopTeleport?.PoolableDestroy();
     }
 
     public void LevelReset()

@@ -34,6 +34,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public WeaponData activeAIWeaponData;
     public BuildingData activeAIBuildingData;
     public DroneData activeAIDroneAgentData;
+    public UnitData activeAIDroneUnitData;
     public WeaponData activeAIDroneWeaponData;
     public ProjectileData activeAIProjectileData;
 
@@ -59,6 +60,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public WeaponData activePlayerWeaponData;
     public BuildingData activePlayerBuildingData;
     public DroneData activePlayerDroneAgentData;
+    public UnitData activePlayerDroneUnitData;
     public WeaponData activePlayerDroneWeaponData;
     public ProjectileData activePlayerProjectileData;
 
@@ -76,6 +78,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activeAIWeaponData = new WeaponData();
         activeAIBuildingData = new BuildingData();
         activeAIDroneAgentData = new DroneData();
+        activeAIDroneUnitData = new UnitData();
         activeAIDroneWeaponData = new WeaponData();
         activeAIProjectileData = new ProjectileData();
 
@@ -85,6 +88,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activePlayerWeaponData = new WeaponData();
         activePlayerBuildingData = new BuildingData();
         activePlayerDroneAgentData = new DroneData();
+        activePlayerDroneUnitData = new UnitData();
         activePlayerDroneWeaponData = new WeaponData();
         activePlayerProjectileData = new ProjectileData();
 
@@ -129,40 +133,45 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         switch (type)
         {
             case OwnerType.Player:
-                activePlayerUnitData.Add(unit);
+     
                 if(unit is AdditionalWeapon )
                 {
                     if(unit._owner is PlayerShip)
                     {
+                        activePlayerUnitData.Add(unit);
                         activePlayerWeaponData.Add(unit as AdditionalWeapon);
                     }
                     if(unit._owner is PlayerDrone)
                     {
+                        activePlayerDroneUnitData.Add(unit);
                         activePlayerDroneWeaponData.Add(unit as AdditionalWeapon);
                     }
-              
                 }
                 if(unit is Building)
                 {
+                    activePlayerUnitData.Add(unit);
                     activePlayerBuildingData.Add(unit as Building);
                 }
                 break;
             case OwnerType.AI:
-                activeAIUnitData.Add(unit);
+          
                 if (unit is AdditionalWeapon)
                 {
                     if(unit._owner is AIShip)
                     {
+                        activeAIUnitData.Add(unit);
                         activeAIWeaponData.Add(unit as AdditionalWeapon);
                     }
                     if (unit._owner is AIDrone)
                     {
+                        activeAIDroneUnitData.Add(unit);
                         activeAIDroneWeaponData.Add(unit as AdditionalWeapon);
                     }
 
                 }
                 if (unit is Building)
                 {
+                    activeAIUnitData.Add(unit);
                     activeAIBuildingData.Add(unit as Building);
                 }
 
@@ -198,15 +207,11 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 {
                     for (int i = 0; i < ship.UnitList.Count; i++)
                     {
-                        activePlayerUnitData.Remove(ship.UnitList[i]);
+                        activePlayerDroneUnitData.Remove(ship.UnitList[i]);
                         if (ship.UnitList[i] is AdditionalWeapon)
                         {
-                            activePlayerWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
-                        }
-                        if (ship.UnitList[i] is Building)
-                        {
-                            activePlayerBuildingData.Remove(ship.UnitList[i] as Building);
-
+                            activePlayerDroneWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
+                            
                         }
                     }
                     activePlayerDroneAgentData.Remove(ship);
@@ -233,15 +238,10 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 {
                     for (int i = 0; i < ship.UnitList.Count; i++)
                     {
-                        activeAIUnitData.Remove(ship.UnitList[i]);
+                        activeAIDroneUnitData.Remove(ship.UnitList[i]);
                         if (ship.UnitList[i] is AdditionalWeapon)
                         {
-                            activeAIWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
-                        }
-                        if (ship.UnitList[i] is Building)
-                        {
-                            activeAIBuildingData.Remove(ship.UnitList[i] as Building);
-
+                            activeAIDroneWeaponData.Remove(ship.UnitList[i] as AdditionalWeapon);
                         }
                     }
                     activeAIDroneAgentData.Remove(ship);
@@ -277,37 +277,43 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 {
                     if(unit._owner is PlayerShip)
                     {
+                        activePlayerUnitData.Remove(unit);
                         activePlayerWeaponData.Remove(unit as AdditionalWeapon);
                     }
                     if(unit._owner is PlayerDrone)
                     {
+                        activePlayerDroneUnitData.Remove(unit);
                         activePlayerDroneWeaponData.Remove(unit as AdditionalWeapon);
                     }
       
                 }
                 if(unit is Building)
                 {
+                    activePlayerUnitData.Remove(unit);
                     activePlayerBuildingData.Remove(unit as Building);
                 }
-                activePlayerUnitData.Remove(unit);
+           
                 break;
             case OwnerType.AI:
                 if (unit is AdditionalWeapon)
                 {
                     if(unit._owner is AIShip)
                     {
+                        activeAIUnitData.Remove(unit);
                         activeAIWeaponData.Remove(unit as AdditionalWeapon);
                     }
                     if(unit._owner is AIDrone)
                     {
+                        activeAIDroneUnitData.Remove(unit);
                         activeAIDroneWeaponData.Remove(unit as AdditionalWeapon);
                     }
                 }
                 if (unit is Building)
                 {
+                    activeAIUnitData.Remove(unit);
                     activeAIBuildingData.Remove(unit as Building);
                 }
-                activeAIUnitData.Remove(unit);
+           
                 break;
         }
     }
@@ -339,16 +345,18 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
         //update Player job 
         playerJobController.UpdateAdditionalWeapon(ref activePlayerWeaponData, ref activeAIUnitData);
-        playerJobController.UpdateAdditionalWeapon(ref activePlayerDroneWeaponData);
         playerJobController.UpdateAdditionalBuilding(ref activePlayerBuildingData, ref activeAIUnitData);
+        playerJobController.UpdateAdditionalWeapon(ref activePlayerDroneWeaponData);
+
 
         playerJobController.UpdateProjectile(ref activePlayerProjectileData, ref activeAIUnitData);
 
 
         //update AI job 
         AIJobController.UpdateAdditionalWeapon(ref activeAIWeaponData, ref activePlayerUnitData);
-        AIJobController.UpdateAdditionalWeapon(ref activeAIDroneWeaponData);
         AIJobController.UpdateAdditionalBuilding(ref activeAIBuildingData, ref activePlayerUnitData);
+        AIJobController.UpdateAdditionalWeapon(ref activeAIDroneWeaponData);
+
         AIJobController.UpdateProjectile(ref activeAIProjectileData, ref activePlayerUnitData);
 
 
@@ -369,14 +377,15 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
     public virtual void UpdateJobData()
     {
         activeAIAgentData.UpdateData();
-        activeAIDroneAgentData.UpdateData();
         activeAIUnitData.UpdateData();
-
+        activeAIDroneAgentData.UpdateData();
+        activeAIDroneUnitData.UpdateData();
 
 
         activePlayerBoidData.UpdateData();
-        activePlayerDroneAgentData.UpdateData();
         activePlayerUnitData.UpdateData();
+        activePlayerDroneAgentData.UpdateData();
+        activePlayerDroneUnitData.UpdateData();
     }
 
 
@@ -393,6 +402,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activeAIWeaponData.Dispose();
         activeAIBuildingData.Dispose();
         activeAIDroneAgentData.Dispose();
+        activeAIDroneUnitData.Dispose();
         activeAIDroneWeaponData.Dispose();
         activeAIProjectileData.Dispose();
 
@@ -401,6 +411,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         activePlayerWeaponData.Dispose();
         activePlayerBuildingData.Dispose();
         activePlayerDroneAgentData.Dispose();
+        activePlayerDroneUnitData.Dispose();
         activePlayerDroneWeaponData.Dispose();
         activePlayerProjectileData.Dispose();
     }

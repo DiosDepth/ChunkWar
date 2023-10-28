@@ -469,8 +469,6 @@ public class JobController : IPauseable
 
         activeSelfBuildingData.UpdateData();
         activeSelfBuildingData.DisposeReturnValue();
-        activeSelfBuildingData.UpdateData();
-        activeSelfBuildingData.DisposeReturnValue();
     }
 
     public virtual void UpdateProjectile(ref ProjectileData activeSelfProjectileData, ref UnitData activeTargetUnitData)

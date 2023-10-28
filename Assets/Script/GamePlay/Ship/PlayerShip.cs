@@ -249,7 +249,7 @@ public class PlayerShip : BaseShip
         }
     }
 
-    protected override void Death(UnitDeathInfo info)
+    public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
 

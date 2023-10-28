@@ -206,7 +206,7 @@ public class WeaponAttribute : UnitBaseAttribute
         BaseDamageRatioMin = _weaponCfg.DamageRatioMin;
         BaseDamageRatioMax = _weaponCfg.DamageRatioMax;
 
-        if (ownerType == OwnerShipType.PlayerShip || ownerType == OwnerShipType.AIDrone)
+        if (ownerType == OwnerShipType.PlayerShip)
         {
             ///BindAction
             var baseDamageModify = _weaponCfg.DamageModifyFrom;
@@ -239,10 +239,7 @@ public class WeaponAttribute : UnitBaseAttribute
                 CalculateReloadTime();
                 CalculateDamageDeltaTime();
             }
-            else if(ownerType == OwnerShipType.PlayerDrone)
-            {
 
-            }
 
             CalculateBaseDamageModify();
             CalculateCriticalRatio();
@@ -250,6 +247,22 @@ public class WeaponAttribute : UnitBaseAttribute
             CalculateShieldDamagePercent();
             CalclculateDamageRatioMin();
             CalclculateDamageRatioMax();
+        }
+        else if (ownerType == OwnerShipType.PlayerDrone)
+        {
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
+
+            CalculateRange();
+            CalculateMaxMagazineSize();
+            CalculateTransfixionCount();
+            CalculateTransfixionPercent();
+            CalculateReloadTime();
+            CalculateDamageDeltaTime();
         }
         else if (ownerType == OwnerShipType.AIShip) 
         {
@@ -272,6 +285,10 @@ public class WeaponAttribute : UnitBaseAttribute
                 var enemyShip = _parentUnit._owner as AIShip;
                 _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
             }
+        }
+        else if(ownerType == OwnerShipType.AIDrone)
+        {
+
         }
     }
 

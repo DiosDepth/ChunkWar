@@ -737,10 +737,19 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         if (IsInvisiableUnit)
             return;
+        if(_appearMat != null)
+        {
+            _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
+        }
 
-        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
-        _animator.ResetTrigger(AnimTrigger_Spawn);
-        _animator.ResetTrigger(AnimTrigger_DeSpawn);
+        if (_animator != null)
+        {
+            _animator.ResetTrigger(AnimTrigger_Spawn);
+            _animator.ResetTrigger(AnimTrigger_DeSpawn);
+        }
+
+
+     
     }
 
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "_HologramBlend";

@@ -94,11 +94,13 @@ public class DroneFactory : Building
     
 
     private float _repairTimeCounter;
+    private float _launchIntervalCounter;
     private bool _isRepairing = false;
     private BaseDrone _repairingDrone;
     private int _allocateTargetCount = 0 ;
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
+        launchedGroup = LevelManager.DronePool;
         _factoryCfg = m_unitconfig as DroneFactoryConfig;
         InitialFactorDrones();
         base.Initialization(m_owner, m_unitconfig);
@@ -111,6 +113,8 @@ public class DroneFactory : Building
         baseAttribute = factoryAttribute;
         _repairTimeCounter = factoryAttribute.RepairTime;
         _allocateTargetCount = 0;
+        _launchIntervalCounter = 0;
+
     }
 
     protected override void OnDestroy()
@@ -121,11 +125,26 @@ public class DroneFactory : Building
     public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
+
+        for (int i = 0; i < _apronQueue.Count; i++)
+        {
+            _apronQueue.Dequeue().Death(info);
+        }
+        for (int i = 0; i < _repairQueue.Count; i++)
+        {
+            _repairQueue.Dequeue().Death(info);
+        }
+        for (int i = 0; i < _launchedList.Count; i++)
+        {
+            _launchedList[i].Death(info);
+        }
+
     }
 
     public override void Restore()
     {
         _allocateTargetCount = 0;
+        _launchIntervalCounter = 0;
         base.Restore();
     }
 
@@ -217,8 +236,18 @@ public class DroneFactory : Building
         //launch if find target
         if (targetList != null && targetList.Count != 0)
         {
-            LaunchDrone();
+            if (_launchIntervalCounter <= 0)
+            {
+        
+                LaunchDrone();
+                _launchIntervalCounter = launchIntervalTime;
+            }
+            _launchIntervalCounter -= Time.deltaTime;
         }
+
+        
+
+
 
 
         //Restore if any drone is crashed
@@ -243,7 +272,7 @@ public class DroneFactory : Building
         buildingState.ChangeState(BuildingState.Ready);
     }
 
-    public async virtual  void LaunchDrone()
+    public virtual  void LaunchDrone()
     {
         if(_apronQueue == null || _apronQueue.Count == 0) { return; }
 
@@ -264,7 +293,11 @@ public class DroneFactory : Building
 
         drone.Launch();
         ECSManager.Instance.RegisterJobData(OwnerType.Player, drone);
-        await UniTask.Delay((int)launchIntervalTime * 1000);
+        for (int i = 0; i < drone.UnitList.Count; i++)
+        {
+            ECSManager.Instance.RegisterJobData(OwnerType.Player, drone.UnitList[i]);
+        }
+
     }
 
     public virtual void CallBackAllDrone()

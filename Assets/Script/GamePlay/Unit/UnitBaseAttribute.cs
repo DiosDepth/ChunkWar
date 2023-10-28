@@ -115,10 +115,12 @@ public class UnitBaseAttribute
         else if(_ownerShipType == OwnerShipType.PlayerDrone)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Aircraft_HP, CalculateDroneHP);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateDroneRange);
             //mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
             CalculateDroneHP();
+            CalculateDroneRange();
         }
-        else
+        else if (_ownerShipType == OwnerShipType.AIShip)
         {
             Range = BaseRange / 10;
             //unit with no owner ,that means this is a dispersed unit;
@@ -134,6 +136,10 @@ public class UnitBaseAttribute
                 mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
                 CalculateEnemyHP();
             }
+        }
+        else if (ownerType == OwnerShipType.AIDrone)
+        {
+
         }
     }
 
@@ -231,6 +237,12 @@ public class UnitBaseAttribute
         }
     }
     protected void CalculateRange()
+    {
+        var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.Range);
+        Range = Mathf.Clamp((BaseRange + weaponRange) / 10f, 0, float.MaxValue);
+    }
+
+    protected void CalculateDroneRange()
     {
         var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.Range);
         Range = Mathf.Clamp((BaseRange + weaponRange) / 10f, 0, float.MaxValue);

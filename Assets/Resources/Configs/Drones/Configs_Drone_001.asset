@@ -1370,11 +1370,11 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 5
-  Owner: 0
+  Owner: 1
   MaxVelocity: 12
   MaxAcceleration: 3
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 1
-  targetSerchingRadius: 15
+  targetSerchingRadius: 30
   DieAudio: Ship/ShipExplode_001

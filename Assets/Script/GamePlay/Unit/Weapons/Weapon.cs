@@ -378,6 +378,7 @@ public class Weapon : Unit
         if (magazine <= 0 && weaponAttribute.MagazineBased)
         {
             weaponState.ChangeState(WeaponState.End);
+            return;
         }
         //Debug.Log(this.gameObject + " : WeaponStart");
         _beforeDelayCounter = weaponAttribute.BeforeDelay;
@@ -862,14 +863,17 @@ public class Weapon : Unit
                 if (weaponmode == WeaponControlType.Autonomy)
                 {
                     weaponState.ChangeState(WeaponState.Start);
+                    return;
                 }
                 if (weaponmode == WeaponControlType.Manual)
                 {
                     weaponState.ChangeState(WeaponState.Recover);
+                    return;
                 }
                 if (weaponmode == WeaponControlType.SemiAuto)
                 {
                     weaponState.ChangeState(WeaponState.Start);
+                    return;
                 }
 
             }

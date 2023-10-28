@@ -45,7 +45,7 @@ public class BaseDrone : BaseShip, IPoolable
     {
         _ownerFactory = factory;
     }
-    protected override void Death(UnitDeathInfo info)
+    public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
         if (!string.IsNullOrEmpty(droneCfg.DieAudio))
@@ -58,7 +58,7 @@ public class BaseDrone : BaseShip, IPoolable
             vfx.transform.position = this.transform.position;
             vfx.GetComponent<ParticleController>().PoolableSetActive(true);
             vfx.GetComponent<ParticleController>().PlayVFX();
-           // PoolableDestroy();
+            PoolableDestroy();
         });
     }
 
@@ -99,6 +99,7 @@ public class BaseDrone : BaseShip, IPoolable
         for (int i = 0; i < _unitList.Count; i++)
         {
             var unit = _unitList[i];
+
             unitconfig = DataManager.Instance.GetUnitConfig(_unitList[i].UnitID);
             unit.gameObject.SetActive(true);
 

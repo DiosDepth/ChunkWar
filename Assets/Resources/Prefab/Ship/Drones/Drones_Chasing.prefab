@@ -104,6 +104,7 @@ MonoBehaviour:
   controller: {fileID: 7663720787589469471}
   deathVFXName: ExplodeVFX
   CoreUnits: []
+  droneCfg: {fileID: 0}
   DroneID: 1
 --- !u!114 &7663720787589469471
 MonoBehaviour:
@@ -121,6 +122,7 @@ MonoBehaviour:
   rb: {fileID: 2036907068945415827}
   collider: {fileID: 0}
   boidRadius: 1
+  lastpos: {x: 0, y: 0, z: 0}
   maxAcceleration: 10
   maxVelocity: 7
   maxAngularAcceleration: 3
@@ -135,8 +137,8 @@ MonoBehaviour:
   arrivelBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-    arriveRadius: 1.5
-    slowRadius: 5
+    arriveRadius: 10
+    slowRadius: 15
   isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
@@ -147,11 +149,11 @@ MonoBehaviour:
     target: {fileID: 0}
     weight: 1
     viewAngle: 60
-  isActiveSeparation: 0
+  isActiveSeparation: 1
   separationBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-    threshold: 2
+    threshold: 4
     decayCoefficient: -25
   isActiveAligment: 0
   alignmentBehaviorInfo:
@@ -345,6 +347,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259539033414074130, guid: d89dbbac3930fa9479768f183b53e88f,
+        type: 3}
+      propertyPath: UnitID
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 5259539033414074130, guid: d89dbbac3930fa9479768f183b53e88f,
         type: 3}

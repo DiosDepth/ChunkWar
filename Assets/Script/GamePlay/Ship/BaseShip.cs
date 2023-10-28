@@ -229,7 +229,7 @@ public class BaseShip : MonoBehaviour, IPauseable
         }
     }
 
-    protected virtual void Death(UnitDeathInfo info)
+    public virtual void Death(UnitDeathInfo info)
     {
         GameManager.Instance.UnRegisterPauseable(this);
         conditionState.ChangeState(ShipConditionState.Death);
