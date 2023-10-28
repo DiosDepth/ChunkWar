@@ -768,6 +768,30 @@ public static class GameHelper
         }
     }
 
+    /// <summary>
+    /// 无人机速度
+    /// </summary>
+    /// <param name="rowValue"></param>
+    /// <returns></returns>
+    public static float CalculatePlayerDroneWeaponCD(float rowValue)
+    {
+        var attackSpd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Aircraft_Speed);
+        if (attackSpd > 0)
+        {
+            float rate = (100 + attackSpd) / 100f;
+            return rowValue / rate;
+        }
+        else if (attackSpd == 0)
+        {
+            return rowValue;
+        }
+        else
+        {
+            float rate = (100 - attackSpd) / 100f;
+            return rowValue * rate;
+        }
+    }
+
     public static float CalculatePlayerWeaponDamageDeltaCD(float rowValue)
     {
         var attackSpd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.FireSpeed);

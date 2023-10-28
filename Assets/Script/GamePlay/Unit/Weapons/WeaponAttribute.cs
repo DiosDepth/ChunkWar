@@ -125,7 +125,7 @@ public class WeaponAttribute : UnitBaseAttribute
         int Damage = 0;
         bool isCritical = false;
         float ratio = 1;
-        if (_ownerShipType == OwnerShipType.PlayerShip || _ownerShipType == OwnerShipType.AIDrone)
+        if (_ownerShipType == OwnerShipType.PlayerShip || _ownerShipType == OwnerShipType.PlayerDrone)
         {
             var damage = BaseDamage + BaseDamageModifyValue;
             float damagePercent = 0;
@@ -210,6 +210,7 @@ public class WeaponAttribute : UnitBaseAttribute
 
         if (ownerType == OwnerShipType.PlayerShip)
         {
+            FireCD = BaseFireCD;
             ///BindAction
             var baseDamageModify = _weaponCfg.DamageModifyFrom;
             modifyFrom = baseDamageModify;
@@ -225,24 +226,19 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
 
-            if (ownerType == OwnerShipType.PlayerShip)
-            {
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
-                mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageCount, CalculateDamageCount);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageCount, CalculateDamageCount);
 
-                CalculateRange();
-                CalculateMaxMagazineSize();
-                CalculateTransfixionCount();
-                CalculateTransfixionPercent();
-                CalculateReloadTime();
-                CalculateDamageDeltaTime();
-                CalculateMaxMagazineSize();
-            }
+            CalculateRange();
+            CalculateMaxMagazineSize();
+            CalculateTransfixionCount();
+            CalculateTransfixionPercent();
+            CalculateReloadTime();
+            CalculateMaxMagazineSize();
 
 
             CalculateBaseDamageModify();
@@ -254,19 +250,21 @@ public class WeaponAttribute : UnitBaseAttribute
         }
         else if (ownerType == OwnerShipType.PlayerDrone)
         {
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Critical, CalculateCriticalRatio);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.MagazineSize, CalculateMaxMagazineSize);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Aircraft_Speed, CalculateDroneSpeed);
 
-            CalculateRange();
+            FireCD = BaseFireCD;
+            Range = _weaponCfg.BaseRange / 10f;
             CalculateMaxMagazineSize();
             CalculateTransfixionCount();
             CalculateTransfixionPercent();
-            CalculateReloadTime();
-            CalculateDamageDeltaTime();
+            CalculateDroneSpeed();
+            CalculateCriticalRatio();
+            CalculateCriticalDamagePercent();
         }
         else if (ownerType == OwnerShipType.AIShip) 
         {
@@ -307,20 +305,20 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.CriticalDamagePercentAdd, CalculateCriticalDamagePercent);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMin, CalclculateDamageRatioMin);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
-
         }
 
         if(_ownerShipType == OwnerShipType.PlayerShip)
         {
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
             mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateReloadTime);
-            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.FireSpeed, CalculateDamageDeltaTime);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMin, CalclculateDamageRatioMin);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.DamageRangeMax, CalclculateDamageRatioMax);
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.ShieldDamageAdd, CalculateShieldDamagePercent);
         }
-
-       
+        else if (_ownerShipType == OwnerShipType.PlayerDrone)
+        {
+            mainProperty.UnBindPropertyChangeAction(PropertyModifyKey.Aircraft_Speed, CalculateDroneSpeed);
+        }
     }
 
     /// <summary>
@@ -356,10 +354,10 @@ public class WeaponAttribute : UnitBaseAttribute
         ReloadTime = cd;
     }
 
-    private void CalculateDamageDeltaTime()
+    private void CalculateDroneSpeed()
     {
-        var cd = GameHelper.CalculatePlayerWeaponDamageDeltaCD(BaseFireCD);
-        FireCD = cd;
+        var cd = GameHelper.CalculatePlayerDroneWeaponCD(BaseReloadCD);
+        ReloadTime = cd;
     }
 
     private void CalculateMaxMagazineSize()

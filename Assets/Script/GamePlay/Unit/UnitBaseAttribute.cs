@@ -115,10 +115,7 @@ public class UnitBaseAttribute
         else if(_ownerShipType == OwnerShipType.PlayerDrone)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Aircraft_HP, CalculateDroneHP);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateDroneRange);
-            //mainProperty.BindPropertyChangeAction(PropertyModifyKey.Range, CalculateRange);
             CalculateDroneHP();
-            CalculateDroneRange();
         }
         else if (_ownerShipType == OwnerShipType.AIShip)
         {
@@ -170,8 +167,9 @@ public class UnitBaseAttribute
 
     private void CalculateDroneHP()
     {
-        var hp = mainProperty.GetPropertyFinal(PropertyModifyKey.Aircraft_HP);
-        HPMax = BaseHP + Mathf.RoundToInt(hp);
+        var hpRatio = mainProperty.GetPropertyFinal(PropertyModifyKey.Aircraft_HP) / 100f + 1;
+        hpRatio = Mathf.Max(-1, hpRatio);
+        HPMax = Mathf.RoundToInt(hpRatio * BaseHP);
     }
 
     private void CalculateEnergyCost()
@@ -237,12 +235,6 @@ public class UnitBaseAttribute
         }
     }
     protected void CalculateRange()
-    {
-        var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.Range);
-        Range = Mathf.Clamp((BaseRange + weaponRange) / 10f, 0, float.MaxValue);
-    }
-
-    protected void CalculateDroneRange()
     {
         var weaponRange = mainProperty.GetPropertyFinal(PropertyModifyKey.Range);
         Range = Mathf.Clamp((BaseRange + weaponRange) / 10f, 0, float.MaxValue);
