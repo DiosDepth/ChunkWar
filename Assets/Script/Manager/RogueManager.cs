@@ -997,6 +997,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CalculateHardLevelIndex();
         AddWaveTrigger();
 
+        if (IsFinalWave())
+        {
+            LevelManager.Instance.Action_OnShipDie += CheckLevelWinByBoss;
+        }
+
         SoundManager.Instance.PlayUISound("Wave_Start", 0.5f);
     }
 
@@ -1102,6 +1107,24 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         var waveCount = CurrentHardLevel.WaveCount;
         return GetCurrentWaveIndex >= waveCount;
+    }
+
+    /// <summary>
+    /// 判断关卡完成根据BOSS状态
+    /// </summary>
+    private void CheckLevelWinByBoss(BaseShip targetShip, UnitDeathInfo info)
+    {
+        if (_spawnBossTempLst.Contains(targetShip.ShipID))
+        {
+            _spawnBossTempLst.Remove(targetShip.ShipID);
+        }
+
+        if (_spawnBossTempLst.Count <= 0)
+        {
+            ///SettleWin
+            SetBattleSuccess();
+            GameEvent.Trigger(EGameState.EGameState_GameOver);
+        }
     }
 
     private void AddWaveTrigger()

@@ -221,6 +221,10 @@ public enum PropertyModifyKey
     /// 双倍拾取概率
     /// </summary>
     Double_WasteRate,
+    /// <summary>
+    /// 对陨石的伤害
+    /// </summary>
+    Meteorite_To_Damage,
     TOTAL_ENERGY,
     TOTAL_LOAD,
 }

@@ -48,6 +48,13 @@ public struct ShipStateEvent
 [ShowOdinSerializedPropertiesInInspector]
 public class BaseShip : MonoBehaviour, IPauseable
 {
+    /// <summary>
+    /// ID
+    /// </summary>
+    public int ShipID
+    {
+        get { return baseShipCfg.ID; }
+    }
 
     public BaseController controller;
     protected GameObject buildingsParent;
