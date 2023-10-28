@@ -54,7 +54,7 @@ MonoBehaviour:
   container: {fileID: 0}
   sprite: {fileID: 0}
   mainWeapon: {fileID: 0}
-  pickupCollider: {fileID: 0}
+  mainDrone: {fileID: 0}
   playerShipCfg: {fileID: 0}
   shipMapCenter: {fileID: 0}
 --- !u!1 &7848178516328607515
@@ -98,8 +98,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7848178516374416906}
   - component: {fileID: 8713110962467850695}
+  - component: {fileID: 9060765279368095941}
   m_Layer: 6
-  m_Name: Sprit
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +141,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: db5f209f43d7e8148a550cb080a1b837, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,9 +160,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -402000637
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e0412efddde9ca4d8af8f9d72f68de1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f3819aac858a1f41a0fe77b89e44f3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,6 +173,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &9060765279368095941
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848178516374416905}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eca2a43795abee9429c0a8e1dcac4216, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8817573633915062660
 GameObject:
   m_ObjectHideFlags: 0
