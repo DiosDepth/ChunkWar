@@ -223,7 +223,8 @@ public class DroneFactory : Building
             for (int i = 0; i < _launchedList.Count; i++)
             {
                 _allocateTargetCount = _allocateTargetCount % targetList.Count;
-                if (_launchedList[i].GetFirstTarget().isActiveAndEnabled)
+
+                if (_launchedList[i].GetFirstTarget() != null &&_launchedList[i].GetFirstTarget().isActiveAndEnabled)
                 {
                     continue;
                 }

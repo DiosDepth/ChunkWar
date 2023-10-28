@@ -439,8 +439,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         isLevelUpdate = false;
         CameraManager.Instance.SetCameraUpdate(false);
-        _bulletPool.transform.Pool_BackAllChilds();
-        _PickUpPool.transform.Pool_BackAllChilds();
+        _bulletPool?.transform.Pool_BackAllChilds();
+        _PickUpPool?.transform.Pool_BackAllChilds();
         _shopTeleport?.PoolableDestroy();
     }
 

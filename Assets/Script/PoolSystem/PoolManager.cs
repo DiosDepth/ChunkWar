@@ -26,7 +26,7 @@ public class PoolData
         temp_obj = poolList[0];
         poolList.RemoveAt(0);
         temp_obj.SetActive(m_active);
-        temp_obj.transform.parent = null;
+        temp_obj.transform.SetParent(null);
         return temp_obj;
     }
 

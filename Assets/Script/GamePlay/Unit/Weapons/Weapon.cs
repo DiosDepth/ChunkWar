@@ -514,7 +514,7 @@ public class Weapon : Unit
                 }
                 break;
             case WeaponControlType.Autonomy:
-                Debug.Log(this.gameObject + " : Autonomy Firing!!!");
+                //Debug.Log(this.gameObject + " : Autonomy Firing!!!");
                 if (firemode == WeaponFireMode.Sequent)
                 {
                     if (_targetindex >= targetList.Count)
