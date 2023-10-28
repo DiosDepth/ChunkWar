@@ -1533,13 +1533,22 @@ MonoBehaviour:
   BillboardType: 0
   AttackBase: 0
   HardLevelGroupID: 1
+  SectorThreadValue: 0
+  EnemyCountModify: 0
   MaxVelocity: 15
   MaxAcceleration: 2
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 2
   targetSerchingRadius: 1
+  ArrivalRadius: 15
+  SlotRadius: 5
   DieAudio: 
+  AppearChangeCameraOrthographicSize: 0
+  CameraTargetOrthographicSize: 40
+  AppearWarning: 0
+  AppearWarningText: 
+  AppearWarningAudio: 
   DropList:
   - pickuptype: 1
     count: 5

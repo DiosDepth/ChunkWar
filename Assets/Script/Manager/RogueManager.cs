@@ -946,7 +946,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     #endregion
 
     
-    #region Wave & HardLevel
+    #region Wave & HardLevel & Spawn
 
     private int _currentHardLevelIndex;
     /// <summary>
@@ -1091,6 +1091,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         WaveEnd = false;
         _currentGenerateAncientUnitShipCount = 0;
         _currentAncientUnitProtectRateAdd = 0;
+        LevelManager.Instance.SpawnSector.RefreshAndClear();
 
         _tempWaveTime = GetCurrentWaveTime();
         AddWaveTrigger();
@@ -1132,10 +1133,43 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         Timer.RemoveAllTrigger();
         GenerateEnemyAIFactory();
         GenerateShopCreateTimer();
+        GenerateAISpawnSectorTrigger();
         ///增加船体值自动恢复Trigger
         var recoverTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, -1, "UnitHPRecover");
         recoverTrigger.BindChangeAction(OnUpdateUnitHPRecover);
         Timer.AddTrigger(recoverTrigger);
+    }
+
+    /// <summary>
+    /// AI生成扇区触发器
+    /// </summary>
+    private void GenerateAISpawnSectorTrigger()
+    {
+        ///刷新整体强度缓存
+        var threadTrigger = LevelTimerTrigger.CreateTrigger(0, GameGlobalConfig.SectorThread_UpdateSecond, -1, -1, "SectorThreadUpdate");
+        threadTrigger.BindChangeAction(UpdateSectorThread);
+        Timer.AddTrigger(threadTrigger);
+
+        ///波次更新扇区相邻随机权重
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return;
+
+        if (waveCfg.SectorAdjacentUpdateTime == null || waveCfg.SectorAdjacentWeightValue == null)
+            return;
+
+        if(waveCfg.SectorAdjacentWeightValue.Length != waveCfg.SectorAdjacentUpdateTime.Length)
+        {
+            Debug.LogError("扇区配置数据长度不匹配！WaveIndex = " + GetCurrentWaveIndex);
+            return;
+        }
+
+        for (int i = 0; i < waveCfg.SectorAdjacentUpdateTime.Length; i++)  
+        {
+            var trigger = LevelTimerTrigger.CreateTrigger(waveCfg.SectorAdjacentUpdateTime[i], 0, 1);
+            trigger.BindChangeAction(UpdateSectorAdjacentWeight, waveCfg.SectorAdjacentWeightValue[i]);
+            Timer.AddTrigger(trigger);
+        }
     }
 
     /// <summary>
@@ -1591,7 +1625,13 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
         else
         {
-            spawnpoint = MathExtensionTools.GetRadomPosFromOutRange(_entitySpawnConfig.EnemyGenerate_Inner_Range, _entitySpawnConfig.EnemyGenerate_Outer_Range, currentShip.transform.position.ToVector2());
+            spawnpoint = LevelManager.Instance.SpawnSector.GetAIShipSpawnPosition();
+        }
+
+        if(spawnpoint == Vector2.positiveInfinity)
+        {
+            Debug.LogError("舰船出生点错误！");
+            return;
         }
 
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.AIShipSpawnAgentPath, true, (obj) =>
@@ -1651,6 +1691,20 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             if (_extraSpawnConfig[i].ID == index)
                 _extraSpawnConfig.RemoveAt(i);
         }
+    }
+
+    /// <summary>
+    /// 更新扇区随机权重
+    /// </summary>
+    /// <param name="weight"></param>
+    private void UpdateSectorAdjacentWeight(int weight)
+    {
+        LevelManager.Instance.SpawnSector.SetGlobalAdjacentSectorWeight(weight);
+    }
+
+    private void UpdateSectorThread()
+    {
+        LevelManager.Instance.SpawnSector.RefreshSectorThreadCache();
     }
 
     #endregion

@@ -126,6 +126,14 @@ public class WaveConfig
     [OnCollectionChanged("OnAddedWave")]
     public List<WaveEnemySpawnConfig> SpawnConfig = new List<WaveEnemySpawnConfig>();
 
+    [FoldoutGroup("扇区权重配置")]
+    [LabelText("扇区权重更新时间表")]
+    public int[] SectorAdjacentUpdateTime = new int[1] { 0 };
+
+    [FoldoutGroup("扇区权重配置")]
+    [LabelText("扇区权重更新值")]
+    public byte[] SectorAdjacentWeightValue = new byte[1] { 0 };
+
     /// <summary>
     /// 陨石生成稀有度权重
     /// </summary>

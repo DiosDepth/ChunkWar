@@ -53,6 +53,11 @@ public class AIShipConfig : BaseShipConfig
     public int HardLevelGroupID;
 
     [HorizontalGroup("属性配置/AA", 150)]
+    [BoxGroup("属性配置/AA/扇区强度参数")]
+    [HideLabel]
+    public float SectorThreadValue;
+
+    [HorizontalGroup("属性配置/AA", 150)]
     [BoxGroup("属性配置/AA/数量可以修正")]
     [HideLabel]
     public bool EnemyCountModify;

@@ -1536,7 +1536,8 @@ MonoBehaviour:
   ClassLevel: 2
   BillboardType: 1
   AttackBase: 30
-  HardLevelGroupID: 1
+  HardLevelGroupID: 20
+  SectorThreadValue: 0
   EnemyCountModify: 0
   MaxVelocity: 10
   MaxAcceleration: 1

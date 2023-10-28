@@ -8,8 +8,22 @@ namespace GM_Observer
 #if GMDEBUG
     public class BattleObserver : MonoBehaviour
     {
+        public static BattleObserver Instance
+        {
+            get { return _instance; }
+        }
+
+        private static BattleObserver _instance;
+
+        private void Awake()
+        {
+            _instance = this;
+        }
+
         [ReadOnly]
         public List<UnitProperty_ObserverData> PropertyDatas = new List<UnitProperty_ObserverData>();
+
+        public List<SectorObserverData> SectorData = new List<SectorObserverData>();
 
         public int WaveHardLevelIndex;
 
@@ -77,6 +91,21 @@ namespace GM_Observer
         }
     }
 
+    [System.Serializable]
+    public class SectorObserverData
+    {
+        [HorizontalGroup("A")]
+        [LabelText("ÉÈÇøID")]
+        [LabelWidth(60)]
+        [ReadOnly]
+        public int Index;
+
+        [HorizontalGroup("A")]
+        [LabelText("ÍþÐ²¶È")]
+        [LabelWidth(60)]
+        [ReadOnly]
+        public float Thread;
+    }
 
 #endif
 
