@@ -20,6 +20,24 @@ public class LevelSpawnConfig : SerializedScriptableObject
         public ushort[] EliteSpawnTimeList = new ushort[0];
     }
 
+    [System.Serializable]
+    public class BossSpawnConfig
+    {
+        [LabelText("随机生成一个")]
+        [LabelWidth(150)]
+        public bool RandomOne = true;
+
+        [LabelText("随机一个创建时间")]
+        [LabelWidth(150)]
+        public ushort OneSpawnStartTime;
+
+        [LabelText("时间列表")]
+        public ushort[] BOSSSpawnTimeList = new ushort[0];
+
+        [LabelText("顺序BOSSID列表")]
+        public int[] BOSSSpawnIDs = new int[0];
+    }
+
     [LabelText("关卡预设ID")]
     [ReadOnly]
     public int LevelPresetID;
@@ -28,7 +46,7 @@ public class LevelSpawnConfig : SerializedScriptableObject
 
     [FoldoutGroup("特殊敌人随机生成")]
     [HorizontalGroup("特殊敌人随机生成/A", 300)]
-    [LabelText("启用生成")]
+    [LabelText("启用精英生成")]
     [LabelWidth(100)]
     public bool EnableSpecialEnemySpawn = false;
 
@@ -39,10 +57,14 @@ public class LevelSpawnConfig : SerializedScriptableObject
     public byte TotalSpawnWaveCount = 0;
 
     [FoldoutGroup("特殊敌人随机生成")]
-    [HorizontalGroup("特殊敌人随机生成/C")]
-    [LabelText("生成配置")]
+    [LabelText("精英生成配置")]
     [LabelWidth(100)]
     public List<EliteRandomSpawnConfig> EliteRandomSpawnCfg = new List<EliteRandomSpawnConfig>();
+
+    [FoldoutGroup("特殊敌人随机生成")]
+    [LabelText("BOSS生成配置")]
+    [LabelWidth(100)]
+    public BossSpawnConfig BossConfig;
 
     [ListDrawerSettings(CustomAddFunction = "AddNewWave", NumberOfItemsPerPage = 3)]
     [Title("波次信息配置", TitleAlignment = TitleAlignments.Centered)]

@@ -1611,3 +1611,8 @@ MonoBehaviour:
   - WaveIndex: 1
     ExceptEliteIDs: 
     EliteSpawnTimeList: 0500
+  BossConfig:
+    RandomOne: 1
+    OneSpawnStartTime: 0
+    BOSSSpawnTimeList: 
+    BOSSSpawnIDs: 

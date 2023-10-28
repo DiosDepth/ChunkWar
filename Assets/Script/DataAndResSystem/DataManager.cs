@@ -305,6 +305,11 @@ public class DataManager : Singleton<DataManager>
         return _AIShipConfigDic.Values.Where(x => x.ClassLevel == EnemyClassType.Elite).Select(x => x.ID).ToList();
     }
 
+    public List<int> GetAllBossIDs()
+    {
+        return _AIShipConfigDic.Values.Where(x => x.ClassLevel == EnemyClassType.Boss).Select(x => x.ID).ToList();
+    }
+
     public ShopGoodsItemConfig GetShopGoodsCfg(int goodsID)
     {
         ShopGoodsItemConfig result = null;

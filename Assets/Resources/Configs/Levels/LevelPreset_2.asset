@@ -462,3 +462,8 @@ MonoBehaviour:
   EnableSpecialEnemySpawn: 0
   TotalSpawnWaveCount: 0
   EliteRandomSpawnCfg: []
+  BossConfig:
+    RandomOne: 1
+    OneSpawnStartTime: 0
+    BOSSSpawnTimeList: 
+    BOSSSpawnIDs: 

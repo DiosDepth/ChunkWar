@@ -170,3 +170,11 @@ MonoBehaviour:
       Data: 
   LevelPresetID: 9999
   BGMEvent: BattleBGM_1
+  EnableSpecialEnemySpawn: 0
+  TotalSpawnWaveCount: 0
+  EliteRandomSpawnCfg: []
+  BossConfig:
+    RandomOne: 1
+    OneSpawnStartTime: 5
+    BOSSSpawnTimeList: 
+    BOSSSpawnIDs: 
