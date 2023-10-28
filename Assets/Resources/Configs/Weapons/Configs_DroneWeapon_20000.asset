@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10090
+  m_Name: Configs_DroneWeapon_20000
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -209,7 +209,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
       Data: 2
@@ -242,10 +242,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -423,58 +423,62 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10090
+  ID: 20000
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
-    Name: Weapon_Name_10090
-    Desc: Weapon_Desc_10090
+    IconSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
+    Name: Weapon_Name_20000
+    Desc: Weapon_Desc_20000
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: 5add29b23ae30d345b6c66ac04620cc2, type: 3}
+  Prefab: {fileID: 5883710716347196929, guid: 2e915883a9b0fd043a5a1e15d7b6b4e8, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
   GroupID: 0
   redirection: 0
-  UnlockDefault: 1
+  UnlockDefault: 0
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
+  EditBrushSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 550
+  BaseHP: 50
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResumeTime: 4
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 600
-  DamageBase: 50
+  BaseRange: 150
+  DamageBase: 5
   EnemyAttackModify: 0
   UseDamageRatio: 0
-  DamageRatioMin: 0.94
-  DamageRatioMax: 1.15
+  DamageRatioMin: 0.8
+  DamageRatioMax: 1.2
   DamageType: 0
-  BaseCriticalRate: 15
+  BaseCriticalRate: 5
   CriticalDamage: 150
-  TotalDamageCount: 24
-  ShootPerCount: 8
-  CanModifyDamageCount: 0
-  CD: 8
-  FireCD: 0.5
+  TotalDamageCount: 6
+  ShootPerCount: 2
+  CanModifyDamageCount: 1
+  CD: 2
+  FireCD: 0.15
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: 
+  DamageModifyFrom:
+  - PropertyKey: 46
+    Ratio: 1
+  - PropertyKey: 15
+    Ratio: 0.5
+  FireAudioClip: Fire/10000_hit1
   FireEffect:
-    EffectName: 
+    EffectName: Fire/Eff_FireSimple
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

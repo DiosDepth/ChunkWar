@@ -33,14 +33,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 1147
+  ID: 1148
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: ShipPlug_Name_1141
+    Name: ShipPlug_Name_1148
     Desc: 
     Rarity: 1
     SortingOrder: 0
-  PropertyModify: []
+  PropertyModify:
+  - ModifyKey: 64
+    Value: 1
+    BySpecialValue: 0
+    SpecialType: 0
+    SpecialKeyParam: 
   EffectDesc: 
   PlugTags: 0
   PropertyPercentModify: []

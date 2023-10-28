@@ -75,6 +75,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: StackConfig
+      Entry: 6
+      Data: 
     - Name: ModifyMap
       Entry: 7
       Data: 5|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[System.Single,

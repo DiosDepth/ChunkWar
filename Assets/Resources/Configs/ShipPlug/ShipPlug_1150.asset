@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aea2d38c627d7f244a89a0c1bb902492, type: 3}
-  m_Name: ShipPlug_1144
+  m_Name: ShipPlug_1150
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -33,16 +33,16 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 1144
+  ID: 1150
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: ShipPlug_Name_1144
+    Name: ShipPlug_Name_1150
     Desc: 
-    Rarity: 2
+    Rarity: 1
     SortingOrder: 0
   PropertyModify:
-  - ModifyKey: 2
-    Value: -15
+  - ModifyKey: 65
+    Value: 5
     BySpecialValue: 0
     SpecialType: 0
     SpecialKeyParam: 

@@ -7,6 +7,7 @@ public enum UnitType
     Buildings,
     Weapons,
     MainWeapons,
+    MainBuilding
 }
 
 public enum OwnerShipType

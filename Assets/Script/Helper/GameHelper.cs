@@ -359,7 +359,7 @@ public static class GameHelper
     /// <returns></returns>
     public static float GetUnitEnergyCost(BaseUnitConfig cfg)
     {
-        if (cfg.unitType == UnitType.MainWeapons)
+        if (cfg.unitType == UnitType.MainWeapons || cfg.unitType == UnitType.MainBuilding) 
             return 0f;
 
         var energyCostBase = cfg.BaseEnergyCost;
@@ -392,7 +392,7 @@ public static class GameHelper
     /// <returns></returns>
     public static float GetUnitLoadCost(BaseUnitConfig cfg)
     {
-        if (cfg.unitType == UnitType.MainWeapons)
+        if (cfg.unitType == UnitType.MainWeapons || cfg.unitType == UnitType.MainBuilding)
             return 0f;
 
         var wreckageCfg = DataManager.Instance.GetWreckageDropItemConfig(cfg.ID);
@@ -563,7 +563,7 @@ public static class GameHelper
         var allUnits = DataManager.Instance.GetAllUnitConfigs();
         for(int i = 0; i < allUnits.Count; i++)
         {
-            if(allUnits[i].unitType == UnitType.MainWeapons)
+            if (allUnits[i].unitType == UnitType.MainWeapons || allUnits[i].unitType == UnitType.MainBuilding) 
             {
                 result.Add((uint)allUnits[i].ID);
             }

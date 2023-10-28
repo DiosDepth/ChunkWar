@@ -167,6 +167,12 @@ public class PlayerEditShip : PlayerShip
                     mainWeapon = tempunit as ShipMainWeapon;
                     mainWeapon.InitializationEditorUnit(this, unitconfig);
                 }
+                else if (unitconfig.unitType == UnitType.MainBuilding)
+                {
+                    mainDrone = tempunit as PlayerDroneFactory;
+                    mainDrone.InitializationEditorUnit(this, unitconfig);
+                }
+                
                 else
                 {
                     tempunit.InitializationEditorUnit(this, unitconfig);

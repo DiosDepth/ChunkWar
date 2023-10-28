@@ -9,5 +9,18 @@ public class PlayerDroneFactory : DroneFactory
         base.Initialization(m_owner, m_unitconfig);
     }
 
+    /// <summary>
+    /// 初始化核心信息
+    /// </summary>
+    public void InitCoreData()
+    {
+        HpComponent.BindHPChangeAction(OnPlayerCoreHPChange, false, 0, 0);
+    }
 
+    private void OnPlayerCoreHPChange(int oldValue, int newValue)
+    {
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.CoreHPChange);
+        var percent = HpComponent.HPPercent;
+        LevelManager.Instance.OnPlayerShipCoreHPPercentChange(percent, oldValue, newValue);
+    }
 }

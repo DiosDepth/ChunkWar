@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10090
+  m_Script: {fileID: 11500000, guid: 49d9fbc63cc69dc47b27c4f50f32f64d, type: 3}
+  m_Name: Configs_DroneFactory_10
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -209,7 +209,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
       Data: 2
@@ -242,10 +242,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -423,17 +423,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10090
+  ID: 10
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
-    Name: Weapon_Name_10090
-    Desc: Weapon_Desc_10090
+    IconSprite: {fileID: 0}
+    Name: 
+    Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: 5add29b23ae30d345b6c66ac04620cc2, type: 3}
+  Prefab: {fileID: 1256306023736974604, guid: 60d5a3203531b15499755865323cfb8e, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  unitType: 1
+  unitType: 3
   GroupID: 0
   redirection: 0
   UnlockDefault: 1
@@ -442,10 +442,10 @@ MonoBehaviour:
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 4
-  BaseHP: 550
+  ItemTags: 40
+  BaseHP: 400
   BaseEnergyCost: 0
-  BaseEnergyGenerate: 0
+  BaseEnergyGenerate: 100
   LoadAdd: 0
   ParalysisResume: 0
   ParalysisResumeTime: 0
@@ -453,36 +453,14 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 600
-  DamageBase: 50
-  EnemyAttackModify: 0
-  UseDamageRatio: 0
-  DamageRatioMin: 0.94
-  DamageRatioMax: 1.15
-  DamageType: 0
-  BaseCriticalRate: 15
-  CriticalDamage: 150
-  TotalDamageCount: 24
-  ShootPerCount: 8
-  CanModifyDamageCount: 0
-  CD: 8
-  FireCD: 0.5
-  ShieldTransfixion: 0
-  ShieldDamage: 150
-  BaseTransfixion: 0
-  Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: 
-  FireEffect:
-    EffectName: 
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
-    RandomPosition: 0
-    PosRandomX: 0
-    PosRandomY: 0
-  HitShakeCfg:
-    CameraShake: 0
-    Duration: 0.4
-    Frequency: {x: 1, y: 1.5}
-    Amplitude: {x: 2, y: 2.5}
+  BaseRange: 350
+  ShieldConfig:
+    GenerateShield: 0
+    ShieldPrefabName: 
+    ShieldHP: 0
+    ShieldRecoverValue: 0
+    ShieldRecoverTime: 0
+    ShieldBaseRatio: 0
+  DroneID: 10
+  MaxDroneCount: 5
+  DroneSpawnTime: 1

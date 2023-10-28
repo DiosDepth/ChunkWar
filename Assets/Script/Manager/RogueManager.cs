@@ -189,6 +189,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private List<int> _eliteSpawnWaves = new List<int>();
     private List<int> _alreadySpawnedEliteIDs = new List<int>();
     private List<int> _spawnBossTempLst = new List<int>();
+    /// <summary>
+    /// 用于防止没有BOSS刷出来直接过关的情况，temp fix
+    /// </summary>
+    private byte _totalKillBossCount = 0;
     private BattleSpecialEntitySpawnConfig _entitySpawnConfig;
     private List<ExtraSpawnInfo> _extraSpawnConfig = new List<ExtraSpawnInfo>();
 
@@ -360,6 +364,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _currentGenerateAncientUnitShipCount = 0;
         _currentAncientUnitProtectRateAdd = 0;
         _shopFreeRollCount = 0;
+        _totalKillBossCount = 0;
         ClearAction();
     }
 
@@ -1127,9 +1132,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         if (_spawnBossTempLst.Contains(targetShip.ShipID))
         {
             _spawnBossTempLst.Remove(targetShip.ShipID);
+            _totalKillBossCount++;
         }
 
-        if (_spawnBossTempLst.Count <= 0)
+        ///Temp Fix 防止没有击杀BOSS直接过关
+        if (_spawnBossTempLst.Count <= 0 && _totalKillBossCount > 0)
         {
             ///SettleWin
             SetBattleSuccess();
@@ -2283,7 +2290,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             return false;
 
         ///主武器无法出售
-        if (unit._baseUnitConfig.unitType == UnitType.MainWeapons)
+        if (unit._baseUnitConfig.unitType == UnitType.MainWeapons || unit._baseUnitConfig.unitType == UnitType.MainBuilding) 
             return false;
 
         if (!_currentShipUnits.ContainsKey(unit.UID))

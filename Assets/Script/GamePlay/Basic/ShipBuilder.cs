@@ -591,7 +591,8 @@ public class ShipBuilder : MonoBehaviour
     private void HandleSelectCurrentUnitClick()
     {
         ///主武器没有选项
-        if (_currentHoverUnit._baseUnitConfig.unitType == UnitType.MainWeapons)
+        var unitType = _currentHoverUnit._baseUnitConfig.unitType;
+        if (unitType == UnitType.MainWeapons || unitType == UnitType.MainBuilding)
             return;
 
         if (_isDisplayingHoverUnit)

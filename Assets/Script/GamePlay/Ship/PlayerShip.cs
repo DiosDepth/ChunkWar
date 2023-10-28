@@ -38,6 +38,7 @@ public class PlayerShip : BaseShip
     public SpriteRenderer sprite;
     
     public ShipMainWeapon mainWeapon;
+    public PlayerDroneFactory mainDrone;
 
     private CircleCollider2D pickupCollider;
     private CircleCollider2D optionCollider;
@@ -156,7 +157,10 @@ public class PlayerShip : BaseShip
         {
             Destroy(mainWeapon.gameObject);
         }
-
+        if(mainDrone != null)
+        {
+            Destroy(mainDrone.gameObject);
+        }
     }
 
     public override void CreateShip()
@@ -196,23 +200,30 @@ public class PlayerShip : BaseShip
         }
 
         //³õÊ¼»¯Ö÷ÎäÆ÷
-        if ( mainWeapon == null)
+        if (mainWeapon == null || mainDrone == null)
         {
-            if(RogueManager.Instance.currentWeaponSelection != null)
+            if (RogueManager.Instance.currentWeaponSelection != null)
             {
-                var weaponCfg = RogueManager.Instance.currentWeaponSelection.itemconfig as WeaponConfig;
-                Vector2Int[] _reletivemap = weaponCfg.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
-                mainWeapon = AddUnit(weaponCfg, _reletivemap, _coreChunk.shipCoord, 0) as ShipMainWeapon;
-                mainWeapon.InitCoreData();
-                CoreUnits.Add(mainWeapon);
-            }
-            else
-            {
-                Debug.LogError("Weapon Null!");
+                var itemCfg = RogueManager.Instance.currentWeaponSelection.itemconfig;
+                if(itemCfg is WeaponConfig)
+                {
+                    var weaponCfg = itemCfg as WeaponConfig;
+                    Vector2Int[] _reletivemap = weaponCfg.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
+                    mainWeapon = AddUnit(weaponCfg, _reletivemap, _coreChunk.shipCoord, 0) as ShipMainWeapon;
+                    mainWeapon.InitCoreData();
+                    CoreUnits.Add(mainWeapon);
+                }
+                else if(itemCfg is DroneFactoryConfig)
+                {
+                    var droneCfg = itemCfg as DroneFactoryConfig;
+                    Vector2Int[] _reletivemap = droneCfg.GetReletiveCoord().AddToAll(_coreChunk.shipCoord);
+                    mainDrone = AddUnit(droneCfg, _reletivemap, _coreChunk.shipCoord, 0) as PlayerDroneFactory;
+                    mainDrone.InitCoreData();
+                    CoreUnits.Add(mainDrone);
+                }
             }
         }
 
-    
         InitPickUpRange();
         movementState.ChangeState(ShipMovementState.Idle);
         conditionState.ChangeState(ShipConditionState.Normal);
@@ -460,6 +471,13 @@ public class PlayerShip : BaseShip
                     mainWeapon.Initialization(this, unitconfig);
                     mainWeapon.InitCoreData();
                     CoreUnits.Add(mainWeapon);
+                }
+                else if(unitconfig.unitType == UnitType.MainBuilding)
+                {
+                    mainDrone = tempunit as PlayerDroneFactory;
+                    mainDrone.Initialization(this, unitconfig);
+                    mainDrone.InitCoreData();
+                    CoreUnits.Add(mainDrone);
                 }
                 else
                 {

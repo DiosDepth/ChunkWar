@@ -90,8 +90,7 @@ public class ShipController : BaseController
         // if weapon mode is Autonomy than using HandleShipAutonomyMainWeapon to process weapon 
         //other wise using Ship Controller Update to process weapon (cus ship controller need to listen player input in every frame)
 
-        targetShip.mainWeapon.ProcessWeapon();
-        //shipUnitManager?.Update();
+        targetShip.mainWeapon?.ProcessWeapon();
 
     }
 
@@ -174,16 +173,16 @@ public class ShipController : BaseController
             return;
         }
         Debug.Log("HandleAttackInput : " + context.phase);
-        targetShip.mainWeapon.HandleShipMainWeapon(context);
+        targetShip.mainWeapon?.HandleShipMainWeapon(context);
     }
 
     public virtual void HandleMainWeaponRotaion()
     {
-        if(targetShip.mainWeapon.rotationRoot == null)
-        {
+        var mainWeapon = targetShip.mainWeapon;
+        if (mainWeapon == null || mainWeapon.rotationRoot == null)
             return;
-        }
-        targetShip.mainWeapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(targetShip.mainWeapon.transform.up, WorldDirection, targetShip.mainWeapon.roatateSpeed);
+
+        mainWeapon.rotationRoot.rotation = MathExtensionTools.CalculateRotation(mainWeapon.transform.up, WorldDirection, mainWeapon.roatateSpeed);
 
     }
 
