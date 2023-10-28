@@ -193,6 +193,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 1
     - Name: SectorAdjacentUpdateTime
       Entry: 7
       Data: 7|System.Int32[], mscorlib
@@ -478,6 +481,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 2
     - Name: SectorAdjacentUpdateTime
       Entry: 7
       Data: 17|System.Int32[], mscorlib
@@ -753,6 +759,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 2
     - Name: SectorAdjacentUpdateTime
       Entry: 7
       Data: 26|System.Int32[], mscorlib
@@ -899,6 +908,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 
@@ -1027,6 +1039,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 
@@ -1155,6 +1170,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 
@@ -1283,6 +1301,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 
@@ -1411,6 +1432,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 
@@ -1549,6 +1573,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 
@@ -1677,6 +1704,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 

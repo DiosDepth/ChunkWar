@@ -968,6 +968,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         return result;
     }
 
+    public SectorThreadSortType GetCurrentWaveSectorSortType()
+    {
+        var waveCfg = CurrentHardLevel.GetWaveConfig(GetCurrentWaveIndex);
+        if (waveCfg == null)
+            return SectorThreadSortType.Balance;
+
+        return waveCfg.SectorSortType;
+    }
+
     /// <summary>
     /// º∆À„hardLevelµ»º∂
     /// </summary>

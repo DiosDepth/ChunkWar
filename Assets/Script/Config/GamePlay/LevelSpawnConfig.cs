@@ -127,6 +127,10 @@ public class WaveConfig
     public List<WaveEnemySpawnConfig> SpawnConfig = new List<WaveEnemySpawnConfig>();
 
     [FoldoutGroup("扇区权重配置")]
+    [LabelText("扇区权重类型")]
+    public SectorThreadSortType SectorSortType = SectorThreadSortType.Balance;
+
+    [FoldoutGroup("扇区权重配置")]
     [LabelText("扇区权重更新时间表")]
     public int[] SectorAdjacentUpdateTime = new int[1] { 0 };
 

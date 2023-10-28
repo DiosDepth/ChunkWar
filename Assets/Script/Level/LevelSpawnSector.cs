@@ -103,11 +103,28 @@ public class LevelSpawnSector
         if (vaildSector.Count <= 0)
             return Vector2.positiveInfinity;
 
-        var targetSectorIndex = vaildSector[UnityEngine.Random.Range(0, vaildSector.Count)];
-        var sector = GetSectorDataByIndex(targetSectorIndex);
-        if (sector == null)
-            return Vector2.positiveInfinity;
+        var sectorSortType = RogueManager.Instance.GetCurrentWaveSectorSortType();
+        byte targetSectorIndex = 0;
+        vaildSector.OrderBy(x => GetSectorDataByIndex(x).ThreadCacheValue);
+        switch (sectorSortType)
+        {
+            case SectorThreadSortType.Balance:
+                ///去除最高和最低
+                vaildSector.RemoveAt(vaildSector.Count - 1);
+                vaildSector.RemoveAt(0);
+                targetSectorIndex = vaildSector[UnityEngine.Random.Range(0, vaildSector.Count)];
+                break;
 
+            case SectorThreadSortType.HighSector:
+                targetSectorIndex = vaildSector[vaildSector.Count - 1];
+                break;
+
+            case SectorThreadSortType.LowSector:
+                targetSectorIndex = vaildSector[0];
+                break;
+        }
+
+        var sector = GetSectorDataByIndex(targetSectorIndex);
         _lastSpawnSectorIndex = targetSectorIndex;
         ///RandomAngle
         float randomAngle = sector.GetRandomAngle();
