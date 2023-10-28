@@ -269,6 +269,19 @@ public class WaveEnemySpawnConfig
     [MinValue(0)]
     public float SpawnSizeInterval = 0.8f;
 
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
+    [LabelText("覆盖最大距离")]
+    [LabelWidth(80)]
+    public bool OverrideDistanceMax = false;
+
+    [FoldoutGroup("队形与数量配置")]
+    [HorizontalGroup("队形与数量配置/CC", 160)]
+    [LabelText("最大距离")]
+    [LabelWidth(80)]
+    [ShowIf("OverrideDistanceMax")]
+    public float DistanceMax = 45;
+
     private void OnTypeIDChange()
     {
         if (AITypeID == 0)

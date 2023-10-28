@@ -6,6 +6,19 @@ using System.Linq;
 using GM_Observer;
 #endif
 
+public enum SectorThreadSortType
+{
+    /// <summary>
+    /// 高威胁度优先
+    /// </summary>
+    HighSector,
+    LowSector,
+    /// <summary>
+    /// 平衡
+    /// </summary>
+    Balance
+}
+
 /*
  * 敌人生成扇区管理
  */
@@ -69,13 +82,21 @@ public class LevelSpawnSector
     /// 获取创建点
     /// </summary>
     /// <returns></returns>
-    public Vector2 GetAIShipSpawnPosition()
+    public Vector2 GetAIShipSpawnPosition(float Rangemax = -1)
     {
         var currentShip = RogueManager.Instance.currentShip;
         if (currentShip == null)
             return Vector2.positiveInfinity;
 
-        float targetRangeDistance = UnityEngine.Random.Range(_enemyGenerate_Inner_Range, _enemyGenerate_Outer_Range);
+        float targetRangeDistance = 0;
+        if (Rangemax != -1)
+        {
+            targetRangeDistance = UnityEngine.Random.Range(_enemyGenerate_Inner_Range, Rangemax);
+        }
+        else
+        {
+            targetRangeDistance = UnityEngine.Random.Range(_enemyGenerate_Inner_Range, _enemyGenerate_Outer_Range);
+        }
 
         bool inAdjacentSector = Utility.CalculateRate100(_globalAdjacentSectorWeight);
         var vaildSector = GetVaildSectorList(inAdjacentSector);

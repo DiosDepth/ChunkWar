@@ -1625,7 +1625,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
         else
         {
-            spawnpoint = LevelManager.Instance.SpawnSector.GetAIShipSpawnPosition();
+            if (cfg.OverrideDistanceMax)
+            {
+                spawnpoint = LevelManager.Instance.SpawnSector.GetAIShipSpawnPosition(cfg.DistanceMax);
+            }
+            else
+            {
+                spawnpoint = LevelManager.Instance.SpawnSector.GetAIShipSpawnPosition();
+            }
         }
 
         if(spawnpoint == Vector2.positiveInfinity)

@@ -94,6 +94,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 1
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -130,6 +136,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 2
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -166,6 +178,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 1
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -361,6 +379,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 1
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -397,6 +421,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 0.5
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -433,6 +463,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 1
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -618,6 +654,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 1.5
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -654,6 +696,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 2
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -690,6 +738,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 2
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
