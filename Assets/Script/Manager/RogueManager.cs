@@ -2418,7 +2418,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     /// <param name="plugID"></param>
     /// <param name="goodsID"> 如果为-1 则会自动找商品ID</param>
-    public void AddNewShipPlug(int plugID, int goodsID = -1)
+    public ShipPlugInfo AddNewShipPlug(int plugID, int goodsID = -1)
     {
         if(goodsID == -1)
         {
@@ -2427,7 +2427,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         var plugInfo = ShipPlugInfo.CreateInfo(plugID, goodsID);
         if (plugInfo == null)
-            return;
+            return null;
 
         if (plugItemCountDic.ContainsKey(plugID))
         {
@@ -2441,11 +2441,16 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipPlug, plugInfo);
         plugInfo.UID = uid;
         plugInfo.OnAdded();
+        if (InBattle)
+        {
+            plugInfo.InitModifyTrigger();
+        }
         _currentShipPlugs.Add(uid, plugInfo);
         AllCurrentShipPlugs.Add(plugInfo);
         OnShipPlugCountChange?.Invoke(plugID, GetSameShipPlugTotalCount(plugID));
         OnItemCountChange?.Invoke();
         RogueEvent.Trigger(RogueEventType.ShipPlugChange);
+        return plugInfo;
     }
 
     private int GetGoodsIDByPlugID(int plugID)
@@ -2492,12 +2497,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private void InitShipPlugs()
     {
         var shipCfg = currentShipSelection.itemconfig as PlayerShipConfig;
-        AddNewShipPlug(shipCfg.CorePlugID);
+        var corePlug = AddNewShipPlug(shipCfg.CorePlugID);
+        corePlug.InitModifyTrigger();
         if (shipCfg.ShipOriginPlugs != null && shipCfg.ShipOriginPlugs.Count > 0) 
         {
             for (int i = 0; i < shipCfg.ShipOriginPlugs.Count; i++) 
             {
-                AddNewShipPlug(shipCfg.ShipOriginPlugs[i]);
+                var plug = AddNewShipPlug(shipCfg.ShipOriginPlugs[i]);
+                plug.InitModifyTrigger();
             }
         }
     }
