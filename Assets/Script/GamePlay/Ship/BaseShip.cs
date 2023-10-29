@@ -58,9 +58,6 @@ public class BaseShip : MonoBehaviour, IPauseable
 
     public BaseController controller;
     protected GameObject buildingsParent;
-    public string deathVFXName = "ExplodeVFX";
-    
-
     public StateMachine<ShipMovementState> movementState;
     public StateMachine<ShipConditionState> conditionState;
 
@@ -239,13 +236,15 @@ public class BaseShip : MonoBehaviour, IPauseable
         }
     }
 
-    public virtual void CheckDeath(Unit coreUnit, UnitDeathInfo info)
+    public virtual bool CheckDeath(Unit coreUnit, UnitDeathInfo info)
     {
         CoreUnits.Remove(coreUnit);
         if(CoreUnits.Count <= 0)
         {
             Death(info);
+            return true;
         }
+        return false;
     }
 
     public virtual void Death(UnitDeathInfo info)

@@ -130,13 +130,6 @@ public class DummyUnit : Unit
         this.gameObject.SetActive(false);
         SetUnitProcess(false);
 
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
-        {
-
-            vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().PoolableSetActive(true);
-            vfx.GetComponent<ParticleController>().PlayVFX();
-            unitSprite.color = Color.black;
-        });
+        EffectManager.Instance.CreateEffect(deathVFXName, transform.position);
     }
 }

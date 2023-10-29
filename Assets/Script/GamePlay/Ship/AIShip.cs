@@ -49,13 +49,8 @@ public class AIShip : BaseShip,IPoolable, IDropable
             SoundManager.Instance.PlayBattleSound(AIShipCfg.DieAudio, transform);
         }
         ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
-        {
-            vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().PoolableSetActive(true);
-            vfx.GetComponent<ParticleController>().PlayVFX();
-            PoolableDestroy();
-        });
+        EffectManager.Instance.CreateEffect(AIShipCfg.DieEffect, transform.position);
+        PoolableDestroy();
     }
 
     protected virtual void OnRemove()

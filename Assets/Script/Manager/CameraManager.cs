@@ -97,7 +97,7 @@ public class CameraManager : Singleton<CameraManager>
         return vcam;
     }
 
-    public void SetFollowPlayerShip(float offsetX = 0)
+    public void SetFollowPlayerShip(float offsetX = 0, bool force = true)
     {
         var shipTrans = RogueManager.Instance.currentShip;
         if (shipTrans == null)
@@ -157,7 +157,7 @@ public class CameraManager : Singleton<CameraManager>
         vcam.LookAt = target;
     }
 
-    public void ChangeVCameraFollowTarget(Transform target, string vcamname = "InGameCMvcam")
+    public void ChangeVCameraFollowTarget(Transform target, bool force = true, string vcamname = "InGameCMvcam")
     {
         CinemachineVirtualCamera vcam;
         vcamDic.TryGetValue(vcamname, out vcam);
@@ -166,7 +166,15 @@ public class CameraManager : Singleton<CameraManager>
             Debug.Log("Can't find " + vcamname + " in vcamDic");
             return;
         }
+
+        if (target == null)
+            return;
+
         vcam.Follow = target;
+        if (force)
+        {
+            vcam.ForceCameraPosition(target.transform.position, target.transform.rotation);
+        }
     }
 
     public void SetVCameraBoard(Collider2D board, string vcamname = "InGameCMvcam")
@@ -181,11 +189,6 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         vcam.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = board;
-    }
-
-    public void SetVCameraPos(Vector2 pos)
-    {
-        vcam.ForceCameraPosition(pos, Quaternion.identity);
     }
 
 }

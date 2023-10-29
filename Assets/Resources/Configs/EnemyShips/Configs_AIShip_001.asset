@@ -1415,8 +1415,8 @@ MonoBehaviour:
   HardLevelGroupID: 1
   SectorThreadValue: 1
   EnemyCountModify: 1
-  MaxVelocity: 20
-  MaxAcceleration: 4
+  MaxVelocity: 30
+  MaxAcceleration: 5
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 1
@@ -1429,6 +1429,14 @@ MonoBehaviour:
   AppearWarning: 0
   AppearWarningText: 
   AppearWarningAudio: 
+  DieEffect:
+    EffectName: Explode/AIShipExplode_Small
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
   DropList:
   - pickuptype: 1
     count: 1

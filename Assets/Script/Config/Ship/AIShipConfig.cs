@@ -148,6 +148,12 @@ public class AIShipConfig : BaseShipConfig
     [ShowIf("AppearWarning")]
     public string AppearWarningAudio;
 
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/C")]
+    [LabelText("死亡特效")]
+    [LabelWidth(100)]
+    public GeneralEffectConfig DieEffect;
+
 
     [FoldoutGroup("掉落配置")]
     public List<DropInfo> DropList = new List<DropInfo>();

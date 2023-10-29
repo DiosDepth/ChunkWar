@@ -397,12 +397,12 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
         LoadLevel(levelName, (level) =>
         {
+            ECSManager.Instance.Initialization();
             var ship = SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint, Quaternion.identity, false);
 
             ship.LoadRuntimeData(RogueManager.Instance.ShipMapData);
             ship.gameObject.SetActive(true);
             RogueManager.Instance.currentShip = ship;
-            ECSManager.Instance.Initialization();
             ship.Initialization();
 
             //初始化摄影机
@@ -413,7 +413,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         });
     }
 
-    public async void LoadLevel(string levelname, UnityAction<LevelEntity> callback = null)
+    public void LoadLevel(string levelname, UnityAction<LevelEntity> callback = null)
     {
         LevelData data = null;
         //加载关卡
@@ -422,7 +422,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             DataManager.Instance.LevelDataDic.TryGetValue(levelname, out data);
             if (data != null)
             {
-                await ResManager.Instance.LoadAsync<GameObject>(data.LevelPrefabPath, (obj) =>
+                ResManager.Instance.LoadAsync<GameObject>(data.LevelPrefabPath, (obj) =>
                 {
                     currentLevel = obj.GetComponent<LevelEntity>();
                     currentLevel.Initialization();

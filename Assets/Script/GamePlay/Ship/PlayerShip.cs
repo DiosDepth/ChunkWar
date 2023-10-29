@@ -264,16 +264,10 @@ public class PlayerShip : BaseShip
     {
         base.Death(info);
 
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
-        {
-            vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().PoolableSetActive();
-            vfx.GetComponent<ParticleController>().PlayVFX(); 
-            GameEvent.Trigger(EGameState.EGameState_GameOver);
-        });
+        EffectManager.Instance.CreateEffect(playerShipCfg.DieEffect, transform.position);
+        ///TODO
 
         //loop all unit to disable it 
-
         for (int i = 0; i < _unitList.Count; i++)
         {
             _unitList[i].SetUnitProcess(false);
@@ -281,7 +275,7 @@ public class PlayerShip : BaseShip
         //disable controller and inputhandle
         controller.SetControllerUpdate(false);
         //
-
+        GameEvent.Trigger(EGameState.EGameState_GameOver);
     }
 
     public override void ResetShip()

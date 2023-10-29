@@ -60,6 +60,10 @@ public class DroneConfig : BaseShipConfig
     [HorizontalGroup("效果配置/A")]
     public string DieAudio;
 
+    [FoldoutGroup("效果配置")]
+    [LabelText("死亡特效")]
+    public GeneralEffectConfig DeathEffect;
+
 
     [System.Obsolete]
     protected override void OnEnable()

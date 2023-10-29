@@ -113,6 +113,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
     protected Material _sharedMat;
     protected static Material _appearMat;
+    protected static Material _playerHighlightMat;
     protected Animator _animator;
     protected Transform _uiCanvas;
     private UnitSceneHPSlider _sceneHPSlider;
@@ -121,7 +122,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         if(unitSprite != null && !IsInvisiableUnit)
         {
-            _sharedMat = unitSprite.sharedMaterial;
             _animator = unitSprite.transform.SafeGetComponent<Animator>();
         }
         _uiCanvas = transform.Find("UICanvas");
@@ -170,9 +170,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         GameManager.Instance.UnRegisterPauseable(this);
         ChangeUnitState(DamagableState.Destroyed);
 
+        bool ownerDeath = false;
         if (IsCoreUnit)
         {
-            _owner.CheckDeath(this, info);
+            ownerDeath = _owner.CheckDeath(this, info);
             //destroy owner
         }
         else
@@ -197,13 +198,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         ///Remove Owner
         _owner.RemoveUnit(this);
         SetDisable();
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
+
+        if (!ownerDeath)
         {
-            
-            vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().PoolableSetActive(true);
-            vfx.GetComponent<ParticleController>().PlayVFX();
-        });
+            EffectManager.Instance.CreateEffect(deathVFXName, transform.position);
+        }
         
     }
 
@@ -250,16 +249,13 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         _baseUnitConfig = m_unitconfig;
         _owner = m_owner;
+        InitMaterial();
         HpComponent = new GeneralHPComponet(baseAttribute.HPMax, baseAttribute.HPMax);
         RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
 
         if (_owner is AIShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
-            if (_appearMat == null)
-            {
-                _appearMat = Instantiate(_sharedMat);
-            }
         }
         if (_owner is PlayerShip || _owner is BaseDrone)
         {
@@ -270,7 +266,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         }
         GameManager.Instance.RegisterPauseable(this);
         ChangeUnitState(DamagableState.Normal);
-        unitSprite.material = _sharedMat;
+        
     }
 
     /// <summary>
@@ -282,6 +278,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         _owner = ship;
         _baseUnitConfig = m_unitconfig;
+        InitMaterial();
     }
 
     /// <summary>
@@ -336,14 +333,14 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
     {
         if (highlight)
         {
-            unitSprite.material = _appearMat;
+            unitSprite.material = _playerHighlightMat;
             var color = GameHelper.GetRarityColor(_baseUnitConfig.GeneralConfig.Rarity);
-            _appearMat.EnableKeyword("OUTBASE_ON");
-            _appearMat.SetColor("_OutlineColor", color);
+            _playerHighlightMat.SetFloat(Mat_Shader_PropertyKey_OUTLINE, 1);
+            _playerHighlightMat.SetColor("_OutlineColor", color);
         }
         else
         {
-            _appearMat.DisableKeyword("OUTBASE_ON");
+            _playerHighlightMat.SetFloat(Mat_Shader_PropertyKey_OUTLINE, 0);
             unitSprite.material = _sharedMat;
         }
         
@@ -752,6 +749,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         if(_appearMat != null)
         {
             _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
+            _appearMat.SetFloat(Mat_Shader_PropertyKey_OUTLINE, 0);
         }
 
         if (_animator != null)
@@ -759,17 +757,34 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
             _animator.ResetTrigger(AnimTrigger_Spawn);
             _animator.ResetTrigger(AnimTrigger_DeSpawn);
         }
-
-
-     
     }
 
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "_HologramBlend";
+    protected const string Mat_Shader_PropertyKey_OUTLINE = "_OutlineAlpha";
 
     private void SetAnimatorTrigger(string trigger)
     {
         if(_animator == null) { return; }
         _animator.SetTrigger(trigger);
+    }
+
+    private void InitMaterial()
+    {
+        if (IsInvisiableUnit)
+            return;
+
+        _sharedMat = unitSprite.sharedMaterial;
+        unitSprite.material = _sharedMat;
+        var ownerType = GetOwnerType;
+        if (ownerType == OwnerType.AI)
+        {
+            _appearMat = Instantiate(_sharedMat);
+            
+        }
+        else if(ownerType == OwnerType.Player)
+        {
+            _playerHighlightMat = Instantiate(_sharedMat);
+        }
     }
 
     #endregion

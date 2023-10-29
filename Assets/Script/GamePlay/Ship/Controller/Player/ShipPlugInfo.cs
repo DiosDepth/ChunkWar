@@ -39,6 +39,8 @@ public class ShipPlugInfo : IPropertyModify
         get { return _triggerDatas; }
     }
 
+    private bool _triggerInit = false;
+
     public static ShipPlugInfo CreateInfo(int plugID, int goodsID)
     {
         var plugCfg = DataManager.Instance.GetShipPlugItemConfig(plugID);
@@ -132,11 +134,14 @@ public class ShipPlugInfo : IPropertyModify
             _modifySpecialDatas[i].HandlePropetyModifyBySpecialValue();
         }
 
-        InitModifyTrigger();
     }
 
-    private void InitModifyTrigger()
+    public void InitModifyTrigger()
     {
+        if (_triggerInit)
+            return;
+
+        _triggerDatas.Clear();
         var triggers = _cfg.ModifyTriggers;
         if (triggers != null && triggers.Length > 0) 
         {
@@ -153,5 +158,6 @@ public class ShipPlugInfo : IPropertyModify
                 }
             }
         }
+        _triggerInit = true;
     }
 }
