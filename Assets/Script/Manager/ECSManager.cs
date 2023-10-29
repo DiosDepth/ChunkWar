@@ -368,6 +368,8 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         if (!ProcessECS) { return; }
         UpdateJobData();
 
+        //Allcate Drone Target 
+
 
         playerJobController.UpdateDroneAgentMovement(ref activePlayerDroneAgentData, activeAIAgentData);
         AIJobController.UpdateAgentMovement(ref activeAIAgentData,  activePlayerBoidData);

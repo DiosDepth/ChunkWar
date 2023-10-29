@@ -2,7 +2,9 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 [System.Serializable]
 public class DroneFactoryAttribute : BuildingAttribute
@@ -80,7 +82,7 @@ public class DroneFactory : Building
     public Transform repairingGroup;
     public Transform apronGroup;
     public float launchIntervalTime = 1;
-    public float callbackThreshold = 0.1f;
+    public float callbackThreshold = 2f;
 
 
 
@@ -88,6 +90,7 @@ public class DroneFactory : Building
     {
         get { return _launchedList; }
     }
+    protected List<BaseDrone> _callbackList = new List<BaseDrone>();
     protected List<BaseDrone> _launchedList = new List<BaseDrone>();
     protected Queue<BaseDrone> _apronQueue = new Queue<BaseDrone>();
     protected Queue<BaseDrone> _repairQueue = new Queue<BaseDrone>();
@@ -98,6 +101,9 @@ public class DroneFactory : Building
     private bool _isRepairing = false;
     private BaseDrone _repairingDrone;
     private int _allocateTargetCount = 0 ;
+
+    private Dictionary<int, SteeringJobDataArrive> _droneArriveDataDic = new Dictionary<int, SteeringJobDataArrive>();
+
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
         launchedGroup = LevelManager.DronePool;
@@ -208,59 +214,78 @@ public class DroneFactory : Building
             return;
         }
 
-        //allocate target to drone;
-        //Clear targetList
+ 
+        targetList.RemoveAll(t => t == null);
         targetList.RemoveAll(t => t.target.activeInHierarchy == false);
         if (targetList.Count == 0)
         {
+            _callbackList.Clear();
+
+            List<BaseDrone> backlist = new List<BaseDrone>();
+            UnitTargetInfo backtargetinfo = new UnitTargetInfo(this.gameObject, ECSManager.Instance.GetBuildingIndex(GetOwnerType, this), 0, Vector3.zero);
+            SteeringBehaviorController controller;
+            SteeringJobDataArrive arrivedata;
+
+            for (int i = 0; i < _launchedList.Count; i++)
+            {
+                _launchedList[i].SetFirstTargetInfo(backtargetinfo);
+                for (int n = 0; n < _launchedList[i].UnitList.Count; n++)
+                {
+                    _launchedList[i].UnitList[n].SetUnitProcess(false);
+                }
+                controller = _launchedList[i].GetComponent<SteeringBehaviorController>();
+                _droneArriveDataDic.TryGetValue(_launchedList[i].gameObject.GetInstanceID(), out arrivedata);
+                arrivedata.arrive_arriveRadius = 0.5f;
+                arrivedata.arrive_slowRadius = 0.5f;
+                controller.SetArriveData(arrivedata);
+                _callbackList.Add(_launchedList[i]);
+            }
+
+            _launchedList.Clear();
             buildingState.ChangeState(BuildingState.End);
             return;
         }
 
-
-        if(_launchedList.Count != 0)
+        if (_launchedList.Count != 0)
         {
             for (int i = 0; i < _launchedList.Count; i++)
             {
                 _allocateTargetCount = _allocateTargetCount % targetList.Count;
 
-                if (_launchedList[i].GetFirstTarget() != null &&_launchedList[i].GetFirstTarget().isActiveAndEnabled)
+                if (_launchedList[i].GetFirstTarget() != null && _launchedList[i].GetFirstTarget().isActiveAndEnabled)
                 {
                     continue;
                 }
-                _launchedList[i].SetFirstTarget(targetList[_allocateTargetCount]);
+                _launchedList[i].SetFirstTargetInfo(targetList[_allocateTargetCount]);
                 _allocateTargetCount++;
             }
         }
-
-
         //launch if find target
         if (targetList != null && targetList.Count != 0)
         {
-            if (_launchIntervalCounter <= 0)
-            {
-        
-                LaunchDrone();
-                _launchIntervalCounter = launchIntervalTime;
-            }
-            _launchIntervalCounter -= Time.deltaTime;
+            LaunchDrone();
         }
-
-        
-
-
-
 
         //Restore if any drone is crashed
         RepairDrone();
-        
     }
 
     public override void BuildingEnd()
     {
         BuildingOFF();
-        CallBackAllDrone();
-        if(_launchedList.Count == 0)
+
+        List<BaseDrone> back = _callbackList.FindAll(d => d.transform.position.DistanceXY(this.transform.position) <= callbackThreshold);
+        if(back.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < back.Count; i++)
+        {
+            Landing(back[i]);
+        }
+
+        if (_callbackList.Count == 0)
         {
             buildingState.ChangeState(BuildingState.Recover);
         }
@@ -288,44 +313,32 @@ public class DroneFactory : Building
         drone.transform.SetParent(launchedGroup);
 
 
-        drone.SetFirstTarget(targetList[0]);
-      
+        drone.SetFirstTargetInfo(targetList[0]);
+
         //allocate target to drone
+        SteeringJobDataArrive dronedata;
+        _droneArriveDataDic.TryGetValue(drone.gameObject.GetInstanceID(), out dronedata);
+        drone.GetComponent<SteeringBehaviorController>().SetArriveData(dronedata);
 
         drone.Launch();
         ECSManager.Instance.RegisterJobData(OwnerType.Player, drone);
         for (int i = 0; i < drone.UnitList.Count; i++)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.Player, drone.UnitList[i]);
-        }
-
-    }
-
-    public virtual void CallBackAllDrone()
-    {
-        UnitTargetInfo backtargetinfo = new UnitTargetInfo(this.gameObject, ECSManager.Instance.GetBuildingIndex(GetOwnerType, this), 0, Vector3.zero);
-        List<BaseDrone> backlist = new List<BaseDrone>();
-        for (int i = 0; i < _launchedList.Count; i++)
-        {
-            _launchedList[i].SetFirstTarget(backtargetinfo);
-            if (_launchedList[i].transform.position.DistanceXY(this.transform.position) <= callbackThreshold)
-            {
-                backlist.Add(_launchedList[i]);
-            }
-        }
-        for (int i = 0; i < backlist.Count; i++)
-        {
-            Landing(backlist[i]);
+            drone.UnitList[i].SetUnitProcess(true);
         }
     }
+
+
+
+
 
     public virtual void Landing(BaseDrone drone)
     {
         if (_apronQueue.Contains(drone)) { return; }
         _apronQueue.Enqueue(drone);
-        if(_launchedList.Contains(drone))
-            _launchedList.Remove(drone);
-        drone.transform.position = launchPoint.transform.position;
+        if(_callbackList.Contains(drone))
+            _callbackList.Remove(drone);
         drone.transform.SetParent(apronGroup);
         ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
     }
@@ -336,6 +349,8 @@ public class DroneFactory : Building
         _repairQueue.Enqueue(drone);
         if (_launchedList.Contains(drone))
             _launchedList.Remove(drone);
+        if (_callbackList.Contains(drone))
+            _callbackList.Remove(drone);
         drone.transform.SetParent(repairingGroup);
         ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
     }
@@ -374,6 +389,9 @@ public class DroneFactory : Building
             {
                 (baseship as BaseDrone).SetOwnerFactory(this);
                 (baseship as BaseDrone).Landing();
+                var controller = baseship.GetComponent<SteeringBehaviorController>();
+                SteeringJobDataArrive data = controller.GetArriveData();
+                _droneArriveDataDic.Add(baseship.gameObject.GetInstanceID(), data);
             });
 
             for (int i = 0; i < factoryAttribute.MaxCount; i++)

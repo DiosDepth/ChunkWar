@@ -6,7 +6,11 @@ public class PlayerDrone : BaseDrone
 {
 
 
-
+    public override void Initialization()
+    {
+        base.Initialization();
+        //ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
+    }
     public override void Death(UnitDeathInfo info)
     {
         ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);

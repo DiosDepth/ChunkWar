@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using static GameHelper;
 
 
@@ -237,7 +238,8 @@ public class AgentData : IBoidData
     {
         if (shipList.Count == 0) { return; }
         BoidJobData data;
-
+        SteeringControllerJobData steeringJobData = new SteeringControllerJobData();
+        SteeringBehaviorController controller;
         for (int i = 0; i < shipList.Count; i++)
         {
             data.position = boidAgentList[i].GetPosition();
@@ -245,8 +247,46 @@ public class AgentData : IBoidData
             data.rotationZ = boidAgentList[i].GetRotationZ();
             data.boidRadius = boidAgentList[i].GetRadius();
             boidAgentJobData[i] = data;
-        }
 
+            controller = shipList[i].GetComponent<SteeringBehaviorController>();
+            steeringJobData.maxAcceleration = controller.maxAcceleration;
+            steeringJobData.maxVelocity = controller.maxVelocity;
+            steeringJobData.maxAngularAcceleration = controller.maxAngularAcceleration;
+            steeringJobData.maxAngularVelocity = controller.maxAngularVelocity;
+            steeringJobData.targetSerchingRadius = controller.targetSerchingRadius;
+            steeringJobData.drag = controller.drag;
+
+            steeringJobData.evadeData.evade_isActive = controller.isActiveEvade;
+            steeringJobData.evadeData.evade_weight = controller.evadeBehaviorInfo.GetWeight();
+            steeringJobData.evadeData.evade_maxPrediction = controller.evadeBehaviorInfo.maxPrediction;
+
+            steeringJobData.arriveData.arrive_isActive = controller.isActiveArrive;
+            steeringJobData.arriveData.arrive_weight = controller.arrivelBehaviorInfo.GetWeight();
+            steeringJobData.arriveData.arrive_arriveRadius = controller.arrivelBehaviorInfo.arriveRadius;
+            steeringJobData.arriveData.arrive_slowRadius = controller.arrivelBehaviorInfo.slowRadius;
+
+            steeringJobData.faceData.face_isActive = controller.isActiveFace;
+            steeringJobData.faceData.face_weight = controller.faceBehaviorInfo.GetWeight();
+            steeringJobData.faceData.face_targetRadius = controller.faceBehaviorInfo.facetargetRadius;
+
+            steeringJobData.cohesionData.cohesion_isActive = controller.isActiveCohesion;
+            steeringJobData.cohesionData.cohesion_weight = controller.cohesionBehaviorInfo.GetWeight();
+            steeringJobData.cohesionData.cohesion_viewAngle = controller.cohesionBehaviorInfo.viewAngle;
+
+            steeringJobData.separationData.separation_isActive = controller.isActiveSeparation;
+            steeringJobData.separationData.separation_weight = controller.separationBehaviorInfo.GetWeight();
+            steeringJobData.separationData.separation_threshold = controller.separationBehaviorInfo.threshold;
+            steeringJobData.separationData.separation_decayCoefficient = controller.separationBehaviorInfo.decayCoefficient;
+
+            steeringJobData.alignmentData.alignment_isActive = controller.isActiveAligment;
+            steeringJobData.alignmentData.alignment_weight = controller.alignmentBehaviorInfo.GetWeight();
+            steeringJobData.alignmentData.alignment_alignDistance = controller.alignmentBehaviorInfo.alignDistance;
+
+            steeringJobData.collisionAvoidenceData.collisionavoidance_isActive = controller.isActiveCollisionAvoidance;
+            steeringJobData.collisionAvoidenceData.collisionavoidance_weight = controller.collisionAvoidanceBehaviorInfo.GetWeight();
+
+            steeringControllerJobDataNList[i] = steeringJobData;
+        }
     }
 
     public override void Add(BaseShip ship)
@@ -547,20 +587,32 @@ public class DroneData : AgentData
     public override void UpdateData()
     {
         base.UpdateData();
-        if (targetShipList.Count == 0) { return; }
+        //update target ship list and target boid agent list
         BoidJobData data;
-
-        for (int i = 0; i < targetShipList.Count; i++)
+        if(shipList == null || shipList.Count == 0) { return; }
+        for (int i = 0; i < shipList.Count; i++)
         {
-            
-            data.position = targetBoidAgentList[i].GetPosition();
-            data.velocity = targetBoidAgentList[i].GetVelocity();
-            data.rotationZ = targetBoidAgentList[i].GetRotationZ();
-            data.boidRadius = targetBoidAgentList[i].GetRadius();
-            targetBoidAgentJobData[i] = data;
+            if (targetShipList[i] == null || !targetShipList[i].isActiveAndEnabled)
+            {
+                targetShipList[i] = shipList[i].GetFirstTarget();
+                targetBoidAgentList[i] = targetShipList[i].GetComponent<IBoid>();
+                data.position = targetBoidAgentList[i].GetPosition();
+                data.velocity = targetBoidAgentList[i].GetVelocity();
+                data.rotationZ = targetBoidAgentList[i].GetRotationZ();
+                data.boidRadius = targetBoidAgentList[i].GetRadius();
+                targetBoidAgentJobData[i] = data;
+            }
+            else
+            {
+                data.position = targetBoidAgentList[i].GetPosition();
+                data.velocity = targetBoidAgentList[i].GetVelocity();
+                data.rotationZ = targetBoidAgentList[i].GetRotationZ();
+                data.boidRadius = targetBoidAgentList[i].GetRadius();
+                targetBoidAgentJobData[i] = data;
+            }
         }
-
     }
+
 
     public override void Add(BaseShip drone)
     {
@@ -585,9 +637,9 @@ public class DroneData : AgentData
     public override void Remove(BaseShip drone)
     {
         base.Remove(drone);
-        if (!shipList.Contains(drone)) { return; }
-        int index = shipList.IndexOf(drone);
-        RemoveAt(index);
+        //if (!shipList.Contains(drone)) { return; }
+        //int index = shipList.IndexOf(drone);
+        //RemoveAt(index);
        
     }
 
@@ -596,6 +648,7 @@ public class DroneData : AgentData
         targetShipList.RemoveAt(index);
         targetBoidAgentList.RemoveAt(index);
         targetBoidAgentJobData.RemoveAt(index);
+        base.RemoveAt(index);
     }
 
     public override void Clear()

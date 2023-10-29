@@ -112,7 +112,19 @@ public class BaseShip : MonoBehaviour, IPauseable
         return baseship;
     }
 
-    public void SetFirstTarget(UnitTargetInfo unitinfo)
+    public UnitTargetInfo GetFirstTargetInfo()
+    {
+        if (_unitList.Count == 0) { return null; }
+        if (_unitList[0].targetList.Count == 0) { return null; }
+
+        UnitTargetInfo info;
+        info = _unitList[0].targetList[0];
+
+        return info;
+    }
+
+
+    public void SetFirstTargetInfo(UnitTargetInfo unitinfo)
     {
         for (int i = 0; i < _unitList.Count; i++)
         {

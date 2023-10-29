@@ -123,8 +123,8 @@ MonoBehaviour:
   collider: {fileID: 0}
   boidRadius: 1
   lastpos: {x: 0, y: 0, z: 0}
-  maxAcceleration: 10
-  maxVelocity: 7
+  maxAcceleration: 15
+  maxVelocity: 10
   maxAngularAcceleration: 3
   maxAngularVelocity: 3
   targetSerchingRadius: 15
@@ -152,8 +152,8 @@ MonoBehaviour:
   isActiveSeparation: 1
   separationBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
-    threshold: 4
+    weight: 0.5
+    threshold: 1
     decayCoefficient: -25
   isActiveAligment: 0
   alignmentBehaviorInfo:
@@ -163,8 +163,8 @@ MonoBehaviour:
   isActiveCollisionAvoidance: 1
   collisionAvoidanceBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
-  drag: 2
+    weight: 0.5
+  drag: 3
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

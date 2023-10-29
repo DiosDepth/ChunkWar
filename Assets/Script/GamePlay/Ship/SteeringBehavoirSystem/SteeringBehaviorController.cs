@@ -7,6 +7,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 
 public struct SteeringBehaviorInfo
@@ -75,7 +76,24 @@ public class SteeringBehaviorController : BaseController
     public float drag = 1f;
 
 
-    
+    public virtual SteeringJobDataArrive GetArriveData()
+    {
+        SteeringJobDataArrive data;
+        data.arrive_isActive = isActiveArrive;
+        data.arrive_weight = arrivelBehaviorInfo.GetWeight();
+        data.arrive_slowRadius = arrivelBehaviorInfo.slowRadius;
+        data.arrive_arriveRadius = arrivelBehaviorInfo.arriveRadius;
+
+        return data;
+    }
+
+    public virtual void SetArriveData(SteeringJobDataArrive data)
+    {
+        isActiveArrive = data.arrive_isActive;
+        arrivelBehaviorInfo.SetWeight(data.arrive_weight);
+        arrivelBehaviorInfo.slowRadius = data.arrive_slowRadius;
+        arrivelBehaviorInfo.arriveRadius = data.arrive_arriveRadius;
+    }
 
 
     public virtual void SetAIConfig(AIShipConfig cfg)

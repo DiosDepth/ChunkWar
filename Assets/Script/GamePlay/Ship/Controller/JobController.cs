@@ -313,7 +313,7 @@ public class JobController : IPauseable
                         targetindex = activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetIndex;
                         if (targetindex == -1 || activeTargetUnitData.unitList == null || activeTargetUnitData.unitList.Count == 0)
                         {
-                            break;
+                            continue;
                         }
                         else
                         {
@@ -355,10 +355,6 @@ public class JobController : IPauseable
 
         int startindex;
         int targetindex;
-
-
-
-
 
         for (int i = 0; i < activeSelfWeaponData.activeWeaponList.Count; i++)
         {
@@ -449,7 +445,7 @@ public class JobController : IPauseable
                         targetindex = activeSelfBuildingData.rv_buildingTargetsInfo[startindex + n].targetIndex;
                         if (targetindex == -1 || activeTargetUnitData.unitList == null || activeTargetUnitData.unitList.Count == 0)
                         {
-                            break;
+                            continue;
                         }
                         else
                         {
@@ -824,7 +820,7 @@ public class JobController : IPauseable
         {
             job_boidData = activeSelfDroneAgentData.boidAgentJobData,
             job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
-            job_avoidenceData = activeTargetAgentData.boidAgentJobData,
+            job_avoidenceData = activeSelfDroneAgentData.targetBoidAgentJobData,
             rv_steering = activeSelfDroneAgentData.rv_collisionavoidance_steeringInfo,
         };
 

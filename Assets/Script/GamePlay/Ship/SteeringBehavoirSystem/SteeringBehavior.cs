@@ -11,7 +11,7 @@ public  class SteeringBehavior
     [SerializeField] public Transform target ;
     [SerializeField] protected float weight = 1f;
 
-
+    public virtual void SetWeight(float m_weight) { weight = m_weight; }
     public virtual float GetWeight() { return weight; }
 
 

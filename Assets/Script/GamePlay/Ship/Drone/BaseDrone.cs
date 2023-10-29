@@ -39,6 +39,7 @@ public class BaseDrone : BaseShip, IPoolable
         baseDroneState = new StateMachine<DroneState>(this.gameObject,false,false);
         baseDroneState.ChangeState(DroneState.Ready);
         CreateShip();
+
     }
 
     public virtual void SetOwnerFactory(DroneFactory factory)
@@ -140,7 +141,7 @@ public class BaseDrone : BaseShip, IPoolable
         PoolableSetActive(true);
     }
     public virtual void Landing()
-    {
+     {
         _ownerFactory.Landing(this);
         PoolableSetActive(false);
     }
@@ -203,9 +204,16 @@ public class BaseDrone : BaseShip, IPoolable
         _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
     }
 
-    protected virtual void ResetAllAnimation()
+    protected override void ResetAllAnimation()
     {
-        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
-        _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);
+        if(_appearMat != null)
+        {
+            _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        }
+        if(_spriteAnimator != null)
+        {
+            _spriteAnimator.ResetTrigger(AnimTrigger_Spawn);
+        }
+   
     }
 }

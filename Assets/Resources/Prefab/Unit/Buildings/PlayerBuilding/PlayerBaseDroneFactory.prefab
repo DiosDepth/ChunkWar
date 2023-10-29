@@ -82,7 +82,7 @@ MonoBehaviour:
   repairingGroup: {fileID: 4035318367625482465}
   apronGroup: {fileID: 7799479275578338925}
   launchIntervalTime: 1
-  callbackThreshold: 0.1
+  callbackThreshold: 2
 --- !u!1 &1922171272754493875
 GameObject:
   m_ObjectHideFlags: 0
