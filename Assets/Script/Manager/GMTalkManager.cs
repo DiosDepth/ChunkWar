@@ -17,6 +17,12 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private Dictionary<int, bool> toggleValueCache = new Dictionary<int, bool>();
 
+    public bool IsEnemyImmortal
+    {
+        get;
+        private set;
+    }
+
     public override void Initialization()
     {
         base.Initialization();
@@ -30,6 +36,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
     private void InitFunctionDic()
     {
         GMFunctionDic = new Dictionary<string, Func<string[], bool>>();
+        IsEnemyImmortal = false;
     }
 
     private void InitialCmd()
@@ -47,6 +54,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("PlayerImmortal", PlayerShip_Immortal);
         AddGMFunctionToDic("EnemyUnImmortal", AllAIShip_UnImmortal);
         AddGMFunctionToDic("PlayerUnImmortal", PlayerShip_UnImmortal);
+        AddGMFunctionToDic("addWreckage", AddWreckage);
     }
 
     public void AddToggleStorage(int key, bool value)
@@ -206,6 +214,16 @@ public class GMTalkManager : Singleton<GMTalkManager>
         return true;
     }
 
+    private bool AddWreckage(string[] content)
+    {
+        if (content.Length != 1)
+            return false;
+        int value = 0;
+        int.TryParse(content[0], out value);
+        RogueManager.Instance.CreateAndAddNewWreckageInfo(value);
+        return true;
+    }
+
     private bool AddWaste(string[] content)
     {
         CloseGMTalkPage();
@@ -232,6 +250,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
     /// <returns></returns>
     private bool AllAIShip_Immortal(string[] content)
     {
+        IsEnemyImmortal = true;
         var allAIShip = ECSManager.Instance.activeAIAgentData.shipList;
         for(int i = 0; i < allAIShip.Count; i++)
         {
@@ -243,6 +262,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     private bool AllAIShip_UnImmortal(string[] content)
     {
+        IsEnemyImmortal = false;
         var allAIShip = ECSManager.Instance.activeAIAgentData.shipList;
         for (int i = 0; i < allAIShip.Count; i++)
         {

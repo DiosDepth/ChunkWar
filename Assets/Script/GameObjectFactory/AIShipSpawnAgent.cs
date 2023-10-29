@@ -105,6 +105,12 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
             tempship.Initialization();
             _shiplist.Add(tempship);
             aispawninfo.action?.Invoke(tempship);
+#if GMDEBUG
+            if (GMTalkManager.Instance.IsEnemyImmortal)
+            {
+                tempship.ForeceSetAllUnitState(DamagableState.Immortal);
+            }
+#endif
         }, LevelManager.AIPool);
     }
 }

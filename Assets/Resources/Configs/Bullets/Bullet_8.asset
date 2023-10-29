@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a9991b21095f04e8bd1e68b3543206, type: 3}
-  m_Name: Bullet_7
+  m_Script: {fileID: 11500000, guid: c28d30143c59c9e40ba5ce18c3b4ad1b, type: 3}
+  m_Name: Bullet_8
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,25 +21,23 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  ID: 7
-  BulletName: BasePassThroughMissile_Player
-  Type: 0
-  Owner: 0
-  Prefab: {fileID: 8903830990857463265, guid: 791faa0134e010645b06671849042e49, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BasePassThroughMissile_Player
+  ID: 8
+  BulletName: PlayerBeam_001
+  Type: 2
+  Owner: 1
+  Prefab: {fileID: 3574238879806340193, guid: ad073e3e737584642a164d006f63fb7d, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/Beam_Player_001
   HitAudio: 
   HitEffect:
-    EffectName: 
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
+    EffectName: Hit/Eff_BeamHitSimple
+    RandomScale: 1
+    ScaleMin: 0.9
+    ScaleMax: 1.2
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ExplodeRange: 15
-  LifeTime: 7
-  MaxSpeed: 70
-  RotationSpeed: 180
-  InitialSpeed: 20
-  Acceleration: 0.25
-  MissileHP: 100
+  MaxDistance: 80
+  Width: 10
+  EmiteTime: 0.1
+  Duration: 0.15
+  DeathTime: 0.2
