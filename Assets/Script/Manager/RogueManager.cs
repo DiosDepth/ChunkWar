@@ -574,7 +574,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         if(currentShip != null)
         {
-            ECSManager.Instance.UnLoad();
             //(currentShip.controller as ShipController).shipUnitManager.Unload();
             GameObject.Destroy(currentShip.container.gameObject);
             currentShip = null;

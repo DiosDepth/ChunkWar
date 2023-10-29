@@ -53,13 +53,7 @@ public class BaseDrone : BaseShip, IPoolable
             SoundManager.Instance.PlayBattleSound(droneCfg.DieAudio, transform);
         }
         //ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) =>
-        {
-            vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().PoolableSetActive(true);
-            vfx.GetComponent<ParticleController>().PlayVFX();
-            PoolableDestroy();
-        });
+        EffectManager.Instance.CreateEffect(droneCfg.DeathEffect, transform.position);
     }
 
 
@@ -164,13 +158,15 @@ public class BaseDrone : BaseShip, IPoolable
     }
 
 
-    public override void CheckDeath(Unit coreUnit, UnitDeathInfo info)
+    public override bool CheckDeath(Unit coreUnit, UnitDeathInfo info)
     {
         CoreUnits.Remove(coreUnit);
         if (CoreUnits.Count <= 0)
         {
             Crash(info);
+            return true;
         }
+        return false;
     }
 
 

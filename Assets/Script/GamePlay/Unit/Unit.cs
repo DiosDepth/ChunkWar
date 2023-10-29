@@ -170,9 +170,10 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         GameManager.Instance.UnRegisterPauseable(this);
         ChangeUnitState(DamagableState.Destroyed);
 
+        bool ownerDeath = false;
         if (IsCoreUnit)
         {
-            _owner.CheckDeath(this, info);
+            ownerDeath = _owner.CheckDeath(this, info);
             //destroy owner
         }
         else
@@ -197,13 +198,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
         ///Remove Owner
         _owner.RemoveUnit(this);
         SetDisable();
-        PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + deathVFXName, true, (vfx) => 
+
+        if (!ownerDeath)
         {
-            
-            vfx.transform.position = this.transform.position;
-            vfx.GetComponent<ParticleController>().PoolableSetActive(true);
-            vfx.GetComponent<ParticleController>().PlayVFX();
-        });
+            EffectManager.Instance.CreateEffect(deathVFXName, transform.position);
+        }
         
     }
 

@@ -38,7 +38,7 @@ public class BaseEffect : MonoBehaviour, IPoolable
         PoolManager.Instance.BackObject(transform.name, gameObject);
     }
 
-    public void PoolableReset()
+    public virtual void PoolableReset()
     {
         _followTarget = null;
         EffectManager.Instance.RemoveEffect(this);
