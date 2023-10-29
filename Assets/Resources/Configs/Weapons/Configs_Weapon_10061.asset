@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10051
+  m_Name: Configs_Weapon_10061
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -176,13 +176,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10051
+  ID: 10061
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 41c53f60186cbea4daaee62313688904, type: 3}
-    Name: Weapon_Name_10051
-    Desc: Weapon_Desc_10051
-    Rarity: 0
+    IconSprite: {fileID: 21300000, guid: c48ec6a6e900dd649898218959643c73, type: 3}
+    Name: Weapon_Name_10061
+    Desc: Weapon_Desc_10061
+    Rarity: 3
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: 0ca973456499583418ff207d2b419c12, type: 3}
+  Prefab: {fileID: 5883710716347196929, guid: e5b6598b775b55b43930713cf29b4fd5, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -438,42 +438,42 @@ MonoBehaviour:
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: 41c53f60186cbea4daaee62313688904, type: 3}
+  EditBrushSprite: {fileID: 21300000, guid: c48ec6a6e900dd649898218959643c73, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 135
+  BaseHP: 800
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 1
-  ParalysisResumeTime: 4
+  ParalysisResumeTime: 8
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 300
-  DamageBase: 215
+  BaseRange: 1000
+  DamageBase: 1150
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
   DamageType: 1
-  BaseCriticalRate: 2
-  CriticalDamage: 150
-  TotalDamageCount: 1
+  BaseCriticalRate: 10
+  CriticalDamage: 125
+  TotalDamageCount: 24
   ShootPerCount: 1
   CanModifyDamageCount: 0
-  CD: 2
+  CD: 3
   FireCD: 0.1
   ShieldTransfixion: 1
   ShieldDamage: 100
-  BaseTransfixion: 4
+  BaseTransfixion: 6
   Scatter: 0
   DamageModifyFrom:
   - PropertyKey: 16
-    Ratio: 1
+    Ratio: 2.5
   FireAudioClip: 
   FireEffect:
     EffectName: 
@@ -484,7 +484,7 @@ MonoBehaviour:
     PosRandomX: 0
     PosRandomY: 0
   HitShakeCfg:
-    CameraShake: 0
-    Duration: 0.4
-    Frequency: {x: 1, y: 1.5}
-    Amplitude: {x: 2, y: 2.5}
+    CameraShake: 1
+    Duration: 0.6
+    Frequency: {x: 1.326165, y: 1.8996416}
+    Amplitude: {x: 2.451613, y: 3.0107527}

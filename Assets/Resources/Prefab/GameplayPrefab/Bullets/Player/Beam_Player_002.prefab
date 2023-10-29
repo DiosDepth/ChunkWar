@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8102497879578379326}
   - component: {fileID: 8102497879578379325}
   m_Layer: 8
-  m_Name: Beam_Player_001
+  m_Name: Beam_Player_002
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 84ce217f58444774b8ad07264f383d04, type: 2}
+  - {fileID: 2100000, guid: f7e188b41217cca4b84a85b0f2c34308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

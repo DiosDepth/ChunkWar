@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c28d30143c59c9e40ba5ce18c3b4ad1b, type: 3}
-  m_Name: Bullet_8
+  m_Name: Bullet_9
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,12 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  ID: 8
-  BulletName: PlayerBeam_001
+  ID: 9
+  BulletName: PlayerBeam_002
   Type: 2
   Owner: 1
-  Prefab: {fileID: 3574238879806340193, guid: ad073e3e737584642a164d006f63fb7d, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/Beam_Player_001
+  Prefab: {fileID: 3574238879806340193, guid: f3e12743da69ee748a94e0def16ea145, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/Beam_Player_002
   HitAudio: 
   HitEffect:
     EffectName: Hit/Eff_BeamHitSimple
@@ -36,7 +36,7 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  MaxDistance: 80
+  MaxDistance: 100
   Width: 6
   EmiteTime: 0.1
   Duration: 0.15

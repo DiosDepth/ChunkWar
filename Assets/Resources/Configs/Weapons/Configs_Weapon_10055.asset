@@ -459,11 +459,12 @@ MonoBehaviour:
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
-  DamageType: 0
+  DamageType: 1
   BaseCriticalRate: 5
   CriticalDamage: 125
   TotalDamageCount: 12
   ShootPerCount: 2
+  CanModifyDamageCount: 0
   CD: 2
   FireCD: 0.2
   ShieldTransfixion: 0
