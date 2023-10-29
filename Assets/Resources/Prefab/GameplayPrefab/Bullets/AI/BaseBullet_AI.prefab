@@ -180,21 +180,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  ownertype: 1
-  damageType: 2
-  damageRadius: 5
-  ShootVFX: HitVFX
-  HitVFX: HitVFX
+  ownertype: 2
+  damagePattern: 1
   DeathVFX: HitVFX
-  target: {fileID: 0}
+  hasIndicator: 0
+  shape: 0
+  angle: 360
+  quality: 16
+  initialTarget: {fileID: 0}
   rb: {fileID: 5862403524487350706}
   bulletCollider: {fileID: 5171024743468899609}
   movementType: 1
+  damageTriggerPattern: 0
   lifeTime: 7
   maxSpeed: 45
   rotSpeed: 180
   initialSpeed: 25
   acceleration: 1
+  MissileHPBase: 0
   IsinterceptTarget: 1
 --- !u!1001 &4926405157992617241
 PrefabInstance:

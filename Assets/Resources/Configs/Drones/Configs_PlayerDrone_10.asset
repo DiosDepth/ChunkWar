@@ -1378,3 +1378,11 @@ MonoBehaviour:
   boidRadius: 1
   targetSerchingRadius: 30
   DieAudio: Ship/ShipExplode_001
+  DeathEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0

@@ -309,16 +309,16 @@ public class DroneFactory : Building
             return;
         }
         _launchedList.Add(drone);
+
+        //对Drone进行初始设置
         drone.transform.position = launchPoint.transform.position;
         drone.transform.SetParent(launchedGroup);
-
-
         drone.SetFirstTargetInfo(targetList[0]);
-
-        //allocate target to drone
         SteeringJobDataArrive dronedata;
         _droneArriveDataDic.TryGetValue(drone.gameObject.GetInstanceID(), out dronedata);
-        drone.GetComponent<SteeringBehaviorController>().SetArriveData(dronedata);
+        var controller = drone.GetComponent<SteeringBehaviorController>();
+        controller.SetArriveData(dronedata);
+        controller.lastpos = launchPoint.transform.position;
 
         drone.Launch();
         ECSManager.Instance.RegisterJobData(OwnerType.Player, drone);

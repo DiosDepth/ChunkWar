@@ -179,11 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  ownertype: 0
+  ownertype: 1
   damagePattern: 1
-  damageRadius: 5
-  ShootVFX: HitVFX
-  HitVFX: HitVFX
   DeathVFX: HitVFX
   hasIndicator: 1
   shape: 1
@@ -199,5 +196,5 @@ MonoBehaviour:
   rotSpeed: 180
   initialSpeed: 20
   acceleration: 0.25
-  maxPassThroughCount: 5
+  MissileHPBase: 0
   IsinterceptTarget: 1

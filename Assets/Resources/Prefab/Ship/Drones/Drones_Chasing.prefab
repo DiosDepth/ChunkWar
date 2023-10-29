@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7663720787589469471}
-  deathVFXName: ExplodeVFX
   CoreUnits: []
   droneCfg: {fileID: 0}
   DroneID: 1
@@ -123,11 +122,11 @@ MonoBehaviour:
   collider: {fileID: 0}
   boidRadius: 1
   lastpos: {x: 0, y: 0, z: 0}
-  maxAcceleration: 15
-  maxVelocity: 10
+  maxAcceleration: 7
+  maxVelocity: 30
   maxAngularAcceleration: 3
   maxAngularVelocity: 3
-  targetSerchingRadius: 15
+  targetSerchingRadius: 30
   isActiveEvade: 0
   evadeBehaviorInfo:
     target: {fileID: 0}
@@ -136,7 +135,7 @@ MonoBehaviour:
   isActiveArrive: 1
   arrivelBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
+    weight: 1.5
     arriveRadius: 10
     slowRadius: 15
   isActiveFace: 1
@@ -236,7 +235,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -689723199
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 908907847, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -1371,10 +1371,18 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   ShipClass: 5
   Owner: 1
-  MaxVelocity: 12
-  MaxAcceleration: 3
-  MaxAngularAcceleration: 3
-  MaxAngularVelocity: 1
+  MaxVelocity: 50
+  MaxAcceleration: 8
+  MaxAngularAcceleration: 6
+  MaxAngularVelocity: 3
   boidRadius: 1
   targetSerchingRadius: 30
   DieAudio: Ship/ShipExplode_001
+  DeathEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
