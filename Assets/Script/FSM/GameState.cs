@@ -173,22 +173,7 @@ public class EGameState_GamePrepare : GameState
         }
         else
         {
-            LevelManager.Instance.LoadLevel("BattleLevel_001", (level) =>
-            {
-
-                RogueManager.Instance.currentShip = LevelManager.Instance.SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint, Quaternion.identity, false);
-                RogueManager.Instance.currentShip.LoadRuntimeData(RogueManager.Instance.ShipMapData);
-                RogueManager.Instance.currentShip.gameObject.SetActive(true);
-                //在初始化Ship之前先准备好Aimanager，会把对应的信息放入
-                ECSManager.Instance.Initialization();
-                RogueManager.Instance.currentShip.Initialization();
-
-                //初始化摄影机
-                CameraManager.Instance.SetFollowPlayerShip();
-                CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
-                CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize);
-                GameEvent.Trigger(EGameState.EGameState_GameStart);
-            });
+            LevelManager.Instance.LoadCurrentBattleLevel();
         }
     }
 

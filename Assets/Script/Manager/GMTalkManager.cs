@@ -174,7 +174,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
     private bool EnterHarbor(string[] content)
     {
         CloseGMTalkPage();
-        if (LevelManager.Instance.currentLevel.levelName == AvaliableLevel.BattleLevel_001.ToString())
+        if (LevelManager.Instance.IsBattleLevel())
         {
             RogueManager.Instance.OnWaveFinish();
             return true;

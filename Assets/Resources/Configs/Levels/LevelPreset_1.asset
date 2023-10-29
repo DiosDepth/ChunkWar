@@ -1803,6 +1803,7 @@ MonoBehaviour:
       Data: 
   LevelPresetID: 1
   BGMEvent: BattleBGM_1
+  LevelName: BattleLevel_002
   EnableSpecialEnemySpawn: 0
   TotalSpawnWaveCount: 1
   EliteRandomSpawnCfg:

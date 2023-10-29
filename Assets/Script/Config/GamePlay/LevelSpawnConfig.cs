@@ -44,6 +44,8 @@ public class LevelSpawnConfig : SerializedScriptableObject
 
     public string BGMEvent;
 
+    public string LevelName;
+
     [FoldoutGroup("特殊敌人随机生成")]
     [HorizontalGroup("特殊敌人随机生成/A", 300)]
     [LabelText("启用精英生成")]

@@ -70,6 +70,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
+    - Name: SectorAdjacentUpdateTime
+      Entry: 6
+      Data: 
+    - Name: SectorAdjacentWeightValue
+      Entry: 6
+      Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 4|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -170,6 +179,7 @@ MonoBehaviour:
       Data: 
   LevelPresetID: 9999
   BGMEvent: BattleBGM_1
+  LevelName: BattleLevel_002
   EnableSpecialEnemySpawn: 0
   TotalSpawnWaveCount: 0
   EliteRandomSpawnCfg: []

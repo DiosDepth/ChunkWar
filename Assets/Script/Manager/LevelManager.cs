@@ -69,13 +69,6 @@ public struct AISpawnEvent
     }
 }
 
-public enum AvaliableLevel
-{
-    Harbor,
-    BattleLevel_001,
-    ShipSelectionLevel,
-}
-
 public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, EventListener<PickableItemEvent>, EventListener<AISpawnEvent>,EventListener<ShipStateEvent>
 {
     public bool isLevelUpdate;
@@ -390,6 +383,34 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             return default(T);
 
         return currentLevel as T;
+    }
+
+    public void LoadCurrentBattleLevel()
+    {
+        var currentHardLevel = RogueManager.Instance.CurrentHardLevel;
+        if (currentHardLevel == null)
+            return;
+
+        var levelName = currentHardLevel.SpawnConfig.LevelName;
+        if (string.IsNullOrEmpty(levelName))
+            return;
+
+        LoadLevel(levelName, (level) =>
+        {
+            var ship = SpawnShipAtPos(RogueManager.Instance.currentShipSelection.itemconfig.Prefab, level.startPoint, Quaternion.identity, false);
+
+            ship.LoadRuntimeData(RogueManager.Instance.ShipMapData);
+            ship.gameObject.SetActive(true);
+            RogueManager.Instance.currentShip = ship;
+            ECSManager.Instance.Initialization();
+            ship.Initialization();
+
+            //初始化摄影机
+            CameraManager.Instance.SetFollowPlayerShip();
+            CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
+            CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize);
+            GameEvent.Trigger(EGameState.EGameState_GameStart);
+        });
     }
 
     public async void LoadLevel(string levelname, UnityAction<LevelEntity> callback = null)

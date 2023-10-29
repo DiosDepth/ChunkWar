@@ -116,7 +116,7 @@ public class ShipController : BaseController
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!IsUpdate) { return; }
-        if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
+        if (!LevelManager.Instance.IsBattleLevel()) { return; }
         switch (context.phase)
         {
             case InputActionPhase.Disabled:
@@ -143,7 +143,7 @@ public class ShipController : BaseController
     {
         if (GameManager.Instance.IsPauseGame()) { return; }
         if (!IsUpdate) { return; }
-        if (LevelManager.Instance.currentLevel.levelName != "BattleLevel_001") { return; }
+        if (!LevelManager.Instance.IsBattleLevel()) { return; }
         switch (context.phase)
         {
             case InputActionPhase.Disabled:

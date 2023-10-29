@@ -67,6 +67,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 6
       Data: 
@@ -125,6 +128,7 @@ MonoBehaviour:
       Data: 
   LevelPresetID: 3
   BGMEvent: BattleBGM_1
+  LevelName: BattleLevel_002
   EnableSpecialEnemySpawn: 0
   TotalSpawnWaveCount: 3
   EliteRandomSpawnCfg:

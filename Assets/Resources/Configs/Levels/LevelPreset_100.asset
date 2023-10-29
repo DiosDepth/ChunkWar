@@ -94,6 +94,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 0.8
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -130,6 +136,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 5
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -166,6 +178,12 @@ MonoBehaviour:
     - Name: SpawnSizeInterval
       Entry: 4
       Data: 0.8
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -174,6 +192,15 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 8
+      Data: 
+    - Name: SectorSortType
+      Entry: 3
+      Data: 0
+    - Name: SectorAdjacentUpdateTime
+      Entry: 6
+      Data: 
+    - Name: SectorAdjacentWeightValue
+      Entry: 6
       Data: 
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
@@ -275,6 +302,7 @@ MonoBehaviour:
       Data: 
   LevelPresetID: 100
   BGMEvent: BattleBGM_1
+  LevelName: BattleLevel_002
   EnableSpecialEnemySpawn: 0
   TotalSpawnWaveCount: 0
   EliteRandomSpawnCfg: []
