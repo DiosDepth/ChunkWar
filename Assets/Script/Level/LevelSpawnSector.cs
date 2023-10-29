@@ -129,7 +129,7 @@ public class LevelSpawnSector
         ///RandomAngle
         float randomAngle = sector.GetRandomAngle();
         float x = currentShip.transform.position.x + targetRangeDistance * Mathf.Cos(randomAngle * Mathf.PI / 180f);
-        float y = currentShip.transform.position.x + targetRangeDistance * Mathf.Sin(randomAngle * Mathf.PI / 180f);
+        float y = currentShip.transform.position.y + targetRangeDistance * Mathf.Sin(randomAngle * Mathf.PI / 180f);
         return new Vector2(x, y);
     }
 
