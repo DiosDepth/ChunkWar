@@ -284,7 +284,7 @@ public class ShipController : BaseController
     }
     public override void UpdateBoid()
     {
-        velocity = (transform.position - lastpos) / Time.deltaTime;
+        //velocity = (transform.position - lastpos) / Time.deltaTime;
         lastpos = transform.position;
     }
 

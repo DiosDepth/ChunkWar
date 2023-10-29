@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  ownertype: 1
+  ownertype: 2
   damagePattern: 1
   DeathVFX: HitVFX
   hasIndicator: 0
@@ -354,7 +354,7 @@ PrefabInstance:
     - target: {fileID: 8274399014040909545, guid: 9be4895acd4a87b47b23e842f20b2c9f,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8274399014040909545, guid: 9be4895acd4a87b47b23e842f20b2c9f,
         type: 3}
