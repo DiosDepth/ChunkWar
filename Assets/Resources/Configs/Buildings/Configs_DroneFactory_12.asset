@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49d9fbc63cc69dc47b27c4f50f32f64d, type: 3}
-  m_Name: Configs_DroneFactory_10
+  m_Name: Configs_DroneFactory_12
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -176,7 +176,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -203,19 +209,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 2
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -242,13 +242,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10
+  ID: 12
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
-    Name: 
-    Desc: 
-    Rarity: 0
+    Name: DroneFactory_Name_012
+    Desc: DroneFactory_Desc_012
+    Rarity: 3
     SortingOrder: 0
-  Prefab: {fileID: 1256306023736974604, guid: 60d5a3203531b15499755865323cfb8e, type: 3}
+  Prefab: {fileID: 1256306023736974604, guid: 487e990a504dc4f4bb998c13b9dcf016, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 3
@@ -461,6 +461,6 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
-  DroneID: 10
-  MaxDroneCount: 5
+  DroneID: 12
+  MaxDroneCount: 3
   DroneSpawnTime: 1

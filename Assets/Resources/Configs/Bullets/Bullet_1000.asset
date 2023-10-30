@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a9991b21095f04e8bd1e68b3543206, type: 3}
+  m_Name: Bullet_1000
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  ID: 1000
+  BulletName: PlayerDrone_Missile_01
+  Type: 0
+  Owner: 1
+  Prefab: {fileID: 8903830990857463265, guid: 2aafa5b1d99cb0b409c385a5eb0a0c9f, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/Drone_Missile_Player_01
+  HitAudio: Fire/missileExplode_001
+  HitEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  ExplodeRange: 2
+  LifeTime: 4
+  MaxSpeed: 25
+  RotationSpeed: 8
+  InitialSpeed: 5
+  Acceleration: 3
+  MissileHP: 10

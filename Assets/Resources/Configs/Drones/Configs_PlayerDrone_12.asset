@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 487d3a9d5fdd47f4f8da991b13baf1a0, type: 3}
-  m_Name: Configs_PlayerDrone_10
+  m_Name: Configs_PlayerDrone_12
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1359,14 +1359,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10
+  ID: 12
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: d192af305712e40488c1cc62966f7152, type: 3}
-    Name: Drone_Name_001
+    IconSprite: {fileID: 21300000, guid: 8c310b27ceb0a1e4e859ae0909d2e2c9, type: 3}
+    Name: Drone_Name_002
     Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: 99ab385d325b64044be24894ee634c9f, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: b15aca22044ab7d44acf50885df14e89, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 5

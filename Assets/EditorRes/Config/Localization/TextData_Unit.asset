@@ -76,11 +76,11 @@ MonoBehaviour:
     ChineseSimplified: "\u83B1\u5FB7\u98CE\u66B4"
     English: 
     Japanese: 
-  - TextID: Weapon_Name_011
+  - TextID: DroneFactory_Name_011
     ChineseSimplified: "SV-3\u653B\u51FB\u673A\u5E93"
     English: 
     Japanese: 
-  - TextID: Weapon_Name_012
+  - TextID: DroneFactory_Name_012
     ChineseSimplified: "KF1\u8F70\u70B8\u673A\u5E93"
     English: 
     Japanese: 
