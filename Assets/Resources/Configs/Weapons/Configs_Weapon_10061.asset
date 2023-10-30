@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49d9fbc63cc69dc47b27c4f50f32f64d, type: 3}
-  m_Name: Configs_DroneFactory_10
+  m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
+  m_Name: Configs_Weapon_10061
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -176,7 +176,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -203,19 +209,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 2
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -242,13 +242,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -423,44 +423,68 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10
+  ID: 10061
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
-    Name: 
-    Desc: 
-    Rarity: 0
+    IconSprite: {fileID: 21300000, guid: c48ec6a6e900dd649898218959643c73, type: 3}
+    Name: Weapon_Name_10061
+    Desc: Weapon_Desc_10061
+    Rarity: 3
     SortingOrder: 0
-  Prefab: {fileID: 1256306023736974604, guid: 60d5a3203531b15499755865323cfb8e, type: 3}
+  Prefab: {fileID: 5883710716347196929, guid: e5b6598b775b55b43930713cf29b4fd5, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  unitType: 3
+  unitType: 1
   GroupID: 0
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
+  EditBrushSprite: {fileID: 21300000, guid: c48ec6a6e900dd649898218959643c73, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 40
-  BaseHP: 400
+  ItemTags: 4
+  BaseHP: 800
   BaseEnergyCost: 0
-  BaseEnergyGenerate: 100
+  BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 8
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 350
-  ShieldConfig:
-    GenerateShield: 0
-    ShieldPrefabName: 
-    ShieldHP: 0
-    ShieldRecoverValue: 0
-    ShieldRecoverTime: 0
-    ShieldBaseRatio: 0
-  DroneID: 10
-  MaxDroneCount: 5
-  DroneSpawnTime: 1
+  BaseRange: 1000
+  DamageBase: 1150
+  EnemyAttackModify: 0
+  UseDamageRatio: 0
+  DamageRatioMin: 0.94
+  DamageRatioMax: 1.15
+  DamageType: 1
+  BaseCriticalRate: 10
+  CriticalDamage: 125
+  TotalDamageCount: 24
+  ShootPerCount: 1
+  CanModifyDamageCount: 0
+  CD: 3
+  FireCD: 0.1
+  ShieldTransfixion: 1
+  ShieldDamage: 100
+  BaseTransfixion: 6
+  Scatter: 0
+  DamageModifyFrom:
+  - PropertyKey: 16
+    Ratio: 2.5
+  FireAudioClip: 
+  FireEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  HitShakeCfg:
+    CameraShake: 1
+    Duration: 0.6
+    Frequency: {x: 1.326165, y: 1.8996416}
+    Amplitude: {x: 2.451613, y: 3.0107527}

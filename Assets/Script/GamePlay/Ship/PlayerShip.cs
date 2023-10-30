@@ -200,7 +200,7 @@ public class PlayerShip : BaseShip
         }
 
         //³õÊ¼»¯Ö÷ÎäÆ÷
-        if (mainWeapon == null || mainDrone == null)
+        if (mainWeapon == null && mainDrone == null)
         {
             if (RogueManager.Instance.currentWeaponSelection != null)
             {

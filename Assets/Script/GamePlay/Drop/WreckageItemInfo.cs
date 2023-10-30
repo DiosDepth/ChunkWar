@@ -138,6 +138,12 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
 
     private void CalculateLoadCost()
     {
+        if(UnitConfig == null)
+        {
+            LoadCost = 0;
+            return;
+        }
+           
         LoadCost = GameHelper.GetUnitLoadCost(UnitConfig);
     }
 

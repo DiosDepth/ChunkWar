@@ -464,6 +464,7 @@ MonoBehaviour:
   CriticalDamage: 125
   TotalDamageCount: 12
   ShootPerCount: 1
+  CanModifyDamageCount: 0
   CD: 2.5
   FireCD: 0.25
   ShieldTransfixion: 0

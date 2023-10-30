@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c28d30143c59c9e40ba5ce18c3b4ad1b, type: 3}
+  m_Name: Bullet_9
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  ID: 9
+  BulletName: PlayerBeam_002
+  Type: 2
+  Owner: 1
+  Prefab: {fileID: 3574238879806340193, guid: f3e12743da69ee748a94e0def16ea145, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/Beam_Player_002
+  HitAudio: 
+  HitEffect:
+    EffectName: Hit/Eff_BeamHitSimple
+    RandomScale: 1
+    ScaleMin: 0.9
+    ScaleMax: 1.2
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  MaxDistance: 100
+  Width: 6
+  EmiteTime: 0.1
+  Duration: 0.15
+  DeathTime: 0.2

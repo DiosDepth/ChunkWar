@@ -75,6 +75,11 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 
     private Action onHitAction;
 
+    protected virtual void Awake()
+    {
+
+    }
+
     public virtual void Initialization()
     {
         GameManager.Instance.RegisterPauseable(this);

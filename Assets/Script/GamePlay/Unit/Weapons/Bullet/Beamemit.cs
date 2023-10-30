@@ -18,8 +18,6 @@ public class Beamemit : Bullet
 
     public LineRenderer beamline;
 
-
-
     private Coroutine startEmitCoroutine;
     private RaycastHit2D[] hitlist;
     private Collider2D[] overlaplist;
@@ -27,6 +25,13 @@ public class Beamemit : Bullet
     private float tempFalloff = 0.5f;
 
     private BulletBeamConfig _beamCfg;
+    private Material _lineMat;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _lineMat = transform.SafeGetComponent<LineRenderer>().material;
+    }
 
     public override void SetUp(BulletConfig cfg, Action hitAction = null)
     {
@@ -66,6 +71,7 @@ public class Beamemit : Bullet
 
         beamline.startWidth = width;
         beamline.endWidth = width;
+        _lineMat.mainTextureScale = new Vector2(maxDistance / 10f, 1);
         LeanTween.value(0, maxDistance, emittime).setOnUpdate((value)=> 
         {
             beamline.SetPosition(1, new Vector3(0, value, 0));

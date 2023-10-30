@@ -10,7 +10,8 @@ public class GMTalkInputItemCmpt : MonoBehaviour
 
     public enum GMTalkInputType
     {
-        addPlug
+        addPlug,
+        addWreckage,
     }
 
     public GMTalkInputType InputType = GMTalkInputType.addPlug;

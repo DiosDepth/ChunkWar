@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1152490518952336715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3505851735786238453}
+  m_Layer: 7
+  m_Name: Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3505851735786238453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152490518952336715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1604183454421818662}
+  - {fileID: 5501148320213267861}
+  m_Father: {fileID: 2002946465909562056}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5883710716347196929
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,8 +63,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1604183454421818662}
-  - {fileID: 5501148320213267861}
+  - {fileID: 3505851735786238453}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,7 +85,7 @@ MonoBehaviour:
   deathVFXName: ExplodeVFX
   maxTargetCount: 1
   unitSprite: {fileID: 7399829360478477824}
-  rotationRoot: {fileID: 2002946465909562056}
+  rotationRoot: {fileID: 3505851735786238453}
   redirection: 1
   direction: 0
   pivot: {x: 0, y: 0}
@@ -62,8 +94,8 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 0
   aimingtype: 1
-  bulletName: BaseBullet_AI
-  targetmode: 1
+  bulletName: PlayerBeam_001
+  targetmode: 0
   mask:
     serializedVersion: 2
     m_Bits: 128
@@ -129,12 +161,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7078891172848517448}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.012, y: 0.362, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2002946465909562056}
+  m_Father: {fileID: 3505851735786238453}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7419531427080417820
@@ -147,7 +179,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1604183454421818662}
   - component: {fileID: 7399829360478477824}
-  - component: {fileID: 494201512000973209}
   m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
@@ -162,12 +193,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7419531427080417820}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2002946465909562056}
+  m_Father: {fileID: 3505851735786238453}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7399829360478477824
@@ -209,7 +240,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1205307937
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 41c53f60186cbea4daaee62313688904, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -222,19 +253,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &494201512000973209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7419531427080417820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shaderTypes: 0
-  normalStrength: 5
-  normalSmoothing: 1
-  computingNormal: 0

@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitID: 20000
   IsInvisiableUnit: 1
-  IsCoreUnit: 0
+  IsCoreUnit: 1
   deathVFXName: ExplodeVFX
   maxTargetCount: 1
   unitSprite: {fileID: 7399829360478477824}
@@ -273,7 +273,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1205307937
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 11
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

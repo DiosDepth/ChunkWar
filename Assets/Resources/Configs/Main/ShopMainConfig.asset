@@ -946,6 +946,54 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+  - UnitID: 10030
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10031
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10032
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10035
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10036
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10040
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10041
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10045
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10046
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10050
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10051
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10052
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
   WreckageShopBuyItemCfg:
   - WeightBase: 20
     Rarity: 0
