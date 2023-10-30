@@ -669,7 +669,7 @@ public class JobController : IPauseable
         for (int i = 0; i < activeSelfProjectileData.deathProjectileIndexList.Count; i++)
         {
             deathindex = activeSelfProjectileData.deathProjectileIndexList[i];
-            activeSelfProjectileData.deathProjectileList.Add(activeSelfProjectileData.deathProjectileList[deathindex]);
+            activeSelfProjectileData.deathProjectileList.Add(activeSelfProjectileData.activeProjectileList[deathindex]);
             //aiProjectileList[deathindex].Death(null);
         }
         for (int i = 0; i < activeSelfProjectileData.deathProjectileList.Count; i++)
