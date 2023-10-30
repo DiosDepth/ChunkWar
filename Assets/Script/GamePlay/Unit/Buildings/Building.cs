@@ -151,7 +151,6 @@ public class Building : Unit
 
     protected override void _DoDeSpawnEffect()
     {
-        base.DoDeSpawnEffect();
         DeSpawnAllBuildingComponents();
     }
 
