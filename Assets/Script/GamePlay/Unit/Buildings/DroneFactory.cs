@@ -251,13 +251,13 @@ public class DroneFactory : Building
             for (int i = 0; i < _launchedList.Count; i++)
             {
                 _allocateTargetCount = _allocateTargetCount % targetList.Count;
-
-                if (_launchedList[i].GetFirstTarget() != null && _launchedList[i].GetFirstTarget().isActiveAndEnabled)
+                var ship = _launchedList[i].GetFirstTarget();
+                if (ship == null || !ship.isActiveAndEnabled || ship == this._owner)
                 {
-                    continue;
+                    _launchedList[i].SetFirstTargetInfo(targetList[_allocateTargetCount]);
+                    _allocateTargetCount++; 
                 }
-                _launchedList[i].SetFirstTargetInfo(targetList[_allocateTargetCount]);
-                _allocateTargetCount++;
+
             }
         }
         //launch if find target
@@ -272,7 +272,50 @@ public class DroneFactory : Building
 
     public override void BuildingEnd()
     {
+
         BuildingOFF();
+        //callback 列表中的重新出发， 
+        if (targetList.Count != 0)
+        {
+            for (int i = 0; i < _callbackList.Count; i++)
+            {
+                _callbackList[i].transform.SetParent(launchedGroup);
+                //_callbackList[i].SetFirstTargetInfo(null);
+                SteeringJobDataArrive dronedata;
+                _droneArriveDataDic.TryGetValue(_callbackList[i].gameObject.GetInstanceID(), out dronedata);
+                var controller = _callbackList[i].GetComponent<SteeringBehaviorController>();
+                controller.SetArriveData(dronedata);
+                _launchedList.Add(_callbackList[i]);
+            }
+            _callbackList.Clear();
+            //已经进入apron的重新发射
+            if (_apronQueue.Count != 0)
+            {
+                int ct = _apronQueue.Count;
+                for (int i = 0; i < ct; i++)
+                {
+                    LaunchDrone();
+                }
+            }
+
+            //设置所有Drone的目标，并且开始unit的process
+            if (_launchedList.Count != 0)
+            {
+                for (int i = 0; i < _launchedList.Count; i++)
+                {
+                    for (int n = 0; n < _launchedList[i].UnitList.Count; n++)
+                    {
+                        _launchedList[i].UnitList[n].SetUnitProcess(true);
+                    }
+                    _allocateTargetCount = _allocateTargetCount % targetList.Count;
+                    _launchedList[i].SetFirstTargetInfo(targetList[_allocateTargetCount]);
+                    _allocateTargetCount++;
+                }
+            }
+
+            buildingState.ChangeState(BuildingState.Active);
+            return;
+        }
 
         List<BaseDrone> back = _callbackList.FindAll(d => d.transform.position.DistanceXY(this.transform.position) <= callbackThreshold);
         if(back.Count == 0)

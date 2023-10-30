@@ -592,24 +592,17 @@ public class DroneData : AgentData
         if(shipList == null || shipList.Count == 0) { return; }
         for (int i = 0; i < shipList.Count; i++)
         {
-            if (targetShipList[i] == null || !targetShipList[i].isActiveAndEnabled)
+            var ship = shipList[i].GetFirstTarget();
+            if(ship != null)
             {
                 targetShipList[i] = shipList[i].GetFirstTarget();
                 targetBoidAgentList[i] = targetShipList[i].GetComponent<IBoid>();
-                data.position = targetBoidAgentList[i].GetPosition();
-                data.velocity = targetBoidAgentList[i].GetVelocity();
-                data.rotationZ = targetBoidAgentList[i].GetRotationZ();
-                data.boidRadius = targetBoidAgentList[i].GetRadius();
-                targetBoidAgentJobData[i] = data;
             }
-            else
-            {
-                data.position = targetBoidAgentList[i].GetPosition();
-                data.velocity = targetBoidAgentList[i].GetVelocity();
-                data.rotationZ = targetBoidAgentList[i].GetRotationZ();
-                data.boidRadius = targetBoidAgentList[i].GetRadius();
-                targetBoidAgentJobData[i] = data;
-            }
+            data.position = targetBoidAgentList[i].GetPosition();
+            data.velocity = targetBoidAgentList[i].GetVelocity();
+            data.rotationZ = targetBoidAgentList[i].GetRotationZ();
+            data.boidRadius = targetBoidAgentList[i].GetRadius();
+            targetBoidAgentJobData[i] = data;
         }
     }
 

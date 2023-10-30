@@ -364,6 +364,7 @@ public class JobController : IPauseable
 
                 for (int n = 0; n < weapon.targetList.Count; n++)
                 {
+                    if (weapon.targetList[n] == null) { continue; }
                     weapon.targetList[n].distance = math.distance(activeSelfWeaponData.activeWeaponList[i].transform.position, weapon.targetList[n].target.transform.position);
                     weapon.targetList[n].direction = math.normalize(weapon.targetList[n].target.transform.position - activeSelfWeaponData.activeWeaponList[i].transform.position);
                 }
@@ -437,7 +438,7 @@ public class JobController : IPauseable
 
                 building = activeSelfBuildingData.activeBuildingList[i] as Building;
 
-                if(building.buildingState.CurrentState  == BuildingState.Ready )
+                if(building.buildingState.CurrentState  == BuildingState.Ready || building.buildingState.CurrentState == BuildingState.End)
                 {
                     building.targetList.Clear();
                     for (int n = 0; n < activeSelfBuildingData.activeBuildingJobData[i].targetCount; n++)
