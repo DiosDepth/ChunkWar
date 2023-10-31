@@ -579,7 +579,20 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             (allEnemyShip[i] as AIShip).DoDeSpawnEffect();
         }
 
-        if(_shopTeleport != null)
+        ///Drone
+        var allDrones = ECSManager.Instance.activeAIDroneAgentData.shipList;
+        for (int i = 0; i < allDrones.Count; i++) 
+        {
+            (allDrones[i] as BaseDrone).DoDeSpawnEffect();
+        }
+
+        var allPlayerDrones = ECSManager.Instance.activePlayerDroneAgentData.shipList;
+        for (int i = 0; i < allPlayerDrones.Count; i++)
+        {
+            (allPlayerDrones[i] as BaseDrone).DoDeSpawnEffect();
+        }
+
+        if (_shopTeleport != null)
         {
             _shopTeleport.DoDeSpawnEffect();
         }

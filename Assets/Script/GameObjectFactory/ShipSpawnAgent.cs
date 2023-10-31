@@ -227,11 +227,14 @@ public class ShipSpawnAgent : MonoBehaviour, IPoolable
 
     private async void CreateEntity(ShipSpawnInfo spawnInfo)
     {
-        ///创建特效
-        EffectManager.Instance.CreateEffect(EntitySpawnEffect, spawnInfo.referencePos);
-        SoundManager.Instance.PlayBattleSound("Ship/Ship_SpawnEffect", transform);
-        await UniTask.Delay(1000);
-
+        if(spawnInfo is AIShipSpawnInfo)
+        {
+            ///创建特效
+            EffectManager.Instance.CreateEffect(EntitySpawnEffect, spawnInfo.referencePos);
+            SoundManager.Instance.PlayBattleSound("Ship/Ship_SpawnEffect", transform);
+            await UniTask.Delay(1000);
+        }
+    
         if (!RogueManager.Instance.IsLevelSpawnVaild())
             return;
 
