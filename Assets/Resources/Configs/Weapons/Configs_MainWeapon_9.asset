@@ -425,7 +425,7 @@ MonoBehaviour:
       Data: 
   ID: 9
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: ed410b6015fcbaa4381e119b367300f2, type: 3}
+    IconSprite: {fileID: 21300000, guid: 5d44811472f8a7d4b8217c3fa4764524, type: 3}
     Name: Weapon_Name_009
     Desc: Weapon_Desc_009
     Rarity: 3
@@ -453,20 +453,20 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 500
-  DamageBase: 10
+  BaseRange: 800
+  DamageBase: 125
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
   DamageRatioMax: 1.1
   DamageType: 0
-  BaseCriticalRate: 0
+  BaseCriticalRate: 15
   CriticalDamage: 150
-  TotalDamageCount: 15
-  ShootPerCount: 3
-  CanModifyDamageCount: 1
-  CD: 3.5
-  FireCD: 0.5
+  TotalDamageCount: 2
+  ShootPerCount: 1
+  CanModifyDamageCount: 0
+  CD: 2.5
+  FireCD: 1
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
     PosRandomX: 0
     PosRandomY: 0
   HitShakeCfg:
-    CameraShake: 0
-    Duration: 0.4
-    Frequency: {x: 1, y: 1.5}
-    Amplitude: {x: 2, y: 2.5}
+    CameraShake: 1
+    Duration: 0.8
+    Frequency: {x: 1.7383513, y: 2.5985665}
+    Amplitude: {x: 2.7096772, y: 3.2043009}
