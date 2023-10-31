@@ -466,18 +466,18 @@ MonoBehaviour:
   ShootPerCount: 1
   CanModifyDamageCount: 0
   CD: 2.5
-  FireCD: 1
+  FireCD: 2
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: SFX_Missile_Fire_001
+  FireAudioClip: Fire/Missile_Fire_01
   FireEffect:
-    EffectName: 
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
+    EffectName: Fire/Eff_Fire_Flash_01
+    RandomScale: 1
+    ScaleMin: 1.5
+    ScaleMax: 2
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
@@ -486,3 +486,8 @@ MonoBehaviour:
     Duration: 0.8
     Frequency: {x: 1.7383513, y: 2.5985665}
     Amplitude: {x: 2.7096772, y: 3.2043009}
+  FireShakeCfg:
+    CameraShake: 1
+    Duration: 0.4
+    Frequency: {x: 1.3799284, y: 1.8817204}
+    Amplitude: {x: 2, y: 2.6666667}

@@ -163,5 +163,9 @@ public class WeaponConfig : BaseUnitConfig
     [FoldoutGroup("效果配置")]
     [LabelText("命中相机震动")]
     public CameraShakeConfig HitShakeCfg;
+
+    [FoldoutGroup("效果配置")]
+    [LabelText("开火相机震动")]
+    public CameraShakeConfig FireShakeCfg;
 }
 

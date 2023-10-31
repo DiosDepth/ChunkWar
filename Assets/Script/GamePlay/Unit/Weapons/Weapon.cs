@@ -438,6 +438,14 @@ public class Weapon : Unit
     {
         int firecount = CalculateFireCount();
         SoundManager.Instance.PlayBattleSound(_weaponCfg.FireAudioClip, transform);
+        if (_weaponCfg.FireShakeCfg != null)
+        {
+            var cfg = _weaponCfg.FireShakeCfg;
+            if (cfg.CameraShake)
+            {
+                CameraManager.Instance.ShakeBattleCamera(cfg);
+            }
+        }
         switch (weaponmode)
         {
             case WeaponControlType.SemiAuto:
@@ -1004,7 +1012,7 @@ public class Weapon : Unit
         {
             if(allBullets[i].Owner == targetowner)
             {
-                result.Add(allBullets[i].BulletName);
+                result.Add(string.Format("[{0}]{1}", allBullets[i].ID, allBullets[i].BulletName), allBullets[i].BulletName);
             }
         }
         return result;

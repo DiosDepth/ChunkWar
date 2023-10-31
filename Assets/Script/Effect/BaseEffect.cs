@@ -7,9 +7,12 @@ public class BaseEffect : MonoBehaviour, IPoolable
     private Transform _followTarget;
     private Transform m_trans;
 
+    private Vector3 _originScale; 
+
     public virtual void Awake()
     {
         m_trans = transform;
+        _originScale = transform.localScale;
     }
 
 
@@ -21,6 +24,11 @@ public class BaseEffect : MonoBehaviour, IPoolable
     public void SetFollowTarget(Transform followTarget)
     {
         _followTarget = followTarget;
+    }
+
+    public void MultipleScale(float scale)
+    {
+        transform.localScale = new Vector3(_originScale.x * scale, _originScale.y * scale, _originScale.z * scale);
     }
 
     public void OnUpdate()
@@ -41,6 +49,7 @@ public class BaseEffect : MonoBehaviour, IPoolable
     public virtual void PoolableReset()
     {
         _followTarget = null;
+        transform.localScale = _originScale;
         EffectManager.Instance.RemoveEffect(this);
     }
 

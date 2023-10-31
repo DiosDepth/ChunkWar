@@ -220,6 +220,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 9|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -508,6 +511,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 19|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -786,6 +792,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: true
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 28|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -917,6 +926,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 32|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -1048,6 +1060,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 36|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -1179,6 +1194,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 40|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -1310,6 +1328,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 44|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -1441,6 +1462,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 48|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -1582,6 +1606,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 53|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
@@ -1713,6 +1740,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 57|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,

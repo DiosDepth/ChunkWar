@@ -1431,7 +1431,15 @@ MonoBehaviour:
   ShipHardLevels: 010000000200000003000000040000000f270000
   ShipOriginPlugs: 
   OriginUnits:
-  - UnitID: 10100
-    PosX: 3
+  - UnitID: 11005
+    PosX: 0
     PosY: 3
+  DieEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
   ShipEditorSprite: {fileID: 21300000, guid: 86a2c55f5f905db46a989de3c16ed7ef, type: 3}

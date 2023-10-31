@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49d9fbc63cc69dc47b27c4f50f32f64d, type: 3}
-  m_Name: Configs_DroneFactory_001
+  m_Name: Configs_DroneFactory_11000
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -209,7 +209,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 2
@@ -242,10 +242,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -423,11 +423,11 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10100
+  ID: 11000
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 9eca52e69cc975c4091bbf7c4bdd6e8f, type: 3}
     Name: 
-    Desc: 
+    Desc: PlayerDrone_Name_11000
     Rarity: 0
     SortingOrder: 0
   Prefab: {fileID: 1256306023736974604, guid: 9aa23768fff88e743874f7fce64131c8, type: 3}
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   unitType: 0
   GroupID: 0
-  redirection: 1
+  redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
@@ -462,5 +462,5 @@ MonoBehaviour:
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
   DroneID: 1
-  MaxDroneCount: 4
+  MaxDroneCount: 2
   DroneSpawnTime: 1

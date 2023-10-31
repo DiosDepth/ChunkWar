@@ -1216,16 +1216,19 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         var currentWaveTime = GetCurrentWaveTime();
 
-        ///Generate Meteorite Common
-        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime,  "MeteoriteGenerate_1");
-        MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
-        Timer.AddTrigger(MeteoriteTrigger1);
+        if (waveCfg.GenerateMeteorite)
+        {
+            ///Generate Meteorite Common
+            var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime, "MeteoriteGenerate_1");
+            MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
+            Timer.AddTrigger(MeteoriteTrigger1);
 
-        ///Generate Meteorite Smooth
-        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime,  "MeteoriteGenerate_2");
-        MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
-        Timer.AddTrigger(MeteoriteTrigger2);
-
+            ///Generate Meteorite Smooth
+            var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime, "MeteoriteGenerate_2");
+            MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
+            Timer.AddTrigger(MeteoriteTrigger2);
+        }
+    
         ///Generate Ancient Common
         var ancientTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer1, _entitySpawnConfig.AncientUnitGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.AncientUnitGenerate_EndTime, "ancientGenerate_1");
         ancientTrigger1.BindChangeAction(CreateAncientUnitShip);

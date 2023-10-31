@@ -475,6 +475,11 @@ public class Projectile : Bullet, IDamageble
         if (succ)
         {
             SoundManager.Instance.PlayBattleSound(_projectileCfg.HitAudio, transform);
+            if (!string.IsNullOrEmpty(_projectileCfg.HitEffect.EffectName))
+            {
+                var explodeRange = GameHelper.CalculateExplodeRange(DamageRadiusBase);
+                EffectManager.Instance.CreateEffect(_projectileCfg.HitEffect, transform.position, explodeRange * 2);
+            }
             OnHitEffect();
         }
         return succ;

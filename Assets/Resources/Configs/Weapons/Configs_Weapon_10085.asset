@@ -428,7 +428,7 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: c88b81dd474575c41aedbf9995c1ab82, type: 3}
     Name: Weapon_Name_10085
     Desc: Weapon_Desc_10085
-    Rarity: 0
+    Rarity: 2
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: 196ed6e9db25a5b4f97e6e55d7d34141, type: 3}
   m_FlattendMapLayout: 
@@ -447,14 +447,14 @@ MonoBehaviour:
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 5
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
   BaseRange: 600
-  DamageBase: 50
+  DamageBase: 220
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
@@ -462,27 +462,34 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 15
   CriticalDamage: 150
-  TotalDamageCount: 18
-  ShootPerCount: 3
+  TotalDamageCount: 1
+  ShootPerCount: 1
   CanModifyDamageCount: 0
-  CD: 6.5
+  CD: 3
   FireCD: 0.1
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: 
+  DamageModifyFrom:
+  - PropertyKey: 41
+    Ratio: 1
+  FireAudioClip: Fire/Missile_Fire_01
   FireEffect:
-    EffectName: 
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
+    EffectName: Fire/Eff_Fire_Flash_01
+    RandomScale: 1
+    ScaleMin: 1.5
+    ScaleMax: 2
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
   HitShakeCfg:
-    CameraShake: 0
+    CameraShake: 1
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}
+  FireShakeCfg:
+    CameraShake: 1
+    Duration: 0.6
+    Frequency: {x: 1.3620071, y: 2.060932}
+    Amplitude: {x: 2.6021507, y: 3.1612902}

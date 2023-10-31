@@ -24,7 +24,7 @@ MonoBehaviour:
   ID: 1
   BulletName: BaseBullet_Player
   Type: 1
-  Owner: 0
+  Owner: 1
   Prefab: {fileID: 8903830990857463265, guid: 1010da2bb2d99754180c17add93051d4, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseBullet_Player
   HitAudio: 
@@ -36,7 +36,7 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ExplodeRange: 15
+  ExplodeRange: 0
   LifeTime: 5
   MaxSpeed: 70
   RotationSpeed: 180

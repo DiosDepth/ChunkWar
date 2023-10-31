@@ -140,11 +140,16 @@ public class WaveConfig
     [LabelText("扇区权重更新值")]
     public byte[] SectorAdjacentWeightValue = new byte[1] { 0 };
 
+    [FoldoutGroup("自动生成配置")]
+    [LabelText("陨石生成")]
+    public bool GenerateMeteorite = true;
+
     /// <summary>
     /// 陨石生成稀有度权重
     /// </summary>
     [FoldoutGroup("自动生成配置")]
     [LabelText("陨石生成配置")]
+    [ShowIf("GenerateMeteorite")]
     public Dictionary<GoodsItemRarity, byte> MeteoriteGenerateRate_RarityMap = new Dictionary<GoodsItemRarity, byte>()
     {
         { GoodsItemRarity.Tier1, 0 },
