@@ -1359,7 +1359,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 12
+  ID: 1001
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 8c310b27ceb0a1e4e859ae0909d2e2c9, type: 3}
     Name: Drone_Name_002

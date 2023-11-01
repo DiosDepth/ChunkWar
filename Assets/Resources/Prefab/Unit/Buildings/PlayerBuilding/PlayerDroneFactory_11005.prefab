@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1587f7d0879617648a203066bda29c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 11000
+  UnitID: 11005
   IsInvisiableUnit: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX

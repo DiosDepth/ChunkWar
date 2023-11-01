@@ -208,3 +208,35 @@ MonoBehaviour:
     ChineseSimplified: "\u8F70\u70B8\u673A\u673A\u5E93"
     English: 
     Japanese: 
+  - TextID: PlayerDrone_Name_11010
+    ChineseSimplified: "\u9A71\u9010\u8005\u673A\u5E93"
+    English: 
+    Japanese: 
+  - TextID: PlayerDrone_Name_11011
+    ChineseSimplified: "\u9A71\u9010\u8005\u673A\u5E93"
+    English: 
+    Japanese: 
+  - TextID: PlayerDrone_Name_11012
+    ChineseSimplified: "\u9A71\u9010\u8005\u673A\u5E93"
+    English: 
+    Japanese: 
+  - TextID: PlayerDrone_Name_11020
+    ChineseSimplified: "K2\u6B7C\u51FB\u673A\u673A\u5E93"
+    English: 
+    Japanese: 
+  - TextID: PlayerDrone_Name_11021
+    ChineseSimplified: "K2\u6B7C\u51FB\u673A\u673A\u5E93"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10075
+    ChineseSimplified: "\u5F57\u661FG1\u5236\u5BFC\u5BFC\u5F39"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10076
+    ChineseSimplified: "\u5F57\u661FG1\u5236\u5BFC\u5BFC\u5F39"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Name_10077
+    ChineseSimplified: "\u5F57\u661FG1\u5236\u5BFC\u5BFC\u5F39"
+    English: 
+    Japanese: 

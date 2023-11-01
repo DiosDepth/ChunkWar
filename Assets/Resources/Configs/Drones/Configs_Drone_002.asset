@@ -1359,14 +1359,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 1
+  ID: 2
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: fe1902413d8ef6c4f95e22301a1bd01d, type: 3}
     Name: Drone_Name_001
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: fa91175d8681b7c458f61daeef6cf5c9, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: 4297fb57c7ec8304c960275fae3ad208, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 5

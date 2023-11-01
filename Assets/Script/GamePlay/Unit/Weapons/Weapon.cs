@@ -8,7 +8,7 @@ using System;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Collections;
-using Unity.Burst;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
 
 public enum WeaponControlType
@@ -1006,6 +1006,7 @@ public class Weapon : Unit
     {
         ValueDropdownList<string> result = new ValueDropdownList<string>();
         var allBullets = DataManager.Instance.GetAllBulletConfig();
+        allBullets = allBullets.OrderBy(x => x.ID).ToList();
 
         var targetowner = this is AIAdditionalWeapon ? OwnerType.AI : OwnerType.Player;
         for(int i = 0; i < allBullets.Count; i++)

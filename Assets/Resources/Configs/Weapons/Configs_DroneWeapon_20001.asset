@@ -428,9 +428,9 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
     Name: Weapon_Name_20001
     Desc: Weapon_Desc_20001
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: 342d183d798499d40af381920fc1e329, type: 3}
+  Prefab: {fileID: 5883710716347196929, guid: 4625945e49018ea41a2a450405ee1cf6, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -443,7 +443,7 @@ MonoBehaviour:
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 120
+  BaseHP: 50
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -453,20 +453,20 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 200
-  DamageBase: 40
+  BaseRange: 150
+  DamageBase: 5
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
   DamageType: 0
   BaseCriticalRate: 5
-  CriticalDamage: 125
-  TotalDamageCount: 2
+  CriticalDamage: 150
+  TotalDamageCount: 6
   ShootPerCount: 2
-  CanModifyDamageCount: 0
-  CD: 3
-  FireCD: 0.3
+  CanModifyDamageCount: 1
+  CD: 2
+  FireCD: 0.15
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
@@ -474,8 +474,8 @@ MonoBehaviour:
   DamageModifyFrom:
   - PropertyKey: 46
     Ratio: 1
-  - PropertyKey: 41
-    Ratio: 0.8
+  - PropertyKey: 15
+    Ratio: 0.5
   FireAudioClip: Fire/10000_hit1
   FireEffect:
     EffectName: Fire/Eff_FireSimple
