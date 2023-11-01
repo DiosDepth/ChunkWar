@@ -423,3 +423,15 @@ MonoBehaviour:
     ChineseSimplified: "\u5F71\u54CD\u62A4\u76FE\u53D7\u5230\u7684\u4F24\u5BB3\uFF0C\u5F53\u524D\u53D7\u5230\u7684\u4F24\u5BB3#V2#"
     English: 
     Japanese: 
+  - TextID: UI_DroneFactoryProperty_DroneCount_Name
+    ChineseSimplified: "\u65E0\u4EBA\u673A\u6570\u91CF"
+    English: 
+    Japanese: 
+  - TextID: UI_DroneFactoryProperty_HP_Name
+    ChineseSimplified: "\u673A\u5E93\u88C5\u7532"
+    English: 
+    Japanese: 
+  - TextID: UI_DroneFactoryProperty_DroneRange_Name
+    ChineseSimplified: "\u673A\u5E93\u7D22\u654C"
+    English: 
+    Japanese: 

@@ -20,6 +20,12 @@ public class DroneConfig : BaseShipConfig
     [LabelWidth(80)]
     public OwnerType Owner;
 
+    [FoldoutGroup("无人机配置")]
+    [HorizontalGroup("无人机配置/A", 300)]
+    [LabelText("预览武器ID")]
+    [LabelWidth(80)]
+    public int PreviewWeaponID;
+
     [FoldoutGroup("行为配置")]
     [HorizontalGroup("行为配置/A")]
     [BoxGroup("行为配置/A/最大速度")]

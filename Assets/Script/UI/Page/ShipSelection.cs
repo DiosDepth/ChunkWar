@@ -328,8 +328,14 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _weaponIcon.sprite = unitCfg.GeneralConfig.IconSprite;
         _weaponNameText.text = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Name);
 
-        SetUpWeaponPropertyInfo(unitCfg as WeaponConfig);
-
+        if(unitCfg is WeaponConfig)
+        {
+            SetUpWeaponPropertyInfo(unitCfg as WeaponConfig);
+        }
+        else if(unitCfg is DroneFactoryConfig)
+        {
+            SetUpDroneFactoryInfo(unitCfg as DroneFactoryConfig);
+        }
         LayoutRebuilder.ForceRebuildLayoutImmediate(_weaponInfoGroupRect);
     }
 
@@ -380,6 +386,8 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
 
     private void SetUpWeaponPropertyInfo(WeaponConfig cfg)
     {
+        _weaponPropertyRect.Find("DroneGroup").SafeSetActive(false);
+
         if (cfg == null)
             return;
 
@@ -417,6 +425,81 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _weaponPropertyDescText.text = desc;
         _weaponPropertyDescText.transform.SetAsLastSibling();
 
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_weaponPropertyRect);
+    }
+
+    private void SetUpDroneFactoryInfo(DroneFactoryConfig cfg)
+    {
+        if (cfg == null)
+            return;
+
+        var root = _weaponPropertyRect.transform;
+
+        if (weaponPropertyCmpts.Count > 0)
+        {
+            for (int i = weaponPropertyCmpts.Count - 1; i >= 0; i--)
+            {
+                weaponPropertyCmpts[i].PoolableDestroy();
+            }
+        }
+        weaponPropertyCmpts.Clear();
+        var droneUnlock = SaveLoadManager.Instance.globalSaveData.GetUnitUnlockState(cfg.ID);
+
+        int orderIndex = 0;
+        ///Drone Factory
+        foreach (UI_DroneFactoryPropertyType type in System.Enum.GetValues(typeof(UI_DroneFactoryPropertyType)))
+        {
+            PoolManager.Instance.GetObjectSync(WeaponPropertyItem_PrefabPath, true, (obj) =>
+            {
+                string content = droneUnlock ? GameHelper.GetDroneFactoryPropertyDescContent(type, cfg) :
+                LocalizationManager.Instance.GetTextValue(ShipSelectionProeprty_Unknow);
+                var cmpt = obj.GetComponent<WeaponSelectionItemPropertyCmpt>();
+                cmpt.SetUpDroneFactory(type, content);
+                weaponPropertyCmpts.Add(cmpt);
+            }, root);
+            orderIndex++;
+        }
+
+        var desc = LocalizationManager.Instance.GetTextValue(cfg.ProertyDescText);
+        _weaponPropertyDescText.text = desc;
+       
+        ///Drone
+        var droneCfg = DataManager.Instance.GetDroneConfig(cfg.DroneID);
+        if (droneCfg == null)
+            return;
+
+        var droneGroup = _weaponPropertyRect.Find("DroneGroup");
+        droneGroup.SafeSetActive(true);
+        var nameText = droneGroup.Find("DroneName").SafeGetComponent<TextMeshProUGUI>();
+        nameText.text = LocalizationManager.Instance.GetTextValue(droneCfg.GeneralConfig.Name);
+        nameText.color = GameHelper.GetRarityColor(droneCfg.GeneralConfig.Rarity);
+ 
+        var droneWeaponCfg = DataManager.Instance.GetUnitConfig(droneCfg.PreviewWeaponID);
+        if(droneWeaponCfg != null)
+        {
+            WeaponConfig cfg_w = droneWeaponCfg as WeaponConfig;
+            ///DroneWeapon
+            foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
+            {
+                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+                    continue;
+
+                if (!cfg_w.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)
+                    continue;
+
+                PoolManager.Instance.GetObjectSync(WeaponPropertyItem_PrefabPath, true, (obj) =>
+                {
+                    string content = droneUnlock ? GameHelper.GetWeaponPropertyDescContent(type, cfg_w) :
+                    LocalizationManager.Instance.GetTextValue(ShipSelectionProeprty_Unknow);
+                    var cmpt = obj.GetComponent<WeaponSelectionItemPropertyCmpt>();
+                    cmpt.SetUpWeapon(type, content);
+                    weaponPropertyCmpts.Add(cmpt);
+                }, root);
+            }
+        }
+
+        _weaponPropertyDescText.transform.SetSiblingIndex(0);
+        droneGroup.transform.SetSiblingIndex(orderIndex + 1);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_weaponPropertyRect);
     }
 

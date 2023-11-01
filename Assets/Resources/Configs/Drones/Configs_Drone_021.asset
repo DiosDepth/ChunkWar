@@ -1371,6 +1371,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   ShipClass: 5
   Owner: 1
+  PreviewWeaponID: 0
   MaxVelocity: 50
   MaxAcceleration: 8
   MaxAngularAcceleration: 6

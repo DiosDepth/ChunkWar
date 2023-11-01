@@ -617,6 +617,12 @@ public static class GameHelper
         return LocalizationManager.Instance.GetTextValue(textID);
     }
 
+    public static string GetUI_DroneFactoryPropertyType(UI_DroneFactoryPropertyType type)
+    {
+        string textID = string.Format("UI_DroneFactoryProperty_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
+
     public static string GetWeaponDamageTypeText(WeaponDamageType type)
     {
         switch (type)
@@ -841,6 +847,38 @@ public static class GameHelper
         return Mathf.CeilToInt(price);
     }
 
+    /// <summary>
+    /// 获取无人机机库描述
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    public static string GetDroneFactoryPropertyDescContent(UI_DroneFactoryPropertyType type, DroneFactoryConfig cfg)
+    {
+        var propertyData = RogueManager.Instance.MainPropertyData;
+        if (type == UI_DroneFactoryPropertyType.DroneCount)
+        {
+            return cfg.MaxDroneCount.ToString();
+        }
+        else if (type == UI_DroneFactoryPropertyType.HP)
+        {
+            var hp = CalculateHP(cfg.BaseHP);
+            string color = GetColorCode(hp, cfg.BaseHP, false);
+
+            return string.Format("<color={0}>{1}</color>", color, hp);
+        }
+        else if (type == UI_DroneFactoryPropertyType.DroneRange)
+        {
+            var rangerow = propertyData.GetPropertyFinal(PropertyModifyKey.Range);
+            int range = Mathf.RoundToInt(rangerow + cfg.BaseRange);
+            string color = GetColorCode(range, cfg.BaseRange, false);
+
+            return string.Format("<color={0}>{1}</color>", color, range);
+        }
+
+        return string.Empty;
+    }
+
     public static string GetWeaponPropertyDescContent(UI_WeaponUnitPropertyType type, WeaponConfig cfg)
     {
         var propertyData = RogueManager.Instance.MainPropertyData;
@@ -897,7 +935,7 @@ public static class GameHelper
                     var proeprtyDisplayCfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(modifyFrom.PropertyKey);
                     if(proeprtyDisplayCfg != null)
                     {
-                        if(modifyFrom.Ratio == 1)
+                        if(modifyFrom.Ratio != 1)
                         {
                             sb.Append(string.Format("{0}%<sprite={1}>", modifyFrom.Ratio * 100, proeprtyDisplayCfg.TextSpriteIndex));
                         }

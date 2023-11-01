@@ -425,7 +425,7 @@ MonoBehaviour:
       Data: 
   ID: 10070
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 9d864cdb967bbc74485e21829169bb12, type: 3}
+    IconSprite: {fileID: 21300000, guid: b750181211b022a40837873ca5f94af2, type: 3}
     Name: Weapon_Name_10070
     Desc: Weapon_Desc_10070
     Rarity: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   HPBarHeight: 0.4
   HPBarWidth: 3
   BaseRange: 400
-  DamageBase: 50
+  DamageBase: 30
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
@@ -462,30 +462,32 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 5
   CriticalDamage: 150
-  TotalDamageCount: 24
+  TotalDamageCount: 2
   ShootPerCount: 2
   CanModifyDamageCount: 0
-  CD: 8
+  CD: 3
   FireCD: 0.1
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: 
+  DamageModifyFrom:
+  - PropertyKey: 41
+    Ratio: 0.5
+  FireAudioClip: Fire/Missile_Fire_01
   FireEffect:
-    EffectName: 
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
+    EffectName: Fire/Eff_Fire_Flash_01
+    RandomScale: 1
+    ScaleMin: 0.8
+    ScaleMax: 1.2
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
   HitShakeCfg:
-    CameraShake: 0
+    CameraShake: 1
     Duration: 0.4
-    Frequency: {x: 1, y: 1.5}
-    Amplitude: {x: 2, y: 2.5}
+    Frequency: {x: 1.5949821, y: 2.6344085}
+    Amplitude: {x: 2.1290321, y: 2.8172042}
   FireShakeCfg:
     CameraShake: 0
     Duration: 0.4

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WeaponSelectionItemPropertyCmpt : MonoBehaviour, IPoolable
 {
-    public UI_WeaponUnitPropertyType WeaponPropertyType;
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _valueText;
 
@@ -17,8 +16,13 @@ public class WeaponSelectionItemPropertyCmpt : MonoBehaviour, IPoolable
 
     public void SetUpWeapon(UI_WeaponUnitPropertyType type, string content)
     {
-        this.WeaponPropertyType = type;
         _nameText.text = GameHelper.GetUI_WeaponUnitPropertyType(type);
+        _valueText.text = content;
+    }
+
+    public void SetUpDroneFactory(UI_DroneFactoryPropertyType type, string content)
+    {
+        _nameText.text = GameHelper.GetUI_DroneFactoryPropertyType(type);
         _valueText.text = content;
     }
 

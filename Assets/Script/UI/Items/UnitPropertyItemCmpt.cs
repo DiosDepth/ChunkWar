@@ -16,6 +16,13 @@ public enum UI_WeaponUnitPropertyType
     ShieldDamage,
 }
 
+public enum UI_DroneFactoryPropertyType
+{
+    HP,
+    DroneCount,
+    DroneRange,
+}
+
 public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
 {
     public UI_WeaponUnitPropertyType WeaponPropertyType;

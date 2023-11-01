@@ -83,7 +83,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
     public void PoolableDestroy()
     {
         PoolableReset();
-        PoolManager.Instance.BackObject(transform.name, gameObject);
+        UIManager.Instance.BackPoolerUI(transform.name, gameObject);
     }
 
     public void PoolableReset()

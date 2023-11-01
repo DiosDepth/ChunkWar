@@ -48,7 +48,7 @@ public class FloatingText : GUIBasePanel,IPoolable
     public void PoolableDestroy()
     {
         PoolableReset();
-        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+        UIManager.Instance.BackPoolerUI(this.gameObject.name, this.gameObject);
     }
 
     public void PoolableReset()
