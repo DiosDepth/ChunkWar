@@ -6,6 +6,7 @@ using TMPro;
 
 public enum UI_WeaponUnitPropertyType
 {
+    NONE,
     HP,
     Damage,
     DamageRatio,
@@ -18,15 +19,24 @@ public enum UI_WeaponUnitPropertyType
 
 public enum UI_DroneFactoryPropertyType
 {
+    NONE,
     HP,
     DroneCount,
     DroneRange,
 }
 
+public enum UI_ShieldGeneratorPropertyType
+{
+    NONE,
+    ShieldHP,
+    ShieldRatio
+}
+
 public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
 {
-    public UI_WeaponUnitPropertyType WeaponPropertyType;
-
+    public UI_WeaponUnitPropertyType WeaponPropertyType = UI_WeaponUnitPropertyType.NONE;
+    public UI_DroneFactoryPropertyType DroneFactoryProeprtyType = UI_DroneFactoryPropertyType.NONE;
+    public UI_ShieldGeneratorPropertyType ShieldPropertyType = UI_ShieldGeneratorPropertyType.NONE;
 
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _valueText;
@@ -44,6 +54,20 @@ public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
         _valueText.text = content;
     }
 
+    public void SetUpDroneFactory(UI_DroneFactoryPropertyType type, string content)
+    {
+        this.DroneFactoryProeprtyType = type;
+        _nameText.text = GameHelper.GetUI_DroneFactoryPropertyType(type);
+        _valueText.text = content;
+    }
+
+    public void SetUpShield(UI_ShieldGeneratorPropertyType type, string content)
+    {
+        this.ShieldPropertyType = type;
+        _nameText.text = GameHelper.GetUI_ShieldPropertyType(type);
+        _valueText.text = content;
+    }
+
     public void RefreshContent(string content)
     {
         _valueText.text = content;
@@ -52,13 +76,15 @@ public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
 
     public void PoolableDestroy()
     {
-
+        PoolableReset();
+        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
     }
 
     public void PoolableReset()
     {
-        PoolableReset();
-        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+        ShieldPropertyType = UI_ShieldGeneratorPropertyType.NONE;
+        WeaponPropertyType = UI_WeaponUnitPropertyType.NONE;
+        DroneFactoryProeprtyType = UI_DroneFactoryPropertyType.NONE;
     }
 
     public void PoolableSetActive(bool isactive = true)

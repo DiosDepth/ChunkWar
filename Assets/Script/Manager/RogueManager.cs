@@ -861,7 +861,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for(int i = 0; i < allWreckgeData.Count; i++)
         {
             WreckageItemInfo info = WreckageItemInfo.CreateInfo(allWreckgeData[i]);
-            wreckageItems.Add(info.UnitID, info);
+            if (info == null)
+                continue;
+
+            if (!wreckageItems.ContainsKey(info.UnitID))
+            {
+                wreckageItems.Add(info.UnitID, info);
+            }
+            
         }
         ///权重根据舰船修正
         InitModifyUnitWreckageTagWeight();

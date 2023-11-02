@@ -79,6 +79,9 @@ public class WreckageItemInfo : RandomObject, IPropertyModify
         WreckageItemInfo info = new WreckageItemInfo();
         info.UnitID = cfg.UnitID;
         var unitCfg = DataManager.Instance.GetUnitConfig(cfg.UnitID);
+        if (unitCfg == null)
+            return null;
+
         if(unitCfg != null)
         {
             info.Rarity = unitCfg.GeneralConfig.Rarity;

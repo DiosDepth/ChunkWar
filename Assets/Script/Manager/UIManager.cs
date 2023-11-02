@@ -172,11 +172,9 @@ public class UIManager : Singleton<UIManager>
 
             T panel = obj.GetComponent<T>();
             panel.owner = m_owner;
-           
-            if (callback != null)
-            {
-                callback(panel);
-            }
+
+            callback?.Invoke(panel);
+            _poolerUI.Add(panel);
         });
 
     }

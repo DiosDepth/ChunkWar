@@ -406,7 +406,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
 
         foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
         {
-            if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+            if (type == UI_WeaponUnitPropertyType.ShieldTransfixion || type == UI_WeaponUnitPropertyType.NONE)
                 continue;
 
             if (!cfg.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)
@@ -449,6 +449,9 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         ///Drone Factory
         foreach (UI_DroneFactoryPropertyType type in System.Enum.GetValues(typeof(UI_DroneFactoryPropertyType)))
         {
+            if (type == UI_DroneFactoryPropertyType.NONE)
+                continue;
+
             PoolManager.Instance.GetObjectSync(WeaponPropertyItem_PrefabPath, true, (obj) =>
             {
                 string content = droneUnlock ? GameHelper.GetDroneFactoryPropertyDescContent(type, cfg) :
@@ -481,7 +484,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
             ///DroneWeapon
             foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
             {
-                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion || type == UI_WeaponUnitPropertyType.NONE)
                     continue;
 
                 if (!cfg_w.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)

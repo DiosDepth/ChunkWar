@@ -623,6 +623,12 @@ public static class GameHelper
         return LocalizationManager.Instance.GetTextValue(textID);
     }
 
+    public static string GetUI_ShieldPropertyType(UI_ShieldGeneratorPropertyType type)
+    {
+        string textID = string.Format("UI_ShieldGeneratorProperty_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
+
     public static string GetWeaponDamageTypeText(WeaponDamageType type)
     {
         switch (type)
@@ -876,6 +882,11 @@ public static class GameHelper
             return string.Format("<color={0}>{1}</color>", color, range);
         }
 
+        return string.Empty;
+    }
+
+    public static string GetShieldGeneratorPropertyDescContent(UI_ShieldGeneratorPropertyType type, BuildingShieldConfig cfg)
+    {
         return string.Empty;
     }
 
