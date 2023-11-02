@@ -629,6 +629,12 @@ public static class GameHelper
         return LocalizationManager.Instance.GetTextValue(textID);
     }
 
+    public static string GetUI_BuildingPropertyType(UI_BuildingBasePropertyType type)
+    {
+        string textID = string.Format("UI_BuildingBaseProperty_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
+
     public static string GetWeaponDamageTypeText(WeaponDamageType type)
     {
         switch (type)
@@ -830,6 +836,24 @@ public static class GameHelper
         return Mathf.Max(1, Mathf.RoundToInt(rowHP * hpRatio));
     }
 
+    public static int CalculateShieldHP(int rowHP)
+    {
+        var shieldAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldHP);
+        var targetPercent = shieldAdd / 100f + 1;
+        targetPercent = Mathf.Clamp(targetPercent, -1, float.MaxValue);
+
+        var newValue = rowHP * targetPercent;
+        return Mathf.CeilToInt(newValue);
+    }
+
+    public static float CalculateShieldRange(float row)
+    {
+        var shieldMinRatio = DataManager.Instance.battleCfg.ShieldRatioMin;
+        var ratioValue = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldRatioAdd) / 100f;
+        ratioValue = Mathf.Clamp(ratioValue, -1, float.MaxValue);
+        return Mathf.Max(row * ratioValue, shieldMinRatio);
+    }
+
     public static int CalculateDamageCount(int rowCount)
     {
         var add = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageCount);
@@ -885,8 +909,37 @@ public static class GameHelper
         return string.Empty;
     }
 
-    public static string GetShieldGeneratorPropertyDescContent(UI_ShieldGeneratorPropertyType type, BuildingShieldConfig cfg)
+    public static string GetShieldGeneratorPropertyDescContent(UI_ShieldGeneratorPropertyType type, BuildingConfig cfg)
     {
+        var propertyData = RogueManager.Instance.MainPropertyData;
+        if(type == UI_ShieldGeneratorPropertyType.ShieldHP)
+        {
+            var hp = CalculateShieldHP(cfg.ShieldConfig.ShieldHP);
+            string color = GetColorCode(hp, cfg.ShieldConfig.ShieldHP, false);
+
+            return string.Format("<color={0}>{1}</color>", color, hp);
+        }
+        else if(type == UI_ShieldGeneratorPropertyType.ShieldRange)
+        {
+            var range = CalculateShieldRange(cfg.ShieldConfig.ShieldBaseRatio);
+            string color = GetColorCode(range, cfg.ShieldConfig.ShieldBaseRatio, false);
+            return string.Format("<color={0}>{1:F1}</color>", color, range);
+        }
+
+
+        return string.Empty;
+    }
+
+    public static string GetBuildingBasePropertyDescContent(UI_BuildingBasePropertyType type, BuildingConfig cfg)
+    {
+        if (type == UI_BuildingBasePropertyType.HP)
+        {
+            var hp = CalculateHP(cfg.BaseHP);
+            string color = GetColorCode(hp, cfg.BaseHP, false);
+
+            return string.Format("<color={0}>{1}</color>", color, hp);
+        }
+
         return string.Empty;
     }
 

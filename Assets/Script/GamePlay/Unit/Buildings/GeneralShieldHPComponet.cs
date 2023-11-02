@@ -263,12 +263,10 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
 
     private void CalculateShieldRatio()
     {
-        var shieldMinRatio = DataManager.Instance.battleCfg.ShieldRatioMin;
-        var ratioValue = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldRatioAdd);
-        ShieldRatio = Mathf.Clamp(ratioValue + _shieldRatioBase, shieldMinRatio, int.MaxValue);
+        ShieldRatio = GameHelper.CalculateShieldRange(_shieldRatioBase);
 
         ///Refresh MonoShield
-        if(monoShield != null)
+        if (monoShield != null)
         {
             monoShield.UpdateShieldRatio();
         }
@@ -279,12 +277,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
     /// </summary>
     private void CalculateMaxShieldHP()
     {
-        var shieldAdd = mainProperty.GetPropertyFinal(PropertyModifyKey.ShieldHP);
-        var targetPercent = shieldAdd / 100f + 1;
-        targetPercent = Mathf.Clamp(targetPercent, -1, float.MaxValue);
-
-        var newValue = _shieldHPBase * targetPercent;
-        MaxShieldHP = Mathf.CeilToInt(newValue);
+        MaxShieldHP = GameHelper.CalculateShieldHP(_shieldHPBase);
         SetShieldMaxHP(MaxShieldHP);
     }
 

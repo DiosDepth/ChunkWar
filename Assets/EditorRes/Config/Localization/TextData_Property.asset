@@ -435,3 +435,15 @@ MonoBehaviour:
     ChineseSimplified: "\u673A\u5E93\u7D22\u654C"
     English: 
     Japanese: 
+  - TextID: UI_ShieldGeneratorProperty_ShieldHP_Name
+    ChineseSimplified: "\u62A4\u76FE\u91CF"
+    English: 
+    Japanese: 
+  - TextID: UI_ShieldGeneratorProperty_ShieldRange_Name
+    ChineseSimplified: "\u62A4\u76FE\u8303\u56F4"
+    English: 
+    Japanese: 
+  - TextID: UI_BuildingBaseProperty_HP_Name
+    ChineseSimplified: "\u7ED3\u6784"
+    English: 
+    Japanese: 

@@ -105,7 +105,7 @@ MonoBehaviour:
   controller: {fileID: 7663720787589469471}
   CoreUnits: []
   droneCfg: {fileID: 0}
-  DroneID: 1
+  DroneID: 1000
 --- !u!114 &7663720787589469471
 MonoBehaviour:
   m_ObjectHideFlags: 0

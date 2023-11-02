@@ -128,6 +128,23 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
         else if (cfg.unitType == UnitType.MainBuilding || cfg.unitType == UnitType.Buildings)
         {
             BuildingConfig buildingCfg = cfg as BuildingConfig;
+
+            ///BuildingGeneral
+            foreach (UI_BuildingBasePropertyType type in System.Enum.GetValues(typeof(UI_BuildingBasePropertyType)))
+            {
+                ///Drone单独处理
+                if ((buildingCfg is DroneFactoryConfig && type == UI_BuildingBasePropertyType.HP) || type == UI_BuildingBasePropertyType.NONE)
+                    continue;
+
+                PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
+                {
+                    string content = GameHelper.GetBuildingBasePropertyDescContent(type, buildingCfg);
+                    var cmpt = obj.GetComponent<UnitPropertyItemCmpt>();
+                    cmpt.SetUpBuilding(type, content);
+                }, _unitInfoRoot);
+            }
+
+            ///护盾描述
             if (buildingCfg.ShieldConfig.GenerateShield)
             {
                 foreach (UI_ShieldGeneratorPropertyType type in System.Enum.GetValues(typeof(UI_ShieldGeneratorPropertyType)))
@@ -137,7 +154,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
 
                     PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
                     {
-                        string content = GameHelper.GetShieldGeneratorPropertyDescContent(type, buildingCfg.ShieldConfig);
+                        string content = GameHelper.GetShieldGeneratorPropertyDescContent(type, buildingCfg);
                         var cmpt = obj.GetComponent<UnitPropertyItemCmpt>();
                         cmpt.SetUpShield(type, content);
                     }, _unitInfoRoot);

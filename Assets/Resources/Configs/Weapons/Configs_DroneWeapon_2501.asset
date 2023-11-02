@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_AIWeapon_108
+  m_Name: Configs_DroneWeapon_2501
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 108
+  ID: 2501
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 7b1d826265303344990ee2f28c9fd275, type: 3}
-    Name: 
-    Desc: 
-    Rarity: 1
+    IconSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
+    Name: Weapon_Name_20000
+    Desc: Weapon_Desc_20000
+    Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 4947179278027536233, guid: 8d36b467c48c56a419d53f77f3732fbe, type: 3}
+  Prefab: {fileID: 5883710716347196929, guid: 6fbb13948d5914045bf43369febfff29, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -438,43 +438,43 @@ MonoBehaviour:
   redirection: 0
   UnlockDefault: 0
   ProertyDescText: 
-  EditBrushSprite: {fileID: 0}
+  EditBrushSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
   ItemTags: 4
-  BaseHP: 240
+  BaseHP: 50
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
   ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResumeTime: 4
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 300
-  DamageBase: 12
-  EnemyAttackModify: 0.6
+  BaseRange: 150
+  DamageBase: 5
+  EnemyAttackModify: 0.7
   UseDamageRatio: 0
   DamageRatioMin: 0.8
   DamageRatioMax: 1.2
-  DamageType: 1
-  BaseCriticalRate: 0
-  CriticalDamage: 100
-  TotalDamageCount: 5
-  ShootPerCount: 1
+  DamageType: 0
+  BaseCriticalRate: 5
+  CriticalDamage: 150
+  TotalDamageCount: 6
+  ShootPerCount: 2
   CanModifyDamageCount: 0
-  CD: 5
-  FireCD: 0.25
-  ShieldTransfixion: 1
-  ShieldDamage: 100
-  BaseTransfixion: 2
+  CD: 2
+  FireCD: 0.15
+  ShieldTransfixion: 0
+  ShieldDamage: 150
+  BaseTransfixion: 0
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: Fire/Enemy_EnergyShoot_001
+  FireAudioClip: Fire/10000_hit1
   FireEffect:
-    EffectName: 
+    EffectName: Fire/Eff_FireSimple
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

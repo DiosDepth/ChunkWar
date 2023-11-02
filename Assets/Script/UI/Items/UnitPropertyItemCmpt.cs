@@ -17,6 +17,12 @@ public enum UI_WeaponUnitPropertyType
     ShieldDamage,
 }
 
+public enum UI_BuildingBasePropertyType
+{
+    NONE,
+    HP,
+}
+
 public enum UI_DroneFactoryPropertyType
 {
     NONE,
@@ -29,7 +35,7 @@ public enum UI_ShieldGeneratorPropertyType
 {
     NONE,
     ShieldHP,
-    ShieldRatio
+    ShieldRange
 }
 
 public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
@@ -37,6 +43,7 @@ public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
     public UI_WeaponUnitPropertyType WeaponPropertyType = UI_WeaponUnitPropertyType.NONE;
     public UI_DroneFactoryPropertyType DroneFactoryProeprtyType = UI_DroneFactoryPropertyType.NONE;
     public UI_ShieldGeneratorPropertyType ShieldPropertyType = UI_ShieldGeneratorPropertyType.NONE;
+    public UI_BuildingBasePropertyType BuildingBasePropertyType = UI_BuildingBasePropertyType.NONE;
 
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _valueText;
@@ -68,6 +75,13 @@ public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
         _valueText.text = content;
     }
 
+    public void SetUpBuilding(UI_BuildingBasePropertyType type, string content)
+    {
+        this.BuildingBasePropertyType = type;
+        _nameText.text = GameHelper.GetUI_BuildingPropertyType(type);
+        _valueText.text = content;
+    }
+
     public void RefreshContent(string content)
     {
         _valueText.text = content;
@@ -82,6 +96,7 @@ public class UnitPropertyItemCmpt : MonoBehaviour,IPoolable
 
     public void PoolableReset()
     {
+        BuildingBasePropertyType = UI_BuildingBasePropertyType.NONE;
         ShieldPropertyType = UI_ShieldGeneratorPropertyType.NONE;
         WeaponPropertyType = UI_WeaponUnitPropertyType.NONE;
         DroneFactoryProeprtyType = UI_DroneFactoryPropertyType.NONE;
