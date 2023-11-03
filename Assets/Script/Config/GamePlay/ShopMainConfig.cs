@@ -27,7 +27,7 @@ public class ShopMainConfig : SerializedScriptableObject
     [LabelText("每次刷新增加 波次乘参数")]
     public float RollCostIncreaceWaveParam = 0.5f;
 
-    [LabelText("刷新基础")]
+    [LabelText("刷新基础，根据总进入次数")]
     public int[] RollCostWaveBase = new int[20];
 
     [TableList(ShowIndexLabels = true, NumberOfItemsPerPage = 25)]

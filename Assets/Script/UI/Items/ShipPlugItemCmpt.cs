@@ -69,6 +69,7 @@ public class ShipPlugItemCmpt : MonoBehaviour, IScrollGirdCmpt, IHoverUIItem
         if (_item == null)
             return;
 
+        SoundManager.Instance.PlayUISound(SoundEventStr.Mouse_PointOver_2);
         UIManager.Instance.CreatePoolerUI<PlugDetailHover>("PlugDetailHover", true, E_UI_Layer.Top, null, (panel) =>
         {
             panel.Initialization((int)ItemUID);

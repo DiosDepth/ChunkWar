@@ -200,6 +200,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 当前刷新次数
     /// </summary>
     private int _currentRereollCount = 0;
+    private byte _shopTotalEnterCount = 0;
 
     /// <summary>
     /// 当前生成远古飞船数量，用于保底
@@ -365,6 +366,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _currentAncientUnitProtectRateAdd = 0;
         _shopFreeRollCount = 0;
         _totalKillBossCount = 0;
+        _shopTotalEnterCount = 0;
         ClearAction();
     }
 
@@ -1879,7 +1881,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         RefreshFreeRollCount();
         RefreshShop(false);
         OnEnterShop?.Invoke();
-
+        _shopTotalEnterCount++;
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
         CameraManager.Instance.SetOrthographicSize(20);
@@ -1979,8 +1981,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
                     return false;
 
                 ///Cost
-                CurrentRerollCost = GetCurrentRefreshCost();
                 AddCurrency(-CurrentRerollCost);
+                CurrentRerollCost = GetCurrentRefreshCost();
             }
         }
 
@@ -2246,12 +2248,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         int rollBase = 999;
         var rollCostBaseMap = DataManager.Instance.shopCfg.RollCostWaveBase;
-        if (_waveIndex < rollCostBaseMap.Length)
+        if (_shopTotalEnterCount < rollCostBaseMap.Length)
         {
-            rollBase = rollCostBaseMap[_waveIndex];
+            rollBase = rollCostBaseMap[_shopTotalEnterCount];
         }
 
-        var rerollIncrease = Mathf.RoundToInt(_waveIndex * rerollParam);
+        var rerollIncrease = Mathf.RoundToInt(_shopTotalEnterCount * rerollParam);
 
         return _currentRereollCount * rerollIncrease + rollBase;
     }
@@ -2738,6 +2740,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         bool result = true;
         BattleReset();
 
+        _shopTotalEnterCount = sav.ShopTotalEnterCount;
         ///Init HardLevel
         var hardLevelData = GameManager.Instance.GetHardLevelInfoByID(sav.ModeID);
         SetCurrentHardLevel(hardLevelData);
@@ -2803,6 +2806,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         sav.EXP = GetCurrentExp;
         sav.EliteSpawnWaves = _eliteSpawnWaves;
         sav.AlreadySpawnedEliteIDs = _alreadySpawnedEliteIDs;
+        sav.ShopTotalEnterCount = _shopTotalEnterCount;
 
         sav.PlugRuntimeSaves = CreatePlugRuntimeSaveData();
         sav.PropertyRowSav = MainPropertyData.CreatePropertyModifyRowSaveData();

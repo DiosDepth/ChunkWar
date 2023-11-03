@@ -246,6 +246,7 @@ public class SaveData
     public int MainWeaponID;
 
     public int WaveIndex;
+    public byte ShopTotalEnterCount;
 
     public int Currency;
     public int WasteCount;
