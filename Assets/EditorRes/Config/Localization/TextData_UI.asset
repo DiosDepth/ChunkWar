@@ -435,3 +435,11 @@ MonoBehaviour:
     ChineseSimplified: "\u5F3A\u654C\u51FA\u73B0"
     English: 
     Japanese: 
+  - TextID: BuffPunish_Title
+    ChineseSimplified: "\u5F53\u524D\u6548\u679C"
+    English: 
+    Japanese: 
+  - TextID: BuffPunish_Title_None
+    ChineseSimplified: "\u65E0\u8D1F\u9762\u6548\u679C"
+    English: 
+    Japanese: 

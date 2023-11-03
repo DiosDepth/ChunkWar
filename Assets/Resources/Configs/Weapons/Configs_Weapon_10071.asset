@@ -438,7 +438,7 @@ MonoBehaviour:
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: 9d864cdb967bbc74485e21829169bb12, type: 3}
+  EditBrushSprite: {fileID: 21300000, guid: b750181211b022a40837873ca5f94af2, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0

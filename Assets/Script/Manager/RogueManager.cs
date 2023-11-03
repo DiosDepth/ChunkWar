@@ -685,7 +685,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public float WreckageLoadPercent
     {
-        get { return (WreckageTotalLoadValue * 100) / (float)WreckageTotalLoadCost; }
+        get { return (WreckageTotalLoadCost * 100) / (float)WreckageTotalLoadValue; }
     }
 
     private ChangeValue<int> _dropWasteCount;
@@ -1805,6 +1805,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         {
             ShipLevelUp(oldLevel,levelUpCount);
         }
+    }
+
+    public PropertyModifySpecialData[] GetGlobalPropertyModifySpelcialData(uint parentUID)
+    {
+        return globalModifySpecialDatas.FindAll(x => x.GetUID == parentUID).ToArray();
     }
 
     private void LevelUp()

@@ -98,6 +98,22 @@ public class UnitPropertyData
     }
 
     /// <summary>
+    /// 根据加成UID获取加成值
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="type"></param>
+    /// <param name="fromUID"></param>
+    /// <returns></returns>
+    public float GetValueByModifyUID(PropertyModifyKey key, PropertyModifyType type, uint fromUID)
+    {
+        var pool = GetOrCreatePropertyPool(key);
+        if (pool == null)
+            return 0;
+
+        return pool.GetValueWithUID(type, fromUID);
+    }
+
+    /// <summary>
     /// 移除修正
     /// </summary>
     /// <param name="propertyKey"></param>
@@ -326,6 +342,26 @@ public class UnitPropertyPool
         }
         propertychangeAction?.Invoke();
         ShipPropertyEvent.Trigger(ShipPropertyEventType.MainPropertyValueChange, PropertyKey);
+    }
+
+    public float GetValueWithUID(PropertyModifyType type, uint UIDKey)
+    {
+        switch (type)
+        {
+            case PropertyModifyType.Modify:
+                if (_propertyTable_Modify.ContainsKey(UIDKey))
+                {
+                    return (float)_propertyTable_Modify[UIDKey];
+                }
+                break;
+            case PropertyModifyType.ModifyPercent:
+                if (_propertyTable_ModifyPercent.ContainsKey(UIDKey))
+                {
+                     return (float)_propertyTable_ModifyPercent[UIDKey];
+                }
+                break;
+        }
+        return 0;
     }
 
     public void RemoveFromPool_Modify(PropertyModifyType type, uint key, float value = 0)

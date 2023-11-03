@@ -10,6 +10,10 @@ public class PropertyModifySpecialData
     public PropertyModifyConfig Config;
 
     private uint UID;
+    public uint GetUID
+    {
+        get { return UID; }
+    }
 
 
     public PropertyModifySpecialData(PropertyModifyConfig cfg, uint parentUID)

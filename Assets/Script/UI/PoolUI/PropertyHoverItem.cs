@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class PropertyHoverItem : GUIBasePanel, IPoolable
+public class PropertyHoverItem : GUIBasePanel, IPoolable, IUIHoverPanel
 {
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;

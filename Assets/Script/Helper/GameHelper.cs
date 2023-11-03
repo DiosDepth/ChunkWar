@@ -9,7 +9,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using System.Text;
 
-public static class GameHelper 
+public static class GameHelper
 {
     public static string GeneralButton_Back_Text = "UI_General_Back";
 
@@ -133,6 +133,18 @@ public static class GameHelper
         }
     }
 
+    public static string GetShipPropertySliderName(ShipPropertySliderCmpt.SliderPropertyType type)
+    {
+        string key = string.Format("ShipSliderProperty_Name_{0}", type);
+        return LocalizationManager.Instance.GetTextValue(key);
+    }
+
+    public static string GetShipPropertySliderDesc(ShipPropertySliderCmpt.SliderPropertyType type)
+    {
+        string key = string.Format("ShipSliderProperty_Desc_{0}", type);
+        return LocalizationManager.Instance.GetTextValue(key);
+    }
+
     /// <summary>
     /// 获取属性详情显示
     /// </summary>
@@ -176,7 +188,7 @@ public static class GameHelper
     {
         var value = CalculateArmorReducePercent(isshipArmor);
 
-        if(value >= 1)
+        if (value >= 1)
         {
             value -= 1;
         }
@@ -235,7 +247,7 @@ public static class GameHelper
     public static int GetEXPRequireMaxCount(byte level)
     {
         var expMap = DataManager.Instance.battleCfg.EXPMap;
-        if(expMap == null || expMap.Length < level)
+        if (expMap == null || expMap.Length < level)
         {
             UnityEngine.Debug.Log("EXP MAP ERROR! LEVEL = " + level);
             return int.MaxValue;
@@ -276,14 +288,14 @@ public static class GameHelper
             }
         };
 
-        while(dropCount >= 0)
+        while (dropCount >= 0)
         {
             safeLoop++;
             if (safeLoop > 100)
                 break;
 
             ///DropCount不足1的部分概率掉落
-            if(dropCount < 1)
+            if (dropCount < 1)
             {
                 bool drop = Utility.RandomResultWithOne(0, dropCount);
                 if (drop)
@@ -293,10 +305,10 @@ public static class GameHelper
             }
 
             ///从大到小计算掉落物大小以及数量
-            for (int i = allpickUpWaste.Count - 1; i >= 0; i--)  
+            for (int i = allpickUpWaste.Count - 1; i >= 0; i--)
             {
                 var wasteInfo = allpickUpWaste[i];
-                if(dropCount >= wasteInfo.CountRef)
+                if (dropCount >= wasteInfo.CountRef)
                 {
                     dropCount -= wasteInfo.CountRef;
                     addDrop(wasteInfo, wasteInfo.CountRef);
@@ -340,14 +352,32 @@ public static class GameHelper
 
     public static float GetPlayerShipEnergyTotal()
     {
-        if(RogueManager.Instance.currentShip != null)
+        if (RogueManager.Instance.currentShip != null)
         {
             return RogueManager.Instance.currentShip.TotalEnergy;
         }
 
-        if(ShipBuilder.instance != null && ShipBuilder.instance.editorShip != null)
+        if (ShipBuilder.instance != null && ShipBuilder.instance.editorShip != null)
         {
             return ShipBuilder.instance.editorShip.TotalEnergy;
+        }
+        return 0;
+    }
+
+    /// <summary>
+    /// 获取能源消耗比例
+    /// </summary>
+    /// <returns></returns>
+    public static float GetPlayerShipEnergyCostPercent()
+    {
+        if (RogueManager.Instance.currentShip != null)
+        {
+            return RogueManager.Instance.currentShip.EnergyPercent;
+        }
+
+        if (ShipBuilder.instance != null && ShipBuilder.instance.editorShip != null)
+        {
+            return ShipBuilder.instance.editorShip.EnergyPercent;
         }
         return 0;
     }

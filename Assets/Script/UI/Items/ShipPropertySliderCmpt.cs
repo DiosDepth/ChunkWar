@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShipPropertySliderCmpt : MonoBehaviour
+public class ShipPropertySliderCmpt : MonoBehaviour, IHoverUIItem
 {
     public enum SliderPropertyType
     {
@@ -33,10 +33,18 @@ public class ShipPropertySliderCmpt : MonoBehaviour
     private bool _startLerp = false;
     private float _targetPercent;
 
+    private IUIHoverPanel _hoverItem;
+
     public void Awake()
     {
         _valueText = transform.Find("Content/Info/Value").SafeGetComponent<TextMeshProUGUI>();
         _fillImage = transform.Find("Content/Slider/Fill").SafeGetComponent<Image>();
+
+        ///Set Hover
+        var hoverControl = transform.GetComponent<GeneralHoverItemControl>();
+        if (hoverControl != null)
+            hoverControl.item = this;
+
         if(PropertyType == SliderPropertyType.EXP)
         {
             _levelText = transform.Find("Content/Info/Title").SafeGetComponent<TextMeshProUGUI>();
@@ -171,5 +179,23 @@ public class ShipPropertySliderCmpt : MonoBehaviour
             return;
         var level = RogueManager.Instance.GetCurrentShipLevel;
         _levelText.text = string.Format("Lv.{0}", level);
+    }
+
+    public void OnHoverEnter()
+    {
+        SoundManager.Instance.PlayUISound(SoundEventStr.Mouse_PointOver_2);
+        UIManager.Instance.CreatePoolerUI<PunishHoverItem>("PunishHoverItem", true, E_UI_Layer.Top, null, (panel) =>
+        {
+            panel.Initialization(PropertyType);
+            _hoverItem = panel;
+        });
+    }
+
+    public void OnHoverExit()
+    {
+        if(_hoverItem != null)
+        {
+            _hoverItem.PoolableDestroy();
+        }
     }
 }
