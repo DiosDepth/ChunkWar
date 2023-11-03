@@ -1372,10 +1372,12 @@ MonoBehaviour:
   ShipClass: 5
   Owner: 1
   PreviewWeaponID: 21000
-  MaxVelocity: 12
-  MaxAcceleration: 3
-  MaxAngularAcceleration: 3
-  MaxAngularVelocity: 1
+  HardLevelGroupID: 0
+  EnmeyATKBase: 0
+  MaxVelocity: 25
+  MaxAcceleration: 4
+  MaxAngularAcceleration: 5
+  MaxAngularVelocity: 2
   boidRadius: 1
   targetSerchingRadius: 30
   DieAudio: Ship/ShipExplode_001

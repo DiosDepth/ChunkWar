@@ -450,6 +450,10 @@ MonoBehaviour:
   ParalysisResume: 0
   ParalysisResumeTime: 0
   PropertyModify: []
+  HPBarOffsetY: 0
+  HPBarHeight: 0.4
+  HPBarWidth: 3
+  BaseRange: 0
   ShieldConfig:
     GenerateShield: 0
     ShieldPrefabName: 

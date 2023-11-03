@@ -1397,14 +1397,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 503
+  ID: 504
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 55aab8e043056b1439a99730ff32f397, type: 3}
-    Name: Enemy_Name_503
+    Name: Enemy_Name_504
     Desc: 
     Rarity: 2
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: db9a01ccf72eb8544bad6aea249ce3dd, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: bd0dac6a351247644b04506d00cc750e, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 2
@@ -1429,6 +1429,14 @@ MonoBehaviour:
   AppearWarning: 0
   AppearWarningText: 
   AppearWarningAudio: 
+  DieEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
   DropList:
   - pickuptype: 1
     count: 8

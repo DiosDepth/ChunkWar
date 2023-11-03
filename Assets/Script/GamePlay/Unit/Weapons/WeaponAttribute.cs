@@ -155,7 +155,8 @@ public class WeaponAttribute : UnitBaseAttribute
                 Damage = Mathf.RoundToInt(finalDamage);
             }
         }
-        else if(_ownerShipType == OwnerShipType.AIShip)
+        ///º∆À„µ–»À…À∫¶
+        else if(_ownerShipType == OwnerShipType.AIShip || _ownerShipType == OwnerShipType.AIDrone)
         {
             if (UseDamageRatio)
             {
@@ -169,6 +170,12 @@ public class WeaponAttribute : UnitBaseAttribute
                 var aishipCfg = (_parentUnit._owner as AIShip).AIShipCfg;
                 hardLevelAdd += aishipCfg.AttackBase;
             }
+            else if(_parentUnit._owner != null && _parentUnit._owner is AIDrone)
+            {
+                var aiDroneCfg = (_parentUnit._owner as AIDrone).droneCfg;
+                hardLevelAdd += aiDroneCfg.EnmeyATKBase;
+            }
+
             hardLevelAdd *= EnemyWeaponATKPercent;
             var damage = Mathf.Clamp((BaseDamage * (1 + hardLevelAdd / 100f)) * (1 + damageRatio) * ratio, 0, int.MaxValue);
             Damage = Mathf.RoundToInt(damage);
@@ -266,7 +273,7 @@ public class WeaponAttribute : UnitBaseAttribute
             CalculateCriticalRatio();
             CalculateCriticalDamagePercent();
         }
-        else if (ownerType == OwnerShipType.AIShip) 
+        else if (ownerType == OwnerShipType.AIShip || ownerType == OwnerShipType.AIDrone) 
         {
             BaseDamageModifyValue = 0;
             CriticalRatio = 0;
@@ -278,19 +285,30 @@ public class WeaponAttribute : UnitBaseAttribute
             TransfixionReduce = BaseTransfixionDamage;
             EnemyWeaponATKPercent = _weaponCfg.EnemyAttackModify;
 
-            if (_parentUnit._owner == null)
+            if(ownerType == OwnerShipType.AIShip)
             {
-                _hardLevelItem = GameHelper.GetEnemyHardLevelItem(1);
+                if (_parentUnit._owner == null)
+                {
+                    _hardLevelItem = GameHelper.GetEnemyHardLevelItem(1);
+                }
+                else
+                {
+                    var enemyShip = _parentUnit._owner as AIShip;
+                    _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
+                }
             }
             else
             {
-                var enemyShip = _parentUnit._owner as AIShip;
-                _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyShip.AIShipCfg.HardLevelGroupID);
+                if(_parentUnit._owner == null)
+                {
+                    _hardLevelItem = GameHelper.GetEnemyHardLevelItem(1);
+                }
+                else
+                {
+                    var enemyDrone = _parentUnit._owner as AIDrone;
+                    _hardLevelItem = GameHelper.GetEnemyHardLevelItem(enemyDrone.droneCfg.HardLevelGroupID);
+                }
             }
-        }
-        else if(ownerType == OwnerShipType.AIDrone)
-        {
-
         }
     }
 

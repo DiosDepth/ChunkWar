@@ -191,6 +191,8 @@ public class GeneralItemConfig
 
     [LabelText("Ãû³Æ")]
     [LabelWidth(80)]
+    [OnValueChanged("OnNameChange")]
+    [DelayedProperty]
     public string Name;
 
     [LabelText("CN")]
@@ -203,6 +205,8 @@ public class GeneralItemConfig
     [Multiline(1)]
     [LabelText("ÃèÊö")]
     [LabelWidth(80)]
+    [OnValueChanged("OnDescChange")]
+    [DelayedProperty]
     public string Desc;
 
     [VerticalGroup("AA")]
@@ -234,5 +238,19 @@ public class GeneralItemConfig
             DescPreview = LocalizationManager.Instance.GetTextValue(Desc);
         }
     }
+
+#if UNITY_EDITOR
+
+    private void OnNameChange()
+    {
+        NamePreview = LocalizationManager.Instance.GetTextValue(Name);
+    }
+
+    private void OnDescChange()
+    {
+        DescPreview = LocalizationManager.Instance.GetTextValue(Desc);
+    }
+
+#endif
 
 }

@@ -1372,7 +1372,9 @@ MonoBehaviour:
   ShipClass: 5
   Owner: 1
   PreviewWeaponID: 21005
-  MaxVelocity: 12
+  HardLevelGroupID: 0
+  EnmeyATKBase: 0
+  MaxVelocity: 18
   MaxAcceleration: 3
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
