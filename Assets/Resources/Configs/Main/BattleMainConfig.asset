@@ -52,6 +52,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 5d1542524f367a74cafa1bc6c84f94b7, type: 3}
     - {fileID: 21300000, guid: ee80cf7f7c2675f49bd9464bc2616726, type: 3}
     - {fileID: 21300000, guid: 1fa45f0ff1747e849b1cc4c10201bd51, type: 3}
+    - {fileID: 21300000, guid: c25fa790d5fc17f4cad7b889261c5c08, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -778,7 +779,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 52
+      Data: 54
     - Name: 
       Entry: 7
       Data: 
@@ -831,8 +832,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_AttackSpeed
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_AttackSpeed
     - Name: Icon
       Entry: 10
       Data: 4
@@ -939,8 +940,8 @@ MonoBehaviour:
       Entry: 1
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ShopCostPercent
     - Name: Icon
       Entry: 10
       Data: 7
@@ -1335,8 +1336,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_ShipParry
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ShipParry
     - Name: Icon
       Entry: 10
       Data: 18
@@ -1371,8 +1372,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_ShipSpeed
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ShipSpeed
     - Name: Icon
       Entry: 10
       Data: 19
@@ -1407,8 +1408,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_ExplodeDamage
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ExplodeDamage
     - Name: Icon
       Entry: 10
       Data: 20
@@ -1443,8 +1444,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_EnemyCount
     - Name: Icon
       Entry: 10
       Data: 21
@@ -1479,8 +1480,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_EliteBossDamage
     - Name: Icon
       Entry: 10
       Data: 22
@@ -1515,8 +1516,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_Command
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_Command
     - Name: Icon
       Entry: 10
       Data: 23
@@ -1587,8 +1588,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_ExplodeRange
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_ExplodeRange
     - Name: Icon
       Entry: 10
       Data: 25
@@ -1690,13 +1691,13 @@ MonoBehaviour:
       Data: 54|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
-      Data: PropertyName_MissileCount
+      Data: PropertyName_DamageCount
     - Name: ModifyPercentNameText
       Entry: 1
-      Data: MP_PropertyName_MissileCount
+      Data: MP_PropertyName_DamageCount
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_DamageCount
     - Name: Icon
       Entry: 10
       Data: 28
@@ -1726,10 +1727,10 @@ MonoBehaviour:
       Data: 55|PropertyDisplayConfig, Assembly-CSharp
     - Name: NameText
       Entry: 1
-      Data: PropertyName_PhysicalCount
+      Data: PropertyName_AutoPickRate
     - Name: ModifyPercentNameText
       Entry: 1
-      Data: MP_PropertyName_PhysicalCount
+      Data: MP_PropertyName_AutoPickRate
     - Name: DescText
       Entry: 6
       Data: 
@@ -1803,8 +1804,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_UnitHPRecover
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_UnitHPRecover
     - Name: Icon
       Entry: 10
       Data: 31
@@ -1875,8 +1876,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_EnemyDrop
     - Name: Icon
       Entry: 10
       Data: 33
@@ -1911,8 +1912,8 @@ MonoBehaviour:
       Entry: 1
       Data: MP_PropertyName_EnemySpeed
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_EnemySpeed
     - Name: Icon
       Entry: 10
       Data: 34
@@ -1947,8 +1948,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_SellPrice
     - Name: Icon
       Entry: 10
       Data: 7
@@ -2307,11 +2308,11 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_AirCraftHP
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 32
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -2343,11 +2344,11 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_AirCraftSpeed
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 33
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -2382,8 +2383,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 21
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -2487,8 +2488,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: DescText
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: PropertyDesc_AirCraftDamage
     - Name: Icon
       Entry: 6
       Data: 
@@ -2562,8 +2563,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: Icon
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 36
     - Name: IsPercent
       Entry: 5
       Data: true
@@ -2639,6 +2640,78 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: true
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 68
+    - Name: $v
+      Entry: 7
+      Data: 81|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Total_Load
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 1
+      Data: PropertyDesc_Total_Load
+    - Name: Icon
+      Entry: 10
+      Data: 36
+    - Name: IsPercent
+      Entry: 5
+      Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 67
+    - Name: $v
+      Entry: 7
+      Data: 82|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Total_Energy
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 1
+      Data: PropertyDesc_Total_Energy
+    - Name: Icon
+      Entry: 10
+      Data: 7
+    - Name: IsPercent
+      Entry: 5
+      Data: false
     - Name: ReverseColor
       Entry: 5
       Data: false

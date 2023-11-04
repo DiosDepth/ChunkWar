@@ -155,6 +155,9 @@ public static class GameHelper
     {
         var rowDesc = LocalizationManager.Instance.GetTextValue(cfg.DescText);
 
+        if (string.IsNullOrEmpty(rowDesc))
+            return rowDesc;
+
         if (rowDesc.Contains("#V#"))
         {
             rowDesc = rowDesc.Replace("#V#", GetPropertyHoverValue(key, cfg));
