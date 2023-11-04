@@ -443,3 +443,7 @@ MonoBehaviour:
     ChineseSimplified: "\u65E0\u8D1F\u9762\u6548\u679C"
     English: 
     Japanese: 
+  - TextID: ShipSelection_UpgradeInfo_Title
+    ChineseSimplified: "\u8230\u8239\u5347\u7EA7\u52A0\u6210"
+    English: 
+    Japanese: 

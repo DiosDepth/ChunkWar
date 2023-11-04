@@ -77,6 +77,11 @@ public class PlayerShipConfig : BaseShipConfig
     [LabelWidth(100)]
     public List<ShipInitUnitConfig> OriginUnits = new List<ShipInitUnitConfig>();
 
+    [FoldoutGroup("配置")]
+    [LabelText("升级加成")]
+    [LabelWidth(100)]
+    public List<PropertyModifyConfig> UpgradePropertyModifyCfg = new List<PropertyModifyConfig>();
+
     [FoldoutGroup("表现配置")]
     [LabelText("死亡特效")]
     public GeneralEffectConfig DieEffect;

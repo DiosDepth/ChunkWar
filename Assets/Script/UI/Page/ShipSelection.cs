@@ -39,6 +39,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     private RectTransform _weaponInfoGroupRect;
     private RectTransform _propertyRect;
     private RectTransform _weaponPropertyRect;
+    private Transform _shipUpgradeInfoRoot;
     private List<CampSelectionTabCmpt> _campTabCmpts;
     private List<ShipSelectionItemPropertyCmpt> propertyCmpts = new List<ShipSelectionItemPropertyCmpt>();
     private List<WeaponSelectionItemPropertyCmpt> weaponPropertyCmpts = new List<WeaponSelectionItemPropertyCmpt>();
@@ -76,6 +77,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _weaponInfoGroupRect = shipInfoTrans.Find("WeaponGroup").SafeGetComponent<RectTransform>();
         _propertyRect = transform.Find("uiGroup/Content/Top/PropertyInfo/PropertyContent/Viewport/Content").SafeGetComponent<RectTransform>();
         _weaponPropertyRect = _weaponGroup.transform.Find("PropertyContent/Viewport/Content").SafeGetComponent<RectTransform>();
+        _shipUpgradeInfoRoot = _propertyRect.Find("UpgradeInfo");
         _nameText = shipInfoTrans.Find("Group/ShipClassInfo/Name").SafeGetComponent<Text>();
         _classIcon = shipInfoTrans.Find("Group/ShipClassInfo/ClassInfo/ClassIcon").SafeGetComponent<Image>();
         _className = shipInfoTrans.Find("Group/ShipClassInfo/ClassInfo/ClassName").SafeGetComponent<TextMeshProUGUI>();
@@ -555,6 +557,29 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _propertyDescText.text = desc;
         _propertyDescText.transform.Find("Text").SafeGetComponent<TextMeshProUGUI>().text = desc;
         _propertyDescText.transform.SetAsLastSibling();
+
+        ///SetUpUpgradeInfo
+        var allUpgrades = cfg.UpgradePropertyModifyCfg;
+        if(allUpgrades != null && allUpgrades.Count > 0)
+        {
+            _shipUpgradeInfoRoot.Pool_BackAllChilds(ShipProperty_ItemPrefabPath);
+            for (int i = 0; i < allUpgrades.Count; i++) 
+            {
+                var info = allUpgrades[i];
+                PoolManager.Instance.GetObjectSync(ShipProperty_ItemPrefabPath, true, (obj) =>
+                {
+                    var cmpt = obj.transform.SafeGetComponent<ShipSelectionItemPropertyCmpt>();
+                    cmpt.SetUp(info.ModifyKey, info.Value, false, true);
+                }, _shipUpgradeInfoRoot);
+            }
+            _shipUpgradeInfoRoot.SetAsLastSibling();
+            _shipUpgradeInfoRoot.SafeSetActive(true);
+        }
+        else
+        {
+            _shipUpgradeInfoRoot.SafeSetActive(false);
+        }
+
         LayoutRebuilder.ForceRebuildLayoutImmediate(_propertyRect);
     }
 

@@ -2557,6 +2557,17 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         RefreshShipLevelUpItems(false);
 
+        ///AddProperty
+        var shipCfg = currentShip.playerShipCfg.UpgradePropertyModifyCfg;
+        if(shipCfg != null && shipCfg.Count > 0)
+        {
+            for(int i = 0; i < shipCfg.Count; i++)
+            {
+                var upgradeCfg = shipCfg[i];
+                MainPropertyData.AddPropertyModifyValue(upgradeCfg.ModifyKey, PropertyModifyType.Row, GameGlobalConfig.PropertyModifyUID_Upgrade, upgradeCfg.Value);
+            }
+        }
+
         ///重复升级保护
         var levelUpPanel = UIManager.Instance.GetGUIFromDic<ShipLevelUpPage>("ShipLevelUpPage");
         if(levelUpPanel != null)

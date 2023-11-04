@@ -105,7 +105,7 @@ public enum PropertyModifyKey
     /// </summary>
     UnitWreckageLoadAdd,
     /// <summary>
-    /// 护盾半径增加
+    /// 护盾半径增加 === 干掉
     /// </summary>
     ShieldRatioAdd,
     /// <summary>

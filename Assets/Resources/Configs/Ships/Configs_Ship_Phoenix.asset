@@ -1431,6 +1431,7 @@ MonoBehaviour:
   ShipHardLevels: 010000000200000003000000040000000f270000
   ShipOriginPlugs: 
   OriginUnits: []
+  UpgradePropertyModifyCfg: []
   DieEffect:
     EffectName: 
     RandomScale: 0
