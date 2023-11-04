@@ -67,6 +67,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         ClearAllShopSlotItems();
         _hoverCmpt?.PoolableDestroy();
 
+        UIManager.Instance.ClearAllHoverUI();
         this.EventStopListening<RogueEvent>();
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();

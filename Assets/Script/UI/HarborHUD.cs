@@ -66,6 +66,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         _plugGridController.Clear();
         _hoverCmpt?.PoolableDestroy();
 
+        UIManager.Instance.ClearAllHoverUI();
         this.EventStopListening<RogueEvent>();
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();

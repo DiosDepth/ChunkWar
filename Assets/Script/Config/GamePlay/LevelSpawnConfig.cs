@@ -92,6 +92,24 @@ public class LevelSpawnConfig : SerializedScriptableObject
         AssetDatabase.Refresh();
     }
 
+    [FoldoutGroup("预览")]
+    [Button("波次信息预览")]
+    private void Refresh()
+    {
+        WaveThreadLog = new List<WaveThread_LOG>();
+        for(int i = 0; i < WaveConfig.Count; i++)
+        {
+            var log = WaveConfig[i].GetWaveThread_LOG();
+            WaveThreadLog.Add(log);
+        }
+    }
+
+
+    [ShowInInspector]
+    [FoldoutGroup("预览")]
+    [ListDrawerSettings(IsReadOnly = true, ShowFoldout = true)]
+    private List<WaveThread_LOG> WaveThreadLog;
+
 #endif
 }
 
@@ -122,6 +140,70 @@ public class WaveConfig
     [LabelWidth(80)]
     [HorizontalGroup("AA", 200)]
     public int waveScore;
+
+#if GMDEBUG
+
+    [FoldoutGroup("信息")]
+    [HorizontalGroup("信息/A")]
+    [Button("刷新信息"), GUIColor(0,1,0)]
+    private void RefreshInfo()
+    {
+        float totalThread = 0;
+        for(int i = 0; i < SpawnConfig.Count; i++)
+        {
+            var cfg = SpawnConfig[i];
+            var shipCfg = DataManager.Instance.GetAIShipConfig(cfg.AITypeID);
+            if (shipCfg == null)
+                continue;
+
+            if (cfg.LoopCount <= 0)
+            {
+                ///Loop
+                int totalLoop = Mathf.RoundToInt((DurationTime - cfg.StartTime) / cfg.DurationDelta);
+                totalThread += totalLoop * cfg.TotalCount * shipCfg.SectorThreadValue;
+            }
+            else
+            {
+                for(int j = 0; j < cfg.LoopCount; j++)
+                {
+                    var time = cfg.LoopCount * cfg.DurationDelta + cfg.StartTime;
+                    if(time < DurationTime)
+                    {
+                        totalThread += cfg.TotalCount * shipCfg.SectorThreadValue;
+                    }
+                }
+            }
+        }
+
+        TotalThread = totalThread;
+        AVG_TotalThread = TotalThread / DurationTime;
+    }
+
+    [FoldoutGroup("信息")]
+    [HorizontalGroup("信息/A")]
+    [LabelText("总计威胁值")]
+    [ReadOnly]
+    [ShowInInspector]
+    private float TotalThread;
+
+    [FoldoutGroup("信息")]
+    [HorizontalGroup("信息/A")]
+    [LabelText("平均威胁值")]
+    [ReadOnly]
+    [ShowInInspector]
+    private float AVG_TotalThread;
+
+    public WaveThread_LOG GetWaveThread_LOG()
+    {
+        RefreshInfo();
+        WaveThread_LOG log = new WaveThread_LOG();
+        log.WaveIndex = WaveIndex;
+        log.TotalThread = TotalThread;
+        log.AVG_TotalThread = AVG_TotalThread;
+        return log;
+    }
+
+#endif
 
     [LabelText("敌人波次配置")]
     [ListDrawerSettings(CustomAddFunction = "AddNewWaveSpawn")]
@@ -314,3 +396,28 @@ public class WaveEnemySpawnConfig
 #endif
 }
 
+#if GMDEBUG
+
+[System.Serializable]
+[HideReferenceObjectPicker]
+public class WaveThread_LOG
+{
+    [HorizontalGroup("信息",300)]
+    [LabelText("Index")]
+    [ReadOnly]
+    [LabelWidth(50)]
+    public int WaveIndex;
+
+    [HorizontalGroup("信息")]
+    [LabelText("总计威胁值")]
+    [ReadOnly]
+    public float TotalThread;
+
+    [HorizontalGroup("信息")]
+    [LabelText("平均威胁值")]
+    [ReadOnly]
+    [ShowInInspector]
+    public float AVG_TotalThread;
+}
+
+#endif

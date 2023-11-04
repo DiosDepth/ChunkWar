@@ -46,7 +46,7 @@ public class UIManager : Singleton<UIManager>
     public string resGUIPath = "Prefab/GUIPrefab/";
     public string resPoolUIPath = "Prefab/GUIPrefab/PoolUI/";
     public Dictionary<string, GUIBasePanel> panelDic = new Dictionary<string, GUIBasePanel>();
-    private List<GUIBasePanel> _poolerUI = new List<GUIBasePanel>();
+    private List<IUIHoverPanel> _HoverUI = new List<IUIHoverPanel>();
 
     private Transform canvas;
     public Transform Canvas { get { return canvas; } }
@@ -174,7 +174,11 @@ public class UIManager : Singleton<UIManager>
             panel.owner = m_owner;
 
             callback?.Invoke(panel);
-            _poolerUI.Add(panel);
+
+            if(panel is IUIHoverPanel)
+            {
+                _HoverUI.Add(panel as IUIHoverPanel);
+            }
         });
 
     }
@@ -187,13 +191,16 @@ public class UIManager : Singleton<UIManager>
             obj.transform.localScale = Vector3.one;
             T panel = obj.GetComponent<T>();
             callback?.Invoke(panel);
-            _poolerUI.Add(panel);
+            if (panel is IUIHoverPanel)
+            {
+                _HoverUI.Add(panel as IUIHoverPanel);
+            }
         });
     }
 
     public void BackPoolerUI(string m_uiname, GameObject m_backobj)
     {
-        _poolerUI.Remove(m_backobj.transform.SafeGetComponent<GUIBasePanel>());
+        _HoverUI.Remove(m_backobj.transform.SafeGetComponent<IUIHoverPanel>());
         PoolManager.Instance.BackObject(resPoolUIPath + m_uiname, m_backobj);
     }
 
@@ -288,26 +295,12 @@ public class UIManager : Singleton<UIManager>
     /// </summary>
     public void ClearAllHoverUI()
     {
-        List<string> removelist = new List<string>();
-        foreach (KeyValuePair<string, GUIBasePanel> kv in panelDic)
+        for (int i = _HoverUI.Count - 1; i >= 0; i --) 
         {
-            if (kv.Value is IUIHoverPanel) 
+            if(_HoverUI[i] != null)
             {
-                removelist.Add(kv.Key);
+                _HoverUI[i].PoolableDestroy();
             }
-        }
-
-        for (int i = 0; i < _poolerUI.Count; i++) 
-        {
-            if(_poolerUI[i] != null && _poolerUI[i] is IUIHoverPanel)
-            {
-                removelist.Add(_poolerUI[i].name);
-            }
-        }
-
-        for (int i = 0; i < removelist.Count; i++)
-        {
-            HiddenUI(removelist[i]);
         }
     }
 
@@ -317,11 +310,6 @@ public class UIManager : Singleton<UIManager>
         foreach (KeyValuePair<string, GUIBasePanel> kv in panelDic)
         {
             removelist.Add(kv.Key);
-        }
-
-        for(int i = 0; i < _poolerUI.Count; i++)
-        {
-            removelist.Add(_poolerUI[i].name);
         }
 
         for (int i = 0; i < removelist.Count; i++)

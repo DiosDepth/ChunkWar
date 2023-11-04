@@ -37,7 +37,7 @@ MonoBehaviour:
     PosRandomX: 0
     PosRandomY: 0
   MaxDistance: 100
-  Width: 6
+  Width: 3
   HitBoxWidth: 2
   EmiteTime: 0.1
   Duration: 0.15
