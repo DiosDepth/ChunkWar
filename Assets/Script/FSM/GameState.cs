@@ -224,8 +224,18 @@ public class EGameState_GameStart : GameState
         else
         {
             InputDispatcher.Instance.ChangeInputMode("UI");
-            RogueManager.Instance.OnEnterHarborInit();
-
+            List<WreckageItemInfo> gainWreckages = new List<WreckageItemInfo>();
+            RogueManager.Instance.OnEnterHarborInit(out gainWreckages);
+                
+            ///GainDisplay
+            if(gainWreckages.Count > 0)
+            {
+                UIManager.Instance.ShowUI<BattleGainSettleDialog>("BattleGainSettleDialog", E_UI_Layer.Top, GameManager.Instance, (panel) =>
+                {
+                    panel.Initialization(gainWreckages);
+                });
+            }
+          
             UIManager.Instance.ShowUI<HarborHUD>("HarborHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
             {
                 panel.Initialization();

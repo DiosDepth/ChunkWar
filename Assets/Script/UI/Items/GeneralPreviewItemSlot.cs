@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
     private int itemID;
 
     private DetailHoverItemBase _hoverItem;
+    private bool _isHide = false;
+    private bool _isShowing = false;
 
     public void Awake()
     {
@@ -85,8 +88,29 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
         transform.Find("FrameBG").SafeGetComponent<Image>().sprite = frameBG;
     }
 
+    public void SetHide()
+    {
+        _isHide = true;
+        transform.SafeGetComponent<CanvasGroup>().alpha = 0;
+    }
+
+    public async UniTask DoShow()
+    {
+        if (_isShowing || !_isHide)
+            return;
+
+        _isShowing = true;
+        transform.GetComponent<Animation>().Play();
+        await UniTask.Delay(500);
+        _isHide = false;
+        _isShowing = false;
+    }
+
     public void OnHoverEnter()
     {
+        if (_isHide)
+            return;
+
         if (itemType == GoodsItemType.ShipUnit || (useUnlockType && unlockItemType == GeneralUnlockItemType.ShipUnit))
         {
             UIManager.Instance.CreatePoolerUI<UnitDetailHover>("UnitDetailHover", true, E_UI_Layer.Top, null, (panel) =>

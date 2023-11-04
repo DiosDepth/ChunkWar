@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7680072223793314638}
   - component: {fileID: 1072994000828840337}
   - component: {fileID: 6373772356335775423}
+  - component: {fileID: -5248499234687613973}
+  - component: {fileID: 1059072463281139393}
   m_Layer: 5
   m_Name: GeneralPreviewItemSlot
   m_TagString: Untagged
@@ -38,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1072994000828840337
 MonoBehaviour:
@@ -64,6 +66,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e2ea7976cba60418d04aa8d1ba70d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &-5248499234687613973
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3144289813336471935}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!111 &1059072463281139393
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3144289813336471935}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: fdb9705b134e0124ea45727cedb3ce3e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: fdb9705b134e0124ea45727cedb3ce3e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &5764005313934761193
 GameObject:
   m_ObjectHideFlags: 0

@@ -109,11 +109,10 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldHP, CalculateMaxShieldHP);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRecoverValue, CalculateShieldRecoverValue);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRecoverTimeReduce, CalculateShieldRecoverTime);
-            mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRatioAdd, CalculateShieldRatio);
             CalculateMaxShieldHP();
             CalculateShieldRecoverValue();
             CalculateShieldRecoverTime();
-            CalculateShieldRatio();
+            InitShieldRatio();
         }
         else
         {
@@ -261,10 +260,9 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
         }
     }
 
-    private void CalculateShieldRatio()
+    private void InitShieldRatio()
     {
-        ShieldRatio = GameHelper.CalculateShieldRange(_shieldRatioBase);
-
+        ShieldRatio = _shieldRatioBase;
         ///Refresh MonoShield
         if (monoShield != null)
         {

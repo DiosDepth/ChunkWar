@@ -76,6 +76,9 @@ MonoBehaviour:
     - Name: SectorAdjacentWeightValue
       Entry: 6
       Data: 
+    - Name: GenerateMeteorite
+      Entry: 5
+      Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
       Data: 4|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,

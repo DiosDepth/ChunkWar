@@ -42,7 +42,6 @@ public class ShipPropertyGroupPanel : MonoBehaviour
          PropertyModifyKey.TransfixionDamagePercent,
          PropertyModifyKey.TOTAL_ENERGY,       ///×ÜºÍ
          PropertyModifyKey.TOTAL_LOAD,
-         PropertyModifyKey.ShieldRatioAdd,
          PropertyModifyKey.ShieldDamageAdd,
          PropertyModifyKey.ShopCostPercent,
          PropertyModifyKey.SellPrice,

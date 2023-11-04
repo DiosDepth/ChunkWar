@@ -447,3 +447,11 @@ MonoBehaviour:
     ChineseSimplified: "\u8230\u8239\u5347\u7EA7\u52A0\u6210"
     English: 
     Japanese: 
+  - TextID: BattleGainSettleDialog_ClickClose
+    ChineseSimplified: "\u70B9\u51FB\u7A7A\u767D\u533A\u57DF\u5173\u95ED"
+    English: 
+    Japanese: 
+  - TextID: BattleGainSettleDialog_Title
+    ChineseSimplified: "\u83B7\u5F97\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 

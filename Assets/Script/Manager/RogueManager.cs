@@ -394,15 +394,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <summary>
     /// ½øÈëharbor
     /// </summary>
-    public void OnEnterHarborInit()
+    public void OnEnterHarborInit(out List<WreckageItemInfo> gainNewWreckage)
     {
         InHarbor = true;
         OnEnterHarbor?.Invoke();
 
-        var newWreckage = GenerateWreckageItems();
-        for(int i = 0; i < newWreckage.Count; i++)
+        gainNewWreckage = GenerateWreckageItems();
+        for(int i = 0; i < gainNewWreckage.Count; i++)
         {
-            var wreckage = newWreckage[i];
+            var wreckage = gainNewWreckage[i];
             var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.Wreckage, wreckage);
             wreckage.UID = uid;
             CurrentWreckageItems.Add(uid, wreckage);

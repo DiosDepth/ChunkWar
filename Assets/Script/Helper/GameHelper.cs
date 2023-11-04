@@ -876,14 +876,6 @@ public static class GameHelper
         return Mathf.CeilToInt(newValue);
     }
 
-    public static float CalculateShieldRange(float row)
-    {
-        var shieldMinRatio = DataManager.Instance.battleCfg.ShieldRatioMin;
-        var ratioValue = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldRatioAdd) / 100f;
-        ratioValue = Mathf.Clamp(ratioValue, -1, float.MaxValue);
-        return Mathf.Max(row * ratioValue, shieldMinRatio);
-    }
-
     public static int CalculateDamageCount(int rowCount)
     {
         var add = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageCount);
@@ -951,9 +943,7 @@ public static class GameHelper
         }
         else if(type == UI_ShieldGeneratorPropertyType.ShieldRange)
         {
-            var range = CalculateShieldRange(cfg.ShieldConfig.ShieldBaseRatio);
-            string color = GetColorCode(range, cfg.ShieldConfig.ShieldBaseRatio, false);
-            return string.Format("<color={0}>{1:F1}</color>", color, range);
+            return string.Format("<color={0}>{1:F1}</color>", Color_White_Code, cfg.ShieldConfig.ShieldBaseRatio);
         }
 
 
