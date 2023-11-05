@@ -67,6 +67,7 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         ClearAllShopSlotItems();
         _hoverCmpt?.PoolableDestroy();
 
+        UIManager.Instance.ClearAllHoverUI();
         this.EventStopListening<RogueEvent>();
         this.EventStopListening<ShipPropertyEvent>();
         base.Hidden();
@@ -273,7 +274,8 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
     private void RefreshReroll()
     {
         var rerollCost = RogueManager.Instance.CurrentRerollCost;
-        _rerollCostText.text = rerollCost.ToString();
+        _rerollCostText.text = string.Format("-{0}", rerollCost);
+        _rerollCostText.color = RogueManager.Instance.CurrentCurrency >= rerollCost ? Color.white : Color.red;
     }
 
     private void OnRerollBtnClick()

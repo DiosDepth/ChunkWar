@@ -34,6 +34,7 @@ public static class GameGlobalConfig
     public const uint PropertyModifyUID_EnergyOverload_GlobalBuff = 2;
     public const uint PropertyModifyUID_WreckageOverload_GlobalBuff = 3;
     public const uint PropertyModifyUID_HardLevel = 4;
+    public const uint PropertyModifyUID_Upgrade = 5;
 
     /// <summary>
     /// 舰船速度最大比例

@@ -190,7 +190,7 @@ public class WreckageSlotItemCmpt : MonoBehaviour, IScrollGirdCmpt
 
             foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
             {
-                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion || type == UI_WeaponUnitPropertyType.NONE)
                     continue;
 
                 if (!weaponCfg.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)

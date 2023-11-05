@@ -44,7 +44,7 @@ public class AchievementUI : GUIBasePanel, IPoolable
 
     public void PoolableDestroy()
     {
-        PoolManager.Instance.BackObject(this.gameObject.name, this.gameObject);
+        UIManager.Instance.BackPoolerUI(this.gameObject.name, this.gameObject);
     }
 
     public void PoolableReset()

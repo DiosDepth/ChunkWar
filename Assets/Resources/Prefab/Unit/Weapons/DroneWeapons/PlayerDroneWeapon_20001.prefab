@@ -95,15 +95,15 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 1
-  bulletName: PlayerDrone_Missile_01
-  targetmode: 1
+  bulletName: BaseInstanceHit_Player
+  targetmode: 0
   mask:
     serializedVersion: 2
     m_Bits: 128
   firePoint:
   - {fileID: 5501148320213267861}
   - {fileID: 5885253295866187340}
-  scatter: 0
+  scatter: 2
   roatateSpeed: 180
   weaponAttribute:
     Rate: 0

@@ -8,7 +8,7 @@ using System;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Collections;
-using Unity.Burst;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
 
 public enum WeaponControlType
@@ -448,6 +448,14 @@ public class Weapon : Unit
     {
         int firecount = CalculateFireCount();
         SoundManager.Instance.PlayBattleSound(_weaponCfg.FireAudioClip, transform);
+        if (_weaponCfg.FireShakeCfg != null)
+        {
+            var cfg = _weaponCfg.FireShakeCfg;
+            if (cfg.CameraShake)
+            {
+                CameraManager.Instance.ShakeBattleCamera(cfg);
+            }
+        }
         switch (weaponmode)
         {
             case WeaponControlType.SemiAuto:
@@ -1008,13 +1016,14 @@ public class Weapon : Unit
     {
         ValueDropdownList<string> result = new ValueDropdownList<string>();
         var allBullets = DataManager.Instance.GetAllBulletConfig();
+        allBullets = allBullets.OrderBy(x => x.ID).ToList();
 
         var targetowner = this is AIAdditionalWeapon ? OwnerType.AI : OwnerType.Player;
         for(int i = 0; i < allBullets.Count; i++)
         {
             if(allBullets[i].Owner == targetowner)
             {
-                result.Add(allBullets[i].BulletName);
+                result.Add(string.Format("[{0}]{1}", allBullets[i].ID, allBullets[i].BulletName), allBullets[i].BulletName);
             }
         }
         return result;

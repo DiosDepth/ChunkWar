@@ -180,6 +180,8 @@ public class ShopSlotItem : MonoBehaviour, IPoolable
 
         if (RogueManager.Instance.BuyItem(_goodsInfo))
         {
+            SoundManager.Instance.PlayUISound("Shop_Buy");
+
             ///Set Buy
             SetSold(true);
             SetUpBuyLimit(_goodsInfo);

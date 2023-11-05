@@ -33,6 +33,16 @@ public class BaseDrone : BaseShip, IPoolable
     }
 
     protected DroneFactory _ownerFactory;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (_appearMat == null)
+        {
+            _appearMat = Instantiate(_sharedMat);
+        }
+    }
+
     public override void Initialization()
     {
         base.Initialization();
@@ -106,7 +116,7 @@ public class BaseDrone : BaseShip, IPoolable
             }
         }
 
-        //DoSpawnEffect();
+        DoSpawnEffect();
     }
 
     public override void GameOver()
@@ -183,22 +193,26 @@ public class BaseDrone : BaseShip, IPoolable
     }
 
     protected const string AnimTrigger_Spawn = "Spawn";
-    private async void DoSpawnEffect()
-    {
-        _appearMat.EnableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
-        SetAnimatorTrigger(AnimTrigger_Spawn);
-        ///UnitSpawn
-        for (int i = 0; i < _unitList.Count; i++)
-        {
-            if (_unitList[i].isActiveAndEnabled)
-            {
-                _unitList[i].DoSpawnEffect();
-            }
-        }
+    protected const string AnimTrigger_DeSpawn = "DeSpawn";
 
+    public async void DoSpawnEffect()
+    {
+        _render.material = _appearMat;
+        SetAnimatorTrigger(AnimTrigger_Spawn);
         var length = GameHelper.GetAnimatorClipLength(_spriteAnimator, "EnemyShip_Spawn");
         await UniTask.Delay((int)(length * 1000));
-        _appearMat.DisableKeyword(Mat_Shader_PropertyKey_HOLOGRAM_ON);
+        _appearMat.SetFloat(Mat_Shader_PropertyKey_HOLOGRAM_ON, 0);
+        ///Spawn Effect Finish
+        _render.material = _sharedMat;
+    }
+
+    /// <summary>
+    /// ÏûÊ§¶¯»­
+    /// </summary>
+    public void DoDeSpawnEffect()
+    {
+        _render.material = _appearMat;
+        SetAnimatorTrigger(AnimTrigger_DeSpawn);
     }
 
     protected override void ResetAllAnimation()

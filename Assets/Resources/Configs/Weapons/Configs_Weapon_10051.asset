@@ -428,7 +428,7 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: 41c53f60186cbea4daaee62313688904, type: 3}
     Name: Weapon_Name_10051
     Desc: Weapon_Desc_10051
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: 0ca973456499583418ff207d2b419c12, type: 3}
   m_FlattendMapLayout: 
@@ -440,8 +440,8 @@ MonoBehaviour:
   ProertyDescText: 
   EditBrushSprite: {fileID: 21300000, guid: 41c53f60186cbea4daaee62313688904, type: 3}
   EditorBrushDefaultRotation: 0
-  CorsorOffsetX: 0
-  CorsorOffsetY: 0
+  CorsorOffsetX: 0.5
+  CorsorOffsetY: 0.5
   ItemTags: 4
   BaseHP: 135
   BaseEnergyCost: 0
@@ -484,6 +484,11 @@ MonoBehaviour:
     PosRandomX: 0
     PosRandomY: 0
   HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}
+  FireShakeCfg:
     CameraShake: 0
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}

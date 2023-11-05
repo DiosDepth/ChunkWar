@@ -18,6 +18,12 @@ public class BulletBeamConfig : BulletConfig
     public float Width;
 
     [HorizontalGroup("Info")]
+    [BoxGroup("Info/检测宽度")]
+    [LabelWidth(150)]
+    [HideLabel]
+    public float HitBoxWidth;
+
+    [HorizontalGroup("Info")]
     [BoxGroup("Info/激光速度时间")]
     [LabelWidth(150)]
     [HideLabel]

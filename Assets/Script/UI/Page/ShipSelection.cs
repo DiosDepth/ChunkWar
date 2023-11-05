@@ -39,6 +39,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
     private RectTransform _weaponInfoGroupRect;
     private RectTransform _propertyRect;
     private RectTransform _weaponPropertyRect;
+    private Transform _shipUpgradeInfoRoot;
     private List<CampSelectionTabCmpt> _campTabCmpts;
     private List<ShipSelectionItemPropertyCmpt> propertyCmpts = new List<ShipSelectionItemPropertyCmpt>();
     private List<WeaponSelectionItemPropertyCmpt> weaponPropertyCmpts = new List<WeaponSelectionItemPropertyCmpt>();
@@ -76,6 +77,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _weaponInfoGroupRect = shipInfoTrans.Find("WeaponGroup").SafeGetComponent<RectTransform>();
         _propertyRect = transform.Find("uiGroup/Content/Top/PropertyInfo/PropertyContent/Viewport/Content").SafeGetComponent<RectTransform>();
         _weaponPropertyRect = _weaponGroup.transform.Find("PropertyContent/Viewport/Content").SafeGetComponent<RectTransform>();
+        _shipUpgradeInfoRoot = _propertyRect.Find("UpgradeInfo");
         _nameText = shipInfoTrans.Find("Group/ShipClassInfo/Name").SafeGetComponent<Text>();
         _classIcon = shipInfoTrans.Find("Group/ShipClassInfo/ClassInfo/ClassIcon").SafeGetComponent<Image>();
         _className = shipInfoTrans.Find("Group/ShipClassInfo/ClassInfo/ClassName").SafeGetComponent<TextMeshProUGUI>();
@@ -328,8 +330,14 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _weaponIcon.sprite = unitCfg.GeneralConfig.IconSprite;
         _weaponNameText.text = LocalizationManager.Instance.GetTextValue(unitCfg.GeneralConfig.Name);
 
-        SetUpWeaponPropertyInfo(unitCfg as WeaponConfig);
-
+        if(unitCfg is WeaponConfig)
+        {
+            SetUpWeaponPropertyInfo(unitCfg as WeaponConfig);
+        }
+        else if(unitCfg is DroneFactoryConfig)
+        {
+            SetUpDroneFactoryInfo(unitCfg as DroneFactoryConfig);
+        }
         LayoutRebuilder.ForceRebuildLayoutImmediate(_weaponInfoGroupRect);
     }
 
@@ -380,6 +388,8 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
 
     private void SetUpWeaponPropertyInfo(WeaponConfig cfg)
     {
+        _weaponPropertyRect.Find("DroneGroup").SafeSetActive(false);
+
         if (cfg == null)
             return;
 
@@ -398,7 +408,7 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
 
         foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
         {
-            if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+            if (type == UI_WeaponUnitPropertyType.ShieldTransfixion || type == UI_WeaponUnitPropertyType.NONE)
                 continue;
 
             if (!cfg.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)
@@ -417,6 +427,84 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _weaponPropertyDescText.text = desc;
         _weaponPropertyDescText.transform.SetAsLastSibling();
 
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_weaponPropertyRect);
+    }
+
+    private void SetUpDroneFactoryInfo(DroneFactoryConfig cfg)
+    {
+        if (cfg == null)
+            return;
+
+        var root = _weaponPropertyRect.transform;
+
+        if (weaponPropertyCmpts.Count > 0)
+        {
+            for (int i = weaponPropertyCmpts.Count - 1; i >= 0; i--)
+            {
+                weaponPropertyCmpts[i].PoolableDestroy();
+            }
+        }
+        weaponPropertyCmpts.Clear();
+        var droneUnlock = SaveLoadManager.Instance.globalSaveData.GetUnitUnlockState(cfg.ID);
+
+        int orderIndex = 0;
+        ///Drone Factory
+        foreach (UI_DroneFactoryPropertyType type in System.Enum.GetValues(typeof(UI_DroneFactoryPropertyType)))
+        {
+            if (type == UI_DroneFactoryPropertyType.NONE)
+                continue;
+
+            PoolManager.Instance.GetObjectSync(WeaponPropertyItem_PrefabPath, true, (obj) =>
+            {
+                string content = droneUnlock ? GameHelper.GetDroneFactoryPropertyDescContent(type, cfg) :
+                LocalizationManager.Instance.GetTextValue(ShipSelectionProeprty_Unknow);
+                var cmpt = obj.GetComponent<WeaponSelectionItemPropertyCmpt>();
+                cmpt.SetUpDroneFactory(type, content);
+                weaponPropertyCmpts.Add(cmpt);
+            }, root);
+            orderIndex++;
+        }
+
+        var desc = LocalizationManager.Instance.GetTextValue(cfg.ProertyDescText);
+        _weaponPropertyDescText.text = desc;
+       
+        ///Drone
+        var droneCfg = DataManager.Instance.GetDroneConfig(cfg.DroneID);
+        if (droneCfg == null)
+            return;
+
+        var droneGroup = _weaponPropertyRect.Find("DroneGroup");
+        droneGroup.SafeSetActive(true);
+        var nameText = droneGroup.Find("DroneName").SafeGetComponent<TextMeshProUGUI>();
+        nameText.text = LocalizationManager.Instance.GetTextValue(droneCfg.GeneralConfig.Name);
+        nameText.color = GameHelper.GetRarityColor(droneCfg.GeneralConfig.Rarity);
+ 
+        var droneWeaponCfg = DataManager.Instance.GetUnitConfig(droneCfg.PreviewWeaponID);
+        if(droneWeaponCfg != null)
+        {
+            WeaponConfig cfg_w = droneWeaponCfg as WeaponConfig;
+            ///DroneWeapon
+            foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
+            {
+                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion || type == UI_WeaponUnitPropertyType.NONE)
+                    continue;
+
+                if (!cfg_w.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)
+                    continue;
+
+                PoolManager.Instance.GetObjectSync(WeaponPropertyItem_PrefabPath, true, (obj) =>
+                {
+                    string content = droneUnlock ? GameHelper.GetWeaponPropertyDescContent(type, cfg_w) :
+                    LocalizationManager.Instance.GetTextValue(ShipSelectionProeprty_Unknow);
+                    var cmpt = obj.GetComponent<WeaponSelectionItemPropertyCmpt>();
+                    cmpt.SetUpWeapon(type, content);
+                    weaponPropertyCmpts.Add(cmpt);
+                }, root);
+            }
+        }
+
+        _weaponPropertyDescText.transform.SetSiblingIndex(0);
+        droneGroup.transform.SetSiblingIndex(orderIndex + 1);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_weaponPropertyRect);
     }
 
@@ -469,6 +557,29 @@ public class ShipSelection : GUIBasePanel, EventListener<GeneralUIEvent>
         _propertyDescText.text = desc;
         _propertyDescText.transform.Find("Text").SafeGetComponent<TextMeshProUGUI>().text = desc;
         _propertyDescText.transform.SetAsLastSibling();
+
+        ///SetUpUpgradeInfo
+        var allUpgrades = cfg.UpgradePropertyModifyCfg;
+        if(allUpgrades != null && allUpgrades.Count > 0)
+        {
+            _shipUpgradeInfoRoot.Pool_BackAllChilds(ShipProperty_ItemPrefabPath);
+            for (int i = 0; i < allUpgrades.Count; i++) 
+            {
+                var info = allUpgrades[i];
+                PoolManager.Instance.GetObjectSync(ShipProperty_ItemPrefabPath, true, (obj) =>
+                {
+                    var cmpt = obj.transform.SafeGetComponent<ShipSelectionItemPropertyCmpt>();
+                    cmpt.SetUp(info.ModifyKey, info.Value, false, true);
+                }, _shipUpgradeInfoRoot);
+            }
+            _shipUpgradeInfoRoot.SetAsLastSibling();
+            _shipUpgradeInfoRoot.SafeSetActive(true);
+        }
+        else
+        {
+            _shipUpgradeInfoRoot.SafeSetActive(false);
+        }
+
         LayoutRebuilder.ForceRebuildLayoutImmediate(_propertyRect);
     }
 

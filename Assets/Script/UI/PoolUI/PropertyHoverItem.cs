@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class PropertyHoverItem : GUIBasePanel, IPoolable
+public class PropertyHoverItem : GUIBasePanel, IPoolable, IUIHoverPanel
 {
     private TextMeshProUGUI _nameText;
     private TextMeshProUGUI _descText;
@@ -52,7 +52,7 @@ public class PropertyHoverItem : GUIBasePanel, IPoolable
     public void PoolableDestroy()
     {
         PoolableReset();
-        PoolManager.Instance.BackObject(transform.name, gameObject);
+        UIManager.Instance.BackPoolerUI(transform.name, gameObject);
     }
 
     public void PoolableReset()

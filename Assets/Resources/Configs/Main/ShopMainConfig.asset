@@ -994,6 +994,134 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+  - UnitID: 10055
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10056
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10057
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10060
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10061
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10065
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10066
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10070
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10071
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10072
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10075
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10076
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10077
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10080
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10081
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10085
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10086
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10090
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 10091
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11000
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11001
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11002
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11005
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11006
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11007
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11010
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11011
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11012
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11015
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11016
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11020
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+  - UnitID: 11021
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
   WreckageShopBuyItemCfg:
   - WeightBase: 20
     Rarity: 0

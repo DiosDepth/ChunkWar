@@ -54,7 +54,7 @@ public class EffectManager : Singleton<EffectManager>
         }, EffectRoot.transform);
     }
 
-    public void CreateEffect(GeneralEffectConfig config, Vector2 position)
+    public void CreateEffect(GeneralEffectConfig config, Vector2 position, float OverrideScale = 1)
     {
         if (config.RandomPosition)
         {
@@ -69,7 +69,7 @@ public class EffectManager : Singleton<EffectManager>
             scale = UnityEngine.Random.Range(config.ScaleMin, config.ScaleMax);
         }
 
-        CreateEffect(config.EffectName, position, scale);
+        CreateEffect(config.EffectName, position, scale * OverrideScale);
     }
 
     public void CreateEffect(string effPath, Vector2 position, float scale = 1)
@@ -77,8 +77,8 @@ public class EffectManager : Singleton<EffectManager>
         PoolManager.Instance.GetObjectAsync(GameGlobalConfig.VFXPath + effPath, true, (obj) =>
         {
             obj.transform.position = position;
-            obj.transform.localScale = new Vector3(scale, scale, 1);
             var effectBase = obj.transform.SafeGetComponent<BaseEffect>();
+            effectBase.MultipleScale(scale);
             effectBase.OnCreate();
         }, EffectRoot.transform);
     }

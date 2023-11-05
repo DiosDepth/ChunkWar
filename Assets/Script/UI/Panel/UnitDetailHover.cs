@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public interface IUIHoverPanel
 {
-
+    void PoolableDestroy();
 }
 
 public class UnitDetailHover : DetailHoverItemBase

@@ -426,7 +426,7 @@ MonoBehaviour:
   ID: 10041
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: db3ef0ed72a438c4abd5f59d91723d66, type: 3}
-    Name: Weapon_Name_10040
+    Name: Weapon_Name_10041
     Desc: Weapon_Desc_10040
     Rarity: 0
     SortingOrder: 0
@@ -482,6 +482,11 @@ MonoBehaviour:
     PosRandomX: 0
     PosRandomY: 0
   HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}
+  FireShakeCfg:
     CameraShake: 0
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}

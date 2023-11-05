@@ -9,7 +9,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using System.Text;
 
-public static class GameHelper 
+public static class GameHelper
 {
     public static string GeneralButton_Back_Text = "UI_General_Back";
 
@@ -133,6 +133,18 @@ public static class GameHelper
         }
     }
 
+    public static string GetShipPropertySliderName(ShipPropertySliderCmpt.SliderPropertyType type)
+    {
+        string key = string.Format("ShipSliderProperty_Name_{0}", type);
+        return LocalizationManager.Instance.GetTextValue(key);
+    }
+
+    public static string GetShipPropertySliderDesc(ShipPropertySliderCmpt.SliderPropertyType type)
+    {
+        string key = string.Format("ShipSliderProperty_Desc_{0}", type);
+        return LocalizationManager.Instance.GetTextValue(key);
+    }
+
     /// <summary>
     /// 获取属性详情显示
     /// </summary>
@@ -142,6 +154,9 @@ public static class GameHelper
     public static string GetPropertyHoverDesc(PropertyModifyKey key, PropertyDisplayConfig cfg)
     {
         var rowDesc = LocalizationManager.Instance.GetTextValue(cfg.DescText);
+
+        if (string.IsNullOrEmpty(rowDesc))
+            return rowDesc;
 
         if (rowDesc.Contains("#V#"))
         {
@@ -176,7 +191,7 @@ public static class GameHelper
     {
         var value = CalculateArmorReducePercent(isshipArmor);
 
-        if(value >= 1)
+        if (value >= 1)
         {
             value -= 1;
         }
@@ -235,7 +250,7 @@ public static class GameHelper
     public static int GetEXPRequireMaxCount(byte level)
     {
         var expMap = DataManager.Instance.battleCfg.EXPMap;
-        if(expMap == null || expMap.Length < level)
+        if (expMap == null || expMap.Length < level)
         {
             UnityEngine.Debug.Log("EXP MAP ERROR! LEVEL = " + level);
             return int.MaxValue;
@@ -276,14 +291,14 @@ public static class GameHelper
             }
         };
 
-        while(dropCount >= 0)
+        while (dropCount >= 0)
         {
             safeLoop++;
             if (safeLoop > 100)
                 break;
 
             ///DropCount不足1的部分概率掉落
-            if(dropCount < 1)
+            if (dropCount < 1)
             {
                 bool drop = Utility.RandomResultWithOne(0, dropCount);
                 if (drop)
@@ -293,10 +308,10 @@ public static class GameHelper
             }
 
             ///从大到小计算掉落物大小以及数量
-            for (int i = allpickUpWaste.Count - 1; i >= 0; i--)  
+            for (int i = allpickUpWaste.Count - 1; i >= 0; i--)
             {
                 var wasteInfo = allpickUpWaste[i];
-                if(dropCount >= wasteInfo.CountRef)
+                if (dropCount >= wasteInfo.CountRef)
                 {
                     dropCount -= wasteInfo.CountRef;
                     addDrop(wasteInfo, wasteInfo.CountRef);
@@ -340,14 +355,32 @@ public static class GameHelper
 
     public static float GetPlayerShipEnergyTotal()
     {
-        if(RogueManager.Instance.currentShip != null)
+        if (RogueManager.Instance.currentShip != null)
         {
             return RogueManager.Instance.currentShip.TotalEnergy;
         }
 
-        if(ShipBuilder.instance != null && ShipBuilder.instance.editorShip != null)
+        if (ShipBuilder.instance != null && ShipBuilder.instance.editorShip != null)
         {
             return ShipBuilder.instance.editorShip.TotalEnergy;
+        }
+        return 0;
+    }
+
+    /// <summary>
+    /// 获取能源消耗比例
+    /// </summary>
+    /// <returns></returns>
+    public static float GetPlayerShipEnergyCostPercent()
+    {
+        if (RogueManager.Instance.currentShip != null)
+        {
+            return RogueManager.Instance.currentShip.EnergyPercent;
+        }
+
+        if (ShipBuilder.instance != null && ShipBuilder.instance.editorShip != null)
+        {
+            return ShipBuilder.instance.editorShip.EnergyPercent;
         }
         return 0;
     }
@@ -617,6 +650,24 @@ public static class GameHelper
         return LocalizationManager.Instance.GetTextValue(textID);
     }
 
+    public static string GetUI_DroneFactoryPropertyType(UI_DroneFactoryPropertyType type)
+    {
+        string textID = string.Format("UI_DroneFactoryProperty_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
+
+    public static string GetUI_ShieldPropertyType(UI_ShieldGeneratorPropertyType type)
+    {
+        string textID = string.Format("UI_ShieldGeneratorProperty_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
+
+    public static string GetUI_BuildingPropertyType(UI_BuildingBasePropertyType type)
+    {
+        string textID = string.Format("UI_BuildingBaseProperty_{0}_Name", type);
+        return LocalizationManager.Instance.GetTextValue(textID);
+    }
+
     public static string GetWeaponDamageTypeText(WeaponDamageType type)
     {
         switch (type)
@@ -818,6 +869,16 @@ public static class GameHelper
         return Mathf.Max(1, Mathf.RoundToInt(rowHP * hpRatio));
     }
 
+    public static int CalculateShieldHP(int rowHP)
+    {
+        var shieldAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.ShieldHP);
+        var targetPercent = shieldAdd / 100f + 1;
+        targetPercent = Mathf.Clamp(targetPercent, -1, float.MaxValue);
+
+        var newValue = rowHP * targetPercent;
+        return Mathf.CeilToInt(newValue);
+    }
+
     public static int CalculateDamageCount(int rowCount)
     {
         var add = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageCount);
@@ -839,6 +900,70 @@ public static class GameHelper
         var sellPriceAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SellPrice);
         var price = Mathf.Clamp(wreckageCfg.SellPrice * (1 + sellPriceAdd / 100f), 0, float.MaxValue);
         return Mathf.CeilToInt(price);
+    }
+
+    /// <summary>
+    /// 获取无人机机库描述
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="cfg"></param>
+    /// <returns></returns>
+    public static string GetDroneFactoryPropertyDescContent(UI_DroneFactoryPropertyType type, DroneFactoryConfig cfg)
+    {
+        var propertyData = RogueManager.Instance.MainPropertyData;
+        if (type == UI_DroneFactoryPropertyType.DroneCount)
+        {
+            return cfg.MaxDroneCount.ToString();
+        }
+        else if (type == UI_DroneFactoryPropertyType.HP)
+        {
+            var hp = CalculateHP(cfg.BaseHP);
+            string color = GetColorCode(hp, cfg.BaseHP, false);
+
+            return string.Format("<color={0}>{1}</color>", color, hp);
+        }
+        else if (type == UI_DroneFactoryPropertyType.DroneRange)
+        {
+            var rangerow = propertyData.GetPropertyFinal(PropertyModifyKey.Range);
+            int range = Mathf.RoundToInt(rangerow + cfg.BaseRange);
+            string color = GetColorCode(range, cfg.BaseRange, false);
+
+            return string.Format("<color={0}>{1}</color>", color, range);
+        }
+
+        return string.Empty;
+    }
+
+    public static string GetShieldGeneratorPropertyDescContent(UI_ShieldGeneratorPropertyType type, BuildingConfig cfg)
+    {
+        var propertyData = RogueManager.Instance.MainPropertyData;
+        if(type == UI_ShieldGeneratorPropertyType.ShieldHP)
+        {
+            var hp = CalculateShieldHP(cfg.ShieldConfig.ShieldHP);
+            string color = GetColorCode(hp, cfg.ShieldConfig.ShieldHP, false);
+
+            return string.Format("<color={0}>{1}</color>", color, hp);
+        }
+        else if(type == UI_ShieldGeneratorPropertyType.ShieldRange)
+        {
+            return string.Format("<color={0}>{1:F1}</color>", Color_White_Code, cfg.ShieldConfig.ShieldBaseRatio);
+        }
+
+
+        return string.Empty;
+    }
+
+    public static string GetBuildingBasePropertyDescContent(UI_BuildingBasePropertyType type, BuildingConfig cfg)
+    {
+        if (type == UI_BuildingBasePropertyType.HP)
+        {
+            var hp = CalculateHP(cfg.BaseHP);
+            string color = GetColorCode(hp, cfg.BaseHP, false);
+
+            return string.Format("<color={0}>{1}</color>", color, hp);
+        }
+
+        return string.Empty;
     }
 
     public static string GetWeaponPropertyDescContent(UI_WeaponUnitPropertyType type, WeaponConfig cfg)
@@ -897,7 +1022,7 @@ public static class GameHelper
                     var proeprtyDisplayCfg = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(modifyFrom.PropertyKey);
                     if(proeprtyDisplayCfg != null)
                     {
-                        if(modifyFrom.Ratio == 1)
+                        if(modifyFrom.Ratio != 1)
                         {
                             sb.Append(string.Format("{0}%<sprite={1}>", modifyFrom.Ratio * 100, proeprtyDisplayCfg.TextSpriteIndex));
                         }

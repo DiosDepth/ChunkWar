@@ -11,6 +11,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
     protected RectTransform _mainRect;
     private Transform _unitInfoRoot;
     private Transform _propertyModifyRoot;
+    private Transform _droneFactoryRoot;
     private RectTransform _tagRoot;
 
     protected Image _icon;
@@ -38,6 +39,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
         _mainCanvas = transform.SafeGetComponent<CanvasGroup>();
         _mainRect = transform.SafeGetComponent<RectTransform>();
         _contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
+        _droneFactoryRoot = _contentRect.Find("DroneInfo");
         _unitInfoRoot = _contentRect.Find("UnitInfo");
         _tagRoot = _contentRect.Find("Info/Detail/TypeInfo").SafeGetComponent<RectTransform>();
         _propertyModifyRoot = _contentRect.Find("PropertyModify");
@@ -83,7 +85,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
     public void PoolableDestroy()
     {
         PoolableReset();
-        PoolManager.Instance.BackObject(transform.name, gameObject);
+        UIManager.Instance.BackPoolerUI(transform.name, gameObject);
     }
 
     public void PoolableReset()
@@ -99,6 +101,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
 
     protected void SetUpUintInfo(BaseUnitConfig cfg)
     {
+        _droneFactoryRoot.SafeSetActive(false);
         _unitInfoRoot.Pool_BackAllChilds(UnitInfo_PropertyItem_PrefabPath);
         if (cfg.unitType == UnitType.Weapons || cfg.unitType == UnitType.MainWeapons)
         {
@@ -108,7 +111,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
 
             foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
             {
-                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion)
+                if (type == UI_WeaponUnitPropertyType.ShieldTransfixion || type == UI_WeaponUnitPropertyType.NONE)
                     continue;
 
                 if (!weaponCfg.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)
@@ -120,6 +123,95 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
                     var cmpt = obj.GetComponent<UnitPropertyItemCmpt>();
                     cmpt.SetUpWeapon(type, content);
                 }, _unitInfoRoot);
+            }
+        }
+        else if (cfg.unitType == UnitType.MainBuilding || cfg.unitType == UnitType.Buildings)
+        {
+            BuildingConfig buildingCfg = cfg as BuildingConfig;
+
+            ///BuildingGeneral
+            foreach (UI_BuildingBasePropertyType type in System.Enum.GetValues(typeof(UI_BuildingBasePropertyType)))
+            {
+                ///Drone单独处理
+                if ((buildingCfg is DroneFactoryConfig && type == UI_BuildingBasePropertyType.HP) || type == UI_BuildingBasePropertyType.NONE)
+                    continue;
+
+                PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
+                {
+                    string content = GameHelper.GetBuildingBasePropertyDescContent(type, buildingCfg);
+                    var cmpt = obj.GetComponent<UnitPropertyItemCmpt>();
+                    cmpt.SetUpBuilding(type, content);
+                }, _unitInfoRoot);
+            }
+
+            ///护盾描述
+            if (buildingCfg.ShieldConfig.GenerateShield)
+            {
+                foreach (UI_ShieldGeneratorPropertyType type in System.Enum.GetValues(typeof(UI_ShieldGeneratorPropertyType)))
+                {
+                    if (type == UI_ShieldGeneratorPropertyType.NONE)
+                        continue;
+
+                    PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
+                    {
+                        string content = GameHelper.GetShieldGeneratorPropertyDescContent(type, buildingCfg);
+                        var cmpt = obj.GetComponent<UnitPropertyItemCmpt>();
+                        cmpt.SetUpShield(type, content);
+                    }, _unitInfoRoot);
+                }
+            }
+
+            if(buildingCfg is DroneFactoryConfig)
+            {
+                _droneFactoryRoot.SafeSetActive(true);
+                _droneFactoryRoot.Pool_BackAllChilds(UnitInfo_PropertyItem_PrefabPath);
+                var droneFactoryCfg = buildingCfg as DroneFactoryConfig;
+                int orderIndex = 0;
+                foreach (UI_DroneFactoryPropertyType type in System.Enum.GetValues(typeof(UI_DroneFactoryPropertyType)))
+                {
+                    if (type == UI_DroneFactoryPropertyType.NONE)
+                        continue;
+
+                    PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
+                    {
+                        string content = GameHelper.GetDroneFactoryPropertyDescContent(type, droneFactoryCfg);
+                        var cmpt = obj.GetComponent<UnitPropertyItemCmpt>();
+                        cmpt.SetUpDroneFactory(type, content);
+                        obj.transform.SetSiblingIndex(orderIndex);
+                        orderIndex++;
+                    }, _droneFactoryRoot);
+                }
+                
+                ///DroneWeapon
+                var droneCfg = DataManager.Instance.GetDroneConfig(droneFactoryCfg.DroneID);
+                if(droneCfg != null)
+                {
+                    var name = _droneFactoryRoot.transform.Find("DroneName").SafeGetComponent<TextMeshProUGUI>();
+                    name.text = LocalizationManager.Instance.GetTextValue(droneCfg.GeneralConfig.Name);
+                    name.color = GameHelper.GetRarityColor(droneCfg.GeneralConfig.Rarity);
+
+                    var droneWeaponCfg = DataManager.Instance.GetUnitConfig(droneCfg.PreviewWeaponID);
+                    if (droneWeaponCfg != null)
+                    {
+                        WeaponConfig cfg_w = droneWeaponCfg as WeaponConfig;
+                        ///DroneWeapon
+                        foreach (UI_WeaponUnitPropertyType type in System.Enum.GetValues(typeof(UI_WeaponUnitPropertyType)))
+                        {
+                            if (type == UI_WeaponUnitPropertyType.ShieldTransfixion || type == UI_WeaponUnitPropertyType.NONE)
+                                continue;
+
+                            if (!cfg_w.UseDamageRatio && type == UI_WeaponUnitPropertyType.DamageRatio)
+                                continue;
+
+                            PoolManager.Instance.GetObjectSync(UnitInfo_PropertyItem_PrefabPath, true, (obj) =>
+                            {
+                                string content = GameHelper.GetWeaponPropertyDescContent(type, cfg_w);
+                                var cmpt = obj.GetComponent<UnitPropertyItemCmpt>();
+                                cmpt.SetUpWeapon(type, content);
+                            }, _unitInfoRoot);
+                        }
+                    }
+                }
             }
         }
     }

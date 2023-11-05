@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a9991b21095f04e8bd1e68b3543206, type: 3}
+  m_Name: Bullet_251
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  ID: 250
+  BulletName: Drone_Missile_AI_250
+  Type: 0
+  Owner: 2
+  Prefab: {fileID: 8903830990857463265, guid: 1c65fc17926bfb24595227606ef1f5ad, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/Drone_Missile_AI
+  HitAudio: 
+  HitEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  ExplodeRange: 3
+  LifeTime: 4
+  MaxSpeed: 35
+  RotationSpeed: 5
+  InitialSpeed: 5
+  Acceleration: 0.25
+  MissileHP: 15

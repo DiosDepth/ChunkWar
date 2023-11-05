@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c28d30143c59c9e40ba5ce18c3b4ad1b, type: 3}
+  m_Name: Bullet_254
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  ID: 254
+  BulletName: Drone_Beam_AI_250
+  Type: 2
+  Owner: 2
+  Prefab: {fileID: 3574238879806340193, guid: 2dcacb7cf3e5bee4f862ce7df7eda6af, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/AI/DroneBeam_AI
+  HitAudio: 
+  HitEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  MaxDistance: 75
+  Width: 1
+  HitBoxWidth: 0.75
+  EmiteTime: 0.1
+  Duration: 0.25
+  DeathTime: 0.1

@@ -206,7 +206,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
       Data: 1
@@ -215,7 +215,7 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   HPBarHeight: 0.4
   HPBarWidth: 3
   BaseRange: 450
-  DamageBase: 50
+  DamageBase: 12
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
@@ -462,25 +462,33 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 0
   CriticalDamage: 120
-  TotalDamageCount: 24
+  TotalDamageCount: 12
   ShootPerCount: 1
+  CanModifyDamageCount: 1
   CD: 4
   FireCD: 0.1
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: 
+  DamageModifyFrom:
+  - PropertyKey: 41
+    Ratio: 0.5
+  FireAudioClip: Fire/missileLaunch_001
   FireEffect:
-    EffectName: 
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
+    EffectName: Fire/Eff_Fire_Flash_01
+    RandomScale: 1
+    ScaleMin: 0.7
+    ScaleMax: 1
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
   HitShakeCfg:
+    CameraShake: 0
+    Duration: 0.4
+    Frequency: {x: 1, y: 1.5}
+    Amplitude: {x: 2, y: 2.5}
+  FireShakeCfg:
     CameraShake: 0
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}

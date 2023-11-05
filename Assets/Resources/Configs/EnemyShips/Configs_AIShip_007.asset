@@ -1431,9 +1431,9 @@ MonoBehaviour:
   AppearWarningAudio: 
   DieEffect:
     EffectName: Explode/AIShipExplode_Small
-    RandomScale: 0
-    ScaleMin: 0
-    ScaleMax: 0
+    RandomScale: 1
+    ScaleMin: 0.25
+    ScaleMax: 0.3
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0

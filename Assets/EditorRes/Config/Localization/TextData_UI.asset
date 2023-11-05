@@ -435,3 +435,23 @@ MonoBehaviour:
     ChineseSimplified: "\u5F3A\u654C\u51FA\u73B0"
     English: 
     Japanese: 
+  - TextID: BuffPunish_Title
+    ChineseSimplified: "\u5F53\u524D\u6548\u679C"
+    English: 
+    Japanese: 
+  - TextID: BuffPunish_Title_None
+    ChineseSimplified: "\u65E0\u8D1F\u9762\u6548\u679C"
+    English: 
+    Japanese: 
+  - TextID: ShipSelection_UpgradeInfo_Title
+    ChineseSimplified: "\u8230\u8239\u5347\u7EA7\u52A0\u6210"
+    English: 
+    Japanese: 
+  - TextID: BattleGainSettleDialog_ClickClose
+    ChineseSimplified: "\u70B9\u51FB\u7A7A\u767D\u533A\u57DF\u5173\u95ED"
+    English: 
+    Japanese: 
+  - TextID: BattleGainSettleDialog_Title
+    ChineseSimplified: "\u83B7\u5F97\u8230\u8239\u88C5\u5907"
+    English: 
+    Japanese: 

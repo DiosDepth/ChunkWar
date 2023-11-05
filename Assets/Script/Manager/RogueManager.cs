@@ -200,6 +200,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 当前刷新次数
     /// </summary>
     private int _currentRereollCount = 0;
+    private byte _shopTotalEnterCount = 0;
 
     /// <summary>
     /// 当前生成远古飞船数量，用于保底
@@ -365,6 +366,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _currentAncientUnitProtectRateAdd = 0;
         _shopFreeRollCount = 0;
         _totalKillBossCount = 0;
+        _shopTotalEnterCount = 0;
         ClearAction();
     }
 
@@ -392,15 +394,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <summary>
     /// 进入harbor
     /// </summary>
-    public void OnEnterHarborInit()
+    public void OnEnterHarborInit(out List<WreckageItemInfo> gainNewWreckage)
     {
         InHarbor = true;
         OnEnterHarbor?.Invoke();
 
-        var newWreckage = GenerateWreckageItems();
-        for(int i = 0; i < newWreckage.Count; i++)
+        gainNewWreckage = GenerateWreckageItems();
+        for(int i = 0; i < gainNewWreckage.Count; i++)
         {
-            var wreckage = newWreckage[i];
+            var wreckage = gainNewWreckage[i];
             var uid = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.Wreckage, wreckage);
             wreckage.UID = uid;
             CurrentWreckageItems.Add(uid, wreckage);
@@ -685,7 +687,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public float WreckageLoadPercent
     {
-        get { return (WreckageTotalLoadValue * 100) / (float)WreckageTotalLoadCost; }
+        get { return (WreckageTotalLoadCost * 100) / (float)WreckageTotalLoadValue; }
     }
 
     private ChangeValue<int> _dropWasteCount;
@@ -861,7 +863,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         for(int i = 0; i < allWreckgeData.Count; i++)
         {
             WreckageItemInfo info = WreckageItemInfo.CreateInfo(allWreckgeData[i]);
-            wreckageItems.Add(info.UnitID, info);
+            if (info == null)
+                continue;
+
+            if (!wreckageItems.ContainsKey(info.UnitID))
+            {
+                wreckageItems.Add(info.UnitID, info);
+            }
+            
         }
         ///权重根据舰船修正
         InitModifyUnitWreckageTagWeight();
@@ -1216,16 +1225,19 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         var currentWaveTime = GetCurrentWaveTime();
 
-        ///Generate Meteorite Common
-        var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime,  "MeteoriteGenerate_1");
-        MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
-        Timer.AddTrigger(MeteoriteTrigger1);
+        if (waveCfg.GenerateMeteorite)
+        {
+            ///Generate Meteorite Common
+            var MeteoriteTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer1, _entitySpawnConfig.MeteoriteGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime, "MeteoriteGenerate_1");
+            MeteoriteTrigger1.BindChangeAction(CreateMeteorite_Common);
+            Timer.AddTrigger(MeteoriteTrigger1);
 
-        ///Generate Meteorite Smooth
-        var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime,  "MeteoriteGenerate_2");
-        MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
-        Timer.AddTrigger(MeteoriteTrigger2);
-
+            ///Generate Meteorite Smooth
+            var MeteoriteTrigger2 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.MeteoriteGenerate_Timer2, _entitySpawnConfig.MeteoriteGenerate_Timer2, -1, currentWaveTime - _entitySpawnConfig.MeteoriteGenerate_EndTime, "MeteoriteGenerate_2");
+            MeteoriteTrigger2.BindChangeAction(CreateMeteorite_Smooth);
+            Timer.AddTrigger(MeteoriteTrigger2);
+        }
+    
         ///Generate Ancient Common
         var ancientTrigger1 = LevelTimerTrigger.CreateTrigger(_entitySpawnConfig.AncientUnitGenerate_Timer1, _entitySpawnConfig.AncientUnitGenerate_Timer1, -1, currentWaveTime - _entitySpawnConfig.AncientUnitGenerate_EndTime, "ancientGenerate_1");
         ancientTrigger1.BindChangeAction(CreateAncientUnitShip);
@@ -1797,6 +1809,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
     }
 
+    public PropertyModifySpecialData[] GetGlobalPropertyModifySpelcialData(uint parentUID)
+    {
+        return globalModifySpecialDatas.FindAll(x => x.GetUID == parentUID).ToArray();
+    }
+
     private void LevelUp()
     {
         if (GetCurrentShipLevel >= GameGlobalConfig.Ship_MaxLevel)
@@ -1864,7 +1881,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         RefreshFreeRollCount();
         RefreshShop(false);
         OnEnterShop?.Invoke();
-
+        _shopTotalEnterCount++;
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
         CameraManager.Instance.SetOrthographicSize(20);
@@ -1964,8 +1981,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
                     return false;
 
                 ///Cost
-                CurrentRerollCost = GetCurrentRefreshCost();
                 AddCurrency(-CurrentRerollCost);
+                CurrentRerollCost = GetCurrentRefreshCost();
             }
         }
 
@@ -2231,12 +2248,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         int rollBase = 999;
         var rollCostBaseMap = DataManager.Instance.shopCfg.RollCostWaveBase;
-        if (_waveIndex < rollCostBaseMap.Length)
+        if (_shopTotalEnterCount < rollCostBaseMap.Length)
         {
-            rollBase = rollCostBaseMap[_waveIndex];
+            rollBase = rollCostBaseMap[_shopTotalEnterCount];
         }
 
-        var rerollIncrease = Mathf.RoundToInt(_waveIndex * rerollParam);
+        var rerollIncrease = Mathf.RoundToInt(_shopTotalEnterCount * rerollParam);
 
         return _currentRereollCount * rerollIncrease + rollBase;
     }
@@ -2540,6 +2557,17 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         RefreshShipLevelUpItems(false);
 
+        ///AddProperty
+        var shipCfg = currentShip.playerShipCfg.UpgradePropertyModifyCfg;
+        if(shipCfg != null && shipCfg.Count > 0)
+        {
+            for(int i = 0; i < shipCfg.Count; i++)
+            {
+                var upgradeCfg = shipCfg[i];
+                MainPropertyData.AddPropertyModifyValue(upgradeCfg.ModifyKey, PropertyModifyType.Row, GameGlobalConfig.PropertyModifyUID_Upgrade, upgradeCfg.Value);
+            }
+        }
+
         ///重复升级保护
         var levelUpPanel = UIManager.Instance.GetGUIFromDic<ShipLevelUpPage>("ShipLevelUpPage");
         if(levelUpPanel != null)
@@ -2723,6 +2751,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         bool result = true;
         BattleReset();
 
+        _shopTotalEnterCount = sav.ShopTotalEnterCount;
         ///Init HardLevel
         var hardLevelData = GameManager.Instance.GetHardLevelInfoByID(sav.ModeID);
         SetCurrentHardLevel(hardLevelData);
@@ -2788,6 +2817,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         sav.EXP = GetCurrentExp;
         sav.EliteSpawnWaves = _eliteSpawnWaves;
         sav.AlreadySpawnedEliteIDs = _alreadySpawnedEliteIDs;
+        sav.ShopTotalEnterCount = _shopTotalEnterCount;
 
         sav.PlugRuntimeSaves = CreatePlugRuntimeSaveData();
         sav.PropertyRowSav = MainPropertyData.CreatePropertyModifyRowSaveData();

@@ -437,12 +437,12 @@ MonoBehaviour:
   GroupID: 0
   redirection: 0
   UnlockDefault: 1
-  ProertyDescText: 
+  ProertyDescText: DroneFactory_Effect_Desc_012
   EditBrushSprite: {fileID: 21300000, guid: 076bfc291aad1a8429cfcbf8ba775d4e, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 40
+  ItemTags: 168
   BaseHP: 400
   BaseEnergyCost: 0
   BaseEnergyGenerate: 100
@@ -461,6 +461,6 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
-  DroneID: 12
+  DroneID: 1001
   MaxDroneCount: 3
   DroneSpawnTime: 1

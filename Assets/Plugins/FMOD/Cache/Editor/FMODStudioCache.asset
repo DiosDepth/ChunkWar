@@ -108,6 +108,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7559187324447475505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/shop_Buy
+  m_EditorClassIdentifier: 
+  Path: event:/UI/shop_Buy
+  Guid:
+    Data1: -344740173
+    Data2: 1159024855
+    Data3: 1673245071
+    Data4: 1172451094
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7088145624341254923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +270,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 95
   Length: 1655
+--- !u!114 &-6512767999520627300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/missile_Fire_01
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/missile_Fire_01
+  Guid:
+    Data1: -792377581
+    Data2: 1276010650
+    Data3: -791391058
+    Data4: 232660636
+  Banks:
+  - {fileID: 5518491900420790000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5700
 --- !u!114 &-6480248171132154116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +893,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 413
+--- !u!114 &-495924535447098927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/BattleGainSettle
+  m_EditorClassIdentifier: 
+  Path: event:/UI/BattleGainSettle
+  Guid:
+    Data1: -366248756
+    Data2: 1317409426
+    Data3: 775660709
+    Data4: -1837729613
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-136002409853526222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,12 +1050,17 @@ MonoBehaviour:
   - {fileID: -6480248171132154116}
   - {fileID: -4907778600340958788}
   - {fileID: -4745774452199491325}
+  - {fileID: -6512767999520627300}
+  - {fileID: 1030726374207204599}
+  - {fileID: -7559187324447475505}
+  - {fileID: 4422595128235149768}
+  - {fileID: -495924535447098927}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7608658188462933578}
   StringsBanks:
   - {fileID: 1227211710014248362}
-  cacheTime: 638339571257822970
+  cacheTime: 638347093812560266
   cacheVersion: 131608
 --- !u!114 &629929198641315281
 MonoBehaviour:
@@ -994,6 +1080,33 @@ MonoBehaviour:
   lastModified: 638335709887689524
   FileSizes: []
   Exists: 1
+--- !u!114 &1030726374207204599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/missile_Explode_01
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/missile_Explode_01
+  Guid:
+    Data1: 1630531712
+    Data2: 1305823334
+    Data3: -2066778728
+    Data4: -1133242796
+  Banks:
+  - {fileID: 5518491900420790000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2650
 --- !u!114 &1227211710014248362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,10 +1122,10 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638339571257802972
+  lastModified: 638347093810392609
   FileSizes:
   - Name: 
-    Value: 2762
+    Value: 3000
   Exists: 1
 --- !u!114 &1288176805813493146
 MonoBehaviour:
@@ -1276,6 +1389,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &4422595128235149768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/BattleGain_ItemShow
+  m_EditorClassIdentifier: 
+  Path: event:/UI/BattleGain_ItemShow
+  Guid:
+    Data1: 558614053
+    Data2: 1176886521
+    Data3: 1174003888
+    Data4: 1318246455
+  Banks:
+  - {fileID: 4887846075754875004}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &4887846075754875004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,7 +1431,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/UI
-  lastModified: 638339571257822970
+  lastModified: 638347093812560266
   FileSizes: []
   Exists: 1
 --- !u!114 &5084095035335514901
@@ -1354,7 +1494,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638335842254656057
+  lastModified: 638343857352658299
   FileSizes: []
   Exists: 1
 --- !u!114 &5521309929055001432
@@ -1534,7 +1674,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638338693603874636
+  lastModified: 638347093810382666
   FileSizes: []
   Exists: 1
 --- !u!114 &8280454677774467645

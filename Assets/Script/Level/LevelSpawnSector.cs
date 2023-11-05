@@ -125,6 +125,11 @@ public class LevelSpawnSector
         }
 
         var sector = GetSectorDataByIndex(targetSectorIndex);
+        if(sector == null)
+        {
+            Debug.LogError("Sector Spawn Null! ID = " + targetSectorIndex);
+            return Vector2.zero;
+        }
         _lastSpawnSectorIndex = targetSectorIndex;
         ///RandomAngle
         float randomAngle = sector.GetRandomAngle();

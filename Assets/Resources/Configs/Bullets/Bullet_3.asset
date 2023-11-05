@@ -24,7 +24,7 @@ MonoBehaviour:
   ID: 3
   BulletName: BaseBeam_Player
   Type: 2
-  Owner: 0
+  Owner: 1
   Prefab: {fileID: 3574238879806340193, guid: c1732b46f66c2ca459caffee4cf1c5eb, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseBeam_Player
   HitAudio: 
@@ -38,6 +38,7 @@ MonoBehaviour:
     PosRandomY: 0
   MaxDistance: 80
   Width: 1.5
+  HitBoxWidth: 0
   EmiteTime: 0.1
   Duration: 0.15
   DeathTime: 0.1

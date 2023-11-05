@@ -27,7 +27,7 @@ public class ShopMainConfig : SerializedScriptableObject
     [LabelText("每次刷新增加 波次乘参数")]
     public float RollCostIncreaceWaveParam = 0.5f;
 
-    [LabelText("刷新基础")]
+    [LabelText("刷新基础，根据总进入次数")]
     public int[] RollCostWaveBase = new int[20];
 
     [TableList(ShowIndexLabels = true, NumberOfItemsPerPage = 25)]
@@ -191,6 +191,8 @@ public class GeneralItemConfig
 
     [LabelText("名称")]
     [LabelWidth(80)]
+    [OnValueChanged("OnNameChange")]
+    [DelayedProperty]
     public string Name;
 
     [LabelText("CN")]
@@ -203,6 +205,8 @@ public class GeneralItemConfig
     [Multiline(1)]
     [LabelText("描述")]
     [LabelWidth(80)]
+    [OnValueChanged("OnDescChange")]
+    [DelayedProperty]
     public string Desc;
 
     [VerticalGroup("AA")]
@@ -234,5 +238,19 @@ public class GeneralItemConfig
             DescPreview = LocalizationManager.Instance.GetTextValue(Desc);
         }
     }
+
+#if UNITY_EDITOR
+
+    private void OnNameChange()
+    {
+        NamePreview = LocalizationManager.Instance.GetTextValue(Name);
+    }
+
+    private void OnDescChange()
+    {
+        DescPreview = LocalizationManager.Instance.GetTextValue(Desc);
+    }
+
+#endif
 
 }

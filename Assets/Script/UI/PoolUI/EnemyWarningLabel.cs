@@ -22,7 +22,7 @@ public class EnemyWarningLabel : GUIBasePanel, IPoolable
     public void PoolableDestroy()
     {
         PoolableReset();
-        PoolManager.Instance.BackObject(transform.name, gameObject);
+        UIManager.Instance.BackPoolerUI(transform.name, gameObject);
     }
 
     public void PoolableReset()

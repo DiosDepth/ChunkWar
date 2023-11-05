@@ -81,6 +81,19 @@ public class Beamemit : Bullet
             //创建射线
             hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
 
+            //延迟激光然后销毁激光
+            LeanTween.delayedCall(duration, () =>
+            {
+                LeanTween.value(width, 0, deathtime).setOnUpdate((value) =>
+                {
+                    beamline.startWidth = value;
+                    beamline.endWidth = value;
+                }).setOnComplete(() =>
+                {
+                    Death(null);
+                });
+            });
+
             bool hitTarget = false;
             int transfixionIndex = 0;
             if (hitlist != null && hitlist?.Length > 0)
@@ -124,19 +137,6 @@ public class Beamemit : Bullet
             {
                 OnHitEffect();
             }
-
-            //延迟激光然后销毁激光
-            LeanTween.delayedCall(duration, () =>
-            {
-                LeanTween.value(width, 0, deathtime).setOnUpdate((value) =>
-                {
-                    beamline.startWidth = value;
-                    beamline.endWidth = value;
-                }).setOnComplete(() =>
-                {
-                    Death(null);
-                });
-            });
         });
 
     }
