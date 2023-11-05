@@ -52,6 +52,12 @@ public enum WeaponTargetMode
     Single,
     Mutipule,
 }
+public enum WeaponInterceptType
+{
+    Unit,
+    Drone,
+    Missile,
+}
 
 /// <summary>
 /// 这里的index指的是，当前的target 在ECSManager中 ActiveUnit的位置
@@ -82,12 +88,16 @@ public class UnitTargetInfo
 
 }
 
+
+
 public class Weapon : Unit
 {
     public WeaponControlType weaponmode;
     public StateMachine<WeaponState> weaponState;
     public WeaponFireMode firemode;
     public WeaponAimingType aimingtype= WeaponAimingType.Directional;
+    public WeaponInterceptType intercepttype = WeaponInterceptType.Unit;
+
 
     [ValueDropdown("GetBulletNames")]
     public string bulletName = string.Empty;
