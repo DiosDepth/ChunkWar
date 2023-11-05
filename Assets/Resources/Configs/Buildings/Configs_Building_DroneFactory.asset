@@ -442,7 +442,7 @@ MonoBehaviour:
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 32
+  ItemTags: 34
   BaseHP: 100
   BaseEnergyCost: 30
   BaseEnergyGenerate: 0

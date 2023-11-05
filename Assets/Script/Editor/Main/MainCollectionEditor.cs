@@ -91,4 +91,12 @@ public class MainCollectionEditor : OdinEditorWindow
         var win = GetWindow<MainCollectionEditor>();
         win.Close();
     }
+
+    [Button("µ–»À±‡∂”≈‰÷√", ButtonSizes.Medium)]
+    public static void ShowEnemyGroupEditor()
+    {
+        EnemyGroupMainEditor.ShowWindow();
+        var win = GetWindow<MainCollectionEditor>();
+        win.Close();
+    }
 }

@@ -1501,6 +1501,14 @@ MonoBehaviour:
   AppearWarning: 1
   AppearWarningText: EnemyAppear_Content_Elite
   AppearWarningAudio: ShipSpawn_Warning
+  DieEffect:
+    EffectName: 
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
   DropList:
   - pickuptype: 1
     count: 5
