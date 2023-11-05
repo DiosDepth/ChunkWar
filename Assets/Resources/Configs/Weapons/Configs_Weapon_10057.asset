@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10065
+  m_Name: Configs_Weapon_10057
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -209,7 +209,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 2
@@ -242,10 +242,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10065
+  ID: 10057
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: d67b40cd7dde2b649806d4fdd77cf4eb, type: 3}
-    Name: Weapon_Name_10065
-    Desc: Weapon_Desc_10065
-    Rarity: 0
+    IconSprite: {fileID: 21300000, guid: 6845d51f0d20443438704bee7864d4cb, type: 3}
+    Name: Weapon_Name_10057
+    Desc: Weapon_Desc_10057
+    Rarity: 2
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: 642850bb13de5054e924bddf52279a7a, type: 3}
+  Prefab: {fileID: 5883710716347196929, guid: b009fa3392863c74c954c79676b3eddc, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -438,12 +438,12 @@ MonoBehaviour:
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 21300000, guid: d67b40cd7dde2b649806d4fdd77cf4eb, type: 3}
+  EditBrushSprite: {fileID: 21300000, guid: 6845d51f0d20443438704bee7864d4cb, type: 3}
   EditorBrushDefaultRotation: 0
-  CorsorOffsetX: 0
-  CorsorOffsetY: 0
+  CorsorOffsetX: 0.5
+  CorsorOffsetY: 0.5
   ItemTags: 4
-  BaseHP: 400
+  BaseHP: 200
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -453,22 +453,22 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 150
-  DamageBase: 15
+  BaseRange: 300
+  DamageBase: 10
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
   DamageRatioMax: 1.15
-  DamageType: 0
-  BaseCriticalRate: 10
+  DamageType: 1
+  BaseCriticalRate: 5
   CriticalDamage: 125
-  TotalDamageCount: 4
+  TotalDamageCount: 8
   ShootPerCount: 1
   CanModifyDamageCount: 1
-  CD: 2.5
-  FireCD: 0.25
+  CD: 2
+  FireCD: 0.2
   ShieldTransfixion: 0
-  ShieldDamage: 150
+  ShieldDamage: 100
   BaseTransfixion: 0
   Scatter: 0
   DamageModifyFrom: []

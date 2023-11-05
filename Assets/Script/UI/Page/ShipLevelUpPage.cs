@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Cysharp.Threading.Tasks;
 
 public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, EventListener<RogueEvent>
 {
@@ -13,6 +14,8 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     private TextMeshProUGUI _levelText; 
     private RectTransform _currencyRect;
     private RectTransform _rerollRect;
+    private CanvasGroup _canvas;
+    private Animator _anim;
 
     private static string ShipLevelUpSelectItem_PrefabPath = "Prefab/GUIPrefab/CmptItems/ShipLevelUpSelectItem";
     /// <summary>
@@ -21,10 +24,14 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     private int levelUpCount;
     private byte oldLevel;
 
+    private const int ProtectTime = 1500;
+
     protected override void Awake()
     {
         base.Awake();
         _items = new List<ShipLevelUpSelectItem>();
+        _canvas = transform.SafeGetComponent<CanvasGroup>();
+        _anim = transform.SafeGetComponent<Animator>();
         _propertyPanel = transform.Find("Content/Property/PropertyGroup").SafeGetComponent<ShipPropertyGroupPanel>();
         transform.Find("Content/Property/PropertyTitle/PropertyBtn").SafeGetComponent<Button>().onClick.AddListener(SwitchPropertyGroup);
         _currencyRect = transform.Find("Content/SelectContent/Title/Currency").SafeGetComponent<RectTransform>();
@@ -39,10 +46,14 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     public override void Initialization()
     {
         base.Initialization();
+        _canvas.interactable = false;
         this.EventStartListening<ShipPropertyEvent>();
         SwitchPropertyGroup();
         RefreshRerollCost();
         RefreshCurrencyText();
+        DoProtect();
+        _canvas.alpha = 0;
+        _anim.Play("ShipLevelUp_Show");
         SoundManager.Instance.PlayUISound("Ship_LevelUP");
         SoundManager.Instance.SetBGMVolume(0.5f);
     }
@@ -169,5 +180,11 @@ public class ShipLevelUpPage : GUIBasePanel, EventListener<ShipPropertyEvent>, E
     {
         _currencyText.text = RogueManager.Instance.CurrentCurrency.ToString();
         LayoutRebuilder.ForceRebuildLayoutImmediate(_currencyRect);
+    }
+
+    private async void DoProtect()
+    {
+        await UniTask.Delay(ProtectTime, true);
+        _canvas.interactable = true;
     }
 }

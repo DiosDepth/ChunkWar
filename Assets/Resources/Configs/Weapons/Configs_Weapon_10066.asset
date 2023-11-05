@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_Weapon_10065
+  m_Name: Configs_Weapon_10066
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,12 +423,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 10065
+  ID: 10066
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: d67b40cd7dde2b649806d4fdd77cf4eb, type: 3}
-    Name: Weapon_Name_10065
-    Desc: Weapon_Desc_10065
-    Rarity: 0
+    Name: Weapon_Name_10066
+    Desc: Weapon_Desc_10066
+    Rarity: 1
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: 642850bb13de5054e924bddf52279a7a, type: 3}
   m_FlattendMapLayout: 

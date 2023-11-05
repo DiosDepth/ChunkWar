@@ -7,6 +7,14 @@ using UnityEngine.UI;
 public class GMTalkMainPage : GUIBasePanel
 {
 
+    private InputField _inputFiled;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _inputFiled = transform.Find("Content/InputContent/GMCommandField").SafeGetComponent<InputField>();
+    }
+
     public override void Initialization()
     {
         GetGUIComponent<Button>("Close").onClick.AddListener(ClosePage);
@@ -21,7 +29,11 @@ public class GMTalkMainPage : GUIBasePanel
         {
             GMTalkManager.Instance.HandleGMTalkInputContent("createBattleLog");
         });
+        GetGUIComponent<Button>("SendGMBtn").onClick.AddListener(() =>
+        {
+            GMTalkManager.Instance.HandleGMTalkInputContent(_inputFiled.text);
 
+        });
     }
 
 

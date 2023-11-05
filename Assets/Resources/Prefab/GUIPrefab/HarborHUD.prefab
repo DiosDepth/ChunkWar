@@ -1887,6 +1887,9 @@ GameObject:
   - component: {fileID: 6647499251045732970}
   - component: {fileID: 3142309552476879446}
   - component: {fileID: 8133505706045278956}
+  - component: {fileID: 1786960281192868076}
+  - component: {fileID: 5826703828895878508}
+  - component: {fileID: 9160949959380547396}
   m_Layer: 5
   m_Name: LoadSlider
   m_TagString: Untagged
@@ -1957,6 +1960,56 @@ MonoBehaviour:
   PropertyType: 3
   PercentMode: 0
   overlordPercent: 0
+--- !u!222 &1786960281192868076
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3393872428392201386}
+  m_CullTransparentMesh: 1
+--- !u!114 &5826703828895878508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3393872428392201386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9160949959380547396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3393872428392201386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e2ea7976cba60418d04aa8d1ba70d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3636093735487573938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,6 +2438,9 @@ GameObject:
   - component: {fileID: 997945100277095848}
   - component: {fileID: 263917455090911977}
   - component: {fileID: 3956880801727301559}
+  - component: {fileID: 1740355356689296753}
+  - component: {fileID: 7188664812564960785}
+  - component: {fileID: 5040520904899193238}
   m_Layer: 5
   m_Name: EnergySlider
   m_TagString: Untagged
@@ -2455,6 +2511,56 @@ MonoBehaviour:
   PropertyType: 1
   PercentMode: 0
   overlordPercent: 0
+--- !u!222 &1740355356689296753
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546238899740548973}
+  m_CullTransparentMesh: 1
+--- !u!114 &7188664812564960785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546238899740548973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5040520904899193238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546238899740548973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e2ea7976cba60418d04aa8d1ba70d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4561595644841853268
 GameObject:
   m_ObjectHideFlags: 0
@@ -4897,12 +5003,12 @@ PrefabInstance:
     - target: {fileID: 1258117699846857941, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1258117699846857941, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1258117699846857941, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
@@ -4917,7 +5023,7 @@ PrefabInstance:
     - target: {fileID: 1258117699846857941, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1323152529430766717, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
@@ -5027,12 +5133,12 @@ PrefabInstance:
     - target: {fileID: 2292661949142572991, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2292661949142572991, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2292661949142572991, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
@@ -5047,7 +5153,7 @@ PrefabInstance:
     - target: {fileID: 2292661949142572991, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3941875062438223844, guid: cb3a3275a8bc73d4aba4a76156e2b1df,
         type: 3}
