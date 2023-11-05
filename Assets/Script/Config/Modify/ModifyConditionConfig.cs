@@ -6,6 +6,7 @@ using UnityEngine;
 public enum ModifyConditionType
 {
     ByWasteCount,
+    ByShopSellWasteCount,
 }
 
 [System.Serializable]
@@ -30,6 +31,10 @@ public abstract class ModifyConditionConfig
             if (type == ModifyConditionType.ByWasteCount)
             {
                 result.Add(type.ToString(), new MCC_ByWasteCount(type));
+            }
+            else if(type == ModifyConditionType.ByShopSellWasteCount)
+            {
+                result.Add(type.ToString(), new MCC_ByShopSellWasteCount(type));
             }
         }
 
@@ -59,5 +64,29 @@ public class MCC_ByWasteCount : ModifyConditionConfig
     public override bool GetResult(ModifyTriggerData Data)
     {
         return Data.ByWasteCount(this);
+    }
+}
+
+
+public class MCC_ByShopSellWasteCount : ModifyConditionConfig
+{
+    [HorizontalGroup("AA", 200)]
+    [LabelText("±È½Ï")]
+    [LabelWidth(40)]
+    public CompareType Compare;
+
+    [HorizontalGroup("AA", 200)]
+    [LabelText("Öµ")]
+    [LabelWidth(40)]
+    public int Value;
+
+    public MCC_ByShopSellWasteCount(ModifyConditionType type) : base(type)
+    {
+
+    }
+
+    public override bool GetResult(ModifyTriggerData Data)
+    {
+        return Data.ByShopSellWasteCount(this);
     }
 }

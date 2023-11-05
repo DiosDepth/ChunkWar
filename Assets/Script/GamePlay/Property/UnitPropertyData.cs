@@ -30,6 +30,17 @@ public class UnitPropertyData
     }
 
     /// <summary>
+    /// 清除所有临时加成，一般波次结束时调用
+    /// </summary>
+    public void ClearTempValue()
+    {
+        foreach(var item in PropertyPool.Values)
+        {
+            item.ClearTempValue();
+        }
+    }
+
+    /// <summary>
     /// 绑定ChangeAction
     /// </summary>
     /// <param name="key"></param>

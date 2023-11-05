@@ -249,6 +249,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private byte _shopFreeRollCount = 0;
 
     /// <summary>
+    /// 当前商店出售的残骸数
+    /// </summary>
+    private int _currentShopSellWasteCount = 0;
+    public int GetCurrentShipSellWasteCount
+    {
+        get { return _currentShopSellWasteCount; }
+    }
+
+    /// <summary>
     /// 当前随机商店物品
     /// </summary>
     public List<ShopGoodsInfo> CurrentRogueShopItems
@@ -299,9 +308,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /* 进入太空港 */
     public UnityAction OnEnterHarbor;
     /* 进入商店 */
-    public UnityAction OnEnterShop;
+    public UnityAction<bool> OnEnterShop;
     /* 购买商店物品 */
     public UnityAction<int> OnBuyShopItem;
+    /* 出售舰船部件， int -> UnitID */
+    public UnityAction<int> OnSellShipEquip;
+
     private void ClearAction()
     {
         OnWreckageLoadPercentChange = null;
@@ -314,6 +326,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         OnEnterHarbor = null;
         OnEnterShop = null;
         OnBuyShopItem = null;
+        OnSellShipEquip = null;
     }
 
     #endregion
@@ -360,6 +373,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _alreadySpawnedEliteIDs.Clear();
         _spawnBossTempLst.Clear();
 
+        _currentShopSellWasteCount = 0;
         _currentRereollCount = 0;
         _shopRefreshTotalCount = 0;
         _currentGenerateAncientUnitShipCount = 0;
@@ -737,6 +751,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var newCount = GetDropWasteCount - sellCount;
         _dropWasteCount.Set(newCount);
         OnWasteCountChange?.Invoke(newCount);
+        _currentShopSellWasteCount += sellCount;
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
     }
 
@@ -1062,6 +1077,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ///Reset TriggerDatas
         ResetAllPlugModifierTriggerDatas();
         ResetAllUnitModifierTriggerDatas();
+        ///清除临时加成
+        MainPropertyData.ClearTempValue();
         if (IsFinalWave())
         {
             await UniTask.Delay(1000);
@@ -1877,10 +1894,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     public void EnterShop()
     {
         InShop = true;
+        _currentShopSellWasteCount = 0;
         GameManager.Instance.PauseGame();
         RefreshFreeRollCount();
         RefreshShop(false);
-        OnEnterShop?.Invoke();
+        OnEnterShop?.Invoke(true);
         _shopTotalEnterCount++;
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
@@ -1907,6 +1925,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         {
             panel.Initialization();
         });
+        OnEnterShop?.Invoke(false);
         ///设置玩家无敌时长
         var time = DataManager.Instance.battleCfg.ShopExit_Player_Immortal_Time;
         if(currentShip != null)
@@ -2314,6 +2333,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         var sellPrice = GameHelper.GetUnitSellPrice(unit);
         AddCurrency(sellPrice);
+        OnSellShipEquip?.Invoke(unit.UnitID);
         return true;
     }
 

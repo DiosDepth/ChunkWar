@@ -36,11 +36,16 @@ MonoBehaviour:
   ID: 1145
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: ShipPlug_Name_1141
+    Name: ShipPlug_Name_1145
     Desc: 
-    Rarity: 1
+    Rarity: 2
     SortingOrder: 0
-  PropertyModify: []
+  PropertyModify:
+  - ModifyKey: 14
+    Value: 1
+    BySpecialValue: 1
+    SpecialType: 1
+    SpecialKeyParam: Critical
   EffectDesc: 
   PlugTags: 0
   PropertyPercentModify: []

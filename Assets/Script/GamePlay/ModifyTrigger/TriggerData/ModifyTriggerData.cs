@@ -477,6 +477,12 @@ public abstract class ModifyTriggerData : IPropertyModify
         return MathExtensionTools.CalculateCompareType(currentWasteCount, cfg.Value, cfg.Compare);
     }
 
+    public bool ByShopSellWasteCount(MCC_ByShopSellWasteCount cfg)
+    {
+        var count = RogueManager.Instance.GetCurrentShipSellWasteCount;
+        return MathExtensionTools.CalculateCompareType(count, cfg.Value, cfg.Compare);
+    }
+
 
     #endregion
 
@@ -646,9 +652,11 @@ public class MT_OnEnterHarbor : ModifyTriggerData
 
 public class MT_OnEnterShop : ModifyTriggerData
 {
+    private MTC_OnEnterShop _enterCfg;
+
     public MT_OnEnterShop(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
     {
-
+        _enterCfg = cfg as MTC_OnEnterShop;
     }
 
     public override void OnTriggerAdd()
@@ -663,8 +671,11 @@ public class MT_OnEnterShop : ModifyTriggerData
         RogueManager.Instance.OnEnterShop -= OnEnterShop;
     }
 
-    private void OnEnterShop()
+    private void OnEnterShop(bool isenter)
     {
+        if (_enterCfg.isEnter != isenter)
+            return;
+
         Trigger();
     }
 }
@@ -729,6 +740,36 @@ public class MT_OnCollectPickable : ModifyTriggerData
         {
             return;
         }
+
+        Trigger();
+    }
+}
+
+public class MT_OnSellShipEquip : ModifyTriggerData
+{
+    private MTC_OnSellShipUnit _sellCfg;
+
+    public MT_OnSellShipEquip(ModifyTriggerConfig cfg, uint uid) : base(cfg, uid)
+    {
+        _sellCfg = cfg as MTC_OnSellShipUnit;
+    }
+
+    public override void OnTriggerAdd()
+    {
+        base.OnTriggerAdd();
+        RogueManager.Instance.OnSellShipEquip += OnSellUnit;
+    }
+
+    public override void OnTriggerRemove()
+    {
+        base.OnTriggerRemove();
+        RogueManager.Instance.OnSellShipEquip -= OnSellUnit;
+    }
+
+    private void OnSellUnit(int UnitID)
+    {
+        if (_sellCfg.CheckUnitID && UnitID != _sellCfg.UnitID)
+            return;
 
         Trigger();
     }

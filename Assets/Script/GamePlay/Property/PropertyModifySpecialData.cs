@@ -62,6 +62,11 @@ public class PropertyModifySpecialData
                     var currentShipEnergyPercent = RogueManager.Instance.currentShip.EnergyPercent;
                     OnPercentChange_More100(currentShipEnergyPercent);
                     break;
+
+                case "Critical":
+                    mgr.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.Critical, OnCriticalChange_More100);
+                    OnCriticalChange_More100();
+                    break;
             }
         }
         else if(Config.SpecialType == ModifySpecialType.Count)
@@ -102,6 +107,9 @@ public class PropertyModifySpecialData
                     break;
                 case "EnergyPercent":
                     mgr.OnEnergyPercentChange -= OnPercentChange_More100;
+                    break;
+                case "Critical":
+                    mgr.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.Critical, OnCriticalChange_More100);
                     break;
             }
         }
@@ -167,6 +175,17 @@ public class PropertyModifySpecialData
         float delta = percent - 100;
         delta = Mathf.Clamp(delta, 0, float.MaxValue);
         RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * GetFinialConfigValue());
+    }
+
+    /// <summary>
+    /// ∏¯Property  Ù–‘”√
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="nil"></param>
+    private void OnCriticalChange_More100()
+    {
+        var value = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.Critical);
+        OnPercentChange_More100(value);
     }
 
     /// <summary>

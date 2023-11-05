@@ -69,6 +69,7 @@ public enum ModifyTriggerType
     /// </summary>
     OnPlayerUnitParalysis,
     OnEnterShop,
+    OnSellShipEquip,
 }
 
 public enum ModifyTriggerEffectType

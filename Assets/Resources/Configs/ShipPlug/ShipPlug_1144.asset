@@ -26,7 +26,139 @@ MonoBehaviour:
       Data: 0|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|MTC_WaveState, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 5
+    - Name: TriggerCount
+      Entry: 3
+      Data: 1
+    - Name: SelfUnique
+      Entry: 5
+      Data: false
+    - Name: UsePercent
+      Entry: 5
+      Data: false
+    - Name: Percent
+      Entry: 4
       Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 2|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 3|MTEC_AddPropertyValue, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 0
+    - Name: Conditions
+      Entry: 7
+      Data: 4|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyKey
+      Entry: 3
+      Data: 14
+    - Name: Value
+      Entry: 4
+      Data: 50
+    - Name: ModifyType
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|MTEC_AddPropertyValue, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 0
+    - Name: Conditions
+      Entry: 7
+      Data: 6|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyKey
+      Entry: 3
+      Data: 3
+    - Name: Value
+      Entry: 4
+      Data: 25
+    - Name: ModifyType
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|MTEC_AddPropertyValue, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 0
+    - Name: Conditions
+      Entry: 7
+      Data: 8|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyKey
+      Entry: 3
+      Data: 8
+    - Name: Value
+      Entry: 4
+      Data: 25
+    - Name: ModifyType
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: IsStart
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

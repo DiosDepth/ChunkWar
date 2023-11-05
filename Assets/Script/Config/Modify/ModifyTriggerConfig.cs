@@ -161,6 +161,10 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnEnterShop(type));
             }
+            else if(type == ModifyTriggerType.OnSellShipEquip)
+            {
+                result.Add(type.ToString(), new MTC_OnSellShipUnit(type));
+            }
         }
 
         return result;
@@ -429,6 +433,11 @@ public class MTC_OnEnterHarbor : ModifyTriggerConfig
 
 public class MTC_OnEnterShop : ModifyTriggerConfig
 {
+    [LabelText("是否进入")]
+    [LabelWidth(80)]
+    [HorizontalGroup("Z", 200)]
+    public bool isEnter = true;
+
     public MTC_OnEnterShop(ModifyTriggerType type) : base(type)
     {
 
@@ -701,6 +710,31 @@ public class MTC_OnPlayerUnitParalysis : ModifyTriggerConfig
     public bool IsEnterParalysis;
 
     public MTC_OnPlayerUnitParalysis(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_OnPlayerUnitParalysis(this, uid);
+    }
+}
+
+public class MTC_OnSellShipUnit : ModifyTriggerConfig
+{
+
+    [HorizontalGroup("AD", 250)]
+    [LabelText("检测ID")]
+    [LabelWidth(100)]
+    public bool CheckUnitID = false;
+
+    [HorizontalGroup("AD", 250)]
+    [LabelText("单位ID")]
+    [LabelWidth(100)]
+    [ShowIf("CheckUnitID")]
+    public int UnitID;
+
+    public MTC_OnSellShipUnit(ModifyTriggerType type) : base(type)
     {
 
     }

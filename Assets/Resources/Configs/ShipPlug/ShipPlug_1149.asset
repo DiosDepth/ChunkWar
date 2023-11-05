@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aea2d38c627d7f244a89a0c1bb902492, type: 3}
-  m_Name: ShipPlug_1143
+  m_Name: ShipPlug_1149
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -29,16 +29,16 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|MTC_OnPlayerUnitTakeDamage, Assembly-CSharp
+      Data: 1|MTC_OnSellShipUnit, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
-      Data: 19
+      Data: 25
     - Name: TriggerCount
       Entry: 3
       Data: -1
     - Name: SelfUnique
       Entry: 5
-      Data: true
+      Data: false
     - Name: UsePercent
       Entry: 5
       Data: false
@@ -56,13 +56,13 @@ MonoBehaviour:
       Data: 2|ModifyTriggerEffectConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 3|MTEC_AddGlobalTimerModifier, Assembly-CSharp
+      Data: 3|MTEC_AddPropertyValue, Assembly-CSharp
     - Name: EffectType
       Entry: 3
-      Data: 8
+      Data: 0
     - Name: Conditions
       Entry: 7
       Data: 4|ModifyConditionConfig[], Assembly-CSharp
@@ -75,103 +75,59 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: StackConfig
-      Entry: 7
-      Data: 5|TimerModifierStackConfig, Assembly-CSharp
-    - Name: GlobalUnique
-      Entry: 5
-      Data: false
-    - Name: UniqueKey
-      Entry: 6
-      Data: 
-    - Name: StackType
+    - Name: ModifyKey
       Entry: 3
-      Data: 0
-    - Name: StackOrder
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ModifyMap
-      Entry: 7
-      Data: 6|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 7|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 31
-    - Name: $v
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: UseDuration
-      Entry: 5
-      Data: true
-    - Name: DurationTime
-      Entry: 4
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: IsCoreUnit
-      Entry: 5
-      Data: false
+      Data: 8
     - Name: Value
+      Entry: 4
+      Data: 0.5
+    - Name: ModifyType
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|MTEC_AddPropertyValue, Assembly-CSharp
+    - Name: EffectType
       Entry: 3
       Data: 0
-    - Name: Compare
-      Entry: 3
+    - Name: Conditions
+      Entry: 7
+      Data: 6|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
       Data: 0
-    - Name: ModifyFinalDamage
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ModifyKey
+      Entry: 3
+      Data: 1
+    - Name: Value
+      Entry: 4
+      Data: 0.5
+    - Name: ModifyType
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: CheckUnitID
       Entry: 5
       Data: false
-    - Name: DamageAddPercent
-      Entry: 4
+    - Name: UnitID
+      Entry: 3
       Data: 0
     - Name: 
       Entry: 8
@@ -182,12 +138,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 1143
+  ID: 1149
   GeneralConfig:
     IconSprite: {fileID: 0}
-    Name: ShipPlug_Name_1143
+    Name: ShipPlug_Name_1149
     Desc: 
-    Rarity: 1
+    Rarity: 2
     SortingOrder: 0
   PropertyModify: []
   EffectDesc: 
