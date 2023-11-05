@@ -173,7 +173,7 @@ public class CameraManager : Singleton<CameraManager>
         vcam.Follow = target;
         if (force)
         {
-            vcam.ForceCameraPosition(target.transform.position, target.transform.rotation);
+            vcam.ForceCameraPosition(target.transform.position,Quaternion.identity);
         }
     }
 
