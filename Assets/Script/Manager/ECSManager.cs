@@ -464,6 +464,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
 
         playerJobController.UpdateDroneAgentMovement(ref activePlayerDroneAgentData, activeAIAgentData);
+        AIJobController.UpdateDroneAgentMovement(ref activeAIDroneAgentData, activePlayerBoidData);
         AIJobController.UpdateAgentMovement(ref activeAIAgentData,  activePlayerBoidData);
 
     }

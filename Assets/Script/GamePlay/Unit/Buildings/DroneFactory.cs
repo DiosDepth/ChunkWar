@@ -364,12 +364,26 @@ public class DroneFactory : Building
         controller.lastpos = launchPoint.transform.position;
 
         drone.Launch();
-        ECSManager.Instance.RegisterJobData(OwnerType.Player, drone);
-        for (int i = 0; i < drone.UnitList.Count; i++)
+
+        if(_owner is PlayerShip)
         {
-            ECSManager.Instance.RegisterJobData(OwnerType.Player, drone.UnitList[i]);
-            drone.UnitList[i].SetUnitProcess(true);
+            ECSManager.Instance.RegisterJobData(OwnerType.Player, drone);
+            for (int i = 0; i < drone.UnitList.Count; i++)
+            {
+                ECSManager.Instance.RegisterJobData(OwnerType.Player, drone.UnitList[i]);
+                drone.UnitList[i].SetUnitProcess(true);
+            }
         }
+        if(_owner is AIShip)
+        {
+            ECSManager.Instance.RegisterJobData(OwnerType.AI, drone);
+            for (int i = 0; i < drone.UnitList.Count; i++)
+            {
+                ECSManager.Instance.RegisterJobData(OwnerType.AI, drone.UnitList[i]);
+                drone.UnitList[i].SetUnitProcess(true);
+            }
+        }
+
     }
 
 
@@ -383,7 +397,15 @@ public class DroneFactory : Building
         if(_callbackList.Contains(drone))
             _callbackList.Remove(drone);
         drone.transform.SetParent(apronGroup);
-        ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
+        if(_owner is PlayerShip)
+        {
+            ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
+        }
+        if(_owner is AIShip)
+        {
+            ECSManager.Instance.UnRegisterJobData(OwnerType.AI, drone);
+        }
+   
     }
 
     public virtual void Crash(BaseDrone drone)
@@ -395,7 +417,16 @@ public class DroneFactory : Building
         if (_callbackList.Contains(drone))
             _callbackList.Remove(drone);
         drone.transform.SetParent(repairingGroup);
-        ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
+
+        if (_owner is PlayerShip)
+        {
+            ECSManager.Instance.UnRegisterJobData(OwnerType.Player, drone);
+        }
+        if (_owner is AIShip)
+        {
+            ECSManager.Instance.UnRegisterJobData(OwnerType.AI, drone);
+        }
+
     }
     public virtual void RepairDrone()
     {

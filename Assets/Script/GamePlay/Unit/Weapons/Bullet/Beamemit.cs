@@ -27,6 +27,7 @@ public class Beamemit : Bullet
     private BulletBeamConfig _beamCfg;
     private Material _lineMat;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -39,9 +40,11 @@ public class Beamemit : Bullet
         _beamCfg = cfg as BulletBeamConfig;
         maxDistance = _beamCfg.MaxDistance;
         width = _beamCfg.Width;
+
         emittime = _beamCfg.EmiteTime;
         duration = _beamCfg.Duration;
         deathtime = _beamCfg.DeathTime;
+
     }
 
     public override void Shoot()
@@ -79,13 +82,19 @@ public class Beamemit : Bullet
         }).setOnComplete(()=> 
         {
             //创建射线
-            hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
+            Vector2 size = new Vector2(_beamCfg.HitBoxWidth, _beamCfg.HitBoxWidth);
+            float angle = MathExtensionTools.GetRotationZFromDirection(_initialmoveDirection);
+
+            
+            hitlist = Physics2D.BoxCastAll(transform.position.ToVector2(), size, angle, _initialmoveDirection, maxDistance - _beamCfg.HitBoxWidth * 0.5f , mask);
+           //hitlist = Physics2D.RaycastAll(transform.position, _initialmoveDirection, maxDistance, mask);
 
             //延迟激光然后销毁激光
             LeanTween.delayedCall(duration, () =>
             {
                 LeanTween.value(width, 0, deathtime).setOnUpdate((value) =>
                 {
+                    DebugExtension.DrawBoxCastBox(transform.position, size, MathExtensionTools.GetRotationFromDirection(_initialmoveDirection), _initialmoveDirection, maxDistance, Color.red);
                     beamline.startWidth = value;
                     beamline.endWidth = value;
                 }).setOnComplete(() =>
