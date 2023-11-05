@@ -3,10 +3,76 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using static GameHelper;
 
+
+public class OtherTargetData : IJobData
+{
+    public List<IOtherTarget> otherTargetList;
+    public NativeList<float3> otherTargetPos;
+
+
+    public OtherTargetData()
+    {
+        otherTargetList = new List<IOtherTarget>();
+        otherTargetPos = new NativeList<float3>(Allocator.Persistent);
+    }
+
+
+    public void Dispose()
+    {
+        
+    }
+
+    public void DisposeReturnValue()
+    {
+        
+    }
+
+    public void UpdateData()
+    {
+        
+    }
+
+    public void Add(BaseShip ship)
+    {
+        if (ship.UnitList.Count == 0) { return; }
+        for (int i = 0; i < ship.UnitList.Count; i++)
+        {
+            Add(ship.UnitList[i] as IOtherTarget);
+        }
+    }
+
+    public void Add(IOtherTarget other)
+    {
+        if (otherTargetList.Contains(other)) { return; }
+        if (!other.GetActiveAndEnabled()) { return; }
+        otherTargetList.Add(other);
+        otherTargetPos.Add(other.GetPosition());
+    }
+
+    public void Remove(IOtherTarget other)
+    {
+        if (!otherTargetList.Contains(other)) { return; }
+        int index = otherTargetList.IndexOf(other);
+        RemoveAt(index);
+    }
+
+    public void RemoveAt(int index)
+    {
+        otherTargetList.RemoveAt(index);
+        otherTargetPos.RemoveAt(index);
+    }
+
+    public void Clear()
+    {
+        otherTargetList.Clear();
+        if (otherTargetPos.IsCreated) { otherTargetPos.Clear(); }
+    }
+}
 
 public class UnitData : IJobData
 {

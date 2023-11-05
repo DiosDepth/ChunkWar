@@ -91,7 +91,7 @@ public struct ProjectileJobRetrunInfo
     public float rotation;
 }
 
-public class Projectile : Bullet, IDamageble
+public class Projectile : Bullet, IDamageble, IOtherTarget
 {
     [Header("---ProjectileSettings---")]
     public Rigidbody2D rb;
@@ -504,5 +504,20 @@ public class Projectile : Bullet, IDamageble
             Death(null);
         }
         return isDie;
+    }
+
+    public bool GetActiveAndEnabled()
+    {
+        return isActiveAndEnabled;
+    }
+
+    public float3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return this.gameObject;
     }
 }

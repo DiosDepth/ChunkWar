@@ -259,9 +259,11 @@ public class WeaponAttribute : UnitBaseAttribute
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Transfixion, CalculateTransfixionCount);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.TransfixionDamagePercent, CalculateTransfixionPercent);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.Aircraft_Speed, CalculateDroneSpeed);
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.DamageCount, CalculateDamageCount);
 
             FireCD = BaseFireCD;
             Range = _weaponCfg.BaseRange / 10f;
+            CalculateDamageCount();
             CalculateTransfixionCount();
             CalculateTransfixionPercent();
             CalculateDroneSpeed();

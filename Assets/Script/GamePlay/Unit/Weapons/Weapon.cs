@@ -55,8 +55,7 @@ public enum WeaponTargetMode
 public enum WeaponInterceptType
 {
     Unit,
-    Drone,
-    Missile,
+    Other,
 }
 
 /// <summary>

@@ -18,7 +18,7 @@ public struct UnitTargetJobData : IComparable<UnitTargetJobData>
         return distanceToTarget.CompareTo(other.distanceToTarget);
     }
 }
-public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
+public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOtherTarget
 {
     public int UnitID;
     /// <summary>
@@ -815,6 +815,21 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable
 
         _sceneHPSlider.PoolableDestroy();
         _sceneHPSlider = null;
+    }
+
+    public bool GetActiveAndEnabled()
+    {
+        return isActiveAndEnabled;
+    }
+
+    public float3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return this.gameObject;
     }
 
     #endregion

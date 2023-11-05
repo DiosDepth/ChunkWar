@@ -344,6 +344,102 @@ public class JobController : IPauseable
         activeSelfWeaponData.DisposeReturnValue();
     }
 
+    public virtual void UpdateAdditionalWeapon(ref WeaponData activeSelfWeaponData, ref OtherTargetData activeOtherTargetData)
+    {
+        if (activeSelfWeaponData.activeWeaponList == null || activeSelfWeaponData.activeWeaponList.Count == 0)
+        {
+            return;
+        }
+        AdditionalWeapon weapon;
+
+        int targetstotalcount = 0;
+        for (int i = 0; i < activeSelfWeaponData.activeWeaponList.Count; i++)
+        {
+            targetstotalcount += activeSelfWeaponData.activeWeaponList[i].maxTargetCount;
+        }
+
+        activeSelfWeaponData.rv_weaponTargetsInfo = new NativeArray<UnitTargetJobData>(targetstotalcount, Allocator.TempJob);
+
+        // 如果Process 则开启索敌Job， 并且蒋索敌结果记录在targetsindex[]中
+        //这个Job返回一个JRD_targetsInfo 这个是已经排序的数据， 包含 index， Pos， direction， distance 几部分数据
+
+
+        Weapon.FindMutipleUnitTargetsJob findWeaponTargetsJob = new Weapon.FindMutipleUnitTargetsJob
+        {
+            job_unitJobData = activeSelfWeaponData.activeWeaponJobData,
+            job_targetsPos = activeOtherTargetData.otherTargetPos,
+
+            rv_targetsInfo = activeSelfWeaponData.rv_weaponTargetsInfo,
+
+        };
+
+        JobHandle jobHandle = findWeaponTargetsJob.ScheduleBatch(activeSelfWeaponData.activeWeaponList.Count, 2);
+
+
+        jobHandle.Complete();
+        //执行Job 并且等待结果。
+
+
+
+        int startindex;
+        int targetindex;
+        for (int i = 0; i < activeSelfWeaponData.activeWeaponList.Count; i++)
+        {
+            //获取Flat Array中的startindex 为后续的拆分做准备
+            //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
+
+            if (activeSelfWeaponData.activeWeaponList[i] is AdditionalWeapon)
+            {
+
+                startindex = 0;
+                for (int c = 0; c < i; c++)
+                {
+                    startindex += activeSelfWeaponData.activeWeaponJobData[c].targetCount;
+                }
+
+
+                weapon = activeSelfWeaponData.activeWeaponList[i] as AdditionalWeapon;
+
+                //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
+                if (weapon.weaponState.CurrentState != WeaponState.Firing && weapon.weaponState.CurrentState != WeaponState.BetweenDelay)
+                {
+                    weapon.targetList.Clear();
+                    for (int n = 0; n < activeSelfWeaponData.activeWeaponJobData[i].targetCount; n++)
+                    {
+                        targetindex = activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetIndex;
+                        if (targetindex == -1 || activeOtherTargetData.otherTargetList == null || activeOtherTargetData.otherTargetList.Count == 0)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            weapon.targetList.Add(new UnitTargetInfo
+                                (
+                                    activeOtherTargetData.otherTargetList[targetindex].GetGameObject(),
+                                    activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetIndex,
+                                    activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].distanceToTarget,
+                                    activeSelfWeaponData.rv_weaponTargetsInfo[startindex + n].targetDirection
+                                ));
+                        }
+                    }
+                }
+                if (weapon.targetList != null && weapon.targetList.Count != 0)
+                {
+                    weapon.WeaponOn();
+                }
+                else
+                {
+                    weapon.WeaponOff();
+                }
+
+                weapon.ProcessWeapon();
+            }
+        }
+
+        activeSelfWeaponData.UpdateData();
+        activeSelfWeaponData.DisposeReturnValue();
+    }
+
 
     public virtual void UpdateAdditionalWeapon(ref WeaponData activeSelfWeaponData)
     {
