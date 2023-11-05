@@ -176,7 +176,11 @@ public class BaseShip : MonoBehaviour, IPauseable
     {
         _spriteAnimator = transform.Find("Sprite").SafeGetComponent<Animator>();
         _render = transform.Find("Sprite").SafeGetComponent<SpriteRenderer>();
-        _sharedMat = _render.sharedMaterial;
+        if(_render != null)
+        {
+            _sharedMat = _render.sharedMaterial;
+        }
+
 
         CoreUnits = new List<Unit>();
         buildingsParent = transform.Find("Buildings").gameObject;

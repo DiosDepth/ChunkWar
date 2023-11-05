@@ -122,6 +122,11 @@ public static class MathExtensionTools
     {
         return Quaternion.LookRotation(new Vector3(0, 0, 1), direction);
     }
+
+    public static float GetRotationZFromDirection(Vector2 direction)
+    {
+        return Quaternion.LookRotation(new Vector3(0, 0, 1), direction).eulerAngles.z ;
+    }
     /// <summary>
     /// 获取当前ship位置的圆形区间范围随机点，
     /// </summary>
