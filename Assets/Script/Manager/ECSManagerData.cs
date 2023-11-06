@@ -34,7 +34,13 @@ public class OtherTargetData : IJobData
 
     public void UpdateData()
     {
-        
+        if (otherTargetList.Count == 0) { return; }
+        for (int i = 0; i < otherTargetList.Count; i++)
+        {
+            IOtherTarget unit = otherTargetList[i];
+            unit.OnUpdateBattle();
+            otherTargetPos[i] = unit.GetPosition();
+        }
     }
 
     public void Add(BaseShip ship)
@@ -484,14 +490,14 @@ public class AgentData : IBoidData
 public class WeaponData : IJobData
 {
 
-    public List<AdditionalWeapon> activeWeaponList;
+    public List<Weapon> activeWeaponList;
     public NativeList<UnitJobData> activeWeaponJobData;
 
     [NativeDisableContainerSafetyRestriction]
     public NativeArray<UnitTargetJobData> rv_weaponTargetsInfo;
     public WeaponData()
     {
-        activeWeaponList = new List<AdditionalWeapon>();
+        activeWeaponList = new List<Weapon>();
         activeWeaponJobData = new NativeList<UnitJobData>(Allocator.Persistent);
     }
 
@@ -519,7 +525,7 @@ public class WeaponData : IJobData
         }
     }
 
-    public void Add(AdditionalWeapon weapon)
+    public void Add(Weapon weapon)
     {
         if (activeWeaponList.Contains(weapon)) { return; }
         activeWeaponList.Add(weapon);
@@ -530,7 +536,7 @@ public class WeaponData : IJobData
         activeWeaponJobData.Add(tempweaponjobdata);
     }
 
-    public void Remove(AdditionalWeapon weapon)
+    public void Remove(Weapon weapon)
     {
         if (!activeWeaponList.Contains(weapon)) { return; }
         int index = activeWeaponList.IndexOf(weapon);

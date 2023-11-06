@@ -136,6 +136,10 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                     activeAIAgentData.Add(ship);
               
                 }
+                if(ship is AIDrone)
+                {
+                    activeAIDroneAgentData.Add(ship);
+                }
                 break;
         }
 
@@ -147,18 +151,18 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         {
             case OwnerType.Player:
      
-                if(unit is AdditionalWeapon )
+                if(unit is Weapon )
                 {
                     if(unit._owner is PlayerShip)
                     {
                         activePlayerUnitData.Add(unit);
                         if ((unit as Weapon).intercepttype == WeaponInterceptType.Unit)
                         {
-                            activePlayerWeaponData_Unit.Add(unit as AdditionalWeapon);
+                            activePlayerWeaponData_Unit.Add(unit as Weapon);
                         }
                         if ((unit as Weapon).intercepttype == WeaponInterceptType.Other)
                         {
-                            activePlayerWeaponData_Other.Add(unit as AdditionalWeapon);
+                            activePlayerWeaponData_Other.Add(unit as Weapon);
                         }
                     }
                     if(unit._owner is PlayerDrone)
@@ -167,11 +171,11 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                         activePlayerOtherTargetData.Add(unit as IOtherTarget);
                         if ((unit as Weapon).intercepttype == WeaponInterceptType.Unit)
                         {
-                            activePlayerDroneWeaponData_Unit.Add(unit as AdditionalWeapon);
+                            activePlayerDroneWeaponData_Unit.Add(unit as Weapon);
                         }
                         if ((unit as Weapon).intercepttype == WeaponInterceptType.Other)
                         {
-                            activePlayerDroneWeaponData_Other.Add(unit as AdditionalWeapon);
+                            activePlayerDroneWeaponData_Other.Add(unit as Weapon);
                         }
                     }
                 }
@@ -183,18 +187,18 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 break;
             case OwnerType.AI:
           
-                if (unit is AdditionalWeapon)
+                if (unit is Weapon)
                 {
                     if(unit._owner is AIShip)
                     {
                         activeAIUnitData.Add(unit);
                         if((unit as Weapon).intercepttype == WeaponInterceptType.Unit)
                         {
-                            activeAIWeaponData_Unit.Add(unit as AdditionalWeapon);
+                            activeAIWeaponData_Unit.Add(unit as Weapon);
                         }
                         if ((unit as Weapon).intercepttype == WeaponInterceptType.Other)
                         {
-                            activeAIWeaponData_Other.Add(unit as AdditionalWeapon);
+                            activeAIWeaponData_Other.Add(unit as Weapon);
                         }
 
                     }
@@ -204,11 +208,11 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                         activeAIOtherTargetData.Add(unit as IOtherTarget);
                         if ((unit as Weapon).intercepttype == WeaponInterceptType.Unit)
                         {
-                            activeAIDroneWeaponData_Unit.Add(unit as AdditionalWeapon);
+                            activeAIDroneWeaponData_Unit.Add(unit as Weapon);
                         }
                         if ((unit as Weapon).intercepttype == WeaponInterceptType.Other)
                         {
-                            activeAIDroneWeaponData_Other.Add(unit as AdditionalWeapon);
+                            activeAIDroneWeaponData_Other.Add(unit as Weapon);
                         }
        
                     }
@@ -256,15 +260,15 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                     {
                         activePlayerDroneUnitData.Remove(ship.UnitList[i]);
                         activePlayerOtherTargetData.Remove(ship.UnitList[i] as IOtherTarget);
-                        if (ship.UnitList[i] is AdditionalWeapon)
+                        if (ship.UnitList[i] is Weapon)
                         {
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Unit)
                             {
-                                activePlayerDroneWeaponData_Unit.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activePlayerDroneWeaponData_Unit.Remove(ship.UnitList[i] as Weapon);
                             }
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Other)
                             {
-                                activePlayerDroneWeaponData_Other.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activePlayerDroneWeaponData_Other.Remove(ship.UnitList[i] as Weapon);
                             }
                         }
                     }
@@ -275,15 +279,15 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                     for (int i = 0; i < ship.UnitList.Count; i++)
                     {
                         activePlayerUnitData.Remove(ship.UnitList[i]);
-                        if (ship.UnitList[i] is AdditionalWeapon)
+                        if (ship.UnitList[i] is Weapon)
                         {
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Unit)
                             {
-                                activePlayerWeaponData_Unit.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activePlayerWeaponData_Unit.Remove(ship.UnitList[i] as Weapon);
                             }
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Other)
                             {
-                                activePlayerWeaponData_Other.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activePlayerWeaponData_Other.Remove(ship.UnitList[i] as Weapon);
                             }
 
                         }
@@ -302,16 +306,16 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                     {
                         activeAIDroneUnitData.Remove(ship.UnitList[i]);
                         activeAIOtherTargetData.Remove(ship.UnitList[i] as IOtherTarget);
-                        if (ship.UnitList[i] is AdditionalWeapon)
+                        if (ship.UnitList[i] is Weapon)
                         {
 
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Unit)
                             {
-                                activeAIDroneWeaponData_Unit.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activeAIDroneWeaponData_Unit.Remove(ship.UnitList[i] as Weapon);
                             }
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Other)
                             {
-                                activeAIDroneWeaponData_Other.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activeAIDroneWeaponData_Other.Remove(ship.UnitList[i] as Weapon);
                             }
                          
                         }
@@ -323,15 +327,15 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                     for (int i = 0; i < ship.UnitList.Count; i++)
                     {
                         activeAIUnitData.Remove(ship.UnitList[i]);
-                        if (ship.UnitList[i] is AdditionalWeapon)
+                        if (ship.UnitList[i] is Weapon)
                         {
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Unit)
                             {
-                                activeAIWeaponData_Unit.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activeAIWeaponData_Unit.Remove(ship.UnitList[i] as Weapon);
                             }
                             if ((ship.UnitList[i] as Weapon).intercepttype == WeaponInterceptType.Other)
                             {
-                                activeAIWeaponData_Other.Remove(ship.UnitList[i] as AdditionalWeapon);
+                                activeAIWeaponData_Other.Remove(ship.UnitList[i] as Weapon);
                             }
                         }
                         if (ship.UnitList[i] is Building)
@@ -352,25 +356,25 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         switch (type)
         {
             case OwnerType.Player:
-                if(unit is AdditionalWeapon)
+                if(unit is Weapon)
                 {
                     if(unit._owner is PlayerShip)
                     {
                         activePlayerUnitData.Remove(unit);
                         if((unit as Weapon).intercepttype == WeaponInterceptType.Unit)
                         {
-                            activePlayerWeaponData_Unit.Remove(unit as AdditionalWeapon);
+                            activePlayerWeaponData_Unit.Remove(unit as Weapon);
                         }
                         if((unit as Weapon).intercepttype == WeaponInterceptType.Other)
                         {
-                            activePlayerWeaponData_Other.Remove(unit as AdditionalWeapon);
+                            activePlayerWeaponData_Other.Remove(unit as Weapon);
                         }
                     }
                     if(unit._owner is PlayerDrone)
                     {
                         activePlayerDroneUnitData.Remove(unit);
                         activePlayerOtherTargetData.Remove(unit as IOtherTarget);
-                        activePlayerDroneWeaponData_Unit.Remove(unit as AdditionalWeapon);
+                        activePlayerDroneWeaponData_Unit.Remove(unit as Weapon);
                     }
       
                 }
@@ -382,18 +386,18 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
            
                 break;
             case OwnerType.AI:
-                if (unit is AdditionalWeapon)
+                if (unit is Weapon)
                 {
                     if(unit._owner is AIShip)
                     {
                         activeAIUnitData.Remove(unit);
-                        activeAIWeaponData_Unit.Remove(unit as AdditionalWeapon);
+                        activeAIWeaponData_Unit.Remove(unit as Weapon);
                     }
                     if(unit._owner is AIDrone)
                     {
                         activeAIDroneUnitData.Remove(unit);
                         activeAIOtherTargetData.Remove(unit as IOtherTarget);
-                        activeAIDroneWeaponData_Unit.Remove(unit as AdditionalWeapon);
+                        activeAIDroneWeaponData_Unit.Remove(unit as Weapon);
                     }
                 }
                 if (unit is Building)

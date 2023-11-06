@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3317253676089322026}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: ShipMapCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 2036907068945415827}
   - component: {fileID: 7239392672787282708}
   - component: {fileID: 7663720787589469471}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: AIDroneShip_251
-  m_TagString: Player
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 3431155977748982856}
   - component: {fileID: 4295464997389306757}
   - component: {fileID: 4423690083995952177}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3431155977828216134}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2076995559494856526}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,6 +345,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AI_DroneEngine_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503842599087372, guid: 6079338f9e9d8c84eb722a83192e45aa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503842599087372, guid: 6079338f9e9d8c84eb722a83192e45aa,
+        type: 3}
+      propertyPath: m_TagString
+      value: AI
       objectReference: {fileID: 0}
     - target: {fileID: 3976503842599087373, guid: 6079338f9e9d8c84eb722a83192e45aa,
         type: 3}
@@ -400,6 +410,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503843631033188, guid: 6079338f9e9d8c84eb722a83192e45aa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6079338f9e9d8c84eb722a83192e45aa, type: 3}
@@ -471,10 +486,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3490475669234078357, guid: a98baf0f47794fb4dace1247a157bddd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5883710716347196929, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
       propertyPath: m_Name
       value: AIDroneWeapon_2511
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883710716347196929, guid: a98baf0f47794fb4dace1247a157bddd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883710716347196929, guid: a98baf0f47794fb4dace1247a157bddd,
+        type: 3}
+      propertyPath: m_TagString
+      value: AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538040437375917277, guid: a98baf0f47794fb4dace1247a157bddd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078891172848517448, guid: a98baf0f47794fb4dace1247a157bddd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7419531427080417820, guid: a98baf0f47794fb4dace1247a157bddd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a98baf0f47794fb4dace1247a157bddd, type: 3}

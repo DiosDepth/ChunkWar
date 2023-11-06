@@ -1430,7 +1430,10 @@ MonoBehaviour:
   ShipPropertyDesc: ShipPropertyDesc_1
   ShipHardLevels: 010000000200000003000000040000000f270000
   ShipOriginPlugs: 
-  OriginUnits: []
+  OriginUnits:
+  - UnitID: 10000
+    PosX: 3
+    PosY: 3
   UpgradePropertyModifyCfg:
   - ModifyKey: 1
     Value: 1

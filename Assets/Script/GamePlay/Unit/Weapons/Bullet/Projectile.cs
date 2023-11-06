@@ -520,4 +520,9 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
     {
         return this.gameObject;
     }
+
+    public void OnUpdateBattle()
+    {
+        
+    }
 }

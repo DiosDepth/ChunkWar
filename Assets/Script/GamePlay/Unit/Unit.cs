@@ -832,6 +832,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         return this.gameObject;
     }
 
+    void IOtherTarget.OnUpdateBattle()
+    {
+        OnUpdateBattle();
+    }
+
     #endregion
 }
 

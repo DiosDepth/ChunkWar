@@ -137,7 +137,11 @@ public class UnitBaseAttribute
         }
         else if (ownerType == OwnerShipType.AIDrone)
         {
+            Range = BaseRange / 10;
+            //unit with no owner ,that means this is a dispersed unit;
 
+            mainProperty.BindPropertyChangeAction(PropertyModifyKey.EnemyHPPercent, CalculateEnemyHP);
+            CalculateEnemyHP();
         }
     }
 

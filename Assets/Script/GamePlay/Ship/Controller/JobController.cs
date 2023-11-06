@@ -295,6 +295,8 @@ public class JobController : IPauseable
             if (activeSelfWeaponData.activeWeaponList[i] is AdditionalWeapon)
             {
 
+
+                weapon = activeSelfWeaponData.activeWeaponList[i] as AdditionalWeapon;
                 startindex = 0;
                 for (int c = 0; c < i; c++)
                 {
@@ -302,7 +304,8 @@ public class JobController : IPauseable
                 }
 
 
-                weapon = activeSelfWeaponData.activeWeaponList[i] as AdditionalWeapon;
+
+
 
                 //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
                 if (weapon.weaponState.CurrentState != WeaponState.Firing && weapon.weaponState.CurrentState != WeaponState.BetweenDelay)
