@@ -447,8 +447,8 @@ MonoBehaviour:
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 3
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
@@ -471,7 +471,9 @@ MonoBehaviour:
   ShieldDamage: 150
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
+  DamageModifyFrom:
+  - PropertyKey: 16
+    Ratio: 1
   FireAudioClip: 
   FireEffect:
     EffectName: 

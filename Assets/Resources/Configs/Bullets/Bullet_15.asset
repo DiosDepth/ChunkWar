@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf801ef19417cc408769da93c0db527, type: 3}
+  m_Name: Bullet_15
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  ID: 15
+  BulletName: BaseInstanceHit_Intercept_Player
+  Type: 1
+  Owner: 1
+  Prefab: {fileID: 3574238879806340193, guid: 012486cef69973f47b3d148970430cda, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseInstanceHit_Intercept_Player
+  HitAudio: 
+  HitEffect:
+    EffectName: Hit/Eff_HitSimple
+    RandomScale: 0
+    ScaleMin: 0
+    ScaleMax: 0
+    RandomPosition: 0
+    PosRandomX: 0
+    PosRandomY: 0
+  ExplodeRange: 0
+  MaxDistance: 35
+  Width: 0.1
+  EmitTime: 0.001
+  Duration: 0.1
+  DeathTime: 0.1

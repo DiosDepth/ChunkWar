@@ -520,12 +520,12 @@ MonoBehaviour:
       Data: 
   ID: 1105
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 30d475fa5cce5e242b185b00545b2ab0, type: 3}
     Name: Unit_Name_1105
     Desc: 
     Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 8043058499239147201, guid: 9019021a245fb15439dc5561b6512e6e, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
@@ -533,20 +533,25 @@ MonoBehaviour:
   redirection: 1
   UnlockDefault: 1
   ProertyDescText: UnitEffect_1105
-  EditBrushSprite: {fileID: 0}
+  EditBrushSprite: {fileID: 21300000, guid: 30d475fa5cce5e242b185b00545b2ab0, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 64
+  ItemTags: 96
   BaseHP: 70
   BaseEnergyCost: 0
   BaseEnergyGenerate: 35
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 4
   PropertyModify: []
+  HPBarOffsetY: 0
+  HPBarHeight: 0.4
+  HPBarWidth: 3
+  BaseRange: 0
   ShieldConfig:
     GenerateShield: 0
+    ShieldPrefabName: 
     ShieldHP: 0
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0

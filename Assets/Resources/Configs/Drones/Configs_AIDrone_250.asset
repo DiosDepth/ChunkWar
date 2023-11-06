@@ -1372,7 +1372,8 @@ MonoBehaviour:
   ShipClass: 5
   Owner: 2
   PreviewWeaponID: 2501
-  HardLevelID: 1
+  HardLevelGroupID: 0
+  EnmeyATKBase: 0
   MaxVelocity: 50
   MaxAcceleration: 8
   MaxAngularAcceleration: 6

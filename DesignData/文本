@@ -49,3 +49,9 @@ ShipSliderProperty_Desc_Energy
 	装备在舰船上的装备均会产生能源消耗，能源消耗<color=#09B3CB>大于100%</color>时会产生负面效果，可以通过<color=#09B3CB>插件效果</color>或增设<color=#09B3CB>反应堆</color>来提高能源负载上限。
 ShipSliderProperty_Desc_Load
 	位于货仓中的装备以及舰船上的装备均会产生一定的负载，负载<color=#09B3CB>大于100%</color>时会产生负面效果，可以通过<color=#09B3CB>插件效果</color>或增设<color=#09B3CB>货仓</color>来提高能源负载上限。
+
+
+UnitEffect_1115			每<color=#EF3E3E>5</color>秒消耗<color=#EF3E3E>1</color>点残骸
+UnitEffect_1116			每<color=#EF3E3E>6</color>秒消耗<color=#EF3E3E>1</color>点残骸
+
+Weapon_Effect_10035		可拦截敌方导弹与无人机

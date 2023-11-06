@@ -364,3 +364,55 @@ MonoBehaviour:
     ChineseSimplified: "\u5B88\u62A4\u8005\u673A\u5E93"
     English: 
     Japanese: 
+  - TextID: Unit_Name_1000
+    ChineseSimplified: "\u5C0F\u578B\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1001
+    ChineseSimplified: "\u5C0F\u578B\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1002
+    ChineseSimplified: "\u5C0F\u578B\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1005
+    ChineseSimplified: "\u4E2D\u578B\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1006
+    ChineseSimplified: "\u4E2D\u578B\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1115
+    ChineseSimplified: "\u6BCF<color=#EF3E3E>5</color>\u79D2\u6D88\u8017<color=#EF3E3E>1</color>\u70B9\u6B8B\u9AB8"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1116
+    ChineseSimplified: "\u6BCF<color=#EF3E3E>6</color>\u79D2\u6D88\u8017<color=#EF3E3E>1</color>\u70B9\u6B8B\u9AB8"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1155
+    ChineseSimplified: "\u4E2D\u578B\u8D27\u4ED3"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1156
+    ChineseSimplified: "\u4E2D\u578B\u8D27\u4ED3"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Effect_10035
+    ChineseSimplified: "\u53EF\u62E6\u622A\u654C\u65B9\u5BFC\u5F39\u4E0E\u65E0\u4EBA\u673A"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Effect_10036
+    ChineseSimplified: "\u53EF\u62E6\u622A\u654C\u65B9\u5BFC\u5F39\u4E0E\u65E0\u4EBA\u673A"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Effect_10040
+    ChineseSimplified: "\u53EF\u62E6\u622A\u654C\u65B9\u5BFC\u5F39\u4E0E\u65E0\u4EBA\u673A"
+    English: 
+    Japanese: 
+  - TextID: Weapon_Effect_10041
+    ChineseSimplified: "\u53EF\u62E6\u622A\u654C\u65B9\u5BFC\u5F39\u4E0E\u65E0\u4EBA\u673A"
+    English: 
+    Japanese: 

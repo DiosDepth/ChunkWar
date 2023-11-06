@@ -1417,7 +1417,7 @@ MonoBehaviour:
   EnemyCountModify: 1
   MaxVelocity: 25
   MaxAcceleration: 5
-  MaxAngularAcceleration: 3
+  MaxAngularAcceleration: 2
   MaxAngularVelocity: 1
   boidRadius: 2
   targetSerchingRadius: 20

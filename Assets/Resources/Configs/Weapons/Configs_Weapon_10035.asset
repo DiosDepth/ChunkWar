@@ -425,9 +425,9 @@ MonoBehaviour:
       Data: 
   ID: 10035
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: e5bb6f938958fdc42a88c14842b49c67, type: 3}
+    IconSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
     Name: Weapon_Name_10035
-    Desc: Weapon_Desc_10035
+    Desc: 
     Rarity: 0
     SortingOrder: 0
   Prefab: {fileID: 5883710716347196929, guid: 12d4bbed5ee7ec24387016b835887da0, type: 3}
@@ -437,7 +437,7 @@ MonoBehaviour:
   GroupID: 0
   redirection: 0
   UnlockDefault: 1
-  ProertyDescText: 
+  ProertyDescText: Weapon_Effect_10035
   EditBrushSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
@@ -447,8 +447,8 @@ MonoBehaviour:
   BaseEnergyCost: 8
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 3
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
@@ -462,9 +462,9 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 5
   CriticalDamage: 150
-  TotalDamageCount: 8
+  TotalDamageCount: 4
   ShootPerCount: 1
-  CanModifyDamageCount: 0
+  CanModifyDamageCount: 1
   CD: 4
   FireCD: 0.15
   ShieldTransfixion: 0

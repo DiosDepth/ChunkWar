@@ -426,7 +426,7 @@ MonoBehaviour:
   ID: 11002
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: 9eca52e69cc975c4091bbf7c4bdd6e8f, type: 3}
-    Name: PlayerDrone_Name_11005
+    Name: PlayerDrone_Name_11002
     Desc: 
     Rarity: 2
     SortingOrder: 0
@@ -447,13 +447,13 @@ MonoBehaviour:
   BaseEnergyCost: 30
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 4
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 150
+  BaseRange: 300
   ShieldConfig:
     GenerateShield: 0
     ShieldPrefabName: 

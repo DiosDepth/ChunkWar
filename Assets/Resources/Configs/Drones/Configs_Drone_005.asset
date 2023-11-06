@@ -1371,8 +1371,9 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   ShipClass: 5
   Owner: 1
-  PreviewWeaponID: 0
-  HardLevelID: 0
+  PreviewWeaponID: 20005
+  HardLevelGroupID: 0
+  EnmeyATKBase: 0
   MaxVelocity: 50
   MaxAcceleration: 8
   MaxAngularAcceleration: 6

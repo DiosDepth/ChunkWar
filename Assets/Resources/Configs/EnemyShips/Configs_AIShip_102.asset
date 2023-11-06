@@ -1415,9 +1415,9 @@ MonoBehaviour:
   HardLevelGroupID: 1
   SectorThreadValue: 3
   EnemyCountModify: 1
-  MaxVelocity: 10
-  MaxAcceleration: 1
-  MaxAngularAcceleration: 3
+  MaxVelocity: 20
+  MaxAcceleration: 2
+  MaxAngularAcceleration: 1.5
   MaxAngularVelocity: 1
   boidRadius: 2
   targetSerchingRadius: 25

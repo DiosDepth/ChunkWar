@@ -1060,7 +1060,7 @@ MonoBehaviour:
   - {fileID: 7608658188462933578}
   StringsBanks:
   - {fileID: 1227211710014248362}
-  cacheTime: 638348123774134739
+  cacheTime: 638347093812560266
   cacheVersion: 131608
 --- !u!114 &629929198641315281
 MonoBehaviour:
@@ -1077,7 +1077,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638336069774388184
+  lastModified: 638335709887689524
   FileSizes: []
   Exists: 1
 --- !u!114 &1030726374207204599
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638348123774094873
+  lastModified: 638347093810392609
   FileSizes:
   - Name: 
     Value: 3000
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Ship.bank
   Name: Ship
   StudioPath: bank:/Ship
-  lastModified: 638336069774631755
+  lastModified: 638335733686630251
   FileSizes: []
   Exists: 1
 --- !u!114 &1592264612151453424
@@ -1431,7 +1431,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/UI
-  lastModified: 638348123774134739
+  lastModified: 638347093812560266
   FileSizes: []
   Exists: 1
 --- !u!114 &5084095035335514901
@@ -1494,7 +1494,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638348123774094873
+  lastModified: 638343857352658299
   FileSizes: []
   Exists: 1
 --- !u!114 &5521309929055001432
@@ -1674,7 +1674,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638336069774612524
+  lastModified: 638347093810382666
   FileSizes: []
   Exists: 1
 --- !u!114 &8280454677774467645

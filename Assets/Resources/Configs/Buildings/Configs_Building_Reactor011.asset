@@ -425,12 +425,12 @@ MonoBehaviour:
       Data: 
   ID: 1111
   GeneralConfig:
-    IconSprite: {fileID: 0}
+    IconSprite: {fileID: 21300000, guid: 4e303ef11a7c7af4cb4b3fe9392e001d, type: 3}
     Name: Unit_Name_1111
     Desc: 
     Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 8043058499239147201, guid: 52c3f08b61ec83c48ba55116ffc0b10b, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
@@ -438,17 +438,17 @@ MonoBehaviour:
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
-  EditBrushSprite: {fileID: 0}
+  EditBrushSprite: {fileID: 21300000, guid: 4e303ef11a7c7af4cb4b3fe9392e001d, type: 3}
   EditorBrushDefaultRotation: 0
-  CorsorOffsetX: 0
-  CorsorOffsetY: 0
-  ItemTags: 64
-  BaseHP: 60
+  CorsorOffsetX: 0.5
+  CorsorOffsetY: 0.5
+  ItemTags: 96
+  BaseHP: 250
   BaseEnergyCost: 0
   BaseEnergyGenerate: 120
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 5
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4

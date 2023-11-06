@@ -447,13 +447,13 @@ MonoBehaviour:
   BaseEnergyCost: 30
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 4
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 150
+  BaseRange: 300
   ShieldConfig:
     GenerateShield: 0
     ShieldPrefabName: 
