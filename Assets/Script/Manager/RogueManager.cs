@@ -464,6 +464,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         InitRandomEliteSpawn();
         InitWreckageData();
         InitShopData();
+        InitShipLevelUpItems();
         InitAllGoodsItems();
         InitModifyPlugTagWeight();
         ///InitPlugs
@@ -528,7 +529,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CurrentShipLevelUpItems = new List<ShipLevelUpItem>();
         _entitySpawnConfig = DataManager.Instance.battleCfg.EntitySpawnConfig;
         GameManager.Instance.RegisterPauseable(this);
-        InitShipLevelUpItems();
     }
 
     /// <summary>
@@ -2618,6 +2618,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             if (CurrentCurrency < CurrentLevelUpitemRerollCost)
                 return;
 
+            CurrentLevelUpItemRerollCount++;
             AddCurrency(-CurrentLevelUpitemRerollCost);
         }
         else
@@ -2626,7 +2627,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             CurrentLevelUpItemRerollCount = 0;
         }
 
-        CurrentLevelUpItemRerollCount++;
         var randomCount = DataManager.Instance.battleCfg.ShipLevelUp_GrowthItem_Count;
         CurrentShipLevelUpItems = GenerateUpgradeItem(randomCount);
         RefreshCurrentLevelUpRerollCost();
