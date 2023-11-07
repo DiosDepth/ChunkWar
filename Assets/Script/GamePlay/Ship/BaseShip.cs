@@ -46,7 +46,7 @@ public struct ShipStateEvent
 }
 
 [ShowOdinSerializedPropertiesInInspector]
-public class BaseShip : MonoBehaviour, IPauseable
+public class BaseShip : MonoBehaviour, IPauseable,IGame
 {
     /// <summary>
     /// ID

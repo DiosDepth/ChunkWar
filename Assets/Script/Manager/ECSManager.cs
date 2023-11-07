@@ -561,6 +561,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
     public virtual void GameOverProjectile()
     {
+   
         for (int i = 0; i < activeAIProjectileData.activeProjectileList.Count; i++)
         {
             activeAIProjectileData.activeProjectileList[i]?.GameOver();
@@ -593,6 +594,29 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         }
     }
 
+    public virtual void GameOverDrone()
+    {
+        for (int i = 0; i < activeAIDroneAgentData.shipList.Count; i++)
+        {
+            var ship = activeAIAgentData.shipList[i];
+            for (int n = 0; n < ship.UnitList.Count; n++)
+            {
+                ship.UnitList[n]?.GameOver();
+            }
+            ship.GameOver();
+        }
+
+        for (int i = 0; i < activePlayerDroneAgentData.shipList.Count; i++)
+        {
+            var ship = activePlayerDroneAgentData.shipList[i];
+            for (int n = 0; n < ship.UnitList.Count; n++)
+            {
+                ship.UnitList[n]?.GameOver();
+            }
+            ship.GameOver();
+        }
+    }
+
 
 
     public virtual void GameOver()
@@ -600,6 +624,7 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
         SetProcessECS(false);
         GameOverProjectile();
         GameOverAgent();
+        GameOverDrone();
         UnLoad();
     }
     public void PauseGame()

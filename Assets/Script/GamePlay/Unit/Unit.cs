@@ -18,7 +18,7 @@ public struct UnitTargetJobData : IComparable<UnitTargetJobData>
         return distanceToTarget.CompareTo(other.distanceToTarget);
     }
 }
-public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOtherTarget
+public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOtherTarget,IGame
 {
     public int UnitID;
     /// <summary>
@@ -198,7 +198,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         ///Remove Owner
         _owner.RemoveUnit(this);
         SetDisable();
-
+ 
         if (!ownerDeath)
         {
             EffectManager.Instance.CreateEffect(deathVFXName, transform.position);
@@ -222,18 +222,20 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         if (_owner is AIShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
+            SetUnitProcess(true);
             //AIManager.Instance.AddSingleUnit(this);
         }
-        if (_owner is PlayerShip || _owner is BaseDrone)
+        if (_owner is PlayerShip)
         {
             ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
+            SetUnitProcess(true);
             //AIManager.Instance.AddTargetUnit(this);
             //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
-    
         }
+
         ChangeUnitState(DamagableState.Normal);
         HpComponent.RecoverHPToMax();
-        SetUnitProcess(true);
+     
     }
 
     protected virtual void OnDestroy()

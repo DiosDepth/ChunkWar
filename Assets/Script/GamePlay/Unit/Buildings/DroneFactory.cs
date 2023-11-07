@@ -416,7 +416,7 @@ public class DroneFactory : Building
             _launchedList.Remove(drone);
         if (_callbackList.Contains(drone))
             _callbackList.Remove(drone);
-        drone.transform.SetParent(repairingGroup);
+         drone.transform.SetParent(repairingGroup);
 
         if (_owner is PlayerShip)
         {
@@ -430,7 +430,7 @@ public class DroneFactory : Building
     }
     public virtual void RepairDrone()
     {
-        if(_repairQueue == null || _repairQueue.Count == 0) { return; }
+        if(_repairingDrone == null &&(_repairQueue == null || _repairQueue.Count == 0)) { return; }
    
         if(!_isRepairing)
         {
@@ -438,12 +438,15 @@ public class DroneFactory : Building
             _isRepairing = true;
         }
         if(_repairingDrone == null) { return; }
-        _repairTimeCounter -= Time.deltaTime;
+        _repairTimeCounter -= Time.deltaTime; 
         if(_repairTimeCounter <= 0)
         {
             _repairingDrone.Repair();
             _repairingDrone.transform.SetParent(apronGroup);
+            _apronQueue.Enqueue(_repairingDrone);
+            _repairingDrone = null;
             _repairTimeCounter = factoryAttribute.RepairTime;
+            _isRepairing = false;
         }
 
 

@@ -141,7 +141,7 @@ public class BaseDrone : BaseShip, IPoolable
     
     public virtual void Launch()
     {
-
+        
         PoolableSetActive(true);
     }
     public virtual void Landing()
@@ -161,9 +161,18 @@ public class BaseDrone : BaseShip, IPoolable
     public virtual void Repair()
     {
         baseDroneState.ChangeState(DroneState.Ready);
+        _unitList = buildingsParent.GetComponentsInChildren<Unit>(true).ToList<Unit>();
         for (int i = 0; i < _unitList.Count; i++)
         {
-            _unitList[i].Restore();
+            var unit = _unitList[i];
+            //unit.gameObject.SetActive(true);
+
+            unit.Restore();
+            //unit.SetUnitProcess(true);
+            if (unit.IsCoreUnit)
+            {
+                CoreUnits.Add(unit);
+            }
         }
         
         PoolableSetActive(false);

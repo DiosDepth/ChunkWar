@@ -37,7 +37,7 @@ public class InstanceHit : Bullet
 
     public override void Shoot()
     {
-        PoolableSetActive();
+       PoolableSetActive();
         //tempFalloff = (_owner as Weapon).weaponAttribute.TransfixionReduce / 100f;
         switch ((_owner as Weapon).aimingtype)
         {
