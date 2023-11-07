@@ -220,8 +220,8 @@ public class ShopGoodsInfo : RandomObject
         shopPriceFinal = Mathf.Clamp(shopPriceFinal, -100f, float.MaxValue);
 
         var basePrice = _cfg.CostBase;
-        var currentWave = RogueManager.Instance.GetCurrentWaveIndex;
-        var price = (basePrice + (currentWave * basePrice * 0.1f)) * (1 + shopPriceFinal / 100f);
+        var currentShopEnterCount = RogueManager.Instance.GetShopEnterTotalCount;
+        var price = (basePrice + currentShopEnterCount + (currentShopEnterCount * basePrice * 0.1f)) * (1 + shopPriceFinal / 100f);
         var disCountPercent = (100 - DiscountValue) / 100f;
         price *= disCountPercent;
         price = Mathf.Clamp(price, 1f, price);

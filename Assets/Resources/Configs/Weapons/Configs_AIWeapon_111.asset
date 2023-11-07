@@ -465,7 +465,7 @@ MonoBehaviour:
   TotalDamageCount: 2
   ShootPerCount: 2
   CanModifyDamageCount: 0
-  CD: 8
+  CD: 6
   FireCD: 0.3
   ShieldTransfixion: 0
   ShieldDamage: 100

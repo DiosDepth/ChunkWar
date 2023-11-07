@@ -85,6 +85,8 @@ public class ShopHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<Sh
         {
             case RogueEventType.CurrencyChange:
                 RefreshCurrency();
+                RefreshAllShopItemCost();
+                RefreshReroll();
                 break;
 
             case RogueEventType.ShopReroll:

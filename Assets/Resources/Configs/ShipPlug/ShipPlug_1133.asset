@@ -39,6 +39,9 @@ MonoBehaviour:
     - Name: SelfUnique
       Entry: 5
       Data: false
+    - Name: RemoveIfTriggerCountReach
+      Entry: 5
+      Data: true
     - Name: UsePercent
       Entry: 5
       Data: true
@@ -89,10 +92,10 @@ MonoBehaviour:
       Data: 
     - Name: UseSpecialShopItemID
       Entry: 5
-      Data: false
+      Data: true
     - Name: ShopItemID
       Entry: 3
-      Data: 0
+      Data: 1133
     - Name: 
       Entry: 8
       Data: 

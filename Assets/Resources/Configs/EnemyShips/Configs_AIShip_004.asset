@@ -1420,7 +1420,7 @@ MonoBehaviour:
   MaxAngularAcceleration: 1
   MaxAngularVelocity: 1
   boidRadius: 1
-  targetSerchingRadius: 25
+  targetSerchingRadius: 70
   ArrivalRadius: 35
   SlotRadius: 5
   DieAudio: 

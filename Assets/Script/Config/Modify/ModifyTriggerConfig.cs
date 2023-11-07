@@ -29,6 +29,11 @@ public abstract class ModifyTriggerConfig
     [LabelWidth(80)]
     public bool SelfUnique;
 
+    [HorizontalGroup("AA", 200)]
+    [LabelText("触发次数用完是否移除")]
+    [LabelWidth(150)]
+    public bool RemoveIfTriggerCountReach;
+
     [HorizontalGroup("AA", 120)]
     [LabelText("概率触发")]
     [LabelWidth(80)]

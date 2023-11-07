@@ -147,6 +147,7 @@ public class PlayerShip : BaseShip
         CreateShip();
         InitShipClass();
         ActiveShipUnit();
+        RogueManager.Instance.InitGlobalModifySpecialDatas();
         ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
     }
 
