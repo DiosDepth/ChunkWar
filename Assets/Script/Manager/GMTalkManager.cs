@@ -85,6 +85,11 @@ public class GMTalkManager : Singleton<GMTalkManager>
         {
             SwicthGMPage();
         }
+        else if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+        {
+            ///一键杀敌
+            KillAllEnemy();
+        }
     }
 
     public void SwicthGMPage()
@@ -293,6 +298,21 @@ public class GMTalkManager : Singleton<GMTalkManager>
     }
 
     #endregion
+
+    private void KillAllEnemy()
+    {
+        var allEnemy = ECSManager.Instance.activeAIAgentData.shipList;
+        for(int i = allEnemy.Count - 1; i >= 0; i--)
+        {
+            allEnemy[i].ForceKill();
+        }
+
+        var allEnemyDrone = ECSManager.Instance.activeAIDroneAgentData.shipList;
+        for(int i = allEnemyDrone.Count - 1;i >= 0; i--)
+        {
+            allEnemyDrone[i].ForceKill();
+        }
+    }
 
     public void CloseGMTalkPage()
     {

@@ -528,6 +528,13 @@ public abstract class ModifyTriggerData : IPropertyModify
                 currentTriggerCount++;
             }
         }
+
+        ///如果次数用完，触发remove
+        if(Config.RemoveIfTriggerCountReach && Config.TriggerCount > 0 && currentTriggerCount >= Config.TriggerCount)
+        {
+            OnTriggerRemove();
+        }
+
         return true;
     
     }

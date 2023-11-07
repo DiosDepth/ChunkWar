@@ -45,6 +45,9 @@ public enum PropertyModifyKey
     /// 经验额外获得百分比
     /// </summary>
     EXPAddPercent,
+    /// <summary>
+    /// 废弃
+    /// </summary>
     CurrencyAddPercent,
     /// <summary>
     /// 暴击伤害增加

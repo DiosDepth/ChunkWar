@@ -243,6 +243,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 商店进入总次数
     /// </summary>
     private byte _shopRefreshTotalCount = 0;
+    public byte GetShopEnterTotalCount
+    {
+        get { return _shopTotalEnterCount; }
+    }
     /// <summary>
     /// 商店免费刷新次数
     /// </summary>
@@ -464,6 +468,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         InitRandomEliteSpawn();
         InitWreckageData();
         InitShopData();
+        InitShipLevelUpItems();
         InitAllGoodsItems();
         InitModifyPlugTagWeight();
         ///InitPlugs
@@ -514,7 +519,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         goodsItems.Clear();
         _extraSpawnConfig.Clear();
         MainPropertyData.BindRowPropertyChangeAction(PropertyModifyKey.ShopFreeRollCount, OnShopFreeRollCountChange);
-        InitEnergyAndWreckageCommonBuff();
     }
 
     public override void Initialization()
@@ -528,7 +532,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CurrentShipLevelUpItems = new List<ShipLevelUpItem>();
         _entitySpawnConfig = DataManager.Instance.battleCfg.EntitySpawnConfig;
         GameManager.Instance.RegisterPauseable(this);
-        InitShipLevelUpItems();
     }
 
     /// <summary>
@@ -602,10 +605,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <param name="value"></param>
     public void AddCurrency(float value)
     {
-        var currencyGainAdd = MainPropertyData.GetPropertyFinal(PropertyModifyKey.CurrencyAddPercent);
-
         var oldValue = _playerCurrency.Value;
-        var newValue = oldValue + (value * (1 + currencyGainAdd / 100f));
+        var newValue = oldValue + value;
         _playerCurrency.Set(newValue);
     }
 
@@ -944,7 +945,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
         ///Calculate Waste
         WreckageTotalLoadCost += GetDropWasteLoad;
-        OnWreckageLoadPercentChange?.Invoke(WreckageLoadPercent * 100);
+        OnWreckageLoadPercentChange?.Invoke(WreckageLoadPercent);
         ShipPropertyEvent.Trigger(ShipPropertyEventType.WreckageLoadChange);
     }
 
@@ -1861,20 +1862,25 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <summary>
     /// 初始化超载和能源负载BUFF
     /// </summary>
-    private void InitEnergyAndWreckageCommonBuff()
+    public void InitGlobalModifySpecialDatas()
     {
+        globalModifySpecialDatas.ForEach(x => x.OnRemove());
+        globalModifySpecialDatas.Clear();
+
         var energyBuff = DataManager.Instance.gameMiscCfg.EnergyOverloadBuff;
         var wreckageBuff = DataManager.Instance.gameMiscCfg.WreckageOverloadBuff;
 
         for(int i = 0; i < energyBuff.Length; i++)
         {
             PropertyModifySpecialData data = new PropertyModifySpecialData(energyBuff[i], GameGlobalConfig.PropertyModifyUID_EnergyOverload_GlobalBuff);
+            data.HandlePropetyModifyBySpecialValue();
             globalModifySpecialDatas.Add(data);
         }
 
         for(int i = 0; i < wreckageBuff.Length; i++)
         {
             PropertyModifySpecialData data = new PropertyModifySpecialData(wreckageBuff[i], GameGlobalConfig.PropertyModifyUID_WreckageOverload_GlobalBuff);
+            data.HandlePropetyModifyBySpecialValue();
             globalModifySpecialDatas.Add(data);
         }
     }
@@ -2036,16 +2042,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     /// <param name="goodsID"></param>
     /// <returns></returns>
-    public byte GetCurrentPlugCount(int plugID)
+    public int GetCurrentPlugCount(int plugID)
     {
-        byte count = 0;
-        for(int i = 0; i < AllCurrentShipPlugs.Count; i++)
-        {
-            var id = AllCurrentShipPlugs[i].PlugID;
-            if (id == plugID)
-                count++;
-        }
-        return count;
+        return AllCurrentShipPlugs.FindAll(x => x.PlugID == plugID).Count;
     }
 
     /// <summary>
@@ -2093,7 +2092,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
                 {
                     var currentCount = GetCurrentPlugCount(goods._cfg.TypeID);
                     var currentRandomPoolCount = result.FindAll(x => x.GoodsID == goods.GoodsID).Count;
-                    if(currentCount + currentRandomPoolCount + 1 >= goods._cfg.MaxBuyCount)
+                    if(currentCount + currentRandomPoolCount >= goods._cfg.MaxBuyCount)
                     {
                         allVaild.Remove(goods);
                     }
@@ -2618,6 +2617,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             if (CurrentCurrency < CurrentLevelUpitemRerollCost)
                 return;
 
+            CurrentLevelUpItemRerollCount++;
             AddCurrency(-CurrentLevelUpitemRerollCost);
         }
         else
@@ -2626,7 +2626,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             CurrentLevelUpItemRerollCount = 0;
         }
 
-        CurrentLevelUpItemRerollCount++;
         var randomCount = DataManager.Instance.battleCfg.ShipLevelUp_GrowthItem_Count;
         CurrentShipLevelUpItems = GenerateUpgradeItem(randomCount);
         RefreshCurrentLevelUpRerollCost();
