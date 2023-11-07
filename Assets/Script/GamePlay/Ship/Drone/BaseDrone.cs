@@ -59,6 +59,17 @@ public class BaseDrone : BaseShip, IPoolable
     public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
+        OnDeath();
+    }
+
+    public override void ForceKill()
+    {
+        base.ForceKill();
+        OnDeath();
+    }
+
+    private void OnDeath()
+    {
         if (!string.IsNullOrEmpty(droneCfg.DieAudio))
         {
             SoundManager.Instance.PlayBattleSound(droneCfg.DieAudio, transform);
@@ -66,7 +77,6 @@ public class BaseDrone : BaseShip, IPoolable
         //ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
         EffectManager.Instance.CreateEffect(droneCfg.DeathEffect, transform.position);
     }
-
 
     public override void CreateShip()
     {

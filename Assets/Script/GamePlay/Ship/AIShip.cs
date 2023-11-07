@@ -42,6 +42,17 @@ public class AIShip : BaseShip,IPoolable, IDropable
     public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
+        OnDeath();
+    }
+
+    public override void ForceKill()
+    {
+        base.ForceKill();
+        OnDeath();
+    }
+
+    private void OnDeath()
+    {
         OnRemove();
         LevelManager.Instance.pickupList.AddRange(Drop());
         if (!string.IsNullOrEmpty(AIShipCfg.DieAudio))

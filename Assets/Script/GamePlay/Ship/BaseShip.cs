@@ -258,6 +258,21 @@ public class BaseShip : MonoBehaviour, IPauseable
         ShipStateEvent.Trigger(this, info, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
     }
 
+    /// <summary>
+    /// «ø÷∆À¿Õˆ
+    /// </summary>
+    public virtual void ForceKill()
+    {
+        UnitDeathInfo info = new UnitDeathInfo
+        {
+            isCriticalKill = false
+        };
+        GameManager.Instance.UnRegisterPauseable(this);
+        conditionState.ChangeState(ShipConditionState.Death);
+        ShipStateEvent.Trigger(this, info, movementState.CurrentState, conditionState.CurrentState, this is PlayerShip);
+    }
+
+
     public virtual void InitProperty()
     {
 
