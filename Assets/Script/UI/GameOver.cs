@@ -89,7 +89,7 @@ public class GameOver : GUIBasePanel
             PoolManager.Instance.GetObjectSync(SlotPrefabPath, true, (obj) =>
             {
                 var cmpt = obj.transform.SafeGetComponent<GeneralPreviewItemSlot>();
-                cmpt.SetUp(GoodsItemType.ShipUnit, allUnits[i].UnitID);
+                cmpt.SetUp(GoodsItemType.ShipUnit, allUnits[i].UnitID, allUnits[i].UID);
                 _items.Add(cmpt);
             }, _unitContentTrans);
         }
@@ -100,7 +100,7 @@ public class GameOver : GUIBasePanel
             PoolManager.Instance.GetObjectSync(SlotPrefabPath, true, (obj) =>
             {
                 var cmpt = obj.transform.SafeGetComponent<GeneralPreviewItemSlot>();
-                cmpt.SetUp(GoodsItemType.ShipPlug, allPlugs[i].PlugID);
+                cmpt.SetUp(GoodsItemType.ShipPlug, allPlugs[i].PlugID, allPlugs[i].UID);
                 _items.Add(cmpt);
             }, _plugContentTrans);
         }

@@ -13,6 +13,10 @@ public class UnitDetailHover : DetailHoverItemBase
 {
     private TextMeshProUGUI _energyCostText;
     private TextMeshProUGUI _loadCostText;
+    private TextMeshProUGUI _damage_Total_CurrentText;
+    private TextMeshProUGUI _damage_TotalText;
+
+    private uint _itemUID = 0;
 
     protected override void Awake()
     {
@@ -20,11 +24,14 @@ public class UnitDetailHover : DetailHoverItemBase
         
         _energyCostText = _contentRect.Find("Content/Energy/EnergyValue").SafeGetComponent<TextMeshProUGUI>();
         _loadCostText = _contentRect.Find("Content/Load/LoadValue").SafeGetComponent<TextMeshProUGUI>();
+        _damage_Total_CurrentText = _damageInfoRoot.Find("CurrentDamage/Value").SafeGetComponent<TextMeshProUGUI>();
+        _damage_TotalText = _damageInfoRoot.Find("TotalDamage/Value").SafeGetComponent<TextMeshProUGUI>();
     }
 
     public override void Initialization(params object[] param)
     {
-        base.Initialization(param);
+        _itemUID = (uint)param[1];
+        base.Initialization(param); 
     }
 
     public override void Update()
@@ -68,8 +75,34 @@ public class UnitDetailHover : DetailHoverItemBase
 
         SetUpUintInfo(unitCfg);
         SetUpItemTag(unitCfg);
-
+        SetUpDamageInfo(unitCfg);
         base.SetUp(unitID, updatePosition);
+    }
+
+    public override void PoolableReset()
+    {
+        base.PoolableReset();
+        _itemUID = 0;
+    }
+
+    private void SetUpDamageInfo(BaseUnitConfig _unitCfg)
+    {
+        bool enable = false;
+        if(_unitCfg.unitType == UnitType.MainWeapons || _unitCfg.unitType == UnitType.Weapons)
+        {
+            enable = true;
+        }
+
+        _damageInfoRoot.SafeSetActive(enable);
+        if (!enable)
+            return;
+
+        if (_itemUID == 0)
+            return;
+
+        var itemData = AchievementManager.Instance.GetOrCreateRuntimeUnitStatisticsData(_itemUID);
+        _damage_Total_CurrentText.text = itemData.GetWaveDamageCurrent().ToString();
+        _damage_TotalText.text = itemData.DamageCreateTotal.ToString();
     }
    
 }

@@ -455,3 +455,11 @@ MonoBehaviour:
     ChineseSimplified: "\u83B7\u5F97\u8230\u8239\u88C5\u5907"
     English: 
     Japanese: 
+  - TextID: Unit_Detail_Title_CurrentWave_Damage
+    ChineseSimplified: "\u5F53\u524D\u6CE2\u6B21\u4F24\u5BB3"
+    English: 
+    Japanese: 
+  - TextID: Unit_Detail_Title_Total_Damage
+    ChineseSimplified: "\u7D2F\u8BA1\u4F24\u5BB3"
+    English: 
+    Japanese: 

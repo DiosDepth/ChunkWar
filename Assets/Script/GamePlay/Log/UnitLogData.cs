@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CSVTag("战斗信息导出")]
-[CSVComment("备注")]
+[CSVTag("Battle Log Export Data")]
+[CSVComment("Comment")]
 public class BattleLog
 {
-    [CSVTag("开始时间")]
+    [CSVTag("Start_System_Time")]
     public string StartTime { get; set; }
-    [CSVTag("结束时间")]
+    [CSVTag("End_System_Time")]
     public string EndTime { get; set; }
 
-    [CSVTag("玩家装备信息")]
+    [CSVTag("Player Equipment Info")]
     public List<UnitLogData> UnitLogDatas { get; set; }
 
 }
@@ -24,18 +24,18 @@ public class UnitLogData
     [CSVTag("UID")]
     public uint UID { get; set; }
 
-    [CSVTag("名称")]
+    [CSVTag("Unit_Name")]
     public string UnitName { get; set; }
 
-    [CSVTag("创建波次")]
+    [CSVTag("Create_Wave")]
     public int CreateWave { get; set; }
 
-    [CSVTag("移除波次")]
+    [CSVTag("Remov_Wave")]
     public int RemoveWave { get; set; }
 
-    [CSVTag("累积伤害")]
+    [CSVTag("Total_Damage")]
     public int DamageCreateTotal { get; set; }
 
-    [CSVTag("累积承受伤害")]
+    [CSVTag("Total_Damage_Take")]
     public int DamageTakeTotal { get; set; }
 }

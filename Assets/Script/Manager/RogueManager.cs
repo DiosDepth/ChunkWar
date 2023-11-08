@@ -2953,12 +2953,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var unitLogDatas = currentShip.GenerateAllUnitLogData();
         log.UnitLogDatas = unitLogDatas;
 
-#if UNITY_EDITOR
         var fileName = string.Format("BattleLog_{0}", log.EndTime);
 
         DataManager.WriteCSV(fileName, log);
         Debug.Log("导出战斗日志成功");
-#endif
 
     }
 

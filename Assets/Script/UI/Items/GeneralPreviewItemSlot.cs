@@ -18,6 +18,7 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
     private bool useUnlockType = false;
 
     private int itemID;
+    private uint _itemUID;
 
     private DetailHoverItemBase _hoverItem;
     private bool _isHide = false;
@@ -28,10 +29,11 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
         transform.SafeGetComponent<GeneralHoverItemControl>().item = this;
     }
 
-    public void SetUp(GoodsItemType type, int itemID)
+    public void SetUp(GoodsItemType type, int itemID, uint itemUID)
     {
         this.itemType = type;
         this.itemID = itemID;
+        this._itemUID = itemUID;
 
         Sprite icon = null;
         Sprite frameBG = null;
@@ -115,7 +117,7 @@ public class GeneralPreviewItemSlot : MonoBehaviour, IHoverUIItem, IPoolable
         {
             UIManager.Instance.CreatePoolerUI<UnitDetailHover>("UnitDetailHover", true, E_UI_Layer.Top, null, (panel) =>
             {
-                panel.Initialization(itemID);
+                panel.Initialization(itemID, _itemUID);
                 _hoverItem = panel;
             });
         } 

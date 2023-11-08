@@ -48,7 +48,7 @@ public class BattleGainSettleDialog : GUIBasePanel
             PoolManager.Instance.GetObjectSync(SlotPrefabPath, true, (obj) =>
             {
                 var cmpt = obj.transform.SafeGetComponent<GeneralPreviewItemSlot>();
-                cmpt.SetUp(GoodsItemType.ShipUnit, wreckageInfo.UnitID);
+                cmpt.SetUp(GoodsItemType.ShipUnit, wreckageInfo.UnitID, 0);
                 cmpt.SetHide();
                 _slotItems.Add(cmpt);
             }, _contentTrans);

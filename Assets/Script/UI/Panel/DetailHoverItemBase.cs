@@ -12,6 +12,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
     private Transform _unitInfoRoot;
     private Transform _propertyModifyRoot;
     private Transform _droneFactoryRoot;
+    protected Transform _damageInfoRoot;
     private RectTransform _tagRoot;
 
     protected Image _icon;
@@ -41,6 +42,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
         _contentRect = transform.Find("Content").SafeGetComponent<RectTransform>();
         _droneFactoryRoot = _contentRect.Find("DroneInfo");
         _unitInfoRoot = _contentRect.Find("UnitInfo");
+        _damageInfoRoot = _contentRect.Find("DamageInfo");
         _tagRoot = _contentRect.Find("Info/Detail/TypeInfo").SafeGetComponent<RectTransform>();
         _propertyModifyRoot = _contentRect.Find("PropertyModify");
         _icon = _contentRect.Find("Info/Icon/Image").SafeGetComponent<Image>();
@@ -88,7 +90,7 @@ public class DetailHoverItemBase : GUIBasePanel, IPoolable, IUIHoverPanel
         UIManager.Instance.BackPoolerUI(transform.name, gameObject);
     }
 
-    public void PoolableReset()
+    public virtual void PoolableReset()
     {
         _enable = false;
         _mainCanvas.ActiveCanvasGroup(false);

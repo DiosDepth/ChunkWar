@@ -699,6 +699,16 @@ public class DataManager : Singleton<DataManager>
         }
         var fullPath = string.Format("{0}/{1}.csv", root, fileName);
 
+        if (!File.Exists(fullPath))
+        {
+            var fs = File.Create(fullPath);
+            fs.Dispose();
+        }
+        else
+        {
+            File.Delete(fullPath);
+        }
+
         File.WriteAllLines(fullPath, line, System.Text.Encoding.UTF8);
     }
 

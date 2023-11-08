@@ -29,6 +29,14 @@ public class UnitStatisticsData
         WaveDamageTakeTotal = new Dictionary<int, int>();
     }
 
+    public int GetWaveDamageCurrent()
+    {
+        var currentWaveIndex = RogueManager.Instance.GetCurrentWaveIndex;
+        int outDamage = 0;
+        WaveCreateDamageTotal.TryGetValue(currentWaveIndex, out outDamage);
+        return outDamage;
+    }
+
     /// <summary>
     /// ×ÜÉËº¦Í³¼Æ
     /// </summary>
