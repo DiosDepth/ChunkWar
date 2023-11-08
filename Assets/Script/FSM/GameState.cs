@@ -273,7 +273,7 @@ public class EGameState_GameStart : GameState
     {
         if(context.phase == InputActionPhase.Performed)
         {
-            if (RogueManager.Instance.IsShowingShipLevelUp)
+            if (!RogueManager.Instance.CheckCanShowPausePage())
                 return;
 
             InputDispatcher.Instance.ChangeInputMode("UI");

@@ -19,7 +19,7 @@ public class BuildSelectHoverCmpt : UnitDetailHover
         base.Awake();
     }
 
-    public void SetUp(Vector2 pos, Vector2 size, Vector2 offset, int unitID)
+    public void SetUp(Vector2 pos, Vector2 size, Vector2 offset, int unitID, uint uid)
     {
         var height = size.y * SizePerUnit;
         var width = size.x * SizePerUnit;
@@ -32,6 +32,7 @@ public class BuildSelectHoverCmpt : UnitDetailHover
         int minSize = (int)Mathf.Min(size.x, size.y);
         int sizeDelta = 3 - minSize;
         _sprite.pixelsPerUnitMultiplier = Mathf.Clamp(sizeDelta, 1, sizeDelta) * 1.1f;
+        _itemUID = uid;
         SetUp(unitID, false);
     }
 

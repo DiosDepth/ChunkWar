@@ -242,4 +242,5 @@ public enum UnitPropertyModifyKey
     UnitEnergyGenerateValue,
     UnitDamagePercentAdd,
     UnitDamageTakeReducePercent,
+    UnitWarehouseLoadAddPercent,
 }

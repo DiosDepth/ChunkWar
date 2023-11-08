@@ -16,7 +16,7 @@ public class UnitDetailHover : DetailHoverItemBase
     private TextMeshProUGUI _damage_Total_CurrentText;
     private TextMeshProUGUI _damage_TotalText;
 
-    private uint _itemUID = 0;
+    protected uint _itemUID = 0;
 
     protected override void Awake()
     {
@@ -93,11 +93,11 @@ public class UnitDetailHover : DetailHoverItemBase
             enable = true;
         }
 
+        if (_itemUID == 0)
+            enable = false;
+
         _damageInfoRoot.SafeSetActive(enable);
         if (!enable)
-            return;
-
-        if (_itemUID == 0)
             return;
 
         var itemData = AchievementManager.Instance.GetOrCreateRuntimeUnitStatisticsData(_itemUID);

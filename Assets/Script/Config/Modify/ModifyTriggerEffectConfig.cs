@@ -395,7 +395,7 @@ public class MTEC_AddGlobalTimerModifier : ModifyTriggerEffectConfig
 {
     [HideReferenceObjectPicker]
     [LabelText("叠加规则")]
-    public TimerModifierStackConfig StackConfig;
+    public TimerModifierStackConfig StackConfig = new TimerModifierStackConfig();
 
     [DictionaryDrawerSettings()]
     public Dictionary<PropertyModifyKey, float> ModifyMap = new Dictionary<PropertyModifyKey, float>();
@@ -435,13 +435,17 @@ public enum TimerModifierStackType
 [System.Serializable]
 public class TimerModifierStackConfig
 {
+    [LabelWidth(200)]
     public bool GlobalUnique = false;
 
+    [LabelWidth(200)]
     public string UniqueKey;
 
+    [LabelWidth(200)]
     public TimerModifierStackType StackType;
 
     [LabelText("覆盖优先级")]
+    [LabelWidth(200)]
     public int StackOrder;
 
 }

@@ -41,9 +41,9 @@ public class UnitSlotEffectConfig
         return UnitSlotEffectConditionConfig.GetModifyConditionList();
     }
 
-    private ValueDropdownList<ModifyTriggerEffectConfig> GetEffects()
+    private ValueDropdownList<ModifyTriggerConfig> GetEffects()
     {
-        return ModifyTriggerEffectConfig.GetModifyEffectTriggerList();
+        return ModifyTriggerConfig.GetModifyTriggerList();
     }
 
 #endif

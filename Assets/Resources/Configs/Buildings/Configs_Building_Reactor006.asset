@@ -536,7 +536,7 @@ MonoBehaviour:
   EditBrushSprite: {fileID: 21300000, guid: 30d475fa5cce5e242b185b00545b2ab0, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
-  CorsorOffsetY: 0
+  CorsorOffsetY: 0.5
   ItemTags: 96
   BaseHP: 150
   BaseEnergyCost: 0

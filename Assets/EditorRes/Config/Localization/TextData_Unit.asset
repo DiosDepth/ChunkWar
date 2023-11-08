@@ -416,3 +416,23 @@ MonoBehaviour:
     ChineseSimplified: "\u53EF\u62E6\u622A\u654C\u65B9\u5BFC\u5F39\u4E0E\u65E0\u4EBA\u673A"
     English: 
     Japanese: 
+  - TextID: Unit_Name_1010
+    ChineseSimplified: "\u5927\u578B\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1011
+    ChineseSimplified: "\u5927\u578B\u62A4\u76FE"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1160
+    ChineseSimplified: "\u8D27\u4ED3\u50A8\u80FD\u4F18\u5316\u5668"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1165
+    ChineseSimplified: "\u5C0F\u578B\u8D85\u9891\u5668"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1166
+    ChineseSimplified: "\u5C0F\u578B\u8D85\u9891\u5668"
+    English: 
+    Japanese: 

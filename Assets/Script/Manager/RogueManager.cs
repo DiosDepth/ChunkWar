@@ -161,6 +161,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 是否显示舰船升级界面
     /// </summary>
     public bool IsShowingShipLevelUp = false;
+    /// <summary>
+    /// 暂停锁定
+    /// </summary>
+    private bool _pauseLock = false;
 
     /// <summary>
     /// 所有商店物品
@@ -345,6 +349,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void Clear()
     {
+        _pauseLock = false;
         InBattle = false;
         currentShip = null;
         CurrentHardLevel = null;
@@ -532,6 +537,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CurrentShipLevelUpItems = new List<ShipLevelUpItem>();
         _entitySpawnConfig = DataManager.Instance.battleCfg.EntitySpawnConfig;
         GameManager.Instance.RegisterPauseable(this);
+    }
+
+    /// <summary>
+    /// 是否可以显示暂停界面
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckCanShowPausePage()
+    {
+        return !_pauseLock && !IsShowingShipLevelUp && !InShop;
     }
 
     /// <summary>
@@ -962,6 +976,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             float unitLoad = unit._baseUnitConfig.LoadAdd;
             if(unit._baseUnitConfig.HasUnitTag(ItemTag.WareHouse))
             {
+                ///Local Modify
+                var localPercent = unit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitWarehouseLoadAddPercent);
+                UnitloadAdd += localPercent / 100f;
+                UnitloadAdd = Mathf.Clamp(UnitloadAdd, -1, float.MaxValue);
                 unitLoad *= UnitloadAdd;
             }
 
@@ -1074,6 +1092,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public async void OnWaveFinish()
     {
+        _pauseLock = true;
         WaveEnd = true;
         ///Reset TriggerDatas
         ResetAllPlugModifierTriggerDatas();
@@ -1121,6 +1140,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         ///无限波次等处理
         OnWaveStateChange?.Invoke(false);
+        _pauseLock = false;
     }
 
     /// <summary>

@@ -252,7 +252,7 @@ public class HarborHUD : GUIBasePanel, EventListener<RogueEvent>, EventListener<
         var offset = new Vector2(unit._baseUnitConfig.CorsorOffsetX, unit._baseUnitConfig.CorsorOffsetY);
         UIManager.Instance.CreatePoolerUI<BuildSelectHoverCmpt>("BuildSelectHover", true, E_UI_Layer.Top, null, (panel) =>
         {
-            panel.SetUp(pos, unit._baseUnitConfig.GetMapSize(), offset, unit.UnitID);
+            panel.SetUp(pos, unit._baseUnitConfig.GetMapSize(), offset, unit.UnitID, unit.UID);
             _hoverCmpt = panel;
         });
         unit.OutLineHighlight(true);
