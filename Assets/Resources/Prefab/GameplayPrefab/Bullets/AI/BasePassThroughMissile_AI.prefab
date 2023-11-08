@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090900912089430504}
   - component: {fileID: 7599527890483398762}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5862403524487350706}
   - component: {fileID: 7448544990957314191}
   - component: {fileID: 656859498999926809}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: BasePassThroughMissile_AI
   m_TagString: AI
   m_Icon: {fileID: 0}

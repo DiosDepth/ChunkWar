@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1228539317941045439}
   - component: {fileID: 795373161076071612}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5862403524487350706}
   - component: {fileID: 7448544990957314191}
   - component: {fileID: 656859498999926809}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Drone_Missile_Player_01
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -211,6 +211,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerDrone_Missile_Trail_01
       objectReference: {fileID: 0}
+    - target: {fileID: 3976503842599087372, guid: 7fc994a6a28a9c44c98bd1844d9fbb74,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3976503842599087373, guid: 7fc994a6a28a9c44c98bd1844d9fbb74,
         type: 3}
       propertyPath: m_RootOrder
@@ -265,6 +270,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503843631033188, guid: 7fc994a6a28a9c44c98bd1844d9fbb74,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fc994a6a28a9c44c98bd1844d9fbb74, type: 3}

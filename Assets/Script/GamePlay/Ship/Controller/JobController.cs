@@ -619,7 +619,7 @@ public class JobController : IPauseable
             if (activeSelfProjectileData.activeProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Collider)
             {
                 //处理Move 和 Rotation
-                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && !activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame)
+                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && !activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame && !activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                 {
                     activeSelfProjectileData.activeProjectileList[i].Move(activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].deltaMovement);
                     activeSelfProjectileData.activeProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].rotation);
@@ -632,14 +632,17 @@ public class JobController : IPauseable
                         activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);
                     }
                     //Collide触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
-                    activeSelfProjectileData.deathProjectileIndexList.Add(i);
+                    if (activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
+                    {
+                        activeSelfProjectileData.deathProjectileIndexList.Add(i);
+                    }
                 }
             }
 
             if (activeSelfProjectileData.activeProjectileList[i].damageTriggerPattern == DamageTriggerPattern.PassTrough)
             {
                 //Passthrough 类型的子弹， 之后生命周期末尾
-                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && activeSelfProjectileData.activeProjectileList[i].TransFixionCount > 0)
+                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && activeSelfProjectileData.activeProjectileList[i].TransFixionCount > 0 && !activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                 {
                     activeSelfProjectileData.activeProjectileList[i].Move(activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].deltaMovement);
                     activeSelfProjectileData.activeProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].rotation);
@@ -650,7 +653,7 @@ public class JobController : IPauseable
                     activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);
                 }
                 //PassTrough触发类型的子弹， 只要Pass Count为0 或者LiftTime为0 就会死亡
-                if (activeSelfProjectileData.activeProjectileList[i].TransFixionCount <= 0 || activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended)
+                if (activeSelfProjectileData.activeProjectileList[i].TransFixionCount <= 0 || activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended || activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                 {
                     activeSelfProjectileData.deathProjectileIndexList.Add(i);
                 }
@@ -659,7 +662,7 @@ public class JobController : IPauseable
             if (activeSelfProjectileData.activeProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Point)
             {
                 //处理Move 和 Rotation
-                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && !activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame)
+                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && !activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame && !activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                 {
                     activeSelfProjectileData.activeProjectileList[i].Move(activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].deltaMovement);
                     activeSelfProjectileData.activeProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].rotation);
@@ -671,6 +674,10 @@ public class JobController : IPauseable
                     {
                         activeSelfProjectileData.damageProjectileList.Add(activeSelfProjectileData.activeProjectileList[i]);
                         activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);
+                       
+                    }
+                    if(activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
+                    {
                         activeSelfProjectileData.deathProjectileIndexList.Add(i);
                     }
                 }
@@ -679,7 +686,7 @@ public class JobController : IPauseable
             if (activeSelfProjectileData.activeProjectileList[i].damageTriggerPattern == DamageTriggerPattern.Target)
             {
                 //处理Move 和 Rotation
-                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && !activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame)
+                if (!activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended && !activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame && !activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                 {
                     activeSelfProjectileData.activeProjectileList[i].Move(activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].deltaMovement);
                     activeSelfProjectileData.activeProjectileList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].rotation);
@@ -692,7 +699,11 @@ public class JobController : IPauseable
                         activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);
                     }
                     // Target触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
-                    activeSelfProjectileData.deathProjectileIndexList.Add(i);
+                    if (activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
+                    {
+                        activeSelfProjectileData.deathProjectileIndexList.Add(i);
+                    }
+                  
                 }
             }
         }

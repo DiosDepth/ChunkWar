@@ -184,6 +184,16 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
     public override void Initialization()
     {
         base.Initialization();
+        if (ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
+        {
+            ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
+            //AIManager.Instance.AddBullet(this);
+        }
+        if (ownertype == OwnerType.Player && (_owner is ShipMainWeapon || _owner is ShipAdditionalWeapon))
+        {
+            ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
+            //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
+        }
         bulletCollider = transform.GetComponentInChildren<Collider2D>();
         ///HP
         InitMissileHP();
@@ -195,7 +205,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
         if (!IsinterceptTarget)
             return;
 
-        if (_owner != null || _owner._owner == null)
+        if (_owner == null || _owner._owner == null)
             return;
 
         int targetHP = 0;
@@ -414,7 +424,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
     {
         if (damageTriggerPattern == DamageTriggerPattern.Collider)
         {
-            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
+            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame && !_isDeathAtThisFrame)
             {
                 return;
             }
@@ -423,14 +433,14 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
             {
                 prepareDamageTargetList.Add(collision.gameObject.GetComponent<IDamageble>());
                 _isApplyDamageAtThisFrame = true;
-
+                _isDeathAtThisFrame = true;
             }
             return;
         }
         if (damageTriggerPattern == DamageTriggerPattern.Point) { return; }
         if(damageTriggerPattern == DamageTriggerPattern.Target)
         {
-            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame)
+            if (collision.tag == this.tag && !_isApplyDamageAtThisFrame && !_isDeathAtThisFrame)
             {
                 return;
             }
@@ -440,6 +450,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
                 {
                     prepareDamageTargetList.Add(collision.gameObject.GetComponent<IDamageble>());
                     _isApplyDamageAtThisFrame = true;
+                    _isDeathAtThisFrame = true;
                 }
             }
             return;
@@ -466,6 +477,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
 
     public override void Death(UnitDeathInfo info)
     {
+     
         base.Death(info);
     }
 
@@ -501,7 +513,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
         bool isDie = HpComponent.ChangeHP(-info.Damage);
         if (isDie)
         {
-            Death(null);
+            _isDeathAtThisFrame = true;
         }
         return isDie;
     }

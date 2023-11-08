@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1228539317941045439}
   - component: {fileID: 795373161076071612}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5629085834679136592}
   - component: {fileID: 6892578388746535637}
   - component: {fileID: 8882656403318977144}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 5862403524487350706}
   - component: {fileID: 7448544990957314191}
   - component: {fileID: 656859498999926809}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Player_Missile_70
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -312,6 +312,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_Missile_Trail_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503842599087372, guid: cdaf958df79adcd4c83e696b92c4fd27,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3976503842599087373, guid: cdaf958df79adcd4c83e696b92c4fd27,
         type: 3}
@@ -487,6 +492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: TrailModule.widthOverTrail.maxCurve.m_Curve.Array.data[1].value
       value: 0.67538726
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503843631033188, guid: cdaf958df79adcd4c83e696b92c4fd27,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3976503843631033189, guid: cdaf958df79adcd4c83e696b92c4fd27,
         type: 3}

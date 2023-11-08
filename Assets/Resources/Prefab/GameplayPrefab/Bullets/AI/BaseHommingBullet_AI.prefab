@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1228539317941045439}
   - component: {fileID: 795373161076071612}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5862403524487350706}
   - component: {fileID: 7448544990957314191}
   - component: {fileID: 656859498999926809}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: BaseHommingBullet_AI
   m_TagString: AI
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.62, y: 0.87}
+  m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &656859498999926809
 MonoBehaviour:
@@ -210,6 +210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AI_Missile_Trail_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503842599087372, guid: 151adb5c96b15b6498149dd2b1c0c6cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3976503842599087373, guid: 151adb5c96b15b6498149dd2b1c0c6cf,
         type: 3}
@@ -265,6 +270,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976503843631033188, guid: 151adb5c96b15b6498149dd2b1c0c6cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 151adb5c96b15b6498149dd2b1c0c6cf, type: 3}

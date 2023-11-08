@@ -64,6 +64,8 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     [HideInInspector]
     public bool IsApplyDamageAtThisFrame { get { return _isApplyDamageAtThisFrame; } }
     protected bool _isApplyDamageAtThisFrame;
+    public bool IsDeathAtThisFrame { get { return _isDeathAtThisFrame; } }
+    protected bool _isDeathAtThisFrame;
     protected bool _isUpdate;
 
     /// <summary>
@@ -84,16 +86,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     {
         GameManager.Instance.RegisterPauseable(this);
         SetUpdate(true);
-        if(ownertype == OwnerType.AI && _owner is AIAdditionalWeapon)
-        {
-            ECSManager.Instance.RegisterJobData(OwnerType.AI, this);
-            //AIManager.Instance.AddBullet(this);
-        }
-        if(ownertype == OwnerType.Player && (_owner is ShipMainWeapon || _owner is ShipAdditionalWeapon))
-        {
-            ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
-            //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddBullet(this);
-        }
+
         if (_owner is Weapon)
         {
             transfixionCount = (_owner as Weapon).weaponAttribute.Transfixion;
@@ -175,6 +168,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
 
     public virtual void SetUpdate(bool isupdate)
     {
+        PoolableSetActive(isupdate);
         _isUpdate = isupdate;
     }
     public virtual void SetOwner(Unit owner)
@@ -281,6 +275,7 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
         SetUpdate(false);
         onHitAction = null;
         _isApplyDamageAtThisFrame = false;
+        _isDeathAtThisFrame = false;
         prepareDamageTargetList.Clear();
         initialTarget = null;
     }

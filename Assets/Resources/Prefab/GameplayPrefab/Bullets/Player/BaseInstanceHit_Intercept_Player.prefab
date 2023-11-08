@@ -56,7 +56,7 @@ MonoBehaviour:
   initialTarget: {fileID: 0}
   mask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1024
   maxDistance: 35
   width: 0.2
   emittime: 0.3
