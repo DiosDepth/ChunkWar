@@ -622,6 +622,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var oldValue = _playerCurrency.Value;
         var newValue = oldValue + value;
         _playerCurrency.Set(newValue);
+
+        if(value > 0)
+        {
+            AchievementManager.Instance.InGameData.TotalGainCurrency += (int)value;
+        }
+        else
+        {
+            AchievementManager.Instance.InGameData.TotalCostCurrency += (int)value;
+        }
     }
 
 
@@ -752,6 +761,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _inLevelDropItems[rarity]++;
         RogueEvent.Trigger(RogueEventType.WreckageDropRefresh);
         AchievementManager.Instance.Trigger<GoodsItemRarity>(AchievementWatcherType.WreckageGain, rarity);
+        AchievementManager.Instance.InGameData.WasteGainInfo[rarity]++;
     }
 
     /// <summary>
@@ -808,6 +818,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CalculateTotalLoadCost();
     }
 
+    /// <summary>
+    /// 增加残骸数量
+    /// </summary>
+    /// <param name="count"></param>
     public void AddDropWasteCount(int count)
     {
         int newCount = GetDropWasteCount + count;
@@ -815,6 +829,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         OnWasteCountChange?.Invoke(newCount);
         ///UpdateLoad
         CalculateTotalLoadCost();
+        AchievementManager.Instance.InGameData.TotalGainWasteCount += count;
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
     }
 
@@ -824,12 +839,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// <param name="percent"></param>
     public void AddDropWasteCountByPercent(float percent)
     {
+        var currentWasteCount = GetDropWasteCount;
         var targetpercent = Mathf.Max(0, percent / 100f);
-        var targetWaste = Mathf.RoundToInt(GetDropWasteCount * (1 + targetpercent));
+        var targetWaste = Mathf.RoundToInt(currentWasteCount * (1 + targetpercent));
         _dropWasteCount.Set(targetWaste);
         OnWasteCountChange?.Invoke(targetWaste);
         ///UpdateLoad
         CalculateTotalLoadCost();
+        var delta = targetWaste - currentWasteCount;
+        AchievementManager.Instance.InGameData.TotalGainWasteCount += delta;
         RogueEvent.Trigger(RogueEventType.WasteCountChange);
     }
 
@@ -2003,7 +2021,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
         else
         {
-            AddNewShipPlug(info._cfg.TypeID, info.GoodsID);
+            AddNewShipPlug(info._cfg.TypeID, info.GoodsID, info.Cost);
         }
     }
     
@@ -2172,7 +2190,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _playerCurrency = new ChangeValue<float>(0, int.MinValue, int.MaxValue);
         _playerCurrency.BindChangeAction(OnCurrencyChange);
         CurrentRerollCost = GetCurrentRefreshCost();
-        _playerCurrency.Set(CurrentHardLevel.Cfg.StartCurrency);
+
+        var startCurrency = CurrentHardLevel.Cfg.StartCurrency;
+        _playerCurrency.Set(startCurrency);
+        AchievementManager.Instance.InGameData.TotalGainCurrency += startCurrency;
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShopCostPercent, OnShopCostChange);
     }
 
@@ -2473,7 +2494,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     /// <param name="plugID"></param>
     /// <param name="goodsID"> 如果为-1 则会自动找商品ID</param>
-    public ShipPlugInfo AddNewShipPlug(int plugID, int goodsID = -1)
+    public ShipPlugInfo AddNewShipPlug(int plugID, int goodsID = -1, int gainCost = 0)
     {
         if(goodsID == -1)
         {
@@ -2505,6 +2526,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         OnShipPlugCountChange?.Invoke(plugID, GetSameShipPlugTotalCount(plugID));
         OnItemCountChange?.Invoke();
         RogueEvent.Trigger(RogueEventType.ShipPlugChange);
+
+        ///In Game Statistics
+        PlugGainInfo log = new PlugGainInfo();
+        log.PlugID = plugInfo.PlugID;
+        log.Wave = GetCurrentWaveIndex;
+        log.GainCurrencyCost = gainCost;
+        AchievementManager.Instance.InGameData.PlugInfo.Add(log);
+
         return plugInfo;
     }
 
@@ -2963,15 +2992,37 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GenerateBattleLog();
     }
 
+    /// <summary>
+    /// 生成战斗日志
+    /// </summary>
     private void GenerateBattleLog()
     {
         if (currentShip == null)
             return;
 
         BattleLog log = new BattleLog();
+        log.GameVersion = GameManager.GetGameVersionString;
+        log.BattleState = BattleResult.Success ? "Win" : "Fail";
+        log.MaxReachWave = GetCurrentWaveIndex;
         log.EndTime = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
+        log.HardLevelID = CurrentHardLevel.HardLevelID;
+        log.SelectShip = string.Format("{0} - {1}", currentShip.ShipID,
+            LocalizationManager.Instance.GetTextValue(currentShip.playerShipCfg.GeneralConfig.Name));
+        log.SelectMainWeapon = string.Format("{0} - {1}", currentWeaponSelection.itemconfig.ID,
+            LocalizationManager.Instance.GetTextValue(currentWeaponSelection.itemconfig.GeneralConfig.Name));
+        log.TotalShopEnterCount = GetShopEnterTotalCount;
+
+        var inGameData = AchievementManager.Instance.InGameData;
+        log.TotalWaste = inGameData.TotalGainWasteCount;
+        log.TotalWreckageGain = GetWasteGainInfo();
+        log.TotalCostCurrency = inGameData.TotalCostCurrency;
+        log.TotalGainCurrency = inGameData.TotalGainCurrency;
+        log.ShipLevel = GetCurrentShipLevel;
+
         var unitLogDatas = currentShip.GenerateAllUnitLogData();
         log.UnitLogDatas = unitLogDatas;
+        log.PlayerPropertyDatas = GeneratePlayerPropertyLogData();
+        log.ShipPlugLog = GenerateAllShipPlugLog();
 
         var fileName = string.Format("BattleLog_{0}", log.EndTime);
 
@@ -2980,6 +3031,73 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     }
 
+    private string GetWasteGainInfo()
+    {
+        var info = AchievementManager.Instance.InGameData.WasteGainInfo;
+        StringBuilder sb = new StringBuilder();
+        foreach(var item in info)
+        {
+            sb.Append(string.Format("【{0} - {1}】 ", item.Key, item.Value));
+        }
+        return sb.ToString();
+    }
+
+    private List<PropertyLogData> GeneratePlayerPropertyLogData()
+    {
+        List<PropertyLogData> result = new List<PropertyLogData>();
+        var allProperty = MainPropertyData.GetAllPool();
+        for (int i = 0; i < allProperty.Count; i++)
+        {
+            var property = allProperty[i];
+            PropertyLogData log = new PropertyLogData();
+            log.ModifyKey = property.PropertyKey;
+            var info = DataManager.Instance.battleCfg.GetPropertyDisplayConfig(property.PropertyKey);
+            if (info != null)
+            {
+                log.PropertyName = LocalizationManager.Instance.GetTextValue(info.NameText);
+            }
+            log.Value = property.GetFinialValue();
+
+            result.Add(log);
+        }
+        return result;
+    }
+
+    private List<ShipPlugLogData> GenerateAllShipPlugLog()
+    {
+        Dictionary<int, ShipPlugLogData> dic = new Dictionary<int, ShipPlugLogData>();
+
+        var plugGainInfo = AchievementManager.Instance.InGameData.PlugInfo;
+        for(int i = 0; i < plugGainInfo.Count; i++)
+        {
+            var info = plugGainInfo[i];
+            if (dic.ContainsKey(info.PlugID))
+            {
+                ///Add
+                var targetLog = dic[info.PlugID];
+                targetLog.PlugGainCount++;
+                targetLog.GainWaveCountList += string.Format(",{0}", info.Wave);
+                targetLog.GainCostList += string.Format(",{0}", info.GainCurrencyCost);
+            }
+            else
+            {
+                ///Create New
+                ShipPlugLogData log = new ShipPlugLogData();
+                log.PlugID = info.PlugID;
+                var cfg = DataManager.Instance.GetShipPlugItemConfig(info.PlugID);
+                if(cfg != null)
+                {
+                    log.PlugName = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Name);
+                }
+                log.PlugGainCount = 1;
+                log.GainWaveCountList = info.Wave.ToString();
+                log.GainCostList = info.GainCurrencyCost.ToString();
+                dic.Add(log.PlugID, log);
+            }
+        }
+
+        return dic.Values.ToList();
+    }
 
     #endregion
 
