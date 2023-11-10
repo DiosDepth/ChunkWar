@@ -1529,7 +1529,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
   ShowHPBillboard: 0
-  ClassLevel: 0
+  ClassLevel: 4
   BillboardType: 0
   AttackBase: 0
   HardLevelGroupID: 1

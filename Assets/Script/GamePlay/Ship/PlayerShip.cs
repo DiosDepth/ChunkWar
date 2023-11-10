@@ -647,7 +647,10 @@ public class PlayerShip : BaseShip
         var minRange = DataManager.Instance.battleCfg.ShipMinSuckerRange;
         var rangeAdd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.SuckerRange);
         var newSuckerRange = Mathf.Clamp(defaultSuckerRange * (1 + rangeAdd / 100f), minRange, float.MaxValue);
-        pickupCollider.radius = newSuckerRange;
+        if (pickupCollider != null)
+        {
+            pickupCollider.radius = newSuckerRange;
+        }
     }
 
     /// <summary>

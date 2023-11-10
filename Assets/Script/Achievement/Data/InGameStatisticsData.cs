@@ -18,8 +18,11 @@ public class InGameStatisticsData
 
     public List<PlugGainInfo> PlugInfo = new List<PlugGainInfo>();
 
+    public Dictionary<int, WaveStatisticsInfo> WaveInfoDic = new Dictionary<int, WaveStatisticsInfo>();
+
     public void Clear()
     {
+        WaveInfoDic.Clear();
         PlugInfo.Clear();
         TotalGainWasteCount = 0;
         TotalGainCurrency = 0;
@@ -29,6 +32,17 @@ public class InGameStatisticsData
         WasteGainInfo[GoodsItemRarity.Tier3] = 0;
         WasteGainInfo[GoodsItemRarity.Tier4] = 0;
     }
+
+    public WaveStatisticsInfo GetOrCreateWaveInfo(int waveIndex)
+    {
+        if (WaveInfoDic.ContainsKey(waveIndex))
+            return WaveInfoDic[waveIndex];
+
+        WaveStatisticsInfo info = new WaveStatisticsInfo();
+        info.WaveIndex = waveIndex;
+        WaveInfoDic.Add(waveIndex, info);
+        return info;
+    }
 }
 
 public class PlugGainInfo
@@ -36,4 +50,57 @@ public class PlugGainInfo
     public int PlugID;
     public int Wave;
     public int GainCurrencyCost;
+}
+
+/// <summary>
+/// 波次统计数据
+/// </summary>
+public class WaveStatisticsInfo
+{
+    public int WaveIndex;
+    public byte MeteoriteGenerateCount;
+    public byte MeteoriteKillCount;
+    public string Meteorite_Time;
+
+    public byte WreckageGenerateCount;
+    public string Wreckage_Time;
+    public byte WreckageGainCount;
+    public string WreckageGainRarityInfo;
+
+    public int RefreshEnemyCount;
+    public int KillEnemyCount;
+
+    public string RefreshBossIDs;
+    public string RefreshEliteIDs;
+
+    public byte ShopRefreshCount;
+    public byte ShopEnterCount;
+    public string ShopItemRefreshCounts;
+    public string ShopCurrencyCostMaps;
+    public string ShopWasteSellMaps;
+    public string ShopBuyInfo;
+
+    public WaveInfoLogData GenerateLog()
+    {
+        WaveInfoLogData data = new WaveInfoLogData();
+        data.WaveIndex = WaveIndex;
+        data.MeteoriteGenerateCount = MeteoriteGenerateCount;
+        data.MeteoriteKillCount = MeteoriteKillCount;
+        data.Meteorite_Time = Meteorite_Time;
+        data.WreckageGenerateCount = WreckageGenerateCount;
+        data.Wreckage_Time = Wreckage_Time;
+        data.WreckageGainCount = WreckageGainCount;
+        data.WreckageGainRarityInfo = WreckageGainRarityInfo;
+        data.RefreshEnemyCount = RefreshEnemyCount;
+        data.KillEnemyCount = KillEnemyCount;
+        data.RefreshBossIDs = RefreshBossIDs;
+        data.RefreshEliteIDs = RefreshEliteIDs;
+        data.ShopRefreshCount = ShopRefreshCount;
+        data.ShopEnterCount = ShopEnterCount;
+        data.ShopItemRefreshCounts = ShopItemRefreshCounts;
+        data.ShopCurrencyCostMaps = ShopCurrencyCostMaps;
+        data.ShopWasteSellMaps = ShopWasteSellMaps;
+        data.ShopBuyInfo = ShopBuyInfo;
+        return data;
+    }
 }

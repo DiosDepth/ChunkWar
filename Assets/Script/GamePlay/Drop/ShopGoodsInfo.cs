@@ -108,6 +108,29 @@ public class ShopGoodsInfo : RandomObject
         }
     }
 
+    public string Name
+    {
+        get
+        {
+            if (IsWreckage)
+            {
+                var wreckageCfg = DataManager.Instance.shopCfg.WreckageShopBuyItemCfg.Find(x => x.Rarity == Rarity);
+                if(wreckageCfg != null)
+                {
+                    return LocalizationManager.Instance.GetTextValue(wreckageCfg.ItemConfig.Name);
+                }
+            }
+            else
+            {
+                var itemCfg = DataManager.Instance.GetShipPlugItemConfig(_cfg.TypeID);
+                if (itemCfg != null)
+                    return LocalizationManager.Instance.GetTextValue(itemCfg.GeneralConfig.Name);
+            }
+
+            return string.Empty;
+        }
+    }
+
     /// <summary>
     /// Temp Slod
     /// </summary>
