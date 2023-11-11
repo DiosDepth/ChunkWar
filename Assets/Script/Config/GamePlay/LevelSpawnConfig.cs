@@ -141,7 +141,7 @@ public class WaveConfig
     [HorizontalGroup("AA", 200)]
     public int waveScore;
 
-#if GMDEBUG
+#if GMDEBUG && UNITY_EDITOR
 
     [FoldoutGroup("信息")]
     [HorizontalGroup("信息/A")]
@@ -177,6 +177,21 @@ public class WaveConfig
 
         TotalThread = totalThread;
         AVG_TotalThread = TotalThread / DurationTime;
+    }
+
+    [FoldoutGroup("信息")]
+    [HorizontalGroup("信息/A")]
+    [Button("预览"), GUIColor(0, 1, 0)]
+    private void Preview()
+    {
+        if (!EditorApplication.isPlaying) 
+        {
+            return;
+        }
+        UIManager.Instance.ShowUI<LevelTimelinePreviewPage>("LevelTimelinePreviewPage", E_UI_Layer.Mid, null, (panel) =>
+        {
+            panel.Initialization(this);
+        });
     }
 
     [FoldoutGroup("信息")]
@@ -388,6 +403,13 @@ public class WaveEnemySpawnConfig
     }
 
 #if UNITY_EDITOR
+
+    [HorizontalGroup("BB", 450)]
+    [LabelText("预览色")]
+    [LabelWidth(60)]
+    [ColorPalette("Preview")]
+    public Color EditorPreviewColor = Color.cyan;
+
     [OnInspectorInit]
     private void OnInit()
     {
