@@ -279,9 +279,13 @@ public class PlayerShip : BaseShip
         GameEvent.Trigger(EGameState.EGameState_GameOver);
     }
 
+    /// <summary>
+    /// 重置舰船到默认状态，结算时使用，用于正确显示状态
+    /// </summary>
     public override void ResetShip()
     {
         base.ResetShip();
+        ForceSetAllUnitState(DamagableState.Normal);
     }
 
     //---------------------------------------------------------------------------------------Tools

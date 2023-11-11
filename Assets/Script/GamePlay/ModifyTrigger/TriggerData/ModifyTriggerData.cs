@@ -50,7 +50,20 @@ public abstract class ModifyTriggerData : IPropertyModify
 
     public virtual void OnTriggerRemove()
     {
+        RemoveAllTimerModify();
+    }
 
+    /// <summary>
+    /// 清除计时类加成
+    /// </summary>
+    public void RemoveAllTimerModify()
+    {
+        for (int i = _timerModifiers.Count - 1; i >= 0; i--)
+        {
+            var modifier = _timerModifiers[i];
+            modifier.OnRemove();
+            _timerModifiers.RemoveAt(i);
+        }
     }
 
     public virtual void OnUpdateBattle()
@@ -73,6 +86,7 @@ public abstract class ModifyTriggerData : IPropertyModify
     public virtual void Reset()
     {
         _uniqueEffecting = false;
+        RemoveAllTimerModify();
     }
 
     #region Function

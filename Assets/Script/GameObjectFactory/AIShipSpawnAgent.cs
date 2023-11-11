@@ -113,7 +113,7 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
 #if GMDEBUG
             if (GMTalkManager.Instance.IsEnemyImmortal)
             {
-                tempship.ForeceSetAllUnitState(DamagableState.Immortal);
+                tempship.ForceSetAllUnitState(DamagableState.Immortal);
             }
 #endif
         }, LevelManager.AIPool);

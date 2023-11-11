@@ -507,11 +507,17 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void RogueBattleOver()
     {
-        GenerateBattleLog();
+        ///ÕÊº“Ω¢¥¨÷ÿ÷√
+        currentShip.ResetShip();
+
+        ///Reset
+        ResetAllPlugModifierTriggerDatas();
+        ResetAllUnitModifierTriggerDatas();
         currentShip?.controller.GameOver();
         Timer.Pause();
         Timer.RemoveAllTrigger();
         SettleCampScore();
+        GenerateBattleLog();
     }
 
     private void BattleReset()
@@ -598,9 +604,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void OnMainLevelUnload()
     {
-        ClearShip();
         _tempWaveTime = Timer.CurrentSecond;
-
     }
 
     public void ClearShip()
@@ -2013,7 +2017,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         var time = DataManager.Instance.battleCfg.ShopExit_Player_Immortal_Time;
         if(currentShip != null)
         {
-            currentShip.ForeceSetAllUnitState(DamagableState.Immortal, time);
+            currentShip.ForceSetAllUnitState(DamagableState.Immortal, time);
         }
     }
 
