@@ -134,6 +134,11 @@ public class AchievementManager : Singleton<AchievementManager>
     /// </summary>
     private Dictionary<uint, UnitStatisticsData> _runtimeUnitStatisticsData;
 
+    /// <summary>
+    /// 局内统计数据
+    /// </summary>
+    public InGameStatisticsData InGameData;
+
     private Queue<AchievementItemConfig> _achievementUIQueue;
     private bool _isShowingAchievement = false;
     private bool _hasInit = false;
@@ -144,6 +149,7 @@ public class AchievementManager : Singleton<AchievementManager>
         _watcherDic = new Dictionary<AchievementWatcherType, IAchievementWatcher>();
         _game_statistics_data = new Dictionary<string, GameStatisticsData>();
         _runtimeUnitStatisticsData = new Dictionary<uint, UnitStatisticsData>();
+        InGameData = new InGameStatisticsData();
     }
 
     public async void OnUpdate()
@@ -181,6 +187,7 @@ public class AchievementManager : Singleton<AchievementManager>
     public void ClearRuntimeData()
     {
         _runtimeUnitStatisticsData.Clear();
+        InGameData.Clear();
     }
 
     /// <summary>

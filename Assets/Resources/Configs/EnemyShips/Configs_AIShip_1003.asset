@@ -1403,6 +1403,9 @@ MonoBehaviour:
     - Name: SelfUnique
       Entry: 5
       Data: false
+    - Name: RemoveIfTriggerCountReach
+      Entry: 5
+      Data: false
     - Name: UsePercent
       Entry: 5
       Data: false
@@ -1542,8 +1545,8 @@ MonoBehaviour:
   ClassLevel: 2
   BillboardType: 1
   AttackBase: 30
-  HardLevelGroupID: 20
-  SectorThreadValue: 0
+  HardLevelGroupID: 1
+  SectorThreadValue: 15
   EnemyCountModify: 0
   MaxVelocity: 10
   MaxAcceleration: 1
