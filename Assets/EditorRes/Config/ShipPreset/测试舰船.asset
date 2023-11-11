@@ -21,7 +21,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  ID: 0
-  Name: 
+  ID: 1
+  Name: "\u6D4B\u8BD5\u6A21\u677F1"
   Comment: 
-  ShipID: 0
+  ShipID: 1
+  ShipMainWeaponID: 3

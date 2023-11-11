@@ -2863,6 +2863,64 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     #endregion
 
+    #region Battle Test
+#if GMDEBUG
+    public void TryStartBattleTest(ShipPresetTestData shipData, ShipPlugPresetTestData plugData, int hardLevelID, int waveIndex)
+    {
+        InBattle = true;
+        BattleReset();
+
+        ///Init HardLevel
+        var hardLevelData = GameManager.Instance.GetHardLevelInfoByID(hardLevelID);
+        SetCurrentHardLevel(hardLevelData);
+        if (!LoadShipBaseData(shipData.ShipID, shipData.ShipMainWeaponID))
+            return;
+
+        ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
+        ///InitPlugs
+        InitShipPlugs();
+        InitOriginShipUnit();
+        LoadTestPlugs(plugData);
+        InitTestProperty();
+        InitWreckageTestData();
+        InitWave(waveIndex);
+
+        ///EnterBattle
+        PlayCurrentHardLevelBGM();
+
+        UIManager.Instance.HiddenAllUI();
+        GameStateTransitionEvent.Trigger(EGameState.EGameState_GamePrepare);
+
+        CreateBattleObserver();
+    }
+
+    private void InitTestProperty()
+    {
+        var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
+        _shipLevel = new ChangeValue<byte>(1, 1, maxLevel);
+        _currentEXP = new ChangeValue<float>(0, 0, int.MaxValue);
+        CurrentRequireEXP = GameHelper.GetEXPRequireMaxCount(GetCurrentShipLevel);
+
+        _currentEXP.BindChangeAction(OnCurrrentEXPChange);
+        _shipLevel.BindChangeAction(OnShipLevelUp);
+
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.Luck, OnPlayerLuckChange);
+    }
+
+    private void InitWreckageTestData()
+    {
+        InitWreckageData();
+    }
+
+    private void LoadTestPlugs(ShipPlugPresetTestData plugData)
+    {
+
+    }
+
+#endif
+
+    #endregion
+
     #region Save
 
     /// <summary>

@@ -156,7 +156,7 @@ public class TestMainDialog : GUIBasePanel
 
     private void StartTest()
     {
-        CloseDialog();
+        RogueManager.Instance.TryStartBattleTest(ShipPreset, ShipPlugPreset, hardLevelID, WaveIndex);
     }
 }
 #endif
