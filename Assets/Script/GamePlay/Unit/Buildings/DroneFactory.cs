@@ -149,6 +149,7 @@ public class DroneFactory : Building
 
     public override void Restore()
     {
+        _repairTimeCounter = factoryAttribute.RepairTime;
         _allocateTargetCount = 0;
         _launchIntervalCounter = 0;
         base.Restore();

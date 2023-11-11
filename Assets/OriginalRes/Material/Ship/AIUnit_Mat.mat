@@ -170,7 +170,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Glow: 10
+    - _Glow: 0
     - _GlowGlobal: 1
     - _GradBlend: 1
     - _GradBoostX: 1.2

@@ -230,7 +230,8 @@ public class Weapon : Unit
                 {
                     //全部找完了之后进行排序
                     tempinfolist.Sort();
-                    //排序之后按照最大目标数量进行结果装填
+                    //， 装填所有的结果
+
                     for (int s = 0; s < job_unitJobData[i].targetCount; s++)
                     {
                         //当前的index不大于 临时目标列表的长度

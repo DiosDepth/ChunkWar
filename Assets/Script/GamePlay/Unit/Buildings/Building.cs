@@ -58,13 +58,14 @@ public class Building : Unit
 
     public override void Initialization(BaseShip m_owner, BaseUnitConfig m_unitconfig)
     {
-        _baseUnitConfig = m_unitconfig;
+        base.Initialization(m_owner, m_unitconfig);
+        //_baseUnitConfig = m_unitconfig;
         _buildingConfig = m_unitconfig as BuildingConfig;
         _owner = m_owner;
         InitBuildingAttribute(GameHelper.GetOwnerShipType(_owner));
         buildingState = new StateMachine<BuildingState>(this.gameObject,false,false);
         buildingState.ChangeState(BuildingState.Ready);
-        base.Initialization(m_owner, m_unitconfig);
+
  
         InitBuildingComponent();
     }

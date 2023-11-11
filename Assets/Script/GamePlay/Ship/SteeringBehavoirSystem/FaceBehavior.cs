@@ -140,6 +140,7 @@ public class FaceBehavior : SteeringBehavior
                 //get diff between tareget and from angle
                 diff = math.lerp(0, diff, math.clamp(job_steeringControllerData[i].maxAngularAcceleration * job_deltatime, 0, 1));
                 /// MAX TODO
+                diff = math.clamp(diff, job_steeringControllerData[i].maxAngularVelocity * -1, job_steeringControllerData[i].maxAngularVelocity);
 
                 resultangle = (fromangle + diff) % 360;
 

@@ -621,11 +621,12 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
 
     public virtual void GameOver()
     {
+        UnLoad();
         SetProcessECS(false);
         GameOverProjectile();
         GameOverAgent();
         GameOverDrone();
-        UnLoad();
+      
     }
     public void PauseGame()
     {

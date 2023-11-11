@@ -711,6 +711,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
 
     protected const string AnimTrigger_Spawn = "Spawn";
     protected const string AnimTrigger_DeSpawn = "DeSpawn";
+    protected const string AnimTrigger_SelfExplode = "SelfExplode";
 
     public void DoSpawnEffect()
     {
@@ -764,7 +765,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
     protected const string Mat_Shader_PropertyKey_HOLOGRAM_ON = "_HologramBlend";
     protected const string Mat_Shader_PropertyKey_OUTLINE = "_OutlineAlpha";
 
-    private void SetAnimatorTrigger(string trigger)
+    protected virtual void SetAnimatorTrigger(string trigger)
     {
         if(_animator == null) { return; }
         _animator.SetTrigger(trigger);
