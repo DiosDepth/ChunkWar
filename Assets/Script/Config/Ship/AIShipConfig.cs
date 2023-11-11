@@ -14,7 +14,8 @@ public enum EnemyClassType
     Normal,
     Elite,
     Boss,
-    Meteorite
+    Meteorite,
+    AncientUnit
 }
 
 [CreateAssetMenu(fileName = "Configs_AIShip_", menuName = "Configs/EnemyShips")]

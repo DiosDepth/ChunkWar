@@ -201,12 +201,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private List<ExtraSpawnInfo> _extraSpawnConfig = new List<ExtraSpawnInfo>();
 
     /// <summary>
-    /// 当前刷新次数
-    /// </summary>
-    private int _currentRereollCount = 0;
-    private byte _shopTotalEnterCount = 0;
-
-    /// <summary>
     /// 当前生成远古飞船数量，用于保底
     /// </summary>
     private int _currentGenerateAncientUnitShipCount = 0;
@@ -243,10 +237,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         get;
         private set;
     }
+
     /// <summary>
-    /// 商店进入总次数
+    /// 当前刷新次数
     /// </summary>
-    private byte _shopRefreshTotalCount = 0;
+    private int _currentShopRereollCount = 0;
+    private byte _shopTotalEnterCount = 0;
     public byte GetShopEnterTotalCount
     {
         get { return _shopTotalEnterCount; }
@@ -255,6 +251,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// 商店免费刷新次数
     /// </summary>
     private byte _shopFreeRollCount = 0;
+    /// <summary>
+    /// 当前商店花费总额
+    /// </summary>
+    private int _shopCurrencyCostCurrent = 0;
 
     /// <summary>
     /// 当前商店出售的残骸数
@@ -383,13 +383,13 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _spawnBossTempLst.Clear();
 
         _currentShopSellWasteCount = 0;
-        _currentRereollCount = 0;
-        _shopRefreshTotalCount = 0;
+        _currentShopRereollCount = 0;
         _currentGenerateAncientUnitShipCount = 0;
         _currentAncientUnitProtectRateAdd = 0;
         _shopFreeRollCount = 0;
         _totalKillBossCount = 0;
         _shopTotalEnterCount = 0;
+        _shopCurrencyCostCurrent = 0;
         ClearAction();
     }
 
@@ -507,11 +507,17 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void RogueBattleOver()
     {
-        GenerateBattleLog();
+        ///玩家舰船重置
+        currentShip.ResetShip();
+
+        ///Reset
+        ResetAllPlugModifierTriggerDatas();
+        ResetAllUnitModifierTriggerDatas();
         currentShip?.controller.GameOver();
         Timer.Pause();
         Timer.RemoveAllTrigger();
         SettleCampScore();
+        GenerateBattleLog();
     }
 
     private void BattleReset()
@@ -598,9 +604,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     /// </summary>
     public void OnMainLevelUnload()
     {
-        ClearShip();
         _tempWaveTime = Timer.CurrentSecond;
-
     }
 
     public void ClearShip()
@@ -1150,6 +1154,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         await UniTask.Delay(3000);
         ECSManager.Instance.GameOverAgent();
         ECSManager.Instance.UnLoad();
+        ///Log Info
+        HandleInGameWreckageLog();
         _waveIndex++;
         if (autoEnterHarbor)
         {
@@ -1535,6 +1541,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             TotalCount = 1,
             MaxRowCount = 1,
         };
+
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        waveInfo.MeteoriteGenerateCount++;
+        waveInfo.Meteorite_Time += string.Format("{0};", Timer.TotalSeconds);
         SpawnEntity(cfg);
     }
 
@@ -1561,6 +1571,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             TotalCount = 1,
             MaxRowCount = 1,
         };
+
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        waveInfo.WreckageGenerateCount ++;
+        waveInfo.Wreckage_Time += string.Format("{0};", Timer.TotalSeconds);
         SpawnEntity(cfg);
     }
 
@@ -1602,6 +1616,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         };
 
         SpawnEntity(tempCfg);
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        var eliteCfg = DataManager.Instance.GetAIShipConfig(outID);
+        waveInfo.RefreshEliteIDs += string.Format("{0}_{1};", outID, LocalizationManager.Instance.GetTextValue(eliteCfg.GeneralConfig.Name));
     }
 
     private void CreateBoss(int id)
@@ -1616,6 +1633,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             MaxRowCount = 1,
         };
         SpawnEntity(tempCfg);
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        var enemyCfg = DataManager.Instance.GetAIShipConfig(id);
+
+        waveInfo.RefreshBossIDs += string.Format("{0}_{1};", id, LocalizationManager.Instance.GetTextValue(enemyCfg.GeneralConfig.Name));
     }
 
     private void CreateFactory(int ID)
@@ -1735,7 +1756,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             spawnSetting.spawnIntervalTime = cfg.SpawnIntervalTime;
             spawnSetting.sizeInterval = new Vector2(cfg.SpawnSizeInterval, cfg.SpawnSizeInterval);
 
-            AIShipSpawnInfo aishipspawninfo = new AIShipSpawnInfo(cfg.AITypeID, spawnpoint, RogueManager.Instance.currentShip.transform, overrideHardLevelID, spawnSetting, (baseship) => 
+            AIShipSpawnInfo aishipspawninfo = new AIShipSpawnInfo(cfg.AITypeID, spawnpoint, currentShip.transform, overrideHardLevelID, spawnSetting, (baseship) => 
             {
                 ECSManager.Instance.RegisterJobData(OwnerType.AI, baseship);
             });
@@ -1745,7 +1766,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private void CreateShopTeleport()
     {
-        _shopRefreshTotalCount++;
         LevelManager.Instance.CreateShopPickUp();
     }
 
@@ -1795,6 +1815,21 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     private void UpdateSectorThread()
     {
         LevelManager.Instance.SpawnSector.RefreshSectorThreadCache();
+    }
+
+    private void HandleInGameWreckageLog()
+    {
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        string info = string.Empty;
+        int totalCount = 0;
+        foreach(var item in _inLevelDropItems)
+        {
+            info += string.Format("{0};", item.Key);
+            totalCount += item.Value;
+        }
+
+        waveInfo.WreckageGainCount = (byte)totalCount;
+        waveInfo.WreckageGainRarityInfo = info;
     }
 
     #endregion
@@ -1939,11 +1974,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         InShop = true;
         _currentShopSellWasteCount = 0;
+        _shopCurrencyCostCurrent = 0;
         GameManager.Instance.PauseGame();
         RefreshFreeRollCount();
         RefreshShop(false);
         OnEnterShop?.Invoke(true);
         _shopTotalEnterCount++;
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        waveInfo.ShopEnterCount++;
+
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
         CameraManager.Instance.SetOrthographicSize(20);
@@ -1970,11 +2009,15 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             panel.Initialization();
         });
         OnEnterShop?.Invoke(false);
+
+        ///Log
+        GenerateShopLog();
+
         ///设置玩家无敌时长
         var time = DataManager.Instance.battleCfg.ShopExit_Player_Immortal_Time;
         if(currentShip != null)
         {
-            currentShip.ForeceSetAllUnitState(DamagableState.Immortal, time);
+            currentShip.ForceSetAllUnitState(DamagableState.Immortal, time);
         }
     }
 
@@ -1998,8 +2041,12 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         AddCurrency(-cost);
         info.OnItemSold();
         GainShopItem(info);
-
+        _shopCurrencyCostCurrent += cost;
         OnBuyShopItem?.Invoke(info.GoodsID);
+
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        ///Log
+        waveInfo.ShopBuyInfo += (string.Format("{0}_{1}_{2};", info.GoodsID, info.Name, cost));
 
         return true;
     }
@@ -2024,6 +2071,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             AddNewShipPlug(info._cfg.TypeID, info.GoodsID, info.Cost);
         }
     }
+
+    private void GenerateShopLog()
+    {
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(GetCurrentWaveIndex);
+        waveInfo.ShopItemRefreshCounts += string.Format("{0};", _currentShopRereollCount);
+        waveInfo.ShopCurrencyCostMaps += string.Format("{0};", _shopCurrencyCostCurrent);
+        waveInfo.ShopWasteSellMaps += string.Format("{0};", _currentShopSellWasteCount);
+    }
     
     /// <summary>
     /// 刷新商店
@@ -2045,6 +2100,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
                 ///Cost
                 AddCurrency(-CurrentRerollCost);
+                _shopCurrencyCostCurrent += CurrentRerollCost;
                 CurrentRerollCost = GetCurrentRefreshCost();
             }
         }
@@ -2062,16 +2118,16 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
             });
         }
 
-        _currentRereollCount++;
+        _currentShopRereollCount++;
         ///RefreshShop
         var refreshCount = GetCurrentShopRefreshCount();
         ///去除已经锁定的物品
         refreshCount = (byte)Mathf.Max(0, refreshCount - itemLockCount);
-        GenerateShopGoods(refreshCount, _shopRefreshTotalCount);
+        GenerateShopGoods(refreshCount, GetShopEnterTotalCount);
 
-        OnShopRefresh?.Invoke(_currentRereollCount);
+        OnShopRefresh?.Invoke(_currentShopRereollCount);
         RogueEvent.Trigger(RogueEventType.ShopReroll);
-        Debug.Log("刷新商店，刷新次数 = " + _currentRereollCount);
+        Debug.Log("刷新商店，刷新次数 = " + _currentShopRereollCount);
         return true;
     }
 
@@ -2314,7 +2370,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         var rerollIncrease = Mathf.RoundToInt(_shopTotalEnterCount * rerollParam);
 
-        return _currentRereollCount * rerollIncrease + rollBase;
+        return _currentShopRereollCount * rerollIncrease + rollBase;
     }
 
     /// <summary>
@@ -3023,6 +3079,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         log.UnitLogDatas = unitLogDatas;
         log.PlayerPropertyDatas = GeneratePlayerPropertyLogData();
         log.ShipPlugLog = GenerateAllShipPlugLog();
+        log.WaveLogDatas = GenerateWaveLog();
 
         var fileName = string.Format("BattleLog_{0}", log.EndTime);
 
@@ -3076,8 +3133,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
                 ///Add
                 var targetLog = dic[info.PlugID];
                 targetLog.PlugGainCount++;
-                targetLog.GainWaveCountList += string.Format(",{0}", info.Wave);
-                targetLog.GainCostList += string.Format(",{0}", info.GainCurrencyCost);
+                targetLog.GainWaveCountList += string.Format("{0};", info.Wave);
+                targetLog.GainCostList += string.Format("{0};", info.GainCurrencyCost);
             }
             else
             {
@@ -3097,6 +3154,18 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         }
 
         return dic.Values.ToList();
+    }
+
+    private List<WaveInfoLogData> GenerateWaveLog()
+    {
+        List<WaveInfoLogData> result = new List<WaveInfoLogData>();
+        var allWaveInfos = AchievementManager.Instance.InGameData.WaveInfoDic;
+        foreach(var item in allWaveInfos.Values)
+        {
+            var log = item.GenerateLog();
+            result.Add(log);
+        }
+        return result;
     }
 
     #endregion

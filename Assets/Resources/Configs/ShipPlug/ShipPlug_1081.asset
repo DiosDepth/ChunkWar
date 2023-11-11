@@ -39,6 +39,9 @@ MonoBehaviour:
     - Name: SelfUnique
       Entry: 5
       Data: false
+    - Name: RemoveIfTriggerCountReach
+      Entry: 5
+      Data: false
     - Name: UsePercent
       Entry: 5
       Data: false
@@ -75,13 +78,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: StackConfig
+      Entry: 7
+      Data: 5|TimerModifierStackConfig, Assembly-CSharp
+    - Name: GlobalUnique
+      Entry: 5
+      Data: true
+    - Name: UniqueKey
+      Entry: 6
+      Data: 
+    - Name: StackType
+      Entry: 3
+      Data: 0
+    - Name: StackOrder
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: ModifyMap
       Entry: 7
-      Data: 5|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[System.Single,
+      Data: 6|System.Collections.Generic.Dictionary`2[[PropertyModifyKey, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 6|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
+      Data: 7|System.Collections.Generic.EnumEqualityComparer`1[[PropertyModifyKey,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12

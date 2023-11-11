@@ -26,6 +26,8 @@ public class GameMiscConfig : SerializedScriptableObject
 
     public PropertyModifyConfig[] EnergyOverloadBuff = new PropertyModifyConfig[0];
     public PropertyModifyConfig[] WreckageOverloadBuff = new PropertyModifyConfig[0];
+    public float EnergyOverload_MaxPercent = 200;
+    public float WreckageOverload_MaxPercent = 200;
 
     public AchievementGroupItemConfig GetAchievementGroupConfig(AchievementGroupType type)
     {

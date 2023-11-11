@@ -259,7 +259,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var allAIShip = ECSManager.Instance.activeAIAgentData.shipList;
         for(int i = 0; i < allAIShip.Count; i++)
         {
-            allAIShip[i].ForeceSetAllUnitState(DamagableState.Immortal);
+            allAIShip[i].ForceSetAllUnitState(DamagableState.Immortal);
         }
 
         return true;
@@ -271,7 +271,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var allAIShip = ECSManager.Instance.activeAIAgentData.shipList;
         for (int i = 0; i < allAIShip.Count; i++)
         {
-            allAIShip[i].ForeceSetAllUnitState(DamagableState.Normal);
+            allAIShip[i].ForceSetAllUnitState(DamagableState.Normal);
         }
 
         return true;
@@ -282,7 +282,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var playerShip = RogueManager.Instance.currentShip;
         if(playerShip != null)
         {
-            playerShip.ForeceSetAllUnitState(DamagableState.Immortal);
+            playerShip.ForceSetAllUnitState(DamagableState.Immortal);
         }
         return true;
     }
@@ -292,7 +292,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var playerShip = RogueManager.Instance.currentShip;
         if (playerShip != null)
         {
-            playerShip.ForeceSetAllUnitState(DamagableState.Normal);
+            playerShip.ForceSetAllUnitState(DamagableState.Normal);
         }
         return true;
     }

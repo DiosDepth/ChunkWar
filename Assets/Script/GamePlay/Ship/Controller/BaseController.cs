@@ -108,7 +108,6 @@ public class BaseController : MonoBehaviour, IPauseable, IBoid
     public virtual void GameOver()
     {
         SetControllerUpdate(false);
-
     }
 
 

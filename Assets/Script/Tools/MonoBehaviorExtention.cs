@@ -323,4 +323,14 @@ public static class MonoBehaviorExtention
             child.GetComponent<IPoolable>()?.PoolableDestroy();
         }
     }
+
+    public static void DestroyAllChildren(this Transform trans)
+    {
+        var childCount = trans.childCount;
+        for (int i = childCount - 1; i >= 0; i--)
+        {
+            var child = trans.GetChild(i);
+            GameObject.Destroy(child.gameObject);
+        }
+    }
 }

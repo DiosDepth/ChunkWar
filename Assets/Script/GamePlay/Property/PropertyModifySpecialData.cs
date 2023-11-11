@@ -173,7 +173,16 @@ public class PropertyModifySpecialData
         }
 
         float delta = percent - 100;
-        delta = Mathf.Clamp(delta, 0, float.MaxValue);
+        ///…œœﬁ…Ë÷√
+        if (UID == GameGlobalConfig.PropertyModifyUID_WreckageOverload_GlobalBuff)
+        {
+            delta = Mathf.Clamp(delta, 0, DataManager.Instance.gameMiscCfg.WreckageOverload_MaxPercent);
+        }
+        else if(UID == GameGlobalConfig.PropertyModifyUID_EnergyOverload_GlobalBuff)
+        {
+            delta = Mathf.Clamp(delta, 0, DataManager.Instance.gameMiscCfg.EnergyOverload_MaxPercent);
+        }
+
         RogueManager.Instance.MainPropertyData.SetPropertyModifyValue(Config.ModifyKey, PropertyModifyType.Modify, UID, delta * GetFinialConfigValue());
     }
 

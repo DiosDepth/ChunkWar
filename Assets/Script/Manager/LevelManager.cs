@@ -521,6 +521,19 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         Action_OnShipDie?.Invoke(ship, info);
         AchievementManager.Instance.Trigger<BaseShip>(AchievementWatcherType.EnemyKill, ship);
+
+        ///Log
+        if(ship is AIShip)
+        {
+            var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(RogueManager.Instance.GetCurrentWaveIndex);
+            var cfg = (ship as AIShip).AIShipCfg;
+            if(cfg.ClassLevel == EnemyClassType.Meteorite)
+            {
+                waveInfo.MeteoriteKillCount++;
+            }
+            waveInfo.KillEnemyCount++;
+
+        }
     }
 
     private void OnPlayerShipStateChange(ShipStateEvent state)
@@ -624,6 +637,10 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             cmpt.Init();
             _shopTeleport = cmpt;
         });
+
+        var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(RogueManager.Instance.GetCurrentWaveIndex);
+        waveInfo.ShopRefreshCount++;
+
         RogueEvent.Trigger(RogueEventType.ShopTeleportSpawn);
     }
 

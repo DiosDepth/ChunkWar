@@ -284,3 +284,5 @@ MonoBehaviour:
     BySpecialValue: 1
     SpecialType: 1
     SpecialKeyParam: LoadPercent
+  EnergyOverload_MaxPercent: 200
+  WreckageOverload_MaxPercent: 200

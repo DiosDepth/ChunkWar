@@ -11,8 +11,8 @@ public class LevelPresetEditor : OdinMenuEditorWindow
     public static void ShowWindow()
     {
         var win = GetWindow<LevelPresetEditor>("¹Ø¿¨Ô¤Éè±à¼­Æ÷");
-        win.position = GUIHelper.GetEditorWindowRect().AlignCenter(1400, 800);
-        win.minSize = new Vector2(1500, 900);
+        win.position = GUIHelper.GetEditorWindowRect().AlignCenter(1800, 800);
+        win.minSize = new Vector2(1800, 900);
         win.Show();
     }
 

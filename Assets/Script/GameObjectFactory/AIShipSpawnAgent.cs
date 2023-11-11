@@ -105,10 +105,15 @@ public class AIShipSpawnAgent : ShipSpawnAgent, IPoolable
             tempship.Initialization();
             _shiplist.Add(tempship);
             aispawninfo.action?.Invoke(tempship);
+
+            ///Log
+            var waveInfo = AchievementManager.Instance.InGameData.GetOrCreateWaveInfo(RogueManager.Instance.GetCurrentWaveIndex);
+            waveInfo.RefreshEnemyCount++;
+
 #if GMDEBUG
             if (GMTalkManager.Instance.IsEnemyImmortal)
             {
-                tempship.ForeceSetAllUnitState(DamagableState.Immortal);
+                tempship.ForceSetAllUnitState(DamagableState.Immortal);
             }
 #endif
         }, LevelManager.AIPool);

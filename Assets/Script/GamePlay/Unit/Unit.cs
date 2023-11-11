@@ -174,7 +174,13 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         if (IsCoreUnit)
         {
             ownerDeath = _owner.CheckDeath(this, info);
-            //destroy owner
+            if (_owner is PlayerShip)
+            {
+                ///玩家死亡不销毁，主要处理mainBuilding
+                RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
+                ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
+                return;
+            }
         }
         else
         {
@@ -182,28 +188,18 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
             {
                 ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
             }
-
-            if (_owner is PlayerShip)
-            {
-
-                RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
-                ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
-                //if (_baseUnitConfig.unitType == UnitType.Weapons || _baseUnitConfig.unitType == UnitType.Buildings)
-                //{
-                //    (RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.RemoveActiveUnit(this);
-                //}
-            }
+            
         }
         this.gameObject.SetActive(false);
         ///Remove Owner
         _owner.RemoveUnit(this);
         SetDisable();
- 
+
         if (!ownerDeath)
         {
             EffectManager.Instance.CreateEffect(deathVFXName, transform.position);
         }
-        
+
     }
 
     /// <summary>
