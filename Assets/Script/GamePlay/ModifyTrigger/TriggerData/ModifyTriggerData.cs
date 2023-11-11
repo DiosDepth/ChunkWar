@@ -23,6 +23,10 @@ public abstract class ModifyTriggerData : IPropertyModify
     }
 
     protected int currentTriggerCount;
+    public int GetTriggerCount
+    {
+        get { return currentTriggerCount; }
+    }
 
     /// <summary>
     /// 是否来源于Unit网格效果
@@ -41,6 +45,15 @@ public abstract class ModifyTriggerData : IPropertyModify
         this.Config = cfg;
         this.UID = uid;
         _timerModifiers = new List<TimerModiferData>();
+    }
+
+    /// <summary>
+    /// 设置触发次数，存档
+    /// </summary>
+    /// <param name="triggerCount"></param>
+    public void SetTriggerCount_Sav(int triggerCount)
+    {
+        currentTriggerCount = triggerCount;
     }
 
     public virtual void OnTriggerAdd()

@@ -2917,6 +2917,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     public void CreateInLevelSaveData(string saveName = "", bool formatJson = false)
     {
+        if (!InBattle)
+            return;
+
         var newIndex = SaveLoadManager.Instance.GetSaveIndex();
         if (string.IsNullOrEmpty(saveName))
         {

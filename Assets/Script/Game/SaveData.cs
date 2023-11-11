@@ -273,6 +273,8 @@ public class PlugRuntimeSaveData
     public uint UID;
     public int ID;
     public int GoodsID;
+
+    public List<int> TriggerCountSav;
 }
 
 

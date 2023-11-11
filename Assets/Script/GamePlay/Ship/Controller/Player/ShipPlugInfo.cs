@@ -40,6 +40,7 @@ public class ShipPlugInfo : IPropertyModify
     }
 
     private bool _triggerInit = false;
+    private List<int> _triggerCountSav = null;
 
     public static ShipPlugInfo CreateInfo(int plugID, int goodsID)
     {
@@ -71,6 +72,7 @@ public class ShipPlugInfo : IPropertyModify
         info._cfg = plugCfg;
         info.UID = sav.UID;
         info.GoodsID = sav.GoodsID;
+        info._triggerCountSav = sav.TriggerCountSav;
         return info;
     }
 
@@ -84,6 +86,11 @@ public class ShipPlugInfo : IPropertyModify
         sav.UID = UID;
         sav.ID = PlugID;
         sav.GoodsID = GoodsID;
+        sav.TriggerCountSav = new List<int>();
+        for (int i = 0; i < _triggerDatas.Count; i++) 
+        {
+            sav.TriggerCountSav.Add(_triggerDatas[i].GetTriggerCount);
+        }
         return sav;
     }
 
@@ -154,6 +161,11 @@ public class ShipPlugInfo : IPropertyModify
                     triggerData.UID = uid;
                     triggerData.OwnerUID = UID;
                     triggerData.OnTriggerAdd();
+                    ///´ÎÊý´æµµ
+                    if (_triggerCountSav != null && _triggerCountSav.Count > i)
+                    {
+                        triggerData.SetTriggerCount_Sav(_triggerCountSav[i]);
+                    }
                     _triggerDatas.Add(triggerData);
                 }
             }
