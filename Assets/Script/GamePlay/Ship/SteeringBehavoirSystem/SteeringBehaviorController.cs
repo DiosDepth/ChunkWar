@@ -16,11 +16,17 @@ public struct SteeringBehaviorInfo
     public float angular;
 }
 
+public enum SteeringState
+{
+    Move,
+    Immobilized,
+}
+
 public class SteeringBehaviorController : BaseController
 {
 
     //public SteeringBehaviorController steeringBehaviorController;
-
+    public SteeringState steeringState = SteeringState.Move;
 
     public float maxAcceleration = 10f;
     public float maxVelocity = 7f;
@@ -134,6 +140,7 @@ public class SteeringBehaviorController : BaseController
         base.Initialization();
         rb.drag = drag;
         lastpos = transform.position;
+        steeringState = SteeringState.Move;
     }
     [BurstCompile]
     public struct CalculateSteeringTargetsPosByRadiusJob : IJobParallelForBatch

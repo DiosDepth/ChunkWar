@@ -1416,12 +1416,12 @@ MonoBehaviour:
   SectorThreadValue: 1
   EnemyCountModify: 1
   MaxVelocity: 60
-  MaxAcceleration: 0
+  MaxAcceleration: 7
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 1
   targetSerchingRadius: 15
-  ArrivalRadius: 15
+  ArrivalRadius: 1
   SlotRadius: 5
   DieAudio: 
   AppearChangeCameraOrthographicSize: 0
@@ -1430,7 +1430,7 @@ MonoBehaviour:
   AppearWarningText: 
   AppearWarningAudio: 
   DieEffect:
-    EffectName: 
+    EffectName: Explode/AIShipExplode_Huge
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

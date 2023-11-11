@@ -238,8 +238,12 @@ public class JobController : IPauseable
         {
             activeSelfAgentData.steeringControllerList[i].UpdateBoid();
 
-            activeSelfAgentData.steeringControllerList[i].Move(activeSelfAgentData.rv_deltaMovement[i].linear);
-            activeSelfAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfAgentData.rv_deltaMovement[i].angular);
+            if (activeSelfAgentData.steeringControllerList[i].steeringState == SteeringState.Move)
+            {
+                activeSelfAgentData.steeringControllerList[i].Move(activeSelfAgentData.rv_deltaMovement[i].linear);
+                activeSelfAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfAgentData.rv_deltaMovement[i].angular);
+            }
+
         }
 
 
@@ -983,8 +987,13 @@ public class JobController : IPauseable
         {
             activeSelfDroneAgentData.steeringControllerList[i].UpdateBoid();
 
-            activeSelfDroneAgentData.steeringControllerList[i].Move(activeSelfDroneAgentData.rv_deltaMovement[i].linear);
-            activeSelfDroneAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfDroneAgentData.rv_deltaMovement[i].angular);
+
+            if (activeSelfDroneAgentData.steeringControllerList[i].steeringState == SteeringState.Move)
+            {
+                activeSelfDroneAgentData.steeringControllerList[i].Move(activeSelfDroneAgentData.rv_deltaMovement[i].linear);
+                activeSelfDroneAgentData.steeringControllerList[i].transform.rotation = Quaternion.Euler(0, 0, activeSelfDroneAgentData.rv_deltaMovement[i].angular);
+            }
+
         }
 
 

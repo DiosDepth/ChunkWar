@@ -16,7 +16,7 @@ public class SelfExplosiveBuildingConfig : BuildingConfig
     [HorizontalGroup("自爆建筑配置/A", 250)]
     [BoxGroup("自爆建筑配置/A/爆炸伤害")]
     [HideLabel]
-    public float DamageValue;
+    public int DamageValue;
 
     [FoldoutGroup("自爆建筑配置")]
     [HorizontalGroup("自爆建筑配置/A", 250)]

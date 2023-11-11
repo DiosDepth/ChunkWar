@@ -453,7 +453,7 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 3
+  BaseRange: 30
   ShieldConfig:
     GenerateShield: 0
     ShieldPrefabName: 
@@ -462,5 +462,5 @@ MonoBehaviour:
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
   DamageRange: 15
-  DamageValue: 100
-  ExplodeDelay: 0
+  DamageValue: 150
+  ExplodeDelay: 3

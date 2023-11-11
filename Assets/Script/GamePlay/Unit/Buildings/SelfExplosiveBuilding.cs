@@ -6,6 +6,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 [System.Serializable]
 public class SelfExplosiveBuildingAttribute : BuildingAttribute
@@ -16,7 +17,7 @@ public class SelfExplosiveBuildingAttribute : BuildingAttribute
         protected set;
     }
 
-    public float DamageValue
+    public int DamageValue
     {
         get;
         protected set;
@@ -63,6 +64,9 @@ public class SelfExplosiveBuilding : Building
         _selfExplosiveBuildingCfg = m_unitconfig as SelfExplosiveBuildingConfig;
         base.Initialization(m_owner, m_unitconfig);
         SetUnitData();
+        _inExplodeProcess = false;
+
+
     }
     public override void InitBuildingAttribute(OwnerShipType type)
     {
@@ -100,18 +104,19 @@ public class SelfExplosiveBuilding : Building
     }
     public override void BuildingStart()
     {
-        if (_inExplodeProcess) { return; }
+        if (!_inExplodeProcess) { return; }
         base.BuildingStart();
 
 
         LeanTween.value(0, 1, _selfExplosiveBuildingCfg.ExplodeDelay).setOnStart(() => 
         {
+            _inExplodeProcess = true;
+            (_owner.controller as SteeringBehaviorController).steeringState = SteeringState.Immobilized;
             SetAnimatorTrigger(AnimTrigger_SelfExplode);
         }).setOnComplete(() => 
         {
             SetAnimatorTrigger(AnimTrigger_SelfExplode);
-
-
+            ApplyDamageAllTarget();
             buildingState.ChangeState(BuildingState.Active);
         });
     }
@@ -119,6 +124,29 @@ public class SelfExplosiveBuilding : Building
     {
         base.BuildingActive();
 
+        buildingState.ChangeState(BuildingState.End);
+    }
+    public override void BuildingEnd()
+    {
+        base.BuildingEnd();
+
+        UnitDeathInfo deathInfo = new UnitDeathInfo
+        {
+            isCriticalKill = false,
+        };
+
+        Death(deathInfo);
+
+    }
+    public override void BuildingRecover()
+    {
+        base.BuildingRecover();
+   
+    }
+
+    public virtual bool ApplyDamageAllTarget()
+    {
+        if(targetList==null || targetList.Count == 0) { return false; }
         rv_findedTargetIndex_Unit = new NativeArray<int>(_unitData.unitList.Count, Allocator.TempJob);
         rv_findedTargetIndex_Drone = new NativeArray<int>(_droneData.unitList.Count, Allocator.TempJob);
 
@@ -136,7 +164,7 @@ public class SelfExplosiveBuilding : Building
         jobHandle_Unit = findExplosiveBuildingDamageTargetJob_Unit.Schedule(_unitData.unitList.Count, 32);
         jobHandle_Unit.Complete();
 
-        FindExplosiveBuildingDamageTargetJob findExplosiveBuildingDamageTargetJob_Drone= new FindExplosiveBuildingDamageTargetJob
+        FindExplosiveBuildingDamageTargetJob findExplosiveBuildingDamageTargetJob_Drone = new FindExplosiveBuildingDamageTargetJob
         {
             job_selfPos = this.transform.position,
             job_searchingRange = selfExplosiveBuildingAttribute.DamageRange,
@@ -148,69 +176,61 @@ public class SelfExplosiveBuilding : Building
         jobHandle_Drone.Complete();
 
 
+
+        for (int i = 0; i < rv_findedTargetIndex_Unit.Length; i++)
+        {
+            IDamageble damageble = _unitData.unitList[rv_findedTargetIndex_Unit[i]].GetComponent<IDamageble>();
+            if (damageble != null)
+            {
+                prepareDamageTargetList.Add(damageble);
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+
+        for (int i = 0; i < rv_findedTargetIndex_Drone.Length; i++)
+        {
+            IDamageble damageble = _droneData.unitList[rv_findedTargetIndex_Unit[i]].GetComponent<IDamageble>();
+            if (damageble != null)
+            {
+                prepareDamageTargetList.Add(damageble);
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+
+        for (int i = 0; i < prepareDamageTargetList.Count; i++)
+        {
+            DamageResultInfo info = new DamageResultInfo()
+            {
+                attackerUnit = this,
+                Target = prepareDamageTargetList[i],
+                Damage = (int)selfExplosiveBuildingAttribute.DamageValue,
+                IsCritical = false,
+                DamageType = WeaponDamageType.Physics,
+                IsPlayerAttack = GetOwnerType == OwnerType.Player ? true : false,
+            };
+            prepareDamageTargetList[i].TakeDamage(info);
+        }
+
+
+
         rv_findedTargetIndex_Unit.Dispose();
         rv_findedTargetIndex_Drone.Dispose();
 
-
-
-    }
-    public override void BuildingEnd()
-    {
-        base.BuildingEnd();
-    }
-    public override void BuildingRecover()
-    {
-        base.BuildingRecover();
-   
-    }
-
-    public override bool ApplyDamageAllTarget()
-    {
-
-        if(targetList)
-
-        if (prepareDamageTargetList == null || prepareDamageTargetList.Count == 0) { return false; }
-
-
-        if (damagePattern == DamagePattern.Target && initialTarget != null)
-        {
-            ApplyDamage(initialTarget.GetComponent<IDamageble>());
-        }
-
-        if (damagePattern == DamagePattern.PointRadius)
-        {
-            ///Explode Damage
-            LevelManager.Instance.PlayerCreateExplode();
-            for (int i = 0; i < prepareDamageTargetList.Count; i++)
-            {
-                ApplyDamage(prepareDamageTargetList[i]);
-            }
-        }
-
-        if (damagePattern == DamagePattern.Touched)
-        {
-            ApplyDamage(prepareDamageTargetList[0]);
-        }
-        prepareDamageTargetList.Clear();
         return true;
-
-        var succ = base.ApplyDamageAllTarget();
-        if (succ)
-        {
-            SoundManager.Instance.PlayBattleSound(_projectileCfg.HitAudio, transform);
-            if (!string.IsNullOrEmpty(_projectileCfg.HitEffect.EffectName))
-            {
-                var explodeRange = GameHelper.CalculateExplodeRange(DamageRadiusBase);
-                EffectManager.Instance.CreateEffect(_projectileCfg.HitEffect, transform.position, explodeRange * 2);
-            }
-            OnHitEffect();
-        }
-        return succ;
     }
 
     public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
+        
     }
 
     public override void GameOver()
