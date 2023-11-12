@@ -229,6 +229,9 @@ public class Weapon : Unit
                 if(tempinfolist.Length > 0)
                 {
                     //全部找完了之后进行排序
+
+
+
                     tempinfolist.Sort();
                     //， 装填所有的结果
 

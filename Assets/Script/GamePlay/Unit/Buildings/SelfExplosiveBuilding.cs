@@ -104,7 +104,7 @@ public class SelfExplosiveBuilding : Building
     }
     public override void BuildingStart()
     {
-        if (!_inExplodeProcess) { return; }
+        if (_inExplodeProcess) { return; }
         base.BuildingStart();
 
 
