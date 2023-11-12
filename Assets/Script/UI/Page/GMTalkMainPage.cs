@@ -54,7 +54,7 @@ public class GMTalkMainPage : GUIBasePanel
 
     private void ClosePage()
     {
-        GMTalkManager.Instance.SwicthGMPage();
+        GMTalkManager.Instance.CloseGMTalkPage();
     }
 
     private void JumpToShop()

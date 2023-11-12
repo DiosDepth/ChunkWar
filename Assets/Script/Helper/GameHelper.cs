@@ -48,6 +48,16 @@ public static class GameHelper
         public GoodsItemRarity Rarity;
     }
 
+    /// <summary>
+    /// 是否在操控舰船
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsInBattleScene()
+    {
+        var mgr = RogueManager.Instance;
+        return mgr.InBattle || mgr.InHarbor || mgr.InShop;
+    }
+
 
     /// <summary>
     /// 获取稀有度颜色

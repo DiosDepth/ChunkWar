@@ -30,10 +30,9 @@ public class GMTalkManager : Singleton<GMTalkManager>
     public override void Initialization()
     {
         base.Initialization();
+        isShowGMTalkWindow = false;
         InitFunctionDic();
-
         MonoManager.Instance.AddUpdateListener(ListenerGMSwitch);
-
         InitialCmd();
     }
 
@@ -99,18 +98,25 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     public void SwicthGMPage()
     {
-        if (isShowGMTalkWindow)
+        if (!isShowGMTalkWindow)
         {
             UIManager.Instance.ShowUI<GMTalkMainPage>("GMTalkMainPage", E_UI_Layer.System, this, (panel) =>
             {
                 panel.Initialization();
-                InputDispatcher.Instance.ChangeInputMode("UI");
             });
+            InputDispatcher.Instance.ChangeInputMode("UI");
         }
         else
         {
             UIManager.Instance.HiddenUI("GMTalkMainPage");
-            InputDispatcher.Instance.ChangeInputMode("Player");
+            if (GameHelper.IsInBattleScene())
+            {
+                InputDispatcher.Instance.ChangeInputMode("Player");
+            }
+            else
+            {
+                InputDispatcher.Instance.ChangeInputMode("UI");
+            }
         }
         isShowGMTalkWindow = !isShowGMTalkWindow;
     }
@@ -374,8 +380,16 @@ public class GMTalkManager : Singleton<GMTalkManager>
             return;
 
         UIManager.Instance.HiddenUI("GMTalkMainPage");
-        InputDispatcher.Instance.ChangeInputMode("Player");
-        isShowGMTalkWindow = !isShowGMTalkWindow;
+        if (GameHelper.IsInBattleScene())
+        {
+            InputDispatcher.Instance.ChangeInputMode("Player");
+        }
+        else
+        {
+            InputDispatcher.Instance.ChangeInputMode("UI");
+        }
+        
+        isShowGMTalkWindow = false;
     }
 
     public void CreateEnemy(int shipID, int hardLevelID, int count)
