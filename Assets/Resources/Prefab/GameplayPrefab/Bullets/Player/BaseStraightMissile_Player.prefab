@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7448544990957314191}
   - component: {fileID: 656859498999926809}
   m_Layer: 10
-  m_Name: BaseHommingBullet_Player
+  m_Name: BaseStraightMissile_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,16 +183,16 @@ MonoBehaviour:
   ownertype: 1
   damagePattern: 2
   DeathVFX: HitVFX
-  hasIndicator: 0
-  shape: 0
+  hasIndicator: 1
+  shape: 1
   angle: 360
   quality: 16
   initialTarget: {fileID: 0}
   initialTargetPos: {x: 0, y: 0, z: 0}
   rb: {fileID: 5862403524487350706}
   bulletCollider: {fileID: 7448544990957314191}
-  movementType: 2
-  damageTriggerPattern: 0
+  movementType: 4
+  damageTriggerPattern: 2
   lifeTime: 5
   maxSpeed: 45
   rotSpeed: 7

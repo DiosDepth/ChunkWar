@@ -165,16 +165,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
                     _indicator.Initialization();
                     var damageRadius = GameHelper.CalculateExplodeRange(DamageRadiusBase);
                     _indicator.CreateIndicator(shape, Vector3.zero, damageRadius, angle, quality);
-                    Vector3 initialtargetpos;
-                    if((Owner as Weapon).aimingtype == WeaponAimingType.Directional)
-                    {
-                        initialtargetpos = transform.position + transform.up * Owner.baseAttribute.Range;
-                    }
-                    else
-                    {
-                        initialtargetpos = initialTarget.transform.position;
-                    }
-                    _indicator.transform.position = initialtargetpos;
+                    _indicator.transform.position = initialTargetPos;
                 }, (LevelManager.Instance.currentLevel as BattleLevel).IndicatorPool.transform);
             }
         }
@@ -359,7 +350,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
                     bulletJobUpdateInfo.lifeTimeRemain = job_jobInfo[i].update_lifeTimeRemain - job_deltatime;
 
 
-                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0 || math.distance(deltaMovement, job_jobInfo[i].initialTargetPos) <= 0.1f)
+                    if (bulletJobUpdateInfo.lifeTimeRemain <= 0 || math.distance(deltaMovement, job_jobInfo[i].initialTargetPos) <= 0.25f)
                     {
                         bulletJobUpdateInfo.lifeTimeRemain = 0;
                         bulletJobUpdateInfo.islifeended = true;
@@ -477,23 +468,19 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
 
     public override void Death(UnitDeathInfo info)
     {
-     
+        SoundManager.Instance.PlayBattleSound(_projectileCfg.HitAudio, transform);
+        if (!string.IsNullOrEmpty(_projectileCfg.HitEffect.EffectName))
+        {
+            var explodeRange = GameHelper.CalculateExplodeRange(DamageRadiusBase);
+            EffectManager.Instance.CreateEffect(_projectileCfg.HitEffect, transform.position, explodeRange * 2);
+        }
+        OnHitEffect();
         base.Death(info);
     }
 
     public override bool ApplyDamageAllTarget()
     {
         var succ = base.ApplyDamageAllTarget();
-        if (succ)
-        {
-            SoundManager.Instance.PlayBattleSound(_projectileCfg.HitAudio, transform);
-            if (!string.IsNullOrEmpty(_projectileCfg.HitEffect.EffectName))
-            {
-                var explodeRange = GameHelper.CalculateExplodeRange(DamageRadiusBase);
-                EffectManager.Instance.CreateEffect(_projectileCfg.HitEffect, transform.position, explodeRange * 2);
-            }
-            OnHitEffect();
-        }
         return succ;
     }
 

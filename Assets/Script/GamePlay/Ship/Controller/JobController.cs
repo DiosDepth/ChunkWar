@@ -307,10 +307,6 @@ public class JobController : IPauseable
                     startindex += activeSelfWeaponData.activeWeaponJobData[c].targetCount;
                 }
 
-
-
-
-
                 //如果没有在开火或者在开火间歇中，则重新刷写weapon.targetlist
                 if (weapon.weaponState.CurrentState != WeaponState.Firing && weapon.weaponState.CurrentState != WeaponState.BetweenDelay)
                 {
@@ -630,16 +626,14 @@ public class JobController : IPauseable
                 }
                 else
                 {
-                    if (activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame)
+                    if (activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame|| activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                     {
                         activeSelfProjectileData.damageProjectileList.Add(activeSelfProjectileData.activeProjectileList[i]);
                         activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);
-                    }
-                    //Collide触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
-                    if (activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
-                    {
                         activeSelfProjectileData.deathProjectileIndexList.Add(i);
                     }
+                    //Collide触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+
                 }
             }
 
@@ -674,15 +668,12 @@ public class JobController : IPauseable
                 else
                 {
                     //Point触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
-                    if (activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended)
+                    if (activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended || activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                     {
                         activeSelfProjectileData.damageProjectileList.Add(activeSelfProjectileData.activeProjectileList[i]);
                         activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);
-                       
-                    }
-                    if(activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
-                    {
                         activeSelfProjectileData.deathProjectileIndexList.Add(i);
+
                     }
                 }
             }
@@ -697,17 +688,14 @@ public class JobController : IPauseable
                 }
                 else
                 {
-                    if (activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame)
+                    if (activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame || activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
                     {
                         activeSelfProjectileData.damageProjectileList.Add(activeSelfProjectileData.activeProjectileList[i]);
                         activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);
-                    }
-                    // Target触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
-                    if (activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
-                    {
                         activeSelfProjectileData.deathProjectileIndexList.Add(i);
                     }
-                  
+                    // Target触发类型的子弹， 只要LifeTime或者 Damage有一个触发， 就会执行Death
+
                 }
             }
         }

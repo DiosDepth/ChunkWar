@@ -46,6 +46,7 @@ public enum WeaponAimingType
     Directional,
     TargetDirectional,
     TargetBased,
+    TargetPointRange,
 }
 public enum WeaponTargetMode
 {
@@ -95,6 +96,12 @@ public class Weapon : Unit
     public StateMachine<WeaponState> weaponState;
     public WeaponFireMode firemode;
     public WeaponAimingType aimingtype= WeaponAimingType.Directional;
+
+
+    [ShowIf( "aimingtype" ,WeaponAimingType.TargetPointRange)]
+    public float pointRange = 7;
+    private Vector3 _targetsCentroid;
+
     public WeaponInterceptType intercepttype = WeaponInterceptType.Unit;
 
 
@@ -438,6 +445,18 @@ public class Weapon : Unit
         {
             _firepointindex = 0;
         }
+        //计算target几何中心
+        if(aimingtype == WeaponAimingType.TargetPointRange)
+        {
+            _targetsCentroid = Vector3.zero;
+            for (int i = 0; i < targetList.Count; i++)
+            {
+                _targetsCentroid += targetList[i].target.transform.position;
+            }
+            _targetsCentroid = _targetsCentroid / targetList.Count;
+        }
+
+
         weaponState.ChangeState(WeaponState.Firing);
     }
 
@@ -603,7 +622,7 @@ public class Weapon : Unit
 
     public virtual void FireSimultaneous(int firecount, UnityAction<Bullet> callback = null)
     {
-        if ((aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional) && targetList?.Count > 0)
+        if (aimingtype == WeaponAimingType.TargetBased && targetList?.Count > 0)
         {
             _targetindex = 0;
             for (int i = 0; i < firecount; i++)
@@ -631,7 +650,35 @@ public class Weapon : Unit
                 _targetindex++;
             }
         }
-        else
+        if (aimingtype == WeaponAimingType.TargetDirectional && targetList?.Count > 0)
+        {
+            _targetindex = 0;
+            for (int i = 0; i < firecount; i++)
+            {
+                if (_targetindex >= targetList.Count)
+                {
+                    _targetindex = 0;
+                }
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[i], targetList[_targetindex].target, (obj, trs, target) =>
+                {
+                    obj.transform.SetTransform(trs);
+                    _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
+                    _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    _lastbullet.SetFirePoint(trs.gameObject);
+                    _lastbullet.SetTarget(target);
+                    //_lastbullet.PoolableSetActive();
+                    _lastbullet.SetOwner(this);
+                    _lastbullet.Initialization();
+
+                    _lastbullet.Shoot();
+                }, LevelManager.BulletPool);
+                CreateFireEffect(firePoint[i]);
+                _targetindex++;
+            }
+        }
+        if (aimingtype == WeaponAimingType.Directional)
         {
             WeaponAimingType temptype = aimingtype;
             aimingtype = WeaponAimingType.Directional;
@@ -647,7 +694,7 @@ public class Weapon : Unit
                         _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                         _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                         _lastbullet.SetFirePoint(trs.gameObject);
-                        _lastbullet.SetTarget(null);
+                        _lastbullet.SetTarget(null, transform.position + transform.up * baseAttribute.Range);
                         _lastbullet.SetOwner(this);
                         // _lastbullet.PoolableSetActive();
                         _lastbullet.Initialization();
@@ -658,35 +705,80 @@ public class Weapon : Unit
                 }
             }
             aimingtype = temptype;
+        }
+        if(aimingtype == WeaponAimingType.TargetPointRange && targetList?.Count > 0)
+        {
+            _targetindex = 0;
+            for (int i = 0; i < firecount; i++)
+            {
+                if (_targetindex >= targetList.Count)
+                {
+                    _targetindex = 0;
+                }
+                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[i], targetList[_targetindex].target, (obj, trs, target) =>
+                {
+                    obj.transform.SetTransform(trs);
+                    _lastbullet = obj.GetComponent<Bullet>();
+                    _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
+                    _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    _lastbullet.SetFirePoint(trs.gameObject);
+                    _lastbullet.SetTarget(target, MathExtensionTools.GetRadomPosFromOutRange(0, pointRange, _targetsCentroid));
+                    //_lastbullet.PoolableSetActive();
+                    _lastbullet.SetOwner(this);
+                    _lastbullet.Initialization();
 
+                    _lastbullet.Shoot();
+                }, LevelManager.BulletPool);
+                CreateFireEffect(firePoint[i]);
+                _targetindex++;
+            }
         }
     }
 
     public virtual void FireSequent(int firepointindex, int targetindex)
     {
-        if ((aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional) && targetList?.Count > 0)
+        if (aimingtype == WeaponAimingType.TargetBased && targetList?.Count > 0)
         {
+            PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], targetList[targetindex].target, (obj, trs, target) =>
             {
-                PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], targetList[targetindex].target, (obj, trs, target) =>
-                {
-                    obj.transform.SetTransform(trs);
-                    _lastbullet = obj.GetComponent<Bullet>();
-                    _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
-                    _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
-                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
-                    _lastbullet.SetFirePoint(trs.gameObject);
-                    _lastbullet.SetTarget(target);
-                    // _lastbullet.PoolableSetActive();
-                    _lastbullet.SetOwner(this);
-                    _lastbullet.Initialization();
+                obj.transform.SetTransform(trs);
+                _lastbullet = obj.GetComponent<Bullet>();
+                _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
+                _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                _lastbullet.SetFirePoint(trs.gameObject);
+                _lastbullet.SetTarget(target);
+                // _lastbullet.PoolableSetActive();
+                _lastbullet.SetOwner(this);
+                _lastbullet.Initialization();
                   
-                    _lastbullet.Shoot();
-                }, LevelManager.BulletPool);
+                _lastbullet.Shoot();
+            }, LevelManager.BulletPool);
 
-                CreateFireEffect(firePoint[firepointindex]);
-            }
+            CreateFireEffect(firePoint[firepointindex]);
         }
-        else
+        if (aimingtype == WeaponAimingType.TargetDirectional && targetList?.Count > 0)
+        {
+            PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], targetList[targetindex].target, (obj, trs, target) =>
+            {
+                obj.transform.SetTransform(trs);
+                _lastbullet = obj.GetComponent<Bullet>();
+                _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
+                _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                _lastbullet.SetFirePoint(trs.gameObject);
+                _lastbullet.SetTarget(target);
+                // _lastbullet.PoolableSetActive();
+                _lastbullet.SetOwner(this);
+                _lastbullet.Initialization();
+
+                _lastbullet.Shoot();
+            }, LevelManager.BulletPool);
+
+            CreateFireEffect(firePoint[firepointindex]);
+        }
+        if (aimingtype == WeaponAimingType.Directional)
         {
             WeaponAimingType temptype = aimingtype;
             aimingtype = WeaponAimingType.Directional;
@@ -700,7 +792,7 @@ public class Weapon : Unit
                     _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
                     _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
                     _lastbullet.SetFirePoint(trs.gameObject);
-                    _lastbullet.SetTarget(null);
+                    _lastbullet.SetTarget(null, transform.position + transform.up * baseAttribute.Range);
                     //_lastbullet.PoolableSetActive();
                     _lastbullet.SetOwner(this);
                     _lastbullet.Initialization();
@@ -709,6 +801,26 @@ public class Weapon : Unit
                 }, LevelManager.BulletPool);
             }
             aimingtype = temptype;
+            CreateFireEffect(firePoint[firepointindex]);
+        }
+        if(aimingtype == WeaponAimingType.TargetPointRange && targetList?.Count > 0)
+        {
+            PoolManager.Instance.GetBulletAsync(_bulletdata.PrefabPath, false, firePoint[firepointindex], targetList[targetindex].target, (obj, trs, target) =>
+            {
+                obj.transform.SetTransform(trs);
+                _lastbullet = obj.GetComponent<Bullet>();
+                _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
+                _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                _lastbullet.SetFirePoint(trs.gameObject);
+                _lastbullet.SetTarget(target, MathExtensionTools.GetRadomPosFromOutRange(0, pointRange, _targetsCentroid));
+                // _lastbullet.PoolableSetActive();
+                _lastbullet.SetOwner(this);
+                _lastbullet.Initialization();
+
+                _lastbullet.Shoot();
+            }, LevelManager.BulletPool);
+
             CreateFireEffect(firePoint[firepointindex]);
         }
     }

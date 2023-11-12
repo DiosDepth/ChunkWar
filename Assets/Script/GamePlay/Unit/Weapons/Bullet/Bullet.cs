@@ -7,6 +7,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using System;
+using static UnityEditor.PlayerSettings;
 
 
 public enum BulletType
@@ -53,14 +54,20 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     protected GameObject firepoint;
 
     [HideInInspector]
-    public GameObject initialTarget;
-    [HideInInspector]
     public List<IDamageble> prepareDamageTargetList = new List<IDamageble>();
     protected List<IDamageble> damagedTargetList = new List<IDamageble>();
 
     [HideInInspector]
     public Vector2 InitialmoveDirection { get { return _initialmoveDirection; } set { _initialmoveDirection = value; } }
     protected Vector2 _initialmoveDirection = Vector2.up;
+
+    [HideInInspector]
+    public GameObject initialTarget;
+
+    [HideInInspector]
+    public Vector3 initialTargetPos;
+
+
     [HideInInspector]
     public bool IsApplyDamageAtThisFrame { get { return _isApplyDamageAtThisFrame; } }
     protected bool _isApplyDamageAtThisFrame;
@@ -180,7 +187,15 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     public virtual void SetTarget(GameObject m_target)
     {
         initialTarget = m_target;
+        initialTargetPos = initialTarget.transform.position;
     }
+
+    public virtual void SetTarget(GameObject m_target,Vector3 m_pos)
+    {
+        initialTarget = m_target;
+        initialTargetPos = m_pos;
+    }
+
     public virtual void SetFirePoint(GameObject m_firepoint)
     {
         firepoint = m_firepoint;

@@ -781,6 +781,7 @@ public class ProjectileData : IJobData
             bulletJobInfo = activeProjectileJobData[i];
 
             bulletJobInfo.update_targetPos = activeProjectileList[i].initialTarget ? activeProjectileList[i].initialTarget.transform.position : activeProjectileList[i].transform.up;
+
             bulletJobInfo.update_selfPos = activeProjectileList[i].transform.position;
             bulletJobInfo.update_lifeTimeRemain = rv_activeProjectileUpdateInfo[i].lifeTimeRemain;
             bulletJobInfo.update_moveDirection = rv_activeProjectileUpdateInfo[i].moveDirection;
@@ -794,16 +795,25 @@ public class ProjectileData : IJobData
     {
         if (activeProjectileList.Contains(projectile)) { return; }
         activeProjectileList.Add(projectile);
-        float3 initialtargetpos;
+        float3 initialtargetpos = float3.zero;
 
-        if ((projectile.Owner as Weapon).aimingtype == WeaponAimingType.Directional)
+        if((projectile.Owner as Weapon).aimingtype == WeaponAimingType.Directional)
         {
             initialtargetpos = projectile.transform.position + projectile.transform.up * projectile.Owner.baseAttribute.Range;
         }
-        else
+        else if ((projectile.Owner as Weapon).aimingtype == WeaponAimingType.TargetBased)
         {
             initialtargetpos = projectile.initialTarget.transform.position;
         }
+        else if((projectile.Owner as Weapon).aimingtype == WeaponAimingType.TargetDirectional)
+        {
+            initialtargetpos = projectile.initialTarget.transform.position;
+        }
+        else if((projectile.Owner as Weapon).aimingtype == WeaponAimingType.TargetPointRange)
+        {
+            initialtargetpos = projectile.initialTargetPos;
+        }
+
 
         float damagerRadius = 0;
         if (projectile.damagePattern == DamagePattern.PointRadius)

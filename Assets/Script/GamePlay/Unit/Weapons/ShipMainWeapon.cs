@@ -244,7 +244,7 @@ public class ShipMainWeapon : Weapon
     }
     public override void ProcessWeapon()
     {
-        if (aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional)
+        if (aimingtype == WeaponAimingType.TargetBased || aimingtype == WeaponAimingType.TargetDirectional || aimingtype == WeaponAimingType.TargetPointRange)
         {
             UpdateMainWeaponTargetList();
         }
