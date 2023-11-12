@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine.InputSystem;
+using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 #if GMDEBUG
-
 public class GMTalkManager : Singleton<GMTalkManager>
 {
     private Dictionary<string, Func<string[], bool>> GMFunctionDic;
@@ -55,6 +59,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("EnemyUnImmortal", AllAIShip_UnImmortal);
         AddGMFunctionToDic("PlayerUnImmortal", PlayerShip_UnImmortal);
         AddGMFunctionToDic("addWreckage", AddWreckage);
+        AddGMFunctionToDic("exportPlugPreset", ExportPlugPreset);
     }
 
     public void AddToggleStorage(int key, bool value)
@@ -294,6 +299,55 @@ public class GMTalkManager : Singleton<GMTalkManager>
         {
             playerShip.ForceSetAllUnitState(DamagableState.Normal);
         }
+        return true;
+    }
+
+    /// <summary>
+    /// 导出插件预设
+    /// </summary>
+    /// <param name="content"></param>
+    /// <returns></returns>
+    private bool ExportPlugPreset(string[] content)
+    {
+        if (!RogueManager.Instance.InBattle)
+            return false;
+#if UNITY_EDITOR
+        var obj = ScriptableObject.CreateInstance(typeof(ShipPlugPresetTestData));
+        var data = obj as ShipPlugPresetTestData;
+        data.Name = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
+        data.ID = 99999;
+        data.PlugItems = new List<ShipPlugPresetTestData.PlugTestItem>();
+
+        var allPlugs = RogueManager.Instance.AllCurrentShipPlugs;
+        for (int i = 0; i < allPlugs.Count; i++) 
+        {
+            var plugID = allPlugs[i].PlugID;
+            ///剔除舰船插件
+            if (plugID <= GameGlobalConfig.Ship_MainPlug_StartID)
+                continue;
+
+            var plug = data.PlugItems.Find(x => x.PlugID == plugID);
+            if (plug != null)
+            {
+                plug.count++;
+            }
+            else
+            {
+                ShipPlugPresetTestData.PlugTestItem item = new ShipPlugPresetTestData.PlugTestItem
+                {
+                    count = 1,
+                    PlugID = allPlugs[i].PlugID
+                };
+                data.PlugItems.Add(item);
+            }
+        }
+
+        var targetPath = string.Format("{0}/{1}.asset", "Assets/EditorRes/Config/PlugPreset", data.Name);
+        AssetDatabase.CreateAsset(obj, targetPath);
+        EditorUtility.SetDirty(obj);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+#endif
         return true;
     }
 

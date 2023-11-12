@@ -169,6 +169,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
     {
         LevelManager.Instance.UnloadCurrentLevel();
         RogueManager.Instance.Clear();
+        RogueManager.Instance.ClearShip();
         LevelManager.Instance.Clear();
         ECSManager.Instance.UnLoad();
         AchievementManager.Instance.ClearRuntimeData();

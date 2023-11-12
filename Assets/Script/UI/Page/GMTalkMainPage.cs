@@ -32,7 +32,10 @@ public class GMTalkMainPage : GUIBasePanel
         GetGUIComponent<Button>("SendGMBtn").onClick.AddListener(() =>
         {
             GMTalkManager.Instance.HandleGMTalkInputContent(_inputFiled.text);
-
+        });
+        GetGUIComponent<Button>("ExportPlugPreset").onClick.AddListener(() =>
+        {
+            GMTalkManager.Instance.HandleGMTalkInputContent("exportPlugPreset");
         });
     }
 

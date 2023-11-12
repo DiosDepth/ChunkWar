@@ -21,26 +21,49 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: PlugDic
+    - Name: PlugItems
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Int32,
-        mscorlib]], mscorlib
-    - Name: comparer
+      Data: 0|System.Collections.Generic.List`1[[ShipPlugPresetTestData+PlugTestItem,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
       Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
+      Data: 1|ShipPlugPresetTestData+PlugTestItem, Assembly-CSharp
+    - Name: PlugID
+      Entry: 3
+      Data: 1010
+    - Name: Name
+      Entry: 1
+      Data: "\u9AD8\u901F\u8235\u673A"
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
     - Name: 
-      Entry: 12
-      Data: 0
+      Entry: 7
+      Data: 2|ShipPlugPresetTestData+PlugTestItem, Assembly-CSharp
+    - Name: PlugID
+      Entry: 3
+      Data: 1011
+    - Name: Name
+      Entry: 1
+      Data: "\u4F18\u8D28\u71C3\u6599"
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  ID: 0
+  ID: 1
   Name: "\u63D2\u4EF6\u6D4B\u8BD51"
   Comment: "\u57FA\u7840\u63D2\u4EF6"

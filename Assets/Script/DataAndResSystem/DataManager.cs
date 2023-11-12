@@ -230,6 +230,11 @@ public class DataManager : Singleton<DataManager>
         return lst;
     }
 
+    public List<ShipPlugDataItemConfig> GetAllPlugs()
+    {
+        return _shipPlugDic.Values.ToList();
+    }
+
     public LevelSpawnConfig GetLevelSpawnConfig(int presetID)
     {
         LevelSpawnConfig result = null;

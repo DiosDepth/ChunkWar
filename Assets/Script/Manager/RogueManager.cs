@@ -2914,7 +2914,23 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private void LoadTestPlugs(ShipPlugPresetTestData plugData)
     {
+        if (plugData.PlugItems == null || plugData.PlugItems.Count <= 0)
+            return;
 
+        for(int i = 0; i < plugData.PlugItems.Count; i++)
+        {
+            var item = plugData.PlugItems[i];
+            for(int j = 0; j < item.count; j++)
+            {
+                var goodsID = GetGoodsIDByPlugID(item.PlugID);
+                ShipPlugInfo info = ShipPlugInfo.CreateInfo(item.PlugID, goodsID);
+                info.UID = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.ShipPlug, info);
+                if(info != null)
+                {
+                    AddPlug_Sav(info);
+                }
+            }
+        }
     }
 
 #endif
