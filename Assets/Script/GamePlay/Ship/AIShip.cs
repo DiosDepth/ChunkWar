@@ -131,7 +131,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
             var unit = _unitList[i];
             unitconfig = DataManager.Instance.GetUnitConfig(_unitList[i].UnitID);
             unit.gameObject.SetActive(true);
-
+            unit.UID = ModifyUIDManager.Instance.GetUID(PropertyModifyCategory.AIShipUnit, unit);
             unit.Initialization(this, unitconfig);
             unit.SetUnitProcess(true);
             if (unit.IsCoreUnit && !CoreUnits.Contains(unit))

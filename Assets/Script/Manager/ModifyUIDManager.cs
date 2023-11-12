@@ -9,6 +9,7 @@ public enum PropertyModifyCategory
     Wreckage,
     ShipUnit,
     AIShipSkill,
+    AIShipUnit,
 }
 
 public class ModifyUIDManager : Singleton<ModifyUIDManager>
@@ -20,6 +21,11 @@ public class ModifyUIDManager : Singleton<ModifyUIDManager>
     public ModifyUIDManager()
     {
         _modifyDic = new Dictionary<uint, IPropertyModify>();
+    }
+
+    public void ClearAll()
+    {
+        _modifyDic.Clear();
     }
 
     /// <summary>
@@ -61,6 +67,25 @@ public class ModifyUIDManager : Singleton<ModifyUIDManager>
     public void RemoveUID(uint uid)
     {
         _modifyDic.Remove(uid);
+    }
+
+    /// <summary>
+    /// 回合结束清空
+    /// </summary>
+    public void ClearBattle()
+    {
+        ClearCategory(PropertyModifyCategory.AIShipSkill);
+        ClearCategory(PropertyModifyCategory.AIShipUnit);
+    }
+
+    public void ClearCategory(PropertyModifyCategory cate)
+    {
+        var sep = GetSep(cate);
+        foreach(var item in _modifyDic.Keys)
+        {
+            if (item >= sep[0] && item < sep[1])
+                _modifyDic.Remove(item);
+        }
     }
 
     private uint[] GetSep(PropertyModifyCategory cate)

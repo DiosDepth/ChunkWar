@@ -167,6 +167,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
     public void ClearBattle()
     {
+        ModifyUIDManager.Instance.ClearAll();
         LevelManager.Instance.UnloadCurrentLevel();
         RogueManager.Instance.Clear();
         RogueManager.Instance.ClearShip();

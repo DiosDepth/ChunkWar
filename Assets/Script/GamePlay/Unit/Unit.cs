@@ -378,7 +378,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
             info.Damage = Mathf.RoundToInt(newDamage);
         }
 
-        var rowScreenPos = UIManager.Instance.GetUIposBWorldPosition(transform.position);
         if (_owner is AIShip)
         {
             int Damage = info.Damage;
@@ -413,13 +412,9 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
                
             }
             LevelManager.Instance.UnitBeforeHit(info);
-            UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Bot, this.gameObject, (panel) =>
-            {
-                panel.Initialization();
-                panel.SetText(Mathf.Abs(Damage), critical, rowScreenPos);
-                panel.Show();
 
-            });
+            ///DamageText
+            LevelManager.Instance.DamageDisplayHandler.ShowDamage(info.attackerUnit, UID, info.Damage, info.HitPoint, critical);
         }
         else if (_owner is PlayerShip)
         {
@@ -434,12 +429,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
             else
             {
                 ///Show Player TakeDamage
-                UIManager.Instance.CreatePoolerUI<FloatingText>("FloatingText", true, E_UI_Layer.Bot, this.gameObject, (panel) =>
-                {
-                    panel.Initialization();
-                    panel.SetPlayerTakeDamageText(Mathf.Abs(info.Damage), rowScreenPos);
-                    panel.Show();
-                });
+                LevelManager.Instance.DamageDisplayHandler.ShowPlayerTakeDamage(info.Damage, info.HitPoint);
                 LevelManager.Instance.PlayerUnitTakeDamage(info);
             }
         }

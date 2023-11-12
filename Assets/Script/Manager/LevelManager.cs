@@ -75,6 +75,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     private AsyncOperation asy;
  
     public LevelEntity currentLevel;
+    public DamageGlobalHandler DamageDisplayHandler;
 
     public bool needServicing = false;
     public LevelSpawnSector SpawnSector;
@@ -201,6 +202,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     public override void Initialization()
     {
         base.Initialization();
+        DamageDisplayHandler = new DamageGlobalHandler();
         _refreshMiscConfig = DataManager.Instance.gameMiscCfg.RefreshConfig;
         SpawnSector = new LevelSpawnSector();
         SpawnSector.Init();
@@ -242,6 +244,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
 
         if (IsBattleLevel())
         {
+            DamageDisplayHandler.OnUpdate();
             RogueManager.Instance.OnUpdateBattle();
             EffectManager.Instance.OnUpdate();
         }

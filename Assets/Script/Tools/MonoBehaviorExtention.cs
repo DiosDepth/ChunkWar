@@ -73,6 +73,12 @@ public static class MonoBehaviorExtention
         trans.localScale = s;
     }
 
+    public static void SetLocalScaleXY(this Transform trans, float value)
+    {
+        Vector3 s = new Vector3(value, value, trans.localScale.z);
+        trans.localScale = s;
+    }
+
     public static void ChangeQuaternion(this Quaternion q, Vector3 v3)
     {
         var offset = Quaternion.Euler(v3);
@@ -235,6 +241,11 @@ public static class MonoBehaviorExtention
         {
             rect.sizeDelta = new Vector2(width, height);
         }
+    }
+
+    public static void SetRectY(this RectTransform rect, float y)
+    {
+        rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, y);
     }
 
     public static Vector2 TopLeft(this Rect rect)

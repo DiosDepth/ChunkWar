@@ -167,5 +167,11 @@ public class WeaponConfig : BaseUnitConfig
     [FoldoutGroup("效果配置")]
     [LabelText("开火相机震动")]
     public CameraShakeConfig FireShakeCfg;
+
+    [FoldoutGroup("效果配置")]
+    [LabelText("持续伤害展示")]
+    [LabelWidth(100)]
+    public bool PersistentDamageDisplay = false;
+
 }
 

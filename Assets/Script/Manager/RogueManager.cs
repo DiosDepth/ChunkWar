@@ -1154,6 +1154,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         await UniTask.Delay(3000);
         ECSManager.Instance.GameOverAgent();
         ECSManager.Instance.UnLoad();
+        ModifyUIDManager.Instance.ClearBattle();
         ///Log Info
         HandleInGameWreckageLog();
         _waveIndex++;
@@ -2891,6 +2892,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         InitTestProperty(shipData);
         InitWreckageTestData();
         InitWave(waveIndex);
+        InitShipLevelUpItems();
 
         ///EnterBattle
         PlayCurrentHardLevelBGM();
@@ -3006,6 +3008,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         LoadPropertySave(sav);
         ///»Ö¸´²¨´ÎÊý¾Ý
         InitWave(sav.WaveIndex);
+        InitShipLevelUpItems();
         LoadShopData(sav.Currency);
 
         LoadPlugRuntimeSaves(sav.PlugRuntimeSaves);
