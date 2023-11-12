@@ -116,7 +116,7 @@ public class SelfExplosiveBuilding : Building
         }).setOnComplete(() => 
         {
             SetAnimatorTrigger(AnimTrigger_SelfExplode);
-            ApplyDamageAllTarget();
+     
             buildingState.ChangeState(BuildingState.Active);
         });
     }
@@ -229,6 +229,7 @@ public class SelfExplosiveBuilding : Building
 
     public override void Death(UnitDeathInfo info)
     {
+        ApplyDamageAllTarget();
         base.Death(info);
         
     }
