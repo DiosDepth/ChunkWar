@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine.InputSystem;
+using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 #if GMDEBUG
-
 public class GMTalkManager : Singleton<GMTalkManager>
 {
     private Dictionary<string, Func<string[], bool>> GMFunctionDic;
@@ -26,10 +30,9 @@ public class GMTalkManager : Singleton<GMTalkManager>
     public override void Initialization()
     {
         base.Initialization();
+        isShowGMTalkWindow = false;
         InitFunctionDic();
-
         MonoManager.Instance.AddUpdateListener(ListenerGMSwitch);
-
         InitialCmd();
     }
 
@@ -55,6 +58,8 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("EnemyUnImmortal", AllAIShip_UnImmortal);
         AddGMFunctionToDic("PlayerUnImmortal", PlayerShip_UnImmortal);
         AddGMFunctionToDic("addWreckage", AddWreckage);
+        AddGMFunctionToDic("exportPlugPreset", ExportPlugPreset);
+        AddGMFunctionToDic("exportUnitPreset", ExportUnitPreset);
     }
 
     public void AddToggleStorage(int key, bool value)
@@ -94,18 +99,25 @@ public class GMTalkManager : Singleton<GMTalkManager>
 
     public void SwicthGMPage()
     {
-        if (isShowGMTalkWindow)
+        if (!isShowGMTalkWindow)
         {
             UIManager.Instance.ShowUI<GMTalkMainPage>("GMTalkMainPage", E_UI_Layer.System, this, (panel) =>
             {
                 panel.Initialization();
-                InputDispatcher.Instance.ChangeInputMode("UI");
             });
+            InputDispatcher.Instance.ChangeInputMode("UI");
         }
         else
         {
             UIManager.Instance.HiddenUI("GMTalkMainPage");
-            InputDispatcher.Instance.ChangeInputMode("Player");
+            if (GameHelper.IsInBattleScene())
+            {
+                InputDispatcher.Instance.ChangeInputMode("Player");
+            }
+            else
+            {
+                InputDispatcher.Instance.ChangeInputMode("UI");
+            }
         }
         isShowGMTalkWindow = !isShowGMTalkWindow;
     }
@@ -297,7 +309,88 @@ public class GMTalkManager : Singleton<GMTalkManager>
         return true;
     }
 
+    /// <summary>
+    /// 导出插件预设
+    /// </summary>
+    /// <param name="content"></param>
+    /// <returns></returns>
+    private bool ExportPlugPreset(string[] content)
+    {
+        if (!RogueManager.Instance.InBattle)
+            return false;
+#if UNITY_EDITOR
+        var obj = ScriptableObject.CreateInstance(typeof(ShipPlugPresetTestData));
+        var data = obj as ShipPlugPresetTestData;
+        data.Name = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
+        data.ID = 99999;
+        data.PlugItems = new List<ShipPlugPresetTestData.PlugTestItem>();
+
+        var allPlugs = RogueManager.Instance.AllCurrentShipPlugs;
+        for (int i = 0; i < allPlugs.Count; i++) 
+        {
+            var plugID = allPlugs[i].PlugID;
+            ///剔除舰船插件
+            if (plugID <= GameGlobalConfig.Ship_MainPlug_StartID)
+                continue;
+
+            var plug = data.PlugItems.Find(x => x.PlugID == plugID);
+            if (plug != null)
+            {
+                plug.count++;
+            }
+            else
+            {
+                ShipPlugPresetTestData.PlugTestItem item = new ShipPlugPresetTestData.PlugTestItem
+                {
+                    count = 1,
+                    PlugID = allPlugs[i].PlugID
+                };
+                data.PlugItems.Add(item);
+            }
+        }
+
+        var targetPath = string.Format("{0}/{1}.asset", "Assets/EditorRes/Config/PlugPreset", data.Name);
+        AssetDatabase.CreateAsset(obj, targetPath);
+        EditorUtility.SetDirty(obj);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+#endif
+        return true;
+    }
+
     #endregion
+    
+    private bool ExportUnitPreset(string[] content)
+    {
+        if (!RogueManager.Instance.InBattle)
+            return false;
+
+#if UNITY_EDITOR
+        var obj = ScriptableObject.CreateInstance(typeof(ShipPresetTestData));
+        var data = obj as ShipPresetTestData;
+        data.Name = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
+        data.ID = 99999;
+        data.ExportFromSave = true;
+
+        var currentShip = RogueManager.Instance.currentShip;
+        if (currentShip == null)
+            return false;
+
+        data.ShipID = currentShip.ShipID;
+        data.ShipMainWeaponID = RogueManager.Instance.currentWeaponSelection.itemconfig.ID;
+        currentShip.SaveRuntimeData();
+
+        data.OriginUnits = RogueManager.Instance.ShipMapData.GenerateShipUnitData();
+
+        var targetPath = string.Format("{0}/{1}.asset", "Assets/EditorRes/Config/ShipPreset", data.Name);
+        AssetDatabase.CreateAsset(obj, targetPath);
+        EditorUtility.SetDirty(obj);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+#endif
+
+        return true;
+    }
 
     private void KillAllEnemy()
     {
@@ -320,8 +413,16 @@ public class GMTalkManager : Singleton<GMTalkManager>
             return;
 
         UIManager.Instance.HiddenUI("GMTalkMainPage");
-        InputDispatcher.Instance.ChangeInputMode("Player");
-        isShowGMTalkWindow = !isShowGMTalkWindow;
+        if (GameHelper.IsInBattleScene())
+        {
+            InputDispatcher.Instance.ChangeInputMode("Player");
+        }
+        else
+        {
+            InputDispatcher.Instance.ChangeInputMode("UI");
+        }
+        
+        isShowGMTalkWindow = false;
     }
 
     public void CreateEnemy(int shipID, int hardLevelID, int count)

@@ -122,6 +122,28 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
+    public void LoadAllUnitConfig_Editor()
+    {
+        var builds = Resources.LoadAll<BuildingConfig>(DataConfigPath.BuildingConfigRoot);
+        var weapons = Resources.LoadAll<WeaponConfig>(DataConfigPath.WeaponConfigRoot);
+
+        if (builds != null && builds.Length > 0)
+        {
+            for (int i = 0; i < builds.Length; i++)
+            {
+                AddItemToUnitDic(builds[i].ID, builds[i]);
+            }
+        }
+
+        if (weapons != null && weapons.Length > 0)
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                AddItemToUnitDic(weapons[i].ID, weapons[i]);
+            }
+        }
+    }
+
     public void LoadBulletConfig_Editor()
     {
         var allBullets = Resources.LoadAll<BulletConfig>(DataConfigPath.BulletConfigRoot);
@@ -228,6 +250,11 @@ public class DataManager : Singleton<DataManager>
             return x.CountRef - y.CountRef;
         });
         return lst;
+    }
+
+    public List<ShipPlugDataItemConfig> GetAllPlugs()
+    {
+        return _shipPlugDic.Values.ToList();
     }
 
     public LevelSpawnConfig GetLevelSpawnConfig(int presetID)

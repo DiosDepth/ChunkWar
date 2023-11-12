@@ -36,6 +36,8 @@ public static class GameGlobalConfig
     public const uint PropertyModifyUID_HardLevel = 4;
     public const uint PropertyModifyUID_Upgrade = 5;
 
+    public const int Ship_MainPlug_StartID = 1000;
+
     /// <summary>
     /// 舰船速度最大比例
     /// </summary>

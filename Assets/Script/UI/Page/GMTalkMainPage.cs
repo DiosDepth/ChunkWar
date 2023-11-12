@@ -32,7 +32,14 @@ public class GMTalkMainPage : GUIBasePanel
         GetGUIComponent<Button>("SendGMBtn").onClick.AddListener(() =>
         {
             GMTalkManager.Instance.HandleGMTalkInputContent(_inputFiled.text);
-
+        });
+        GetGUIComponent<Button>("ExportPlugPreset").onClick.AddListener(() =>
+        {
+            GMTalkManager.Instance.HandleGMTalkInputContent("exportPlugPreset");
+        });
+        GetGUIComponent<Button>("ExportShipPreset").onClick.AddListener(() =>
+        {
+            GMTalkManager.Instance.HandleGMTalkInputContent("exportUnitPreset");
         });
     }
 
@@ -51,7 +58,7 @@ public class GMTalkMainPage : GUIBasePanel
 
     private void ClosePage()
     {
-        GMTalkManager.Instance.SwicthGMPage();
+        GMTalkManager.Instance.CloseGMTalkPage();
     }
 
     private void JumpToShop()
