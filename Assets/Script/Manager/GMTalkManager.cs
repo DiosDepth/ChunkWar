@@ -59,6 +59,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("PlayerUnImmortal", PlayerShip_UnImmortal);
         AddGMFunctionToDic("addWreckage", AddWreckage);
         AddGMFunctionToDic("exportPlugPreset", ExportPlugPreset);
+        AddGMFunctionToDic("exportUnitPreset", ExportUnitPreset);
     }
 
     public void AddToggleStorage(int key, bool value)
@@ -358,6 +359,38 @@ public class GMTalkManager : Singleton<GMTalkManager>
     }
 
     #endregion
+    
+    private bool ExportUnitPreset(string[] content)
+    {
+        if (!RogueManager.Instance.InBattle)
+            return false;
+
+#if UNITY_EDITOR
+        var obj = ScriptableObject.CreateInstance(typeof(ShipPresetTestData));
+        var data = obj as ShipPresetTestData;
+        data.Name = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
+        data.ID = 99999;
+        data.ExportFromSave = true;
+
+        var currentShip = RogueManager.Instance.currentShip;
+        if (currentShip == null)
+            return false;
+
+        data.ShipID = currentShip.ShipID;
+        data.ShipMainWeaponID = RogueManager.Instance.currentWeaponSelection.itemconfig.ID;
+        currentShip.SaveRuntimeData();
+
+        data.OriginUnits = RogueManager.Instance.ShipMapData.GenerateShipUnitData();
+
+        var targetPath = string.Format("{0}/{1}.asset", "Assets/EditorRes/Config/ShipPreset", data.Name);
+        AssetDatabase.CreateAsset(obj, targetPath);
+        EditorUtility.SetDirty(obj);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+#endif
+
+        return true;
+    }
 
     private void KillAllEnemy()
     {

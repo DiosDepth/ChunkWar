@@ -116,7 +116,6 @@ public class PlayerShip : BaseShip
                 ShipMapInfo[row, colume].shipCoord = ChunkMap[row, colume].shipCoord;
                 ShipMapInfo[row, colume].isOccupied = ChunkMap[row, colume].isOccupied;
                 ShipMapInfo[row, colume].isBuildingPiovt = ChunkMap[row, colume].isBuildingPiovt;
-                ShipMapInfo[row, colume].state = ChunkMap[row, colume].state;
             }
         }
 
@@ -188,7 +187,6 @@ public class PlayerShip : BaseShip
                 }
 
                 _chunkMap[row, colume].shipCoord = ShipMapInfo[row, colume].shipCoord;
-                _chunkMap[row, colume].state = ShipMapInfo[row, colume].state;
                 _chunkMap[row, colume].isBuildingPiovt = ShipMapInfo[row, colume].isBuildingPiovt;
                 _chunkMap[row, colume].isOccupied = ShipMapInfo[row, colume].isOccupied;
 
@@ -419,6 +417,7 @@ public class PlayerShip : BaseShip
 
                 if (m_unitmap[i] == m_poscoord)
                 {
+                    ///中心放置点
                     ChunkMap[buildarray.x, buildarray.y].isBuildingPiovt = true;
 
                     tempunit.pivot = m_unitmap[i];

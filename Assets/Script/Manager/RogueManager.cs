@@ -698,7 +698,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
                 UnitInfo info = new UnitInfo(shipUnitCfg[i]);
                 info.occupiedCoords = ShipMapData.GetOccupiedCoords(unitCfg.ID, info.pivot);
-
+                info.effectSlotCoords = ShipMapData.GetEffectSlotCoords(unitCfg.ID, info.pivot);
                 ShipMapData.UnitList.Add(info);
             }
         }
@@ -2879,9 +2879,16 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         ShipMapData = new ShipMapData((currentShipSelection.itemconfig as PlayerShipConfig).Map);
         ///InitPlugs
         InitShipPlugs();
-        InitOriginShipUnit();
+        InitShopData();
+
+        if (!shipData.ExportFromSave)
+        {
+            ///如果不是从存档导出，则加载初始默认单位
+            InitOriginShipUnit();
+        }
+        LoadTestOriginUnits(shipData.OriginUnits);
         LoadTestPlugs(plugData);
-        InitTestProperty();
+        InitTestProperty(shipData);
         InitWreckageTestData();
         InitWave(waveIndex);
 
@@ -2894,7 +2901,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         CreateBattleObserver();
     }
 
-    private void InitTestProperty()
+    private void InitTestProperty(ShipPresetTestData data)
     {
         var maxLevel = DataManager.Instance.battleCfg.ShipMaxLevel;
         _shipLevel = new ChangeValue<byte>(1, 1, maxLevel);
@@ -2905,6 +2912,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _shipLevel.BindChangeAction(OnShipLevelUp);
 
         MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.Luck, OnPlayerLuckChange);
+        ///Property Modify
+        if(data.PropertyRowAddValue != null && data.PropertyRowAddValue.Count > 0)
+        {
+            foreach(var property in data.PropertyRowAddValue)
+            {
+                MainPropertyData.AddPropertyModifyValue(property.Key, PropertyModifyType.Row, 0, property.Value);
+            }
+        }
     }
 
     private void InitWreckageTestData()
@@ -2929,6 +2944,24 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
                 {
                     AddPlug_Sav(info);
                 }
+            }
+        }
+    }
+
+    private void LoadTestOriginUnits(List<ShipInitUnitConfig> units)
+    {
+        if (units != null && units.Count > 0)
+        {
+            for (int i = 0; i < units.Count; i++)
+            {
+                var unitCfg = DataManager.Instance.GetUnitConfig(units[i].UnitID);
+                if (unitCfg == null)
+                    return;
+
+                UnitInfo info = new UnitInfo(units[i]);
+                info.occupiedCoords = ShipMapData.GetOccupiedCoords(unitCfg.ID, info.pivot);
+                info.effectSlotCoords = ShipMapData.GetEffectSlotCoords(unitCfg.ID, info.pivot);
+                ShipMapData.UnitList.Add(info);
             }
         }
     }
@@ -2973,9 +3006,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         LoadPropertySave(sav);
         ///恢复波次数据
         InitWave(sav.WaveIndex);
+        LoadShopData(sav.Currency);
 
         LoadPlugRuntimeSaves(sav.PlugRuntimeSaves);
         LoadWreckageDataSave(sav.WasteCount);
+        LoadShipUnitSaves(sav.ShipUnitRuntimeDatas);
 
         ///EnterBattle
         PlayCurrentHardLevelBGM();
@@ -3022,6 +3057,8 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         sav.PlugRuntimeSaves = CreatePlugRuntimeSaveData();
         sav.PropertyRowSav = MainPropertyData.CreatePropertyModifyRowSaveData();
+        ///只保存上一次进入港口时的存档
+        sav.ShipUnitRuntimeDatas = ShipMapData.GenerateRuntimeSaveData();
 
         ///Create
         SaveLoadManager.Save<SaveData>(sav, sav.SaveName, formatJson);
@@ -3062,6 +3099,18 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         InitWreckageData();
         AddDropWasteCount(wasteCount);
+    }
+
+    private void LoadShopData(int currency)
+    {
+        MainPropertyData.AddPropertyModifyValue(PropertyModifyKey.ShopRefreshCount, PropertyModifyType.Row, 0, DataManager.Instance.battleCfg.RogueShop_Origin_RefreshNum);
+        _playerCurrency = new ChangeValue<float>(0, int.MinValue, int.MaxValue);
+        _playerCurrency.BindChangeAction(OnCurrencyChange);
+        CurrentRerollCost = GetCurrentRefreshCost();
+
+        _playerCurrency.Set(currency);
+        AchievementManager.Instance.InGameData.TotalGainCurrency += currency;
+        MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.ShopCostPercent, OnShopCostChange);
     }
 
     private void LoadPropertySave(SaveData sav)
@@ -3113,6 +3162,27 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         {
             _currentShipPlugs.Add(info.UID, info);
             AllCurrentShipPlugs.Add(info);
+        }
+    }
+
+    /// <summary>
+    /// 读取舰船Unit存档，包括主武器和默认装备
+    /// </summary>
+    private void LoadShipUnitSaves(List<ShipUnitRuntimeSaveData> savs)
+    {
+        if (savs != null && savs.Count > 0)
+        {
+            for (int i = 0; i < savs.Count; i++)
+            {
+                var unitCfg = DataManager.Instance.GetUnitConfig(savs[i].UnitID);
+                if (unitCfg == null)
+                    return;
+
+                UnitInfo info = new UnitInfo(savs[i]);
+                info.occupiedCoords = ShipMapData.GetOccupiedCoords(unitCfg.ID, info.pivot);
+                info.effectSlotCoords = ShipMapData.GetEffectSlotCoords(unitCfg.ID, info.pivot);
+                ShipMapData.UnitList.Add(info);
+            }
         }
     }
 

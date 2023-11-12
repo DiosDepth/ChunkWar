@@ -37,6 +37,10 @@ public class GMTalkMainPage : GUIBasePanel
         {
             GMTalkManager.Instance.HandleGMTalkInputContent("exportPlugPreset");
         });
+        GetGUIComponent<Button>("ExportShipPreset").onClick.AddListener(() =>
+        {
+            GMTalkManager.Instance.HandleGMTalkInputContent("exportUnitPreset");
+        });
     }
 
 

@@ -32,9 +32,7 @@ public class PlayerEditShip : PlayerShip
                     _coreChunk = _chunkMap[row, colume];
                 }
 
-
                 _chunkMap[row, colume].shipCoord = ShipMapInfo[row, colume].shipCoord;
-                _chunkMap[row, colume].state = ShipMapInfo[row, colume].state;
                 _chunkMap[row, colume].isBuildingPiovt = ShipMapInfo[row, colume].isBuildingPiovt;
                 _chunkMap[row, colume].isOccupied = ShipMapInfo[row, colume].isOccupied;
 
