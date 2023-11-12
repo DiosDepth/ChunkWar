@@ -46,6 +46,8 @@ public class ShipController : BaseController
     protected ShipControlConfig _controlConfig;
     private LevelManager _levelMgr;
 
+
+    public bool muteMainWeapon;
     protected override void Start()
     {
         //InputDispatcher.Instance.Action_GamePlay_Attack += HandleAttackInput;
@@ -89,8 +91,11 @@ public class ShipController : BaseController
 
         // if weapon mode is Autonomy than using HandleShipAutonomyMainWeapon to process weapon 
         //other wise using Ship Controller Update to process weapon (cus ship controller need to listen player input in every frame)
+        if(!muteMainWeapon)
+        {
+            targetShip.mainWeapon?.ProcessWeapon();
+        }
 
-        targetShip.mainWeapon?.ProcessWeapon();
 
     }
 

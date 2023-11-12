@@ -57,9 +57,34 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("PlayerImmortal", PlayerShip_Immortal);
         AddGMFunctionToDic("EnemyUnImmortal", AllAIShip_UnImmortal);
         AddGMFunctionToDic("PlayerUnImmortal", PlayerShip_UnImmortal);
+        AddGMFunctionToDic("MuteMainWeapon", PlayerShip_MuteMainWeapon);
+        AddGMFunctionToDic("ActiveMainWeapon", PlayerShip_ActiveMainWeapon);
+
         AddGMFunctionToDic("addWreckage", AddWreckage);
         AddGMFunctionToDic("exportPlugPreset", ExportPlugPreset);
         AddGMFunctionToDic("exportUnitPreset", ExportUnitPreset);
+    }
+
+    private bool PlayerShip_ActiveMainWeapon(string[] arg)
+    {
+        var controller = RogueManager.Instance.currentShip.GetComponent<ShipController>();
+        if (controller != null)
+        {
+            controller.muteMainWeapon = false;
+            return true;
+        }
+        return false;
+    }
+
+    private bool PlayerShip_MuteMainWeapon(string[] arg)
+    {
+        var controller = RogueManager.Instance.currentShip.GetComponent<ShipController>();
+        if (controller != null)
+        {
+            controller.muteMainWeapon = true;
+            return true;
+        }
+        return false;
     }
 
     public void AddToggleStorage(int key, bool value)
