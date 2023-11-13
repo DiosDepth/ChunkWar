@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum PropertyModifyCategory
 {
@@ -81,8 +82,10 @@ public class ModifyUIDManager : Singleton<ModifyUIDManager>
     public void ClearCategory(PropertyModifyCategory cate)
     {
         var sep = GetSep(cate);
-        foreach(var item in _modifyDic.Keys)
+        var allItems = _modifyDic.Keys.ToArray();
+        for (int i = 0; i < allItems.Length; i++) 
         {
+            var item = allItems[i];
             if (item >= sep[0] && item < sep[1])
                 _modifyDic.Remove(item);
         }

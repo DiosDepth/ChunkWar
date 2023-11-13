@@ -1413,7 +1413,7 @@ MonoBehaviour:
       Data: 
   ID: 1
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 86a2c55f5f905db46a989de3c16ed7ef, type: 3}
+    IconSprite: {fileID: 21300000, guid: e65303980a504e045a0e5c1c46eaf1a8, type: 3}
     Name: ShipName_001
     Desc: ShipDesc_001
     Rarity: 0
@@ -1445,4 +1445,4 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ShipEditorSprite: {fileID: 21300000, guid: 86a2c55f5f905db46a989de3c16ed7ef, type: 3}
+  ShipEditorSprite: {fileID: 21300000, guid: e65303980a504e045a0e5c1c46eaf1a8, type: 3}

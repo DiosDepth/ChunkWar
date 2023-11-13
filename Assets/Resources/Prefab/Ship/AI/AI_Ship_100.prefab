@@ -156,6 +156,7 @@ MonoBehaviour:
   collider: {fileID: 0}
   boidRadius: 5
   lastpos: {x: 0, y: 0, z: 0}
+  steeringState: 0
   maxAcceleration: 7
   maxVelocity: 30
   maxAngularAcceleration: 6
@@ -362,7 +363,7 @@ PrefabInstance:
     - target: {fileID: 3976503842599087373, guid: 534f757555442314bbd991e949cb5b29,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.952
+      value: -2.516
       objectReference: {fileID: 0}
     - target: {fileID: 3976503842599087373, guid: 534f757555442314bbd991e949cb5b29,
         type: 3}

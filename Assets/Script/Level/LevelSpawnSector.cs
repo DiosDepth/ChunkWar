@@ -195,9 +195,9 @@ public class LevelSpawnSector
                 var newIndex = i + _lastSpawnSectorIndex;
                 if (newIndex < 0) 
                 {
-                    newIndex += GameGlobalConfig.LevelSector_Count;
+                    newIndex += GameGlobalConfig.LevelSector_Count - 1;
                 }
-                else if(newIndex > GameGlobalConfig.LevelSector_Count)
+                else if(newIndex > GameGlobalConfig.LevelSector_Count - 1)
                 {
                     newIndex -= GameGlobalConfig.LevelSector_Count;
                 }
