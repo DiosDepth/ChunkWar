@@ -76,6 +76,8 @@ public class BaseDrone : BaseShip, IPoolable
         }
         //ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
         EffectManager.Instance.CreateEffect(droneCfg.DeathEffect, transform.position);
+
+        PoolableDestroy();
     }
 
     public override void CreateShip()
@@ -161,11 +163,17 @@ public class BaseDrone : BaseShip, IPoolable
     }
     public virtual void Crash(UnitDeathInfo info)
     {
-        Death(info);
+        //Death(info);
+        if (!string.IsNullOrEmpty(droneCfg.DieAudio))
+        {
+            SoundManager.Instance.PlayBattleSound(droneCfg.DieAudio, transform);
+        }
+        EffectManager.Instance.CreateEffect(droneCfg.DeathEffect, transform.position);
 
         _ownerFactory.Crash(this);
-        PoolableSetActive(false);
 
+
+        PoolableSetActive(false);
 
     }
     public virtual void Repair()

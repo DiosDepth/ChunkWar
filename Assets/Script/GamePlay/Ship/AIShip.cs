@@ -42,6 +42,13 @@ public class AIShip : BaseShip,IPoolable, IDropable
     public override void Death(UnitDeathInfo info)
     {
         base.Death(info);
+        for (int i = 0; i < _unitList.Count; i++)
+        {
+            if (_unitList[i].damageState != DamagableState.Destroyed && _unitList[i].isActiveAndEnabled)
+            {
+                _unitList[i].Death(info);
+            }
+        }
         OnDeath();
     }
 

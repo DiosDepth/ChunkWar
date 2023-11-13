@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -88,8 +89,9 @@ public class DroneFactory : Building
 
     public List<BaseDrone> DroneList
     {
-        get { return _launchedList; }
+        get { return _droneList; }
     }
+    protected List<BaseDrone> _droneList = new List<BaseDrone>();
     protected List<BaseDrone> _callbackList = new List<BaseDrone>();
     protected List<BaseDrone> _launchedList = new List<BaseDrone>();
     protected Queue<BaseDrone> _apronQueue = new Queue<BaseDrone>();
@@ -97,6 +99,7 @@ public class DroneFactory : Building
     
 
     private float _repairTimeCounter;
+    private const float _launchInterval = 0.25f;
     private float _launchIntervalCounter;
     private bool _isRepairing = false;
     private BaseDrone _repairingDrone;
@@ -132,18 +135,22 @@ public class DroneFactory : Building
     {
         base.Death(info);
 
-        for (int i = 0; i < _apronQueue.Count; i++)
+        for (int i = 0; i < _droneList.Count; i++)
         {
-            _apronQueue.Dequeue().Death(info);
+            if (_owner is PlayerShip)
+            {
+                ECSManager.Instance.UnRegisterJobData(OwnerType.Player, _droneList[i]);
+            }
+            if (_owner is AIShip)
+            {
+                ECSManager.Instance.UnRegisterJobData(OwnerType.AI, _droneList[i]);
+            }
+            _droneList[i].Death(info);
+
         }
-        for (int i = 0; i < _repairQueue.Count; i++)
-        {
-            _repairQueue.Dequeue().Death(info);
-        }
-        for (int i = 0; i < _launchedList.Count; i++)
-        {
-            _launchedList[i].Death(info);
-        }
+        _apronQueue.Clear();
+        _repairQueue.Clear();
+        _launchedList.Clear();
 
     }
 
@@ -163,19 +170,12 @@ public class DroneFactory : Building
     public override void GameOver()
     {
 
-        for (int i = 0; i < _apronQueue.Count; i++)
+        for (int i = 0; i < _droneList.Count; i++)
         {
-            _apronQueue.Dequeue().GameOver();
+            _droneList[i].GameOver();
         }
-        for (int i = 0; i < _repairQueue.Count; i++)
-        {
-            _repairQueue.Dequeue().GameOver();
-        }
-
-        for (int i = 0; i < _launchedList.Count; i++)
-        {
-            _launchedList[i].GameOver();
-        }
+        _apronQueue.Clear();
+        _repairQueue.Clear();
         _launchedList.Clear();
         base.GameOver();
     }
@@ -290,14 +290,14 @@ public class DroneFactory : Building
             }
             _callbackList.Clear();
             //已经进入apron的重新发射
-            if (_apronQueue.Count != 0)
-            {
-                int ct = _apronQueue.Count;
-                for (int i = 0; i < ct; i++)
-                {
-                    LaunchDrone();
-                }
-            }
+            //if (_apronQueue.Count != 0)
+            //{
+            //    int ct = _apronQueue.Count;
+            //    for (int i = 0; i < ct; i++)
+            //    {
+            //        LaunchDrone();
+            //    }
+            //}
 
             //设置所有Drone的目标，并且开始unit的process
             if (_launchedList.Count != 0)
@@ -346,6 +346,12 @@ public class DroneFactory : Building
     {
         if(_apronQueue == null || _apronQueue.Count == 0) { return; }
 
+        if(_launchIntervalCounter >= 0)
+        {
+            _launchIntervalCounter -= Time.deltaTime;
+            return;
+        }
+        _launchIntervalCounter = _launchInterval;
         BaseDrone drone;
         _apronQueue.TryDequeue(out drone);
         if(drone == null)
@@ -467,6 +473,7 @@ public class DroneFactory : Building
             {
                 (baseship as BaseDrone).SetOwnerFactory(this);
                 (baseship as BaseDrone).Landing();
+                _droneList.Add((baseship as BaseDrone));
                 var controller = baseship.GetComponent<SteeringBehaviorController>();
                 SteeringJobDataArrive data = controller.GetArriveData();
                 _droneArriveDataDic.Add(baseship.gameObject.GetInstanceID(), data);
