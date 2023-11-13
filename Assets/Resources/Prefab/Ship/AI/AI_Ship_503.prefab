@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  deathVFXName: ExplodeVFX
   CoreUnits: []
   AIShipCfg: {fileID: 0}
   AITypeID: 503
@@ -123,6 +122,8 @@ MonoBehaviour:
   rb: {fileID: 2036907068945415827}
   collider: {fileID: 0}
   boidRadius: 5
+  lastpos: {x: 0, y: 0, z: 0}
+  steeringState: 0
   maxAcceleration: 4
   maxVelocity: 7
   maxAngularAcceleration: 6
@@ -237,7 +238,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -689723199
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d5bfeef76ac124048a46d1b14141b56e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -320,12 +321,12 @@ PrefabInstance:
     - target: {fileID: 4947179278027536151, guid: 1ab2ce50d2ae932478bb1bd391fb40df,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.52
+      value: 3.16
       objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: 1ab2ce50d2ae932478bb1bd391fb40df,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.84
+      value: 2.49
       objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: 1ab2ce50d2ae932478bb1bd391fb40df,
         type: 3}
@@ -395,12 +396,12 @@ PrefabInstance:
     - target: {fileID: 2474850222585545388, guid: 89216bc7443d78a4bb68ee04243691ab,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.39
       objectReference: {fileID: 0}
     - target: {fileID: 2474850222585545388, guid: 89216bc7443d78a4bb68ee04243691ab,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.6
+      value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 2474850222585545388, guid: 89216bc7443d78a4bb68ee04243691ab,
         type: 3}
@@ -470,7 +471,7 @@ PrefabInstance:
     - target: {fileID: 4947179278027536151, guid: d3d36f326da98814bb9bfc6245d5d14d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.45
       objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: d3d36f326da98814bb9bfc6245d5d14d,
         type: 3}
@@ -545,12 +546,12 @@ PrefabInstance:
     - target: {fileID: 4947179278027536151, guid: 1ab2ce50d2ae932478bb1bd391fb40df,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.62
+      value: -2.22
       objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: 1ab2ce50d2ae932478bb1bd391fb40df,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.84
+      value: 3.52
       objectReference: {fileID: 0}
     - target: {fileID: 4947179278027536151, guid: 1ab2ce50d2ae932478bb1bd391fb40df,
         type: 3}

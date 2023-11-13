@@ -351,7 +351,6 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
     {
         _pauseLock = false;
         InBattle = false;
-        currentShip = null;
         CurrentHardLevel = null;
         currentShipSelection = null;
         currentWeaponSelection = null;

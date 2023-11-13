@@ -127,7 +127,7 @@ public class AIShipConfig : BaseShipConfig
     [HorizontalGroup("效果配置/A")]
     [LabelText("改变FOV")]
     [LabelWidth(100)]
-    public int CameraTargetOrthographicSize = 40;
+    public int CameraTargetOrthographicSize = 32;
 
     [FoldoutGroup("效果配置")]
     [HorizontalGroup("效果配置/B")]

@@ -1399,7 +1399,7 @@ MonoBehaviour:
       Data: 
   ID: 502
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 55aab8e043056b1439a99730ff32f397, type: 3}
+    IconSprite: {fileID: 21300000, guid: 098ab28f1e342a64f94980b039a31ed7, type: 3}
     Name: Enemy_Name_502
     Desc: 
     Rarity: 2

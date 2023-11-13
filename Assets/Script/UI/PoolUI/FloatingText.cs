@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class FloatingText : GUIBasePanel,IPoolable
+public class FloatingText : GUIBasePanel,IPoolable, IUIHoverPanel
 {
     public uint TargetUID;
 

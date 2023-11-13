@@ -123,6 +123,7 @@ MonoBehaviour:
   collider: {fileID: 0}
   boidRadius: 5
   lastpos: {x: 0, y: 0, z: 0}
+  steeringState: 0
   maxAcceleration: 4
   maxVelocity: 7
   maxAngularAcceleration: 6
@@ -400,12 +401,12 @@ PrefabInstance:
     - target: {fileID: 4406040576677717453, guid: cefbbdb60362ba44f932e5a83f212f1a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.82
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 4406040576677717453, guid: cefbbdb60362ba44f932e5a83f212f1a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.29
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4406040576677717453, guid: cefbbdb60362ba44f932e5a83f212f1a,
         type: 3}
@@ -550,12 +551,12 @@ PrefabInstance:
     - target: {fileID: 4406040576677717453, guid: cefbbdb60362ba44f932e5a83f212f1a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.72
+      value: -2.06
       objectReference: {fileID: 0}
     - target: {fileID: 4406040576677717453, guid: cefbbdb60362ba44f932e5a83f212f1a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.29
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4406040576677717453, guid: cefbbdb60362ba44f932e5a83f212f1a,
         type: 3}

@@ -485,33 +485,6 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
       Data: 1
     - Name: 
       Entry: 3
@@ -533,45 +506,6 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
       Data: 1
     - Name: 
       Entry: 3
@@ -584,10 +518,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -626,6 +557,60 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
       Data: 1
     - Name: 
       Entry: 3
@@ -641,7 +626,31 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -665,22 +674,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 1
@@ -704,25 +704,16 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -767,48 +758,6 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
       Data: 1
     - Name: 
       Entry: 3
@@ -848,7 +797,16 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -875,6 +833,15 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
       Data: 0
     - Name: 
       Entry: 3
@@ -884,16 +851,49 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 3
       Data: 1
@@ -1413,7 +1413,7 @@ MonoBehaviour:
       Data: 
   ID: 5
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: a7759052660f9684d8fba0f79882ccb8, type: 3}
+    IconSprite: {fileID: 21300000, guid: 91fbc8401eadbf04893e7af382d756be, type: 3}
     Name: ShipName_005
     Desc: ShipDesc_005
     Rarity: 3
@@ -1440,4 +1440,4 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ShipEditorSprite: {fileID: 21300000, guid: a7759052660f9684d8fba0f79882ccb8, type: 3}
+  ShipEditorSprite: {fileID: 21300000, guid: 91fbc8401eadbf04893e7af382d756be, type: 3}

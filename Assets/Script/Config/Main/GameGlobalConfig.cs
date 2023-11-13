@@ -15,7 +15,7 @@ public static class GameGlobalConfig
     /// </summary>
     public const int ShipMapSize = (ShipMaxSize - 1) / 2;
 
-    public const int ShipSlotPix = 44;
+    public const int ShipSlotPix = 32;
 
     /// <summary>
     /// building max size

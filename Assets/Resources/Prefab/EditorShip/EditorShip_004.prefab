@@ -48,13 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  deathVFXName: ExplodeVFX
   CoreUnits: []
   isDebug: 0
   container: {fileID: 0}
   sprite: {fileID: 0}
   mainWeapon: {fileID: 0}
-  pickupCollider: {fileID: 0}
+  mainDrone: {fileID: 0}
   playerShipCfg: {fileID: 0}
   shipMapCenter: {fileID: 0}
 --- !u!1 &7848178516328607515
@@ -99,7 +98,7 @@ GameObject:
   - component: {fileID: 7848178516374416906}
   - component: {fileID: 8713110962467850695}
   m_Layer: 6
-  m_Name: Sprit
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,9 +158,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -402000637
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 91fbc8401eadbf04893e7af382d756be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41deddf9871e0ba4d8984cae723f95a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

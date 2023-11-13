@@ -51,12 +51,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 5710669053969245983}
-  deathVFXName: ExplodeVFX
   CoreUnits: []
   isDebug: 0
   container: {fileID: 0}
   sprite: {fileID: 2120056536821329419}
   mainWeapon: {fileID: 0}
+  mainDrone: {fileID: 0}
   playerShipCfg: {fileID: 0}
   shipMapCenter: {fileID: 5572263972884292661}
 --- !u!50 &4229995744133667613
@@ -183,7 +183,9 @@ MonoBehaviour:
   rb: {fileID: 4229995744133667613}
   collider: {fileID: 2945597623405698371}
   boidRadius: 1
+  lastpos: {x: 0, y: 0, z: 0}
   targetShip: {fileID: 0}
+  muteMainWeapon: 0
 --- !u!1 &678513809074276567
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,9 +289,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -402000637
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1f3819aac858a1f41a0fe77b89e44f3d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e9db5fe636017584b8dc54e906789dda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

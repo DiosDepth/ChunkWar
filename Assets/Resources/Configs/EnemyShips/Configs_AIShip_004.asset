@@ -1415,13 +1415,13 @@ MonoBehaviour:
   HardLevelGroupID: 1
   SectorThreadValue: 1
   EnemyCountModify: 1
-  MaxVelocity: 15
-  MaxAcceleration: 2
+  MaxVelocity: 23
+  MaxAcceleration: 3
   MaxAngularAcceleration: 1
   MaxAngularVelocity: 1
   boidRadius: 1
   targetSerchingRadius: 70
-  ArrivalRadius: 35
+  ArrivalRadius: 25
   SlotRadius: 5
   DieAudio: 
   AppearChangeCameraOrthographicSize: 0

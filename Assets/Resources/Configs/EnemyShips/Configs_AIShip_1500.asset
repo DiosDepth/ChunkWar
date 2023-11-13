@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   ShipClass: 4
   ShowHPBillboard: 1
-  ClassLevel: 2
+  ClassLevel: 1
   BillboardType: 1
   AttackBase: 30
   HardLevelGroupID: 1
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   SlotRadius: 5
   DieAudio: 
   AppearChangeCameraOrthographicSize: 1
-  CameraTargetOrthographicSize: 50
+  CameraTargetOrthographicSize: 40
   AppearWarning: 1
   AppearWarningText: EnemyAppear_Content_Elite
   AppearWarningAudio: ShipSpawn_Warning

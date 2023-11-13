@@ -635,7 +635,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1
-    customEmitterVelocity: {x: 0, y: 0, z: 0}
+    customEmitterVelocity: {x: 0, y: 2, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -5447,7 +5447,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 100
-    customEmitterVelocity: {x: 0, y: 0, z: 0}
+    customEmitterVelocity: {x: 0, y: 2, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:

@@ -463,3 +463,7 @@ MonoBehaviour:
     ChineseSimplified: "\u7D2F\u8BA1\u4F24\u5BB3"
     English: 
     Japanese: 
+  - TextID: EnemyAppear_Content_Boss
+    ChineseSimplified: "\u9996\u9886\u51FA\u73B0"
+    English: 
+    Japanese: 

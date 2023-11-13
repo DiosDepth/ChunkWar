@@ -1390,7 +1390,79 @@ MonoBehaviour:
       Data: 3|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|MTC_CoreHPPercent, Assembly-CSharp
+    - Name: TriggerType
+      Entry: 3
+      Data: 12
+    - Name: TriggerCount
+      Entry: 3
+      Data: 1
+    - Name: SelfUnique
+      Entry: 5
+      Data: false
+    - Name: RemoveIfTriggerCountReach
+      Entry: 5
+      Data: false
+    - Name: UsePercent
+      Entry: 5
+      Data: false
+    - Name: Percent
+      Entry: 4
       Data: 0
+    - Name: UseLuckModify
+      Entry: 5
+      Data: false
+    - Name: LuckModifyRate
+      Entry: 4
+      Data: 0
+    - Name: Effects
+      Entry: 7
+      Data: 5|ModifyTriggerEffectConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 6|MTEC_ActiveEnemyUnitGroup, Assembly-CSharp
+    - Name: EffectType
+      Entry: 3
+      Data: 17
+    - Name: Conditions
+      Entry: 7
+      Data: 7|ModifyConditionConfig[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: UnitGroupName
+      Entry: 1
+      Data: Group_2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: HPPercent
+      Entry: 3
+      Data: 50
+    - Name: Compare
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -1409,26 +1481,26 @@ MonoBehaviour:
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
   ShowHPBillboard: 1
-  ClassLevel: 0
+  ClassLevel: 2
   BillboardType: 0
-  AttackBase: 5
-  HardLevelGroupID: 1
+  AttackBase: 55
+  HardLevelGroupID: 2
   SectorThreadValue: 20
   EnemyCountModify: 0
-  MaxVelocity: 0
-  MaxAcceleration: 0
+  MaxVelocity: 20
+  MaxAcceleration: 2.5
   MaxAngularAcceleration: 3
   MaxAngularVelocity: 1
   boidRadius: 15
-  targetSerchingRadius: 15
+  targetSerchingRadius: 80
   ArrivalRadius: 15
   SlotRadius: 5
   DieAudio: 
-  AppearChangeCameraOrthographicSize: 0
+  AppearChangeCameraOrthographicSize: 1
   CameraTargetOrthographicSize: 40
-  AppearWarning: 0
-  AppearWarningText: 
-  AppearWarningAudio: 
+  AppearWarning: 1
+  AppearWarningText: EnemyAppear_Content_Boss
+  AppearWarningAudio: ShipSpawn_Warning
   DieEffect:
     EffectName: 
     RandomScale: 0
