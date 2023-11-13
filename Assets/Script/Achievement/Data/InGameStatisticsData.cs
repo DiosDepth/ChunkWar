@@ -20,6 +20,8 @@ public class InGameStatisticsData
 
     public Dictionary<int, WaveStatisticsInfo> WaveInfoDic = new Dictionary<int, WaveStatisticsInfo>();
 
+    public List<WaveDetailLogInfo> DetailLogInfos = new List<WaveDetailLogInfo>();
+
     public void Clear()
     {
         WaveInfoDic.Clear();
@@ -43,6 +45,24 @@ public class InGameStatisticsData
         WaveInfoDic.Add(waveIndex, info);
         return info;
     }
+
+    public List<WaveSecondsLogData> GenerateWaveSecondsLog()
+    {
+        var logLst = new List<WaveSecondsLogData>();
+        for (int i = 0; i < DetailLogInfos.Count; i++)
+        {
+            var info = DetailLogInfos[i];
+            WaveSecondsLogData log = new WaveSecondsLogData();
+            log.WaveIndex = info.WaveIndex;
+            log.Seconds = info.TimeSeconds;
+            log.Frame = info.Frame;
+            log.EnemyCount = info.EnemyCount;
+            log.EnemyDroneCount = info.EnemyDroneCount;
+            log.EnemyTotalThread = info.EnemyTotalThread;
+            logLst.Add(log);
+        }
+        return logLst;
+    }
 }
 
 public class PlugGainInfo
@@ -50,6 +70,16 @@ public class PlugGainInfo
     public int PlugID;
     public int Wave;
     public int GainCurrencyCost;
+}
+
+public class WaveDetailLogInfo
+{
+    public int WaveIndex;
+    public int TimeSeconds;
+    public int Frame;
+    public int EnemyCount;
+    public int EnemyDroneCount;
+    public float EnemyTotalThread;
 }
 
 /// <summary>

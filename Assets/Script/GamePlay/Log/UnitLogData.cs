@@ -62,6 +62,9 @@ public class BattleLog
     [CSVTag("Player Wave Data")]
     public List<WaveInfoLogData> WaveLogDatas { get; set; }
 
+
+    [CSVTag("Seconds_Detail_Info")]
+    public List<WaveSecondsLogData> SecondsLogData { get; set; }
 }
 
 public class UnitLogData 
@@ -117,6 +120,22 @@ public class ShipPlugLogData
 
     [CSVTag("GainCurrencyCostInfo")]
     public string GainCostList { get; set; }
+}
+
+public class WaveSecondsLogData
+{
+    [CSVTag("WaveIndex")]
+    public int WaveIndex { get; set; }
+    [CSVTag("Seconds")]
+    public int Seconds { get; set; }
+    [CSVTag("Frame")]
+    public int Frame { get; set; }
+    [CSVTag("Enemy_Count")]
+    public int EnemyCount { get; set; }
+    [CSVTag("Enemy_Drone")]
+    public int EnemyDroneCount { get; set; }
+    [CSVTag("Enemy_Thread")]
+    public float EnemyTotalThread { get; set; }
 }
 
 public class WaveInfoLogData

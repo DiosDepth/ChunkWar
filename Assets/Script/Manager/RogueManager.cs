@@ -521,6 +521,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private void BattleReset()
     {
+        AchievementManager.Instance.ClearRuntimeData();
         InBattle = true;
         MainPropertyData.Clear();
         _currentShipPlugs.Clear();
@@ -1140,6 +1141,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         currentShip.controller.SetControllerUpdate(false);
         ECSManager.Instance.SetProcessECS(false);
         LeanTween.cancelAll();
+        UIManager.Instance.ClearAllHoverUI();
         ECSManager.Instance.GameOverProjectile();
         LevelManager.Instance.GameOver();
         await UniTask.Delay(500);
@@ -1220,6 +1222,11 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GenerateEnemyAIFactory();
         GenerateShopCreateTimer();
         GenerateAISpawnSectorTrigger();
+        ///Add Wave Log Trigger
+        var logTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, -1, "WaveLog");
+        logTrigger.BindChangeAction(GenerateWaveSecondsLog);
+        Timer.AddTrigger(logTrigger);
+
         ///增加船体值自动恢复Trigger
         var recoverTrigger = LevelTimerTrigger.CreateTrigger(0, 1, -1, -1, "UnitHPRecover");
         recoverTrigger.BindChangeAction(OnUpdateUnitHPRecover);
@@ -1830,6 +1837,28 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         waveInfo.WreckageGainCount = (byte)totalCount;
         waveInfo.WreckageGainRarityInfo = info;
+    }
+
+    /// <summary>
+    /// 生成每秒信息日志
+    /// </summary>
+    private void GenerateWaveSecondsLog()
+    {
+        WaveDetailLogInfo log = new WaveDetailLogInfo();
+        log.TimeSeconds = Timer.TotalSeconds;
+        var allEnemyShip = ECSManager.Instance.activeAIAgentData.shipList;
+        log.EnemyCount = allEnemyShip.Count;
+        log.EnemyDroneCount = ECSManager.Instance.activeAIDroneAgentData.shipList.Count;
+        log.Frame = (int)(1f / Time.unscaledDeltaTime);
+
+        float totalThread = 0;
+        for(int i = 0; i < allEnemyShip.Count; i++)
+        {
+            totalThread += (allEnemyShip[i] as AIShip).AIShipCfg.SectorThreadValue;
+        }
+        log.EnemyTotalThread = totalThread;
+        log.WaveIndex = GetCurrentWaveIndex;
+        AchievementManager.Instance.InGameData.DetailLogInfos.Add(log);
     }
 
     #endregion
@@ -3229,6 +3258,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         log.PlayerPropertyDatas = GeneratePlayerPropertyLogData();
         log.ShipPlugLog = GenerateAllShipPlugLog();
         log.WaveLogDatas = GenerateWaveLog();
+        log.SecondsLogData = inGameData.GenerateWaveSecondsLog();
 
         var fileName = string.Format("BattleLog_{0}", log.EndTime);
 
