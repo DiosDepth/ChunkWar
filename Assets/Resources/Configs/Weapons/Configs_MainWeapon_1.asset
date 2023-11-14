@@ -465,8 +465,8 @@ MonoBehaviour:
   TotalDamageCount: 16
   ShootPerCount: 2
   CanModifyDamageCount: 1
-  CD: 3
-  FireCD: 0.1
+  CD: 2.5
+  FireCD: 0.07
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
@@ -493,3 +493,4 @@ MonoBehaviour:
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}
+  PersistentDamageDisplay: 1

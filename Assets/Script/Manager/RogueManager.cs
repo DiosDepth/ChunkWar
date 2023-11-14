@@ -65,7 +65,8 @@ public enum RogueEventType
     CampBuffUpgrade,
     RefreshTimerDisplay,
     ShowUnitSelectOptionPanel,
-    HideUnitSelectOptionPanel
+    HideUnitSelectOptionPanel,
+    BattleLog,
 }
 
 public enum ShipPropertyEventType
@@ -1859,6 +1860,14 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         log.EnemyTotalThread = totalThread;
         log.WaveIndex = GetCurrentWaveIndex;
         AchievementManager.Instance.InGameData.DetailLogInfos.Add(log);
+
+#if GMDEBUG
+        BattleLogDialog.BattleLogData data = new BattleLogDialog.BattleLogData();
+        data.enemyCount = log.EnemyCount;
+        data.enemyThread = totalThread;
+        data.Frame = log.Frame;
+        RogueEvent.Trigger(RogueEventType.BattleLog, data);
+#endif
     }
 
     #endregion

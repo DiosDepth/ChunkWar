@@ -57,6 +57,13 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         RefreshWasteCount();
         RefreshWreckageDrops();
         InitShipWeaponCmpts();
+
+#if GMDEBUG
+        UIManager.Instance.ShowUI<BattleLogDialog>("BattleLogDialog", E_UI_Layer.Top, null, (panel) =>
+        {
+            panel.Initialization();
+        });
+#endif
     }
 
     public override void Hidden()
@@ -70,6 +77,10 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
             _weaponItemCmpts[i].PoolableDestroy();
         }
         _weaponItemCmpts.Clear();
+
+#if GMDEBUG
+        UIManager.Instance.HiddenUI("BattleLogDialog");
+#endif
 
         base.Hidden();
     }

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514864371608548703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 0.07, z: 0}
+  m_LocalPosition: {x: -0.58, y: 1.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61,6 +61,7 @@ Transform:
   m_Children:
   - {fileID: 4947179279536623989}
   - {fileID: 2578667679939120713}
+  - {fileID: 3205889051485426117}
   m_Father: {fileID: 4947179278027536151}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -111,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitID: 0
+  IsInvisiableUnit: 0
   IsCoreUnit: 1
   deathVFXName: ExplodeVFX
   maxTargetCount: 1
@@ -124,6 +126,8 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 1
+  pointRange: 7
+  intercepttype: 0
   bulletName: BaseInstanceHit_Player
   targetmode: 0
   mask:
@@ -131,6 +135,7 @@ MonoBehaviour:
     m_Bits: 128
   firePoint:
   - {fileID: 2578667679939120713}
+  - {fileID: 3205889051485426117}
   scatter: 0
   roatateSpeed: 180
   weaponAttribute:
@@ -240,7 +245,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1205307937
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 96a6c97a921c5f749b5c02d51ec7d7a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -273,3 +278,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &6581317112824241554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3205889051485426117}
+  m_Layer: 7
+  m_Name: FirePoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3205889051485426117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581317112824241554}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.62, y: 1.13, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4658706155488204314}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

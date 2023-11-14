@@ -20,12 +20,12 @@ public class FloatingText : GUIBasePanel,IPoolable, IUIHoverPanel
     private RectTransform m_rect;
     private CanvasGroup _cavansGroup;
 
-    private static float RandomPosOffset_X = 8;
-    private static float RandomPosOffset_Y = 8;
+    private static float RandomPosOffset_X = 2;
+    private static float RandomPosOffset_Y = 2;
 
     private float _timer;
     private const float duration = 0.75f;
-    private const float criticalScale = 1.5f;
+    private const float criticalScale = 1.3f;
 
     public bool IsNeedToRemove
     {
@@ -126,7 +126,7 @@ public class FloatingText : GUIBasePanel,IPoolable, IUIHoverPanel
         RandomPosition(rowPos);
 
         float posY = m_rect.anchoredPosition.y;
-        float targetPos = posY + 20f;
+        float targetPos = posY + 8f;
 
         if (simple)
         {
@@ -158,7 +158,7 @@ public class FloatingText : GUIBasePanel,IPoolable, IUIHoverPanel
         _text.SetText(string.Format("-{0}", value));
         _text.color = _colorPlayerDamage;
         RandomPosition(rowPos);
-        LeanTween.moveLocalY(gameObject, 20, 0.3f).setIgnoreTimeScale(true);
+        LeanTween.moveLocalY(gameObject, 8, 0.3f).setIgnoreTimeScale(true);
         LeanTween.value(1, 0, 0.2f).setOnUpdate((value) =>
         {
             _cavansGroup.alpha = value;
