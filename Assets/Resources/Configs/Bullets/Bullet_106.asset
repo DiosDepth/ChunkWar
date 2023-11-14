@@ -42,4 +42,5 @@ MonoBehaviour:
   RotationSpeed: 180
   InitialSpeed: 20
   Acceleration: 0.25
+  DestroyAudio: Fire/Missile_Explode_02
   MissileHP: 100

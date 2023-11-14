@@ -165,7 +165,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 0.8, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &656859498999926809
 MonoBehaviour:
@@ -188,6 +188,7 @@ MonoBehaviour:
   angle: 360
   quality: 16
   initialTarget: {fileID: 0}
+  initialTargetPos: {x: 0, y: 0, z: 0}
   rb: {fileID: 5862403524487350706}
   bulletCollider: {fileID: 7448544990957314191}
   movementType: 2

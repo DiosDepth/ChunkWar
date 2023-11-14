@@ -468,7 +468,7 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
 
     public override void Death(UnitDeathInfo info)
     {
-        SoundManager.Instance.PlayBattleSound(_projectileCfg.HitAudio, transform);
+        SoundManager.Instance.PlayBattleSound(_projectileCfg.DestroyAudio, transform);
         if (!string.IsNullOrEmpty(_projectileCfg.HitEffect.EffectName))
         {
             var explodeRange = GameHelper.CalculateExplodeRange(DamageRadiusBase);

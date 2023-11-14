@@ -94,6 +94,7 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 1
+  pointRange: 7
   intercepttype: 1
   bulletName: BaseInstanceHit_Intercept_Player
   targetmode: 0
@@ -137,7 +138,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!1 &7078891172848517448
 GameObject:
@@ -180,7 +181,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1604183454421818662}
   - component: {fileID: 7399829360478477824}
-  - component: {fileID: 494201512000973209}
   m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
@@ -255,19 +255,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &494201512000973209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7419531427080417820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shaderTypes: 0
-  normalStrength: 5
-  normalSmoothing: 1
-  computingNormal: 0

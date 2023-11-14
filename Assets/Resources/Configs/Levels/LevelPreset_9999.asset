@@ -41,7 +41,10 @@ MonoBehaviour:
       Data: 2|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 3
     - Name: 
       Entry: 13
       Data: 
@@ -60,49 +63,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 4|WaveEnemySpawnConfig, Assembly-CSharp
-    - Name: ID
-      Entry: 3
-      Data: 1
-    - Name: AITypeID
-      Entry: 3
-      Data: 6
-    - Name: DurationDelta
-      Entry: 3
-      Data: 1
-    - Name: LoopCount
-      Entry: 3
-      Data: 1
-    - Name: StartTime
-      Entry: 3
-      Data: 1
-    - Name: TotalCount
-      Entry: 3
-      Data: 1
-    - Name: MaxRowCount
-      Entry: 3
-      Data: 1
-    - Name: SpawnShpe
-      Entry: 3
-      Data: 1
-    - Name: SpawnIntervalTime
-      Entry: 4
-      Data: 1
-    - Name: SpawnSizeInterval
-      Entry: 4
-      Data: 0.8
-    - Name: OverrideDistanceMax
-      Entry: 5
-      Data: false
-    - Name: DistanceMax
-      Entry: 4
-      Data: 45
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -113,21 +74,36 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: SectorAdjacentUpdateTime
-      Entry: 6
+      Entry: 7
+      Data: 4|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: SectorAdjacentWeightValue
-      Entry: 6
+      Entry: 7
+      Data: 5|System.Byte[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: GenerateMeteorite
       Entry: 5
       Data: false
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 5|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 6|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 6|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
+      Data: 7|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12

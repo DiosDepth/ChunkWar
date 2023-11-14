@@ -36,10 +36,11 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ExplodeRange: 5
-  LifeTime: 10
-  MaxSpeed: 60
+  ExplodeRange: 4
+  LifeTime: 6
+  MaxSpeed: 35
   RotationSpeed: 2.5
-  InitialSpeed: 20
+  InitialSpeed: 10
   Acceleration: 0.5
+  DestroyAudio: Fire/Missile_Explode_02
   MissileHP: 5

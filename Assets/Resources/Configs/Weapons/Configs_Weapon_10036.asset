@@ -453,7 +453,7 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 100
+  BaseRange: 250
   DamageBase: 5
   EnemyAttackModify: 0
   UseDamageRatio: 0
@@ -462,11 +462,11 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 5
   CriticalDamage: 150
-  TotalDamageCount: 4
+  TotalDamageCount: 10
   ShootPerCount: 1
   CanModifyDamageCount: 1
-  CD: 4
-  FireCD: 0.15
+  CD: 1.5
+  FireCD: 0.08
   ShieldTransfixion: 0
   ShieldDamage: 150
   BaseTransfixion: 0
@@ -474,9 +474,9 @@ MonoBehaviour:
   DamageModifyFrom:
   - PropertyKey: 15
     Ratio: 0.5
-  FireAudioClip: 
+  FireAudioClip: Fire/InterceptWeapon_Fire
   FireEffect:
-    EffectName: 
+    EffectName: Fire/Eff_FireSimple
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0
@@ -493,3 +493,4 @@ MonoBehaviour:
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}
+  PersistentDamageDisplay: 1

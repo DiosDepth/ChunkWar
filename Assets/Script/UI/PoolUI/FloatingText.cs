@@ -158,7 +158,14 @@ public class FloatingText : GUIBasePanel,IPoolable, IUIHoverPanel
         _text.SetText(string.Format("-{0}", value));
         _text.color = _colorPlayerDamage;
         RandomPosition(rowPos);
-        LeanTween.moveLocalY(gameObject, 8, 0.3f).setIgnoreTimeScale(true);
+        var posY = m_rect.anchoredPosition.y;
+        float targetPos = posY + 8f;
+
+        LeanTween.value(posY, targetPos, 0.3f).setOnUpdate((value) =>
+        {
+            m_rect.SetRectY(value);
+        }).setIgnoreTimeScale(true);
+
         LeanTween.value(1, 0, 0.2f).setOnUpdate((value) =>
         {
             _cavansGroup.alpha = value;

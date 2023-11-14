@@ -35,7 +35,7 @@ MonoBehaviour:
     value: 20
   threshold:
     overrideState: 0
-    value: 1
+    value: 8.2
   softKnee:
     overrideState: 0
     value: 0.482
@@ -60,4 +60,4 @@ MonoBehaviour:
     defaultState: 1
   dirtIntensity:
     overrideState: 0
-    value: 19.7
+    value: 9.6

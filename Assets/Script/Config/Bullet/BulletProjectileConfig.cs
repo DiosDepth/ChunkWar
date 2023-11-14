@@ -41,6 +41,11 @@ public class BulletProjectileConfig : BulletConfig
     [HideLabel]
     public float Acceleration;
 
+    [FoldoutGroup("Effect")]
+    [LabelText("销毁音效")]
+    [LabelWidth(60)]
+    public string DestroyAudio;
+
     [HorizontalGroup("Info2", 200)]
     [BoxGroup("Info2/导弹血量")]
     [LabelWidth(150)]
