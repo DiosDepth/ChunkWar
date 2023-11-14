@@ -491,3 +491,4 @@ MonoBehaviour:
     Duration: 0.4
     Frequency: {x: 1.3799284, y: 1.8817204}
     Amplitude: {x: 2, y: 2.6666667}
+  PersistentDamageDisplay: 0

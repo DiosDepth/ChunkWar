@@ -340,6 +340,9 @@ public class Bullet : MonoBehaviour,IPoolable,IPauseable
     {
         _isApplyDamageAtThisFrame = false;
         var damage = (_owner as Weapon).weaponAttribute.GetDamage();
+        damage.attackerUnit = _owner;
+        damage.HitPoint = damageble.Position;
+        damage.Target = damageble;
         damageble.TakeDamage(damage);
         damagedTargetList.Add(damageble);
     }

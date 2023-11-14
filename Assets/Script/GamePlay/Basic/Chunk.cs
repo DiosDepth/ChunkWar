@@ -29,6 +29,11 @@ public class Chunk : IDamageble
     public bool isOccupied = false;
     public bool isBuildingPiovt = false;
 
+    public Vector2 Position
+    {
+        get { return unit.transform.position; }
+    }
+
 
     public Unit unit;
 

@@ -108,7 +108,10 @@ public class Projectile : Bullet, IDamageble, IOtherTarget
     public float acceleration = 0.25f;
     public int MissileHPBase;
 
-
+    public Vector2 Position
+    {
+        get { return transform.position; }
+    }
 
     /// <summary>
     /// 是否可以被拦截，即拥有HP

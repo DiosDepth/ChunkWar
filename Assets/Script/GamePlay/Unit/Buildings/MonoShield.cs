@@ -11,6 +11,11 @@ public class MonoShield : MonoBehaviour, IDamageble, IPoolable
     private GeneralShieldHPComponet shieldCmpt;
     private BaseShip ownerShip;
 
+    public Vector2 Position
+    {
+        get { return transform.position; }
+    }
+
     public void Awake()
     {
         _shieldRender = transform.Find("Shield");

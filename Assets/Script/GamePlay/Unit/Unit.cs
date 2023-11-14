@@ -26,6 +26,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
     /// </summary>
     public uint UID { get; set; }
 
+    public Vector2 Position
+    {
+        get { return transform.position; }
+    }
+
     public PropertyModifyCategory Category { get { return PropertyModifyCategory.ShipUnit; } }
 
     public string GetName

@@ -187,7 +187,7 @@ public class WeaponAttribute : UnitBaseAttribute
             IsCritical = isCritical,
             IsPlayerAttack = _ownerShipType == OwnerShipType.PlayerDrone || _ownerShipType == OwnerShipType.PlayerShip,
             DamageType = DamageType,
-            ShieldDamagePercent = ShieldDamagePercent
+            ShieldDamagePercent = ShieldDamagePercent,
         };
     }
 
