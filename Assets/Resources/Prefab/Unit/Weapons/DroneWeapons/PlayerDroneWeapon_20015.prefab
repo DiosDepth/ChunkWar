@@ -42,11 +42,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002946465909562056}
+  - component: {fileID: 5259539033414074130}
   - component: {fileID: 1149708689560572444}
-  - component: {fileID: -3207047033560639734}
   m_Layer: 7
-  m_Name: AIDroneWeapon_2541
-  m_TagString: AI
+  m_Name: PlayerDroneWeapon_20015
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,6 +67,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5259539033414074130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5883710716347196929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f8161de3fdd1548a87f0c1c67ef5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitID: 20015
+  IsInvisiableUnit: 1
+  IsCoreUnit: 1
+  deathVFXName: ExplodeVFX
+  maxTargetCount: 1
+  unitSprite: {fileID: 7399829360478477824}
+  rotationRoot: {fileID: 5016292513370266613}
+  redirection: 1
+  direction: 0
+  pivot: {x: 0, y: 0}
+  occupiedCoords: []
+  effectSlotCoords: []
+  weaponmode: 0
+  firemode: 1
+  aimingtype: 1
+  pointRange: 7
+  intercepttype: 1
+  bulletName: Drone_Intercept_Player
+  targetmode: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  firePoint:
+  - {fileID: 5501148320213267861}
+  scatter: 0
+  roatateSpeed: 180
+  weaponAttribute:
+    Rate: 0
+    ChargeTime: 0
+    ChargeCost: 0
+    MagazineBased: 1
+    BeforeDelay: 0
+    AfterDelay: 0
+  magazine: 0
+  _lastbullet: {fileID: 0}
 --- !u!61 &1149708689560572444
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -93,53 +140,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &-3207047033560639734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5883710716347196929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da040be90bbc2bb45975225c882a792a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnitID: 2511
-  IsInvisiableUnit: 1
-  IsCoreUnit: 1
-  deathVFXName: ExplodeVFX
-  maxTargetCount: 1
-  unitSprite: {fileID: 7399829360478477824}
-  rotationRoot: {fileID: 5016292513370266613}
-  redirection: 1
-  direction: 0
-  pivot: {x: 0, y: 0}
-  occupiedCoords: []
-  effectSlotCoords: []
-  weaponmode: 0
-  firemode: 0
-  aimingtype: 1
-  pointRange: 7
-  intercepttype: 0
-  bulletName: Drone_Beam_AI_250
-  targetmode: 0
-  mask:
-    serializedVersion: 2
-    m_Bits: 128
-  firePoint:
-  - {fileID: 5501148320213267861}
-  scatter: 0
-  roatateSpeed: 180
-  weaponAttribute:
-    Rate: 0
-    ChargeTime: 0
-    ChargeCost: 0
-    MagazineBased: 1
-    BeforeDelay: 0
-    AfterDelay: 0
-  magazine: 0
-  _lastbullet: {fileID: 0}
 --- !u!1 &7078891172848517448
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7078891172848517448}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3004, z: 0}
+  m_LocalPosition: {x: -0.247, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

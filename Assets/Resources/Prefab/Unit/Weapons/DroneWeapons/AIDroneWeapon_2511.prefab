@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: -3207047033560639734}
   m_Layer: 7
   m_Name: AIDroneWeapon_2511
-  m_TagString: Player
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,8 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 0
   aimingtype: 1
+  pointRange: 7
+  intercepttype: 0
   bulletName: Drone_InstanceHit_AI_250
   targetmode: 0
   mask:

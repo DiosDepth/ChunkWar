@@ -453,7 +453,7 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 300
+  BaseRange: 250
   ShieldConfig:
     GenerateShield: 0
     ShieldPrefabName: 
@@ -461,6 +461,6 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
-  DroneID: 21
-  MaxDroneCount: 3
+  DroneID: 15
+  MaxDroneCount: 2
   DroneSpawnTime: 1

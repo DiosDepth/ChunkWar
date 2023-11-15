@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a9991b21095f04e8bd1e68b3543206, type: 3}
-  m_Name: Bullet_1000
+  m_Script: {fileID: 11500000, guid: 2bf801ef19417cc408769da93c0db527, type: 3}
+  m_Name: Bullet_1104
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,26 +21,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  ID: 1000
-  BulletName: PlayerDrone_Missile_01
-  Type: 0
+  ID: 1104
+  BulletName: Drone_Intercept_Player
+  Type: 1
   Owner: 1
-  Prefab: {fileID: 8903830990857463265, guid: 2aafa5b1d99cb0b409c385a5eb0a0c9f, type: 3}
-  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/Drone_Missile_Player_01
-  HitAudio: Fire/missileExplode_001
+  Prefab: {fileID: 3574238879806340193, guid: 8d4faa41549d6a84dbfe48869aea74bb, type: 3}
+  PrefabPath: Prefab/GameplayPrefab/Bullets/Player/Drone_Intercept_Player
+  HitAudio: 
   HitEffect:
-    EffectName: 
+    EffectName: Hit/Eff_HitSimple
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ExplodeRange: 2
-  LifeTime: 4
-  MaxSpeed: 25
-  RotationSpeed: 8
-  InitialSpeed: 5
-  Acceleration: 3
-  DestroyAudio: 
-  MissileHP: 10
+  ExplodeRange: 0
+  MaxDistance: 35
+  Width: 0.1
+  EmitTime: 0.001
+  Duration: 0.1
+  DeathTime: 0.1
