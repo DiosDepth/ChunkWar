@@ -463,4 +463,4 @@ MonoBehaviour:
     ShieldBaseRatio: 0
   DamageRange: 150
   DamageValue: 50
-  ExplodeDelay: 2
+  ExplodeDelay: 0.8

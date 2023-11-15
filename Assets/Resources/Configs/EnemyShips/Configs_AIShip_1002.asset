@@ -1415,20 +1415,20 @@ MonoBehaviour:
   HardLevelGroupID: 1
   SectorThreadValue: 15
   EnemyCountModify: 0
-  MaxVelocity: 5
+  MaxVelocity: 15
   MaxAcceleration: 1
-  MaxAngularAcceleration: 2
-  MaxAngularVelocity: 1
+  MaxAngularAcceleration: 0.5
+  MaxAngularVelocity: 0.5
   boidRadius: 15
   targetSerchingRadius: 80
-  ArrivalRadius: 34
+  ArrivalRadius: 20
   SlotRadius: 5
   DieAudio: 
-  AppearChangeCameraOrthographicSize: 0
+  AppearChangeCameraOrthographicSize: 1
   CameraTargetOrthographicSize: 40
-  AppearWarning: 0
-  AppearWarningText: 
-  AppearWarningAudio: 
+  AppearWarning: 1
+  AppearWarningText: EnemyAppear_Content_Elite
+  AppearWarningAudio: ShipSpawn_Warning
   DieEffect:
     EffectName: 
     RandomScale: 0

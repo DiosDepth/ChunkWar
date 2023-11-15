@@ -1448,19 +1448,19 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 9|WaveEnemySpawnConfig, Assembly-CSharp
     - Name: ID
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: AITypeID
       Entry: 3
-      Data: 7
+      Data: 6
     - Name: DurationDelta
       Entry: 3
-      Data: 3
+      Data: 6
     - Name: LoopCount
       Entry: 3
       Data: -1
@@ -1469,25 +1469,25 @@ MonoBehaviour:
       Data: 0
     - Name: TotalCount
       Entry: 3
-      Data: 4
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: SpawnShpe
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: SpawnIntervalTime
       Entry: 4
       Data: 0.2
     - Name: SpawnSizeInterval
       Entry: 4
-      Data: 1
+      Data: 3
     - Name: OverrideDistanceMax
       Entry: 5
       Data: false
     - Name: DistanceMax
       Entry: 4
-      Data: 0
+      Data: 45
     - Name: EditorPreviewColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -1496,13 +1496,73 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 2
+    - Name: AITypeID
+      Entry: 3
+      Data: 7
+    - Name: DurationDelta
+      Entry: 3
+      Data: 4
+    - Name: LoopCount
+      Entry: 3
+      Data: -1
+    - Name: StartTime
+      Entry: 3
       Data: 0
+    - Name: TotalCount
+      Entry: 3
+      Data: 2
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0.2
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 1.5
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
       Data: 0
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -1520,7 +1580,7 @@ MonoBehaviour:
       Data: true
     - Name: PointCfg
       Entry: 7
-      Data: 10|AttachPointConfig, Assembly-CSharp
+      Data: 11|AttachPointConfig, Assembly-CSharp
     - Name: RandomNode
       Entry: 5
       Data: true
@@ -1568,8 +1628,8 @@ MonoBehaviour:
   EnemyCountModify: 0
   MaxVelocity: 10
   MaxAcceleration: 1
-  MaxAngularAcceleration: 3
-  MaxAngularVelocity: 1
+  MaxAngularAcceleration: 1
+  MaxAngularVelocity: 0.5
   boidRadius: 15
   targetSerchingRadius: 50
   ArrivalRadius: 15

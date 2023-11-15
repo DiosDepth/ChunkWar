@@ -453,10 +453,11 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
+  BaseRange: 0
   ShieldConfig:
     GenerateShield: 1
     ShieldPrefabName: EnemyShield_001
     ShieldHP: 200
     ShieldRecoverValue: 5
     ShieldRecoverTime: 5
-    ShieldBaseRatio: 8
+    ShieldBaseRatio: 5

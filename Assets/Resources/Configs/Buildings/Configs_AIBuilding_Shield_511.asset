@@ -460,4 +460,4 @@ MonoBehaviour:
     ShieldHP: 550
     ShieldRecoverValue: 10
     ShieldRecoverTime: 8
-    ShieldBaseRatio: 16
+    ShieldBaseRatio: 9

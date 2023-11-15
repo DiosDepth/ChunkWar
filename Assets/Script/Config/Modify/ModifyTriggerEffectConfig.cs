@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -739,6 +740,7 @@ public class AttachPointConfig
 
 public class MTEC_AddAISpawn : ModifyTriggerEffectConfig
 {
+    [OnCollectionChanged("OnAddedWave")]
     public List<WaveEnemySpawnConfig> SpawnCfgList = new List<WaveEnemySpawnConfig>();
 
     [LabelText("位置使用创生AI船Node")]
@@ -763,6 +765,17 @@ public class MTEC_AddAISpawn : ModifyTriggerEffectConfig
     {
         data.RemoveAISpawn(this);
     }
+
+#if UNITY_EDITOR
+    private void OnAddedWave(CollectionChangeInfo info, object value)
+    {
+        for (int i = 0; i < SpawnCfgList.Count; i++)
+        {
+            SpawnCfgList[i].ID = i + 1;
+        }
+    }
+
+#endif
 }
 
 public class MTEC_ActiveEnemyUnitGroup : ModifyTriggerEffectConfig

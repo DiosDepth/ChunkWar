@@ -1399,12 +1399,12 @@ MonoBehaviour:
       Data: 
   ID: 5
   GeneralConfig:
-    IconSprite: {fileID: -2039262277, guid: 8253ac024b22d4c4e800dc8479a6b852, type: 3}
+    IconSprite: {fileID: 21300000, guid: af8bf41a61a7c0e488e85ea574e9674c, type: 3}
     Name: Enemy_Name_005
     Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: 78e0d89966b208549b01263ff6a23337, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: 9633f8febea129142a4bd47507b60667, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 0
@@ -1415,15 +1415,15 @@ MonoBehaviour:
   HardLevelGroupID: 1
   SectorThreadValue: 1
   EnemyCountModify: 1
-  MaxVelocity: 30
-  MaxAcceleration: 0
-  MaxAngularAcceleration: 3
+  MaxVelocity: 15
+  MaxAcceleration: 2
+  MaxAngularAcceleration: 1
   MaxAngularVelocity: 1
   boidRadius: 1
-  targetSerchingRadius: 15
+  targetSerchingRadius: 20
   ArrivalRadius: 15
   SlotRadius: 5
-  DieAudio: 
+  DieAudio: Ship/ShipExplode_002
   AppearChangeCameraOrthographicSize: 0
   CameraTargetOrthographicSize: 40
   AppearWarning: 0
