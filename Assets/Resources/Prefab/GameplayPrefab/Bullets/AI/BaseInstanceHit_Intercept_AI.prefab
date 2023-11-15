@@ -57,7 +57,7 @@ MonoBehaviour:
   initialTargetPos: {x: 0, y: 0, z: 0}
   mask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 263168
   maxDistance: 35
   width: 0.2
   emittime: 0.3

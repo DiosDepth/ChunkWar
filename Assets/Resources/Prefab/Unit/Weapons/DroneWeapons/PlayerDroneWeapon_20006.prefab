@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5016292513370266613}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2002946465909562056}
   - component: {fileID: 5259539033414074130}
   - component: {fileID: 1149708689560572444}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: PlayerDroneWeapon_20006
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -95,6 +95,8 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 1
+  pointRange: 7
+  intercepttype: 0
   bulletName: PlayerDrone_Missile_01
   targetmode: 1
   mask:
@@ -149,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5885253295866187340}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: FirePoint (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5501148320213267861}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1604183454421818662}
   - component: {fileID: 7399829360478477824}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

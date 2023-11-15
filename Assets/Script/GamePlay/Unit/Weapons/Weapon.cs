@@ -109,7 +109,7 @@ public class Weapon : Unit
     public string bulletName = string.Empty;
     public WeaponTargetMode targetmode = WeaponTargetMode.Single;
 
-    public LayerMask mask = 1 << 7;
+    //public LayerMask mask = 1 << 7;
     public Transform[] firePoint;
     public float scatter = 0f;
     public float roatateSpeed = 180f;

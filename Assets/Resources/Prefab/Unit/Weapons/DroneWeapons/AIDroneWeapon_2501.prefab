@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5016292513370266613}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2002946465909562056}
   - component: {fileID: 1149708689560572444}
   - component: {fileID: -3207047033560639734}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: AIDroneWeapon_2501
   m_TagString: AI
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5501148320213267861}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1604183454421818662}
   - component: {fileID: 7399829360478477824}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
