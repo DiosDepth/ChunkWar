@@ -22,6 +22,18 @@ public class ShopMainConfig : SerializedScriptableObject
             return _propertyItem;
         }
     }
+
+    [OnInspectorInit]
+    private void Init()
+    {
+        LocalizationManager.Instance.SetLanguage(SystemLanguage.ChineseSimplified);
+        DataManager.Instance.LoadAllUnitConfig_Editor();
+        for(int i =0;i< WreckageDrops.Count; i++)
+        {
+            WreckageDrops[i].Init();
+        }
+    }
+
 #endif 
 
     [LabelText("每次刷新增加 波次乘参数")]
@@ -63,6 +75,11 @@ public class WreckageDropItemConfig
     public int UnitID;
 
     [TableColumnWidth(150, false)]
+    [ShowInInspector]
+    [ReadOnly]
+    private string Name;
+
+    [TableColumnWidth(150, false)]
     public byte Weight = 20;
 
     [TableColumnWidth(150, false)]
@@ -71,6 +88,25 @@ public class WreckageDropItemConfig
     [TableColumnWidth(150, false)]
     public int LoadCost;
 
+    /// <summary>
+    /// 开始刷新波次
+    /// </summary>
+    [TableColumnWidth(150, false)]
+    public byte StartWave;
+
+#if UNITY_EDITOR
+    public void Init()
+    {
+        if (UnitID == 0)
+            return;
+
+        var cfg = DataManager.Instance.GetUnitConfig(UnitID);
+        if(cfg != null)
+        {
+            Name = LocalizationManager.Instance.GetTextValue(cfg.GeneralConfig.Name);
+        }
+    }
+#endif
 }
 
 [System.Serializable]

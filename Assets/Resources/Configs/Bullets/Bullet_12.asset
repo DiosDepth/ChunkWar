@@ -42,4 +42,5 @@ MonoBehaviour:
   RotationSpeed: 3
   InitialSpeed: 3
   Acceleration: 0.25
+  DestroyAudio: 
   MissileHP: 30

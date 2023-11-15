@@ -879,7 +879,9 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         List<WreckageItemInfo> result = new List<WreckageItemInfo>();
         foreach(var rarity in _inLevelDropItems)
         {
+            ///É¸Ñ¡²¨´Î
             var vaildItems = GetAllWreckageItemsByRarity(rarity.Key);
+            
             var count = rarity.Value;
             for (int i = 0; i < count; i++) 
             {
@@ -935,7 +937,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
     private List<WreckageItemInfo> GetAllWreckageItemsByRarity(GoodsItemRarity rarity)
     {
-        return wreckageItems.Values.ToList().FindAll(x => x.Rarity == rarity);
+        return wreckageItems.Values.Where(x => x._cfg.StartWave < GetCurrentWaveIndex).ToList().FindAll(x => x.Rarity == rarity);
     }
 
     /// <summary>

@@ -454,7 +454,7 @@ MonoBehaviour:
   HPBarHeight: 0.4
   HPBarWidth: 3
   BaseRange: 450
-  DamageBase: 30
+  DamageBase: 8
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
@@ -462,19 +462,21 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 5
   CriticalDamage: 120
-  TotalDamageCount: 24
+  TotalDamageCount: 18
   ShootPerCount: 3
-  CanModifyDamageCount: 0
+  CanModifyDamageCount: 1
   CD: 2
-  FireCD: 0.05
+  FireCD: 0.08
   ShieldTransfixion: 0
-  ShieldDamage: 150
+  ShieldDamage: 100
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: 
+  DamageModifyFrom:
+  - PropertyKey: 41
+    Ratio: 0.6
+  FireAudioClip: Fire/StraightMissile_Fire
   FireEffect:
-    EffectName: 
+    EffectName: Fire/Eff_Fire_Flash_01
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

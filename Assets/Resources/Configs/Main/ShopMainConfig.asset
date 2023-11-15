@@ -890,330 +890,412 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 100
     LoadCost: 10
+    StartWave: 0
   - UnitID: 10001
     Weight: 20
     SellPrice: 42
     LoadCost: 15
+    StartWave: 0
   - UnitID: 10002
     Weight: 20
     SellPrice: 23
     LoadCost: 15
+    StartWave: 0
   - UnitID: 10005
     Weight: 20
     SellPrice: 12
     LoadCost: 18
+    StartWave: 0
   - UnitID: 10006
     Weight: 20
     SellPrice: 43
     LoadCost: 18
+    StartWave: 0
   - UnitID: 10007
     Weight: 20
     SellPrice: 23
     LoadCost: 18
+    StartWave: 0
   - UnitID: 10010
     Weight: 100
     SellPrice: 40
     LoadCost: 10
+    StartWave: 0
   - UnitID: 10011
     Weight: 20
     SellPrice: 40
     LoadCost: 5
+    StartWave: 0
   - UnitID: 10012
     Weight: 20
     SellPrice: 40
     LoadCost: 5
+    StartWave: 0
   - UnitID: 10015
     Weight: 20
     SellPrice: 40
     LoadCost: 5
+    StartWave: 0
   - UnitID: 10016
     Weight: 20
     SellPrice: 40
     LoadCost: 5
+    StartWave: 0
   - UnitID: 10020
     Weight: 20
     SellPrice: 40
     LoadCost: 5
+    StartWave: 4
   - UnitID: 10025
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10026
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10027
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10030
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10031
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10032
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10035
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10036
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10040
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10041
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10045
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10046
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10050
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10051
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10052
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10055
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10056
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10057
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10060
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10061
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10065
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10066
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10070
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10071
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10072
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10075
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10076
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10077
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10080
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 2
   - UnitID: 10081
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 2
   - UnitID: 10085
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10086
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10090
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 10091
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11000
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11001
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11002
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11005
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11006
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11007
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11010
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11011
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11012
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11015
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11016
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11020
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 11021
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 1000
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 1001
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 1002
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 0
   - UnitID: 1005
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1006
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1100
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 2
   - UnitID: 1101
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 2
   - UnitID: 1105
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1106
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1110
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 4
   - UnitID: 1111
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 4
   - UnitID: 1112
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 4
   - UnitID: 1115
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1116
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1150
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1151
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1155
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1156
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1010
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 4
   - UnitID: 1011
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 4
   - UnitID: 1160
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 3
   - UnitID: 1165
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 2
   - UnitID: 1166
     Weight: 20
     SellPrice: 0
     LoadCost: 0
+    StartWave: 2
   WreckageShopBuyItemCfg:
   - WeightBase: 20
     Rarity: 0

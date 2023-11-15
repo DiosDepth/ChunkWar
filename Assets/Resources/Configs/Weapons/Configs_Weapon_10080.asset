@@ -425,7 +425,7 @@ MonoBehaviour:
       Data: 
   ID: 10080
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 15d669631ae23bb438fa7ef67b6d3fcf, type: 3}
+    IconSprite: {fileID: 21300000, guid: e2f7adbb71a9c25429938f70d57d89f7, type: 3}
     Name: Weapon_Name_10080
     Desc: Weapon_Desc_10080
     Rarity: 1
@@ -447,14 +447,14 @@ MonoBehaviour:
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
-  ParalysisResume: 0
-  ParalysisResumeTime: 0
+  ParalysisResume: 1
+  ParalysisResumeTime: 4
   PropertyModify: []
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 500
-  DamageBase: 50
+  BaseRange: 350
+  DamageBase: 4
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.94
@@ -462,19 +462,21 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 5
   CriticalDamage: 125
-  TotalDamageCount: 6
+  TotalDamageCount: 20
   ShootPerCount: 1
-  CanModifyDamageCount: 0
-  CD: 10
-  FireCD: 0.1
+  CanModifyDamageCount: 1
+  CD: 3
+  FireCD: 0.06
   ShieldTransfixion: 0
-  ShieldDamage: 150
+  ShieldDamage: 100
   BaseTransfixion: 0
   Scatter: 0
-  DamageModifyFrom: []
-  FireAudioClip: 
+  DamageModifyFrom:
+  - PropertyKey: 41
+    Ratio: 0.5
+  FireAudioClip: Fire/StraightMissile_Fire
   FireEffect:
-    EffectName: 
+    EffectName: Fire/Eff_Fire_Flash_01
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

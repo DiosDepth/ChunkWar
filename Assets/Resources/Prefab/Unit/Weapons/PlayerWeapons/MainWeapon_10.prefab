@@ -145,7 +145,7 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 3
-  pointRange: 5
+  pointRange: 8
   intercepttype: 0
   bulletName: BaseStraightMissile_Player
   targetmode: 0

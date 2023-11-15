@@ -27,19 +27,20 @@ MonoBehaviour:
   Owner: 1
   Prefab: {fileID: 8903830990857463265, guid: 649939581eb78ec47953fbdd8e474f90, type: 3}
   PrefabPath: Prefab/GameplayPrefab/Bullets/Player/BaseStraightMissile_Player
-  HitAudio: 
+  HitAudio: Fire/Missile_Explode_02
   HitEffect:
-    EffectName: 
+    EffectName: Explode/MissileExplode_02
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  ExplodeRange: 2.5
-  LifeTime: 5
-  MaxSpeed: 150
+  ExplodeRange: 4
+  LifeTime: 3
+  MaxSpeed: 100
   RotationSpeed: 6
   InitialSpeed: 30
   Acceleration: 1
-  MissileHP: 100
+  DestroyAudio: Fire/Missile_Explode_02
+  MissileHP: 10

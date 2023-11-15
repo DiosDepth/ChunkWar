@@ -108,6 +108,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7844773752343940245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/StraightMissile_Fire
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/StraightMissile_Fire
+  Guid:
+    Data1: 493224800
+    Data2: 1130312885
+    Data3: -47632718
+    Data4: 1115970936
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-7559187324447475505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1084,12 +1111,13 @@ MonoBehaviour:
   - {fileID: -495924535447098927}
   - {fileID: -5445211257957096329}
   - {fileID: 6671278948017098384}
+  - {fileID: -7844773752343940245}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7608658188462933578}
   StringsBanks:
   - {fileID: 1227211710014248362}
-  cacheTime: 638355974817562999
+  cacheTime: 638356830131653264
   cacheVersion: 131608
 --- !u!114 &629929198641315281
 MonoBehaviour:
@@ -1106,7 +1134,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638335709887689524
+  lastModified: 638356830131653264
   FileSizes: []
   Exists: 1
 --- !u!114 &1030726374207204599
@@ -1151,10 +1179,10 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638355974451099504
+  lastModified: 638356827663536255
   FileSizes:
   - Name: 
-    Value: 3094
+    Value: 3144
   Exists: 1
 --- !u!114 &1288176805813493146
 MonoBehaviour:
@@ -1730,7 +1758,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638355974451089503
+  lastModified: 638356827663536255
   FileSizes: []
   Exists: 1
 --- !u!114 &8280454677774467645
