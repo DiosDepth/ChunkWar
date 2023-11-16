@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e2c29c1365c1c439ab4c91c1b90c03, type: 3}
-  m_Name: Configs_AISelfExplosiveBuilding_700
+  m_Script: {fileID: 11500000, guid: 49d9fbc63cc69dc47b27c4f50f32f64d, type: 3}
+  m_Name: Configs_AIDroneFactory_253
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -176,7 +176,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -203,19 +209,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 2
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -242,13 +242,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 3
       Data: 0
@@ -423,29 +423,29 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 700
+  ID: 253
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 07a760d41dbbea74a8071020ff0edb56, type: 3}
-    Name: AISelfExplosiveBuilding_700
-    Desc: 
+    IconSprite: {fileID: 21300000, guid: 9eca52e69cc975c4091bbf7c4bdd6e8f, type: 3}
+    Name: DroneFactory_Name_012
+    Desc: DroneFactory_Desc_012
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 2474850222585545391, guid: d411f5346d723af4e8e29c247a451b16, type: 3}
+  Prefab: {fileID: 1256306023736974604, guid: 522a8fd4d52d5ba43aab0c62298ebccb, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
   GroupID: 0
   redirection: 0
   UnlockDefault: 0
-  ProertyDescText: 
-  EditBrushSprite: {fileID: 0}
+  ProertyDescText: DroneFactory_Effect_Desc_012
+  EditBrushSprite: {fileID: 21300000, guid: 9eca52e69cc975c4091bbf7c4bdd6e8f, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 32
-  BaseHP: 80
+  ItemTags: 160
+  BaseHP: 400
   BaseEnergyCost: 0
-  BaseEnergyGenerate: 0
+  BaseEnergyGenerate: 100
   LoadAdd: 0
   ParalysisResume: 0
   ParalysisResumeTime: 0
@@ -453,7 +453,7 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 30
+  BaseRange: 350
   ShieldConfig:
     GenerateShield: 0
     ShieldPrefabName: 
@@ -461,6 +461,6 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
-  DamageRange: 150
-  DamageValue: 50
-  ExplodeDelay: 0.8
+  DroneID: 253
+  MaxDroneCount: 2
+  DroneSpawnTime: 3

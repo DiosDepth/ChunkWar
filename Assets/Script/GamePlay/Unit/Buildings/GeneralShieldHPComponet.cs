@@ -114,10 +114,21 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
             CalculateShieldRecoverTime();
             InitShieldRatio();
         }
-        else
+        else if( owner is AIShip || owner is AIDrone)
         {
-            var parentAI = OwnerShip as AIShip;
-            var hardLevel = GameHelper.GetEnemyHardLevelItem(parentAI.AIShipCfg.HardLevelGroupID);
+            EnemyHardLevelItem hardLevel = null;
+
+            if(owner is AIShip)
+            {
+                var parentAI = OwnerShip as AIShip;
+                hardLevel = GameHelper.GetEnemyHardLevelItem(parentAI.AIShipCfg.HardLevelGroupID);
+            }
+            else
+            {
+                var parentDrone = OwnerShip as AIDrone;
+                hardLevel = GameHelper.GetEnemyHardLevelItem(parentDrone.droneCfg.HardLevelGroupID);
+            }
+
             if(hardLevel != null)
             {
                 MaxShieldHP = Mathf.RoundToInt(_shieldHPBase * (1 + hardLevel.ShieldHPPercentAdd / 100f));

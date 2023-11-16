@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_Suicide
+  m_Script: {fileID: 11500000, guid: 487d3a9d5fdd47f4f8da991b13baf1a0, type: 3}
+  m_Name: Configs_AIDrone_253
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1359,85 +1359,33 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: WreckageRarityCfg
-      Entry: 7
-      Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[ShopGoodsRarityConfig,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[GoodsItemRarity,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Skills
-      Entry: 7
-      Data: 3|ModifyTriggerConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  ID: 6
+  ID: 253
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: e48a2b36198280b4ab072ed56f727324, type: 3}
-    Name: Enemy_Name_006
+    IconSprite: {fileID: 21300000, guid: fe1902413d8ef6c4f95e22301a1bd01d, type: 3}
+    Name: Drone_Name_253
     Desc: 
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: c2d1bc3584ca295448c43c44f24100d4, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: f0586585f5066714da322db13e32f196, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
-  ShipClass: 0
-  ShowHPBillboard: 0
-  ClassLevel: 0
-  BillboardType: 0
-  AttackBase: 5
+  ShipClass: 5
+  Owner: 2
+  PreviewWeaponID: 2511
   HardLevelGroupID: 1
-  SectorThreadValue: 1
-  EnemyCountModify: 1
-  MaxVelocity: 60
-  MaxAcceleration: 7
-  MaxAngularAcceleration: 3
-  MaxAngularVelocity: 1
+  EnmeyATKBase: 1
+  MaxVelocity: 35
+  MaxAcceleration: 8
+  MaxAngularAcceleration: 6
+  MaxAngularVelocity: 3
   boidRadius: 1
-  targetSerchingRadius: 15
-  ArrivalRadius: 1
-  SlotRadius: 3
-  DieAudio: Ship/ShipExplode_002
-  AppearChangeCameraOrthographicSize: 0
-  CameraTargetOrthographicSize: 40
-  AppearWarning: 0
-  AppearWarningText: 
-  AppearWarningAudio: 
-  DieEffect:
-    EffectName: Explode/AIShipExplode_Huge
+  targetSerchingRadius: 30
+  DieAudio: Ship/ShipExplode_001
+  DeathEffect:
+    EffectName: 
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
-  DropList:
-  - pickuptype: 1
-    count: 1
-    dropRate: 100

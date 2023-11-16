@@ -461,6 +461,6 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
-  DroneID: 251
-  MaxDroneCount: 3
-  DroneSpawnTime: 1
+  DroneID: 254
+  MaxDroneCount: 2
+  DroneSpawnTime: 3

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e2c29c1365c1c439ab4c91c1b90c03, type: 3}
-  m_Name: Configs_AISelfExplosiveBuilding_700
+  m_Script: {fileID: 11500000, guid: 7144fbede2b43da40b425ccd0fad27b1, type: 3}
+  m_Name: Configs_AIBuilding_Shield_513
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 700
+  ID: 513
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: 07a760d41dbbea74a8071020ff0edb56, type: 3}
-    Name: AISelfExplosiveBuilding_700
+    IconSprite: {fileID: 0}
+    Name: Unit_Name_1151
     Desc: 
-    Rarity: 0
+    Rarity: 1
     SortingOrder: 0
-  Prefab: {fileID: 2474850222585545391, guid: d411f5346d723af4e8e29c247a451b16, type: 3}
+  Prefab: {fileID: 2474850222585545391, guid: 2cc47e53a77e4ae4fb5d8808a1e3f4da, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
@@ -442,8 +442,8 @@ MonoBehaviour:
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
   CorsorOffsetY: 0
-  ItemTags: 32
-  BaseHP: 80
+  ItemTags: 2
+  BaseHP: 75
   BaseEnergyCost: 0
   BaseEnergyGenerate: 0
   LoadAdd: 0
@@ -453,14 +453,11 @@ MonoBehaviour:
   HPBarOffsetY: 0
   HPBarHeight: 0.4
   HPBarWidth: 3
-  BaseRange: 30
+  BaseRange: 0
   ShieldConfig:
-    GenerateShield: 0
-    ShieldPrefabName: 
-    ShieldHP: 0
-    ShieldRecoverValue: 0
-    ShieldRecoverTime: 0
-    ShieldBaseRatio: 0
-  DamageRange: 150
-  DamageValue: 50
-  ExplodeDelay: 0.8
+    GenerateShield: 1
+    ShieldPrefabName: EnemyShield_001
+    ShieldHP: 300
+    ShieldRecoverValue: 50
+    ShieldRecoverTime: 8
+    ShieldBaseRatio: 8

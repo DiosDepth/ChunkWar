@@ -463,4 +463,4 @@ MonoBehaviour:
     ShieldBaseRatio: 0
   DroneID: 251
   MaxDroneCount: 3
-  DroneSpawnTime: 1
+  DroneSpawnTime: 3

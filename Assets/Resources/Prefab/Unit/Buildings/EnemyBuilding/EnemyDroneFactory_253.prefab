@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4384573615577313368}
   - component: {fileID: 70120893513450208}
   m_Layer: 7
-  m_Name: EnemyDroneFactory_254
+  m_Name: EnemyDroneFactory_253
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,11 +66,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895982555e4c4aa49ab6233eee14a9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 254
+  UnitID: 253
   IsInvisiableUnit: 0
   IsCoreUnit: 0
   deathVFXName: ExplodeVFX
-  maxTargetCount: 3
+  maxTargetCount: 2
   unitSprite: {fileID: 5550522709308718741}
   rotationRoot: {fileID: 607207124867787956}
   redirection: 1

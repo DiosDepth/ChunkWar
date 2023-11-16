@@ -36,7 +36,7 @@ public class DroneConfig : BaseShipConfig
 
     [FoldoutGroup("无人机配置")]
     [HorizontalGroup("无人机配置/A", 200)]
-    [LabelText("难度等级")]
+    [LabelText("基础攻击")]
     [LabelWidth(80)]
     [ShowIf("Owner", OwnerType.AI)]
     public int EnmeyATKBase;
