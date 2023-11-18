@@ -91,7 +91,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
         if (AIShipCfg.AppearChangeCameraOrthographicSize)
         {
-            CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize, 2f);
+            CameraManager.Instance.SetFOV(GameGlobalConfig.CameraDefault_OrthographicSize);
         }
     }
 
@@ -250,7 +250,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     {
         if (AIShipCfg.AppearChangeCameraOrthographicSize)
         {
-            CameraManager.Instance.SetOrthographicSize(AIShipCfg.CameraTargetOrthographicSize, 2f);
+            CameraManager.Instance.SetFOV(AIShipCfg.CameraTargetOrthographicSize);
         }
 
         if (AIShipCfg.AppearWarning)

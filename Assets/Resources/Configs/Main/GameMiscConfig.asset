@@ -193,16 +193,16 @@ MonoBehaviour:
       Data: 7|ShipControlConfig, Assembly-CSharp
     - Name: MaxSpeed_Base
       Entry: 4
-      Data: 10
+      Data: 9
     - Name: Acceleration_Base
       Entry: 4
-      Data: 10
+      Data: 0.8
     - Name: MaxRotateSpeed_Base
       Entry: 4
-      Data: 20
+      Data: 15
     - Name: RotationAcceleration
       Entry: 4
-      Data: 1
+      Data: 1.25
     - Name: 
       Entry: 8
       Data: 
