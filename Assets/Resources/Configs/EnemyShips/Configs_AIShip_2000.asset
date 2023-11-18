@@ -1393,10 +1393,10 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 4|MTC_CoreHPPercent, Assembly-CSharp
+      Data: 4|MTC_EnemyCoreHPPercent, Assembly-CSharp
     - Name: TriggerType
       Entry: 3
-      Data: 12
+      Data: 26
     - Name: TriggerCount
       Entry: 3
       Data: 1
@@ -1491,7 +1491,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 5
+      Data: 3
     - Name: $v
       Entry: 4
       Data: 30
@@ -1503,7 +1503,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 3
+      Data: 5
     - Name: $v
       Entry: 4
       Data: 30

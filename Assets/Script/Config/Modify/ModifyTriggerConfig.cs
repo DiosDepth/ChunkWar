@@ -170,6 +170,10 @@ public abstract class ModifyTriggerConfig
             {
                 result.Add(type.ToString(), new MTC_OnSellShipUnit(type));
             }
+            else if(type == ModifyTriggerType.OnEnemyCoreHPChange)
+            {
+                result.Add(type.ToString(), new MTC_EnemyCoreHPPercent(type));
+            }
         }
 
         return result;
@@ -476,6 +480,30 @@ public class MTC_CoreHPPercent : ModifyTriggerConfig
     public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
     {
         return new MT_CoreHPPercent(this, uid);
+    }
+}
+
+public class MTC_EnemyCoreHPPercent : ModifyTriggerConfig
+{
+
+    [HorizontalGroup("AB", 200)]
+    [LabelText("±ÈÀý")]
+    [LabelWidth(50)]
+    public byte HPPercent;
+
+    [HorizontalGroup("AB", 200)]
+    [LabelText("±È½Ï")]
+    [LabelWidth(50)]
+    public CompareType Compare;
+
+    public MTC_EnemyCoreHPPercent(ModifyTriggerType type) : base(type)
+    {
+
+    }
+
+    public override ModifyTriggerData Create(ModifyTriggerConfig cfg, uint uid)
+    {
+        return new MT_EnemyCoreHPPercent(this, uid);
     }
 }
 
