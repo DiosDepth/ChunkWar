@@ -365,7 +365,7 @@ public class WeaponAttribute : UnitBaseAttribute
 
     private void CalculateReloadTime()
     {
-        var cd = GameHelper.CalculatePlayerWeaponCD(BaseReloadCD);
+        var cd = GameHelper.CalculatePlayerWeaponCD(BaseReloadCD, _parentUnit as Weapon);
         ReloadTime = cd;
     }
 

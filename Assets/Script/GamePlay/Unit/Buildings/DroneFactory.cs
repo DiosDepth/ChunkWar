@@ -67,7 +67,7 @@ public class DroneFactoryAttribute : BuildingAttribute
 
     private void CalculateSpawnTime()
     {
-        var cd = GameHelper.CalculatePlayerWeaponCD(DroneSpawnTimeBase);
+        var cd = GameHelper.CalculatePlayerWeaponCD(DroneSpawnTimeBase, null);
         RepairTime = cd;
     }
 }

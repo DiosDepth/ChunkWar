@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0432410992594a4089bc708a12b06c7, type: 3}
-  m_Name: Configs_DroneWeapon_2511
+  m_Name: Configs_DroneWeapon_2521
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -423,14 +423,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  ID: 2511
+  ID: 2521
   GeneralConfig:
     IconSprite: {fileID: 21300000, guid: e8041f44940d2a944837cb23dec86aa4, type: 3}
     Name: Weapon_Name_20000
     Desc: Weapon_Desc_20000
     Rarity: 0
     SortingOrder: 0
-  Prefab: {fileID: 5883710716347196929, guid: a98baf0f47794fb4dace1247a157bddd, type: 3}
+  Prefab: {fileID: 5883710716347196929, guid: 882c7e2c3096efb479095f0c77811473, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
@@ -454,7 +454,7 @@ MonoBehaviour:
   HPBarHeight: 0.4
   HPBarWidth: 3
   BaseRange: 175
-  DamageBase: 3
+  DamageBase: 4
   EnemyAttackModify: 0.7
   UseDamageRatio: 0
   DamageRatioMin: 0.8
@@ -462,8 +462,8 @@ MonoBehaviour:
   DamageType: 0
   BaseCriticalRate: 5
   CriticalDamage: 150
-  TotalDamageCount: 12
-  ShootPerCount: 2
+  TotalDamageCount: 10
+  ShootPerCount: 1
   CanModifyDamageCount: 0
   CD: 4
   FireCD: 0.15

@@ -454,7 +454,7 @@ MonoBehaviour:
   HPBarHeight: 0.4
   HPBarWidth: 3
   BaseRange: 250
-  DamageBase: 25
+  DamageBase: 10
   EnemyAttackModify: 0.7
   UseDamageRatio: 0
   DamageRatioMin: 0.8

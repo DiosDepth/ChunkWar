@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d8d3f9601fb71843902f78cf448ece7, type: 3}
-  m_Name: Configs_AIShip_1500
+  m_Name: Configs_AIShip_1501
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1390,51 +1390,6 @@ MonoBehaviour:
       Data: 3|ModifyTriggerConfig[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 4|MTC_Timer, Assembly-CSharp
-    - Name: TriggerType
-      Entry: 3
-      Data: 6
-    - Name: TriggerCount
-      Entry: 3
-      Data: 1
-    - Name: SelfUnique
-      Entry: 5
-      Data: false
-    - Name: RemoveIfTriggerCountReach
-      Entry: 5
-      Data: false
-    - Name: UsePercent
-      Entry: 5
-      Data: false
-    - Name: Percent
-      Entry: 4
-      Data: 0
-    - Name: UseLuckModify
-      Entry: 5
-      Data: false
-    - Name: LuckModifyRate
-      Entry: 4
-      Data: 0
-    - Name: Effects
-      Entry: 7
-      Data: 5|ModifyTriggerEffectConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 6|MTEC_ActiveEnemyUnitGroup, Assembly-CSharp
-    - Name: EffectType
-      Entry: 3
-      Data: 17
-    - Name: Conditions
-      Entry: 7
-      Data: 7|ModifyConditionConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
       Data: 0
     - Name: 
       Entry: 13
@@ -1442,120 +1397,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: UnitGroupName
-      Entry: 1
-      Data: ExtraUnitGroup
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 8|MTEC_AddUnitModifier, Assembly-CSharp
-    - Name: EffectType
-      Entry: 3
-      Data: 14
-    - Name: Conditions
-      Entry: 7
-      Data: 9|ModifyConditionConfig[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ModifyMap
-      Entry: 7
-      Data: 10|System.Collections.Generic.Dictionary`2[[UnitPropertyModifyKey, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 11|System.Collections.Generic.EnumEqualityComparer`1[[UnitPropertyModifyKey,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 5
-    - Name: $v
-      Entry: 4
-      Data: 50
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: TimerTriggerType
-      Entry: 3
-      Data: 1
-    - Name: SpecialType
-      Entry: 3
-      Data: 0
-    - Name: TimeParam
-      Entry: 4
-      Data: 50
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  ID: 1500
+  ID: 1501
   GeneralConfig:
-    IconSprite: {fileID: 21300000, guid: b3052c8c069e73944a88ee5438b0a88e, type: 3}
+    IconSprite: {fileID: 21300000, guid: cf99e22e5588bc245a08e6ca6ca4e0d5, type: 3}
     Name: Enemy_Name_1500
     Desc: 
     Rarity: 3
     SortingOrder: 0
-  Prefab: {fileID: 3431155976711396027, guid: 4ce5ce95ccf67034a9ae1663887a8a72, type: 3}
+  Prefab: {fileID: 3431155976711396027, guid: 1ed8f1d229957bf4d806d460f1d7c2d0, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 4
   ShowHPBillboard: 1
   ClassLevel: 1
   BillboardType: 1
-  AttackBase: 30
+  AttackBase: 15
   HardLevelGroupID: 1
   SectorThreadValue: 15
   EnemyCountModify: 0
-  MaxVelocity: 10
+  MaxVelocity: 12
   MaxAcceleration: 1
   MaxAngularAcceleration: 1
   MaxAngularVelocity: 1
   boidRadius: 15
-  targetSerchingRadius: 50
-  ArrivalRadius: 15
+  targetSerchingRadius: 80
+  ArrivalRadius: 20
   SlotRadius: 5
   DieAudio: 
   AppearChangeCameraOrthographicSize: 1
@@ -1574,4 +1440,7 @@ MonoBehaviour:
   DropList:
   - pickuptype: 1
     count: 5
+    dropRate: 100
+  - pickuptype: 3
+    count: 1
     dropRate: 100
