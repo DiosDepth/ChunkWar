@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9055285181841866490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Fire_101
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Fire_101
+  Guid:
+    Data1: -616077655
+    Data2: 1161184588
+    Data3: 623939006
+    Data4: 1087209120
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 80
+  Length: 1000
+--- !u!114 &-8952811979141791032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Energy_106
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Energy_106
+  Guid:
+    Data1: 133584362
+    Data2: 1150706682
+    Data3: -439646825
+    Data4: 1148108500
+  Banks:
+  - {fileID: 5518491900420790000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 1942
 --- !u!114 &-8870045558017458321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +216,87 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7398336155143015218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Energy_116
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Energy_116
+  Guid:
+    Data1: 1081723729
+    Data2: 1142367756
+    Data3: -1251056461
+    Data4: -179877089
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 90
+  Length: 1350
+--- !u!114 &-7318727177916994805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shield/shield_break_large
+  m_EditorClassIdentifier: 
+  Path: event:/Shield/shield_break_large
+  Guid:
+    Data1: 1509256753
+    Data2: 1201050287
+    Data3: 2146352030
+    Data4: 121729366
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 85
+  Length: 6999
+--- !u!114 &-7090326138893133547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Weapon_Energy_10050
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Weapon_Energy_10050
+  Guid:
+    Data1: -1837438513
+    Data2: 1114086676
+    Data3: 449123774
+    Data4: 247943459
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2514
 --- !u!114 &-7088145624341254923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +324,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7053385819538634800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Missile_111
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Missile_111
+  Guid:
+    Data1: -609419748
+    Data2: 1088448546
+    Data3: -506549111
+    Data4: 343937598
+  Banks:
+  - {fileID: 7608658188462933578}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 90
+  Length: 2000
 --- !u!114 &-6987822416961858339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +540,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 150
   Length: 2034
---- !u!114 &-5765093771530778643
+--- !u!114 &-6296867390262345413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -388,23 +550,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Fire/Enemy_EnergyShoot_001
+  m_Name: event:/Shield/shield_start_large
   m_EditorClassIdentifier: 
-  Path: event:/Fire/Enemy_EnergyShoot_001
+  Path: event:/Shield/shield_start_large
   Guid:
-    Data1: 133584362
-    Data2: 1150706682
-    Data3: -439646825
-    Data4: 1148108500
+    Data1: -445990547
+    Data2: 1165495013
+    Data3: -138504560
+    Data4: -476090228
   Banks:
-  - {fileID: 5518491900420790000}
+  - {fileID: 629929198641315281}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 100
-  Length: 1942
+  MaxDistance: 85
+  Length: 4000
+--- !u!114 &-6071848838978692239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shield/shield_start_small
+  m_EditorClassIdentifier: 
+  Path: event:/Shield/shield_start_small
+  Guid:
+    Data1: 1040822217
+    Data2: 1247780359
+    Data3: 1203711144
+    Data4: -1984021404
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 85
+  Length: 2321
 --- !u!114 &-5601679423355751555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,6 +882,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1528
+--- !u!114 &-4249503766818821028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Missile_113
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Missile_113
+  Guid:
+    Data1: 1215876778
+    Data2: 1124127566
+    Data3: -1768332136
+    Data4: 420785261
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 90
+  Length: 2500
 --- !u!114 &-3371026166483339481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,6 +990,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2947530160154621346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Weapon_10030
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Weapon_10030
+  Guid:
+    Data1: -1994726024
+    Data2: 1167726562
+    Data3: 1243303103
+    Data4: 593882044
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2895
+--- !u!114 &-2896211212362611241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shield/shield_break_small
+  m_EditorClassIdentifier: 
+  Path: event:/Shield/shield_break_small
+  Guid:
+    Data1: 1354705261
+    Data2: 1158680551
+    Data3: 1077632695
+    Data4: -2129435172
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 85
+  Length: 1032
 --- !u!114 &-2580121350411573471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,6 +1136,33 @@ MonoBehaviour:
   lastModified: 638330844148106448
   FileSizes: []
   Exists: 1
+--- !u!114 &-1605936543970986970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Weapon_Energy_10045
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Weapon_Energy_10045
+  Guid:
+    Data1: -1355104969
+    Data2: 1178309305
+    Data3: 1352240558
+    Data4: 1597260918
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2385
 --- !u!114 &-1560445779294603956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,7 +1371,6 @@ MonoBehaviour:
   - {fileID: 7064539203002539850}
   - {fileID: 7073162342289859550}
   - {fileID: -2580121350411573471}
-  - {fileID: -5765093771530778643}
   - {fileID: 8365938617815285686}
   - {fileID: -3371026166483339481}
   - {fileID: 8706977739052789715}
@@ -1112,12 +1408,32 @@ MonoBehaviour:
   - {fileID: -5445211257957096329}
   - {fileID: 6671278948017098384}
   - {fileID: -7844773752343940245}
+  - {fileID: 7040794365296236908}
+  - {fileID: -7318727177916994805}
+  - {fileID: -2896211212362611241}
+  - {fileID: -6296867390262345413}
+  - {fileID: 2781160615792669734}
+  - {fileID: -6071848838978692239}
+  - {fileID: 4741655437008496053}
+  - {fileID: -1605936543970986970}
+  - {fileID: 5882856530388642387}
+  - {fileID: -7398336155143015218}
+  - {fileID: 4145700836083820586}
+  - {fileID: -2947530160154621346}
+  - {fileID: -9055285181841866490}
+  - {fileID: -7090326138893133547}
+  - {fileID: 1328345333674112737}
+  - {fileID: -8952811979141791032}
+  - {fileID: 1549058828784791731}
+  - {fileID: -4249503766818821028}
+  - {fileID: 4024251841106408667}
+  - {fileID: -7053385819538634800}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7608658188462933578}
   StringsBanks:
   - {fileID: 1227211710014248362}
-  cacheTime: 638356830131653264
+  cacheTime: 638359217844987397
   cacheVersion: 131608
 --- !u!114 &629929198641315281
 MonoBehaviour:
@@ -1134,7 +1450,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/BattleAudio.bank
   Name: BattleAudio
   StudioPath: bank:/BattleAudio
-  lastModified: 638356830131653264
+  lastModified: 638359217844774795
   FileSizes: []
   Exists: 1
 --- !u!114 &1030726374207204599
@@ -1179,10 +1495,10 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638356827663536255
+  lastModified: 638359217844987397
   FileSizes:
   - Name: 
-    Value: 3144
+    Value: 3962
   Exists: 1
 --- !u!114 &1288176805813493146
 MonoBehaviour:
@@ -1202,6 +1518,60 @@ MonoBehaviour:
   lastModified: 638335733686630251
   FileSizes: []
   Exists: 1
+--- !u!114 &1328345333674112737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/Weapon_Energy_10025
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/Weapon_Energy_10025
+  Guid:
+    Data1: 494024174
+    Data2: 1137275444
+    Data3: -1179640147
+    Data4: -816964498
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1928
+--- !u!114 &1549058828784791731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Fire_104
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Fire_104
+  Guid:
+    Data1: 1029461493
+    Data2: 1074893694
+    Data3: -513481848
+    Data4: -1522087474
+  Banks:
+  - {fileID: 5518491900420790000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 150
+  Length: 2034
 --- !u!114 &1592264612151453424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,6 +1680,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1402
+--- !u!114 &2781160615792669734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shield/shield_start_medium
+  m_EditorClassIdentifier: 
+  Path: event:/Shield/shield_start_medium
+  Guid:
+    Data1: 1962743407
+    Data2: 1292394328
+    Data3: -1342263158
+    Data4: 1718555315
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 85
+  Length: 2000
 --- !u!114 &2830355884849248928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1419,6 +1816,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1511
+--- !u!114 &4024251841106408667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Missile_114
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Missile_114
+  Guid:
+    Data1: -1134135868
+    Data2: 1157690650
+    Data3: -180052591
+    Data4: -2026287141
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 90
+  Length: 4006
 --- !u!114 &4046976913535254183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1446,6 +1870,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &4145700836083820586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Energy_110
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Energy_110
+  Guid:
+    Data1: 450521194
+    Data2: 1266531087
+    Data3: -1684872274
+    Data4: -231432721
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 90
+  Length: 3654
 --- !u!114 &4422595128235149768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1473,6 +1924,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &4741655437008496053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Energy_108
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Energy_108
+  Guid:
+    Data1: 1887903775
+    Data2: 1283663315
+    Data3: -643574369
+    Data4: 183844365
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 1000
 --- !u!114 &4887846075754875004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,7 +2029,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Bullet.bank
   Name: Bullet
   StudioPath: bank:/Weapon/Bullet
-  lastModified: 638355974817562999
+  lastModified: 638359210266310360
   FileSizes: []
   Exists: 1
 --- !u!114 &5521309929055001432
@@ -1581,6 +2059,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &5882856530388642387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire/AIWeapon_Energy_107
+  m_EditorClassIdentifier: 
+  Path: event:/Fire/AIWeapon_Energy_107
+  Guid:
+    Data1: 471950151
+    Data2: 1083614767
+    Data3: -973029447
+    Data4: 1919615226
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 75
+  Length: 1511
 --- !u!114 &5932116681807520797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1662,6 +2167,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 150
   Length: 1250
+--- !u!114 &7040794365296236908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shield/shield_break_medium
+  m_EditorClassIdentifier: 
+  Path: event:/Shield/shield_break_medium
+  Guid:
+    Data1: -1133664473
+    Data2: 1129255826
+    Data3: -1904214389
+    Data4: 1694077018
+  Banks:
+  - {fileID: 629929198641315281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 85
+  Length: 1500
 --- !u!114 &7051753357400523822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1758,7 +2290,7 @@ MonoBehaviour:
   Path: Assets/SoundRes/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638356827663536255
+  lastModified: 638359217844987397
   FileSizes: []
   Exists: 1
 --- !u!114 &8280454677774467645
@@ -1802,19 +2334,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Fire/AIWeapon_Fire_103
   Guid:
-    Data1: 1029461493
-    Data2: 1074893694
-    Data3: -513481848
-    Data4: -1522087474
+    Data1: 2132601567
+    Data2: 1217057377
+    Data3: 847075732
+    Data4: -2069163684
   Banks:
-  - {fileID: 5518491900420790000}
+  - {fileID: 629929198641315281}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 150
-  Length: 2034
+  MaxDistance: 75
+  Length: 1922
 --- !u!114 &8706977739052789715
 MonoBehaviour:
   m_ObjectHideFlags: 0

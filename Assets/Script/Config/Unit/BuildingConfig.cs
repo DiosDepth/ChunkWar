@@ -24,4 +24,7 @@ public class BuildingShieldConfig
     public int ShieldRecoverValue;
     public float ShieldRecoverTime;
     public float ShieldBaseRatio;
+
+    public string ShieldStartAudio;
+    public string ShieldBreakAudio;
 }

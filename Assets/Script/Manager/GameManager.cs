@@ -116,10 +116,6 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
 #if GMDEBUG
         GMTalkManager.Instance.Initialization();
-
-#endif
-
-#if UNITY_EDITOR
         TestDataManager.Instance.Initialization();
 #endif
     }

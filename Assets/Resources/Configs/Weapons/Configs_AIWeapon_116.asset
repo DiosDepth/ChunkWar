@@ -467,12 +467,12 @@ MonoBehaviour:
   CanModifyDamageCount: 1
   CD: 5
   FireCD: 0.5
-  ShieldTransfixion: 1
+  ShieldTransfixion: 0
   ShieldDamage: 100
   BaseTransfixion: 0
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: 
+  FireAudioClip: Fire/AIWeapon_Energy_116
   FireEffect:
     EffectName: 
     RandomScale: 0
