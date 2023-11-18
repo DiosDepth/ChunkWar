@@ -89,10 +89,10 @@ public class AIShip : BaseShip,IPoolable, IDropable
             _unitList[i].SetDisable();
         }
 
-        if (AIShipCfg.AppearChangeCameraOrthographicSize)
-        {
-            CameraManager.Instance.SetFOV(GameGlobalConfig.CameraDefault_OrthographicSize);
-        }
+        //if (AIShipCfg.AppearChangeCameraOrthographicSize)
+        //{
+        //    CameraManager.Instance.SetZoom(GameGlobalConfig.CameraDefault_OrthographicSize);
+        //}
     }
 
     public override void InitProperty()
@@ -248,10 +248,10 @@ public class AIShip : BaseShip,IPoolable, IDropable
     /// </summary>
     private void SpawnSpecial()
     {
-        if (AIShipCfg.AppearChangeCameraOrthographicSize)
-        {
-            CameraManager.Instance.SetFOV(AIShipCfg.CameraTargetOrthographicSize);
-        }
+        //if (AIShipCfg.AppearChangeCameraOrthographicSize)
+        //{
+        //    CameraManager.Instance.SetZoom(AIShipCfg.CameraTargetOrthographicSize);
+        //}
 
         if (AIShipCfg.AppearWarning)
         {

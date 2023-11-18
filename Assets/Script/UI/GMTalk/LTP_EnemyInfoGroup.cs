@@ -23,15 +23,14 @@ public class LTP_EnemyInfoGroup : MonoBehaviour
         transform.DestroyAllChildren();
         EnemyItems.Clear();
 
+        int totalLoop = cfg.LoopCount;
         for (int i = 0; i < totalTime; i++) 
         {
-            
             var obj = GameObject.Instantiate(EnmeyItem_Prefab);
             obj.transform.SetParent(transform, false);
             var cmpt = obj.transform.SafeGetComponent<LTP_EnemyItem>();
             EnemyItems.Add(cmpt);
 
-            int totalLoop = cfg.LoopCount;
             if (cfg.StartTime > i)
             {
                 cmpt.SetEmpty();
@@ -41,7 +40,7 @@ public class LTP_EnemyInfoGroup : MonoBehaviour
             {
                 cmpt.SetUp(cfg.TotalCount, cfg.TotalCount * _shipCfg.SectorThreadValue,  cfg.EditorPreviewColor);
             }
-            else if (cfg.LoopCount > 0 && (i - cfg.StartTime) % cfg.DurationDelta == 0 && totalLoop > 0) 
+            else if (cfg.LoopCount > 0 && (i - cfg.StartTime) % cfg.DurationDelta == 0 && totalLoop > 0)  
             {
                 totalLoop--;
                 cmpt.SetUp(cfg.TotalCount, cfg.TotalCount * _shipCfg.SectorThreadValue, cfg.EditorPreviewColor);
