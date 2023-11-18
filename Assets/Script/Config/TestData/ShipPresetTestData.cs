@@ -26,7 +26,7 @@ public class ShipPresetTestData : SerializedScriptableObject
     [LabelText("◊∞±∏≈‰÷√")]
     public List<ShipInitUnitConfig> OriginUnits = new List<ShipInitUnitConfig>();
 
-
+#if UNITY_EDITOR
     [OnInspectorInit]
     private void Init()
     {
@@ -41,5 +41,6 @@ public class ShipPresetTestData : SerializedScriptableObject
             }
         }
     }
+#endif
 }
 #endif

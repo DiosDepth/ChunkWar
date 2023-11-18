@@ -35,6 +35,7 @@ public class ShipPlugPresetTestData : SerializedScriptableObject
         public int count;
     }
 
+#if UNITY_EDITOR
     [OnInspectorInit]
     private void Init()
     {
@@ -56,6 +57,8 @@ public class ShipPlugPresetTestData : SerializedScriptableObject
             
         }
     }
+
+#endif
 
     private void InitPlugs()
     {

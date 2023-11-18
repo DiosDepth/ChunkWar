@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if GMDEBUG
+#if GMDEBUG && UNITY_EDITOR
 public class LevelTimelinePreviewPage : GUIBasePanel
 {
 

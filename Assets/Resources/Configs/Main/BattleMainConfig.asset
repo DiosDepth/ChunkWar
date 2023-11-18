@@ -63,10 +63,10 @@ MonoBehaviour:
       Data: 0|BattleSpecialEntitySpawnConfig, Assembly-CSharp
     - Name: EnemyGenerate_Inner_Range
       Entry: 4
-      Data: 25
+      Data: 20
     - Name: EnemyGenerate_Outer_Range
       Entry: 4
-      Data: 45
+      Data: 35
     - Name: MeteoriteGenerate_Rate1
       Entry: 4
       Data: 0.25

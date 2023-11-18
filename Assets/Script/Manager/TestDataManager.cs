@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor;
 #endif
 
-#if GMDEBUG && UNITY_EDITOR
+#if GMDEBUG
 public class TestDataManager : Singleton<TestDataManager>
 {
     public List<ShipPlugPresetTestData> PlugPresetDatas;
@@ -20,6 +20,8 @@ public class TestDataManager : Singleton<TestDataManager>
         base.Initialization();
         PlugPresetDatas = new List<ShipPlugPresetTestData>();
         ShipPresetDatas = new List<ShipPresetTestData>();
+
+#if UNITY_EDITOR
         var plugDatas = GetTestDataFiles(PlugPreset_FileRoot);
         for (int i = 0; i < plugDatas.Length; i++)
         {
@@ -38,6 +40,8 @@ public class TestDataManager : Singleton<TestDataManager>
                 ShipPresetDatas.Add(data);
             }
         }
+
+#endif
     }
 
     private string[] GetTestDataFiles(string root)

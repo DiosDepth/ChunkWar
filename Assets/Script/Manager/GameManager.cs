@@ -93,7 +93,7 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
         get { return m_gameVersion; }
     }
 
-    private static float m_gameVersion = 0.1f;
+    private static float m_gameVersion = 0.2f;
 
     /// <summary>
     /// 内部版本号
@@ -116,6 +116,10 @@ public class GameManager : Singleton<GameManager>, EventListener<GameEvent>,Even
 
 #if GMDEBUG
         GMTalkManager.Instance.Initialization();
+
+#endif
+
+#if UNITY_EDITOR
         TestDataManager.Instance.Initialization();
 #endif
     }

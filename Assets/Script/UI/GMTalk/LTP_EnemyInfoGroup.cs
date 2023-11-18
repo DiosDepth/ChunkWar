@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
+
+#if GMDEBUG && UNITY_EDITOR
 public class LTP_EnemyInfoGroup : MonoBehaviour
 {
 

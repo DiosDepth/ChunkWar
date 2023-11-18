@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-#if UNITY_EDITOR
+#if GMDEBUG
 public class LTP_EnemyItem : MonoBehaviour
 {
     private Transform _infoRoot;
