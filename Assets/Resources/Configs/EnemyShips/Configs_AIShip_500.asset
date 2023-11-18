@@ -1408,8 +1408,8 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   ShipClass: 2
-  ShowHPBillboard: 0
-  ClassLevel: 0
+  ShowHPBillboard: 1
+  ClassLevel: 2
   BillboardType: 0
   AttackBase: 35
   HardLevelGroupID: 1

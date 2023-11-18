@@ -15,13 +15,13 @@ public class MT_CoreHPPercent : ModifyTriggerData
     public override void OnTriggerAdd()
     {
         base.OnTriggerAdd();
-        LevelManager.Instance.OnCoreHPPercentChange += OnCoreHPChange;
+        LevelManager.Instance.OnPlayerCoreHPPercentChange += OnCoreHPChange;
     }
 
     public override void OnTriggerRemove()
     {
         base.OnTriggerRemove();
-        LevelManager.Instance.OnCoreHPPercentChange -= OnCoreHPChange;
+        LevelManager.Instance.OnPlayerCoreHPPercentChange -= OnCoreHPChange;
     }
 
     private void OnCoreHPChange(float percent, int oldValue, int newValue)

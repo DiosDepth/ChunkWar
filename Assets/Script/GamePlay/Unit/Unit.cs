@@ -417,7 +417,6 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
                
             }
             LevelManager.Instance.UnitBeforeHit(info);
-
             ///DamageText
             LevelManager.Instance.DamageDisplayHandler.ShowDamage(info.attackerUnit, UID, info.Damage, info.HitPoint, critical);
         }
@@ -462,6 +461,13 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
                         };
                         Death(deathInfo);
                     }
+                }
+
+                ///敌人血量变化检测
+                if(IsCoreUnit && _owner is AIShip)
+                {
+                    var aiship = _owner as AIShip;
+                    aiship.OnCoreHPChange();
                 }
             }
             return isDie;
