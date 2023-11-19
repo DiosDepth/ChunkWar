@@ -767,7 +767,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 54
+      Data: 55
     - Name: 
       Entry: 7
       Data: 
@@ -2700,6 +2700,42 @@ MonoBehaviour:
     - Name: IsPercent
       Entry: 5
       Data: false
+    - Name: ReverseColor
+      Entry: 5
+      Data: false
+    - Name: TextSpriteIndex
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 66
+    - Name: $v
+      Entry: 7
+      Data: 83|PropertyDisplayConfig, Assembly-CSharp
+    - Name: NameText
+      Entry: 1
+      Data: PropertyName_Meteorite_To_Damage
+    - Name: ModifyPercentNameText
+      Entry: 6
+      Data: 
+    - Name: DescText
+      Entry: 6
+      Data: 
+    - Name: Icon
+      Entry: 10
+      Data: 22
+    - Name: IsPercent
+      Entry: 5
+      Data: true
     - Name: ReverseColor
       Entry: 5
       Data: false

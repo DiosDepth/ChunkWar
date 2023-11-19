@@ -39,6 +39,14 @@ ShipPlug_Effect_1137	拾取装备残骸时，有<color=#09B3CB>25%</color>概率
 ShipPlug_Effect_1139	装备瘫痪时，对场上结构最高的<color=#09B3CB>3</color>个单位造成#D#的伤害
 ShipPlug_Effect_1141	波次开始时，<color=#09B3CB>+10%</color>残骸
 
+ShipPlug_Effect_1144	下一波次中暴击伤害<color=#09B3CB>+50%</color>，暴击率<color=#09B3CB>+25%</color>，装填速度<color=#09B3CB>+25%</color>
+ShipPlug_Effect_1145	暴击率溢出100%的部分，每<color=#09B3CB>1%</color>会转化为<color=#09B3CB>1%</color>的暴击伤害
+ShipPlug_Effect_1146	离开商店时，如果出售残骸数量<color=#09B3CB>≥150</color>，则下场战斗中伤害<color=#09B3CB>+15%</color>，如果出售残骸数<color=#EF3E3E>＜150</color>，则下场战斗中伤害<color=#EF3E3E>-20%</color>
+ShipPlug_Effect_1149	每出售一个装备，装填速度<color=#09B3CB>+0.5%</color>，结构值<color=#09B3CB>+0.5%</color>
+
+
+
+
 ShipPropertyDesc_2		爆炸时有<color=#09B3CB>30%</color>概率获得<color=#09B3CB>1</color>点舰船残骸
 ShipPropertyDesc_3		场上每有一个敌人，自身装填速度<color=#EF3E3E>-0.5%</color>
 ShipPropertyDesc_5		残骸数大于<color=#09B3CB>100</color>时，每秒消耗<color=#09B3CB>3</color>点残骸，并获得<color=#09B3CB>6</color>个星币

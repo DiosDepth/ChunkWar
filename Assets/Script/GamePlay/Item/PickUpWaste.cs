@@ -15,6 +15,13 @@ public class PickUpWaste : PickableItem
         
     }
 
+    public override void Initialization(PickUpData data)
+    {
+        base.Initialization(data);
+        WasteGain = data.CountRef;
+        EXPGain = data.EXPAdd;
+    }
+
     public override void PickUp(GameObject picker)
     {
         base.PickUp(picker);

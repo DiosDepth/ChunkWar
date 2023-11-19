@@ -338,8 +338,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
             {
                 obj.transform.position = GetDropPosition();
                 item = obj.GetComponent<PickUpWreckage>();
-                item.DropRarity = pickUpData.Rarity;
-                item.EXPAdd = pickUpData.EXPAdd;
+                item.Initialization(pickUpData);
             });
             return item;
         }
@@ -395,8 +394,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
                 {
                     obj.transform.position = GetDropPosition();
                     PickUpWaste item = obj.GetComponent<PickUpWaste>();
-                    item.WasteGain = data.CountRef;
-                    item.EXPGain = data.EXPAdd;
+                    item.Initialization(data);
                     outLst.Add(item);
                 }, LevelManager.PickUpPool);
             }

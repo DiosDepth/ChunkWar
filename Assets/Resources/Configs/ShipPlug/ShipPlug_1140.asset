@@ -39,6 +39,9 @@ MonoBehaviour:
     - Name: SelfUnique
       Entry: 5
       Data: false
+    - Name: RemoveIfTriggerCountReach
+      Entry: 5
+      Data: false
     - Name: UsePercent
       Entry: 5
       Data: false
@@ -153,6 +156,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: isEnter
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 

@@ -547,3 +547,7 @@ MonoBehaviour:
     ChineseSimplified: "\u5BF9\u7CBE\u82F1\u548C\u9996\u9886\u9020\u6210\u7684\u6700\u7EC8\u4F24\u5BB3#V#"
     English: 
     Japanese: 
+  - TextID: PropertyName_Meteorite_To_Damage
+    ChineseSimplified: "\u5BF9\u9668\u77F3\u9020\u6210\u4F24\u5BB3"
+    English: 
+    Japanese: 
