@@ -472,7 +472,7 @@ MonoBehaviour:
   BaseTransfixion: 0
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: 
+  FireAudioClip: Fire/AIWeapon_Fire_103
   FireEffect:
     EffectName: Fire/Eff_FireSimple
     RandomScale: 0
@@ -491,3 +491,4 @@ MonoBehaviour:
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}
+  PersistentDamageDisplay: 0

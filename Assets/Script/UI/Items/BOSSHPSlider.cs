@@ -52,20 +52,17 @@ public class BOSSHPSlider : MonoBehaviour
         _fill_01.fillAmount = 1;
         _fill_02.fillAmount = 1;
 
-        var allUnits = _targetShip.CoreUnits;
-        for(int i = 0; i < allUnits.Count; i++)
-        {
-
-        }
+        LevelManager.Instance.OnEnemyCoreHPPercentChange += OnUpdateSlider;
+        ship.OnCoreHPChange();
     }
 
     public void RemoveSlider()
     {
-        var allUnits = _targetShip.CoreUnits;
+        LevelManager.Instance.OnEnemyCoreHPPercentChange -= OnUpdateSlider;
         GameObject.DestroyImmediate(this.gameObject);
     }
 
-    private void OnUpdateSlider(int currentHP, int MaxHP, float hpPercent)
+    private void OnUpdateSlider(float hpPercent, int currentHP, int MaxHP)
     {
         _fill_01.fillAmount = hpPercent;
         _targetPercent = hpPercent;

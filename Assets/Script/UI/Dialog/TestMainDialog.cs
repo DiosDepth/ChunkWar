@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-#if GMDEBUG
+#if GMDEBUG 
 public class TestMainDialog : GUIBasePanel
 {
     private TMP_Dropdown _plugDropDown;

@@ -144,7 +144,9 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     /* 玩家飞船运动 */
     public UnityAction<bool> OnPlayerShipMove;
     /* 玩家血量变化  百分比  血量 */
-    public UnityAction<float, int, int> OnCoreHPPercentChange;
+    public UnityAction<float, int, int> OnPlayerCoreHPPercentChange;
+    /* 敌人血量变化  百分比  血量当前， 血量所有 */
+    public UnityAction<float, int, int> OnEnemyCoreHPPercentChange;
     /* 护盾回复开始 */
     public UnityAction<uint> OnShieldRecoverStart;
     /* 护盾回复结束 */
@@ -221,7 +223,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
     {
         Action_OnShipDie = null;
         OnPlayerShipMove = null;
-        OnCoreHPPercentChange = null;
+        OnPlayerCoreHPPercentChange = null;
+        OnEnemyCoreHPPercentChange = null;
         OnShieldRecoverStart = null;
         OnShieldRecoverEnd = null;
         OnShieldBroken = null;
@@ -411,7 +414,7 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             //初始化摄影机
             CameraManager.Instance.SetFollowPlayerShip();
             CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
-            CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize);
+            CameraManager.Instance.SetFOV(GameGlobalConfig.CameraDefault_OrthographicSize);
             GameEvent.Trigger(EGameState.EGameState_GameStart);
         });
     }
@@ -547,9 +550,20 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
         }
     }
 
-    public void OnPlayerShipCoreHPPercentChange(float percent, int oldValue, int newValue)
+    public void OnPlayerShipCoreHPPercentChange(float percent, int current, int total)
     {
-        OnCoreHPPercentChange?.Invoke(percent, oldValue, newValue);
+        OnPlayerCoreHPPercentChange?.Invoke(percent, current, total);
+    }
+
+    /// <summary>
+    /// 敌人血量变化，所有核心合集
+    /// </summary>
+    /// <param name="percent"></param>
+    /// <param name="oldValue"></param>
+    /// <param name="newValue"></param>
+    public void EnemyCoreHPPercentChange(float percent, int oldValue, int newValue)
+    {
+        OnEnemyCoreHPPercentChange?.Invoke(percent, oldValue, newValue);
     }
 
     public void PlayerUnitTakeDamage(DamageResultInfo damage)

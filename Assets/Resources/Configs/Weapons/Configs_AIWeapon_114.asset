@@ -472,7 +472,7 @@ MonoBehaviour:
   BaseTransfixion: 0
   Scatter: 0
   DamageModifyFrom: []
-  FireAudioClip: 
+  FireAudioClip: Fire/AIWeapon_Missile_114
   FireEffect:
     EffectName: 
     RandomScale: 0

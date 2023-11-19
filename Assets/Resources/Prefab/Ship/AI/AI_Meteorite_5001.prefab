@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  deathVFXName: ExplodeVFX
   CoreUnits: []
   AIShipCfg: {fileID: 0}
   AITypeID: 5001
@@ -123,6 +122,8 @@ MonoBehaviour:
   rb: {fileID: 2036907068945415827}
   collider: {fileID: 0}
   boidRadius: 3
+  lastpos: {x: 0, y: 0, z: 0}
+  steeringState: 0
   maxAcceleration: 7
   maxVelocity: 30
   maxAngularAcceleration: 6
@@ -175,8 +176,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3431155977748982856}
   - component: {fileID: 4295464997389306757}
-  - component: {fileID: 5397104129110183504}
   - component: {fileID: 2867403549934407090}
+  - component: {fileID: 6860576260958838194}
   m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
@@ -238,7 +239,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -689723199
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8cb1c15e2c5cba54fa8846d255025d86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -251,20 +252,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5397104129110183504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155977748982859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ede0252ef7e92459ff5df2a16cd28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angularVelocity: {x: 0, y: 0, z: 5}
-  relativeTo: 0
 --- !u!95 &2867403549934407090
 Animator:
   serializedVersion: 4
@@ -285,6 +272,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6860576260958838194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155977748982859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f6a4e2ad10d0442b935543621f2af6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angularVelocity: {x: 0, y: 0, z: 5}
+  relativeTo: 0
 --- !u!1 &3431155977828216153
 GameObject:
   m_ObjectHideFlags: 0

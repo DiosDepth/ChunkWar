@@ -13,14 +13,26 @@ public enum WeaponDamageType
 [System.Serializable]
 public class CameraShakeConfig
 {
-    [HorizontalGroup("Z", 200)]
+    [HorizontalGroup("Z", 120)]
     [LabelText("震动")]
     [LabelWidth(80)]
     public bool CameraShake;
 
+    [HorizontalGroup("Z", 120)]
+    [LabelText("预设")]
+    [LabelWidth(80)]
+    public bool UsePreset = true;
+
+    [HorizontalGroup("Z", 300)]
+    [LabelText("预设名")]
+    [LabelWidth(80)]
+    [ShowIf("UsePreset")]
+    public string PresetName;
+
     [HorizontalGroup("Z", 200)]
     [LabelText("时长")]
     [LabelWidth(80)]
+    [HideIf("UsePreset")]
     public float Duration = 0.4f;
 
     [HorizontalGroup("Z", 350)]

@@ -2025,7 +2025,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         InputDispatcher.Instance.ChangeInputMode("UI");
         CameraManager.Instance.SetFollowPlayerShip(-10);
-        CameraManager.Instance.SetOrthographicSize(20);
+        CameraManager.Instance.SetFOV(20);
         UIManager.Instance.HiddenUI("ShipHUD");
         UIManager.Instance.ShowUI<ShopHUD>("ShopHUD", E_UI_Layer.Mid, this, (panel) => 
         {
@@ -2042,7 +2042,7 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         GameManager.Instance.UnPauseGame();
         InputDispatcher.Instance.ChangeInputMode("Player");
         CameraManager.Instance.SetFollowPlayerShip();
-        CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize);
+        CameraManager.Instance.SetFOV(GameGlobalConfig.CameraDefault_OrthographicSize);
         UIManager.Instance.HiddenUI("ShopHUD");
         UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, this, (panel) =>
         {

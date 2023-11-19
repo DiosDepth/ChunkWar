@@ -810,9 +810,16 @@ public static class GameHelper
     /// </summary>
     /// <param name="rowValue"></param>
     /// <returns></returns>
-    public static float CalculatePlayerWeaponCD(float rowValue)
+    public static float CalculatePlayerWeaponCD(float rowValue, Weapon weapon)
     {
         var attackSpd = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.AttackSpeed);
+        float localModify = 0;
+        if(weapon != null)
+        {
+            localModify = weapon.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitAttackSpeed);
+        }
+        attackSpd += localModify;
+
         if(attackSpd > 0)
         {
             float rate = (100 + attackSpd) / 100f;
@@ -1066,7 +1073,7 @@ public static class GameHelper
         else if (type == UI_WeaponUnitPropertyType.CD)
         {
             var fireCD = CalculatePlayerWeaponDamageDeltaCD(cfg.FireCD);
-            var cd = CalculatePlayerWeaponCD(cfg.CD);
+            var cd = CalculatePlayerWeaponCD(cfg.CD, null);
 
             string FireCDcolor = GetColorCode(fireCD, cfg.FireCD, true);
             string cdColor = GetColorCode(cd, cfg.CD, true);

@@ -461,3 +461,5 @@ MonoBehaviour:
     ShieldRecoverValue: 40
     ShieldRecoverTime: 3
     ShieldBaseRatio: 5
+    ShieldStartAudio: Shield/shield_start_small
+    ShieldBreakAudio: Shield/shield_break_small

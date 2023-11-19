@@ -26,6 +26,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
     private int _shieldHPBase;
     private float _shieldRecoverCDBase;
     private UnitPropertyData mainProperty;
+    private BuildingShieldConfig _shieldCfg;
 
 
     private ChangeValue<int> _currentShieldHP;
@@ -92,6 +93,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
 
     public GeneralShieldHPComponet(BuildingShieldConfig cfg)
     {
+        _shieldCfg = cfg;
         _shieldRecoverValueBase = cfg.ShieldRecoverValue;
         _shieldRecoverCDBase = cfg.ShieldRecoverTime;
         _shieldHPBase = cfg.ShieldHP;
@@ -216,6 +218,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
                 monoShield.SetShieldActive(false);
             }
             LevelManager.Instance.ShieldBroken(ParentUnit.UID);
+            SoundManager.Instance.PlayBattleSound(_shieldCfg.ShieldBreakAudio, monoShield.transform);
         }
 
         return newValue <= 0;

@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da040be90bbc2bb45975225c882a792a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitID: 2511
+  UnitID: 2541
   IsInvisiableUnit: 1
   IsCoreUnit: 1
   deathVFXName: ExplodeVFX
@@ -124,9 +124,6 @@ MonoBehaviour:
   intercepttype: 0
   bulletName: Drone_Beam_AI_250
   targetmode: 0
-  mask:
-    serializedVersion: 2
-    m_Bits: 128
   firePoint:
   - {fileID: 5501148320213267861}
   scatter: 0

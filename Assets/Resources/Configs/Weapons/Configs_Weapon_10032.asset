@@ -474,7 +474,7 @@ MonoBehaviour:
   DamageModifyFrom:
   - PropertyKey: 15
     Ratio: 1.75
-  FireAudioClip: 
+  FireAudioClip: Fire/Weapon_10030
   FireEffect:
     EffectName: 
     RandomScale: 0

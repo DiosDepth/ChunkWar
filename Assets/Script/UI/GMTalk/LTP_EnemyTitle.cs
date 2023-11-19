@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-#if UNITY_EDITOR
+#if GMDEBUG
 public class LTP_EnemyTitle : MonoBehaviour
 {
     public void SetUp(string name, Color color)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-#if UNITY_EDITOR
+#if GMDEBUG
 public class LTP_TimeLineNode : MonoBehaviour
 {
     public int Index;

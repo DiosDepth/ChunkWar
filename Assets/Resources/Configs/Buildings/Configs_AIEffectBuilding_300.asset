@@ -556,6 +556,8 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
+    ShieldStartAudio: 
+    ShieldBreakAudio: 
   EffectRadius: 25
   TriggerInterval: 20
   FirstSpawnCD: 5

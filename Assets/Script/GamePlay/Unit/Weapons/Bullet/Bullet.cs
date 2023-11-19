@@ -7,8 +7,6 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using System;
-using static UnityEditor.PlayerSettings;
-
 
 public enum BulletType
 {

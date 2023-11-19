@@ -87,9 +87,7 @@ public class ShipBuilder : MonoBehaviour
 
         //CameraManager.Instance.ChangeVCameraLookAtTarget(transform);
         CameraManager.Instance.ChangeVCameraFollowTarget(transform);
-        CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = cameraOffset.x;
-        CameraManager.Instance.vcam.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.x = cameraOffset.x;
-        CameraManager.Instance.vcam.m_Lens.OrthographicSize = cameraSize;
+        CameraManager.Instance.SetFOV(GameGlobalConfig.CameraSize_Harbor);
 
         _isInitial = true;
         currentInventoryItem = null;

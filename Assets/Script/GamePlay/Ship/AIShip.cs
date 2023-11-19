@@ -7,6 +7,14 @@ using UnityEngine;
 [ShowOdinSerializedPropertiesInInspector]
 public class AIShip : BaseShip,IPoolable, IDropable
 {
+    public struct AIShipCoreHPChangeInfo
+    {
+        public int currentValue;
+        public int totalValue;
+        public float percent;
+    }
+
+
     public AIShipConfig AIShipCfg;
 
     public int AITypeID;
@@ -83,7 +91,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
 
         if (AIShipCfg.AppearChangeCameraOrthographicSize)
         {
-            CameraManager.Instance.SetOrthographicSize(GameGlobalConfig.CameraDefault_OrthographicSize, 2f);
+            CameraManager.Instance.SetFOV(GameGlobalConfig.CameraDefault_OrthographicSize);
         }
     }
 
@@ -163,6 +171,29 @@ public class AIShip : BaseShip,IPoolable, IDropable
         this.gameObject.SetActive(isactive);
     }
 
+    /// <summary>
+    /// 单位血量变化
+    /// </summary>
+    public AIShipCoreHPChangeInfo OnCoreHPChange()
+    {
+        AIShipCoreHPChangeInfo info = new AIShipCoreHPChangeInfo();
+
+        int currentValue = 0;
+        int totalValue = 0;
+        for (int i = 0; i < CoreUnits.Count; i++) 
+        {
+            var core = CoreUnits[i];
+            currentValue += core.HpComponent.GetCurrentHP;
+            totalValue += core.HpComponent.MaxHP;
+        }
+
+        info.currentValue = currentValue;
+        info.totalValue = totalValue;
+        info.percent = currentValue / (float)totalValue;
+        LevelManager.Instance.EnemyCoreHPPercentChange(info.percent, currentValue, totalValue);
+        return info;
+    }
+
     private void InitAIShipBillBoard()
     {
         if (!AIShipCfg.ShowHPBillboard)
@@ -219,7 +250,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
     {
         if (AIShipCfg.AppearChangeCameraOrthographicSize)
         {
-            CameraManager.Instance.SetOrthographicSize(AIShipCfg.CameraTargetOrthographicSize, 2f);
+            CameraManager.Instance.SetFOV(AIShipCfg.CameraTargetOrthographicSize);
         }
 
         if (AIShipCfg.AppearWarning)

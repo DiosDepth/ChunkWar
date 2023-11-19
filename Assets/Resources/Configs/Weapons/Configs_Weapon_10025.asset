@@ -468,13 +468,13 @@ MonoBehaviour:
   CD: 1.5
   FireCD: 0.1
   ShieldTransfixion: 1
-  ShieldDamage: 150
+  ShieldDamage: 100
   BaseTransfixion: 3
   Scatter: 0
   DamageModifyFrom:
   - PropertyKey: 16
     Ratio: 1
-  FireAudioClip: 
+  FireAudioClip: Fire/Weapon_Energy_10025
   FireEffect:
     EffectName: 
     RandomScale: 0

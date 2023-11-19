@@ -461,6 +461,8 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
+    ShieldStartAudio: 
+    ShieldBreakAudio: 
   DamageRange: 150
   DamageValue: 50
   ExplodeDelay: 0.8
