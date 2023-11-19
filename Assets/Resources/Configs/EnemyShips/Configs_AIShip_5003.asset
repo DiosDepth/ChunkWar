@@ -1423,14 +1423,14 @@ MonoBehaviour:
   targetSerchingRadius: 15
   ArrivalRadius: 15
   SlotRadius: 5
-  DieAudio: 
+  DieAudio: Ship/ShipExplode_001
   AppearChangeCameraOrthographicSize: 0
   CameraTargetOrthographicSize: 40
   AppearWarning: 0
   AppearWarningText: 
   AppearWarningAudio: 
   DieEffect:
-    EffectName: 
+    EffectName: Explode/AIShipExplode_Small
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

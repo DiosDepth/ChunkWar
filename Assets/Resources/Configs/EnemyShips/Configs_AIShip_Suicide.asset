@@ -1430,7 +1430,7 @@ MonoBehaviour:
   AppearWarningText: 
   AppearWarningAudio: 
   DieEffect:
-    EffectName: Explode/AIShipExplode_Huge
+    EffectName: Explode/AIShipExplode_Small
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

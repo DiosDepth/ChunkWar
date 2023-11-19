@@ -1530,14 +1530,14 @@ MonoBehaviour:
   targetSerchingRadius: 80
   ArrivalRadius: 20
   SlotRadius: 5
-  DieAudio: 
+  DieAudio: Ship/ShipExplode_003
   AppearChangeCameraOrthographicSize: 1
   CameraTargetOrthographicSize: 40
   AppearWarning: 1
   AppearWarningText: EnemyAppear_Content_Elite
   AppearWarningAudio: ShipSpawn_Warning
   DieEffect:
-    EffectName: 
+    EffectName: Explode/AIShipExplode_Huge
     RandomScale: 0
     ScaleMin: 0
     ScaleMax: 0

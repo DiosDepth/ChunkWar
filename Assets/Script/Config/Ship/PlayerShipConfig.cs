@@ -86,6 +86,10 @@ public class PlayerShipConfig : BaseShipConfig
     [LabelText("死亡特效")]
     public GeneralEffectConfig DieEffect;
 
+    [FoldoutGroup("表现配置")]
+    [LabelText("引擎循环音效")]
+    public string EngineLoopAudio;
+
     [OnValueChanged("OnShipEditorSpriteChange")]
     public Sprite ShipEditorSprite;
 

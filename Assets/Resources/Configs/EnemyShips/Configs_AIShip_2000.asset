@@ -1566,7 +1566,7 @@ MonoBehaviour:
   targetSerchingRadius: 80
   ArrivalRadius: 15
   SlotRadius: 5
-  DieAudio: 
+  DieAudio: Ship/ShipExplode_003
   AppearChangeCameraOrthographicSize: 1
   CameraTargetOrthographicSize: 40
   AppearWarning: 1

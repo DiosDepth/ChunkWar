@@ -595,6 +595,11 @@ public class ShipBuilder : MonoBehaviour
         {
             RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, _currentHoverUnit);
             _isDisplayingHoverUnit = false;
+        }
+
+        if (_isShowUnitSelectOptionPanel)
+        {
+            ClearCurrentUnitOptionPanel();
             return;
         }
 
