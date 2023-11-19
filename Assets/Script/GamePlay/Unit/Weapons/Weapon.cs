@@ -96,6 +96,8 @@ public class Weapon : Unit
     public StateMachine<WeaponState> weaponState;
     public WeaponFireMode firemode;
     public WeaponAimingType aimingtype= WeaponAimingType.Directional;
+    [ShowIf("aimingtype", WeaponAimingType.TargetBased)]
+    public bool targetbaseAimAssistant = false;
 
 
     [ShowIf( "aimingtype" ,WeaponAimingType.TargetPointRange)]
@@ -283,7 +285,7 @@ public class Weapon : Unit
         }
         else
         {
-            rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, _owner.transform.up, roatateSpeed);
+            //rotationRoot.rotation = MathExtensionTools.CalculateRotation(transform.up, _owner.transform.up, roatateSpeed);
         }
     }
 
@@ -636,8 +638,19 @@ public class Weapon : Unit
                     obj.transform.SetTransform(trs);
                     _lastbullet = obj.GetComponent<Bullet>();
                     _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
-                    _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
-                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    if(targetbaseAimAssistant)
+                    {
+            
+                        _lastbullet.InitialmoveDirection = trs.transform.position.DirectionToXY(target.transform.position);
+
+                        _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, MathExtensionTools.GetRandomDirection(trs.up, 0));
+                    }
+                    else
+                    {
+                        _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                        _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                    }
+
                     _lastbullet.SetFirePoint(trs.gameObject);
                     _lastbullet.SetTarget(target);
                     //_lastbullet.PoolableSetActive();
@@ -745,8 +758,19 @@ public class Weapon : Unit
                 obj.transform.SetTransform(trs);
                 _lastbullet = obj.GetComponent<Bullet>();
                 _lastbullet.SetUp(_bulletdata, OnBulletHitAction);
-                _lastbullet.InitialmoveDirection  = MathExtensionTools.GetRandomDirection(trs.up, scatter);
-                _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+
+                if (targetbaseAimAssistant)
+                {
+    
+                    _lastbullet.InitialmoveDirection = trs.transform.position.DirectionToXY(target.transform.position);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, MathExtensionTools.GetRandomDirection(trs.up, 0));
+                }
+                else
+                {
+                    _lastbullet.InitialmoveDirection = MathExtensionTools.GetRandomDirection(trs.up, scatter);
+                    _lastbullet.transform.rotation = Quaternion.LookRotation(_lastbullet.transform.forward, _lastbullet.InitialmoveDirection);
+                }
+
                 _lastbullet.SetFirePoint(trs.gameObject);
                 _lastbullet.SetTarget(target);
                 // _lastbullet.PoolableSetActive();

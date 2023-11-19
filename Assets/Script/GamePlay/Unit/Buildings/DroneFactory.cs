@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +86,9 @@ public class DroneFactory : Building
     public DroneFactoryAttribute factoryAttribute;
     public DroneMovePattern movePattern = DroneMovePattern.Free;
     protected Queue<GameObject> orbitTargetQueue;
+    [ShowIf("movePattern", DroneMovePattern.Orbit)]
     public float orbitRadius = 5f;
+    [ShowIf("movePattern", DroneMovePattern.Orbit)]
     public float orbitAngleSpeed = 45f;
     public Transform launchPoint;
     public Transform launchedGroup;
