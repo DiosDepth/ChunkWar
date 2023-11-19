@@ -181,8 +181,18 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 }
                 if(unit is Building)
                 {
-                    activePlayerUnitData.Add(unit);
-                    activePlayerBuildingData.Add(unit as Building);
+                    if (unit._owner is PlayerShip)
+                    {
+                        activePlayerUnitData.Add(unit);
+                        activePlayerBuildingData.Add(unit as Building);
+                    }
+                    if(unit._owner is PlayerDrone)
+                    {
+                        activePlayerDroneUnitData.Add(unit);
+                        activePlayerOtherTargetData.Add(unit as IOtherTarget);
+                    }
+                        
+                    
                 }
                 break;
             case OwnerType.AI:
@@ -220,10 +230,18 @@ public class ECSManager : Singleton<ECSManager>, IPauseable
                 }
                 if (unit is Building)
                 {
-                    activeAIUnitData.Add(unit);
-                    activeAIBuildingData.Add(unit as Building);
-                }
+                    if (unit._owner is AIShip)
+                    {
+                        activeAIUnitData.Add(unit);
+                        activeAIBuildingData.Add(unit as Building);
+                    }
+                    if(unit._owner is AIDrone)
+                    {
+                        activeAIDroneUnitData.Add(unit);
+                        activeAIOtherTargetData.Add(unit as IOtherTarget);
+                    }
 
+                }
                 break;
         }
     }

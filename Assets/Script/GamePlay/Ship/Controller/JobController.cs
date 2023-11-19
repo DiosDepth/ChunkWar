@@ -61,6 +61,7 @@ public class JobController : IPauseable
         activeSelfAgentData.rv_evade_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
         activeSelfAgentData.rv_arrive_isVelZero = new NativeArray<bool>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
         activeSelfAgentData.rv_arrive_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfAgentData.rv_cirlce_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
         activeSelfAgentData.rv_face_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
         activeSelfAgentData.rv_cohesion_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
         activeSelfAgentData.rv_separation_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfAgentData.shipList.Count, Allocator.TempJob);
@@ -206,6 +207,7 @@ public class JobController : IPauseable
 
             job_evadeSteering = activeSelfAgentData.rv_evade_steeringInfo,
 
+            job_circleSteering = activeSelfAgentData.rv_cirlce_steeringInfo,
 
             job_arriveSteering = activeSelfAgentData.rv_arrive_steeringInfo,
             job_isVelZero = activeSelfAgentData.rv_arrive_isVelZero,
@@ -454,20 +456,23 @@ public class JobController : IPauseable
 
         int startindex;
         int targetindex;
-
+        bool isdummytarget = false;
         for (int i = 0; i < activeSelfWeaponData.activeWeaponList.Count; i++)
         {
             weapon = activeSelfWeaponData.activeWeaponList[i] as AdditionalWeapon;
-            if (weapon.targetList != null && weapon.targetList.Count != 0)
-            {
 
-                for (int n = 0; n < weapon.targetList.Count; n++)
-                {
-                    if (weapon.targetList[n] == null) { continue; }
-                    weapon.targetList[n].distance = math.distance(activeSelfWeaponData.activeWeaponList[i].transform.position, weapon.targetList[n].target.transform.position);
-                    weapon.targetList[n].direction = math.normalize(weapon.targetList[n].target.transform.position - activeSelfWeaponData.activeWeaponList[i].transform.position);
-                }
-                weapon.WeaponOn();
+            for (int n = 0; n < weapon.targetList.Count; n++)
+            {
+                //weapon.targetList[n].index  == -1 说明这个Target是个Dummy,不可以被攻击
+                if (weapon.targetList[n] == null) { continue; }
+                if (weapon.targetList[n].index == -1) { isdummytarget = true; }
+                weapon.targetList[n].distance = math.distance(activeSelfWeaponData.activeWeaponList[i].transform.position, weapon.targetList[n].target.transform.position);
+                weapon.targetList[n].direction = math.normalize(weapon.targetList[n].target.transform.position - activeSelfWeaponData.activeWeaponList[i].transform.position);
+            }
+
+            if (weapon.targetList != null && weapon.targetList.Count != 0 && !isdummytarget)
+            {
+                    weapon.WeaponOn();
             }
             else
             {
@@ -487,6 +492,7 @@ public class JobController : IPauseable
         {
             return;
         }
+
         Building building;
 
         int targetstotalcount = 0;
@@ -522,22 +528,21 @@ public class JobController : IPauseable
         int targetindex;
         for (int i = 0; i < activeSelfBuildingData.activeBuildingList.Count; i++)
         {
-            //获取Flat Array中的startindex 为后续的拆分做准备
-            //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
-
-            if (activeSelfBuildingData.activeBuildingList[i] is Building)
+            building = activeSelfBuildingData.activeBuildingList[i] as Building;
+            if (activeSelfBuildingData.activeBuildingList[i] is DroneFactory && (activeSelfBuildingData.activeBuildingList[i] as DroneFactory).movePattern == DroneMovePattern.Orbit)
             {
-
+                building.BuildingOn();
+            }
+            else
+            {
+                //获取Flat Array中的startindex 为后续的拆分做准备
+                //吧前面每一个unit的 maxtargetscount全部加起来就是FlatArray中的第一个index
                 startindex = 0;
                 for (int c = 0; c < i; c++)
                 {
                     startindex += activeSelfBuildingData.activeBuildingJobData[c].targetCount;
                 }
-
-
-                building = activeSelfBuildingData.activeBuildingList[i] as Building;
-
-                if(building.buildingState.CurrentState  == BuildingState.Ready || building.buildingState.CurrentState == BuildingState.End)
+                if (building.buildingState.CurrentState == BuildingState.Ready || building.buildingState.CurrentState == BuildingState.End)
                 {
                     building.targetList.Clear();
                     for (int n = 0; n < activeSelfBuildingData.activeBuildingJobData[i].targetCount; n++)
@@ -559,8 +564,7 @@ public class JobController : IPauseable
                         }
                     }
                 }
-              
-                
+
                 if (building.targetList != null && building.targetList.Count != 0)
                 {
                     building.BuildingOn();
@@ -569,9 +573,11 @@ public class JobController : IPauseable
                 {
                     building.BuildingOFF();
                 }
-
-                building.ProcessBuilding();
             }
+
+
+            building.ProcessBuilding();
+            
         }
 
         activeSelfBuildingData.UpdateData();
@@ -789,6 +795,7 @@ public class JobController : IPauseable
 
         JobHandle jobhandle_evadebehavior;
         JobHandle jobhandle_arrivebehavior;
+        JobHandle jobHandle_circlebehavior;
         JobHandle jobhandle_facebehavior;
         JobHandle jobhandle_behaviorTargets;
         JobHandle jobhandle_cohesionbehavior;
@@ -800,6 +807,7 @@ public class JobController : IPauseable
         activeSelfDroneAgentData.rv_evade_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
         activeSelfDroneAgentData.rv_arrive_isVelZero = new NativeArray<bool>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
         activeSelfDroneAgentData.rv_arrive_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
+        activeSelfDroneAgentData.rv_cirlce_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
         activeSelfDroneAgentData.rv_face_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
         activeSelfDroneAgentData.rv_cohesion_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
         activeSelfDroneAgentData.rv_separation_steeringInfo = new NativeArray<SteeringBehaviorInfo>(activeSelfDroneAgentData.shipList.Count, Allocator.TempJob);
@@ -835,6 +843,18 @@ public class JobController : IPauseable
         jobhandle_arrivebehavior = arriveBehaviorJobs_oneonone.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
         jobhandle_arrivebehavior.Complete();
 
+
+
+        CircleBehavior.CircleBehaviorJobs_OneOnOne circleBehaviorJobs_oneonone = new CircleBehavior.CircleBehaviorJobs_OneOnOne
+        {
+            job_boidData = activeSelfDroneAgentData.boidAgentJobData,
+            job_steeringControllerData = activeSelfDroneAgentData.steeringControllerJobDataNList,
+            job_circleMoveJobData = activeSelfDroneAgentData.droneFactoryJobData,
+
+            rv_Steerings = activeSelfDroneAgentData.rv_cirlce_steeringInfo,
+        };
+        jobHandle_circlebehavior = circleBehaviorJobs_oneonone.ScheduleBatch(activeSelfDroneAgentData.shipList.Count, 2);
+        jobHandle_circlebehavior.Complete();
 
         ////FaceBehavior Job
         FaceBehavior.FaceBehaviorJob_OneOnOne faceBehaviorJob_oneonone = new FaceBehavior.FaceBehaviorJob_OneOnOne
@@ -943,7 +963,7 @@ public class JobController : IPauseable
 
             job_evadeSteering = activeSelfDroneAgentData.rv_evade_steeringInfo,
 
-
+            job_circleSteering = activeSelfDroneAgentData.rv_cirlce_steeringInfo,
             job_arriveSteering = activeSelfDroneAgentData.rv_arrive_steeringInfo,
             job_isVelZero = activeSelfDroneAgentData.rv_arrive_isVelZero,
 

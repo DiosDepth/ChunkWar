@@ -47,6 +47,12 @@ public class SteeringBehaviorController : BaseController
     [SerializeField]
     public ArriveBehavior arrivelBehaviorInfo;
 
+    public bool isActiveCirlce = false;
+    [BoxGroup("circleBahaviorInfo")]
+    [ShowIf("isActiveCirlce")]
+    [SerializeField]
+    public CircleBehavior circleBahaviorInfo;
+
     public bool isActiveFace = false;
     [BoxGroup("faceBehaviorInfo")]
     [ShowIf("isActiveFace")]
@@ -192,6 +198,7 @@ public class SteeringBehaviorController : BaseController
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_evadeSteering;
         [Unity.Collections.ReadOnly] public NativeArray<bool> job_isVelZero;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_arriveSteering;
+        [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_circleSteering;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_faceSteering;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_cohesionSteering;
         [Unity.Collections.ReadOnly] public NativeArray<SteeringBehaviorInfo> job_separationSteering;
@@ -219,6 +226,7 @@ public class SteeringBehaviorController : BaseController
 
                 }
 
+                if(job_steeringControllerData[i].circleData.circle_isActive) { accelaration += job_circleSteering[i].linear * job_steeringControllerData[i].circleData.circle_weight; }
                 if (job_steeringControllerData[i].cohesionData.cohesion_isActive) { accelaration += job_cohesionSteering[i].linear * job_steeringControllerData[i].cohesionData.cohesion_weight; }
                 if (job_steeringControllerData[i].alignmentData.alignment_isActive) { accelaration += job_alignmentSteering[i].linear * job_steeringControllerData[i].alignmentData.alignment_weight; }
                 if (job_steeringControllerData[i].separationData.separation_isActive) { accelaration += job_separationSteering[i].linear * job_steeringControllerData[i].separationData.separation_weight; }

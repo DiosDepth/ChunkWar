@@ -266,6 +266,7 @@ public class AgentData : IBoidData
     //并且增加return value的数量。每一个行为对应一个返回数据
     public NativeArray<SteeringBehaviorInfo> rv_evade_steeringInfo;
     public NativeArray<SteeringBehaviorInfo> rv_arrive_steeringInfo;
+    public NativeArray<SteeringBehaviorInfo> rv_cirlce_steeringInfo;
     public NativeArray<bool> rv_arrive_isVelZero;
     public NativeArray<SteeringBehaviorInfo> rv_face_steeringInfo;
     public NativeArray<SteeringBehaviorInfo> rv_cohesion_steeringInfo;
@@ -298,6 +299,7 @@ public class AgentData : IBoidData
         if (rv_evade_steeringInfo.IsCreated) { rv_evade_steeringInfo.Dispose(); }
         if (rv_arrive_steeringInfo.IsCreated) { rv_arrive_steeringInfo.Dispose(); }
         if (rv_arrive_isVelZero.IsCreated) { rv_arrive_isVelZero.Dispose(); }
+        if (rv_cirlce_steeringInfo.IsCreated) { rv_cirlce_steeringInfo.Dispose(); }
         if (rv_face_steeringInfo.IsCreated) { rv_face_steeringInfo.Dispose(); }
         if (rv_cohesion_steeringInfo.IsCreated) { rv_cohesion_steeringInfo.Dispose(); }
         if (rv_separation_steeringInfo.IsCreated) { rv_separation_steeringInfo.Dispose(); }
@@ -336,6 +338,11 @@ public class AgentData : IBoidData
             steeringJobData.arriveData.arrive_weight = controller.arrivelBehaviorInfo.GetWeight();
             steeringJobData.arriveData.arrive_arriveRadius = controller.arrivelBehaviorInfo.arriveRadius;
             steeringJobData.arriveData.arrive_slowRadius = controller.arrivelBehaviorInfo.slowRadius;
+
+            steeringJobData.circleData.circle_isActive = controller.isActiveCirlce;
+            steeringJobData.circleData.circle_weight = controller.circleBahaviorInfo.GetWeight();
+            steeringJobData.circleData.circle_radius = controller.circleBahaviorInfo.circleRadius;
+            steeringJobData.circleData.circle_angleSpeed = controller.circleBahaviorInfo.angleSpeed;
 
             steeringJobData.faceData.face_isActive = controller.isActiveFace;
             steeringJobData.faceData.face_weight = controller.faceBehaviorInfo.GetWeight();
@@ -633,9 +640,15 @@ public class BuildingData : IJobData
 
 public class DroneData : AgentData
 {
+   
+
     public List<BaseShip> targetShipList;
     public List<IBoid> targetBoidAgentList;
     public NativeList<BoidJobData> targetBoidAgentJobData;
+    public NativeList<CircleMoveRefJobData> droneFactoryJobData;
+
+
+
 
 
     public DroneData()
@@ -643,10 +656,12 @@ public class DroneData : AgentData
         targetShipList = new List<BaseShip>();
         targetBoidAgentList = new List<IBoid>();
         targetBoidAgentJobData = new NativeList<BoidJobData>(Allocator.Persistent);
+        droneFactoryJobData = new NativeList<CircleMoveRefJobData>(Allocator.Persistent);
     }
     public override void Dispose()
     {
         if (targetBoidAgentJobData.IsCreated) { targetBoidAgentJobData.Dispose(); }
+        if (droneFactoryJobData.IsCreated) { droneFactoryJobData.Dispose(); }
         targetBoidAgentList.Clear();
         base.Dispose();
     }
@@ -660,22 +675,28 @@ public class DroneData : AgentData
     {
         base.UpdateData();
         //update target ship list and target boid agent list
-        BoidJobData data;
-        if(shipList == null || shipList.Count == 0) { return; }
+        BoidJobData targetBoidData;
+        CircleMoveRefJobData factoryData;
+        if (shipList == null || shipList.Count == 0) { return; }
         for (int i = 0; i < shipList.Count; i++)
         {
             var ship = shipList[i].GetFirstTarget();
-            if(ship != null)
+            if (ship != null)
             {
                 targetShipList[i] = shipList[i].GetFirstTarget();
                 targetBoidAgentList[i] = targetShipList[i].GetComponent<IBoid>();
             }
-            data.position = targetBoidAgentList[i].GetPosition();
-            data.velocity = targetBoidAgentList[i].GetVelocity();
-            data.rotationZ = targetBoidAgentList[i].GetRotationZ();
-            data.boidRadius = targetBoidAgentList[i].GetRadius();
-            targetBoidAgentJobData[i] = data;
+            targetBoidData.position = targetBoidAgentList[i].GetPosition();
+            targetBoidData.velocity = targetBoidAgentList[i].GetVelocity();
+            targetBoidData.rotationZ = targetBoidAgentList[i].GetRotationZ();
+            targetBoidData.boidRadius = targetBoidAgentList[i].GetRadius();
+            targetBoidAgentJobData[i] = targetBoidData;
+
+            factoryData.position = (shipList[i] as BaseDrone).OwnerFactory.transform.position;
+            factoryData.facedirection = (shipList[i] as BaseDrone).OwnerFactory.transform.up;
+            droneFactoryJobData[i] = factoryData;
         }
+
     }
 
 
@@ -684,6 +705,8 @@ public class DroneData : AgentData
         base.Add(drone);
         targetShipList.Add(drone.GetFirstTarget());
         IBoid boid = drone.GetFirstTarget().GetComponent<IBoid>();
+        Unit owner = (drone as BaseDrone).OwnerFactory;
+
         if (boid == null)
         {
             Debug.LogError("ship doesn't implement IBoid");
@@ -697,6 +720,11 @@ public class DroneData : AgentData
         boidData.rotationZ = boid.GetRotationZ();
         boidData.boidRadius = boid.GetRadius();
         targetBoidAgentJobData.Add(boidData);
+
+        CircleMoveRefJobData factoryData = new CircleMoveRefJobData();
+        factoryData.position = owner.transform.position;
+        factoryData.facedirection = owner.transform.up;
+        droneFactoryJobData.Add(factoryData);
     }
 
     public override void Remove(BaseShip drone)
@@ -713,6 +741,7 @@ public class DroneData : AgentData
         targetShipList.RemoveAt(index);
         targetBoidAgentList.RemoveAt(index);
         targetBoidAgentJobData.RemoveAt(index);
+        droneFactoryJobData.RemoveAt(index);
         base.RemoveAt(index);
     }
 
@@ -720,6 +749,7 @@ public class DroneData : AgentData
     {
         base.Clear();
         if (targetBoidAgentJobData.IsCreated) { targetBoidAgentJobData.Clear(); }
+        if (droneFactoryJobData.IsCreated) { droneFactoryJobData.Clear(); }
         targetBoidAgentList.Clear();
         targetBoidAgentList.Clear();
 
@@ -904,8 +934,11 @@ public struct SteeringControllerJobData
     public float targetSerchingRadius;
     public float drag;
 
+
+
     public SteeringJobDataEvade evadeData;
     public SteeringJobDataArrive arriveData;
+    public SteeringJobDataCircle circleData;
     public SteeringJobDataFace faceData;
     public SteeringJobDataCohesion cohesionData;
     public SteeringJobDataSeparation separationData;
@@ -934,6 +967,15 @@ public struct SteeringJobDataFace
     public float face_weight;
     public float face_targetRadius;
 }
+
+public struct SteeringJobDataCircle
+{
+    public bool circle_isActive;
+    public float circle_weight;
+    public float circle_radius;
+    public float circle_angleSpeed;
+}
+
 
 public struct SteeringJobDataCohesion
 {
@@ -972,6 +1014,15 @@ public struct BoidJobData
     public float3 velocity;
     public float rotationZ;
     public float boidRadius;
+}
+
+public struct CircleMoveRefJobData
+{
+    public float3 position;
+    public float3 facedirection;
+
+
+
 }
 
 public struct UnitJobData

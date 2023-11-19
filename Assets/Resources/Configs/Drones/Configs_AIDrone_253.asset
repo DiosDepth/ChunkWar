@@ -1374,7 +1374,7 @@ MonoBehaviour:
   PreviewWeaponID: 2511
   HardLevelGroupID: 1
   EnmeyATKBase: 1
-  MaxVelocity: 35
+  MaxVelocity: 40
   MaxAcceleration: 8
   MaxAngularAcceleration: 6
   MaxAngularVelocity: 3

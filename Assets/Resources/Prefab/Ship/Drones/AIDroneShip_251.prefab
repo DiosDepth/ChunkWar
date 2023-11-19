@@ -120,9 +120,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 0}
+  cld: {fileID: 0}
   boidRadius: 1
   lastpos: {x: 0, y: 0, z: 0}
+  steeringState: 0
   maxAcceleration: 7
   maxVelocity: 30
   maxAngularAcceleration: 3
@@ -139,6 +140,12 @@ MonoBehaviour:
     weight: 1.5
     arriveRadius: 10
     slowRadius: 15
+  isActiveCirlce: 0
+  circleBahaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    circleRadius: 7
+    angleSpeed: 5
   isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
@@ -489,7 +496,7 @@ PrefabInstance:
     - target: {fileID: 3490475669234078357, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5883710716347196929, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
@@ -499,7 +506,7 @@ PrefabInstance:
     - target: {fileID: 5883710716347196929, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5883710716347196929, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
@@ -509,17 +516,17 @@ PrefabInstance:
     - target: {fileID: 6538040437375917277, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7078891172848517448, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7419531427080417820, guid: a98baf0f47794fb4dace1247a157bddd,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a98baf0f47794fb4dace1247a157bddd, type: 3}

@@ -67,6 +67,7 @@ public static class GameGlobalConfig
     public const string DroneShipPath = "Prefab/Ship/Drones/";
     public const string AIShipSpawnAgentPath = "Prefab/SpawnAgent/AIShipSpawnAgent";
     public const string PlayerDroneSpawnAgentPath = "Prefab/SpawnAgent/PlayerBaseDroneSpawnAgent";
+    public const string DummyTargetShipPath = "Prefab/Ship/DummyShip/DummyTargetShip";
     public const string ShieldPath = "Prefab/Unit/Items/";
 
 }

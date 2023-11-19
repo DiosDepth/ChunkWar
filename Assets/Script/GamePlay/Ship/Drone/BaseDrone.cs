@@ -32,6 +32,7 @@ public class BaseDrone : BaseShip, IPoolable
         private set;
     }
 
+    public DroneFactory OwnerFactory { get { return _ownerFactory; } }
     protected DroneFactory _ownerFactory;
 
     protected override void Awake()

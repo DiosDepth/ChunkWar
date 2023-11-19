@@ -78,10 +78,14 @@ MonoBehaviour:
   pivot: {x: 0, y: 0}
   occupiedCoords: []
   effectSlotCoords: []
+  movePattern: 1
+  orbitRadius: 5
+  orbitAngleSpeed: 45
   launchPoint: {fileID: 2674080615540615774}
   launchedGroup: {fileID: 2674080615540615774}
   repairingGroup: {fileID: 4035318367625482465}
   apronGroup: {fileID: 7799479275578338925}
+  orbitTargetGroup: {fileID: 0}
   launchIntervalTime: 1
   callbackThreshold: 2
 --- !u!1 &1922171272754493875

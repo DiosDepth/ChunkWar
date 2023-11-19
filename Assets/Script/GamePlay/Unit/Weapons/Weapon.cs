@@ -60,7 +60,7 @@ public enum WeaponInterceptType
 }
 
 /// <summary>
-/// 这里的index指的是，当前的target 在ECSManager中 ActiveUnit的位置
+/// 这里的index指的是，当前的target 在ECSManager中 ActiveUnit的位置. 如果是-1 则说明当前的Target不在ActiveUnit中
 /// distance 和 direction都是当前的weapon 对于target位置来说的
 /// </summary>
 public class UnitTargetInfo

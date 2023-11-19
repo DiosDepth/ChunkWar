@@ -32,6 +32,8 @@ public class AIController : BaseController
     {
         base.Initialization();
         controlledTarget = GetComponent<AIShip>();
+
+
   
 
         InitializeStates();

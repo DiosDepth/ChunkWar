@@ -9,7 +9,8 @@ public class BaseController : MonoBehaviour, IPauseable, IBoid
 
 
     public Rigidbody2D rb;
-    public new Collider2D collider;
+    public Collider2D cld;
+
     public float boidRadius = 1f;
 
     protected Vector2 _lerpedInput;
@@ -23,6 +24,7 @@ public class BaseController : MonoBehaviour, IPauseable, IBoid
     public virtual void Initialization()
     {
         GameManager.Instance.RegisterPauseable(this);
+
     }
 
     void Awake()
@@ -30,8 +32,8 @@ public class BaseController : MonoBehaviour, IPauseable, IBoid
         if (rb == null)
             rb = transform.SafeGetComponent<Rigidbody2D>();
 
-        if (collider == null)
-            collider = transform.SafeGetComponent<Collider2D>();
+        if (cld == null)
+            cld = transform.SafeGetComponent<Collider2D>();
     }
 
     protected virtual void Start()

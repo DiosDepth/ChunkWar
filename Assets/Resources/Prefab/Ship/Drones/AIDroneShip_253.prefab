@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 0}
+  cld: {fileID: 0}
   boidRadius: 1
   lastpos: {x: 0, y: 0, z: 0}
   steeringState: 0
@@ -137,31 +137,37 @@ MonoBehaviour:
   isActiveArrive: 1
   arrivelBehaviorInfo:
     target: {fileID: 0}
-    weight: 1.5
-    arriveRadius: 10
-    slowRadius: 15
-  isActiveFace: 1
+    weight: 1
+    arriveRadius: 0.5
+    slowRadius: 0.5
+  isActiveCirlce: 0
+  circleBahaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    circleRadius: 7
+    angleSpeed: 5
+  isActiveFace: 0
   faceBehaviorInfo:
     target: {fileID: 0}
     weight: 1
     facetargetRadius: 0
-  isActiveCohesion: 0
+  isActiveCohesion: 1
   cohesionBehaviorInfo:
     target: {fileID: 0}
-    weight: 1
-    viewAngle: 60
+    weight: 0.5
+    viewAngle: 30
   isActiveSeparation: 1
   separationBehaviorInfo:
     target: {fileID: 0}
     weight: 0.5
     threshold: 1
     decayCoefficient: -25
-  isActiveAligment: 0
+  isActiveAligment: 1
   alignmentBehaviorInfo:
     target: {fileID: 0}
     weight: 1
-    alignDistance: 8
-  isActiveCollisionAvoidance: 1
+    alignDistance: 3
+  isActiveCollisionAvoidance: 0
   collisionAvoidanceBehaviorInfo:
     target: {fileID: 0}
     weight: 0.5
@@ -432,6 +438,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3431155977828216134}
     m_Modifications:
+    - target: {fileID: 1115444567337244654, guid: 2cc47e53a77e4ae4fb5d8808a1e3f4da,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474850221515371043, guid: 2cc47e53a77e4ae4fb5d8808a1e3f4da,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 2474850222585545388, guid: 2cc47e53a77e4ae4fb5d8808a1e3f4da,
         type: 3}
       propertyPath: m_RootOrder
@@ -491,6 +507,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AI_Shield_Drone_513
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474850222585545391, guid: 2cc47e53a77e4ae4fb5d8808a1e3f4da,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6062398829363153108, guid: 2cc47e53a77e4ae4fb5d8808a1e3f4da,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cc47e53a77e4ae4fb5d8808a1e3f4da, type: 3}

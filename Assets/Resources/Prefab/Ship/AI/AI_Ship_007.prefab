@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 0}
+  cld: {fileID: 0}
   boidRadius: 3
   lastpos: {x: 0, y: 0, z: 0}
   steeringState: 0
@@ -141,6 +141,12 @@ MonoBehaviour:
     weight: 1
     arriveRadius: 15
     slowRadius: 30
+  isActiveCirlce: 0
+  circleBahaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    circleRadius: 7
+    angleSpeed: 5
   isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
@@ -166,7 +172,7 @@ MonoBehaviour:
   collisionAvoidanceBehaviorInfo:
     target: {fileID: 0}
     weight: 2
-  drag: 3
+  drag: 4
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0

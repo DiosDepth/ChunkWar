@@ -43,12 +43,14 @@ public class Building : Unit
 
     public override bool OnUpdateBattle()
     {
+
         if (!base.OnUpdateBattle())
             return false;
 
         UpdateBuildingComponents();
         return true;
     }
+
 
     protected override void OnDestroy()
     {

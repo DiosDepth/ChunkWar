@@ -104,10 +104,12 @@ public class BaseShip : MonoBehaviour, IPauseable,IGame
         if (_unitList[0].targetList.Count == 0) { return null; }
 
         BaseShip baseship;
-        baseship = _unitList[0].targetList[0]?.target.GetComponent<Unit>()._owner;
+        baseship = _unitList[0].targetList[0]?.target.GetComponent<BaseShip>();
 
         return baseship;
     }
+
+
 
     public UnitTargetInfo GetFirstTargetInfo()
     {
