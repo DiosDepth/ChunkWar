@@ -1185,17 +1185,17 @@ MonoBehaviour:
     Weight: 20
     SellPrice: 0
     LoadCost: 0
-    StartWave: 0
+    StartWave: 2
   - UnitID: 1001
     Weight: 20
     SellPrice: 0
     LoadCost: 0
-    StartWave: 0
+    StartWave: 2
   - UnitID: 1002
     Weight: 20
     SellPrice: 0
     LoadCost: 0
-    StartWave: 0
+    StartWave: 2
   - UnitID: 1005
     Weight: 20
     SellPrice: 0

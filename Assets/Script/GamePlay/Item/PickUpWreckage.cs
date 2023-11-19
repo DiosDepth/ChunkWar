@@ -14,6 +14,13 @@ public class PickUpWreckage : PickableItem
 
     }
 
+    public override void Initialization(PickUpData data)
+    {
+        base.Initialization(data);
+        DropRarity = data.Rarity;
+        EXPAdd = data.EXPAdd;
+    }
+
     public override void PickUp(GameObject picker)
     {
         base.PickUp(picker);

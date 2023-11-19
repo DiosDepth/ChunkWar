@@ -21,6 +21,29 @@ public static class Utility
         return CornerData.Find(x => x.Type == type);
     }
 
+    public static Dictionary<string, Sprite[]> SpriteAtlasDic = new Dictionary<string, Sprite[]>();
+
+    /// <summary>
+    /// 获取图集内随机Sprite
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public static Sprite GetOrCreateRandomSpriteInAtlas(string path)
+    {
+        if (!SpriteAtlasDic.ContainsKey(path))
+        {
+            var sprites = Resources.LoadAll<Sprite>(path);
+            if (sprites == null)
+                return null;
+
+            SpriteAtlasDic.Add(path, sprites);
+        }
+
+        var sps = SpriteAtlasDic[path];
+        var randomIndex = UnityEngine.Random.Range(0, sps.Length);
+        return sps[randomIndex];
+    }
+
     /// <summary>
     /// General Clamp
     /// 限制值大小

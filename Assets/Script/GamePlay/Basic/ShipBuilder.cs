@@ -85,9 +85,8 @@ public class ShipBuilder : MonoBehaviour
         InputDispatcher.Instance.Action_GamePlay_MidClick += HandleBuildRotation;
         LoadingShip(RogueManager.Instance.ShipMapData);
 
-        //CameraManager.Instance.ChangeVCameraLookAtTarget(transform);
-        CameraManager.Instance.ChangeVCameraFollowTarget(transform);
-        CameraManager.Instance.SetFOV(GameGlobalConfig.CameraSize_Harbor);
+        CameraManager.Instance.ChangeVCameraFollowTarget(transform, true);
+        CameraManager.Instance.SetHarborZoom();
 
         _isInitial = true;
         currentInventoryItem = null;
@@ -596,6 +595,11 @@ public class ShipBuilder : MonoBehaviour
         {
             RogueEvent.Trigger(RogueEventType.HideHoverUnitDisplay, _currentHoverUnit);
             _isDisplayingHoverUnit = false;
+        }
+
+        if (_isShowUnitSelectOptionPanel)
+        {
+            ClearCurrentUnitOptionPanel();
             return;
         }
 

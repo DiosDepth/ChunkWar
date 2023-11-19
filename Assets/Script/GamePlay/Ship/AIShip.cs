@@ -89,10 +89,10 @@ public class AIShip : BaseShip,IPoolable, IDropable
             _unitList[i].SetDisable();
         }
 
-        if (AIShipCfg.AppearChangeCameraOrthographicSize)
-        {
-            CameraManager.Instance.SetFOV(GameGlobalConfig.CameraDefault_OrthographicSize);
-        }
+        //if (AIShipCfg.AppearChangeCameraOrthographicSize)
+        //{
+        //    CameraManager.Instance.SetZoom(GameGlobalConfig.CameraDefault_OrthographicSize);
+        //}
     }
 
     public override void InitProperty()
@@ -248,10 +248,10 @@ public class AIShip : BaseShip,IPoolable, IDropable
     /// </summary>
     private void SpawnSpecial()
     {
-        if (AIShipCfg.AppearChangeCameraOrthographicSize)
-        {
-            CameraManager.Instance.SetFOV(AIShipCfg.CameraTargetOrthographicSize);
-        }
+        //if (AIShipCfg.AppearChangeCameraOrthographicSize)
+        //{
+        //    CameraManager.Instance.SetZoom(AIShipCfg.CameraTargetOrthographicSize);
+        //}
 
         if (AIShipCfg.AppearWarning)
         {
@@ -338,8 +338,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
             {
                 obj.transform.position = GetDropPosition();
                 item = obj.GetComponent<PickUpWreckage>();
-                item.DropRarity = pickUpData.Rarity;
-                item.EXPAdd = pickUpData.EXPAdd;
+                item.Initialization(pickUpData);
             });
             return item;
         }
@@ -395,8 +394,7 @@ public class AIShip : BaseShip,IPoolable, IDropable
                 {
                     obj.transform.position = GetDropPosition();
                     PickUpWaste item = obj.GetComponent<PickUpWaste>();
-                    item.WasteGain = data.CountRef;
-                    item.EXPGain = data.EXPAdd;
+                    item.Initialization(data);
                     outLst.Add(item);
                 }, LevelManager.PickUpPool);
             }

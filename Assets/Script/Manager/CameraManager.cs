@@ -14,6 +14,7 @@ public class CameraManager : Singleton<CameraManager>
     private Camera _currentCamera;
     private ProCamera2D _proCamera;
     private ProCamera2DShake _shakeCmpt;
+    private ProCamera2DSpeedBasedZoom _speedZoomCmpt;
 
     private string _resPath = "Prefab/CameraPrefab/";
     private string _mainCameraName = "MainCamera";
@@ -37,6 +38,7 @@ public class CameraManager : Singleton<CameraManager>
         _currentCamera = CreateMainCamera(_mainCameraName);
         _proCamera = _currentCamera.transform.SafeGetComponent<ProCamera2D>();
         _shakeCmpt = _currentCamera.transform.SafeGetComponent<ProCamera2DShake>();
+        _speedZoomCmpt = _currentCamera.transform.SafeGetComponent<ProCamera2DSpeedBasedZoom>();
         _shakeCmpt.OnShakeCompleted += () =>
         {
             _isShaking = false;
@@ -75,29 +77,40 @@ public class CameraManager : Singleton<CameraManager>
          return ResManager.Instance.Load<GameObject>(_resPath + cameraname).GetComponent<Camera>();
     }
 
-    public void SetFollowPlayerShip(float offsetX = 0, bool force = true)
+    public void SetFollowPlayerShip(float offsetX = 0, float offsetY = 0, bool force = true)
     {
         var shipTrans = RogueManager.Instance.currentShip;
         if (shipTrans == null)
             return;
 
-        ChangeVCameraFollowTarget(shipTrans.transform);
+        _speedZoomCmpt.enabled = true;
+        _currentCamera.orthographicSize = GameGlobalConfig.CameraDefault_OrthographicSize;
+        ChangeVCameraFollowTarget(shipTrans.transform, true);
+        _proCamera.OffsetX = offsetX;
+        _proCamera.OffsetY = offsetY;
         if (force)
         {
             _proCamera.MoveCameraInstantlyToPosition(shipTrans.transform.position);
         }
+
     }
 
-    public void SetFOV(int size)
+    public void SetHarborZoom()
     {
-        _currentCamera.orthographicSize = size;
+        _speedZoomCmpt.enabled = false;
+        _currentCamera.orthographicSize = GameGlobalConfig.CameraSize_Harbor;
+        _proCamera.OffsetY = 0;
     }
 
-    public void ChangeVCameraFollowTarget(Transform target, bool force = true)
+    public void ChangeVCameraFollowTarget(Transform target, bool clear)
     {
         if (_proCamera == null)
             return;
 
+        if (clear)
+        {
+            _proCamera.RemoveAllCameraTargets();
+        }
         _proCamera.AddCameraTarget(target);
     }
 

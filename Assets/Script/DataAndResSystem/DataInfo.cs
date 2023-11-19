@@ -102,6 +102,9 @@ public class PickUpData : DataInfo
     /// </summary>
     public byte CountRef;
     public float EXPAdd;
+    public float SizeScale;
+    public bool UseRandomSprite;
+    public string SpritePath;
 
     public PickUpData() { }
 
@@ -114,6 +117,9 @@ public class PickUpData : DataInfo
         GoodsItemRarity.TryParse(row[4], out Rarity);
         byte.TryParse(row[5], out CountRef);
         float.TryParse(row[6], out EXPAdd);
+        float.TryParse(row[7], out SizeScale);
+        bool.TryParse(row[8], out UseRandomSprite);
+        SpritePath = row[9];
     }
 
     public override void Initialization(string[] row)
@@ -125,6 +131,9 @@ public class PickUpData : DataInfo
         GoodsItemRarity.TryParse(row[4], out Rarity);
         byte.TryParse(row[5], out CountRef);
         float.TryParse(row[6], out EXPAdd);
+        float.TryParse(row[7], out SizeScale);
+        bool.TryParse(row[8], out UseRandomSprite);
+        SpritePath = row[9];
     }
 }
 

@@ -26,13 +26,13 @@ TagManager:
   - CameraBoard
   - DeadZone
   - PickUps
-  - Space
+  - 
   - LevelTrigger
   - Effect
   - DroneUnit
-  - 
-  - 
-  - 
+  - Space_1
+  - Space_2
+  - Space_3
   - 
   - 
   - 

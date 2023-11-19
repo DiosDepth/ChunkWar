@@ -1445,4 +1445,5 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
+  EngineLoopAudio: Ship/Ship_EngineLoop_01
   ShipEditorSprite: {fileID: 21300000, guid: e65303980a504e045a0e5c1c46eaf1a8, type: 3}

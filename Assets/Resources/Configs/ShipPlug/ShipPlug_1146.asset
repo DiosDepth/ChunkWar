@@ -39,6 +39,9 @@ MonoBehaviour:
     - Name: SelfUnique
       Entry: 5
       Data: false
+    - Name: RemoveIfTriggerCountReach
+      Entry: 5
+      Data: false
     - Name: UsePercent
       Entry: 5
       Data: false
@@ -173,6 +176,6 @@ MonoBehaviour:
     Rarity: 1
     SortingOrder: 0
   PropertyModify: []
-  EffectDesc: 
+  EffectDesc: ShipPlug_Effect_1146
   PlugTags: 0
   PropertyPercentModify: []

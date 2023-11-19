@@ -17,8 +17,11 @@ public class SoundManager : Singleton<SoundManager>
     private string m_currentBGM;
     private EventInstance BGMEventInstance;
 
+    private Dictionary<string, EventInstance> _loopEvent;
+
     public SoundManager()
     {
+        _loopEvent = new Dictionary<string, EventInstance>();
     }
 
     public override void Initialization()
@@ -45,6 +48,20 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     #endregion
+
+    public void PlayLoopBattleEvent_Unique(string eventName)
+    {
+        if (_loopEvent.ContainsKey(eventName))
+        {
+            var target = _loopEvent[eventName];
+            target.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            target.release();
+        }
+
+        var instance = RuntimeManager.CreateInstance(m_currentBGM);
+        instance.start();
+        _loopEvent.Add(eventName, instance);
+    }
 
     public async void PlayBattleSound(string eventName, Transform trans, float randomDelay = 0f)
     {

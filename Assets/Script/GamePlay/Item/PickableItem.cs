@@ -41,8 +41,6 @@ public enum AvaliablePickUp
     Wreckage = 3,
 }
 
-
-
 public class PickableItem : MonoBehaviour, IPoolable
 {
     public SpriteRenderer sprite;
@@ -51,17 +49,35 @@ public class PickableItem : MonoBehaviour, IPoolable
     public bool disableOnPick = true;
     public bool CanAutoPickUp = false;
 
-
     public InventoryItem pickedItem;
+
+    protected PickUpData _cfgData;
 
     protected virtual void Start()
     {
 
     }
 
-    public virtual void Initialization()
+    public virtual void Initialization(PickUpData data)
     {
+        _cfgData = data;
+        InitSpriteItem();
+    }
 
+    private void InitSpriteItem()
+    {
+        sprite.transform.SetLocalScaleXY(_cfgData.SizeScale);
+        if(trigger is CircleCollider2D)
+        {
+            var circle = trigger as CircleCollider2D;
+            circle.radius = _cfgData.SizeScale;
+        }
+
+        ///Init Sprite
+        if (_cfgData.UseRandomSprite)
+        {
+            sprite.sprite = Utility.GetOrCreateRandomSpriteInAtlas(_cfgData.SpritePath);
+        }
     }
 
     //用来判断是否满足拾取条件
@@ -161,4 +177,5 @@ public class PickableItem : MonoBehaviour, IPoolable
         this.gameObject.SetActive(isactive);
         trigger.enabled = true;
     }
+
 }

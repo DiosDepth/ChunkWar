@@ -46,6 +46,6 @@ MonoBehaviour:
     BySpecialValue: 1
     SpecialType: 1
     SpecialKeyParam: Critical
-  EffectDesc: 
+  EffectDesc: ShipPlug_Effect_1145
   PlugTags: 0
   PropertyPercentModify: []

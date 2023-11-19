@@ -412,9 +412,8 @@ public class LevelManager : Singleton<LevelManager>,EventListener<LevelEvent>, E
             ship.Initialization();
 
             //初始化摄影机
-            CameraManager.Instance.SetFollowPlayerShip();
+            CameraManager.Instance.SetFollowPlayerShip(0, 5);
             CameraManager.Instance.SetVCameraBoard(level.cameraBoard);
-            CameraManager.Instance.SetFOV(GameGlobalConfig.CameraDefault_OrthographicSize);
             GameEvent.Trigger(EGameState.EGameState_GameStart);
         });
     }
