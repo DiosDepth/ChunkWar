@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1228539317941045439}
   - component: {fileID: 795373161076071612}
   m_Layer: 10
-  m_Name: Square
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1462614741
-  m_SortingLayer: 7
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ba986d40d302be3468a2684d21f9e26a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1462614741
-  m_SortingLayer: 7
+  m_SortingLayer: 11
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 61dbca1db081cb34ab4138f931dbb7b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -290,6 +290,7 @@ MonoBehaviour:
   angle: 360
   quality: 16
   initialTarget: {fileID: 0}
+  initialTargetPos: {x: 0, y: 0, z: 0}
   rb: {fileID: 5862403524487350706}
   bulletCollider: {fileID: 7448544990957314191}
   movementType: 2

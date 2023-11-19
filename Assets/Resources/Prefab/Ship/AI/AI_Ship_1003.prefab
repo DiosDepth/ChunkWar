@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 2036907068945415827}
   - component: {fileID: 1067569461047974568}
   - component: {fileID: 4932541028988697502}
+  - component: {fileID: 4279407668436840634}
   m_Layer: 9
   m_Name: AI_Ship_1003
   m_TagString: AI
@@ -239,6 +240,17 @@ MonoBehaviour:
   AITypeID: 1003
   OverrideHardLevelID: -1
   ExtraUnitGroup: []
+--- !u!210 &4279407668436840634
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_SortingLayerID: 1208464805
+  m_SortingLayer: 3
+  m_SortingOrder: 0
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,8 +322,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -689723199
-  m_SortingLayer: 5
+  m_SortingLayerID: 1208464805
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f304256ed59161149b4b4a834e11cb32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -402000637
-  m_SortingLayer: 3
+  m_SortingLayerID: -1700904891
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1153590011, guid: c4c2e7d773109364ea51d8a53fa5df77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 438182824702384172}
   - component: {fileID: 3606292526703810865}
   - component: {fileID: 8351667662076994606}
+  - component: {fileID: -4731159486849257700}
   m_Layer: 6
   m_Name: Ship_Immortal
   m_TagString: Player
@@ -166,15 +167,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 8351667662076994606}
-  buildingsParent: {fileID: 3876995596724308966}
-  deathVFXName: ExplodeVFX
+  CoreUnits: []
   isDebug: 0
   container: {fileID: 0}
   sprite: {fileID: 2435530898883128634}
-  shipMapCenter: {fileID: 6729296404480717438}
   mainWeapon: {fileID: 0}
-  pickupCollider: {fileID: 0}
+  mainDrone: {fileID: 0}
   playerShipCfg: {fileID: 0}
+  shipMapCenter: {fileID: 6729296404480717438}
 --- !u!50 &438182824702384172
 Rigidbody2D:
   serializedVersion: 4
@@ -279,11 +279,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 438182824702384172}
-  collider: {fileID: 3606292526703810865}
-  maxSpeed: 10
-  acceleration: 3
-  rotateSpeed: 0.25
-  controlledTarget: {fileID: 0}
+  cld: {fileID: 0}
+  boidRadius: 1
+  lastpos: {x: 0, y: 0, z: 0}
+  targetShip: {fileID: 0}
+  muteMainWeapon: 0
+--- !u!210 &-4731159486849257700
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876995597776878596}
+  m_Enabled: 1
+  m_SortingLayerID: -1700904891
+  m_SortingLayer: 5
+  m_SortingOrder: 0
 --- !u!1 &4153716781517889540
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2036907068945415827}
   - component: {fileID: 3502843801109665848}
   - component: {fileID: 1067569461047974568}
+  - component: {fileID: 179238773215461643}
   m_Layer: 9
   m_Name: AI_Ancient_5005
   m_TagString: AI
@@ -102,7 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  deathVFXName: ExplodeVFX
   CoreUnits: []
   AIShipCfg: {fileID: 0}
   AITypeID: 5005
@@ -121,8 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 0}
+  cld: {fileID: 0}
   boidRadius: 3
+  lastpos: {x: 0, y: 0, z: 0}
+  steeringState: 0
   maxAcceleration: 7
   maxVelocity: 30
   maxAngularAcceleration: 6
@@ -139,6 +141,12 @@ MonoBehaviour:
     weight: 1
     arriveRadius: 1
     slowRadius: 5
+  isActiveCirlce: 0
+  circleBahaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    circleRadius: 7
+    angleSpeed: 5
   isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
@@ -165,6 +173,17 @@ MonoBehaviour:
     target: {fileID: 0}
     weight: 2
   drag: 3
+--- !u!210 &179238773215461643
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_SortingLayerID: -1950383389
+  m_SortingLayer: 6
+  m_SortingOrder: 0
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +194,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3431155977748982856}
   - component: {fileID: 4295464997389306757}
-  - component: {fileID: 4558828533613461804}
   - component: {fileID: 337597491258224794}
   m_Layer: 9
   m_Name: Sprite
@@ -237,8 +255,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -689723199
-  m_SortingLayer: 3
+  m_SortingLayerID: -1950383389
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6cc21df3007a2eb4aae2860d6224bf08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -251,20 +269,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4558828533613461804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431155977748982859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ede0252ef7e92459ff5df2a16cd28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angularVelocity: {x: 0, y: 0, z: 5}
-  relativeTo: 0
 --- !u!95 &337597491258224794
 Animator:
   serializedVersion: 4

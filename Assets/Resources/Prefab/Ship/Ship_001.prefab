@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6859882484743535825}
   - component: {fileID: 3080632904786149587}
   - component: {fileID: 26082943194778254}
+  - component: {fileID: 2671066457116542137}
   m_Layer: 6
   m_Name: Ship_001
   m_TagString: Player
@@ -128,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 6859882484743535825}
-  collider: {fileID: 26082943194778254}
+  cld: {fileID: 0}
   boidRadius: 1
   lastpos: {x: 0, y: 0, z: 0}
   targetShip: {fileID: 0}
@@ -164,6 +165,17 @@ PolygonCollider2D:
       - {x: -3.4478123, y: -5.8140645}
       - {x: 3.4192123, y: -5.756864}
       - {x: 3.4678798, y: -0.520391}
+--- !u!210 &2671066457116542137
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848178515196352761}
+  m_Enabled: 1
+  m_SortingLayerID: -1700904891
+  m_SortingLayer: 5
+  m_SortingOrder: 0
 --- !u!1 &7848178516328607515
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,8 +278,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -402000637
-  m_SortingLayer: 4
+  m_SortingLayerID: -1700904891
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e65303980a504e045a0e5c1c46eaf1a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2036907068945415827}
   - component: {fileID: 3502843801109665848}
   - component: {fileID: 1067569461047974568}
+  - component: {fileID: 6906366589337320197}
   m_Layer: 9
   m_Name: AI_Ship_504
   m_TagString: AI
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 0}
+  cld: {fileID: 0}
   boidRadius: 5
   lastpos: {x: 0, y: 0, z: 0}
   steeringState: 0
@@ -140,6 +141,12 @@ MonoBehaviour:
     weight: 1
     arriveRadius: 15
     slowRadius: 30
+  isActiveCirlce: 0
+  circleBahaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    circleRadius: 7
+    angleSpeed: 5
   isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
@@ -166,6 +173,17 @@ MonoBehaviour:
     target: {fileID: 0}
     weight: 2
   drag: 3
+--- !u!210 &6906366589337320197
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_SortingLayerID: -689723199
+  m_SortingLayer: 4
+  m_SortingOrder: 0
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +256,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -689723199
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a05c451101fb76e4dbfbb278fc2d98af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

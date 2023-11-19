@@ -50,7 +50,9 @@ MonoBehaviour:
   trigger: {fileID: 8822171429785856819}
   itemType: 0
   disableOnPick: 1
+  CanAutoPickUp: 0
   pickedItem:
+    RefUID: 0
     iscountless: 0
     count: 0
     itemconfig: {fileID: 0}
@@ -172,8 +174,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1205307937
-  m_SortingLayer: 4
+  m_SortingLayerID: 1963668561
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: -51309725, guid: 74b224093dad379428d33094465f785b, type: 3}
   m_Color: {r: 0, g: 1, b: 0.6782391, a: 1}

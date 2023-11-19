@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2036907068945415827}
   - component: {fileID: 6699209978681592725}
   - component: {fileID: 7663720787589469471}
+  - component: {fileID: -1390546843144601871}
   m_Layer: 6
   m_Name: PlayerDroneShip_21
   m_TagString: Player
@@ -120,9 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
-  collider: {fileID: 0}
+  cld: {fileID: 0}
   boidRadius: 1
   lastpos: {x: 0, y: 0, z: 0}
+  steeringState: 0
   maxAcceleration: 7
   maxVelocity: 30
   maxAngularAcceleration: 3
@@ -139,6 +141,12 @@ MonoBehaviour:
     weight: 1.5
     arriveRadius: 10
     slowRadius: 15
+  isActiveCirlce: 0
+  circleBahaviorInfo:
+    target: {fileID: 0}
+    weight: 1
+    circleRadius: 7
+    angleSpeed: 5
   isActiveFace: 1
   faceBehaviorInfo:
     target: {fileID: 0}
@@ -165,6 +173,17 @@ MonoBehaviour:
     target: {fileID: 0}
     weight: 0.5
   drag: 3
+--- !u!210 &-1390546843144601871
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431155976711396027}
+  m_Enabled: 1
+  m_SortingLayerID: 642894985
+  m_SortingLayer: 8
+  m_SortingOrder: 0
 --- !u!1 &3431155977748982859
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,8 +255,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -689723199
-  m_SortingLayer: 5
+  m_SortingLayerID: 642894985
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6c7efa1c88814ec478c9b91a985c2e30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
