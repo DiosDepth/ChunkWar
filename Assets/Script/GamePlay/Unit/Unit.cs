@@ -176,29 +176,30 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         ChangeUnitState(DamagableState.Destroyed);
 
         bool ownerDeath = false;
-        if (IsCoreUnit)
+
+
+        if (_owner is PlayerShip)
         {
-            ownerDeath = _owner.CheckDeath(this, info);
-            if (_owner is PlayerShip)
-            {
-                ///玩家死亡不销毁，主要处理mainBuilding
-                RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
-                ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
-                return;
-            }
+            ///玩家死亡不销毁，主要处理mainBuilding
+            RogueManager.Instance.MainPropertyData.UnBindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
+            ECSManager.Instance.UnRegisterJobData(OwnerType.Player, this);
+            return;
         }
-        else
+        if (_owner is AIShip)
         {
-            if (_owner is AIShip)
-            {
-                ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-            }
-            
+            ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
         }
+
+
         this.gameObject.SetActive(false);
         ///Remove Owner
         _owner.RemoveUnit(this);
         SetDisable();
+
+        if (IsCoreUnit)
+        {
+            ownerDeath = _owner.CheckDeath(this, info);
+        }
 
         if (!ownerDeath)
         {

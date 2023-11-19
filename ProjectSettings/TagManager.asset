@@ -53,20 +53,41 @@ TagManager:
   - name: UnderVFX
     uniqueID: 2295091429
     locked: 0
+  - name: AIHuge
+    uniqueID: 1208464805
+    locked: 0
+  - name: AIBig
+    uniqueID: 3605244097
+    locked: 0
+  - name: Player
+    uniqueID: 2594062405
+    locked: 0
+  - name: AIMid
+    uniqueID: 2344583907
+    locked: 0
+  - name: AISmall
+    uniqueID: 3111840083
+    locked: 0
+  - name: PlayerDrone
+    uniqueID: 642894985
+    locked: 0
+  - name: AIDrone
+    uniqueID: 1298805977
+    locked: 0
   - name: PickUp
     uniqueID: 1963668561
     locked: 0
-  - name: Player
-    uniqueID: 3892966659
+  - name: Projectile
+    uniqueID: 2832352555
     locked: 0
-  - name: AI
-    uniqueID: 3605244097
+  - name: Ballistic
+    uniqueID: 1589193723
+    locked: 0
+  - name: Beam
+    uniqueID: 2999867257
     locked: 0
   - name: Sprite
     uniqueID: 3089659359
-    locked: 0
-  - name: Bullet
-    uniqueID: 2832352555
     locked: 0
   - name: VFX
     uniqueID: 3168972551
