@@ -126,13 +126,11 @@ MonoBehaviour:
   weaponmode: 0
   firemode: 1
   aimingtype: 1
+  targetbaseAimAssistant: 0
   pointRange: 7
   intercepttype: 0
   bulletName: BaseInstanceHit_Player
   targetmode: 0
-  mask:
-    serializedVersion: 2
-    m_Bits: 128
   firePoint:
   - {fileID: 2578667679939120713}
   - {fileID: 3205889051485426117}
@@ -245,7 +243,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1205307937
-  m_SortingLayer: 6
+  m_SortingLayer: 14
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 96a6c97a921c5f749b5c02d51ec7d7a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

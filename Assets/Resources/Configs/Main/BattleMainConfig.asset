@@ -102,7 +102,7 @@ MonoBehaviour:
       Data: 5005
     - Name: AncientUnit_ProtectRate_Add
       Entry: 3
-      Data: 15
+      Data: 22
     - Name: MeteoriteGenerate_TypeID_Map
       Entry: 7
       Data: 1|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Int32,

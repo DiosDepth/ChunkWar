@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 1
     - Name: DurationTime
       Entry: 3
-      Data: 30
+      Data: 35
     - Name: ShopRefreshTimeMap
       Entry: 7
       Data: 2|System.UInt16[], mscorlib
@@ -270,7 +270,7 @@ MonoBehaviour:
       Data: 8|System.Byte[], mscorlib
     - Name: 
       Entry: 14
-      Data: 46
+      Data: 55
     - Name: 
       Entry: 8
       Data: 
@@ -356,16 +356,16 @@ MonoBehaviour:
       Data: true
     - Name: AncientUnitSpawnProtectedCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: AncientUnitSpawnMax
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: OverrideAncientUnitSpawnSoomthTimeDelta
       Entry: 5
       Data: true
     - Name: OverrideSpawnTime
       Entry: 3
-      Data: 5
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -546,10 +546,10 @@ MonoBehaviour:
       Data: 0
     - Name: TotalCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: SpawnShpe
       Entry: 3
       Data: 1
@@ -558,7 +558,7 @@ MonoBehaviour:
       Data: 0.2
     - Name: SpawnSizeInterval
       Entry: 4
-      Data: 0.8
+      Data: 4
     - Name: OverrideDistanceMax
       Entry: 5
       Data: false
@@ -761,7 +761,7 @@ MonoBehaviour:
       Data: 1
     - Name: TotalCount
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
       Data: 3
@@ -881,7 +881,7 @@ MonoBehaviour:
       Data: 35
     - Name: TotalCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
       Data: 1
@@ -941,7 +941,7 @@ MonoBehaviour:
       Data: 10
     - Name: TotalCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
       Data: 1
@@ -4973,7 +4973,7 @@ MonoBehaviour:
   BGMEvent: BattleBGM_1
   LevelName: BattleLevel_002
   EnableSpecialEnemySpawn: 1
-  TotalSpawnWaveCount: 2
+  TotalSpawnWaveCount: 3
   EliteRandomSpawnCfg:
   - WaveIndex: 6
     ExceptEliteIDs: 
