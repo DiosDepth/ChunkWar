@@ -485,11 +485,16 @@ MonoBehaviour:
     PosRandomY: 0
   HitShakeCfg:
     CameraShake: 0
+    UsePreset: 1
+    PresetName: 
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}
   FireShakeCfg:
     CameraShake: 0
+    UsePreset: 1
+    PresetName: 
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}
+  PersistentDamageDisplay: 0
