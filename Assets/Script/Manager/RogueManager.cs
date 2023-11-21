@@ -1157,8 +1157,10 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
 
         await UniTask.Delay(3000);
         ECSManager.Instance.GameOverAgent();
+        ECSManager.Instance.GameOverDrone();
         ECSManager.Instance.UnLoad();
         ModifyUIDManager.Instance.ClearBattle();
+
         ///Log Info
         HandleInGameWreckageLog();
         _waveIndex++;
@@ -1172,12 +1174,17 @@ public class RogueManager : Singleton<RogueManager>, IPauseable
         _pauseLock = false;
     }
 
+
+    public void ExitWaveEnd()
+    {
+        WaveEnd = false;
+    }
     /// <summary>
     /// ²¨´Î¿ªÊ¼
     /// </summary>
     public async void OnNewWaveStart()
     {
-        WaveEnd = false;
+        
         _currentGenerateAncientUnitShipCount = 0;
         _currentAncientUnitProtectRateAdd = 0;
         LevelManager.Instance.SpawnSector.RefreshAndClear();
