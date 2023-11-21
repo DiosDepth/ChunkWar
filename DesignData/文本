@@ -59,7 +59,25 @@ ShipSliderProperty_Desc_Load
 	位于货仓中的装备以及舰船上的装备均会产生一定的负载，负载<color=#09B3CB>大于100%</color>时会产生负面效果，可以通过<color=#09B3CB>插件效果</color>或增设<color=#09B3CB>货仓</color>来提高能源负载上限。
 
 
+
+
 UnitEffect_1115			每<color=#EF3E3E>5</color>秒消耗<color=#EF3E3E>1</color>点残骸
 UnitEffect_1116			每<color=#EF3E3E>6</color>秒消耗<color=#EF3E3E>1</color>点残骸
+UnitEffect_1160			如果与货仓相邻，该货仓负载<color=#09B3CB>+25%</color>
+UnitEffect_1165			位于上方的武器每隔<color=#09B3CB>10</color>秒进入<color=#09B3CB>5</color>秒的超频模式\n超频模式下，武器伤害<color=#09B3CB>+60%</color>，能源消耗<color=#EF3E3E>+100%</color>\n超频器同时只能生效一个
+UnitEffect_1166			位于上方的武器每隔<color=#09B3CB>10</color>秒进入<color=#09B3CB>5</color>秒的超频模式\n超频模式下，武器伤害<color=#09B3CB>+60%</color>，能源消耗<color=#EF3E3E>+100%</color>\n超频器同时只能生效一个
+UnitEffect_1170			位于上方的武器每隔<color=#09B3CB>10</color>秒进入<color=#09B3CB>5</color>秒的超频模式\n超频模式下，武器伤害<color=#09B3CB>+60%</color>，能源消耗<color=#EF3E3E>+100%</color>\n超频器同时只能生效一个
+UnitEffect_1171			位于上方的武器每隔<color=#09B3CB>10</color>秒进入<color=#09B3CB>5</color>秒的超频模式\n超频模式下，武器伤害<color=#09B3CB>+60%</color>，能源消耗<color=#EF3E3E>+100%</color>\n超频器同时只能生效一个
+UnitEffect_1175			装置两侧的武器如果为同一种，该武器能源消耗<color=#09B3CB>-20%</color>，装填速度<color=#09B3CB>+30%</color>
+UnitEffect_1176			装置两侧的武器如果为同一种，该武器能源消耗<color=#09B3CB>-30%</color>，装填速度<color=#09B3CB>+40%</color>
+UnitEffect_1180			位于中间的武器装填速度<color=#09B3CB>+30%</color>，伤害<color=#09B3CB>+30%</color>
+UnitEffect_1181			位于中间的武器装填速度<color=#09B3CB>+40%</color>，伤害<color=#09B3CB>+40%</color>
+UnitEffect_1185			位于中间的武器装填速度<color=#09B3CB>+45%</color>，伤害<color=#09B3CB>+35%</color>
+UnitEffect_1186			位于中间的武器装填速度<color=#09B3CB>+55%</color>，伤害<color=#09B3CB>+45%</color>
+UnitEffect_1190			位于两侧的武器投射物数<color=#09B3CB>+1</color>
+UnitEffect_1195			位于下方的机库无人机数量<color=#09B3CB>+1</color>
+UnitEffect_1205			残骸>100时，每秒消耗<color=#09B3CB>2</color>点残骸并转化为<color=#09B3CB>3</color>星币
+UnitEffect_1210			每<color=#09B3CB>2</color>秒<color=#09B3CB>+3</color>残骸
+UnitEffect_1211			每秒<color=#09B3CB>+1</color>残骸
 
 Weapon_Effect_10035		可拦截敌方导弹与无人机

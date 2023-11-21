@@ -23,19 +23,22 @@ public class DroneFactoryAttribute : BuildingAttribute
         protected set;
     }
 
-    public float MaxCount
+    public byte MaxCount
     {
-        get;
-        protected set;
+        get
+        {
+            return GetMaxCount();
+        }
     }
 
     
 
     private float DroneSpawnTimeBase;
     private float DroneSearchingRadiusBase;
-    private float DroneMaxCountBase;
+    private byte DroneMaxCountBase;
 
     private List<BaseDrone> drones;
+
     public override void InitProeprty(Unit parentUnit, BaseUnitConfig cfg, OwnerShipType ownerType)
     {
         base.InitProeprty(parentUnit, cfg, ownerType);
@@ -45,7 +48,6 @@ public class DroneFactoryAttribute : BuildingAttribute
         DroneMaxCountBase = _droneCfg.MaxDroneCount;
 
         SearchingRadius = DroneSearchingRadiusBase;
-        MaxCount = DroneMaxCountBase;
         if (_ownerShipType == OwnerShipType.PlayerShip)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.AttackSpeed, CalculateSpawnTime);
@@ -70,6 +72,13 @@ public class DroneFactoryAttribute : BuildingAttribute
     {
         var cd = GameHelper.CalculatePlayerWeaponCD(DroneSpawnTimeBase, null);
         RepairTime = cd;
+    }
+
+    private byte GetMaxCount()
+    {
+        var delta = _parentUnit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.Aircraft_GenerateCount);
+        var count = DroneMaxCountBase + delta;
+        return (byte)Mathf.Clamp(count, 0, GameGlobalConfig.DroneFactory_MaxGenerateCount);
     }
 }
 

@@ -68,7 +68,7 @@ public class ChainBeamemit : Bullet
         ///Set Duraiton
         var ownerWeapon = (_owner as Weapon);
         var delta = ownerWeapon.weaponAttribute.FireCD;
-        duration = delta * GameHelper.CalculateDamageCount(ownerWeapon.WeaponCfg.TotalDamageCount);
+        duration = delta * GameHelper.CalculateDamageCount(ownerWeapon.WeaponCfg.TotalDamageCount, ownerWeapon);
         RayCastFrequence = delta;
     }
 

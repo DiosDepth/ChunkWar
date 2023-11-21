@@ -244,4 +244,6 @@ public enum UnitPropertyModifyKey
     UnitDamageTakeReducePercent,
     UnitAttackSpeed,
     UnitWarehouseLoadAddPercent,
+    UnitDamageCount,
+    Aircraft_GenerateCount,
 }

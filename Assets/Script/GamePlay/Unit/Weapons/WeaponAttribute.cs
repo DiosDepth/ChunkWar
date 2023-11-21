@@ -426,7 +426,7 @@ public class WeaponAttribute : UnitBaseAttribute
         }
         else
         {
-            MaxMagazineSize = GameHelper.CalculateDamageCount(BaseMaxMagazineSize);
+            MaxMagazineSize = GameHelper.CalculateDamageCount(BaseMaxMagazineSize, _parentUnit);
         }
     }
 }

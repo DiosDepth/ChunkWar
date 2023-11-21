@@ -53,6 +53,7 @@ public enum UnitSlotEffectConditionType
 {
     ByTargetSlotUnitTag,
     ByTargetUnitGroupID,
+    ByUnitsSameGroupID,
 }
 
 [System.Serializable]
@@ -82,12 +83,16 @@ public abstract class UnitSlotEffectConditionConfig
             {
                 result.Add(type.ToString(), new USEC_ByTargetUnitGroupID(type));
             }
+            else if(type == UnitSlotEffectConditionType.ByUnitsSameGroupID)
+            {
+                result.Add(type.ToString(), new USEC_ByTargetSameGroupID(type));
+            }
         }
 
         return result;
     }
 
-    public abstract bool GetResult(Unit targetUnit);
+    public abstract bool GetResult(Unit targetUnit, List<Unit> allUnits);
 }
 
 public class USEC_ByTargetSlotUnitTag : UnitSlotEffectConditionConfig
@@ -99,7 +104,7 @@ public class USEC_ByTargetSlotUnitTag : UnitSlotEffectConditionConfig
         this.EffectType = type;
     }
 
-    public override bool GetResult(Unit targetUnit)
+    public override bool GetResult(Unit targetUnit, List<Unit> allUnits)
     {
         if (targetUnit._baseUnitConfig.HasUnitTag(ContainTag))
             return true;
@@ -117,7 +122,7 @@ public class USEC_ByTargetUnitGroupID : UnitSlotEffectConditionConfig
         this.EffectType = type;
     }
 
-    public override bool GetResult(Unit targetUnit)
+    public override bool GetResult(Unit targetUnit, List<Unit> allUnits)
     {
         var unitGroupID = targetUnit._baseUnitConfig.GroupID;
         for(int i = 0; i < VaildGroupIDs.Length; i++)
@@ -127,5 +132,31 @@ public class USEC_ByTargetUnitGroupID : UnitSlotEffectConditionConfig
         }
 
         return false;
+    }
+}
+
+/// <summary>
+/// 所有区间unit是否为同一个组
+/// </summary>
+public class USEC_ByTargetSameGroupID : UnitSlotEffectConditionConfig
+{
+    [LabelWidth(100)]
+    public bool IsSameGroupID = true;
+
+    public USEC_ByTargetSameGroupID(UnitSlotEffectConditionType type) : base(type)
+    {
+        this.EffectType = type;
+    }
+
+    public override bool GetResult(Unit targetUnit, List<Unit> allUnits)
+    {
+        var unitGroupID = targetUnit._baseUnitConfig.GroupID;
+        for (int i = 0; i < allUnits.Count; i++)
+        {
+            if (allUnits[i]._baseUnitConfig.GroupID != unitGroupID)
+                return false;
+        }
+
+        return true;
     }
 }

@@ -434,7 +434,7 @@ MonoBehaviour:
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 1
-  GroupID: 0
+  GroupID: 10085
   redirection: 0
   UnlockDefault: 1
   ProertyDescText: 
@@ -485,11 +485,15 @@ MonoBehaviour:
     PosRandomY: 0
   HitShakeCfg:
     CameraShake: 1
+    UsePreset: 1
+    PresetName: 
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}
   FireShakeCfg:
     CameraShake: 1
+    UsePreset: 1
+    PresetName: 
     Duration: 0.6
     Frequency: {x: 1.3620071, y: 2.060932}
     Amplitude: {x: 2.6021507, y: 3.1612902}

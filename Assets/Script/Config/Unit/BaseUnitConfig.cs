@@ -14,6 +14,7 @@ public enum ItemTag
     Reactor = 1<<6,
     Hangar = 1<<7,
     Amplifier = 1<<8,
+    Special = 1<<9,
 }
 
 [System.Flags]

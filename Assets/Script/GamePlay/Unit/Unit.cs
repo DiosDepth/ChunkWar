@@ -574,7 +574,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
 
             for (int j = 0; j < targetUnits.Count; j++) 
             {
-                if(CheckEffectSlotMainConditions(effect.MainConditions, targetUnits[j]))
+                if(CheckEffectSlotMainConditions(effect.MainConditions, targetUnits[j], targetUnits))
                 {
                     if(effect.ApplyTarget == UnitSlotEffectApplyTarget.Target)
                     {
@@ -681,7 +681,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         }
     }
 
-    private bool CheckEffectSlotMainConditions(UnitSlotEffectConditionConfig[] cons, Unit targetUnit)
+    private bool CheckEffectSlotMainConditions(UnitSlotEffectConditionConfig[] cons, Unit targetUnit, List<Unit> allUnits)
     {
         if (targetUnit == null)
             return false;
@@ -692,7 +692,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         bool result = true;
         for(int i = 0; i < cons.Length; i++)
         {
-            result &= cons[i].GetResult(targetUnit);
+            result &= cons[i].GetResult(targetUnit, allUnits);
         }
 
         return result;
