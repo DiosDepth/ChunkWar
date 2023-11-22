@@ -1296,6 +1296,76 @@ MonoBehaviour:
     SellPrice: 0
     LoadCost: 0
     StartWave: 2
+  - UnitID: 1170
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1171
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1175
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1176
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1180
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1181
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1185
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 4
+  - UnitID: 1186
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 4
+  - UnitID: 1190
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 3
+  - UnitID: 1195
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 4
+  - UnitID: 1200
+    Weight: 10
+    SellPrice: 0
+    LoadCost: 30
+    StartWave: 3
+  - UnitID: 1205
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1210
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
+  - UnitID: 1211
+    Weight: 20
+    SellPrice: 0
+    LoadCost: 0
+    StartWave: 2
   WreckageShopBuyItemCfg:
   - WeightBase: 20
     Rarity: 0

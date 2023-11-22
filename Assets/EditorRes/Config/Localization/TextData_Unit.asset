@@ -436,3 +436,123 @@ MonoBehaviour:
     ChineseSimplified: "\u5C0F\u578B\u8D85\u9891\u5668"
     English: 
     Japanese: 
+  - TextID: UnitEffect_1160
+    ChineseSimplified: "\u5982\u679C\u4E0E\u8D27\u4ED3\u76F8\u90BB\uFF0C\u8BE5\u8D27\u4ED3\u8D1F\u8F7D<color=#09B3CB>+25%</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1165
+    ChineseSimplified: "\u4F4D\u4E8E\u4E0A\u65B9\u7684\u6B66\u5668\u6BCF\u9694<color=#09B3CB>10</color>\u79D2\u8FDB\u5165<color=#09B3CB>5</color>\u79D2\u7684\u8D85\u9891\u6A21\u5F0F\n\u8D85\u9891\u6A21\u5F0F\u4E0B\uFF0C\u6B66\u5668\u4F24\u5BB3<color=#09B3CB>+60%</color>\uFF0C\u80FD\u6E90\u6D88\u8017<color=#EF3E3E>+100%</color>\n\u8D85\u9891\u5668\u540C\u65F6\u53EA\u80FD\u751F\u6548\u4E00\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1166
+    ChineseSimplified: "\u4F4D\u4E8E\u4E0A\u65B9\u7684\u6B66\u5668\u6BCF\u9694<color=#09B3CB>10</color>\u79D2\u8FDB\u5165<color=#09B3CB>5</color>\u79D2\u7684\u8D85\u9891\u6A21\u5F0F\n\u8D85\u9891\u6A21\u5F0F\u4E0B\uFF0C\u6B66\u5668\u4F24\u5BB3<color=#09B3CB>+60%</color>\uFF0C\u80FD\u6E90\u6D88\u8017<color=#EF3E3E>+100%</color>\n\u8D85\u9891\u5668\u540C\u65F6\u53EA\u80FD\u751F\u6548\u4E00\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1170
+    ChineseSimplified: "\u8054\u6392\u8D85\u9891\u5668"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1171
+    ChineseSimplified: "\u8054\u6392\u8D85\u9891\u5668"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1175
+    ChineseSimplified: "\u6B66\u5668\u540C\u8C10\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1176
+    ChineseSimplified: "\u6B66\u5668\u540C\u8C10\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1180
+    ChineseSimplified: "\u5C0F\u578B\u51B7\u5374\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1181
+    ChineseSimplified: "\u5C0F\u578B\u51B7\u5374\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1185
+    ChineseSimplified: "\u5927\u578B\u51B7\u5374\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1186
+    ChineseSimplified: "\u5927\u578B\u51B7\u5374\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1190
+    ChineseSimplified: "\u6269\u5BB9\u5F39\u4ED3"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1195
+    ChineseSimplified: "\u62D3\u5C55\u673A\u5E93"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1200
+    ChineseSimplified: "\u91CD\u578B\u677F\u7532"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1205
+    ChineseSimplified: "\u6B8B\u9AB8\u953B\u9020\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1210
+    ChineseSimplified: "\u6B8B\u9AB8\u5206\u89E3\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: Unit_Name_1211
+    ChineseSimplified: "\u6B8B\u9AB8\u5206\u89E3\u88C5\u7F6E"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1170
+    ChineseSimplified: "\u4F4D\u4E8E\u4E0A\u65B9\u7684\u6B66\u5668\u6BCF\u9694<color=#09B3CB>10</color>\u79D2\u8FDB\u5165<color=#09B3CB>5</color>\u79D2\u7684\u8D85\u9891\u6A21\u5F0F\n\u8D85\u9891\u6A21\u5F0F\u4E0B\uFF0C\u6B66\u5668\u4F24\u5BB3<color=#09B3CB>+60%</color>\uFF0C\u80FD\u6E90\u6D88\u8017<color=#EF3E3E>+100%</color>\n\u8D85\u9891\u5668\u540C\u65F6\u53EA\u80FD\u751F\u6548\u4E00\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1171
+    ChineseSimplified: "\u4F4D\u4E8E\u4E0A\u65B9\u7684\u6B66\u5668\u6BCF\u9694<color=#09B3CB>10</color>\u79D2\u8FDB\u5165<color=#09B3CB>5</color>\u79D2\u7684\u8D85\u9891\u6A21\u5F0F\n\u8D85\u9891\u6A21\u5F0F\u4E0B\uFF0C\u6B66\u5668\u4F24\u5BB3<color=#09B3CB>+60%</color>\uFF0C\u80FD\u6E90\u6D88\u8017<color=#EF3E3E>+100%</color>\n\u8D85\u9891\u5668\u540C\u65F6\u53EA\u80FD\u751F\u6548\u4E00\u4E2A"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1175
+    ChineseSimplified: "\u88C5\u7F6E\u4E24\u4FA7\u7684\u6B66\u5668\u5982\u679C\u4E3A\u540C\u4E00\u79CD\uFF0C\u8BE5\u6B66\u5668\u80FD\u6E90\u6D88\u8017<color=#09B3CB>-20%</color>\uFF0C\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+30%</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1176
+    ChineseSimplified: "\u88C5\u7F6E\u4E24\u4FA7\u7684\u6B66\u5668\u5982\u679C\u4E3A\u540C\u4E00\u79CD\uFF0C\u8BE5\u6B66\u5668\u80FD\u6E90\u6D88\u8017<color=#09B3CB>-30%</color>\uFF0C\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+40%</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1180
+    ChineseSimplified: "\u4F4D\u4E8E\u4E2D\u95F4\u7684\u6B66\u5668\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+30%</color>\uFF0C\u4F24\u5BB3<color=#09B3CB>+30%</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1181
+    ChineseSimplified: "\u4F4D\u4E8E\u4E2D\u95F4\u7684\u6B66\u5668\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+40%</color>\uFF0C\u4F24\u5BB3<color=#09B3CB>+40%</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1185
+    ChineseSimplified: "\u4F4D\u4E8E\u4E2D\u95F4\u7684\u6B66\u5668\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+45%</color>\uFF0C\u4F24\u5BB3<color=#09B3CB>+35%</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1186
+    ChineseSimplified: "\u4F4D\u4E8E\u4E2D\u95F4\u7684\u6B66\u5668\u88C5\u586B\u901F\u5EA6<color=#09B3CB>+55%</color>\uFF0C\u4F24\u5BB3<color=#09B3CB>+45%</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1190
+    ChineseSimplified: "\u4F4D\u4E8E\u4E24\u4FA7\u7684\u6B66\u5668\u6295\u5C04\u7269\u6570<color=#09B3CB>+1</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1195
+    ChineseSimplified: "\u4F4D\u4E8E\u4E0B\u65B9\u7684\u673A\u5E93\u65E0\u4EBA\u673A\u6570\u91CF<color=#09B3CB>+1</color>"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1205
+    ChineseSimplified: "\u6B8B\u9AB8>100\u65F6\uFF0C\u6BCF\u79D2\u6D88\u8017<color=#09B3CB>2</color>\u70B9\u6B8B\u9AB8\u5E76\u8F6C\u5316\u4E3A<color=#09B3CB>3</color>\u661F\u5E01"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1210
+    ChineseSimplified: "\u6BCF<color=#09B3CB>2</color>\u79D2<color=#09B3CB>+3</color>\u6B8B\u9AB8"
+    English: 
+    Japanese: 
+  - TextID: UnitEffect_1211
+    ChineseSimplified: "\u6BCF\u79D2<color=#09B3CB>+1</color>\u6B8B\u9AB8"
+    English: 
+    Japanese: 

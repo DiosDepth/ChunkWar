@@ -896,10 +896,17 @@ public static class GameHelper
         return Mathf.CeilToInt(newValue);
     }
 
-    public static int CalculateDamageCount(int rowCount)
+    public static int CalculateDamageCount(int rowCount, Unit unit = null)
     {
         var add = RogueManager.Instance.MainPropertyData.GetPropertyFinal(PropertyModifyKey.DamageCount);
         add += rowCount;
+        if(unit != null)
+        {
+            /// Unit Modify
+            var unitModify = unit.LocalPropetyData.GetPropertyFinal(UnitPropertyModifyKey.UnitDamageCount);
+            add += unitModify;
+        }
+
         return (int)Mathf.Clamp(add, 1, GameGlobalConfig.DamageCount_ProtectMax);
     }
 

@@ -157,12 +157,14 @@ public class EGameState_GamePrepare : GameState
     {
         base.OnEnter();
         Debug.Log("GameState = EGameState_GamePrepare");
-
+        RogueManager.Instance.OnExitHarbor();
+        RogueManager.Instance.ExitWaveEnd();
         if (!RogueManager.Instance.InBattle)
         {
             RogueManager.Instance.InitRogueBattle();
             RogueManager.Instance.PlayCurrentHardLevelBGM();
         }
+
         
         if (LevelManager.Instance.needServicing)
         {
@@ -173,6 +175,7 @@ public class EGameState_GamePrepare : GameState
         }
         else
         {
+         
             LevelManager.Instance.LoadCurrentBattleLevel();
         }
     }
@@ -212,7 +215,7 @@ public class EGameState_GameStart : GameState
             InputDispatcher.Instance.ChangeInputMode("Player");
             InputDispatcher.Instance.Action_GamePlay_Pause += HandlePause;
             InputDispatcher.Instance.Action_UI_UnPause += HandleUnPause;
-            RogueManager.Instance.OnExitHarbor();
+
             UIManager.Instance.ShowUI<ShipHUD>("ShipHUD", E_UI_Layer.Mid, GameManager.Instance, (panel) =>
             {
                 panel.Initialization();

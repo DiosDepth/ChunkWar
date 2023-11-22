@@ -106,7 +106,7 @@ public class GeneralShieldHPComponet : BaseBuildingComponent
     {
         base.OnInit(owner, parentUnit);
         _currentShieldHP = new ChangeValue<int>(0, 0, 0);
-        if (owner is PlayerShip)
+        if (owner is PlayerShip || owner is PlayerDrone)
         {
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldHP, CalculateMaxShieldHP);
             mainProperty.BindPropertyChangeAction(PropertyModifyKey.ShieldRecoverValue, CalculateShieldRecoverValue);

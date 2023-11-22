@@ -654,7 +654,7 @@ MonoBehaviour:
   GroupID: 0
   redirection: 0
   UnlockDefault: 1
-  ProertyDescText: 
+  ProertyDescText: UnitEffect_1165
   EditBrushSprite: {fileID: 21300000, guid: fc86709a44456eb429c1af2677abbb8d, type: 3}
   EditorBrushDefaultRotation: 0
   CorsorOffsetX: 0
@@ -678,3 +678,5 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
+    ShieldStartAudio: 
+    ShieldBreakAudio: 

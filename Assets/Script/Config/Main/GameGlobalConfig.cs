@@ -60,6 +60,8 @@ public static class GameGlobalConfig
     public const byte LevelSector_AdjacentCount = 2;
     public const byte SectorThread_UpdateSecond = 3;
 
+    public const byte DroneFactory_MaxGenerateCount = 10;
+
     public const int BuildingShadowMaxSize = 21;
     public const int BuildingShadowMapSize = (BuildingShadowMaxSize - 1) / 2;
     public const string VFXPath = "Prefab/VFX/";
