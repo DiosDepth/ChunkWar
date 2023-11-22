@@ -430,7 +430,7 @@ MonoBehaviour:
     Desc: 
     Rarity: 3
     SortingOrder: 0
-  Prefab: {fileID: 1256306023736974604, guid: 8f0fcfea72852e2438d57912b86f2540, type: 3}
+  Prefab: {fileID: 1256306023736974604, guid: 16e9081b2d0bfac42b77db067a8bc687, type: 3}
   m_FlattendMapLayout: 
   m_FlattendMapLayoutRows: 0
   unitType: 0
@@ -461,6 +461,8 @@ MonoBehaviour:
     ShieldRecoverValue: 0
     ShieldRecoverTime: 0
     ShieldBaseRatio: 0
+    ShieldStartAudio: 
+    ShieldBreakAudio: 
   DroneID: 15
   MaxDroneCount: 2
   DroneSpawnTime: 1

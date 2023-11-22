@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 1
     - Name: DurationTime
       Entry: 3
-      Data: 30
+      Data: 35
     - Name: ShopRefreshTimeMap
       Entry: 7
       Data: 2|System.UInt16[], mscorlib
@@ -270,7 +270,7 @@ MonoBehaviour:
       Data: 8|System.Byte[], mscorlib
     - Name: 
       Entry: 14
-      Data: 46
+      Data: 55
     - Name: 
       Entry: 8
       Data: 
@@ -356,16 +356,16 @@ MonoBehaviour:
       Data: true
     - Name: AncientUnitSpawnProtectedCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: AncientUnitSpawnMax
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: OverrideAncientUnitSpawnSoomthTimeDelta
       Entry: 5
       Data: true
     - Name: OverrideSpawnTime
       Entry: 3
-      Data: 5
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -546,10 +546,10 @@ MonoBehaviour:
       Data: 0
     - Name: TotalCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: SpawnShpe
       Entry: 3
       Data: 1
@@ -558,7 +558,7 @@ MonoBehaviour:
       Data: 0.2
     - Name: SpawnSizeInterval
       Entry: 4
-      Data: 0.8
+      Data: 4
     - Name: OverrideDistanceMax
       Entry: 5
       Data: false
@@ -761,7 +761,7 @@ MonoBehaviour:
       Data: 1
     - Name: TotalCount
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
       Data: 3
@@ -881,7 +881,7 @@ MonoBehaviour:
       Data: 35
     - Name: TotalCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
       Data: 1
@@ -941,7 +941,7 @@ MonoBehaviour:
       Data: 10
     - Name: TotalCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
       Data: 1
@@ -1216,7 +1216,7 @@ MonoBehaviour:
       Data: 20
     - Name: TotalCount
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: MaxRowCount
       Entry: 3
       Data: 1
@@ -1276,7 +1276,7 @@ MonoBehaviour:
       Data: 55
     - Name: TotalCount
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
       Data: 2
@@ -1336,7 +1336,7 @@ MonoBehaviour:
       Data: 0
     - Name: TotalCount
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: MaxRowCount
       Entry: 3
       Data: 2
@@ -3675,13 +3675,13 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
+      Data: 0.207547188
+    - Name: 
+      Entry: 4
       Data: 0
     - Name: 
       Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
+      Data: 0.12304271
     - Name: 
       Entry: 4
       Data: 1
@@ -3852,7 +3852,667 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 11
+    - Name: 
+      Entry: 7
+      Data: 96|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1
+    - Name: AITypeID
+      Entry: 3
+      Data: 104
+    - Name: DurationDelta
+      Entry: 3
+      Data: 5
+    - Name: LoopCount
+      Entry: 3
+      Data: 10
+    - Name: StartTime
+      Entry: 3
       Data: 0
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 3
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.2830189
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.12344721
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 97|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 2
+    - Name: AITypeID
+      Entry: 3
+      Data: 102
+    - Name: DurationDelta
+      Entry: 3
+      Data: 8
+    - Name: LoopCount
+      Entry: 3
+      Data: 8
+    - Name: StartTime
+      Entry: 3
+      Data: 10
+    - Name: TotalCount
+      Entry: 3
+      Data: 2
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 3
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.230339348
+    - Name: 
+      Entry: 4
+      Data: 0.254717
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 98|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 3
+    - Name: AITypeID
+      Entry: 3
+      Data: 100
+    - Name: DurationDelta
+      Entry: 3
+      Data: 6
+    - Name: LoopCount
+      Entry: 3
+      Data: 10
+    - Name: StartTime
+      Entry: 3
+      Data: 50
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 4
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.2264151
+    - Name: 
+      Entry: 4
+      Data: 0.207375884
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 99|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 4
+    - Name: AITypeID
+      Entry: 3
+      Data: 103
+    - Name: DurationDelta
+      Entry: 3
+      Data: 12
+    - Name: LoopCount
+      Entry: 3
+      Data: 14
+    - Name: StartTime
+      Entry: 3
+      Data: 60
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 8
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.008890311
+    - Name: 
+      Entry: 4
+      Data: 0.1981132
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 100|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 5
+    - Name: AITypeID
+      Entry: 3
+      Data: 6
+    - Name: DurationDelta
+      Entry: 3
+      Data: 6
+    - Name: LoopCount
+      Entry: 3
+      Data: 20
+    - Name: StartTime
+      Entry: 3
+      Data: 70
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 6
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.207547188
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.12304271
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 101|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 6
+    - Name: AITypeID
+      Entry: 3
+      Data: 101
+    - Name: DurationDelta
+      Entry: 3
+      Data: 8
+    - Name: LoopCount
+      Entry: 3
+      Data: 25
+    - Name: StartTime
+      Entry: 3
+      Data: 100
+    - Name: TotalCount
+      Entry: 3
+      Data: 2
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 6
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.106890932
+    - Name: 
+      Entry: 4
+      Data: 0.235849082
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 102|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 7
+    - Name: AITypeID
+      Entry: 3
+      Data: 500
+    - Name: DurationDelta
+      Entry: 3
+      Data: 30
+    - Name: LoopCount
+      Entry: 3
+      Data: 3
+    - Name: StartTime
+      Entry: 3
+      Data: 78
+    - Name: TotalCount
+      Entry: 3
+      Data: 1
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 0.8
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 103|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 8
+    - Name: AITypeID
+      Entry: 3
+      Data: 502
+    - Name: DurationDelta
+      Entry: 3
+      Data: 45
+    - Name: LoopCount
+      Entry: 3
+      Data: 3
+    - Name: StartTime
+      Entry: 3
+      Data: 98
+    - Name: TotalCount
+      Entry: 3
+      Data: 1
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 0.8
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.106890932
+    - Name: 
+      Entry: 4
+      Data: 0.235849082
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 104|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 9
+    - Name: AITypeID
+      Entry: 3
+      Data: 1000
+    - Name: DurationDelta
+      Entry: 3
+      Data: 1
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: StartTime
+      Entry: 3
+      Data: 150
+    - Name: TotalCount
+      Entry: 3
+      Data: 1
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 0.8
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.169811308
+    - Name: 
+      Entry: 4
+      Data: 0.109724686
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 105|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 10
+    - Name: AITypeID
+      Entry: 3
+      Data: 5
+    - Name: DurationDelta
+      Entry: 3
+      Data: 4
+    - Name: LoopCount
+      Entry: 3
+      Data: -1
+    - Name: StartTime
+      Entry: 3
+      Data: 190
+    - Name: TotalCount
+      Entry: 3
+      Data: 2
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 3
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.2830189
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.12344721
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 106|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 11
+    - Name: AITypeID
+      Entry: 3
+      Data: 7
+    - Name: DurationDelta
+      Entry: 3
+      Data: 7
+    - Name: LoopCount
+      Entry: 3
+      Data: -1
+    - Name: StartTime
+      Entry: 3
+      Data: 190
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 5
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.2264151
+    - Name: 
+      Entry: 4
+      Data: 0.207375884
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -3863,17 +4523,35 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: SectorAdjacentUpdateTime
-      Entry: 6
+      Entry: 7
+      Data: 107|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: SectorAdjacentWeightValue
-      Entry: 6
+      Entry: 7
+      Data: 108|System.Byte[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 28
+    - Name: 
+      Entry: 8
       Data: 
     - Name: GenerateMeteorite
       Entry: 5
-      Data: false
+      Data: true
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 96|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 109|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
@@ -3889,7 +4567,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -3901,7 +4579,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 40
     - Name: 
       Entry: 8
       Data: 
@@ -3913,7 +4591,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 40
     - Name: 
       Entry: 8
       Data: 
@@ -3925,7 +4603,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -3937,10 +4615,10 @@ MonoBehaviour:
       Data: 
     - Name: UseAncientUnitSpawnProtect
       Entry: 5
-      Data: false
+      Data: true
     - Name: AncientUnitSpawnProtectedCount
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: AncientUnitSpawnMax
       Entry: 3
       Data: 0
@@ -3955,7 +4633,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 97|WaveConfig, Assembly-CSharp
+      Data: 110|WaveConfig, Assembly-CSharp
     - Name: WaveIndex
       Entry: 3
       Data: 10
@@ -3964,7 +4642,7 @@ MonoBehaviour:
       Data: 240
     - Name: ShopRefreshTimeMap
       Entry: 7
-      Data: 98|System.UInt16[], mscorlib
+      Data: 111|System.UInt16[], mscorlib
     - Name: 
       Entry: 14
       Data: 0
@@ -3982,11 +4660,191 @@ MonoBehaviour:
       Data: 1000
     - Name: SpawnConfig
       Entry: 7
-      Data: 99|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
+      Data: 112|System.Collections.Generic.List`1[[WaveEnemySpawnConfig, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 113|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 1
+    - Name: AITypeID
+      Entry: 3
+      Data: 1
+    - Name: DurationDelta
+      Entry: 3
+      Data: 4
+    - Name: LoopCount
+      Entry: 3
+      Data: -1
+    - Name: StartTime
+      Entry: 3
       Data: 0
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 3
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.106890932
+    - Name: 
+      Entry: 4
+      Data: 0.235849082
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 114|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 2
+    - Name: AITypeID
+      Entry: 3
+      Data: 5
+    - Name: DurationDelta
+      Entry: 3
+      Data: 9
+    - Name: LoopCount
+      Entry: 3
+      Data: -1
+    - Name: StartTime
+      Entry: 3
+      Data: 0
+    - Name: TotalCount
+      Entry: 3
+      Data: 2
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 1
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 4
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.2830189
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.12344721
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 115|WaveEnemySpawnConfig, Assembly-CSharp
+    - Name: ID
+      Entry: 3
+      Data: 3
+    - Name: AITypeID
+      Entry: 3
+      Data: 101
+    - Name: DurationDelta
+      Entry: 3
+      Data: 11
+    - Name: LoopCount
+      Entry: 3
+      Data: 15
+    - Name: StartTime
+      Entry: 3
+      Data: 20
+    - Name: TotalCount
+      Entry: 3
+      Data: 3
+    - Name: MaxRowCount
+      Entry: 3
+      Data: 2
+    - Name: SpawnShpe
+      Entry: 3
+      Data: 1
+    - Name: SpawnIntervalTime
+      Entry: 4
+      Data: 0
+    - Name: SpawnSizeInterval
+      Entry: 4
+      Data: 5
+    - Name: OverrideDistanceMax
+      Entry: 5
+      Data: false
+    - Name: DistanceMax
+      Entry: 4
+      Data: 45
+    - Name: EditorPreviewColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -3998,7 +4856,7 @@ MonoBehaviour:
       Data: 0
     - Name: SectorAdjacentUpdateTime
       Entry: 7
-      Data: 100|System.Int32[], mscorlib
+      Data: 116|System.Int32[], mscorlib
     - Name: 
       Entry: 14
       Data: 1
@@ -4013,10 +4871,10 @@ MonoBehaviour:
       Data: 
     - Name: SectorAdjacentWeightValue
       Entry: 7
-      Data: 101|System.Byte[], mscorlib
+      Data: 117|System.Byte[], mscorlib
     - Name: 
       Entry: 14
-      Data: 00
+      Data: 3c
     - Name: 
       Entry: 8
       Data: 
@@ -4025,7 +4883,7 @@ MonoBehaviour:
       Data: true
     - Name: MeteoriteGenerateRate_RarityMap
       Entry: 7
-      Data: 102|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
+      Data: 118|System.Collections.Generic.Dictionary`2[[GoodsItemRarity, Assembly-CSharp],[System.Byte,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 9
@@ -4115,7 +4973,7 @@ MonoBehaviour:
   BGMEvent: BattleBGM_1
   LevelName: BattleLevel_002
   EnableSpecialEnemySpawn: 1
-  TotalSpawnWaveCount: 2
+  TotalSpawnWaveCount: 3
   EliteRandomSpawnCfg:
   - WaveIndex: 6
     ExceptEliteIDs: 

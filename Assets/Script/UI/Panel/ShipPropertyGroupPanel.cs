@@ -26,6 +26,7 @@ public class ShipPropertyGroupPanel : MonoBehaviour
          PropertyModifyKey.Command,
          PropertyModifyKey.UnitHPRecoverValue,
          PropertyModifyKey.Range,
+         PropertyModifyKey.ShipParry,
          PropertyModifyKey.ShieldHP,
          PropertyModifyKey.ShieldArmor,
          PropertyModifyKey.Luck,
