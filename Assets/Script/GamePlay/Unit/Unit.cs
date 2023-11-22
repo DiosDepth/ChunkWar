@@ -265,12 +265,11 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
         {
             ECSManager.Instance.RegisterJobData(OwnerType.Player, this);
             //(RogueManager.Instance.currentShip.controller as ShipController).shipUnitManager.AddActiveUnit(this);
-
             SetUnitProcess(true);
         }
         GameManager.Instance.RegisterPauseable(this);
         ChangeUnitState(DamagableState.Normal);
-        
+
     }
 
     /// <summary>

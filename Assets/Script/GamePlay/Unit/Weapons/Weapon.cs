@@ -605,6 +605,10 @@ public class Weapon : Unit
                     count = magazine;
                 }
             }
+            if(firemode == WeaponFireMode.Linked)
+            {
+                count = targetList.Count;
+            }
         }
         else
         {
@@ -615,6 +619,10 @@ public class Weapon : Unit
             if (firemode == WeaponFireMode.Simultaneous)
             {
                 count = firePoint.Length;
+            }
+            if(firemode == WeaponFireMode.Linked)
+            {
+                count = 1;
             }
         }
 

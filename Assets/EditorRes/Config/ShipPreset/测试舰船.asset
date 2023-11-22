@@ -51,9 +51,6 @@ MonoBehaviour:
   Name: "\u6D4B\u8BD5\u6A21\u677F1"
   Comment: 
   ShipID: 1
-  ShipMainWeaponID: 1
+  ShipMainWeaponID: 7
   ExportFromSave: 0
-  OriginUnits:
-  - UnitID: 10000
-    PosX: 0
-    PosY: 3
+  OriginUnits: []

@@ -454,7 +454,7 @@ MonoBehaviour:
   HPBarHeight: 0.4
   HPBarWidth: 3
   BaseRange: 400
-  DamageBase: 15
+  DamageBase: 5
   EnemyAttackModify: 0
   UseDamageRatio: 0
   DamageRatioMin: 0.9
@@ -462,8 +462,8 @@ MonoBehaviour:
   DamageType: 1
   BaseCriticalRate: 10
   CriticalDamage: 125
-  TotalDamageCount: 12
-  ShootPerCount: 1
+  TotalDamageCount: 24
+  ShootPerCount: 3
   CanModifyDamageCount: 1
   CD: 2
   FireCD: 0.3
@@ -483,11 +483,15 @@ MonoBehaviour:
     PosRandomY: 0
   HitShakeCfg:
     CameraShake: 0
+    UsePreset: 1
+    PresetName: 
     Duration: 0.4
     Frequency: {x: 0, y: 0}
     Amplitude: {x: 0, y: 0}
   FireShakeCfg:
     CameraShake: 0
+    UsePreset: 1
+    PresetName: 
     Duration: 0.4
     Frequency: {x: 1, y: 1.5}
     Amplitude: {x: 2, y: 2.5}

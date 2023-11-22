@@ -76,7 +76,7 @@ public class ShipMainWeapon : Weapon
         JobHandle jobHandle = findMainWeaponTargetsInRangeJob.ScheduleBatch(ECSManager.Instance.activeAIUnitData.unitPos.Length, 2);
         jobHandle.Complete();
 
-
+        targetList.RemoveAll(x => x.target.activeInHierarchy == false);
 
         if (rv_weaponTargetsInfoQue.Count == 0)
         {
@@ -103,26 +103,28 @@ public class ShipMainWeapon : Weapon
             if (firemode == WeaponFireMode.Linked)
             {
                 UnitTargetInfo info;
-                while(targetList.Count < maxTargetCount)
+
+                for (int i = 0; i < iterateIndex; i++)
                 {
-                    for (int i = 0; i < slice.Length; i++)
+                    if(i > slice.Length)
                     {
-                        info = new UnitTargetInfo
-                            (
-                                ECSManager.Instance.activeAIUnitData.unitList[slice[i].targetIndex].gameObject,
-                            
-                                slice[i].targetIndex,
-                                slice[i].distanceToTarget,
-                                slice[i].targetDirection
-                            );
-                        if (!targetList.Contains(info))
-                        {
-                            targetList.Add(info);
-                            break;
-                        }
+                        break;
+                    }
+                    info = new UnitTargetInfo
+                    (
+                        ECSManager.Instance.activeAIUnitData.unitList[slice[i].targetIndex].gameObject,
+
+                        slice[i].targetIndex,
+                        slice[i].distanceToTarget,
+                        slice[i].targetDirection
+                    );
+                    if(targetList.Find(x => x.index == info.index) == null && targetList.Count < maxTargetCount)
+                    {
+                        targetList.Add(info);
                     }
 
                 }
+                
             }
             else
             {
