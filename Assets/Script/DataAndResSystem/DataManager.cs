@@ -33,6 +33,7 @@ public class DataManager : Singleton<DataManager>
     public BattleMainConfig battleCfg;
     public ShopMainConfig shopCfg;
     public GameMiscConfig gameMiscCfg;
+    private CameraWavePresetConfig cameraWavePresetCfg;
 
     private bool loadFinish = false;
 
@@ -171,9 +172,10 @@ public class DataManager : Singleton<DataManager>
         battleCfg = ResManager.Instance.Load<BattleMainConfig>(DataConfigPath.BattleMainConfigPath);
         shopCfg = ResManager.Instance.Load<ShopMainConfig>(DataConfigPath.ShopMainConfigPath);
         gameMiscCfg = ResManager.Instance.Load<GameMiscConfig>(DataConfigPath.GameMiscConfigPath);
+        cameraWavePresetCfg = ResManager.Instance.Load<CameraWavePresetConfig>(DataConfigPath.CameraPresetConfigPath);
 
 #if UNITY_EDITOR
-        if(battleCfg != null)
+        if (battleCfg != null)
         {
             battleCfg.DataCheck();
         }
@@ -404,6 +406,11 @@ public class DataManager : Singleton<DataManager>
     public List<AchievementItemConfig> GetAllAchievementConfigs()
     {
         return _achievementDic.Values.ToList();
+    }
+
+    public CameraWavePresetItemConfig GetCameraWavePresetByID(int presetID)
+    {
+        return cameraWavePresetCfg.Presets.Find(x => x.PresetID == presetID);
     }
 
     private void LoadingData<T>(TextAsset file, Dictionary<string, T> dic, UnityAction callback = null) where T : DataInfo, new()

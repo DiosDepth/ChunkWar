@@ -75,7 +75,16 @@ public class AIShip : BaseShip,IPoolable, IDropable
             SoundManager.Instance.PlayBattleSound(AIShipCfg.DieAudio, transform);
         }
         ECSManager.Instance.UnRegisterJobData(OwnerType.AI, this);
-        EffectManager.Instance.CreateEffect(AIShipCfg.DieEffect, transform.position);
+        var diePos = transform.position;
+
+        EffectManager.Instance.CreateEffect(AIShipCfg.DieEffect, diePos);
+        if (AIShipCfg.DeathWaveEffect)
+        {
+            ///ËÀÍö²¨ÎÆÐ§¹û
+            var presetCfg = DataManager.Instance.GetCameraWavePresetByID(AIShipCfg.DeathWavePresetID);
+            CameraManager.Instance.PostEffMgr.CreateWave(diePos, presetCfg);
+        }
+
         PoolableDestroy();
     }
 

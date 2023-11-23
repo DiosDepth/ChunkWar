@@ -29,31 +29,43 @@ public class PostEffectManager : MonoBehaviour
 
     private bool enableWave = false;
 
+    private float _timer;
+
     private void Awake()
     {
         waveMaterial = new Material(Shader.Find("Main/WaveEffect"));
         waveMaterial.hideFlags = HideFlags.DontSave;
     }
 
-    public void CreateWave(Vector2 position)
+    public void CreateWave(Vector2 position, CameraWavePresetItemConfig cfg)
     {
         var screenPos = Camera.main.WorldToScreenPoint(position);
         startPos = new Vector2(screenPos.x / Screen.width, screenPos.y / Screen.height);
         enableWave = true;
+        _timer += cfg.Duration;
         waveStartTime = Time.time;
+
+        SetWaveMaterialParams(cfg);
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (enableWave)
         {
-            SetWaveMaterialParams();
             Graphics.Blit(source, destination, waveMaterial);
-            //waveStartTime += Time.deltaTime;
-            //if (waveStartTime > 2 / waveSpeed)
-            //{ 
-            //    enableWave = false;
-            //}
+            _timer -= Time.deltaTime;
+            if (_timer <= 0)
+            {
+                var totalFactor = waveMaterial.GetFloat("_totalFactor");
+                LeanTween.value(totalFactor, 0, 0.3f).setOnUpdate(
+                    (value) => {
+                        waveMaterial.SetFloat("_totalFactor", value);
+                    }).setOnComplete(()=>
+                    {
+                        enableWave = false;
+                    });
+                _timer = 0;
+            }
         }
         else
         {
@@ -61,14 +73,27 @@ public class PostEffectManager : MonoBehaviour
         }
     }
 
-    private void SetWaveMaterialParams()
+    private void SetWaveMaterialParams(CameraWavePresetItemConfig cfg)
     {
-        float curWaveDistance = (Time.time - waveStartTime) * waveSpeed;
-        waveMaterial.SetFloat("_distanceFactor", distanceFactor);
-        waveMaterial.SetFloat("_timeFactor", timeFactor);
-        waveMaterial.SetFloat("_totalFactor", totalFactor);
-        waveMaterial.SetFloat("_waveWidth", waveWidth);
-        waveMaterial.SetFloat("_curWaveDis", curWaveDistance);
-        waveMaterial.SetVector("_startPos", startPos);
+        if(cfg == null)
+        {
+            float curWaveDistance = (Time.time - waveStartTime) * waveSpeed;
+            waveMaterial.SetFloat("_distanceFactor", distanceFactor);
+            waveMaterial.SetFloat("_timeFactor", timeFactor);
+            waveMaterial.SetFloat("_totalFactor", totalFactor);
+            waveMaterial.SetFloat("_waveWidth", waveWidth);
+            waveMaterial.SetFloat("_curWaveDis", curWaveDistance);
+            waveMaterial.SetVector("_startPos", startPos);
+        }
+        else
+        {
+            float curWaveDistance = (Time.time - waveStartTime) * cfg.waveSpeed;
+            waveMaterial.SetFloat("_distanceFactor", cfg.distanceFactor);
+            waveMaterial.SetFloat("_timeFactor", cfg.timeFactor);
+            waveMaterial.SetFloat("_totalFactor", cfg.totalFactor);
+            waveMaterial.SetFloat("_waveWidth", cfg.waveWidth);
+            waveMaterial.SetFloat("_curWaveDis", curWaveDistance);
+            waveMaterial.SetVector("_startPos", startPos);
+        }
     }
 }

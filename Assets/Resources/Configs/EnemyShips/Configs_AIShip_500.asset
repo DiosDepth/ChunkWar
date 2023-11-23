@@ -1437,6 +1437,8 @@ MonoBehaviour:
     RandomPosition: 0
     PosRandomX: 0
     PosRandomY: 0
+  DeathWaveEffect: 1
+  DeathWavePresetID: 1
   DropList:
   - pickuptype: 1
     count: 8
