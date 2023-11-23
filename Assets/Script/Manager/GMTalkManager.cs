@@ -63,6 +63,7 @@ public class GMTalkManager : Singleton<GMTalkManager>
         AddGMFunctionToDic("addWreckage", AddWreckage);
         AddGMFunctionToDic("exportPlugPreset", ExportPlugPreset);
         AddGMFunctionToDic("exportUnitPreset", ExportUnitPreset);
+        AddGMFunctionToDic("setPlayerHPPercent", ForceSetPlayerHPPercent);
     }
 
     private bool PlayerShip_ActiveMainWeapon(string[] arg)
@@ -282,6 +283,19 @@ public class GMTalkManager : Singleton<GMTalkManager>
         var fileName = System.DateTime.Now.ToString("yyyy-MM-dd HH_MM_ss");
         RogueManager.Instance.CreateInLevelSaveData(string.Format("GM_SAV_{0}", fileName), true);
         CloseGMTalkPage();
+        return true;
+    }
+
+    private bool ForceSetPlayerHPPercent(string[] content)
+    {
+        CloseGMTalkPage();
+        var currentPlayerShip = RogueManager.Instance.currentShip;
+        if (currentPlayerShip == null)
+            return false;
+
+        float.TryParse(content[0], out float value);
+        currentPlayerShip.CoreUnits[0].HpComponent.ForceSetHPPercent(value);
+
         return true;
     }
 

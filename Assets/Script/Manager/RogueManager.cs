@@ -80,6 +80,7 @@ public enum ShipPropertyEventType
     EnergyChange,
     WreckageLoadChange,
     LuckChange,
+    LowHPThread,
 }
 
 public class RogueManager : Singleton<RogueManager>, IPauseable

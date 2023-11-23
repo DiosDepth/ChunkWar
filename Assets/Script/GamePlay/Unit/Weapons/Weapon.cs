@@ -1101,6 +1101,11 @@ public class Weapon : Unit
         ShipPropertyEvent.Trigger(ShipPropertyEventType.CoreHPChange);
         var percent = HpComponent.HPPercent;
         LevelManager.Instance.OnPlayerShipCoreHPPercentChange(percent, oldValue, newValue);
+
+        ///PercentChange
+        var hpThread = DataManager.Instance.battleCfg.Player_LowHP_Thread_Percent;
+
+        ShipPropertyEvent.Trigger(ShipPropertyEventType.LowHPThread, percent < hpThread);
     }
 
     public override void PauseGame()

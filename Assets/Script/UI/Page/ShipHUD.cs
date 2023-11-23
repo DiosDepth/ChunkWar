@@ -20,6 +20,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private ShipPropertySliderCmpt _loadCmpt;
 
     private ShipHUDMessagePanel _messagePanel;
+    private Animation _lowHPThreadAnim;
 
     private List<WeaponRuntimeItemCmpt> _weaponItemCmpts = new List<WeaponRuntimeItemCmpt>();
     private List<BOSSHPSlider> _bossHPSliderCmpts = new List<BOSSHPSlider>();
@@ -44,6 +45,7 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
         _loadCmpt = transform.Find("OtherInfo/LoadSlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _expCmpt = transform.Find("InfoContent/ShipInfo/EXPSlider").SafeGetComponent<ShipPropertySliderCmpt>();
         _messagePanel = transform.Find("MessageContent").SafeGetComponent<ShipHUDMessagePanel>();
+        _lowHPThreadAnim = transform.Find("LowHPContent").SafeGetComponent<Animation>();
     }
 
     public override void Initialization()
@@ -128,6 +130,9 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
                 OnWeaponReloadCDEnd((uint)evt.param[0]);
                 break;
 
+            case ShipPropertyEventType.LowHPThread:
+                DisplayLowHPThread((bool)evt.param[0]);
+                break;
         }
     }
 
@@ -304,5 +309,17 @@ public class ShipHUD : GUIBasePanel, EventListener<ShipPropertyEvent>, EventList
     private BOSSHPSlider GetBossHPSlider(AIShip ship)
     {
         return _bossHPSliderCmpts.Find(x => x._targetShip == ship);
+    }
+
+    private void DisplayLowHPThread(bool show)
+    {
+        if (show)
+        {
+            _lowHPThreadAnim.Play();
+        }
+        else
+        {
+
+        }
     }
 }

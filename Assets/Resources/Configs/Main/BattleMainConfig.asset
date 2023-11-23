@@ -2759,6 +2759,7 @@ MonoBehaviour:
   ShipLevelUp_GrowthItem_Count: 4
   BattleOption_ColliderRaidus: 15
   ShopExit_Player_Immortal_Time: 1.2
+  Player_LowHP_Thread_Percent: 0.1
   HardLevelDeltaSeconds: 120
   ShipMaxLevel: 50
   TransfixionDamage_Base: 60

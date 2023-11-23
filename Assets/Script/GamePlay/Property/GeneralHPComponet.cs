@@ -71,6 +71,13 @@ public class GeneralHPComponet
         return newValue <= 0;
     }
 
+    public void ForceSetHPPercent(float percent)
+    {
+        var targetValue = MaxHP * percent;
+        _currentHP.Set((int)targetValue);
+        OnHpChangeAction?.Invoke(_currentHP.Value, MaxHP, HPPercent);
+    }
+
     /// <summary>
     /// 设置最大血量
     /// </summary>

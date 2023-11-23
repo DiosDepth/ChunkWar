@@ -175,7 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085f5d1227c166647b6f7569482ebe14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postShader: {fileID: 4800000, guid: a17582300be53ce41afe447f02e80a3b, type: 3}
+  distanceFactor: 120
+  timeFactor: -30
+  totalFactor: 1
+  waveWidth: 1
+  waveSpeed: 0.2
 --- !u!114 &-6895554229477563507
 MonoBehaviour:
   m_ObjectHideFlags: 0
