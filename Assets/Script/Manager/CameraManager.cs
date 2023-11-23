@@ -16,6 +16,8 @@ public class CameraManager : Singleton<CameraManager>
     private ProCamera2DShake _shakeCmpt;
     private ProCamera2DSpeedBasedZoom _speedZoomCmpt;
 
+    public PostEffectManager PostEffMgr;
+
     private string _resPath = "Prefab/CameraPrefab/";
     private string _mainCameraName = "MainCamera";
 
@@ -36,6 +38,7 @@ public class CameraManager : Singleton<CameraManager>
         }
         base.Initialization();
         _currentCamera = CreateMainCamera(_mainCameraName);
+        PostEffMgr = _currentCamera.transform.SafeGetComponent<PostEffectManager>();
         _proCamera = _currentCamera.transform.SafeGetComponent<ProCamera2D>();
         _shakeCmpt = _currentCamera.transform.SafeGetComponent<ProCamera2DShake>();
         _speedZoomCmpt = _currentCamera.transform.SafeGetComponent<ProCamera2DSpeedBasedZoom>();

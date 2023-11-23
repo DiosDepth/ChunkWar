@@ -281,6 +281,7 @@ public class Unit : MonoBehaviour, IDamageble, IPropertyModify, IPauseable, IOth
     {
         _owner = ship;
         _baseUnitConfig = m_unitconfig;
+        RogueManager.Instance.MainPropertyData.BindPropertyChangeAction(PropertyModifyKey.HP, OnMaxHPChangeAction);
         InitMaterial();
     }
 
