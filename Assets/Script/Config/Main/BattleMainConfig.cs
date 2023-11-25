@@ -102,6 +102,7 @@ public class BattleMainConfig : SerializedScriptableObject
     public byte ShipLevelUp_GrowthItem_Count = 4;
     public float BattleOption_ColliderRaidus = 5;
     public float ShopExit_Player_Immortal_Time = 1.2f;
+    public float Player_LowHP_Thread_Percent = 0.1f;
 
     /// <summary>
     /// hardLevel√øX√Î‘ˆº”1

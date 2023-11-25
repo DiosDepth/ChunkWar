@@ -155,6 +155,19 @@ public class AIShipConfig : BaseShipConfig
     [LabelWidth(100)]
     public GeneralEffectConfig DieEffect;
 
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/D")]
+    [LabelText("死亡波纹效果")]
+    [LabelWidth(100)]
+    public bool DeathWaveEffect;
+
+    [FoldoutGroup("效果配置")]
+    [HorizontalGroup("效果配置/D")]
+    [LabelText("死亡波纹预设")]
+    [LabelWidth(100)]
+    [ShowIf("DeathWaveEffect")]
+    public int DeathWavePresetID;
+
 
     [FoldoutGroup("掉落配置")]
     public List<DropInfo> DropList = new List<DropInfo>();
