@@ -123,7 +123,7 @@ MonoBehaviour:
   IsUpdate: 0
   rb: {fileID: 2036907068945415827}
   cld: {fileID: 0}
-  boidRadius: 3
+  boidRadius: 2
   lastpos: {x: 0, y: 0, z: 0}
   steeringState: 0
   maxAcceleration: 7
@@ -131,11 +131,11 @@ MonoBehaviour:
   maxAngularAcceleration: 6
   maxAngularVelocity: 3
   targetSerchingRadius: 30
-  isActiveEvade: 0
+  isActiveEvade: 1
   evadeBehaviorInfo:
     target: {fileID: 0}
-    weight: 0.5
-    maxPrediction: 25
+    weight: 1
+    maxPrediction: 10
   isActiveArrive: 1
   arrivelBehaviorInfo:
     target: {fileID: 0}
@@ -156,18 +156,18 @@ MonoBehaviour:
   isActiveCohesion: 1
   cohesionBehaviorInfo:
     target: {fileID: 0}
-    weight: 0.3
+    weight: 1
     viewAngle: 30
   isActiveSeparation: 1
   separationBehaviorInfo:
     target: {fileID: 0}
-    weight: 0.3
-    threshold: 1.5
+    weight: 1.2
+    threshold: 2
     decayCoefficient: -25
   isActiveAligment: 1
   alignmentBehaviorInfo:
     target: {fileID: 0}
-    weight: 0.3
+    weight: 1
     alignDistance: 4
   isActiveCollisionAvoidance: 1
   collisionAvoidanceBehaviorInfo:

@@ -241,9 +241,10 @@ public class SteeringBehaviorController : BaseController
                     accelaration *= job_steeringControllerData[i].maxAcceleration;
                 }
 
-                if (math.length(job_evadeSteering[i].linear) == 0 && job_isVelZero[i])
+
+                if ((math.length(job_evadeSteering[i].linear) == 0 || !job_steeringControllerData[i].evadeData.evade_isActive) && job_isVelZero[i])
                 {
-                    vel = float3.zero;
+                    vel = vel * 0.5f * job_deltatime * job_steeringControllerData[i].drag ;
                 }
                 else
                 {

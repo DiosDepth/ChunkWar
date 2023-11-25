@@ -632,7 +632,7 @@ public class JobController : IPauseable
                 }
                 else
                 {
-                    if (activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame|| activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame)
+                    if (activeSelfProjectileData.activeProjectileList[i].IsApplyDamageAtThisFrame|| activeSelfProjectileData.activeProjectileList[i].IsDeathAtThisFrame || activeSelfProjectileData.rv_activeProjectileUpdateInfo[i].islifeended)
                     {
                         activeSelfProjectileData.damageProjectileList.Add(activeSelfProjectileData.activeProjectileList[i]);
                         activeSelfProjectileData.damageProjectileJobData.Add(activeSelfProjectileData.activeProjectileJobData[i]);

@@ -130,7 +130,7 @@ MonoBehaviour:
   IsUpdate: 0
   rb: {fileID: 6859882484743535825}
   cld: {fileID: 0}
-  boidRadius: 1
+  boidRadius: 5
   lastpos: {x: 0, y: 0, z: 0}
   targetShip: {fileID: 0}
   muteMainWeapon: 0
